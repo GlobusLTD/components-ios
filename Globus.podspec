@@ -12,7 +12,9 @@ Pod::Spec.new do |s|
     :tag => s.version.to_s
   }
   s.ios.platform = :ios, '7.0'
+  s.ios.deployment_target = '7.0'
   s.watchos.platform = :watchos, '2.0'
+  s.watchos.deployment_target = '2.0'
   s.requires_arc = true
 
   s.subspec 'Dev' do |ss|
@@ -122,18 +124,21 @@ Pod::Spec.new do |s|
       'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_TIMEOUT'
     }
     ss.source_files = 'Globus/Timeout/**/*.{h,m}'
+    ss.dependency 'Globus/CoreFoundation'
   end
   s.subspec 'KVO' do |ss|
     ss.xcconfig = {
       'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_KVO'
     }
     ss.source_files = 'Globus/KVO/**/*.{h,m}'
+    ss.dependency 'Globus/CoreFoundation'
   end
   s.subspec 'RegExpParser' do |ss|
     ss.xcconfig = {
       'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_REG_EXP_PARSER'
     }
     ss.source_files = 'Globus/RegExpParser/**/*.{h,m}'
+    ss.dependency 'Globus/CoreFoundation'
   end
   s.subspec 'TaskManager' do |ss|
     ss.xcconfig = {
@@ -158,6 +163,7 @@ Pod::Spec.new do |s|
     ss.source_files = 'Globus/Cache/**/*.{h,m}'
     ss.dependency 'Globus/CoreFoundation'
     ss.dependency 'Globus/CoreGraphics'
+    ss.dependency 'Globus/Timer'
     ss.dependency 'Globus/Model'
   end
   s.subspec 'ApiManager' do |ss|
@@ -302,7 +308,7 @@ Pod::Spec.new do |s|
       'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_SEARCH_BAR'
     }
     ss.source_files = 'Globus/SearchBar/**/*.{h,m}'
-    ss.dependency 'Globus/UIKit'
+    ss.dependency 'Globus/BlurView'
     ss.dependency 'Globus/Button'
     ss.dependency 'Globus/TextField'
   end
@@ -316,6 +322,7 @@ Pod::Spec.new do |s|
     ss.dependency 'Globus/UIKit'
     ss.dependency 'Globus/SearchBar'
     ss.dependency 'Globus/PageControl'
+    ss.dependency 'Globus/Window'
   end
   s.subspec 'PressAndHoldGestureRecognizer' do |ss|
     ss.xcconfig = {
@@ -323,6 +330,7 @@ Pod::Spec.new do |s|
     }
     ss.source_files = 'Globus/PressAndHoldGestureRecognizer/**/*.{h,m}'
     ss.dependency 'Globus/UIKit'
+    ss.dependency 'Globus/Action'
   end
   s.subspec 'Window' do |ss|
     ss.xcconfig = {
@@ -352,6 +360,7 @@ Pod::Spec.new do |s|
     }
     ss.source_files = 'Globus/DialogViewController/**/*.{h,m}'
     ss.dependency 'Globus/BaseViewController'
+    ss.dependency 'Globus/SlideViewController'
     ss.dependency 'Globus/BlurView'
   end
   s.subspec 'SlideViewController' do |ss|
@@ -416,6 +425,7 @@ Pod::Spec.new do |s|
     ss.ios.frameworks = 'CoreLocation'
     ss.watchos.frameworks = 'CoreLocation'
     ss.dependency 'Globus/Action'
+    ss.dependency 'Globus/UIKit'
   end
   s.subspec 'NotificationManager' do |ss|
     ss.xcconfig = {

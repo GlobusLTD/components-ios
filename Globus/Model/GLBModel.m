@@ -1071,6 +1071,9 @@ static NSString* GLBManagedManagerModelExtensionKey = @"GLBManagedManagerModelEx
     return result;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 - (BOOL)_migrateURL:(NSURL*)sourceStoreURL options:(NSDictionary*)options type:(NSString*)type model:(NSManagedObjectModel*)model error:(NSError**)error {
     NSDictionary* sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:type URL:sourceStoreURL error:error];
     if(sourceMetadata == nil) {
@@ -1099,6 +1102,8 @@ static NSString* GLBManagedManagerModelExtensionKey = @"GLBManagedManagerModelEx
     }
     return [self _migrateURL:sourceStoreURL options:options type:type model:model error:error];
 }
+
+#pragma clang diagnostic pop
 
 - (NSManagedObjectModel*)_modelForMetadata:(NSDictionary*)sourceMetadata {
     return [NSManagedObjectModel mergedModelFromBundles:@[ NSBundle.mainBundle ] forStoreMetadata:sourceMetadata];
