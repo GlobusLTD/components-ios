@@ -500,8 +500,10 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
 }
 
 - (void)updatePageNumberForScrollView:(UIScrollView*)scrollView {
-    self.numberOfPages = (int)floorf(scrollView.contentSize.width / scrollView.bounds.size.width);
-	self.currentPage = (int)floorf(scrollView.contentOffset.x / scrollView.bounds.size.width);
+    CGSize boundsSize = scrollView.bounds.size;
+    self.numberOfPages = (NSInteger)floorf(scrollView.contentSize.width / boundsSize.width);
+    NSInteger currentPage = (NSInteger)floorf(scrollView.contentOffset.x / boundsSize.width);
+    [self _setCurrentPage:currentPage sendAction:YES canDefer:NO];
 }
 
 #pragma mark - UIAccessibility
