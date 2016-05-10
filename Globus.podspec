@@ -11,9 +11,9 @@ Pod::Spec.new do |s|
     :git => 'https://github.com/GlobusLTD/components-ios.git',
     :tag => s.version.to_s
   }
-  s.ios.platform = :ios, '7.0'
+  s.ios.platform = :ios
   s.ios.deployment_target = '7.0'
-  s.watchos.platform = :watchos, '2.0'
+  s.watchos.platform = :watchos
   s.watchos.deployment_target = '2.0'
   s.requires_arc = true
 
