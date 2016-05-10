@@ -659,7 +659,7 @@
 }
 
 - (void)_didReceiveResponse:(NSURLResponse*)response {
-    _request.urlResponse = response;
+    _request.response.urlResponse = response;
 }
 
 - (void)_didBecomeDownloadTask:(NSURLSessionDownloadTask*)downloadTask {
@@ -667,9 +667,11 @@
 }
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_9_0
+
 - (void)_didBecomeStreamTask:(NSURLSessionStreamTask*)streamTask {
     _request.task = streamTask;
 }
+
 #endif
 
 - (void)_didReceiveData:(NSData*)data {
