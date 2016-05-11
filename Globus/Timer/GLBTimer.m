@@ -114,7 +114,6 @@
         _startDate = nil;
         _pauseDate = nil;
         _repeated = 0;
-        _delay = 0;
         if(_timer != nil) {
             [_timer invalidate];
             _timer = nil;
@@ -160,6 +159,13 @@
             }
             [NSRunLoop.mainRunLoop addTimer:_timer forMode:NSRunLoopCommonModes];
         }
+    }
+}
+
+- (void)restart {
+    if(_started == YES) {
+        [self stop];
+        [self start];
     }
 }
 
