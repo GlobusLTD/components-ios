@@ -261,7 +261,7 @@
     return nil;
 }
 
-+ (instancetype)modelWithPack:(NSDictionary< NSNumber*, id >*)data {
++ (instancetype)modelWithPack:(NSDictionary< NSString*, id >*)data {
     return [[self alloc] initWithPack:data];
 }
 
@@ -282,7 +282,7 @@
     return self;
 }
 
-- (instancetype)initWithPack:(NSDictionary< NSNumber*, id >*)data {
+- (instancetype)initWithPack:(NSDictionary< NSString*, id >*)data {
     self = [super init];
     if(self != nil) {
         [self unpack:data];
@@ -307,12 +307,15 @@
     }
 }
 
-- (NSDictionary< NSNumber*, id >* _Nullable)pack {
+- (NSDictionary< NSString*, id >* _Nullable)pack {
     NSMutableDictionary* result = NSMutableDictionary.dictionary;
     [self.packMap enumerateKeysAndObjectsUsingBlock:^(NSString* field, GLBModelPack* converter, BOOL* stop __unused) {
         id value = [self valueForKey:field];
         if(value != nil) {
-            [converter pack:result value:value];
+            id packValue = [converter pack:value];
+            if(packValue != nil) {
+                result[field] = packValue;
+            }
         }
     }];
     return result.copy;
@@ -326,11 +329,14 @@
     return nil;
 }
 
-- (void)unpack:(NSDictionary< NSNumber*, id >*)data {
+- (void)unpack:(NSDictionary< NSString*, id >*)data {
     [self.packMap enumerateKeysAndObjectsUsingBlock:^(NSString* field, GLBModelPack* converter, BOOL* stop __unused) {
-        id value = [converter unpack:data];
-        if(value != nil) {
-            [self setValue:value forKey:field];
+        id packValue = data[field];
+        if(packValue != nil) {
+            id value = [converter unpack:data];
+            if(value != nil) {
+                [self setValue:value forKey:field];
+            }
         }
     }];
 }
@@ -608,7 +614,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
     return nil;
 }
 
-+ (instancetype)modelWithPack:(NSDictionary< NSNumber*, id >*)data {
++ (instancetype)modelWithPack:(NSDictionary< NSString*, id >*)data {
     return [[self alloc] initWithPack:data];
 }
 
@@ -628,7 +634,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
     return self;
 }
 
-- (instancetype)initWithPack:(NSDictionary< NSNumber*, id >*)data {
+- (instancetype)initWithPack:(NSDictionary< NSString*, id >*)data {
     self = [self initWithDefaultContext];
     if(self != nil) {
         [self unpack:data];
@@ -652,12 +658,15 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
     }
 }
 
-- (NSDictionary< NSNumber*, id >* _Nullable)pack {
+- (NSDictionary< NSString*, id >* _Nullable)pack {
     NSMutableDictionary* result = NSMutableDictionary.dictionary;
     [self.packMap enumerateKeysAndObjectsUsingBlock:^(NSString* field, GLBModelPack* converter, BOOL* stop __unused) {
         id value = [self valueForKey:field];
         if(value != nil) {
-            [converter pack:result value:value];
+            id packValue = [converter pack:value];
+            if(packValue != nil) {
+                result[field] = packValue;
+            }
         }
     }];
     return result.copy;
@@ -671,11 +680,14 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
     return nil;
 }
 
-- (void)unpack:(NSDictionary< NSNumber*, id >* _Nonnull)data {
+- (void)unpack:(NSDictionary< NSString*, id >*)data {
     [self.packMap enumerateKeysAndObjectsUsingBlock:^(NSString* field, GLBModelPack* converter, BOOL* stop __unused) {
-        id value = [converter unpack:data];
-        if(value != nil) {
-            [self setValue:value forKey:field];
+        id packValue = data[field];
+        if(packValue != nil) {
+            id value = [converter unpack:data];
+            if(value != nil) {
+                [self setValue:value forKey:field];
+            }
         }
     }];
 }

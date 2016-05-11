@@ -15,44 +15,13 @@
 
 @implementation GLBModelPack
 
-#pragma mark - Init / Free
-
-- (instancetype)initWithKey:(NSString*)key {
-    self = [self init];
-    if(self != nil) {
-        _key = key;
-        _keyHash = @(key.glb_crc32);
-    }
-    return self;
-}
-
-- (void)setup {
-}
-
 #pragma mark - Public
 
-- (void)pack:(NSMutableDictionary< NSNumber*, id >*)data value:(id)value {
-    id packValue = [self packValue:value];
-    if(packValue != nil) {
-        data[_keyHash] = packValue;
-    }
-}
-
-- (id)unpack:(NSDictionary< NSNumber*, id >*)data {
-    id unpackValue = data[_keyHash];
-    if(unpackValue != nil) {
-        return [self unpackValue:unpackValue];
-    }
+- (id)pack:(id)value {
     return nil;
 }
 
-#pragma mark - GLBModelPack
-
-- (id)packValue:(id)value {
-    return nil;
-}
-
-- (id)unpackValue:(id)value {
+- (id)unpack:(id)value {
     return nil;
 }
 
@@ -67,22 +36,11 @@
 #pragma mark - Init / Free
 
 - (instancetype)initWithModelClass:(Class)modelClass {
-    return [self initWithKey:nil
-                   converter:[[GLBModelPackModel alloc] initWithModelClass:modelClass]];
+    return [self initWithConverter:[[GLBModelPackModel alloc] initWithModelClass:modelClass]];
 }
 
 - (instancetype)initWithConverter:(GLBModelPack*)converter {
-    return [self initWithKey:nil
-                   converter:converter];
-}
-
-- (instancetype)initWithKey:(NSString*)key modelClass:(Class)modelClass {
-    return [self initWithKey:key
-                   converter:[[GLBModelPackModel alloc] initWithModelClass:modelClass]];
-}
-
-- (instancetype)initWithKey:(NSString*)key converter:(GLBModelPack*)converter {
-    self = [super initWithKey:key];
+    self = [super init];
     if(self != nil) {
         _converter = converter;
     }
@@ -91,11 +49,11 @@
 
 #pragma mark - GLBModelPack
 
-- (id)packValue:(id)value {
+- (id)pack:(id)value {
     if([value isKindOfClass:NSSet.class] == YES) {
         NSMutableSet* result = NSMutableSet.set;
         for(id object in value) {
-            id convertedValue = [_converter packValue:object];
+            id convertedValue = [_converter pack:object];
             if(convertedValue != nil) {
                 [result addObject:convertedValue];
             }
@@ -104,14 +62,14 @@
             return result.copy;
         }
     }
-    return [super packValue:value];
+    return [super pack:value];
 }
 
-- (id)unpackValue:(id)value {
+- (id)unpack:(id)value {
     if([value isKindOfClass:NSSet.class] == YES) {
         NSMutableSet* result = NSMutableSet.set;
         for(id object in value) {
-            id convertedValue = [_converter unpackValue:object];
+            id convertedValue = [_converter unpack:object];
             if(convertedValue != nil) {
                 [result addObject:convertedValue];
             }
@@ -120,7 +78,7 @@
             return result.copy;
         }
     }
-    return [super unpackValue:value];
+    return [super unpack:value];
 }
 
 @end
@@ -134,22 +92,11 @@
 #pragma mark - Init / Free
 
 - (instancetype)initWithModelClass:(Class)modelClass {
-    return [self initWithKey:nil
-                   converter:[[GLBModelPackModel alloc] initWithModelClass:modelClass]];
+    return [self initWithConverter:[[GLBModelPackModel alloc] initWithModelClass:modelClass]];
 }
 
 - (instancetype)initWithConverter:(GLBModelPack*)converter {
-    return [self initWithKey:nil
-                   converter:converter];
-}
-
-- (instancetype)initWithKey:(NSString*)key modelClass:(Class)modelClass {
-    return [self initWithKey:key
-                   converter:[[GLBModelPackModel alloc] initWithModelClass:modelClass]];
-}
-
-- (instancetype)initWithKey:(NSString*)key converter:(GLBModelPack*)converter {
-    self = [super initWithKey:key];
+    self = [super init];
     if(self != nil) {
         _converter = converter;
     }
@@ -158,11 +105,11 @@
 
 #pragma mark - GLBModelPack
 
-- (id)packValue:(id)value {
+- (id)pack:(id)value {
     if([value isKindOfClass:NSOrderedSet.class] == YES) {
         NSMutableOrderedSet* result = NSMutableOrderedSet.orderedSet;
         for(id object in value) {
-            id convertedValue = [_converter packValue:object];
+            id convertedValue = [_converter pack:object];
             if(convertedValue != nil) {
                 [result addObject:convertedValue];
             }
@@ -171,14 +118,14 @@
             return result.copy;
         }
     }
-    return [super packValue:value];
+    return [super pack:value];
 }
 
-- (id)unpackValue:(id)value {
+- (id)unpack:(id)value {
     if([value isKindOfClass:NSOrderedSet.class] == YES) {
         NSMutableOrderedSet* result = NSMutableOrderedSet.orderedSet;
         for(id object in value) {
-            id convertedValue = [_converter unpackValue:object];
+            id convertedValue = [_converter unpack:object];
             if(convertedValue != nil) {
                 [result addObject:convertedValue];
             }
@@ -187,7 +134,7 @@
             return result.copy;
         }
     }
-    return [super unpackValue:value];
+    return [super unpack:value];
 }
 
 @end
@@ -201,22 +148,11 @@
 #pragma mark - Init / Free
 
 - (instancetype)initWithModelClass:(Class)modelClass {
-    return [self initWithKey:nil
-                   converter:[[GLBModelPackModel alloc] initWithModelClass:modelClass]];
+    return [self initWithConverter:[[GLBModelPackModel alloc] initWithModelClass:modelClass]];
 }
 
 - (instancetype)initWithConverter:(GLBModelPack*)converter {
-    return [self initWithKey:nil
-                   converter:converter];
-}
-
-- (instancetype)initWithKey:(NSString*)key modelClass:(Class)modelClass {
-    return [self initWithKey:key
-                   converter:[[GLBModelPackModel alloc] initWithModelClass:modelClass]];
-}
-
-- (instancetype)initWithKey:(NSString*)key converter:(GLBModelPack*)converter {
-    self = [super initWithKey:key];
+    self = [super init];
     if(self != nil) {
         _converter = converter;
     }
@@ -225,11 +161,11 @@
 
 #pragma mark - GLBModelPack
 
-- (id)packValue:(id)value {
+- (id)pack:(id)value {
     if([value isKindOfClass:NSArray.class] == YES) {
         NSMutableArray* result = NSMutableArray.array;
         for(id object in value) {
-            id convertedValue = [_converter packValue:object];
+            id convertedValue = [_converter pack:object];
             if(convertedValue != nil) {
                 [result addObject:convertedValue];
             }
@@ -238,14 +174,14 @@
             return result.copy;
         }
     }
-    return [super packValue:value];
+    return [super pack:value];
 }
 
-- (id)unpackValue:(id)value {
+- (id)unpack:(id)value {
     if([value isKindOfClass:NSArray.class] == YES) {
         NSMutableArray* result = NSMutableArray.array;
         for(id object in value) {
-            id convertedValue = [_converter unpackValue:object];
+            id convertedValue = [_converter unpack:object];
             if(convertedValue != nil) {
                 [result addObject:convertedValue];
             }
@@ -254,7 +190,7 @@
             return result.copy;
         }
     }
-    return [super unpackValue:value];
+    return [super unpack:value];
 }
 
 @end
@@ -268,49 +204,22 @@
 #pragma mark - Init / Free
 
 - (instancetype)initWithValueModelClass:(Class)valueModelClass {
-    return [self initWithKey:nil
-                keyConverter:nil
-              valueConverter:[[GLBModelPackModel alloc] initWithModelClass:valueModelClass]];
+    return [self initWithKeyConverter:nil
+                       valueConverter:[[GLBModelPackModel alloc] initWithModelClass:valueModelClass]];
 }
 
 - (instancetype)initWithValueConverter:(GLBModelPack*)valueConverter {
-    return [self initWithKey:nil
-                keyConverter:nil
-              valueConverter:valueConverter];
+    return [self initWithKeyConverter:nil
+                       valueConverter:valueConverter];
 }
 
 - (instancetype)initWithKeyModelClass:(Class)keyModelClass valueModelClass:(Class)valueModelClass {
-    return [self initWithKey:nil
-                keyConverter:[[GLBModelPackModel alloc] initWithModelClass:keyModelClass]
-              valueConverter:[[GLBModelPackModel alloc] initWithModelClass:valueModelClass]];
+    return [self initWithKeyConverter:[[GLBModelPackModel alloc] initWithModelClass:keyModelClass]
+                       valueConverter:[[GLBModelPackModel alloc] initWithModelClass:valueModelClass]];
 }
 
 - (instancetype)initWithKeyConverter:(GLBModelPack*)keyConverter valueConverter:(GLBModelPack*)valueConverter {
-    return [self initWithKey:nil
-                keyConverter:keyConverter
-              valueConverter:valueConverter];
-}
-
-- (instancetype)initWithKey:(NSString*)key valueModelClass:(Class)valueModelClass {
-    return [self initWithKey:key
-                keyConverter:nil
-              valueConverter:[[GLBModelPackModel alloc] initWithModelClass:valueModelClass]];
-}
-
-- (instancetype)initWithKey:(NSString*)key valueConverter:(GLBModelPack*)valueConverter {
-    return [self initWithKey:key
-                keyConverter:nil
-              valueConverter:valueConverter];
-}
-
-- (instancetype)initWithKey:(NSString*)key keyModelClass:(Class)keyModelClass valueModelClass:(Class)valueModelClass {
-    return [self initWithKey:key
-                keyConverter:[[GLBModelPackModel alloc] initWithModelClass:keyModelClass]
-              valueConverter:[[GLBModelPackModel alloc] initWithModelClass:valueModelClass]];
-}
-
-- (instancetype)initWithKey:(NSString*)key keyConverter:(GLBModelPack*)keyConverter valueConverter:(GLBModelPack*)valueConverter {
-    self = [super initWithKey:key];
+    self = [super init];
     if(self != nil) {
         _keyConverter = keyConverter;
         _valueConverter = valueConverter;
@@ -320,13 +229,13 @@
 
 #pragma mark - GLBModelPack
 
-- (id)packValue:(id)value {
+- (id)pack:(id)value {
     if([value isKindOfClass:NSDictionary.class] == YES) {
         NSMutableDictionary* result = NSMutableDictionary.dictionary;
         [value enumerateKeysAndObjectsUsingBlock:^(id jsonKey, id jsonObject, BOOL* stop __unused) {
-            id key = (_keyConverter != nil) ? [_keyConverter packValue:jsonKey] : jsonKey;
+            id key = (_keyConverter != nil) ? [_keyConverter pack:jsonKey] : jsonKey;
             if(key != nil) {
-                id value = [_valueConverter packValue:jsonObject];
+                id value = [_valueConverter pack:jsonObject];
                 if(value != nil) {
                     result[key] = value;
                 }
@@ -336,16 +245,16 @@
             return result.copy;
         }
     }
-    return [super packValue:value];
+    return [super pack:value];
 }
 
-- (id)unpackValue:(id)value {
+- (id)unpack:(id)value {
     if([value isKindOfClass:NSDictionary.class] == YES) {
         NSMutableDictionary* result = NSMutableDictionary.dictionary;
         [value enumerateKeysAndObjectsUsingBlock:^(id jsonKey, id jsonObject, BOOL* stop __unused) {
-            id key = (_keyConverter != nil) ? [_keyConverter unpackValue:jsonKey] : jsonKey;
+            id key = (_keyConverter != nil) ? [_keyConverter unpack:jsonKey] : jsonKey;
             if(key != nil) {
-                id value = [_valueConverter unpackValue:jsonObject];
+                id value = [_valueConverter unpack:jsonObject];
                 if(value != nil) {
                     result[key] = value;
                 }
@@ -355,7 +264,7 @@
             return result.copy;
         }
     }
-    return [super unpackValue:value];
+    return [super unpack:value];
 }
 
 @end
@@ -368,8 +277,8 @@
 
 #pragma mark - Init / Free
 
-- (instancetype)initWithKey:(NSString*)key defaultValue:(BOOL)defaultValue {
-    self = [super initWithKey:key];
+- (instancetype)initWithDefaultValue:(BOOL)defaultValue {
+    self = [super init];
     if(self != nil) {
         _defaultValue = defaultValue;
     }
@@ -378,7 +287,7 @@
 
 #pragma mark - GLBModelPack
 
-- (id)packValue:(id)value {
+- (id)pack:(id)value {
     if([value isKindOfClass:NSNumber.class] == YES) {
         if([value boolValue] != _defaultValue) {
             return value;
@@ -387,7 +296,7 @@
     return nil;
 }
 
-- (id)unpackValue:(id)value {
+- (id)unpack:(id)value {
     if([value isKindOfClass:NSNumber.class] == YES) {
         return value;
     }
@@ -404,8 +313,8 @@
 
 #pragma mark - Init / Free
 
-- (instancetype)initWithKey:(NSString*)key defaultValue:(NSString*)defaultValue {
-    self = [super initWithKey:key];
+- (instancetype)initWithDefaultValue:(NSString*)defaultValue {
+    self = [super init];
     if(self != nil) {
         _defaultValue = defaultValue;
     }
@@ -414,7 +323,7 @@
 
 #pragma mark - GLBModelPack
 
-- (id)packValue:(id)value {
+- (id)pack:(id)value {
     if([value isKindOfClass:NSString.class] == YES) {
         if((_defaultValue == nil) || ([value isEqualToString:_defaultValue] == NO)) {
             return value;
@@ -423,7 +332,7 @@
     return nil;
 }
 
-- (id)unpackValue:(id)value {
+- (id)unpack:(id)value {
     if([value isKindOfClass:NSString.class] == YES) {
         return value;
     }
@@ -440,8 +349,8 @@
 
 #pragma mark - Init / Free
 
-- (instancetype)initWithKey:(NSString*)key defaultValue:(NSURL*)defaultValue {
-    self = [super initWithKey:key];
+- (instancetype)initWithDefaultValue:(NSURL*)defaultValue {
+    self = [super init];
     if(self != nil) {
         _defaultValue = defaultValue;
     }
@@ -450,7 +359,7 @@
 
 #pragma mark - GLBModelPack
 
-- (id)packValue:(id)value {
+- (id)pack:(id)value {
     if([value isKindOfClass:NSURL.class] == YES) {
         if((_defaultValue == nil) || ([value isEqual:_defaultValue] == NO)) {
             return [value absoluteString];
@@ -459,7 +368,7 @@
     return nil;
 }
 
-- (id)unpackValue:(id)value {
+- (id)unpack:(id)value {
     if([value isKindOfClass:NSString.class] == YES) {
         return [NSURL URLWithString:value];
     }
@@ -476,8 +385,8 @@
 
 #pragma mark - Init / Free
 
-- (instancetype)initWithKey:(NSString*)key defaultValue:(NSNumber*)defaultValue {
-    self = [super initWithKey:key];
+- (instancetype)initWithDefaultValue:(NSNumber*)defaultValue {
+    self = [super init];
     if(self != nil) {
         _defaultValue = defaultValue;
     }
@@ -486,7 +395,7 @@
 
 #pragma mark - GLBModelPack
 
-- (id)packValue:(id)value {
+- (id)pack:(id)value {
     if([value isKindOfClass:NSNumber.class] == YES) {
         if((_defaultValue == nil) || ([value isEqualToNumber:_defaultValue] == NO)) {
             return value;
@@ -495,7 +404,7 @@
     return nil;
 }
 
-- (id)unpackValue:(id)value {
+- (id)unpack:(id)value {
     if([value isKindOfClass:NSNumber.class] == YES) {
         return value;
     }
@@ -512,8 +421,8 @@
 
 #pragma mark - Init / Free
 
-- (instancetype)initWithKey:(NSString*)key defaultValue:(NSDate*)defaultValue {
-    self = [super initWithKey:key];
+- (instancetype)initWithDefaultValue:(NSDate*)defaultValue {
+    self = [super init];
     if(self != nil) {
         _defaultValue = defaultValue;
     }
@@ -522,7 +431,7 @@
 
 #pragma mark - GLBModelPack
 
-- (id)packValue:(id)value {
+- (id)pack:(id)value {
     if([value isKindOfClass:NSDate.class] == YES) {
         if((_defaultValue == nil) || ([value isEqualToDate:_defaultValue] == NO)) {
             return @([value timeIntervalSince1970]);
@@ -531,7 +440,7 @@
     return nil;
 }
 
-- (id)unpackValue:(id)value {
+- (id)unpack:(id)value {
     if([value isKindOfClass:NSNumber.class] == YES) {
         return [NSDate dateWithTimeIntervalSince1970:[value doubleValue]];
     }
@@ -553,7 +462,7 @@
 }
 
 - (instancetype)initWithKey:(NSString*)key modelClass:(Class)modelClass {
-    self = [super initWithKey:key];
+    self = [super init];
     if(self != nil) {
         _modelClass = modelClass;
     }
@@ -562,7 +471,7 @@
 
 #pragma mark - GLBModelPack
 
-- (id)packValue:(id)value {
+- (id)pack:(id)value {
     if([value isKindOfClass:_modelClass] == YES) {
         NSDictionary* pack = [value pack];
         if(pack.count > 0) {
@@ -572,7 +481,7 @@
     return nil;
 }
 
-- (id)unpackValue:(id)value {
+- (id)unpack:(id)value {
     if([value isKindOfClass:NSDictionary.class] == YES) {
         return [_modelClass modelWithPack:value];
     }

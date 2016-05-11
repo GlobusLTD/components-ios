@@ -26,19 +26,19 @@ typedef void (^GLBModelBlock)();
 @required
 + (_Nullable instancetype)modelWithJson:(id _Nonnull)json;
 + (_Nullable instancetype)modelWithJsonData:(NSData* _Nonnull)data;
-+ (_Nullable instancetype)modelWithPack:(NSDictionary< NSNumber*, id >* _Nonnull)data;
++ (_Nullable instancetype)modelWithPack:(NSDictionary< NSString*, id >* _Nonnull)data;
 + (_Nullable instancetype)modelWithPackData:(NSData* _Nonnull)data;
 
 - (_Nullable instancetype)initWithJson:(_Nullable id)json;
-- (_Nullable instancetype)initWithPack:(NSDictionary< NSNumber*, id >* _Nonnull)data;
+- (_Nullable instancetype)initWithPack:(NSDictionary< NSString*, id >* _Nonnull)data;
 
 - (void)fromJson:(_Nonnull id)json;
 - (void)fromJsonData:(NSData* _Nonnull)data;
 
-- (NSDictionary< NSNumber*, id >* _Nullable)pack;
+- (NSDictionary< NSString*, id >* _Nullable)pack;
 - (NSData* _Nullable)packData;
 
-- (void)unpack:(NSDictionary< NSNumber*, id >* _Nonnull)data;
+- (void)unpack:(NSDictionary< NSString*, id >* _Nonnull)data;
 - (void)unpackData:(NSData* _Nonnull)data;
 
 @end

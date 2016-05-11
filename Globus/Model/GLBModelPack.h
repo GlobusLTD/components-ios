@@ -6,18 +6,8 @@
 
 @interface GLBModelPack : NSObject
 
-@property(nonatomic, readonly, strong, nullable) NSString* key;
-@property(nonatomic, readonly, strong, nullable) NSNumber* keyHash;
-
-- (_Nullable instancetype)initWithKey:(NSString* _Nullable)key;
-
-- (void)setup NS_REQUIRES_SUPER;
-
-- (void)pack:(NSMutableDictionary< NSNumber*, id >* _Nonnull)data value:(_Nullable id)value;
-- (_Nullable id)unpack:(NSDictionary< NSNumber*, id >* _Nonnull)data;
-
-- (_Nullable id)packValue:(_Nullable id)value;
-- (_Nullable id)unpackValue:(_Nullable id)value;
+- (_Nullable id)pack:(_Nullable id)value;
+- (_Nullable id)unpack:(_Nullable id)value;
 
 @end
 
@@ -29,8 +19,6 @@
 
 - (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass;
 - (_Nullable instancetype)initWithConverter:(GLBModelPack* _Nullable)converter;
-- (_Nullable instancetype)initWithKey:(NSString* _Nullable)key modelClass:(_Nullable Class)modelClass;
-- (_Nullable instancetype)initWithKey:(NSString* _Nullable)key converter:(GLBModelPack* _Nullable)converter;
 
 @end
 
@@ -42,8 +30,6 @@
 
 - (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass;
 - (_Nullable instancetype)initWithConverter:(GLBModelPack* _Nullable)converter;
-- (_Nullable instancetype)initWithKey:(NSString* _Nullable)key modelClass:(_Nullable Class)modelClass;
-- (_Nullable instancetype)initWithKey:(NSString* _Nullable)key converter:(GLBModelPack* _Nullable)converter;
 
 @end
 
@@ -55,8 +41,6 @@
 
 - (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass;
 - (_Nullable instancetype)initWithConverter:(GLBModelPack* _Nullable)converter;
-- (_Nullable instancetype)initWithKey:(NSString* _Nullable)key modelClass:(_Nullable Class)modelClass;
-- (_Nullable instancetype)initWithKey:(NSString* _Nullable)key converter:(GLBModelPack* _Nullable)converter;
 
 @end
 
@@ -71,10 +55,6 @@
 - (_Nullable instancetype)initWithValueConverter:(GLBModelPack* _Nullable)valueConverter;
 - (_Nullable instancetype)initWithKeyModelClass:(_Nullable Class)keyModelClass valueModelClass:(_Nullable Class)valueModelClass;
 - (_Nullable instancetype)initWithKeyConverter:(GLBModelPack* _Nullable)keyConverter valueConverter:(GLBModelPack* _Nullable)valueConverter;
-- (_Nullable instancetype)initWithKey:(NSString* _Nullable)key valueModelClass:(_Nullable Class)valueModelClass;
-- (_Nullable instancetype)initWithKey:(NSString* _Nullable)key valueConverter:(GLBModelPack* _Nullable)valueConverter;
-- (_Nullable instancetype)initWithKey:(NSString* _Nullable)key keyModelClass:(_Nullable Class)keyModelClass valueModelClass:(_Nullable Class)valueModelClass;
-- (_Nullable instancetype)initWithKey:(NSString* _Nullable)key keyConverter:(GLBModelPack* _Nullable)keyConverter valueConverter:(GLBModelPack* _Nullable)valueConverter;
 
 @end
 
@@ -84,7 +64,7 @@
 
 @property(nonatomic, readonly, assign) BOOL defaultValue;
 
-- (_Nullable instancetype)initWithKey:(NSString* _Nullable)key defaultValue:(BOOL)defaultValue;
+- (_Nullable instancetype)initWithDefaultValue:(BOOL)defaultValue;
 
 @end
 
@@ -94,7 +74,7 @@
 
 @property(nonatomic, readonly, strong, nullable) NSString* defaultValue;
 
-- (_Nullable instancetype)initWithKey:(NSString* _Nullable)key defaultValue:(NSString* _Nullable)defaultValue;
+- (_Nullable instancetype)initWithDefaultValue:(NSString* _Nullable)defaultValue;
 
 @end
 
@@ -104,7 +84,7 @@
 
 @property(nonatomic, readonly, strong, nullable) NSURL* defaultValue;
 
-- (_Nullable instancetype)initWithKey:(NSString* _Nullable)key defaultValue:(NSURL* _Nullable)defaultValue;
+- (_Nullable instancetype)initWithDefaultValue:(NSURL* _Nullable)defaultValue;
 
 @end
 
@@ -114,7 +94,7 @@
 
 @property(nonatomic, readonly, strong, nullable) NSNumber* defaultValue;
 
-- (_Nullable instancetype)initWithKey:(NSString* _Nullable)key defaultValue:(NSNumber* _Nullable)defaultValue;
+- (_Nullable instancetype)initWithDefaultValue:(NSNumber* _Nullable)defaultValue;
 
 @end
 
@@ -124,7 +104,7 @@
 
 @property(nonatomic, readonly, strong, nullable) NSDate* defaultValue;
 
-- (_Nullable instancetype)initWithKey:(NSString* _Nullable)key defaultValue:(NSDate* _Nullable)defaultValue;
+- (_Nullable instancetype)initWithDefaultValue:(NSDate* _Nullable)defaultValue;
 
 @end
 
@@ -135,7 +115,6 @@
 @property(nonatomic, readonly, nullable, assign) Class modelClass;
 
 - (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass;
-- (_Nullable instancetype)initWithKey:(NSString* _Nullable)key modelClass:(_Nullable Class)modelClass;
 
 @end
 
