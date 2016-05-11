@@ -333,7 +333,7 @@
     [self.packMap enumerateKeysAndObjectsUsingBlock:^(NSString* field, GLBModelPack* converter, BOOL* stop __unused) {
         id packValue = data[field];
         if(packValue != nil) {
-            id value = [converter unpack:data];
+            id value = [converter unpack:packValue];
             if(value != nil) {
                 [self setValue:value forKey:field];
             }
@@ -684,7 +684,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
     [self.packMap enumerateKeysAndObjectsUsingBlock:^(NSString* field, GLBModelPack* converter, BOOL* stop __unused) {
         id packValue = data[field];
         if(packValue != nil) {
-            id value = [converter unpack:data];
+            id value = [converter unpack:packValue];
             if(value != nil) {
                 [self setValue:value forKey:field];
             }
