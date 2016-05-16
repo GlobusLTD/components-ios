@@ -172,7 +172,7 @@
                 if(CGRectIsNull(_displayFrame) == NO) {
                     _cell.frame = _displayFrame;
                 } else {
-                    _cell.frame = _originFrame;
+                    _cell.frame = _updateFrame;
                 }
                 _cell.item = self;
                 [_cell layoutIfNeeded];
