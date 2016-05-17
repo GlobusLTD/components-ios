@@ -97,6 +97,22 @@
     }
 }
 
+- (void)setDefaultWidth:(CGFloat)defaultWidth {
+    self.defaultSize = CGSizeMake(defaultWidth, _defaultSize.height);
+}
+
+- (CGFloat)defaultWidth {
+    return _defaultSize.width;
+}
+
+- (void)setDefaultHeight:(CGFloat)defaultHeight {
+    self.defaultSize = CGSizeMake(_defaultSize.width, defaultHeight);
+}
+
+- (CGFloat)defaultHeight {
+    return _defaultSize.height;
+}
+
 - (void)setHeader:(GLBDataItem*)header {
     if(_header != header) {
         if(_header != nil) {

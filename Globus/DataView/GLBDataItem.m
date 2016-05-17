@@ -172,7 +172,7 @@
                 if(CGRectIsNull(_displayFrame) == NO) {
                     _cell.frame = _displayFrame;
                 } else {
-                    _cell.frame = _updateFrame;
+                    _cell.frame = _originFrame;
                 }
                 _cell.item = self;
                 [_cell layoutIfNeeded];
@@ -359,6 +359,9 @@
 - (void)setNeedResize {
     if(_needResize == NO) {
         _needResize = YES;
+        _originFrame = CGRectNull;
+        _updateFrame = CGRectNull;
+        _displayFrame = CGRectNull;
         [_view setNeedValidateLayout];
     }
 }

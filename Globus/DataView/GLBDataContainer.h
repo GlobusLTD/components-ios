@@ -136,6 +136,8 @@ typedef NS_ENUM(NSUInteger, GLBDataContainerItemsListMode) {
 @property(nonatomic) UIEdgeInsets margin;
 @property(nonatomic) UIOffset spacing;
 @property(nonatomic) CGSize defaultSize;
+@property(nonatomic) CGFloat defaultWidth;
+@property(nonatomic) CGFloat defaultHeight;
 @property(nonatomic) NSUInteger defaultOrder;
 @property(nonatomic, strong) GLBDataItem* header;
 @property(nonatomic, strong) GLBDataItem* footer;
@@ -187,6 +189,8 @@ typedef NS_ENUM(NSUInteger, GLBDataContainerItemsListMode) {
 @property(nonatomic) UIEdgeInsets margin;
 @property(nonatomic) UIOffset spacing;
 @property(nonatomic) CGSize defaultSize;
+@property(nonatomic) CGFloat defaultWidth;
+@property(nonatomic) CGFloat defaultHeight;
 @property(nonatomic) NSUInteger defaultOrder;
 @property(nonatomic, strong) GLBDataItem* header;
 @property(nonatomic, strong) GLBDataItem* footer;
