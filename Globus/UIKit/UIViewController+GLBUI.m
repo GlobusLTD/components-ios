@@ -1,12 +1,28 @@
 /*--------------------------------------------------*/
 
 #import "UIViewController+GLBUI.h"
+#import "UIApplication+GLBUI.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+#import <objc/runtime.h>
+
+/*--------------------------------------------------*/
+
 @implementation UIViewController (GLB_UI)
+
++ (void)load {
+    method_exchangeImplementations(class_getInstanceMethod(UIViewController.class, @selector(setNeedsStatusBarAppearanceUpdate)),
+                                   class_getInstanceMethod(UIViewController.class, @selector(glb_setNeedsStatusBarAppearanceUpdate)));
+}
+
+- (void)glb_setNeedsStatusBarAppearanceUpdate {
+    [UIApplication.sharedApplication.glb_visibledWindow.rootViewController glb_setNeedsStatusBarAppearanceUpdate];
+}
+
+#pragma mark - Public
 
 - (UIViewController*)glb_currentViewController {
     if(self.presentedViewController != nil) {

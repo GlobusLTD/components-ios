@@ -82,21 +82,27 @@
 - (void)setStatusBarHidden:(BOOL)statusBarHidden {
     if(_statusBarHidden != statusBarHidden) {
         _statusBarHidden = statusBarHidden;
-        [self setNeedsStatusBarAppearanceUpdate];
+        if(self.isViewLoaded == YES) {
+            [self setNeedsStatusBarAppearanceUpdate];
+        }
     }
 }
 
 - (void)setStatusBarStyle:(UIStatusBarStyle)statusBarStyle {
     if(_statusBarStyle != statusBarStyle) {
         _statusBarStyle = statusBarStyle;
-        [self setNeedsStatusBarAppearanceUpdate];
+        if(self.isViewLoaded == YES) {
+            [self setNeedsStatusBarAppearanceUpdate];
+        }
     }
 }
 
 - (void)setStatusBarAnimation:(UIStatusBarAnimation)statusBarAnimation {
     if(_statusBarAnimation != statusBarAnimation) {
         _statusBarAnimation = statusBarAnimation;
-        [self setNeedsStatusBarAppearanceUpdate];
+        if(self.isViewLoaded == YES) {
+            [self setNeedsStatusBarAppearanceUpdate];
+        }
     }
 }
 

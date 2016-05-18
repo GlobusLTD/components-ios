@@ -10,6 +10,7 @@
 
 @property(nonatomic, readonly, nullable, copy) NSArray* glb_windows;
 @property(nonatomic, readonly, strong, nullable) UIWindow* glb_statusBarWindow;
+@property(nonatomic, readonly, strong, nullable) UIWindow* glb_visibledWindow;
 
 @end
 

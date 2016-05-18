@@ -158,14 +158,18 @@ static NSTimeInterval GLBNotificationController_HideDutation = 0.2f;
 - (void)setParentWindow:(UIWindow*)parentWindow {
     if(_parentWindow != parentWindow) {
         _parentWindow = parentWindow;
-        [self setNeedsStatusBarAppearanceUpdate];
+        if(self.isViewLoaded == YES) {
+            [self setNeedsStatusBarAppearanceUpdate];
+        }
     }
 }
 
 - (void)setStatusBarStyle:(UIStatusBarStyle)statusBarStyle {
     if(_statusBarStyle != statusBarStyle) {
         _statusBarStyle = statusBarStyle;
-        [self setNeedsStatusBarAppearanceUpdate];
+        if(self.isViewLoaded == YES) {
+            [self setNeedsStatusBarAppearanceUpdate];
+        }
     }
 }
 
@@ -206,7 +210,9 @@ static NSTimeInterval GLBNotificationController_HideDutation = 0.2f;
     GLBNotificationView* notificationView = [[GLBNotificationView alloc] initWithController:self view:view duration:duration pressed:pressed];
     if(notificationView != nil) {
         [_queue insertObject:notificationView atIndex:0];
-        [self setNeedsStatusBarAppearanceUpdate];
+        if(self.isViewLoaded == YES) {
+            [self setNeedsStatusBarAppearanceUpdate];
+        }
         [self _showNotificationView:notificationView animated:YES];
     }
     return notificationView;
@@ -216,7 +222,9 @@ static NSTimeInterval GLBNotificationController_HideDutation = 0.2f;
     if([_queue containsObject:notificationView] == YES) {
         [self _hideNotificationView:notificationView animated:animated];
         [_queue removeObject:notificationView];
-        [self setNeedsStatusBarAppearanceUpdate];
+        if(self.isViewLoaded == YES) {
+            [self setNeedsStatusBarAppearanceUpdate];
+        }
     }
 }
 
@@ -225,9 +233,13 @@ static NSTimeInterval GLBNotificationController_HideDutation = 0.2f;
         [_queue glb_each:^(GLBNotificationView* notificationView) {
             [self _hideNotificationView:notificationView animated:animated];
             [_queue removeObject:notificationView];
-            [self setNeedsStatusBarAppearanceUpdate];
+            if(self.isViewLoaded == YES) {
+                [self setNeedsStatusBarAppearanceUpdate];
+            }
         } options:NSEnumerationReverse];
-        [self setNeedsStatusBarAppearanceUpdate];
+        if(self.isViewLoaded == YES) {
+            [self setNeedsStatusBarAppearanceUpdate];
+        }
     }
 }
 
@@ -643,7 +655,7 @@ static NSTimeInterval GLBNotificationManager_Dutation = 3.0f;
 }
 
 + (BOOL)statusBarHidden {
-    return [[self.shared window] windowLevel] > UIWindowLevelStatusBar;
+    return [[self.shared window] windowLevel] >= UIWindowLevelStatusBar;
 }
 
 + (GLBNotificationView*)showView:(UIView*)view {

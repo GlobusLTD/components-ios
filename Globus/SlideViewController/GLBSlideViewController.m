@@ -341,7 +341,9 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                 [_centerView addSubview:_screenshotView];
             }
         }
-        [self setNeedsStatusBarAppearanceUpdate];
+        if(self.isViewLoaded == YES) {
+            [self setNeedsStatusBarAppearanceUpdate];
+        }
     }
 }
 
