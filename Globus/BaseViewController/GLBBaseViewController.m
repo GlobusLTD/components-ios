@@ -258,6 +258,7 @@
     [super didReceiveMemoryWarning];
     
     [self glb_unloadViewIfPossible];
+    [self setNeedUpdate];
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate
