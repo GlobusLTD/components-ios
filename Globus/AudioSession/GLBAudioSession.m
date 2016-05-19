@@ -1,14 +1,109 @@
 /*--------------------------------------------------*/
 
 #import "GLBAudioSession.h"
+#import "NSArray+GLBNS.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+#import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>
+
+/*--------------------------------------------------*/
+
+@interface GLBAudioSession () {
+    NSMutableArray< NSValue* >* _observers;
+}
+
+@property(nonatomic, strong) MPVolumeView* volumeView;
+@property(nonatomic, strong) UISlider* volumeSlider;
+
+@end
+
+/*--------------------------------------------------*/
+
 @implementation GLBAudioSession
 
-#pragma mark Public
+#pragma mark - Init / Free
+
+@synthesize volumeView = _volumeView;
+@synthesize volumeSlider = _volumeSlider;
+
+#pragma mark - Init / Free
+
++ (instancetype)shared {
+    static id shared = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        shared = [self new];
+    });
+    return shared;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if(self != nil) {
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup {
+    _observers = [NSMutableArray array];
+}
+
+#pragma mark - Property
+
+- (MPVolumeView*)volumeView {
+    if(_volumeView == nil) {
+        _volumeView = [MPVolumeView new];
+        _volumeView.showsRouteButton = NO;
+        _volumeView.showsVolumeSlider = NO;
+    }
+    return _volumeView;
+}
+
+- (UISlider*)volumeSlider {
+    if(_volumeSlider == nil) {
+        [self.volumeView.subviews glb_each:^(UIView* view) {
+            if([view isKindOfClass:UISlider.class] == YES) {
+                _volumeSlider = (UISlider*)view;
+            }
+        }];
+        if(_volumeSlider != nil) {
+            [_volumeSlider addTarget:self action:@selector(_volumeChanged:) forControlEvents:UIControlEventValueChanged];
+        }
+    }
+    return _volumeSlider;
+}
+
+- (void)setVolume:(CGFloat)volume {
+    self.volumeSlider.value = volume;
+}
+
+- (CGFloat)volume {
+    return self.volumeSlider.value;
+}
+
+#pragma mark - Public
+
+- (void)addObserver:(id< GLBAudioSessionObserver >)observer {
+    if([observer respondsToSelector:@selector(audioSessionChangeDeviceVolume:)] == YES) {
+        if(self.volumeSlider == nil) {
+            NSLog(@"%s: Not allowed change device volume", __PRETTY_FUNCTION__);
+        }
+    }
+    [_observers addObject:[NSValue valueWithNonretainedObject:observer]];
+}
+
+- (void)removeObserver:(id< GLBAudioSessionObserver >)observer {
+    [_observers glb_each:^(NSValue* value) {
+        if(value.nonretainedObjectValue == observer) {
+            [_observers removeObject:value];
+        }
+    }];
+}
 
 + (void)activateWithOptions:(AVAudioSessionSetActiveOptions)activeOptions
                    category:(NSString*)category
@@ -57,6 +152,23 @@
     } else if(block != nil) {
         block();
     }
+}
+
+#pragma mark - Action
+
+- (void)_volumeChanged:(id)sender {
+    [self _notifyChangeDeviceVolume:_volumeSlider.value];
+}
+
+#pragma mark - Observer
+
+- (void)_notifyChangeDeviceVolume:(CGFloat)volume {
+    [_observers glb_each:^(NSValue* value) {
+        id< GLBAudioSessionObserver > observer = value.nonretainedObjectValue;
+        if([observer respondsToSelector:@selector(audioSessionChangeDeviceVolume:)] == YES) {
+            [observer audioSessionChangeDeviceVolume:volume];
+        }
+    }];
 }
 
 @end

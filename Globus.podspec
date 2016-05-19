@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.1.9'
+  s.version = '0.1.10'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -468,6 +468,8 @@ Pod::Spec.new do |s|
     }
     ss.source_files = 'Globus/AudioSession/**/*.{h,m}'
     ss.ios.frameworks = 'AVFoundation'
+    ss.ios.frameworks = 'MediaPlayer'
+    ss.ios.frameworks = 'UIKit'
     ss.dependency 'Globus/CoreFoundation'
   end
   s.subspec 'AudioPlayer' do |ss|
@@ -491,7 +493,7 @@ Pod::Spec.new do |s|
       'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_VIDEO_PLAYER_VIEW'
     }
     ss.source_files = 'Globus/VideoPlayerView/**/*.{h,m}'
-    ss.ios.frameworks = 'AVFoundation'
+    ss.dependency 'Globus/AudioSession'
     ss.dependency 'Globus/UIKit'
     ss.dependency 'Globus/Action'
   end

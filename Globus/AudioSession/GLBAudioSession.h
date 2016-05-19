@@ -10,12 +10,23 @@
 
 /*--------------------------------------------------*/
 
+@protocol GLBAudioSessionObserver;
+
+/*--------------------------------------------------*/
+
 typedef void (^GLBAudioSessionActivateBlock)(NSError* error);
 typedef void (^GLBAudioSessionPermissionBlock)();
 
 /*--------------------------------------------------*/
 
 @interface GLBAudioSession : NSObject
+
+@property(nonatomic) CGFloat volume;
+
++ (instancetype)shared;
+
+- (void)addObserver:(id< GLBAudioSessionObserver >)observer;
+- (void)removeObserver:(id< GLBAudioSessionObserver >)observer;
 
 + (void)activateWithOptions:(AVAudioSessionSetActiveOptions)activeOptions
                    category:(NSString*)category
@@ -24,6 +35,15 @@ typedef void (^GLBAudioSessionPermissionBlock)();
                       block:(GLBAudioSessionActivateBlock)block;
 
 + (void)recordPermission:(GLBAudioSessionPermissionBlock)block;
+
+@end
+
+/*--------------------------------------------------*/
+
+@protocol GLBAudioSessionObserver < NSObject >
+
+@optional
+- (void)audioSessionChangeDeviceVolume:(CGFloat)volume;
 
 @end
 

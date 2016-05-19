@@ -231,7 +231,8 @@
         }
         _updating = NO;
     }
-
+    _needUpdate = YES;
+    
     [super viewDidUnload];
 }
 
@@ -264,7 +265,6 @@
     [super didReceiveMemoryWarning];
     
     [self glb_unloadViewIfPossible];
-    [self setNeedUpdate];
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate
