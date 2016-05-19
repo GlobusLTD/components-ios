@@ -8,7 +8,7 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@interface GLBAudioPlayer () < AVAudioPlayerDelegate > {
+@interface GLBAudioPlayer () < AVAudioPlayerDelegate, GLBAudioSessionObserver > {
     AVAudioPlayer* _player;
 }
 
@@ -35,6 +35,12 @@
     _sessionCategory = AVAudioSessionCategoryPlayback;
     _sessionCategoryOptions = AVAudioSessionCategoryOptionMixWithOthers;
     _sessionMode = AVAudioSessionModeDefault;
+    
+    [GLBAudioSession.shared addObserver:self];
+}
+
+- (void)dealloc {
+    [GLBAudioSession.shared removeObserver:self];
 }
 
 #pragma mark Property
@@ -293,7 +299,7 @@
     return result;
 }
 
-#pragma mark AVAudioPlayerDelegate
+#pragma mark - AVAudioPlayerDelegate
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer* __unused)player successfully:(BOOL __unused)successfully {
     _playing = NO;
@@ -306,6 +312,16 @@
     _error = error;
     if(_actionError != nil) {
         [_actionError performWithArguments:@[ self, _error ]];
+    }
+}
+
+#pragma mark -  GLBAudioSessionObserver < NSObject >
+
+- (void)audioSessionEndInterruptionWithFlags:(NSUInteger)flags {
+    if((flags & AVAudioSessionInterruptionFlags_ShouldResume) != 0) {
+        if((_prepared == YES) && (_playing == YES) && (_paused == NO)) {
+            [_player play];
+        }
     }
 }
 

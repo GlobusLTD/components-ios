@@ -12,7 +12,7 @@
 
 /*--------------------------------------------------*/
 
-@interface GLBAudioSession () {
+@interface GLBAudioSession () < AVAudioSessionDelegate > {
     NSMutableArray< NSValue* >* _observers;
 }
 
@@ -51,6 +51,8 @@
 
 - (void)setup {
     _observers = [NSMutableArray array];
+    
+    AVAudioSession.sharedInstance.delegate = self;
 }
 
 #pragma mark - Property
@@ -160,7 +162,48 @@
     [self _notifyChangeDeviceVolume:_volumeSlider.value];
 }
 
+#pragma mark - AVAudioSessionDelegate
+
+- (void)beginInterruption {
+    [self _notifyBeginInterruption];
+}
+
+- (void)endInterruptionWithFlags:(NSUInteger)flags {
+    [self _notifyEndInterruptionWithFlags:flags];
+}
+
+- (void)inputIsAvailableChanged:(BOOL)isInputAvailable {
+    [self _notifyChangedInputAvailable:isInputAvailable];
+}
+
 #pragma mark - Observer
+
+- (void)_notifyBeginInterruption {
+    [_observers glb_each:^(NSValue* value) {
+        id< GLBAudioSessionObserver > observer = value.nonretainedObjectValue;
+        if([observer respondsToSelector:@selector(audioSessionBeginInterruption)] == YES) {
+            [observer audioSessionBeginInterruption];
+        }
+    }];
+}
+
+- (void)_notifyEndInterruptionWithFlags:(NSUInteger)flags {
+    [_observers glb_each:^(NSValue* value) {
+        id< GLBAudioSessionObserver > observer = value.nonretainedObjectValue;
+        if([observer respondsToSelector:@selector(audioSessionEndInterruptionWithFlags:)] == YES) {
+            [observer audioSessionEndInterruptionWithFlags:flags];
+        }
+    }];
+}
+
+- (void)_notifyChangedInputAvailable:(BOOL)inputAvailable {
+    [_observers glb_each:^(NSValue* value) {
+        id< GLBAudioSessionObserver > observer = value.nonretainedObjectValue;
+        if([observer respondsToSelector:@selector(audioSessionChangedInputAvailable:)] == YES) {
+            [observer audioSessionChangedInputAvailable:inputAvailable];
+        }
+    }];
+}
 
 - (void)_notifyChangeDeviceVolume:(CGFloat)volume {
     [_observers glb_each:^(NSValue* value) {
