@@ -7,9 +7,21 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+#import <objc/runtime.h>
+
+/*--------------------------------------------------*/
+
 @implementation UIWindow (GLB_UI)
 
 #pragma mark - Property
+
+- (void)setGlb_userWindow:(BOOL)glb_userWindow {
+    objc_setAssociatedObject(self, @selector(glb_userWindow), @(glb_userWindow), OBJC_ASSOCIATION_RETAIN);
+}
+
+- (BOOL)glb_userWindow {
+    return [objc_getAssociatedObject(self, @selector(glb_userWindow)) boolValue];
+}
 
 - (UIViewController*)glb_currentViewController {
     return self.rootViewController.glb_currentViewController;

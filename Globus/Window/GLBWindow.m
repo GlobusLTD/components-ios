@@ -52,6 +52,7 @@
 }
 
 - (void)setup {
+    self.glb_userWindow = YES;
     _hideKeyboardIfTouched = YES;
 }
 

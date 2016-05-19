@@ -97,7 +97,8 @@
         _dialogWindow = dialogWindow;
         if(_dialogWindow != nil) {
             _dialogWindow.windowLevel = _ownerWindow.windowLevel + 0.01f;
-            _dialogWindow.backgroundColor = [UIColor clearColor];
+            _dialogWindow.backgroundColor = UIColor.clearColor;
+            _dialogWindow.glb_userWindow = YES;
             _dialogWindow.rootViewController = self;
             [_dialogWindow makeKeyAndVisible];
             [_dialogWindow layoutIfNeeded];

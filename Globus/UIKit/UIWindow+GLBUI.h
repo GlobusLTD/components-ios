@@ -8,6 +8,7 @@
 
 @interface UIWindow (GLB_UI)
 
+@property(nonatomic) BOOL glb_userWindow;
 @property(nonatomic, readonly, strong) UIViewController* glb_currentViewController;
 @property(nonatomic, readonly, strong) UIViewController* glb_controllerForStatusBarStyle;
 @property(nonatomic, readonly, strong) UIViewController* glb_controllerForStatusBarHidden;

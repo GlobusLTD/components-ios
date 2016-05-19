@@ -2,6 +2,7 @@
 
 #import "UIApplication+GLBUI.h"
 #import "UIViewController+GLBUI.h"
+#import "UIWindow+GLBUI.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
@@ -87,19 +88,9 @@ static NSMutableArray* GLBApplicationWindows;
 }
 
 - (UIWindow*)glb_visibledWindow {
-    NSArray< UIWindow* >* windows = UIApplication.sharedApplication.windows;
-    windows = [windows filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(UIWindow* window, NSDictionary* bindings) {
-        return (window.hidden == NO);
+    NSArray< UIWindow* >* windows = [self.glb_windows filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(UIWindow* window, NSDictionary* bindings) {
+        return (window.hidden == NO) && (window.glb_userWindow == YES);
     }]];
-    windows = [windows sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult(UIWindow* window1, UIWindow* window2) {
-        if(window1.windowLevel < window2.windowLevel) {
-            return NSOrderedAscending;
-        } else if(window1.windowLevel < window2.windowLevel) {
-            return NSOrderedDescending;
-        } else {
-            return NSOrderedSame;
-        }
-    }];
     return windows.lastObject;
 }
 

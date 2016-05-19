@@ -6,6 +6,7 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+#import "UIWindow+GLBUI.h"
 #import "NSArray+GLBNS.h"
 
 /*--------------------------------------------------*/
@@ -109,7 +110,8 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if(self != nil) {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = UIColor.clearColor;
+        self.glb_userWindow = YES;
     }
     return self;
 }
