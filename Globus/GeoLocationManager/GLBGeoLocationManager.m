@@ -126,6 +126,19 @@ typedef void(^GLBGeoLocationManagerPrefornBlock)();
 
 #pragma mark - Property
 
+- (void)setAllowsBackgroundUpdates:(BOOL)allowsBackgroundUpdates {
+    if(UIDevice.glb_systemVersion >= 9.0f) {
+        _locationManager.allowsBackgroundLocationUpdates = allowsBackgroundUpdates;
+    }
+}
+
+- (BOOL)allowsBackgroundUpdates {
+    if(UIDevice.glb_systemVersion >= 9.0f) {
+        return _locationManager.allowsBackgroundLocationUpdates;
+    }
+    return YES;
+}
+
 - (CLLocation*)currentLocation {
     if(_currentLocation == nil) {
         return _defaultLocation;
