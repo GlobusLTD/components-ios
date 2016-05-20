@@ -19,7 +19,9 @@
 }
 
 - (void)glb_setNeedsStatusBarAppearanceUpdate {
+#ifndef GLOBUS_APP_EXTENSION
     [UIApplication.sharedApplication.glb_visibledWindow.rootViewController glb_setNeedsStatusBarAppearanceUpdate];
+#endif
 }
 
 #pragma mark - Public
