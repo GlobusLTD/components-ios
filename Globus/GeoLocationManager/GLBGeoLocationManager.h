@@ -39,7 +39,9 @@ typedef NS_ENUM(NSInteger, GLBGeoLocationStatus) {
 @interface GLBGeoLocationManager : NSObject
 
 @property(nonatomic, copy) CLLocation* defaultLocation;
+#if defined(GLB_TARGET_IOS)
 @property(nonatomic, assign) BOOL allowsBackgroundUpdates;
+#endif
 @property(nonatomic, readonly, copy) CLLocation* currentLocation;
 @property(nonatomic, readonly, copy) NSArray* requests;
 @property(nonatomic, readonly, assign, getter=isUpdatingLocation) BOOL updatingLocation;

@@ -4,12 +4,6 @@
 #import "UIDevice+GLBUI.h"
 
 /*--------------------------------------------------*/
-
-#if defined(GLB_TARGET_IOS)
-#import <UIKit/UIKit.h>
-#endif
-
-/*--------------------------------------------------*/
 #pragma mark -
 /*--------------------------------------------------*/
 typedef void(^GLBGeoLocationManagerPrefornBlock)();
@@ -126,6 +120,8 @@ typedef void(^GLBGeoLocationManagerPrefornBlock)();
 
 #pragma mark - Property
 
+#if defined(GLB_TARGET_IOS)
+
 - (void)setAllowsBackgroundUpdates:(BOOL)allowsBackgroundUpdates {
     if(UIDevice.glb_systemVersion >= 9.0f) {
         _locationManager.allowsBackgroundLocationUpdates = allowsBackgroundUpdates;
@@ -138,6 +134,8 @@ typedef void(^GLBGeoLocationManagerPrefornBlock)();
     }
     return YES;
 }
+
+#endif
 
 - (CLLocation*)currentLocation {
     if(_currentLocation == nil) {
