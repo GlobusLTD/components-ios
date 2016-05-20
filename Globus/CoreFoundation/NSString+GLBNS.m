@@ -99,11 +99,23 @@ static UInt32 GLB_CRC32(const char* aString) {
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 - (NSString*)glb_stringByDecodingURLFormat {
-    return [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString* result = nil;
+    CFStringRef string = CFURLCreateStringByReplacingPercentEscapesUsingEncoding(NULL, (__bridge CFStringRef)self, CFSTR(""), kCFStringEncodingUTF8);
+    if(string != nil) {
+        result = [NSString stringWithString:(__bridge NSString*)string];
+        CFRelease(string);
+    }
+    return result;
 }
 
 - (NSString*)glb_stringByEncodingURLFormat {
-    return [self stringByRemovingPercentEncoding];
+    NSString* result = nil;
+    CFStringRef string = CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)self, NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8);
+    if(string != nil) {
+        result = [NSString stringWithString:(__bridge NSString*)string];
+        CFRelease(string);
+    }
+    return result;
 }
 
 #pragma clang diagnostic pop
