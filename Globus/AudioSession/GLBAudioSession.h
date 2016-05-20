@@ -44,8 +44,7 @@ typedef void (^GLBAudioSessionPermissionBlock)();
 
 @optional
 - (void)audioSessionBeginInterruption;
-- (void)audioSessionEndInterruptionWithFlags:(NSUInteger)flags;
-- (void)audioSessionChangedInputAvailable:(BOOL)inputAvailable;
+- (void)audioSessionEndInterruptionWithFlags:(AVAudioSessionInterruptionOptions)flags;
 
 @optional
 - (void)audioSessionChangeDeviceVolume:(CGFloat)volume;

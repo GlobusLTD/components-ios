@@ -52,7 +52,14 @@
 - (void)setup {
     _observers = [NSMutableArray array];
     
-    AVAudioSession.sharedInstance.delegate = self;
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(_notificationInterruption:)
+                                               name:AVAudioSessionInterruptionNotification
+                                             object:AVAudioSession.sharedInstance];
+}
+
+- (void)dealloc {
+    [NSNotificationCenter.defaultCenter removeObserver:self];
 }
 
 #pragma mark - Property
@@ -162,20 +169,22 @@
     [self _notifyChangeDeviceVolume:_volumeSlider.value];
 }
 
-#pragma mark - AVAudioSessionDelegate
+#pragma mark - NSNotification
 
-- (void)beginInterruption {
-    [self _notifyBeginInterruption];
+- (void)_notificationInterruption:(NSNotification*)notification {
+    AVAudioSessionInterruptionType type = [notification.userInfo[AVAudioSessionInterruptionTypeKey] unsignedIntegerValue];
+    switch(type) {
+        case AVAudioSessionInterruptionTypeBegan: {
+            [self _notifyBeginInterruption];
+            break;
+        }
+        case AVAudioSessionInterruptionTypeEnded: {
+            AVAudioSessionInterruptionOptions options = [notification.userInfo[AVAudioSessionInterruptionOptionKey] unsignedIntegerValue];
+            [self _notifyEndInterruptionWithFlags:options];
+            break;
+        }
+    }
 }
-
-- (void)endInterruptionWithFlags:(NSUInteger)flags {
-    [self _notifyEndInterruptionWithFlags:flags];
-}
-
-- (void)inputIsAvailableChanged:(BOOL)isInputAvailable {
-    [self _notifyChangedInputAvailable:isInputAvailable];
-}
-
 #pragma mark - Observer
 
 - (void)_notifyBeginInterruption {
@@ -192,15 +201,6 @@
         id< GLBAudioSessionObserver > observer = value.nonretainedObjectValue;
         if([observer respondsToSelector:@selector(audioSessionEndInterruptionWithFlags:)] == YES) {
             [observer audioSessionEndInterruptionWithFlags:flags];
-        }
-    }];
-}
-
-- (void)_notifyChangedInputAvailable:(BOOL)inputAvailable {
-    [_observers glb_each:^(NSValue* value) {
-        id< GLBAudioSessionObserver > observer = value.nonretainedObjectValue;
-        if([observer respondsToSelector:@selector(audioSessionChangedInputAvailable:)] == YES) {
-            [observer audioSessionChangedInputAvailable:inputAvailable];
         }
     }];
 }

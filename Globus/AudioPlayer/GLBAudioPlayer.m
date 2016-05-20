@@ -317,8 +317,8 @@
 
 #pragma mark -  GLBAudioSessionObserver < NSObject >
 
-- (void)audioSessionEndInterruptionWithFlags:(NSUInteger)flags {
-    if((flags & AVAudioSessionInterruptionFlags_ShouldResume) != 0) {
+- (void)audioSessionEndInterruption:(AVAudioSessionInterruptionOptions)flags {
+    if((flags & AVAudioSessionInterruptionOptionShouldResume) != 0) {
         if((_prepared == YES) && (_playing == YES) && (_paused == NO)) {
             [_player play];
         }
