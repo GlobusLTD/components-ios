@@ -100,7 +100,11 @@ static UInt32 GLB_CRC32(const char* aString) {
 }
 
 - (NSString*)glb_stringByEncodingURLFormat {
-    return [self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    static NSCharacterSet* characterSet = nil;
+    if(characterSet == nil) {
+        characterSet = [NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[]"];
+    }
+    return [self stringByAddingPercentEncodingWithAllowedCharacters:characterSet];
 }
 
 - (NSDictionary*)glb_dictionaryFromQueryComponents {
