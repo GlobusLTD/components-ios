@@ -95,10 +95,10 @@
     
     if(_viewController != nil) {
         _viewController.glb_pageController = self;
-        [self addChildViewController:_viewController];
         _viewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _viewController.view.frame = [self _currentFrame];
         [_rootView addSubview:_viewController.view];
+        [self addChildViewController:_viewController];
         [_viewController didMoveToParentViewController:self];
         [self _loadBeforeAfterData];
     }
@@ -161,10 +161,10 @@
             if(_viewController != nil) {
                 _viewController.glb_pageController = self;
                 if(_viewController.parentViewController != self) {
-                    [self addChildViewController:_viewController];
                     _viewController.view.autoresizingMask = (UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin);
                     _viewController.view.frame = [self _currentFrame];
                     [_rootView addSubview:_viewController.view];
+                    [self addChildViewController:_viewController];
                     [_viewController didMoveToParentViewController:self];
                 } else {
                     _viewController.view.frame = [self _currentFrame];
@@ -207,10 +207,10 @@
         if(_beforeViewController != nil) {
             _beforeViewController.glb_pageController = self;
             if(_beforeViewController.parentViewController != self) {
-                [self addChildViewController:_beforeViewController];
                 _beforeViewController.view.autoresizingMask = (UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin);
                 _beforeViewController.view.frame = [self _beforeFrame];
                 [_rootView addSubview:_beforeViewController.view];
+                [self addChildViewController:_beforeViewController];
                 [_beforeViewController didMoveToParentViewController:self];
             } else {
                 _beforeViewController.view.frame = [self _beforeFrame];
@@ -249,10 +249,10 @@
         if(_afterViewController != nil) {
             _afterViewController.glb_pageController = self;
             if(_afterViewController.parentViewController != self) {
-                [self addChildViewController:_afterViewController];
                 _afterViewController.view.autoresizingMask = (UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin);
                 _afterViewController.view.frame = [self _afterFrame];
                 [_rootView addSubview:_afterViewController.view];
+                [self addChildViewController:_afterViewController];
                 [_afterViewController didMoveToParentViewController:self];
             } else {
                 _afterViewController.view.frame = [self _afterFrame];

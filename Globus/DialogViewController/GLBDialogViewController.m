@@ -423,10 +423,10 @@
     self.backgroundView = [[GLBBlurView alloc] initWithFrame:self.view.bounds];
     
     if(_contentViewController != nil) {
-        [self addChildViewController:_contentViewController];
         _contentViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
         _contentViewController.view.frame = self.view.bounds;
         [self.view addSubview:_contentViewController.view];
+        [self addChildViewController:_contentViewController];
         [_contentViewController didMoveToParentViewController:self];
         
         [self _updateConstraintContentView];

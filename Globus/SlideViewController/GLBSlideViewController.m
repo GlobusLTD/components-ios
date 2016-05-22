@@ -1249,10 +1249,10 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)_appearBackgroundViewController {
     _backgroundViewController.glb_slideViewController = self;
     
-    [self addChildViewController:_backgroundViewController];
     _backgroundViewController.view.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     _backgroundViewController.view.frame = _backgroundView.bounds;
     [_backgroundView addSubview:_backgroundViewController.view];
+    [self addChildViewController:_backgroundViewController];
     [_backgroundViewController didMoveToParentViewController:self];
 }
 
@@ -1267,10 +1267,10 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)_appearLeftViewController {
     _leftViewController.glb_slideViewController = self;
     
-    [self addChildViewController:_leftViewController];
     _leftViewController.view.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     _leftViewController.view.frame = _leftView.bounds;
     [_leftView addSubview:_leftViewController.view];
+    [self addChildViewController:_leftViewController];
     [_leftViewController didMoveToParentViewController:self];
 }
 
@@ -1285,10 +1285,10 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)_appearRightViewController {
     _rightViewController.glb_slideViewController = self;
     
-    [self addChildViewController:_rightViewController];
     _rightViewController.view.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     _rightViewController.view.frame = _rightView.bounds;
     [_rightView addSubview:_rightViewController.view];
+    [self addChildViewController:_rightViewController];
     [_rightViewController didMoveToParentViewController:self];
 }
 
@@ -1303,10 +1303,10 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)_appearCenterViewController {
     _centerViewController.glb_slideViewController = self;
     
-    [self addChildViewController:_centerViewController];
     _centerViewController.view.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     _centerViewController.view.frame = _centerView.bounds;
     [_centerView addSubview:_centerViewController.view];
+    [self addChildViewController:_centerViewController];
     [_centerViewController didMoveToParentViewController:self];
 }
 
