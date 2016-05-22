@@ -9,7 +9,8 @@
 typedef NS_ENUM(NSUInteger, GLBSlideViewControllerStyle) {
     GLBSlideViewControllerStyleStands,
     GLBSlideViewControllerStyleLeaves,
-    GLBSlideViewControllerStylePushes
+    GLBSlideViewControllerStylePushes,
+    GLBSlideViewControllerStyleStretch
 };
 
 /*--------------------------------------------------*/

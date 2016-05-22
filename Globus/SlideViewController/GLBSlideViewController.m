@@ -166,19 +166,21 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
     self.leftEdgeGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(_leftEdgeGestureHandle)];
     self.rightEdgeGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(_rightEdgeGestureHandle)];
     self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_panGestureHandle)];
-    self.backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
-    self.leftView = [[UIView alloc] initWithFrame:[self _leftViewFrameByPercent:0.0f]];
-    self.rightView = [[UIView alloc] initWithFrame:[self _rightViewFrameByPercent:0.0f]];
-    self.centerView = [[UIView alloc] initWithFrame:[self _centerViewFrameByPercent:0.0f]];
     
-    if(_tapGesture != nil) {
-        [self.view addGestureRecognizer:_tapGesture];
+    _backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _leftView = [[UIView alloc] initWithFrame:[self _leftViewFrameByPercent:0.0f]];
+    if(_leftView != nil) {
+        _leftView.alpha = [self _leftViewAlphaByPercent:0.0f];
+        _leftView.hidden = NO;
     }
-    if(_leftEdgeGesture != nil) {
-        [self.view addGestureRecognizer:_leftEdgeGesture];
+    _rightView = [[UIView alloc] initWithFrame:[self _rightViewFrameByPercent:0.0f]];
+    if(_rightView != nil) {
+        _rightView.alpha = [self _rightViewAlphaByPercent:0.0f];
+        _rightView.hidden = YES;
     }
-    if(_rightEdgeGesture != nil) {
-        [self.view addGestureRecognizer:_rightEdgeGesture];
+    _centerView = [[UIView alloc] initWithFrame:[self _centerViewFrameByPercent:0.0f]];
+    if(_centerView != nil) {
+        _centerView.alpha = [self _centerViewAlphaByPercent:0.0f];
     }
     [self.view glb_setSubviews:[self _orderedSubviews]];
 }
@@ -290,7 +292,6 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         _leftView = leftView;
         if(_leftView != nil) {
             _leftView.alpha = [self _leftViewAlphaByPercent:0.0f];
-            _leftView.hidden = NO;
         }
         if(self.isViewLoaded == YES) {
             [self.view glb_setSubviews:[self _orderedSubviews]];
@@ -306,7 +307,6 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         _rightView = rightView;
         if(_rightView != nil) {
             _rightView.alpha = [self _rightViewAlphaByPercent:0.0f];
-            _rightView.hidden = YES;
         }
         if(self.isViewLoaded == YES) {
             [self.view glb_setSubviews:[self _orderedSubviews]];
@@ -358,8 +358,10 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)setLeftViewControllerStyle:(GLBSlideViewControllerStyle)leftViewControllerStyle {
     if(_leftViewControllerStyle != leftViewControllerStyle) {
         _leftViewControllerStyle = leftViewControllerStyle;
-        if(self.isViewLoaded == YES) {
+        if(_leftView != nil) {
+            [self.view glb_setSubviews:[self _orderedSubviews]];
             [self _updateLeftView];
+
         }
     }
 }
@@ -367,7 +369,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)setLeftViewControllerWidth:(CGFloat)leftViewControllerWidth {
     if(_leftViewControllerWidth != leftViewControllerWidth) {
         _leftViewControllerWidth = leftViewControllerWidth;
-        if(self.isViewLoaded == YES) {
+        if(_leftView != nil) {
             [self _updateLeftView];
         }
     }
@@ -376,7 +378,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)setLeftViewControllerHideOffset:(CGFloat)leftViewControllerHideOffset {
     if(_leftViewControllerHideOffset != leftViewControllerHideOffset) {
         _leftViewControllerHideOffset = leftViewControllerHideOffset;
-        if(self.isViewLoaded == YES) {
+        if(_leftView != nil) {
             [self _updateLeftView];
         }
     }
@@ -385,7 +387,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)setLeftViewControllerShowOffset:(CGFloat)leftViewControllerShowOffset {
     if(_leftViewControllerShowOffset != leftViewControllerShowOffset) {
         _leftViewControllerShowOffset = leftViewControllerShowOffset;
-        if(self.isViewLoaded == YES) {
+        if(_leftView != nil) {
             [self _updateLeftView];
         }
     }
@@ -394,8 +396,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)setLeftViewControllerHideAlpha:(CGFloat)leftViewControllerHideAlpha {
     if(_leftViewControllerHideAlpha != leftViewControllerHideAlpha) {
         _leftViewControllerHideAlpha = leftViewControllerHideAlpha;
-        if(_showedLeftViewController == NO) {
-            _leftView.alpha = _leftViewControllerHideAlpha;
+        if(_leftView != nil) {
+            _leftView.alpha = [self _leftViewAlphaByPercent:_swipeProgress];
         }
     }
 }
@@ -403,8 +405,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)setLeftViewControllerShowAlpha:(CGFloat)leftViewControllerShowAlpha {
     if(_leftViewControllerShowAlpha != leftViewControllerShowAlpha) {
         _leftViewControllerShowAlpha = leftViewControllerShowAlpha;
-        if(_showedLeftViewController == YES) {
-            _leftView.alpha = _leftViewControllerShowAlpha;
+        if(_leftView != nil) {
+            _leftView.alpha = [self _leftViewAlphaByPercent:_swipeProgress];
         }
     }
 }
@@ -416,8 +418,10 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)setRightViewControllerStyle:(GLBSlideViewControllerStyle)rightViewControllerStyle {
     if(_rightViewControllerStyle != rightViewControllerStyle) {
         _rightViewControllerStyle = rightViewControllerStyle;
-        if(self.isViewLoaded == YES) {
+        if(_rightView != nil) {
+            [self.view glb_setSubviews:[self _orderedSubviews]];
             [self _updateRightView];
+
         }
     }
 }
@@ -425,7 +429,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)setRightViewControllerWidth:(CGFloat)rightViewControllerWidth {
     if(_rightViewControllerWidth != rightViewControllerWidth) {
         _rightViewControllerWidth = rightViewControllerWidth;
-        if(self.isViewLoaded == YES) {
+        if(_rightView != nil) {
             [self _updateRightView];
         }
     }
@@ -434,7 +438,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)setRightViewControllerHideOffset:(CGFloat)rightViewControllerHideOffset {
     if(_rightViewControllerHideOffset != rightViewControllerHideOffset) {
         _rightViewControllerHideOffset = rightViewControllerHideOffset;
-        if(self.isViewLoaded == YES) {
+        if(_rightView != nil) {
             [self _updateRightView];
         }
     }
@@ -443,7 +447,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)setRightViewControllerShowOffset:(CGFloat)rightViewControllerShowOffset {
     if(_rightViewControllerShowOffset != rightViewControllerShowOffset) {
         _rightViewControllerShowOffset = rightViewControllerShowOffset;
-        if(self.isViewLoaded == YES) {
+        if(_rightView != nil) {
             [self _updateRightView];
         }
     }
@@ -452,8 +456,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)setRightViewControllerHideAlpha:(CGFloat)rightViewControllerHideAlpha {
     if(_rightViewControllerHideAlpha != rightViewControllerHideAlpha) {
         _rightViewControllerHideAlpha = rightViewControllerHideAlpha;
-        if(_showedRightViewController == NO) {
-            _rightView.alpha = _rightViewControllerHideAlpha;
+        if(_rightView != nil) {
+            _rightView.alpha = [self _rightViewAlphaByPercent:_swipeProgress];
         }
     }
 }
@@ -461,8 +465,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)setRightViewControllerShowAlpha:(CGFloat)rightViewControllerShowAlpha {
     if(_rightViewControllerShowAlpha != rightViewControllerShowAlpha) {
         _rightViewControllerShowAlpha = rightViewControllerShowAlpha;
-        if(_showedRightViewController == YES) {
-            _rightView.alpha = _rightViewControllerShowAlpha;
+        if(_rightView != nil) {
+            _rightView.alpha = [self _rightViewAlphaByPercent:_swipeProgress];
         }
     }
 }
@@ -474,7 +478,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)setCenterViewControllerHideOffset:(CGFloat)centerViewControllerHideOffset {
     if(_centerViewControllerHideOffset != centerViewControllerHideOffset) {
         _centerViewControllerHideOffset = centerViewControllerHideOffset;
-        if(self.isViewLoaded == YES) {
+        if(_centerView != nil) {
             [self _updateCenterView];
         }
     }
@@ -483,7 +487,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)setCenterViewControllerShowOffset:(CGFloat)centerViewControllerShowOffset {
     if(_centerViewControllerShowOffset != centerViewControllerShowOffset) {
         _centerViewControllerShowOffset = centerViewControllerShowOffset;
-        if(self.isViewLoaded == YES) {
+        if(_centerView != nil) {
             [self _updateCenterView];
         }
     }
@@ -492,8 +496,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)setCenterViewControllerHideAlpha:(CGFloat)centerViewControllerHideAlpha {
     if(_centerViewControllerHideAlpha != centerViewControllerHideAlpha) {
         _centerViewControllerHideAlpha = centerViewControllerHideAlpha;
-        if((_showedLeftViewController == YES) || (_showedRightViewController == YES)) {
-            _centerView.alpha = _centerViewControllerHideAlpha;
+        if(_centerView != nil) {
+            _centerView.alpha = [self _centerViewAlphaByPercent:_swipeProgress];
         }
     }
 }
@@ -501,8 +505,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)setCenterViewControllerShowAlpha:(CGFloat)centerViewControllerShowAlpha {
     if(_centerViewControllerShowAlpha != centerViewControllerShowAlpha) {
         _centerViewControllerShowAlpha = centerViewControllerShowAlpha;
-        if((_showedLeftViewController == NO) && (_showedRightViewController == NO)) {
-            _centerView.alpha = _centerViewControllerShowAlpha;
+        if(_centerView != nil) {
+            _centerView.alpha = [self _centerViewAlphaByPercent:_swipeProgress];
         }
     }
 }
@@ -1097,6 +1101,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
     if(_leftView != nil) {
         switch(_leftViewControllerStyle) {
             case GLBSlideViewControllerStylePushes:
+            case GLBSlideViewControllerStyleStretch:
                 [result addObject:_leftView];
                 break;
             default:
@@ -1106,6 +1111,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
     if(_rightView != nil) {
         switch(_rightViewControllerStyle) {
             case GLBSlideViewControllerStylePushes:
+            case GLBSlideViewControllerStyleStretch:
                 [result addObject:_rightView];
                 break;
             default:
@@ -1161,15 +1167,17 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (CGRect)_leftViewFrameFromBounds:(CGRect)bounds byPercent:(CGFloat)percent {
     CGFloat p = -percent;
     switch(_leftViewControllerStyle) {
+        case GLBSlideViewControllerStyleStands:
+            bounds.size.width = _leftViewControllerWidth;
+            break;
         case GLBSlideViewControllerStyleLeaves:
         case GLBSlideViewControllerStylePushes:
+        case GLBSlideViewControllerStyleStretch:
             bounds.origin.x = GLBFloatLerp(bounds.origin.x - _leftViewControllerWidth, bounds.origin.x, p);
-            break;
-        default:
+            bounds.size.width = _leftViewControllerWidth;
             break;
     }
     bounds.origin.y = GLBFloatLerp(bounds.origin.y + _leftViewControllerHideOffset, bounds.origin.y + _leftViewControllerShowOffset, p);
-    bounds.size.width = _leftViewControllerWidth;
     return bounds;
 }
 
@@ -1187,14 +1195,16 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
     switch(_rightViewControllerStyle) {
         case GLBSlideViewControllerStyleStands:
             bounds.origin.x = bx - _rightViewControllerWidth;
+            bounds.size.width = _rightViewControllerWidth;
             break;
         case GLBSlideViewControllerStyleLeaves:
         case GLBSlideViewControllerStylePushes:
+        case GLBSlideViewControllerStyleStretch:
             bounds.origin.x = GLBFloatLerp(bx, bx - _rightViewControllerWidth, p);
+            bounds.size.width = _rightViewControllerWidth;
             break;
     }
     bounds.origin.y = GLBFloatLerp(bounds.origin.y + _rightViewControllerHideOffset, bounds.origin.y + _rightViewControllerShowOffset, p);
-    bounds.size.width = _rightViewControllerWidth;
     return bounds;
 }
 
@@ -1217,6 +1227,10 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                 break;
             case GLBSlideViewControllerStylePushes:
                 break;
+            case GLBSlideViewControllerStyleStretch:
+                bounds.origin.x = GLBFloatLerp(bounds.origin.x, bounds.origin.x + _leftViewControllerWidth, p);
+                bounds.size.width = GLBFloatLerp(bounds.size.width, bounds.size.width - _leftViewControllerWidth, p);
+                break;
         }
     } else if(percent > FLT_EPSILON) {
         p = percent;
@@ -1226,6 +1240,9 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                 bounds.origin.x = GLBFloatLerp(bounds.origin.x, bounds.origin.x - _rightViewControllerWidth, p);
                 break;
             case GLBSlideViewControllerStylePushes:
+                break;
+            case GLBSlideViewControllerStyleStretch:
+                bounds.size.width = GLBFloatLerp(bounds.size.width, bounds.size.width - _rightViewControllerWidth, p);
                 break;
         }
     }
@@ -1595,12 +1612,16 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
     if(gestureRecognizer == _tapGesture) {
         CGPoint location = [_tapGesture locationInView:self.view];
         if(_showedLeftViewController == YES) {
-            if((CGRectContainsPoint(_centerView.frame, location) == YES) && (CGRectContainsPoint(_leftView.frame, location) == NO)) {
-                return YES;
+            if(_leftViewControllerIteractionHideEnabled == YES) {
+                if((CGRectContainsPoint(_centerView.frame, location) == YES) && (CGRectContainsPoint(_leftView.frame, location) == NO)) {
+                    return YES;
+                }
             }
         } else if(_showedRightViewController == YES) {
-            if((CGRectContainsPoint(_centerView.frame, location) == YES) && (CGRectContainsPoint(_rightView.frame, location) == NO)) {
-                return YES;
+            if(_rightViewControllerIteractionHideEnabled == YES) {
+                if((CGRectContainsPoint(_centerView.frame, location) == YES) && (CGRectContainsPoint(_rightView.frame, location) == NO)) {
+                    return YES;
+                }
             }
         }
     } else if(gestureRecognizer == _leftEdgeGesture) {
@@ -1650,11 +1671,11 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
     } else if(gestureRecognizer == _panGesture) {
         CGPoint location = [_tapGesture locationInView:self.view];
         if(_showedLeftViewController == YES) {
-            if((CGRectContainsPoint(_centerView.frame, location) == YES) && (CGRectContainsPoint(_leftView.frame, location) == NO)) {
+            if(_leftViewControllerIteractionHideEnabled == YES) {
                 return YES;
             }
         } else if(_showedRightViewController == YES) {
-            if((CGRectContainsPoint(_centerView.frame, location) == YES) && (CGRectContainsPoint(_rightView.frame, location) == NO)) {
+            if(_rightViewControllerIteractionHideEnabled == YES) {
                 return YES;
             }
         }
