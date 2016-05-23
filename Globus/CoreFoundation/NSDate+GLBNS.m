@@ -145,14 +145,29 @@
     }
 }
 
++ (NSDate*)glb_dateWithUnixTimestamp:(NSUInteger)timestamp timeZone:(NSTimeZone*)timeZone {
+    NSInteger offset = 0;
+    if(timeZone != nil) {
+        offset = timeZone.secondsFromGMT - NSTimeZone.systemTimeZone.secondsFromGMT;
+    }
+    return [NSDate dateWithTimeIntervalSince1970:timestamp + offset];
+}
+
 + (NSDate*)glb_dateWithUnixTimestamp:(NSUInteger)timestamp {
-    return [NSDate dateWithTimeIntervalSince1970:timestamp];
+    return [self glb_dateWithUnixTimestamp:timestamp timeZone:nil];
+}
+
+- (NSUInteger)glb_unixTimestampToTimeZone:(NSTimeZone*)timeZone {
+    NSInteger offset = 0;
+    if(timeZone != nil) {
+        offset = timeZone.secondsFromGMT - NSTimeZone.systemTimeZone.secondsFromGMT;
+    }
+    return (NSUInteger)self.timeIntervalSince1970 + offset;
 }
 
 - (NSUInteger)glb_unixTimestamp {
-    return (NSUInteger)self.timeIntervalSince1970;
+    return [self glb_unixTimestampToTimeZone:nil];
 }
-
 
 - (NSDate*)glb_extractCalendarUnit:(NSCalendarUnit)calendarUnit {
     return [NSCalendar.currentCalendar dateFromComponents:[NSCalendar.currentCalendar components:calendarUnit fromDate:self]];

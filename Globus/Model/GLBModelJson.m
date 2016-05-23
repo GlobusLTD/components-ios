@@ -12,6 +12,7 @@
 #import "NSString+GLBNS.h"
 #import "NSArray+GLBNS.h"
 #import "NSDictionary+GLBNS.h"
+#import "NSDate+GLBNS.h"
 
 /*--------------------------------------------------*/
 
@@ -820,7 +821,7 @@
             }
         }
     } else if([value isKindOfClass:NSNumber.class] == YES) {
-        result = [NSDate dateWithTimeIntervalSince1970:[value longValue]];
+        result = [NSDate glb_dateWithUnixTimestamp:[value longValue] timeZone:(_timeZone != nil) ? _timeZone : NSTimeZone.localTimeZone];
     }
     if(result != nil) {
         return result;
