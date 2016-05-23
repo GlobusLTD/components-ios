@@ -147,6 +147,10 @@ static GLBDeviceModel GLB_DeviceModel = GLBDeviceModelUnknown;
                 @"4,9": @(GLBDeviceModelPadMini3),
                 @"5,3": @(GLBDeviceModelPadAir2),
                 @"5,4": @(GLBDeviceModelPadAir2),
+                @"6,3": @(GLBDeviceModelPadPro97),
+                @"6,4": @(GLBDeviceModelPadPro97),
+                @"6,7": @(GLBDeviceModelPadPro129),
+                @"6,8": @(GLBDeviceModelPadPro129),
             },
             @(GLBDeviceFamilyPod): @{
                 @"1,1": @(GLBDeviceModelPod1),
@@ -187,9 +191,12 @@ static GLBDeviceModel GLB_DeviceModel = GLBDeviceModelUnknown;
                 }
                 break;
             case UIUserInterfaceIdiomPad:
-                if((screenWidth >= 1024) && (screenHeight >= 768)) {
+                if((screenWidth >= 1366) && (screenHeight >= 1024)) {
+                    displayType = GLBDeviceDisplayPadPro;
+                } else if((screenWidth >= 1024) && (screenHeight >= 768)) {
                     displayType = GLBDeviceDisplayPad;
                 }
+
                 break;
             default: break;
         }
