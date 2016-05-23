@@ -375,6 +375,20 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
     }
 }
 
+- (void)setLeftViewControllerIteractionShowEnabled:(BOOL)leftViewControllerIteractionShowEnabled {
+    if(_leftViewControllerIteractionShowEnabled != leftViewControllerIteractionShowEnabled) {
+        _leftViewControllerIteractionShowEnabled = leftViewControllerIteractionShowEnabled;
+        [self _updateIteraction];
+    }
+}
+
+- (void)setLeftViewControllerIteractionHideEnabled:(BOOL)leftViewControllerIteractionHideEnabled {
+    if(_leftViewControllerIteractionHideEnabled != leftViewControllerIteractionHideEnabled) {
+        _leftViewControllerIteractionHideEnabled = leftViewControllerIteractionHideEnabled;
+        [self _updateIteraction];
+    }
+}
+
 - (void)setLeftViewControllerHideOffset:(CGFloat)leftViewControllerHideOffset {
     if(_leftViewControllerHideOffset != leftViewControllerHideOffset) {
         _leftViewControllerHideOffset = leftViewControllerHideOffset;
@@ -432,6 +446,20 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         if(_rightView != nil) {
             [self _updateRightView];
         }
+    }
+}
+
+- (void)setRightViewControllerIteractionShowEnabled:(BOOL)rightViewControllerIteractionShowEnabled {
+    if(_rightViewControllerIteractionShowEnabled != rightViewControllerIteractionShowEnabled) {
+        _rightViewControllerIteractionShowEnabled = rightViewControllerIteractionShowEnabled;
+        [self _updateIteraction];
+    }
+}
+
+- (void)setRightViewControllerIteractionHideEnabled:(BOOL)rightViewControllerIteractionHideEnabled {
+    if(_rightViewControllerIteractionHideEnabled != rightViewControllerIteractionHideEnabled) {
+        _rightViewControllerIteractionHideEnabled = rightViewControllerIteractionHideEnabled;
+        [self _updateIteraction];
     }
 }
 
@@ -682,7 +710,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                         }
                     } completion:^(BOOL finished) {
                         _leftView.userInteractionEnabled = YES;
-                        _centerView.userInteractionEnabled = NO;
+                        _centerView.userInteractionEnabled = !_leftViewControllerIteractionShowEnabled;
                         if([centerViewController respondsToSelector:@selector(didShowLeftViewControllerInSlideViewController:)] == YES) {
                             [centerViewController didShowLeftViewControllerInSlideViewController:self];
                         }
@@ -704,7 +732,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                         }
                     } completion:^(BOOL finished) {
                         _leftView.userInteractionEnabled = YES;
-                        _centerView.userInteractionEnabled = NO;
+                        _centerView.userInteractionEnabled = !_leftViewControllerIteractionShowEnabled;
                         if([centerViewController respondsToSelector:@selector(didShowLeftViewControllerInSlideViewController:)] == YES) {
                             [centerViewController didShowLeftViewControllerInSlideViewController:self];
                         }
@@ -728,7 +756,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                 _leftView.userInteractionEnabled = YES;
                 _centerView.frame = centerFrame;
                 _centerView.alpha = centerAlpha;
-                _centerView.userInteractionEnabled = NO;
+                _centerView.userInteractionEnabled = !_leftViewControllerIteractionShowEnabled;
                 if(_draggingStatusBar == YES) {
                     [self _updateStatusBarFrame];
                 }
@@ -899,7 +927,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                         }
                     } completion:^(BOOL finished) {
                         _rightView.userInteractionEnabled = YES;
-                        _centerView.userInteractionEnabled = NO;
+                        _centerView.userInteractionEnabled = !_rightViewControllerIteractionShowEnabled;
                         if([centerViewController respondsToSelector:@selector(didShowRightViewControllerInSlideViewController:)] == YES) {
                             [centerViewController didShowRightViewControllerInSlideViewController:self];
                         }
@@ -921,7 +949,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                         }
                     } completion:^(BOOL finished) {
                         _rightView.userInteractionEnabled = YES;
-                        _centerView.userInteractionEnabled = NO;
+                        _centerView.userInteractionEnabled = !_rightViewControllerIteractionShowEnabled;
                         if([centerViewController respondsToSelector:@selector(didShowRightViewControllerInSlideViewController:)] == YES) {
                             [centerViewController didShowRightViewControllerInSlideViewController:self];
                         }
@@ -945,7 +973,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                 _rightView.userInteractionEnabled = YES;
                 _centerView.frame = centerFrame;
                 _centerView.alpha = centerAlpha;
-                _centerView.userInteractionEnabled = NO;
+                _centerView.userInteractionEnabled = !_rightViewControllerIteractionShowEnabled;
                 if(_draggingStatusBar == YES) {
                     [self _updateStatusBarFrame];
                 }
@@ -1141,6 +1169,22 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
     _leftView.frame = [self _leftViewFrameFromBounds:bounds byPercent:_swipeProgress];
     _centerView.frame = [self _centerViewFrameFromBounds:bounds byPercent:_swipeProgress];
     _rightView.frame = [self _rightViewFrameFromBounds:bounds byPercent:_swipeProgress];
+}
+
+- (void)_updateIteraction {
+    if(_showedLeftViewController == YES) {
+        _leftView.userInteractionEnabled = YES;
+        _rightView.userInteractionEnabled = NO;
+        _centerView.userInteractionEnabled = !_leftViewControllerIteractionShowEnabled;
+    } else if(_showedRightViewController == YES) {
+        _leftView.userInteractionEnabled = NO;
+        _rightView.userInteractionEnabled = YES;
+        _centerView.userInteractionEnabled = !_rightViewControllerIteractionShowEnabled;
+    } else {
+        _leftView.userInteractionEnabled = NO;
+        _rightView.userInteractionEnabled = NO;
+        _centerView.userInteractionEnabled = YES;
+    }
 }
 
 - (void)_takeScreenshotView {
@@ -1479,9 +1523,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
     _showedRightViewController = (_swipeProgress > 0.0f) ? YES : NO;
     _leftView.hidden = (_showedLeftViewController == NO);
     _rightView.hidden = (_showedRightViewController == NO);
-    _leftView.userInteractionEnabled = (_showedLeftViewController == YES);
-    _centerView.userInteractionEnabled = ((_showedLeftViewController == NO) && (_showedRightViewController == NO));
-    _rightView.userInteractionEnabled = (_showedRightViewController == YES);
+    [self _updateIteraction];
     _swipeDecelerating = NO;
     if((_showedLeftViewController == NO) && (_showedRightViewController == NO)) {
         self.screenshotView = nil;
@@ -1669,7 +1711,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             return allowPan;
         }
     } else if(gestureRecognizer == _panGesture) {
-        CGPoint location = [_tapGesture locationInView:self.view];
+        CGPoint location = [_panGesture locationInView:self.view];
         if(_showedLeftViewController == YES) {
             if(_leftViewControllerIteractionHideEnabled == YES) {
                 return YES;
