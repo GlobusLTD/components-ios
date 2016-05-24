@@ -103,13 +103,13 @@
     
     UIInterfaceOrientation currectOrientation = UIApplication.sharedApplication.statusBarOrientation;
     if((_orientation & currectOrientation) == 0) {
-        if((_orientation & UIInterfaceOrientationPortrait) == 0) {
+        if((_orientation & UIInterfaceOrientationPortrait) != 0) {
             [UIDevice glb_setOrientation:UIInterfaceOrientationPortrait];
-        } else if((_orientation & UIInterfaceOrientationPortraitUpsideDown) == 0) {
+        } else if((_orientation & UIInterfaceOrientationPortraitUpsideDown) != 0) {
             [UIDevice glb_setOrientation:UIInterfaceOrientationPortraitUpsideDown];
-        } else if((_orientation & UIInterfaceOrientationLandscapeLeft) == 0) {
+        } else if((_orientation & UIInterfaceOrientationLandscapeLeft) != 0) {
             [UIDevice glb_setOrientation:UIInterfaceOrientationLandscapeLeft];
-        } else if((_orientation & UIInterfaceOrientationLandscapeRight) == 0) {
+        } else if((_orientation & UIInterfaceOrientationLandscapeRight) != 0) {
             [UIDevice glb_setOrientation:UIInterfaceOrientationLandscapeRight];
         }
     }
