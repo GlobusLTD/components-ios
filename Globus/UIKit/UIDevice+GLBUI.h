@@ -67,6 +67,8 @@ typedef NS_ENUM(NSInteger, GLBDeviceDisplay) {
 + (BOOL)glb_isIPhone;
 + (BOOL)glb_isIPad;
 
++ (void)glb_setOrientation:(UIInterfaceOrientation)orientation;
+
 + (NSString* _Nullable)glb_deviceTypeString;
 + (NSString* _Nullable)glb_deviceVersionString;
 

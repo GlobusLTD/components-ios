@@ -43,6 +43,10 @@ static GLBDeviceModel GLB_DeviceModel = GLBDeviceModelUnknown;
     return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
 }
 
++ (void)glb_setOrientation:(UIInterfaceOrientation)orientation {
+    [UIDevice.currentDevice setValue:@(orientation) forKey:@"orientation"];
+}
+
 + (NSString*)glb_deviceTypeString {
     if(GLB_DeviceTypeString == nil) {
         struct utsname systemInfo;
