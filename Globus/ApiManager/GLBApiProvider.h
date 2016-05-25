@@ -17,7 +17,7 @@ typedef void (^GLBApiProviderCompleteBlock)(_Nonnull id request, _Nonnull id res
 
 @interface GLBApiProvider : NSObject
 
-@property(nonatomic, weak, nullable) GLBApiManager* manager;
+@property(nonatomic, nullable, weak) GLBApiManager* manager;
 
 @property(nonatomic, readonly, nonnull, copy) NSString* name;
 @property(nonatomic, nullable, copy) NSURL* url;

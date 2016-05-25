@@ -38,9 +38,9 @@
 
 @interface GLBManagedManager ()
 
-@property(nonatomic, readonly, strong, nullable) NSURL* containerUrl;
-@property(nonatomic, strong, nullable) NSURL* existStoreUrl;
-@property(nonatomic, readonly, strong, nullable) NSURL* storeUrl;
+@property(nonatomic, readonly, nullable, strong) NSURL* containerUrl;
+@property(nonatomic, nullable, strong) NSURL* existStoreUrl;
+@property(nonatomic, readonly, nullable, strong) NSURL* storeUrl;
 
 @end
 

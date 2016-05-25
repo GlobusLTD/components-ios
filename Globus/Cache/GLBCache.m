@@ -118,15 +118,15 @@
 - (instancetype)initWithName:(NSString*)name memoryCapacity:(NSUInteger)memoryCapacity memoryStorageInterval:(NSTimeInterval)memoryStorageInterval discCapacity:(NSUInteger)discCapacity discStorageInterval:(NSTimeInterval)discStorageInterval {
     self = [super init];
     if(self != nil) {
-        self.name = name;
-        self.fileName = [[[_name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] lowercaseString] glb_stringByMD5];
-        self.filePath = [NSFileManager.glb_cachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", _fileName, GLB_CACHE_EXTENSION]];
-        self.memoryCapacity = (memoryCapacity > discCapacity) ? discCapacity : memoryCapacity;
-        self.memoryStorageInterval = (memoryStorageInterval > discStorageInterval) ? discStorageInterval : memoryStorageInterval;
-        self.discCapacity = (discCapacity > memoryCapacity) ? discCapacity : memoryCapacity;
-        self.discStorageInterval = (discStorageInterval > memoryStorageInterval) ? discStorageInterval : memoryStorageInterval;
-        self.timer = [GLBTimer timerWithInterval:MIN(_memoryStorageInterval, _discStorageInterval) repeat:NSNotFound];
-        self.items = NSMutableArray.array;
+        _name = name;
+        _fileName = [[[_name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] lowercaseString] glb_stringByMD5];
+        _filePath = [NSFileManager.glb_cachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", _fileName, GLB_CACHE_EXTENSION]];
+        _memoryCapacity = (memoryCapacity > discCapacity) ? discCapacity : memoryCapacity;
+        _memoryStorageInterval = (memoryStorageInterval > discStorageInterval) ? discStorageInterval : memoryStorageInterval;
+        _discCapacity = (discCapacity > memoryCapacity) ? discCapacity : memoryCapacity;
+        _discStorageInterval = (discStorageInterval > memoryStorageInterval) ? discStorageInterval : memoryStorageInterval;
+        _timer = [GLBTimer timerWithInterval:MIN(_memoryStorageInterval, _discStorageInterval) repeat:NSNotFound];
+        _items = NSMutableArray.array;
         if([NSFileManager.defaultManager fileExistsAtPath:_filePath] == YES) {
             id items = [NSKeyedUnarchiver unarchiveObjectWithFile:_filePath];
             if([items isKindOfClass:NSArray.class] == YES) {
@@ -137,25 +137,24 @@
             item.cache = self;
         }
         [self _removeObsoleteItems];
-        
-#if defined(GLB_TARGET_IOS)
-        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_notificationReceiveMemoryWarning:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-#endif
-        
         [self setup];
     }
     return self;
 }
 
 - (void)setup {
+#if defined(GLB_TARGET_IOS)
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_notificationReceiveMemoryWarning:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+#endif
+
+    if(_timer != nil) {
+        _timer.actionRepeat = [GLBAction actionWithTarget:self action:@selector(timerDidRepeat:)];
+        [_timer start];
+    }
 }
 
 - (void)dealloc {
     [NSNotificationCenter.defaultCenter removeObserver:self];
-    
-    self.name = nil;
-    self.timer = nil;
-    self.items = nil;
 }
 
 #pragma mark - Property
@@ -176,19 +175,6 @@
         _discCapacity = discCapacity;
         if(needRemoveObsoleteItems == YES) {
             [self _removeObsoleteItems];
-        }
-    }
-}
-
-- (void)setTimer:(GLBTimer*)timer {
-    if(_timer != timer) {
-        if(_timer != nil) {
-            [timer stop];
-        }
-        _timer = timer;
-        if(_timer != nil) {
-            _timer.actionRepeat = [GLBAction actionWithTarget:self action:@selector(timerDidRepeat:)];
-            [_timer start];
         }
     }
 }

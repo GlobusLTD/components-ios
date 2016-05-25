@@ -10,7 +10,7 @@ typedef _Nullable id (^GLBModelJsonUndefinedBehaviour)(_Nullable id modelJson, _
 
 @interface GLBModelJson : NSObject
 
-@property(nonatomic, readonly, strong, nullable) NSString* path;
+@property(nonatomic, readonly, nullable, strong) NSString* path;
 
 - (_Nullable instancetype)initWithPath:(NSString* _Nullable)path;
 - (_Nullable instancetype)initWithUndefinedBehaviour:(_Nullable GLBModelJsonUndefinedBehaviour)undefinedBehaviour;
@@ -28,7 +28,7 @@ typedef _Nullable id (^GLBModelJsonUndefinedBehaviour)(_Nullable id modelJson, _
 
 @interface GLBModelJsonSet : GLBModelJson
 
-@property(nonatomic, readonly, strong, nullable) GLBModelJson* jsonConverter;
+@property(nonatomic, readonly, nullable, strong) GLBModelJson* jsonConverter;
 
 - (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass;
 - (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass undefinedBehaviour:(_Nullable GLBModelJsonUndefinedBehaviour)undefinedBehaviour;
@@ -45,7 +45,7 @@ typedef _Nullable id (^GLBModelJsonUndefinedBehaviour)(_Nullable id modelJson, _
 
 @interface GLBModelJsonOrderedSet : GLBModelJson
 
-@property(nonatomic, readonly, strong, nullable) GLBModelJson* jsonConverter;
+@property(nonatomic, readonly, nullable, strong) GLBModelJson* jsonConverter;
 
 - (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass;
 - (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass undefinedBehaviour:(_Nullable GLBModelJsonUndefinedBehaviour)undefinedBehaviour;
@@ -62,7 +62,7 @@ typedef _Nullable id (^GLBModelJsonUndefinedBehaviour)(_Nullable id modelJson, _
 
 @interface GLBModelJsonArray : GLBModelJson
 
-@property(nonatomic, readonly, strong, nullable) GLBModelJson* jsonConverter;
+@property(nonatomic, readonly, nullable, strong) GLBModelJson* jsonConverter;
 
 - (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass;
 - (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass undefinedBehaviour:(_Nullable GLBModelJsonUndefinedBehaviour)undefinedBehaviour;
@@ -79,8 +79,8 @@ typedef _Nullable id (^GLBModelJsonUndefinedBehaviour)(_Nullable id modelJson, _
 
 @interface GLBModelJsonDictionary : GLBModelJson
 
-@property(nonatomic, readonly, strong, nullable) GLBModelJson* keyJsonConverter;
-@property(nonatomic, readonly, strong, nullable) GLBModelJson* valueJsonConverter;
+@property(nonatomic, readonly, nullable, strong) GLBModelJson* keyJsonConverter;
+@property(nonatomic, readonly, nullable, strong) GLBModelJson* valueJsonConverter;
 
 - (_Nullable instancetype)initWithValueModelClass:(_Nullable Class)valueModelClass;
 - (_Nullable instancetype)initWithValueModelClass:(_Nullable Class)valueModelClass undefinedBehaviour:(_Nullable GLBModelJsonUndefinedBehaviour)undefinedBehaviour;
@@ -116,7 +116,7 @@ typedef _Nullable id (^GLBModelJsonUndefinedBehaviour)(_Nullable id modelJson, _
 
 @interface GLBModelJsonString : GLBModelJson
 
-@property(nonatomic, readonly, strong, nullable) NSString* defaultValue;
+@property(nonatomic, readonly, nullable, strong) NSString* defaultValue;
 
 - (_Nullable instancetype)initWithPath:(NSString* _Nullable)path defaultValue:(NSString* _Nullable)defaultValue;
 - (_Nullable instancetype)initWithPath:(NSString* _Nullable)path defaultValue:(NSString* _Nullable)defaultValue undefinedBehaviour:(_Nullable GLBModelJsonUndefinedBehaviour)undefinedBehaviour;
@@ -127,7 +127,7 @@ typedef _Nullable id (^GLBModelJsonUndefinedBehaviour)(_Nullable id modelJson, _
 
 @interface GLBModelJsonUrl : GLBModelJson
 
-@property(nonatomic, readonly, strong, nullable) NSURL* defaultValue;
+@property(nonatomic, readonly, nullable, strong) NSURL* defaultValue;
 
 - (_Nullable instancetype)initWithPath:(NSString* _Nullable)path defaultValue:(NSURL* _Nullable)defaultValue;
 - (_Nullable instancetype)initWithPath:(NSString* _Nullable)path defaultValue:(NSURL* _Nullable)defaultValue undefinedBehaviour:(_Nullable GLBModelJsonUndefinedBehaviour)undefinedBehaviour;
@@ -138,7 +138,7 @@ typedef _Nullable id (^GLBModelJsonUndefinedBehaviour)(_Nullable id modelJson, _
 
 @interface GLBModelJsonNumber : GLBModelJson
 
-@property(nonatomic, readonly, strong, nullable) NSNumber* defaultValue;
+@property(nonatomic, readonly, nullable, strong) NSNumber* defaultValue;
 
 - (_Nullable instancetype)initWithPath:(NSString* _Nullable)path defaultValue:(NSNumber* _Nullable)defaultValue;
 - (_Nullable instancetype)initWithPath:(NSString* _Nullable)path defaultValue:(NSNumber* _Nullable)defaultValue undefinedBehaviour:(_Nullable GLBModelJsonUndefinedBehaviour)undefinedBehaviour;
@@ -149,9 +149,9 @@ typedef _Nullable id (^GLBModelJsonUndefinedBehaviour)(_Nullable id modelJson, _
 
 @interface GLBModelJsonDate : GLBModelJson
 
-@property(nonatomic, readonly, strong, nullable) NSDate* defaultValue;
-@property(nonatomic, readonly, strong, nullable) NSArray* formats;
-@property(nonatomic, readonly, strong, nullable) NSTimeZone* timeZone;
+@property(nonatomic, readonly, nullable, strong) NSDate* defaultValue;
+@property(nonatomic, readonly, nullable, strong) NSArray* formats;
+@property(nonatomic, readonly, nullable, strong) NSTimeZone* timeZone;
 
 - (_Nullable instancetype)initWithPath:(NSString* _Nullable)path defaultValue:(NSDate* _Nullable)defaultValue;
 - (_Nullable instancetype)initWithPath:(NSString* _Nullable)path timeZone:(NSTimeZone* _Nullable)timeZone defaultValue:(NSDate* _Nullable)defaultValue;
@@ -196,8 +196,8 @@ typedef _Nullable id (^GLBModelJsonUndefinedBehaviour)(_Nullable id modelJson, _
 
 @interface GLBModelJsonEnum : GLBModelJson
 
-@property(nonatomic, readonly, strong, nullable) NSNumber* defaultValue;
-@property(nonatomic, readonly, strong, nullable) NSDictionary* enums;
+@property(nonatomic, readonly, nullable, strong) NSNumber* defaultValue;
+@property(nonatomic, readonly, nullable, strong) NSDictionary* enums;
 
 - (_Nullable instancetype)initWithEnums:(NSDictionary* _Nullable)enums;
 - (_Nullable instancetype)initWithEnums:(NSDictionary* _Nullable)enums undefinedBehaviour:(_Nullable GLBModelJsonUndefinedBehaviour)undefinedBehaviour;
@@ -218,7 +218,7 @@ typedef _Nullable id (^GLBModelJsonUndefinedBehaviour)(_Nullable id modelJson, _
 
 @interface GLBModelJsonLocation : GLBModelJson
 
-@property(nonatomic, readonly, strong, nullable) CLLocation* defaultValue;
+@property(nonatomic, readonly, nullable, strong) CLLocation* defaultValue;
 
 - (_Nullable instancetype)initWithPath:(NSString* _Nullable)path defaultValue:(CLLocation* _Nullable)defaultValue;
 - (_Nullable instancetype)initWithPath:(NSString* _Nullable)path defaultValue:(CLLocation* _Nullable)defaultValue undefinedBehaviour:(_Nullable GLBModelJsonUndefinedBehaviour)undefinedBehaviour;

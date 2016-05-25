@@ -47,10 +47,10 @@ typedef void (^GLBModelBlock)();
 
 @interface GLBModel : NSObject < GLBModel, NSCoding, NSCopying >
 
-@property(nonatomic, strong, nullable) NSString* userDefaultsKey;
-@property(nonatomic, strong, nullable) NSUserDefaults* userDefaults;
-@property(nonatomic, strong, nullable) NSString* fileName;
-@property(nonatomic, readonly, strong, nullable) NSString* filePath;
+@property(nonatomic, nullable, strong) NSString* userDefaultsKey;
+@property(nonatomic, nullable, strong) NSUserDefaults* userDefaults;
+@property(nonatomic, nullable, strong) NSString* fileName;
+@property(nonatomic, readonly, nullable, strong) NSString* filePath;
 
 + (_Nullable instancetype)modelWithUserDefaultsKey:(NSString* _Nullable)userDefaultsKey;
 + (_Nullable instancetype)modelWithUserDefaultsKey:(NSString* _Nullable)userDefaultsKey userDefaults:(NSUserDefaults* _Nullable)userDefaults;
@@ -106,18 +106,18 @@ typedef void(^GLBManagedManagerPerform)();
 
 @interface GLBManagedManager : NSObject
 
-@property(nonatomic, weak, nullable) id< GLBManagedManagerDelegate > delegate;
-@property(nonatomic, readonly, strong, nullable) NSManagedObjectContext* storeContext;
-@property(nonatomic, readonly, strong, nullable) NSManagedObjectContext* mainContext;
-@property(nonatomic, readonly, strong, nullable) NSManagedObjectContext* backgroundContext;
-@property(nonatomic, readonly, strong, nullable) NSManagedObjectContext* currentContext;
-@property(nonatomic, readonly, strong, nullable) NSManagedObjectModel* model;
-@property(nonatomic, readonly, strong, nullable) NSPersistentStoreCoordinator* coordinator;
+@property(nonatomic, nullable, weak) id< GLBManagedManagerDelegate > delegate;
+@property(nonatomic, readonly, nullable, strong) NSManagedObjectContext* storeContext;
+@property(nonatomic, readonly, nullable, strong) NSManagedObjectContext* mainContext;
+@property(nonatomic, readonly, nullable, strong) NSManagedObjectContext* backgroundContext;
+@property(nonatomic, readonly, nullable, strong) NSManagedObjectContext* currentContext;
+@property(nonatomic, readonly, nullable, strong) NSManagedObjectModel* model;
+@property(nonatomic, readonly, nullable, strong) NSPersistentStoreCoordinator* coordinator;
 @property(nonatomic) BOOL allowsCreateStoreDatabase;
-@property(nonatomic, strong, nullable) NSString* modelAppGroupName;
-@property(nonatomic, strong, nullable) NSString* modelLocalPath;
-@property(nonatomic, strong, nullable) NSString* modelName;
-@property(nonatomic, strong, nullable) NSString* modelExtension;
+@property(nonatomic, nullable, strong) NSString* modelAppGroupName;
+@property(nonatomic, nullable, strong) NSString* modelLocalPath;
+@property(nonatomic, nullable, strong) NSString* modelName;
+@property(nonatomic, nullable, strong) NSString* modelExtension;
 
 + (_Nullable instancetype)shared;
 

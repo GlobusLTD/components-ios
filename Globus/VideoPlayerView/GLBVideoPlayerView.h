@@ -47,6 +47,8 @@ typedef NS_ENUM(NSInteger, GLBVideoPlayerViewDisplayMode) {
 @property(nonatomic, strong) GLBAction* actionUpdateBuffer;
 @property(nonatomic, strong) GLBAction* actionUpdateRate;
 
+- (void)setup NS_REQUIRES_SUPER;
+
 - (void)prepareWithURL:(NSURL*)url;
 - (void)clean;
 

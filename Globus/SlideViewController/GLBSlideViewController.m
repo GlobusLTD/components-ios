@@ -1711,7 +1711,6 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             return allowPan;
         }
     } else if(gestureRecognizer == _panGesture) {
-        CGPoint location = [_panGesture locationInView:self.view];
         if(_showedLeftViewController == YES) {
             if(_leftViewControllerIteractionHideEnabled == YES) {
                 return YES;

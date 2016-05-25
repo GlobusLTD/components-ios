@@ -15,7 +15,7 @@
 
 @interface GLBModelPackSet : GLBModelPack
 
-@property(nonatomic, readonly, strong, nullable) GLBModelPack* converter;
+@property(nonatomic, readonly, nullable, strong) GLBModelPack* converter;
 
 - (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass;
 - (_Nullable instancetype)initWithConverter:(GLBModelPack* _Nullable)converter;
@@ -26,7 +26,7 @@
 
 @interface GLBModelPackOrderedSet : GLBModelPack
 
-@property(nonatomic, readonly, strong, nullable) GLBModelPack* converter;
+@property(nonatomic, readonly, nullable, strong) GLBModelPack* converter;
 
 - (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass;
 - (_Nullable instancetype)initWithConverter:(GLBModelPack* _Nullable)converter;
@@ -37,7 +37,7 @@
 
 @interface GLBModelPackArray : GLBModelPack
 
-@property(nonatomic, readonly, strong, nullable) GLBModelPack* converter;
+@property(nonatomic, readonly, nullable, strong) GLBModelPack* converter;
 
 - (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass;
 - (_Nullable instancetype)initWithConverter:(GLBModelPack* _Nullable)converter;
@@ -48,8 +48,8 @@
 
 @interface GLBModelPackDictionary : GLBModelPack
 
-@property(nonatomic, readonly, strong, nullable) GLBModelPack* keyConverter;
-@property(nonatomic, readonly, strong, nullable) GLBModelPack* valueConverter;
+@property(nonatomic, readonly, nullable, strong) GLBModelPack* keyConverter;
+@property(nonatomic, readonly, nullable, strong) GLBModelPack* valueConverter;
 
 - (_Nullable instancetype)initWithValueModelClass:(_Nullable Class)valueModelClass;
 - (_Nullable instancetype)initWithValueConverter:(GLBModelPack* _Nullable)valueConverter;
@@ -72,7 +72,7 @@
 
 @interface GLBModelPackString : GLBModelPack
 
-@property(nonatomic, readonly, strong, nullable) NSString* defaultValue;
+@property(nonatomic, readonly, nullable, strong) NSString* defaultValue;
 
 - (_Nullable instancetype)initWithDefaultValue:(NSString* _Nullable)defaultValue;
 
@@ -82,7 +82,7 @@
 
 @interface GLBModelPackUrl : GLBModelPack
 
-@property(nonatomic, readonly, strong, nullable) NSURL* defaultValue;
+@property(nonatomic, readonly, nullable, strong) NSURL* defaultValue;
 
 - (_Nullable instancetype)initWithDefaultValue:(NSURL* _Nullable)defaultValue;
 
@@ -92,7 +92,7 @@
 
 @interface GLBModelPackNumber : GLBModelPack
 
-@property(nonatomic, readonly, strong, nullable) NSNumber* defaultValue;
+@property(nonatomic, readonly, nullable, strong) NSNumber* defaultValue;
 
 - (_Nullable instancetype)initWithDefaultValue:(NSNumber* _Nullable)defaultValue;
 
@@ -102,7 +102,7 @@
 
 @interface GLBModelPackDate : GLBModelPack
 
-@property(nonatomic, readonly, strong, nullable) NSDate* defaultValue;
+@property(nonatomic, readonly, nullable, strong) NSDate* defaultValue;
 
 - (_Nullable instancetype)initWithDefaultValue:(NSDate* _Nullable)defaultValue;
 

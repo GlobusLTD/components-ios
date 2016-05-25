@@ -12,7 +12,7 @@
 
 @interface GLBApiRequest : NSObject
 
-@property(nonatomic, readonly, strong, nullable) __kindof GLBApiProvider* provider;
+@property(nonatomic, readonly, nullable, strong) __kindof GLBApiProvider* provider;
 
 @property(nonatomic, nullable, copy) NSString* url;
 @property(nonatomic, nullable, copy) NSDictionary* urlParams;
@@ -29,10 +29,10 @@
 @property(nonatomic) NSTimeInterval retries;
 @property(nonatomic) NSTimeInterval delay;
 
-@property(nonatomic, readonly, strong, nullable) NSProgress* uploadProgress;
-@property(nonatomic, readonly, strong, nullable) NSProgress* downloadProgress;
+@property(nonatomic, readonly, nullable, strong) NSProgress* uploadProgress;
+@property(nonatomic, readonly, nullable, strong) NSProgress* downloadProgress;
 
-@property(nonatomic, readonly, strong, nullable) NSURLRequest* urlRequest;
+@property(nonatomic, readonly, nullable, strong) NSURLRequest* urlRequest;
 
 - (void)resume;
 - (void)suspend;
@@ -50,7 +50,7 @@
 @property(nonatomic, readonly, nonnull, copy) NSString* filename;
 @property(nonatomic, readonly, nonnull, copy) NSString* mimetype;
 @property(nonatomic, readonly, nullable, copy) NSString* localFilePath;
-@property(nonatomic, readonly, strong, nullable) NSData* data;
+@property(nonatomic, readonly, nullable, strong) NSData* data;
 
 - (instancetype _Nullable)initWithName:(NSString* _Nonnull)name
                               filename:(NSString* _Nonnull)filename

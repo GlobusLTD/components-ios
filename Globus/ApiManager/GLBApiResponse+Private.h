@@ -6,8 +6,8 @@
 
 @interface GLBApiResponse ()
 
-@property(nonatomic, strong, nullable) NSURLResponse* urlResponse;
-@property(nonatomic, readonly, strong, nullable) NSMutableData* mutableData;
+@property(nonatomic, nullable, strong) NSURLResponse* urlResponse;
+@property(nonatomic, readonly, nullable, strong) NSMutableData* mutableData;
 
 + (instancetype _Nullable)responseWithRequest:(GLBApiRequest* _Nonnull)request;
 

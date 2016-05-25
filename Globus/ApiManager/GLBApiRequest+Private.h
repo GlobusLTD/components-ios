@@ -6,9 +6,9 @@
 
 @interface GLBApiRequest ()
 
-@property(nonatomic, strong, nullable) GLBApiProvider* provider;
-@property(nonatomic, strong, nullable) NSURLSessionTask* task;
-@property(nonatomic, readonly, strong, nullable) GLBApiResponse* response;
+@property(nonatomic, nullable, strong) GLBApiProvider* provider;
+@property(nonatomic, nullable, strong) NSURLSessionTask* task;
+@property(nonatomic, readonly, nullable, strong) GLBApiResponse* response;
 
 - (void)reset;
 

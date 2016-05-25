@@ -6,9 +6,9 @@
 
 @interface GLBAction : NSObject
 
-@property(nonatomic, readonly, weak, nullable) id target;
-@property(nonatomic, readonly, assign, nonnull) SEL action;
-@property(nonatomic, readonly, weak, nullable) NSThread* thread;
+@property(nonatomic, readonly, nullable, weak) id target;
+@property(nonatomic, readonly, nonnull, assign) SEL action;
+@property(nonatomic, readonly, nullable, weak) NSThread* thread;
 
 + (_Nullable instancetype)actionWithTarget:(_Nonnull id)target action:(_Nonnull SEL)action;
 + (_Nullable instancetype)actionWithTarget:(_Nonnull id)target action:(_Nonnull SEL)action inThread:(NSThread* _Nullable)thread;

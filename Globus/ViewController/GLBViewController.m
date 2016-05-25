@@ -93,23 +93,26 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [UIView setAnimationsEnabled:NO];
+    UIInterfaceOrientation currectOrientation = UIApplication.sharedApplication.statusBarOrientation;
+    if((_orientation & (1 << currectOrientation)) == 0) {
+        [UIView setAnimationsEnabled:NO];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [UIView setAnimationsEnabled:YES];
-    
     UIInterfaceOrientation currectOrientation = UIApplication.sharedApplication.statusBarOrientation;
-    if((_orientation & currectOrientation) == 0) {
-        if((_orientation & UIInterfaceOrientationPortrait) != 0) {
+    if((_orientation & (1 << currectOrientation)) == 0) {
+        [UIView setAnimationsEnabled:YES];
+        
+        if((_orientation & UIInterfaceOrientationMaskPortrait) != 0) {
             [UIDevice glb_setOrientation:UIInterfaceOrientationPortrait];
-        } else if((_orientation & UIInterfaceOrientationPortraitUpsideDown) != 0) {
+        } else if((_orientation & UIInterfaceOrientationMaskPortraitUpsideDown) != 0) {
             [UIDevice glb_setOrientation:UIInterfaceOrientationPortraitUpsideDown];
-        } else if((_orientation & UIInterfaceOrientationLandscapeLeft) != 0) {
+        } else if((_orientation & UIInterfaceOrientationMaskLandscapeLeft) != 0) {
             [UIDevice glb_setOrientation:UIInterfaceOrientationLandscapeLeft];
-        } else if((_orientation & UIInterfaceOrientationLandscapeRight) != 0) {
+        } else if((_orientation & UIInterfaceOrientationMaskLandscapeRight) != 0) {
             [UIDevice glb_setOrientation:UIInterfaceOrientationLandscapeRight];
         }
     }
