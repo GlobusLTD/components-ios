@@ -171,6 +171,8 @@
 		4034B0941CE1E6790019FBCC /* GLBModelPack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4034B0921CE1E6790019FBCC /* GLBModelPack.m */; };
 		4036BD761CA4830B00E5A793 /* GLBVideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4036BD751CA4830B00E5A793 /* GLBVideoPlayerView.m */; };
 		4036BD781CA4837000E5A793 /* GLBVideoPlayerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4036BD741CA4830B00E5A793 /* GLBVideoPlayerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		403D4CBF1CF478490078DB66 /* GLBWatchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 403D4CBE1CF478490078DB66 /* GLBWatchManager.m */; };
+		403D4CC11CF4789E0078DB66 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403D4CC01CF4789E0078DB66 /* WatchConnectivity.framework */; };
 		40442C141C075482006FA684 /* GLBImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 40442C121C075482006FA684 /* GLBImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40442C151C075482006FA684 /* GLBImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40442C131C075482006FA684 /* GLBImageView.m */; };
 		405B77C11C50E86100DA763D /* GLBWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 405B77BE1C50E86100DA763D /* GLBWebViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -467,6 +469,10 @@
 		4036BD6A1CA4820A00E5A793 /* libGLBVideoPlayerView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBVideoPlayerView.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4036BD741CA4830B00E5A793 /* GLBVideoPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBVideoPlayerView.h; sourceTree = "<group>"; };
 		4036BD751CA4830B00E5A793 /* GLBVideoPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBVideoPlayerView.m; sourceTree = "<group>"; };
+		403D4CB31CF478050078DB66 /* libGLBWatchManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBWatchManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		403D4CBD1CF478490078DB66 /* GLBWatchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GLBWatchManager.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		403D4CBE1CF478490078DB66 /* GLBWatchManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBWatchManager.m; sourceTree = "<group>"; };
+		403D4CC01CF4789E0078DB66 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
 		40442C071C075448006FA684 /* libGLBImageView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBImageView.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		40442C121C075482006FA684 /* GLBImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBImageView.h; sourceTree = "<group>"; };
 		40442C131C075482006FA684 /* GLBImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBImageView.m; sourceTree = "<group>"; };
@@ -844,6 +850,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		403D4CB01CF478050078DB66 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				403D4CC11CF4789E0078DB66 /* WatchConnectivity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1465,6 +1479,7 @@
 		4034B0901CE1E1270019FBCC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				403D4CC01CF4789E0078DB66 /* WatchConnectivity.framework */,
 				405B77C31C50E99B00DA763D /* WebKit.framework */,
 			);
 			name = Frameworks;
@@ -1478,6 +1493,16 @@
 			);
 			name = VideoPlayerView;
 			path = Globus/VideoPlayerView;
+			sourceTree = "<group>";
+		};
+		403D4CBC1CF478300078DB66 /* WatchManager */ = {
+			isa = PBXGroup;
+			children = (
+				403D4CBD1CF478490078DB66 /* GLBWatchManager.h */,
+				403D4CBE1CF478490078DB66 /* GLBWatchManager.m */,
+			);
+			name = WatchManager;
+			path = Globus/WatchManager;
 			sourceTree = "<group>";
 		};
 		40442C111C075482006FA684 /* ImageView */ = {
@@ -1635,6 +1660,7 @@
 				40F374C01C6513210016507F /* AudioPlayer */,
 				40F374C51C65132B0016507F /* AudioRecorder */,
 				4036BD731CA4830B00E5A793 /* VideoPlayerView */,
+				403D4CBC1CF478300078DB66 /* WatchManager */,
 				4034B0901CE1E1270019FBCC /* Frameworks */,
 				40BB8CC21BF3EDBE00D2E180 /* Products */,
 			);
@@ -1700,6 +1726,7 @@
 				40DF702E1CA0A6C9005EBB6B /* libGLBSplitViewController.a */,
 				4036BD6A1CA4820A00E5A793 /* libGLBVideoPlayerView.a */,
 				40B546281CA6BB76008E91E5 /* libGLBPhoneField.a */,
+				403D4CB31CF478050078DB66 /* libGLBWatchManager.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2978,6 +3005,22 @@
 			productReference = 4036BD6A1CA4820A00E5A793 /* libGLBVideoPlayerView.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		403D4CB21CF478050078DB66 /* GLBWatchManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 403D4CB91CF478050078DB66 /* Build configuration list for PBXNativeTarget "GLBWatchManager" */;
+			buildPhases = (
+				403D4CAF1CF478050078DB66 /* Sources */,
+				403D4CB01CF478050078DB66 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GLBWatchManager;
+			productName = GLBWatchManager;
+			productReference = 403D4CB31CF478050078DB66 /* libGLBWatchManager.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		40442C061C075448006FA684 /* GLBImageView */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 40442C0F1C075448006FA684 /* Build configuration list for PBXNativeTarget "GLBImageView" */;
@@ -3425,6 +3468,9 @@
 					4036BD691CA4820A00E5A793 = {
 						CreatedOnToolsVersion = 7.3;
 					};
+					403D4CB21CF478050078DB66 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
 					40442C061C075448006FA684 = {
 						CreatedOnToolsVersion = 7.1.1;
 					};
@@ -3550,6 +3596,7 @@
 				40F374A31C6512D00016507F /* GLBAudioPlayer */,
 				40F374AF1C6512DF0016507F /* GLBAudioRecorder */,
 				4036BD691CA4820A00E5A793 /* GLBVideoPlayerView */,
+				403D4CB21CF478050078DB66 /* GLBWatchManager */,
 			);
 		};
 /* End PBXProject section */
@@ -3900,6 +3947,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4036BD761CA4830B00E5A793 /* GLBVideoPlayerView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		403D4CAF1CF478050078DB66 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				403D4CBF1CF478490078DB66 /* GLBWatchManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4537,6 +4592,20 @@
 		4036BD711CA4820A00E5A793 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+			};
+			name = Release;
+		};
+		403D4CBA1CF478050078DB66 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		403D4CBB1CF478050078DB66 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -5199,6 +5268,15 @@
 			buildConfigurations = (
 				4036BD701CA4820A00E5A793 /* Debug */,
 				4036BD711CA4820A00E5A793 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		403D4CB91CF478050078DB66 /* Build configuration list for PBXNativeTarget "GLBWatchManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				403D4CBA1CF478050078DB66 /* Debug */,
+				403D4CBB1CF478050078DB66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

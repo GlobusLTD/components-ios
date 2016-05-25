@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.1.26'
+  s.version = '0.1.27'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -496,5 +496,14 @@ Pod::Spec.new do |s|
     ss.dependency 'Globus/AudioSession'
     ss.dependency 'Globus/UIKit'
     ss.dependency 'Globus/Action'
+  end
+  s.subspec 'WatchManager' do |ss|
+    ss.xcconfig = {
+      'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_WATCH_MANAGER'
+    }
+    ss.source_files = 'Globus/WatchManager/**/*.{h,m}'
+    ss.ios.frameworks = 'WatchConnectivity'
+    ss.dependency 'Globus/CoreFoundation'
+    ss.dependency 'Globus/UIKit'
   end
 end
