@@ -93,15 +93,18 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+#ifndef GLOBUS_APP_EXTENSION
     UIInterfaceOrientation currectOrientation = UIApplication.sharedApplication.statusBarOrientation;
     if((_orientation & (1 << currectOrientation)) == 0) {
         [UIView setAnimationsEnabled:NO];
     }
+#endif
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+#ifndef GLOBUS_APP_EXTENSION
     UIInterfaceOrientation currectOrientation = UIApplication.sharedApplication.statusBarOrientation;
     if((_orientation & (1 << currectOrientation)) == 0) {
         [UIView setAnimationsEnabled:YES];
@@ -116,6 +119,7 @@
             [UIDevice glb_setOrientation:UIInterfaceOrientationLandscapeRight];
         }
     }
+#endif
 }
 
 #pragma mark - Property
