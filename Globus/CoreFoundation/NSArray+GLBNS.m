@@ -220,6 +220,24 @@
     }];
 }
 
+- (NSArray*)glb_duplicates:(id(^)(id object1, id object2))block {
+    NSUInteger count = self.count;
+    NSMutableArray* result = [[NSMutableArray alloc] initWithCapacity:count];
+    for(int i = 0; i < count; i++) {
+        for(int j = 0; j < count; j++) {
+            if(i != j) {
+                id object1 = self[i];
+                id object2 = self[j];
+                id duplicate = block(object1, object2);
+                if(duplicate != nil) {
+                    [result addObject:duplicate];
+                }
+            }
+        }
+    }
+    return result.copy;
+}
+
 - (NSArray*)glb_map:(id(^)(id object))block {
     NSMutableArray* array = [NSMutableArray arrayWithCapacity:self.count];
     for(id object in self) {
