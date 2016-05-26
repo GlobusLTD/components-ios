@@ -90,38 +90,6 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-#ifndef GLOBUS_APP_EXTENSION
-    UIInterfaceOrientation currectOrientation = UIApplication.sharedApplication.statusBarOrientation;
-    if((_orientation & (1 << currectOrientation)) == 0) {
-        [UIView setAnimationsEnabled:NO];
-    }
-#endif
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-#ifndef GLOBUS_APP_EXTENSION
-    UIInterfaceOrientation currectOrientation = UIApplication.sharedApplication.statusBarOrientation;
-    if((_orientation & (1 << currectOrientation)) == 0) {
-        [UIView setAnimationsEnabled:YES];
-        
-        if((_orientation & UIInterfaceOrientationMaskPortrait) != 0) {
-            [UIDevice glb_setOrientation:UIInterfaceOrientationPortrait];
-        } else if((_orientation & UIInterfaceOrientationMaskPortraitUpsideDown) != 0) {
-            [UIDevice glb_setOrientation:UIInterfaceOrientationPortraitUpsideDown];
-        } else if((_orientation & UIInterfaceOrientationMaskLandscapeLeft) != 0) {
-            [UIDevice glb_setOrientation:UIInterfaceOrientationLandscapeLeft];
-        } else if((_orientation & UIInterfaceOrientationMaskLandscapeRight) != 0) {
-            [UIDevice glb_setOrientation:UIInterfaceOrientationLandscapeRight];
-        }
-    }
-#endif
-}
-
 #pragma mark - Property
 
 - (GLBActivityView*)activity {

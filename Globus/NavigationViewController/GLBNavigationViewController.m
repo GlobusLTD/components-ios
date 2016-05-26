@@ -222,6 +222,23 @@
             navigationController.hidesBarsOnTap = [vc hidesBarsOnTap];
         }
     }
+#ifndef GLOBUS_APP_EXTENSION
+    if([vc respondsToSelector:@selector(orientation)] == YES) {
+        UIInterfaceOrientation currectOrientation = UIApplication.sharedApplication.statusBarOrientation;
+        UIInterfaceOrientationMask orientationMask = [vc orientation];
+        if((orientationMask & (1 << currectOrientation)) == 0) {
+            if((orientationMask & UIInterfaceOrientationMaskPortrait) != 0) {
+                [UIDevice glb_setOrientation:UIInterfaceOrientationPortrait];
+            } else if((orientationMask & UIInterfaceOrientationMaskPortraitUpsideDown) != 0) {
+                [UIDevice glb_setOrientation:UIInterfaceOrientationPortraitUpsideDown];
+            } else if((orientationMask & UIInterfaceOrientationMaskLandscapeLeft) != 0) {
+                [UIDevice glb_setOrientation:UIInterfaceOrientationLandscapeLeft];
+            } else if((orientationMask & UIInterfaceOrientationMaskLandscapeRight) != 0) {
+                [UIDevice glb_setOrientation:UIInterfaceOrientationLandscapeRight];
+            }
+        }
+    }
+#endif
 }
 
 - (UIInterfaceOrientationMask)navigationControllerSupportedInterfaceOrientations:(UINavigationController*)navigationController {
