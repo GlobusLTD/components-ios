@@ -31,14 +31,14 @@ typedef NS_OPTIONS(NSUInteger, GLBDataContainerAlign) {
 
 /*--------------------------------------------------*/
 
-typedef void(^GLBDataContainerConfigureItemBlock)(GLBDataItem* item);
+typedef void(^GLBDataContainerConfigureItemBlock)(__kindof GLBDataItem* item);
 
 /*--------------------------------------------------*/
 
 @interface GLBDataContainer : NSObject< GLBSearchBarDelegate >
 
-@property(nonatomic, readonly, weak) GLBDataView* view;
-@property(nonatomic, readonly, weak) GLBDataContainer* parent;
+@property(nonatomic, readonly, weak) __kindof GLBDataView* view;
+@property(nonatomic, readonly, weak) __kindof GLBDataContainer* parent;
 @property(nonatomic, readonly, assign) CGRect frame;
 @property(nonatomic, getter=isHidden) BOOL hidden;
 @property(nonatomic, readonly, assign, getter=isHiddenInHierarchy) BOOL hiddenInHierarchy;
@@ -54,9 +54,9 @@ typedef void(^GLBDataContainerConfigureItemBlock)(GLBDataItem* item);
 
 - (NSArray*)allItems;
 
-- (GLBDataItem*)itemForPoint:(CGPoint)point;
-- (GLBDataItem*)itemForData:(id)data;
-- (GLBDataCell*)cellForData:(id)data;
+- (__kindof GLBDataItem*)itemForPoint:(CGPoint)point;
+- (__kindof GLBDataItem*)itemForData:(id)data;
+- (__kindof GLBDataCell*)cellForData:(id)data;
 
 - (BOOL)containsActionForKey:(id)key;
 - (BOOL)containsActionForIdentifier:(id)identifier forKey:(id)key;
@@ -139,32 +139,32 @@ typedef NS_ENUM(NSUInteger, GLBDataContainerItemsListMode) {
 @property(nonatomic) CGFloat defaultWidth;
 @property(nonatomic) CGFloat defaultHeight;
 @property(nonatomic) NSUInteger defaultOrder;
-@property(nonatomic, strong) GLBDataItem* header;
-@property(nonatomic, strong) GLBDataItem* footer;
-@property(nonatomic, readonly, strong) NSArray* items;
+@property(nonatomic, strong) __kindof GLBDataItem* header;
+@property(nonatomic, strong) __kindof GLBDataItem* footer;
+@property(nonatomic, readonly, strong) NSArray< __kindof GLBDataItem* >* items;
 
 + (instancetype)containerWithOrientation:(GLBDataContainerOrientation)orientation;
 
 - (instancetype)initWithOrientation:(GLBDataContainerOrientation)orientation;
 
-- (GLBDataItem*)prependIdentifier:(NSString*)identifier byData:(id)data;
-- (GLBDataItem*)prependIdentifier:(NSString*)identifier byData:(id)data configure:(GLBDataContainerConfigureItemBlock)configure;
-- (GLBDataItem*)prependIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order;
-- (GLBDataItem*)prependIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order configure:(GLBDataContainerConfigureItemBlock)configure;
+- (__kindof GLBDataItem*)prependIdentifier:(NSString*)identifier byData:(id)data;
+- (__kindof GLBDataItem*)prependIdentifier:(NSString*)identifier byData:(id)data configure:(GLBDataContainerConfigureItemBlock)configure;
+- (__kindof GLBDataItem*)prependIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order;
+- (__kindof GLBDataItem*)prependIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order configure:(GLBDataContainerConfigureItemBlock)configure;
 - (void)prependItem:(GLBDataItem*)item;
 - (void)prependItems:(NSArray*)items;
 
-- (GLBDataItem*)appendIdentifier:(NSString*)identifier byData:(id)data;
-- (GLBDataItem*)appendIdentifier:(NSString*)identifier byData:(id)data configure:(GLBDataContainerConfigureItemBlock)configure;
-- (GLBDataItem*)appendIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order;
-- (GLBDataItem*)appendIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order configure:(GLBDataContainerConfigureItemBlock)configure;
+- (__kindof GLBDataItem*)appendIdentifier:(NSString*)identifier byData:(id)data;
+- (__kindof GLBDataItem*)appendIdentifier:(NSString*)identifier byData:(id)data configure:(GLBDataContainerConfigureItemBlock)configure;
+- (__kindof GLBDataItem*)appendIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order;
+- (__kindof GLBDataItem*)appendIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order configure:(GLBDataContainerConfigureItemBlock)configure;
 - (void)appendItem:(GLBDataItem*)item;
 - (void)appendItems:(NSArray*)items;
 
-- (GLBDataItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data;
-- (GLBDataItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data configure:(GLBDataContainerConfigureItemBlock)configure;
-- (GLBDataItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data order:(NSUInteger)order;
-- (GLBDataItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data order:(NSUInteger)order configure:(GLBDataContainerConfigureItemBlock)configure;
+- (__kindof GLBDataItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data;
+- (__kindof GLBDataItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data configure:(GLBDataContainerConfigureItemBlock)configure;
+- (__kindof GLBDataItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data order:(NSUInteger)order;
+- (__kindof GLBDataItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data order:(NSUInteger)order configure:(GLBDataContainerConfigureItemBlock)configure;
 - (void)insertItem:(GLBDataItem*)item atIndex:(NSUInteger)index;
 - (void)insertItems:(NSArray*)items atIndex:(NSUInteger)index;
 - (void)insertItem:(GLBDataItem*)item aboveItem:(GLBDataItem*)aboveItem;
@@ -192,32 +192,32 @@ typedef NS_ENUM(NSUInteger, GLBDataContainerItemsListMode) {
 @property(nonatomic) CGFloat defaultWidth;
 @property(nonatomic) CGFloat defaultHeight;
 @property(nonatomic) NSUInteger defaultOrder;
-@property(nonatomic, strong) GLBDataItem* header;
-@property(nonatomic, strong) GLBDataItem* footer;
+@property(nonatomic, strong) __kindof GLBDataItem* header;
+@property(nonatomic, strong) __kindof GLBDataItem* footer;
 @property(nonatomic, readonly, strong) NSArray* items;
 
 + (instancetype)containerWithOrientation:(GLBDataContainerOrientation)orientation;
 
 - (instancetype)initWithOrientation:(GLBDataContainerOrientation)orientation;
 
-- (GLBDataItem*)prependIdentifier:(NSString*)identifier byData:(id)data;
-- (GLBDataItem*)prependIdentifier:(NSString*)identifier byData:(id)data configure:(GLBDataContainerConfigureItemBlock)configure;
-- (GLBDataItem*)prependIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order;
-- (GLBDataItem*)prependIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order configure:(GLBDataContainerConfigureItemBlock)configure;
+- (__kindof GLBDataItem*)prependIdentifier:(NSString*)identifier byData:(id)data;
+- (__kindof GLBDataItem*)prependIdentifier:(NSString*)identifier byData:(id)data configure:(GLBDataContainerConfigureItemBlock)configure;
+- (__kindof GLBDataItem*)prependIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order;
+- (__kindof GLBDataItem*)prependIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order configure:(GLBDataContainerConfigureItemBlock)configure;
 - (void)prependItem:(GLBDataItem*)item;
 - (void)prependItems:(NSArray*)items;
 
-- (GLBDataItem*)appendIdentifier:(NSString*)identifier byData:(id)data;
-- (GLBDataItem*)appendIdentifier:(NSString*)identifier byData:(id)data configure:(GLBDataContainerConfigureItemBlock)configure;
-- (GLBDataItem*)appendIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order;
-- (GLBDataItem*)appendIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order configure:(GLBDataContainerConfigureItemBlock)configure;
+- (__kindof GLBDataItem*)appendIdentifier:(NSString*)identifier byData:(id)data;
+- (__kindof GLBDataItem*)appendIdentifier:(NSString*)identifier byData:(id)data configure:(GLBDataContainerConfigureItemBlock)configure;
+- (__kindof GLBDataItem*)appendIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order;
+- (__kindof GLBDataItem*)appendIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order configure:(GLBDataContainerConfigureItemBlock)configure;
 - (void)appendItem:(GLBDataItem*)item;
 - (void)appendItems:(NSArray*)items;
 
-- (GLBDataItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data;
-- (GLBDataItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data configure:(GLBDataContainerConfigureItemBlock)configure;
-- (GLBDataItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data order:(NSUInteger)order;
-- (GLBDataItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data order:(NSUInteger)order configure:(GLBDataContainerConfigureItemBlock)configure;
+- (__kindof GLBDataItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data;
+- (__kindof GLBDataItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data configure:(GLBDataContainerConfigureItemBlock)configure;
+- (__kindof GLBDataItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data order:(NSUInteger)order;
+- (__kindof GLBDataItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data order:(NSUInteger)order configure:(GLBDataContainerConfigureItemBlock)configure;
 - (void)insertItem:(GLBDataItem*)item atIndex:(NSUInteger)index;
 - (void)insertItems:(NSArray*)items atIndex:(NSUInteger)index;
 - (void)insertItem:(GLBDataItem*)item aboveItem:(GLBDataItem*)aboveItem;
@@ -285,8 +285,8 @@ typedef void (^GLBDataContainerCalendarEachDayItemsBlock)(GLBDataItemCalendarDay
 
 - (instancetype)initWithCalendar:(NSCalendar*)calendar;
 
-- (GLBDataItemCalendarWeekday*)weekdayItemForDate:(NSDate*)date;
-- (GLBDataItemCalendarDay*)dayItemForDate:(NSDate*)date;
+- (__kindof GLBDataItemCalendarWeekday*)weekdayItemForDate:(NSDate*)date;
+- (__kindof GLBDataItemCalendarDay*)dayItemForDate:(NSDate*)date;
 
 - (void)prepareBeginDate:(NSDate*)beginDate endDate:(NSDate*)endDate;
 - (void)prepareBeginDate:(NSDate*)beginDate endDate:(NSDate*)endDate dayBlock:(GLBDataContainerCalendarDayCreateBlock)dayBlock;
@@ -316,8 +316,8 @@ typedef void (^GLBDataContainerCalendarEachDayItemsBlock)(GLBDataItemCalendarDay
 
 - (instancetype)initWithCalendar:(NSCalendar*)calendar orientation:(GLBDataContainerOrientation)orientation;
 
-- (GLBDataItemCalendarDay*)dayItemForDate:(NSDate*)date;
-- (GLBDataItemCalendarDay*)nearestDayItemForDate:(NSDate*)date;
+- (__kindof GLBDataItemCalendarDay*)dayItemForDate:(NSDate*)date;
+- (__kindof GLBDataItemCalendarDay*)nearestDayItemForDate:(NSDate*)date;
 
 - (void)prepareBeginDate:(NSDate*)beginDate endDate:(NSDate*)endDate interval:(NSTimeInterval)interval data:(id)data;
 - (void)prependToDate:(NSDate*)date interval:(NSTimeInterval)interval data:(id)data;

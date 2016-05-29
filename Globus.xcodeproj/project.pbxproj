@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		401129251C3AC1EF006751E8 /* GLBDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 401129241C3AC1EF006751E8 /* GLBDataController.m */; };
-		401129291C3ACC15006751E8 /* GLBDataController.h in Headers */ = {isa = PBXBuildFile; fileRef = 401129231C3AC1EF006751E8 /* GLBDataController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4011292A1C3ACC17006751E8 /* GLBDataController+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 401129271C3AC98E006751E8 /* GLBDataController+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		402B56191BF4794C0084F50C /* GLBTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 402B56181BF4794C0084F50C /* GLBTimer.m */; };
 		402B561D1BF479530084F50C /* GLBTimeout.m in Sources */ = {isa = PBXBuildFile; fileRef = 402B561C1BF479530084F50C /* GLBTimeout.m */; };
 		402B56211BF4795B0084F50C /* GLBKVO.m in Sources */ = {isa = PBXBuildFile; fileRef = 402B56201BF4795B0084F50C /* GLBKVO.m */; };
@@ -175,6 +172,9 @@
 		403D4CC11CF4789E0078DB66 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403D4CC01CF4789E0078DB66 /* WatchConnectivity.framework */; };
 		40442C141C075482006FA684 /* GLBImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 40442C121C075482006FA684 /* GLBImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40442C151C075482006FA684 /* GLBImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40442C131C075482006FA684 /* GLBImageView.m */; };
+		4055C46F1CFAECC800A36F5A /* GLBDataSource+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4055C46C1CFAECC800A36F5A /* GLBDataSource+Private.h */; };
+		4055C4701CFAECC800A36F5A /* GLBDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 4055C46D1CFAECC800A36F5A /* GLBDataSource.h */; };
+		4055C4711CFAECC800A36F5A /* GLBDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 4055C46E1CFAECC800A36F5A /* GLBDataSource.m */; };
 		405B77C11C50E86100DA763D /* GLBWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 405B77BE1C50E86100DA763D /* GLBWebViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		405B77C21C50E86100DA763D /* GLBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 405B77BF1C50E86100DA763D /* GLBWebViewController.m */; };
 		405B77C41C50E99B00DA763D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 405B77C31C50E99B00DA763D /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -278,10 +278,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		401129191C3AC1AF006751E8 /* libGLBDataController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBDataController.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		401129231C3AC1EF006751E8 /* GLBDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBDataController.h; sourceTree = "<group>"; };
-		401129241C3AC1EF006751E8 /* GLBDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataController.m; sourceTree = "<group>"; };
-		401129271C3AC98E006751E8 /* GLBDataController+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataController+Private.h"; sourceTree = "<group>"; };
+		401129191C3AC1AF006751E8 /* libGLBDataSource.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBDataSource.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		402B56171BF4794C0084F50C /* GLBTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBTimer.h; sourceTree = "<group>"; };
 		402B56181BF4794C0084F50C /* GLBTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBTimer.m; sourceTree = "<group>"; };
 		402B561B1BF479530084F50C /* GLBTimeout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBTimeout.h; sourceTree = "<group>"; };
@@ -476,6 +473,9 @@
 		40442C071C075448006FA684 /* libGLBImageView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBImageView.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		40442C121C075482006FA684 /* GLBImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBImageView.h; sourceTree = "<group>"; };
 		40442C131C075482006FA684 /* GLBImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBImageView.m; sourceTree = "<group>"; };
+		4055C46C1CFAECC800A36F5A /* GLBDataSource+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataSource+Private.h"; sourceTree = "<group>"; };
+		4055C46D1CFAECC800A36F5A /* GLBDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBDataSource.h; sourceTree = "<group>"; };
+		4055C46E1CFAECC800A36F5A /* GLBDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataSource.m; sourceTree = "<group>"; };
 		405B77B11C50E7FA00DA763D /* libGLBWebViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBWebViewController.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		405B77BD1C50E86100DA763D /* GLBWebViewController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GLBWebViewController.bundle; sourceTree = "<group>"; };
 		405B77BE1C50E86100DA763D /* GLBWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBWebViewController.h; sourceTree = "<group>"; };
@@ -991,17 +991,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		401129221C3AC1EF006751E8 /* DataController */ = {
-			isa = PBXGroup;
-			children = (
-				401129231C3AC1EF006751E8 /* GLBDataController.h */,
-				401129271C3AC98E006751E8 /* GLBDataController+Private.h */,
-				401129241C3AC1EF006751E8 /* GLBDataController.m */,
-			);
-			name = DataController;
-			path = Globus/DataController;
-			sourceTree = "<group>";
-		};
 		402B56161BF4794C0084F50C /* Timer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1515,6 +1504,17 @@
 			path = Globus/ImageView;
 			sourceTree = "<group>";
 		};
+		4055C46B1CFAECC800A36F5A /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				4055C46D1CFAECC800A36F5A /* GLBDataSource.h */,
+				4055C46C1CFAECC800A36F5A /* GLBDataSource+Private.h */,
+				4055C46E1CFAECC800A36F5A /* GLBDataSource.m */,
+			);
+			name = DataSource;
+			path = Globus/DataSource;
+			sourceTree = "<group>";
+		};
 		405B77BA1C50E81800DA763D /* WebViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1617,7 +1617,7 @@
 				402B56B91BF484D10084F50C /* Model */,
 				402B56871BF483B30084F50C /* Cache */,
 				402B573F1BF48BB50084F50C /* ApiManager */,
-				401129221C3AC1EF006751E8 /* DataController */,
+				4055C46B1CFAECC800A36F5A /* DataSource */,
 				402B575D1BF48BDA0084F50C /* SpinnerView */,
 				402B57BA1BF48D690084F50C /* BlurView */,
 				402B57A41BF48CF20084F50C /* ActivityView */,
@@ -1717,7 +1717,7 @@
 				40EE54E91BFA92F90004E5BE /* libGLBStyle.a */,
 				40442C071C075448006FA684 /* libGLBImageView.a */,
 				40ABC2CA1C13206800C95233 /* libGLBAppGroupNotificationCenter.a */,
-				401129191C3AC1AF006751E8 /* libGLBDataController.a */,
+				401129191C3AC1AF006751E8 /* libGLBDataSource.a */,
 				405B77B11C50E7FA00DA763D /* libGLBWebViewController.a */,
 				CD3D0DBB1C57C95300C0F2C0 /* libGLBMoon.a */,
 				40F374971C6512BB0016507F /* libGLBAudioSession.a */,
@@ -1848,8 +1848,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				401129291C3ACC15006751E8 /* GLBDataController.h in Headers */,
-				4011292A1C3ACC17006751E8 /* GLBDataController+Private.h in Headers */,
+				4055C4701CFAECC800A36F5A /* GLBDataSource.h in Headers */,
+				4055C46F1CFAECC800A36F5A /* GLBDataSource+Private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2359,9 +2359,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		401129181C3AC1AF006751E8 /* GLBDataController */ = {
+		401129181C3AC1AF006751E8 /* GLBDataSource */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 401129211C3AC1AF006751E8 /* Build configuration list for PBXNativeTarget "GLBDataController" */;
+			buildConfigurationList = 401129211C3AC1AF006751E8 /* Build configuration list for PBXNativeTarget "GLBDataSource" */;
 			buildPhases = (
 				401129281C3ACC04006751E8 /* Headers */,
 				401129151C3AC1AF006751E8 /* Sources */,
@@ -2371,9 +2371,9 @@
 			);
 			dependencies = (
 			);
-			name = GLBDataController;
+			name = GLBDataSource;
 			productName = GLBDataController;
-			productReference = 401129191C3AC1AF006751E8 /* libGLBDataController.a */;
+			productReference = 401129191C3AC1AF006751E8 /* libGLBDataSource.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		402B56611BF4819D0084F50C /* GLBTaskManager */ = {
@@ -3553,7 +3553,7 @@
 				402B56AE1BF4849C0084F50C /* GLBModel */,
 				402B567C1BF4839A0084F50C /* GLBCache */,
 				402B57341BF48B960084F50C /* GLBApiManager */,
-				401129181C3AC1AF006751E8 /* GLBDataController */,
+				401129181C3AC1AF006751E8 /* GLBDataSource */,
 				402B57531BF48BCA0084F50C /* GLBSpinnerView */,
 				402B57AC1BF48D350084F50C /* GLBBlurView */,
 				402B57931BF48CB60084F50C /* GLBActivityView */,
@@ -3606,7 +3606,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				401129251C3AC1EF006751E8 /* GLBDataController.m in Sources */,
+				4055C4711CFAECC800A36F5A /* GLBDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4930,7 +4930,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		401129211C3AC1AF006751E8 /* Build configuration list for PBXNativeTarget "GLBDataController" */ = {
+		401129211C3AC1AF006751E8 /* Build configuration list for PBXNativeTarget "GLBDataSource" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4011291F1C3AC1AF006751E8 /* Debug */,

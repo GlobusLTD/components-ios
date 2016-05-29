@@ -31,7 +31,7 @@ typedef NS_ENUM(NSUInteger, GLBDataRefreshViewState) {
 @interface GLBDataRefreshView : UIView
 
 @property(nonatomic) GLBDataRefreshViewType type;
-@property(nonatomic, readonly, weak) GLBDataView* view;
+@property(nonatomic, readonly, weak) __kindof GLBDataView* view;
 @property(nonatomic, readonly, weak) NSLayoutConstraint* constraintOffset;
 @property(nonatomic, readonly, weak) NSLayoutConstraint* constraintSize;
 @property(nonatomic, readonly, assign) GLBDataRefreshViewState state;

@@ -6,6 +6,7 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+#import "NSObject+GLBNS.h"
 #import "NSArray+GLBNS.h"
 #import "NSDictionary+GLBNS.h"
 #import "UIDevice+GLBUI.h"
@@ -1465,13 +1466,17 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 }
 
 - (void)_didInsertItems:(NSArray*)items {
-    if(_updating == YES) {
-        [_insertedItems addObjectsFromArray:items];
+    if(_updating == NO) {
+        @throw [NSException exceptionWithName:self.glb_className reason:@"Need invoke on batchUpdate" userInfo:nil];
     }
+    [_insertedItems addObjectsFromArray:items];
     [self setNeedValidateLayout];
 }
 
 - (void)_didDeleteItems:(NSArray*)items {
+    if(_updating == NO) {
+        @throw [NSException exceptionWithName:self.glb_className reason:@"Need invoke on batchUpdate" userInfo:nil];
+    }
     [_visibleItems removeObjectsInArray:items];
     [_selectedItems removeObjectsInArray:items];
     [_highlightedItems removeObjectsInArray:items];
@@ -1499,6 +1504,9 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 }
 
 - (void)_didReplaceOriginItems:(NSArray*)originItems withItems:(NSArray*)items {
+    if(_updating == NO) {
+        @throw [NSException exceptionWithName:self.glb_className reason:@"Need invoke on batchUpdate" userInfo:nil];
+    }
     [_visibleItems removeObjectsInArray:originItems];
     [_selectedItems removeObjectsInArray:originItems];
     [_highlightedItems removeObjectsInArray:originItems];

@@ -31,9 +31,9 @@
     
     _automaticallyHideKeyboard = YES;
     if(UIDevice.glb_isIPhone == YES) {
-        _orientation = UIInterfaceOrientationMaskPortrait;
+        _supportedOrientationMask = UIInterfaceOrientationMaskPortrait;
     } else {
-        _orientation = UIInterfaceOrientationMaskLandscape;
+        _supportedOrientationMask = UIInterfaceOrientationMaskLandscape;
     }
 }
 
@@ -47,11 +47,11 @@
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return _orientation;
+    return _supportedOrientationMask;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {
-    return ((_orientation & orientation) != 0);
+    return ((_supportedOrientationMask & orientation) != 0);
 }
 
 - (void)loadView {

@@ -15,8 +15,8 @@
 @interface GLBDataCell : UIView< UIGestureRecognizerDelegate, GLBSearchBarDelegate, GLBWindowExtension >
 
 @property(nonatomic, readonly, strong) NSString* identifier;
-@property(nonatomic, readonly, weak) GLBDataView* view;
-@property(nonatomic, readonly, weak) GLBDataItem* item;
+@property(nonatomic, readonly, weak) __kindof GLBDataView* view;
+@property(nonatomic, readonly, weak) __kindof GLBDataItem* item;
 @property(nonatomic) BOOL hideKeyboardIfTouched;
 @property(nonatomic, readonly, assign, getter=isSelected) BOOL selected;
 @property(nonatomic, readonly, assign, getter=isHighlighted) BOOL highlighted;
@@ -30,7 +30,7 @@
 @property(nonatomic) UIOffset rootViewOffset;
 @property(nonatomic) CGSize rootViewSize;
 
-@property(nonatomic, readonly, strong) NSArray* orderedSubviews;
+@property(nonatomic, readonly, strong) NSArray< UIView* >* orderedSubviews;
 
 + (CGSize)sizeForItem:(id)item availableSize:(CGSize)size;
 

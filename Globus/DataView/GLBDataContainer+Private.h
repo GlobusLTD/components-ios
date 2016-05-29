@@ -23,8 +23,8 @@
     CGRect _frame;
 }
 
-@property(nonatomic, weak) GLBDataView* view;
-@property(nonatomic, weak) GLBDataContainer* parent;
+@property(nonatomic, weak) __kindof GLBDataView* view;
+@property(nonatomic, weak) __kindof GLBDataContainer* parent;
 
 - (void)_willChangeView;
 - (void)_didChangeView;
@@ -59,7 +59,7 @@
 
 @interface GLBDataContainerSections () {
 @protected
-    NSMutableArray* _sections;
+    NSMutableArray< __kindof GLBDataContainer* >* _sections;
 }
 
 - (CGRect)_validateSectionsForAvailableFrame:(CGRect)frame;
@@ -75,7 +75,7 @@
     UIEdgeInsets _margin;
     UIOffset _spacing;
     BOOL _pagingEnabled;
-    GLBDataContainer* _currentSection;
+    __kindof GLBDataContainer* _currentSection;
 }
 
 @end
@@ -84,7 +84,7 @@
 
 @interface GLBDataContainerItems () {
 @protected
-    NSMutableArray* _entries;
+    NSMutableArray< __kindof GLBDataItem* >* _entries;
 }
 
 - (void)_prependEntry:(GLBDataItem*)entry;
@@ -119,7 +119,9 @@
     UIOffset _spacing;
     CGSize _defaultSize;
     NSUInteger _defaultOrder;
-    NSMutableArray* _items;
+    __kindof GLBDataItem* _header;
+    __kindof GLBDataItem* _footer;
+    NSMutableArray< __kindof GLBDataItem* >* _items;
 }
 
 @end
@@ -132,7 +134,7 @@
     UIOffset _spacing;
     CGSize _defaultSize;
     NSUInteger _defaultOrder;
-    NSMutableArray* _items;
+    NSMutableArray< __kindof GLBDataItem* >* _items;
 }
 
 @end
@@ -163,16 +165,16 @@
     NSDate* _endDate;
     NSDate* _displayBeginDate;
     NSDate* _displayEndDate;
-    GLBDataItemCalendarMonth* _monthItem;
-    NSMutableArray* _weekdayItems;
+    __kindof GLBDataItemCalendarMonth* _monthItem;
+    NSMutableArray< __kindof GLBDataItem* >* _weekdayItems;
     GLBMutableGrid* _dayItems;
 }
 
 @property(nonatomic, strong) NSCalendar* calendar;
 @property(nonatomic, strong) NSDate* beginDate;
 @property(nonatomic, strong) NSDate* endDate;
-@property(nonatomic, strong) GLBDataItemCalendarMonth* monthItem;
-@property(nonatomic, strong) NSMutableArray* weekdayItems;
+@property(nonatomic, strong) __kindof GLBDataItemCalendarMonth* monthItem;
+@property(nonatomic, strong) NSMutableArray< __kindof GLBDataItem* >* weekdayItems;
 @property(nonatomic, strong) GLBMutableGrid* dayItems;
 
 @end

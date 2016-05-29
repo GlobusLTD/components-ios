@@ -14,8 +14,8 @@
 
 @interface GLBDataItem : NSObject< NSCopying, GLBSearchBarDelegate >
 
-@property(nonatomic, readonly, weak) GLBDataView* view;
-@property(nonatomic, readonly, weak) GLBDataContainer* parent;
+@property(nonatomic, readonly, weak) __kindof GLBDataView* view;
+@property(nonatomic, readonly, weak) __kindof GLBDataContainer* parent;
 @property(nonatomic, readonly, strong) NSString* identifier;
 @property(nonatomic, readonly, assign) NSUInteger order;
 @property(nonatomic, strong) id data;
@@ -38,11 +38,11 @@
 @property(nonatomic, readonly, assign, getter=isHighlighted) BOOL highlighted;
 @property(nonatomic, readonly, assign, getter=isEditing) BOOL editing;
 @property(nonatomic, readonly, assign, getter=isMoving) BOOL moving;
-@property(nonatomic, readonly, strong) GLBDataCell* cell;
+@property(nonatomic, readonly, strong) __kindof GLBDataCell* cell;
 
 + (instancetype)itemWithDataItem:(GLBDataItem*)dataItem;
 + (instancetype)itemWithIdentifier:(NSString*)identifier order:(NSUInteger)order data:(id)data;
-+ (NSArray*)itemsWithIdentifier:(NSString*)identifier order:(NSUInteger)order dataArray:(NSArray*)dataArray;
++ (NSArray< __kindof GLBDataItem* >*)itemsWithIdentifier:(NSString*)identifier order:(NSUInteger)order dataArray:(NSArray*)dataArray;
 
 - (instancetype)initWithDataItem:(GLBDataItem*)dataItem;
 - (instancetype)initWithIdentifier:(NSString*)identifier order:(NSUInteger)order data:(id)data;
@@ -104,7 +104,7 @@
 
 @interface GLBDataItemCalendarWeekday : GLBDataItemCalendar
 
-@property(nonatomic, readonly, weak) GLBDataItemCalendarMonth* monthItem;
+@property(nonatomic, readonly, weak) __kindof GLBDataItemCalendarMonth* monthItem;
 @property(nonatomic, readonly, strong) NSDate* date;
 
 @end
@@ -113,8 +113,8 @@
 
 @interface GLBDataItemCalendarDay : GLBDataItemCalendar
 
-@property(nonatomic, readonly, weak) GLBDataItemCalendarMonth* monthItem;
-@property(nonatomic, readonly, weak) GLBDataItemCalendarWeekday* weekdayItem;
+@property(nonatomic, readonly, weak) __kindof GLBDataItemCalendarMonth* monthItem;
+@property(nonatomic, readonly, weak) __kindof GLBDataItemCalendarWeekday* weekdayItem;
 @property(nonatomic, readonly, strong) NSDate* date;
 
 @end

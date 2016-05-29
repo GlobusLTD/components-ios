@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.1.31'
+  s.version = '0.1.32'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
     ss.dependency 'Globus/RegExpParser'
     ss.dependency 'Globus/TaskManager'
     ss.dependency 'Globus/ApiManager'
-    ss.dependency 'Globus/DataController'
+    ss.dependency 'Globus/DataSource'
     ss.dependency 'Globus/Window'
     ss.dependency 'Globus/TextField'
     ss.dependency 'Globus/DateField'
@@ -171,11 +171,11 @@ Pod::Spec.new do |s|
     ss.source_files = 'Globus/ApiManager/**/*.{h,m}'
     ss.dependency 'Globus/CoreFoundation'
   end
-  s.subspec 'DataController' do |ss|
+  s.subspec 'DataSource' do |ss|
     ss.xcconfig = {
-      'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_DATA_CONTROLLER'
+      'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_DATA_SOURCE'
     }
-    ss.source_files = 'Globus/DataController/**/*.{h,m}'
+    ss.source_files = 'Globus/DataSource/**/*.{h,m}'
     ss.dependency 'Globus/CoreFoundation'
   end
   s.subspec 'SpinnerView' do |ss|
