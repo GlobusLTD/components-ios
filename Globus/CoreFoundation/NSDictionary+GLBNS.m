@@ -178,11 +178,22 @@
     return array;
 }
 
+- (id)glb_findObject:(BOOL(^)(id key, id value))block {
+    __block id result = nil;
+    [self enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+        if(block(key, value) == YES) {
+            result = value;
+            *stop = YES;
+        }
+    }];
+    return result;
+}
+
 - (id)glb_findObjectByKey:(BOOL(^)(id key))block {
     __block id result = nil;
-    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        if(block(key)) {
-            result = obj;
+    [self enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+        if(block(key) == YES) {
+            result = value;
             *stop = YES;
         }
     }];

@@ -27,7 +27,8 @@
 - (void)glb_eachValue:(void(^ _Nonnull)(_Nonnull ObjectType value))block;
 - (void)glb_eachValueWithIndex:(void(^ _Nonnull)(_Nonnull ObjectType value, NSUInteger index))block;
 - (NSArray* _Nullable)glb_map:(_Nullable id(^ _Nonnull)(_Nonnull KeyType key, _Nonnull ObjectType value))block;
-- (_Nullable id)glb_findObjectByKey:(BOOL(^ _Nonnull)(_Nonnull KeyType key))block;
+- (_Nullable ObjectType)glb_findObject:(BOOL(^ _Nonnull)(_Nonnull KeyType key, _Nonnull ObjectType value))block;
+- (_Nullable ObjectType)glb_findObjectByKey:(BOOL(^ _Nonnull)(_Nonnull KeyType key))block;
 - (BOOL)glb_hasKey:(_Nonnull KeyType)key;
 
 @end

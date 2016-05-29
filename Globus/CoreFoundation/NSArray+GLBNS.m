@@ -222,7 +222,7 @@
 
 - (NSArray*)glb_duplicates:(id(^)(id object1, id object2))block {
     NSUInteger count = self.count;
-    NSMutableArray* result = [[NSMutableArray alloc] initWithCapacity:count];
+    NSMutableArray* result = [NSMutableArray arrayWithCapacity:count];
     for(int i = 0; i < count; i++) {
         for(int j = 0; j < count; j++) {
             if(i != j) {
