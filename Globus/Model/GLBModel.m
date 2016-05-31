@@ -1072,7 +1072,6 @@ static NSString* GLBManagedManagerModelExtensionKey = @"GLBManagedManagerModelEx
                 NSLog(@"Failure obtain permanent ids: %@", error);
             }
         }
-        [context processPendingChanges];
         result = [context save:&error];
         if(result == NO) {
             NSLog(@"Failure save:%@", error);

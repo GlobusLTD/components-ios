@@ -195,7 +195,7 @@ void GLBAppGroupNotificationCenterNotificationCallback(CFNotificationCenterRef c
     if(userInfo != nil) {
         NSNumber* processId = userInfo[GLBAppGroupNotificationCenterProcessIdKey];
         if([_processId isEqualToNumber:processId] == NO) {
-            NSMutableArray* arguments = [NSMutableArray array];
+            NSMutableArray* arguments = [NSMutableArray arrayWithObject:name];
             id custom = userInfo[GLBAppGroupNotificationCenterCustomKey];
             if(custom != nil) {
                 [arguments addObject:custom];
