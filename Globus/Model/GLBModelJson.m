@@ -821,7 +821,7 @@
             }
         }
     } else if([value isKindOfClass:NSNumber.class] == YES) {
-        result = [NSDate glb_dateWithUnixTimestamp:[value longValue] timeZone:(_timeZone != nil) ? _timeZone : NSTimeZone.localTimeZone];
+        result = [NSDate glb_dateWithUnixTimestamp:[value longValue]];
     }
     if(result != nil) {
         return result;

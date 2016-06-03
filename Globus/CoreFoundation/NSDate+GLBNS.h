@@ -42,9 +42,7 @@ typedef NS_ENUM(NSUInteger, GLBDateWeekday) {
 - (NSString* _Nullable)glb_formatRelativeTime;
 - (NSString* _Nullable)glb_formatShortRelativeTime;
 
-+ (NSDate* _Nullable)glb_dateWithUnixTimestamp:(NSUInteger)timestamp timeZone:(NSTimeZone* _Nullable)timeZone;
 + (NSDate* _Nullable)glb_dateWithUnixTimestamp:(NSUInteger)timestamp;
-- (NSUInteger)glb_unixTimestampToTimeZone:(NSTimeZone* _Nullable)timeZone;
 - (NSUInteger)glb_unixTimestamp;
 
 - (NSDate* _Nullable)glb_extractCalendarUnit:(NSCalendarUnit)calendarUnit;
