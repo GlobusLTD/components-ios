@@ -1213,6 +1213,10 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     CGPoint contentOffset = self.contentOffset;
     CGSize contentSize = self.contentSize;
     switch(hPosition) {
+        case GLBDataViewPositionLeft: {
+            contentOffset.x = rect.origin.x;
+            break;
+        }
         case GLBDataViewPositionCenteredHorizontally: {
             contentOffset.x = (rect.origin.x + (rect.size.width * 0.5f)) - (viewportRect.size.width * 0.5f);
             break;
@@ -1231,6 +1235,10 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
         }
     }
     switch(vPosition) {
+        case GLBDataViewPositionTop: {
+            contentOffset.y = rect.origin.y;
+            break;
+        }
         case GLBDataViewPositionCenteredVertically: {
             contentOffset.y = (rect.origin.y + (rect.size.height * 0.5f)) - (viewportRect.size.height * 0.5f);
             break;
