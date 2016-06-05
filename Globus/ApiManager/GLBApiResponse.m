@@ -127,7 +127,7 @@
         [string glb_appendString:@"\t" repeat:indent];
     }
     NSUInteger baseIndent = indent + 1;
-    [string appendFormat:@"%@\n", self.glb_className];
+    [string appendFormat:@"<%@\n", self.glb_className];
     NSURLResponse* urlResponse = self.urlResponse;
     if(urlResponse != nil) {
         NSURL* url = urlResponse.URL;
@@ -186,6 +186,8 @@
         [_error glb_debugString:string indent:baseIndent root:NO];
         [string appendString:@"\n"];
     }
+    [string glb_appendString:@"\t" repeat:indent];
+    [string appendString:@">"];
 }
 
 @end

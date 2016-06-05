@@ -229,7 +229,7 @@
         [string glb_appendString:@"\t" repeat:indent];
     }
     NSUInteger baseIndent = indent + 1;
-    [string appendFormat:@"%@\n", self.glb_className];
+    [string appendFormat:@"<%@\n", self.glb_className];
     NSURLRequest* urlRequest = self.urlRequest;
     if(urlRequest != nil) {
         NSURL* url = urlRequest.URL;
@@ -275,6 +275,8 @@
             }
         }
     }
+    [string glb_appendString:@"\t" repeat:indent];
+    [string appendString:@">"];
 }
 
 #pragma mark - Private

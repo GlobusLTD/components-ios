@@ -88,7 +88,14 @@
     if(root == YES) {
         [string glb_appendString:@"\t" repeat:indent];
     }
-    [string appendFormat:@"%@ %@ (%@)", self.glb_className, NSStringFromClass([_target class]), NSStringFromSelector(_action)];
+    NSUInteger baseIndent = indent + 1;
+    [string appendFormat:@"<%@ \n", self.glb_className];
+    [string glb_appendString:@"\t" repeat:baseIndent];
+    [string appendFormat:@"Target : %@\n", [_target glb_className]];
+    [string glb_appendString:@"\t" repeat:baseIndent];
+    [string appendFormat:@"Action : %@\n", NSStringFromSelector(_action)];
+    [string glb_appendString:@"\t" repeat:indent];
+    [string appendString:@">"];
 }
 
 @end
@@ -260,8 +267,7 @@
         [string glb_appendString:@"\t" repeat:indent];
     }
     NSUInteger baseIndent = indent + 1;
-    NSUInteger newIndent = baseIndent + 1;
-    [string appendFormat:@"%@\n", self.glb_className];
+    [string appendFormat:@"<%@ \n", self.glb_className];
     if(_defaultGroup != nil) {
         [string glb_appendString:@"\t" repeat:baseIndent];
         [string appendFormat:@"DefaultGroup : %@\n", [_defaultGroup glb_debug]];
@@ -269,9 +275,11 @@
     if(_actions.count > 0) {
         [string glb_appendString:@"\t" repeat:baseIndent];
         [string appendString:@"Actions : "];
-        [_actions glb_debugString:string indent:newIndent root:NO];
+        [_actions glb_debugString:string indent:baseIndent root:NO];
         [string appendString:@"\n"];
     }
+    [string glb_appendString:@"\t" repeat:indent];
+    [string appendString:@">"];
 }
 
 @end
