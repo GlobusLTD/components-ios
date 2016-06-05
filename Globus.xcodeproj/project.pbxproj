@@ -238,6 +238,10 @@
 		40D98EDF1C03FCD1006937FC /* NSOrderedSet+GLBNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D98EDD1C03FCD1006937FC /* NSOrderedSet+GLBNS.m */; };
 		40DF703A1CA0A6EB005EBB6B /* GLBSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DF70391CA0A6EB005EBB6B /* GLBSplitViewController.m */; };
 		40DF703D1CA0AC3F005EBB6B /* GLBSplitViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 40DF70381CA0A6EB005EBB6B /* GLBSplitViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		40EA70A51D04B3810037FE71 /* NSNull+GLBNS.h in Headers */ = {isa = PBXBuildFile; fileRef = 40EA70A31D04B3810037FE71 /* NSNull+GLBNS.h */; };
+		40EA70A61D04B3810037FE71 /* NSNull+GLBNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 40EA70A41D04B3810037FE71 /* NSNull+GLBNS.m */; };
+		40EA70A91D04B3870037FE71 /* NSNumber+GLBNS.h in Headers */ = {isa = PBXBuildFile; fileRef = 40EA70A71D04B3870037FE71 /* NSNumber+GLBNS.h */; };
+		40EA70AA1D04B3870037FE71 /* NSNumber+GLBNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 40EA70A81D04B3870037FE71 /* NSNumber+GLBNS.m */; };
 		40EE54E31BFA8E7C0004E5BE /* UIApplication+GLBUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 40EE54E11BFA8E7C0004E5BE /* UIApplication+GLBUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40EE54E41BFA8E7C0004E5BE /* UIApplication+GLBUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 40EE54E21BFA8E7C0004E5BE /* UIApplication+GLBUI.m */; };
 		40EE54F51BFA930E0004E5BE /* GLBStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 40EE54F41BFA930E0004E5BE /* GLBStyle.m */; };
@@ -564,6 +568,10 @@
 		40DF702E1CA0A6C9005EBB6B /* libGLBSplitViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBSplitViewController.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		40DF70381CA0A6EB005EBB6B /* GLBSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBSplitViewController.h; sourceTree = "<group>"; };
 		40DF70391CA0A6EB005EBB6B /* GLBSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBSplitViewController.m; sourceTree = "<group>"; };
+		40EA70A31D04B3810037FE71 /* NSNull+GLBNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNull+GLBNS.h"; sourceTree = "<group>"; };
+		40EA70A41D04B3810037FE71 /* NSNull+GLBNS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNull+GLBNS.m"; sourceTree = "<group>"; };
+		40EA70A71D04B3870037FE71 /* NSNumber+GLBNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+GLBNS.h"; sourceTree = "<group>"; };
+		40EA70A81D04B3870037FE71 /* NSNumber+GLBNS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+GLBNS.m"; sourceTree = "<group>"; };
 		40EE54E11BFA8E7C0004E5BE /* UIApplication+GLBUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+GLBUI.h"; sourceTree = "<group>"; };
 		40EE54E21BFA8E7C0004E5BE /* UIApplication+GLBUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+GLBUI.m"; sourceTree = "<group>"; };
 		40EE54E91BFA92F90004E5BE /* libGLBStyle.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBStyle.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1753,6 +1761,10 @@
 				40BB8CF71BF3EE8800D2E180 /* NSFileManager+GLBNS.m */,
 				40BB8CF81BF3EE8800D2E180 /* NSHTTPCookieStorage+GLBNS.h */,
 				40BB8CF91BF3EE8800D2E180 /* NSHTTPCookieStorage+GLBNS.m */,
+				40EA70A31D04B3810037FE71 /* NSNull+GLBNS.h */,
+				40EA70A41D04B3810037FE71 /* NSNull+GLBNS.m */,
+				40EA70A71D04B3870037FE71 /* NSNumber+GLBNS.h */,
+				40EA70A81D04B3870037FE71 /* NSNumber+GLBNS.m */,
 				40BB8CFA1BF3EE8800D2E180 /* NSObject+GLBNS.h */,
 				40BB8CFB1BF3EE8800D2E180 /* NSObject+GLBNS.m */,
 				40D98EDC1C03FCD1006937FC /* NSOrderedSet+GLBNS.h */,
@@ -1862,6 +1874,7 @@
 				402B56351BF47BFE0084F50C /* NSData+GLBNS.h in Headers */,
 				409DBC671C5033B900BEFC22 /* NSAttributedString+GLBNS.h in Headers */,
 				402B56361BF47BFE0084F50C /* NSDate+GLBNS.h in Headers */,
+				40EA70A91D04B3870037FE71 /* NSNumber+GLBNS.h in Headers */,
 				402B56371BF47BFE0084F50C /* NSDateFormatter+GLBNS.h in Headers */,
 				40AB69C11C4546C500507142 /* GLBTargetConditionals.h in Headers */,
 				40D98EDA1C03FB41006937FC /* NSSet+GLBNS.h in Headers */,
@@ -1872,6 +1885,7 @@
 				402B563C1BF47BFE0084F50C /* NSObject+GLBNS.h in Headers */,
 				402B563D1BF47BFE0084F50C /* NSString+GLBNS.h in Headers */,
 				402B563E1BF47BFE0084F50C /* NSURL+GLBNS.h in Headers */,
+				40EA70A51D04B3810037FE71 /* NSNull+GLBNS.h in Headers */,
 				40D98EDE1C03FCD1006937FC /* NSOrderedSet+GLBNS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4036,6 +4050,7 @@
 				409DBC681C5033B900BEFC22 /* NSAttributedString+GLBNS.m in Sources */,
 				40BB8D051BF3EE8800D2E180 /* NSDictionary+GLBNS.m in Sources */,
 				40BB8D031BF3EE8800D2E180 /* NSDate+GLBNS.m in Sources */,
+				40EA70A61D04B3810037FE71 /* NSNull+GLBNS.m in Sources */,
 				40BB8D061BF3EE8800D2E180 /* NSError+GLBNS.m in Sources */,
 				40BB8D021BF3EE8800D2E180 /* NSData+GLBNS.m in Sources */,
 				40D98EDB1C03FB41006937FC /* NSSet+GLBNS.m in Sources */,
@@ -4045,6 +4060,7 @@
 				40BB8D081BF3EE8800D2E180 /* NSHTTPCookieStorage+GLBNS.m in Sources */,
 				40BB8D011BF3EE8800D2E180 /* NSBundle+GLBNS.m in Sources */,
 				40BB8D041BF3EE8800D2E180 /* NSDateFormatter+GLBNS.m in Sources */,
+				40EA70AA1D04B3870037FE71 /* NSNumber+GLBNS.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
