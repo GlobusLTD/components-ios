@@ -486,7 +486,7 @@
         [self.lock unlock];
         
         if(_logging == YES) {
-            NSLog(@"%@", query.request.debugDescription);
+            NSLog(@"\n%@\n", query.request.glb_debug);
         }
         
         [task resume];
@@ -712,7 +712,7 @@
 
 - (void)_didComplete {
     if(_provider.logging == YES) {
-        NSLog(@"%@", _request.response.debugDescription);
+        NSLog(@"\n%@\n", _request.response.glb_debug);
     }
     if(_completeBlock != nil) {
         dispatch_async(dispatch_get_main_queue(), ^{

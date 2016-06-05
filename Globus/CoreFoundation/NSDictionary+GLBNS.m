@@ -204,6 +204,22 @@
     return (self[key] != nil);
 }
 
+#pragma mark - GLBObjectDebugProtocol
+
+- (void)glb_debugString:(NSMutableString*)string indent:(NSUInteger)indent root:(BOOL)root {
+    if(root == YES) {
+        [string glb_appendString:@"\t" repeat:indent];
+    }
+    NSUInteger baseIndent = indent + 1;
+    [string appendString:@"{\n"];
+    [self enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+        [string glb_appendString:@"\t" repeat:baseIndent];
+        [string appendFormat:@"%@ : %@,\n", [key glb_debugIndent:baseIndent root:NO], [value glb_debugIndent:baseIndent root:NO]];
+    }];
+    [string glb_appendString:@"\t" repeat:indent];
+    [string appendString:@"}"];
+}
+
 @end
 
 /*--------------------------------------------------*/

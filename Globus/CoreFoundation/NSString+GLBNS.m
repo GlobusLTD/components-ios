@@ -209,6 +209,35 @@ static UInt32 GLB_CRC32(const char* aString) {
     return GLB_CRC32(self.UTF8String);
 }
 
+#pragma mark - GLBObjectDebugProtocol
+
+- (void)glb_debugString:(NSMutableString*)string indent:(NSUInteger)indent root:(BOOL)root {
+    if(root == YES) {
+        [string glb_appendString:@"\t" repeat:indent];
+    }
+    [string appendFormat:@"\"%@\"", self];
+}
+
+@end
+
+/*--------------------------------------------------*/
+
+@implementation NSMutableString (GLB_NS)
+
++ (instancetype)glb_stringWithString:(NSString*)string repeat:(NSUInteger)repeat {
+    NSMutableString* result = [self string];
+    [result glb_appendString:string repeat:repeat];
+    return result;
+}
+
+- (void)glb_appendString:(NSString*)string repeat:(NSUInteger)repeat {
+    if(repeat > 0) {
+        for(NSUInteger i = 0; i < repeat; i++) {
+            [self appendString:string];
+        }
+    }
+}
+
 @end
 
 /*--------------------------------------------------*/

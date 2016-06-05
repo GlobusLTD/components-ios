@@ -6,6 +6,7 @@
 
 #import "NSArray+GLBNS.h"
 #import "NSDictionary+GLBNS.h"
+#import "NSString+GLBNS.h"
 
 /*--------------------------------------------------*/
 
@@ -73,6 +74,21 @@
 
 - (void)_performInvocation:(NSInvocation*)invocation {
     [invocation invoke];
+}
+
+#pragma mark - Debug
+
+- (NSString*)debugDescription {
+    return [self glb_debug];
+}
+
+#pragma mark - GLBObjectDebugProtocol
+
+- (void)glb_debugString:(NSMutableString*)string indent:(NSUInteger)indent root:(BOOL)root {
+    if(root == YES) {
+        [string glb_appendString:@"\t" repeat:indent];
+    }
+    [string appendFormat:@"%@ %@ (%@)", self.glb_className, NSStringFromClass([_target class]), NSStringFromSelector(_action)];
 }
 
 @end
@@ -229,6 +245,33 @@
     [existActions glb_each:^(GLBAction* existAction) {
         [existAction performWithArguments:arguments];
     }];
+}
+
+#pragma mark - Debug
+
+- (NSString*)debugDescription {
+    return [self glb_debug];
+}
+
+#pragma mark - GLBObjectDebugProtocol
+
+- (void)glb_debugString:(NSMutableString*)string indent:(NSUInteger)indent root:(BOOL)root {
+    if(root == YES) {
+        [string glb_appendString:@"\t" repeat:indent];
+    }
+    NSUInteger baseIndent = indent + 1;
+    NSUInteger newIndent = baseIndent + 1;
+    [string appendFormat:@"%@\n", self.glb_className];
+    if(_defaultGroup != nil) {
+        [string glb_appendString:@"\t" repeat:baseIndent];
+        [string appendFormat:@"DefaultGroup : %@\n", [_defaultGroup glb_debug]];
+    }
+    if(_actions.count > 0) {
+        [string glb_appendString:@"\t" repeat:baseIndent];
+        [string appendString:@"Actions : "];
+        [_actions glb_debugString:string indent:newIndent root:NO];
+        [string appendString:@"\n"];
+    }
 }
 
 @end

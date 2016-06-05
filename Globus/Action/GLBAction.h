@@ -1,10 +1,10 @@
 /*--------------------------------------------------*/
 
-#include "GLBTargetConditionals.h"
+#include "NSObject+GLBNS.h"
 
 /*--------------------------------------------------*/
 
-@interface GLBAction : NSObject
+@interface GLBAction : NSObject < GLBObjectDebugProtocol >
 
 @property(nonatomic, readonly, nullable, weak) id target;
 @property(nonatomic, readonly, nonnull, assign) SEL action;
@@ -22,7 +22,7 @@
 
 /*--------------------------------------------------*/
 
-@interface GLBActions: NSObject
+@interface GLBActions: NSObject < GLBObjectDebugProtocol >
 
 @property(nonatomic, nonnull, strong) id defaultGroup;
 

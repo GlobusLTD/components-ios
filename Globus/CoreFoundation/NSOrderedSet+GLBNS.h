@@ -1,10 +1,10 @@
 /*--------------------------------------------------*/
 
-#include "GLBTargetConditionals.h"
+#import "NSObject+GLBNS.h"
 
 /*--------------------------------------------------*/
 
-@interface NSOrderedSet< __covariant ObjectType > (GLB_NS)
+@interface NSOrderedSet< __covariant ObjectType > (GLB_NS) < GLBObjectDebugProtocol >
 
 + (instancetype _Nullable)glb_orderedSetWithOrderedSet:(NSOrderedSet< ObjectType >* _Nullable)orderedSet addingObject:(_Nonnull ObjectType)object;
 + (instancetype _Nullable)glb_orderedSetWithOrderedSet:(NSOrderedSet< ObjectType >* _Nullable)orderedSet addingObjectsFromOrderedSet:(NSOrderedSet< ObjectType >* _Nonnull)addingObjects;

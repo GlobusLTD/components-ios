@@ -1,10 +1,10 @@
 /*--------------------------------------------------*/
 
-#include "GLBTargetConditionals.h"
+#import "NSObject+GLBNS.h"
 
 /*--------------------------------------------------*/
 
-@interface NSDictionary< KeyType, ObjectType > (GLB_NS)
+@interface NSDictionary< KeyType, ObjectType > (GLB_NS) < GLBObjectDebugProtocol >
 
 - (BOOL)glb_boolForKey:(_Nonnull KeyType)key orDefault:(BOOL)defaultValue;
 - (NSInteger)glb_integerForKey:(_Nonnull KeyType)key orDefault:(NSInteger)defaultValue;

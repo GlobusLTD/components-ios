@@ -1,10 +1,10 @@
 /*--------------------------------------------------*/
 
-#include "GLBTargetConditionals.h"
+#import "NSObject+GLBNS.h"
 
 /*--------------------------------------------------*/
 
-@interface NSArray< __covariant ObjectType > (GLB_NS)
+@interface NSArray< __covariant ObjectType > (GLB_NS) < GLBObjectDebugProtocol >
 
 + (_Nullable instancetype)glb_arrayWithArray:(NSArray< ObjectType >* _Nullable)array addingObject:(ObjectType _Nonnull)object;
 + (_Nullable instancetype)glb_arrayWithArray:(NSArray< ObjectType >* _Nullable)array addingObjectsFromArray:(NSArray< ObjectType >* _Nonnull)addingObjects;

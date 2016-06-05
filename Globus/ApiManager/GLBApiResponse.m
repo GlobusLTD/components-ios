@@ -5,7 +5,7 @@
 
 /*--------------------------------------------------*/
 
-#import "NSObject+GLBNS.h"
+#import "NSString+GLBNS.h"
 
 /*--------------------------------------------------*/
 #pragma mark -
@@ -117,25 +117,75 @@
 #pragma mark - Debug
 
 - (NSString*)debugDescription {
-    NSMutableArray* lines = [NSMutableArray array];
-    [lines addObject:[NSString stringWithFormat:@"- %@", self.glb_className]];
+    return [self glb_debug];
+}
+
+#pragma mark - GLBObjectDebugProtocol
+
+- (void)glb_debugString:(NSMutableString*)string indent:(NSUInteger)indent root:(BOOL)root {
+    if(root == YES) {
+        [string glb_appendString:@"\t" repeat:indent];
+    }
+    NSUInteger baseIndent = indent + 1;
+    [string appendFormat:@"%@\n", self.glb_className];
     NSURLResponse* urlResponse = self.urlResponse;
     if(urlResponse != nil) {
-        [lines addObject:[NSString stringWithFormat:@"-- URL: %@", urlResponse.URL]];
-        [lines addObject:[NSString stringWithFormat:@"-- MIMEType: %@", urlResponse.MIMEType]];
+        NSURL* url = urlResponse.URL;
+        if(url != nil) {
+            [string glb_appendString:@"\t" repeat:baseIndent];
+            [string appendString:@"URL : "];
+            [url glb_debugString:string indent:baseIndent root:NO];
+            [string appendString:@"\n"];
+        }
+        NSString* mimetype = urlResponse.MIMEType;
+        if(mimetype != nil) {
+            [string glb_appendString:@"\t" repeat:baseIndent];
+            [string appendString:@"MIMEType : "];
+            [mimetype glb_debugString:string indent:baseIndent root:NO];
+            [string appendString:@"\n"];
+        }
         if([urlResponse isKindOfClass:NSHTTPURLResponse.class] == YES) {
             NSHTTPURLResponse* httpUrlResponse = (NSHTTPURLResponse*)urlResponse;
-            [lines addObject:[NSString stringWithFormat:@"-- StatusCode: %@ (%d)", [NSHTTPURLResponse localizedStringForStatusCode:httpUrlResponse.statusCode], (int)httpUrlResponse.statusCode]];
-            [lines addObject:[NSString stringWithFormat:@"-- Headers: %@", httpUrlResponse.allHeaderFields]];
+            
+            [string glb_appendString:@"\t" repeat:baseIndent];
+            [string appendFormat:@"StatusCode : %@ (%d)\n", [NSHTTPURLResponse localizedStringForStatusCode:httpUrlResponse.statusCode], (int)httpUrlResponse.statusCode];
+            
+            NSDictionary* headers = httpUrlResponse.allHeaderFields;
+            if(headers != nil) {
+                [string glb_appendString:@"\t" repeat:baseIndent];
+                [string appendString:@"Headers : "];
+                [headers glb_debugString:string indent:baseIndent root:NO];
+                [string appendString:@"\n"];
+            }
         }
     }
-    if(self.data.length > 0) {
-        [lines addObject:[NSString stringWithFormat:@"-- Body: %d bytes", (int)self.data.length]];
+    NSData* body = self.data;
+    if(body != nil) {
+        id json = [NSJSONSerialization JSONObjectWithData:body options:0 error:nil];
+        if(json != nil) {
+            [string glb_appendString:@"\t" repeat:baseIndent];
+            [string appendString:@"Body : "];
+            [json glb_debugString:string indent:baseIndent root:NO];
+            [string appendString:@"\n"];
+        } else {
+            NSString* bodyString = [NSString glb_stringWithData:body encoding:NSUTF8StringEncoding];
+            if(bodyString != nil) {
+                [string glb_appendString:@"\t" repeat:baseIndent];
+                [string appendString:@"Body : "];
+                [bodyString glb_debugString:string indent:baseIndent root:NO];
+                [string appendString:@"\n"];
+            } else {
+                [string glb_appendString:@"\t" repeat:baseIndent];
+                [string appendFormat:@"Body : %d bytes\n", (int)body.length];
+            }
+        }
     }
     if(_error != nil) {
-        [lines addObject:[NSString stringWithFormat:@"-- Error: %@", _error]];
+        [string glb_appendString:@"\t" repeat:baseIndent];
+        [string appendString:@"Error : "];
+        [_error glb_debugString:string indent:baseIndent root:NO];
+        [string appendString:@"\n"];
     }
-    return [NSString stringWithFormat:@"\n%@", [lines componentsJoinedByString:@"\n"]];
 }
 
 @end

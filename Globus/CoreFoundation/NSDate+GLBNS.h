@@ -1,6 +1,6 @@
 /*--------------------------------------------------*/
 
-#include "GLBTargetConditionals.h"
+#import "NSObject+GLBNS.h"
 
 /*--------------------------------------------------*/
 
@@ -29,7 +29,7 @@ typedef NS_ENUM(NSUInteger, GLBDateWeekday) {
 
 /*--------------------------------------------------*/
 
-@interface NSDate (GLB_NS)
+@interface NSDate (GLB_NS) < GLBObjectDebugProtocol >
 
 + (NSDate* _Nullable)glb_dateByYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day;
 + (NSDate* _Nullable)glb_dateByHour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)seccond;

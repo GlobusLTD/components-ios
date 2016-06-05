@@ -1,10 +1,10 @@
 /*--------------------------------------------------*/
 
-#include "GLBTargetConditionals.h"
+#import "NSObject+GLBNS.h"
 
 /*--------------------------------------------------*/
 
-@interface NSString (GLB_NS)
+@interface NSString (GLB_NS) < GLBObjectDebugProtocol >
 
 + (instancetype _Nullable)glb_stringWithData:(NSData* _Nonnull)data encoding:(NSStringEncoding)encoding;
 
@@ -29,6 +29,16 @@
 - (NSArray* _Nullable)glb_charactersArray;
 
 - (UInt32)glb_crc32;
+
+@end
+
+/*--------------------------------------------------*/
+
+@interface NSMutableString (GLB_NS)
+
++ (instancetype _Nullable)glb_stringWithString:(NSString* _Nonnull)string repeat:(NSUInteger)repeat;
+
+- (void)glb_appendString:(NSString* _Nonnull)string repeat:(NSUInteger)repeat;
 
 @end
 

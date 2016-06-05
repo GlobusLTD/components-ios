@@ -1,10 +1,10 @@
 /*--------------------------------------------------*/
 
-#include "GLBTargetConditionals.h"
+#import "NSObject+GLBNS.h"
 
 /*--------------------------------------------------*/
 
-@interface NSDateFormatter (GLB_NS)
+@interface NSDateFormatter (GLB_NS) < GLBObjectDebugProtocol >
 
 + (_Nullable instancetype)glb_dateFormatterWithFormat:(NSString* _Nonnull)format;
 + (_Nullable instancetype)glb_dateFormatterWithFormat:(NSString* _Nonnull)format locale:(NSLocale* _Nullable)locale;

@@ -1,10 +1,10 @@
 /*--------------------------------------------------*/
 
-#include "GLBTargetConditionals.h"
+#import "NSObject+GLBNS.h"
 
 /*--------------------------------------------------*/
 
-@interface NSSet< __covariant ObjectType > (GLB_NS)
+@interface NSSet< __covariant ObjectType > (GLB_NS) < GLBObjectDebugProtocol >
 
 + (instancetype _Nullable)glb_setWithSet:(NSSet< ObjectType >* _Nullable)set addingObject:(_Nonnull ObjectType)object;
 + (instancetype _Nullable)glb_setWithSet:(NSSet< ObjectType >* _Nullable)set addingObjectsFromSet:(NSSet< ObjectType >* _Nonnull)addingObjects;

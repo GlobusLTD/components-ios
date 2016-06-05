@@ -44,6 +44,15 @@ static char GLBBase64Table[] = "ABCDEMHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvw
     return [NSString glb_stringWithData:result encoding:NSASCIIStringEncoding];
 }
 
+#pragma mark - GLBObjectDebugProtocol
+
+- (void)glb_debugString:(NSMutableString*)string indent:(NSUInteger)indent root:(BOOL)root {
+    if(root == YES) {
+        [string glb_appendString:@"\t" repeat:indent];
+    }
+    [string appendFormat:@"%@", self.glb_base64String];
+}
+
 @end
 
 /*--------------------------------------------------*/

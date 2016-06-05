@@ -6,7 +6,6 @@
 
 /*--------------------------------------------------*/
 
-#import "NSObject+GLBNS.h"
 #import "NSURL+GLBNS.h"
 #import "NSString+GLBNS.h"
 #import "NSArray+GLBNS.h"
@@ -220,18 +219,62 @@
 #pragma mark - Debug
 
 - (NSString*)debugDescription {
-    NSMutableArray* lines = [NSMutableArray array];
-    [lines addObject:[NSString stringWithFormat:@"- %@", self.glb_className]];
+    return [self glb_debug];
+}
+
+#pragma mark - GLBObjectDebugProtocol
+
+- (void)glb_debugString:(NSMutableString*)string indent:(NSUInteger)indent root:(BOOL)root {
+    if(root == YES) {
+        [string glb_appendString:@"\t" repeat:indent];
+    }
+    NSUInteger baseIndent = indent + 1;
+    [string appendFormat:@"%@\n", self.glb_className];
     NSURLRequest* urlRequest = self.urlRequest;
     if(urlRequest != nil) {
-        [lines addObject:[NSString stringWithFormat:@"-- Url: %@", urlRequest.URL]];
-        [lines addObject:[NSString stringWithFormat:@"-- Method: %@", urlRequest.HTTPMethod]];
-        [lines addObject:[NSString stringWithFormat:@"-- Headers: %@", urlRequest.allHTTPHeaderFields]];
-        if(urlRequest.HTTPBody.length > 0) {
-            [lines addObject:[NSString stringWithFormat:@"-- Body: %d bytes", (int)urlRequest.HTTPBody.length]];
+        NSURL* url = urlRequest.URL;
+        if(url != nil) {
+            [string glb_appendString:@"\t" repeat:baseIndent];
+            [string appendString:@"URL : "];
+            [url glb_debugString:string indent:baseIndent root:NO];
+            [string appendString:@"\n"];
+        }
+        NSString* method = urlRequest.HTTPMethod;
+        if(method != nil) {
+            [string glb_appendString:@"\t" repeat:baseIndent];
+            [string appendString:@"Method : "];
+            [method glb_debugString:string indent:baseIndent root:NO];
+            [string appendString:@"\n"];
+        }
+        NSDictionary* headers = urlRequest.allHTTPHeaderFields;
+        if(headers != nil) {
+            [string glb_appendString:@"\t" repeat:baseIndent];
+            [string appendString:@"Headers : "];
+            [headers glb_debugString:string indent:baseIndent root:NO];
+            [string appendString:@"\n"];
+        }
+        NSData* body = urlRequest.HTTPBody;
+        if(body != nil) {
+            id json = [NSJSONSerialization JSONObjectWithData:body options:0 error:nil];
+            if(json != nil) {
+                [string glb_appendString:@"\t" repeat:baseIndent];
+                [string appendString:@"Body : "];
+                [json glb_debugString:string indent:baseIndent root:NO];
+                [string appendString:@"\n"];
+            } else {
+                NSString* bodyString = [NSString glb_stringWithData:body encoding:NSUTF8StringEncoding];
+                if(bodyString != nil) {
+                    [string glb_appendString:@"\t" repeat:baseIndent];
+                    [string appendString:@"Body : "];
+                    [bodyString glb_debugString:string indent:baseIndent root:NO];
+                    [string appendString:@"\n"];
+                } else {
+                    [string glb_appendString:@"\t" repeat:baseIndent];
+                    [string appendFormat:@"Body : %d bytes\n", (int)body.length];
+                }
+            }
         }
     }
-    return [NSString stringWithFormat:@"\n%@", [lines componentsJoinedByString:@"\n"]];
 }
 
 #pragma mark - Private

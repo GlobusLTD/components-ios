@@ -1,6 +1,6 @@
 /*--------------------------------------------------*/
 
-#include "GLBTargetConditionals.h"
+#import "NSObject+GLBNS.h"
 
 /*--------------------------------------------------*/
 
@@ -8,7 +8,7 @@
 
 /*--------------------------------------------------*/
 
-@interface GLBApiResponse : NSObject
+@interface GLBApiResponse : NSObject < GLBObjectDebugProtocol >
 
 @property(nonatomic, readonly, nullable, strong) __kindof GLBApiRequest* request;
 @property(nonatomic, readonly, nullable, strong) NSURLResponse* urlResponse;
