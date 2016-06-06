@@ -1048,8 +1048,39 @@ static NSString* GLBManagedManagerModelExtensionKey = @"GLBManagedManagerModelEx
     return [self _saveContext:self.currentContext];
 }
 
+- (NSManagedObject*)objectRegisteredForID:(NSManagedObjectID*)objectID {
+    return [self.currentContext objectRegisteredForID:objectID];
+}
+
 - (NSManagedObject*)objectWithID:(NSManagedObjectID*)objectID {
     return [self.currentContext objectWithID:objectID];
+}
+
+- (NSManagedObject*)existingObjectWithID:(NSManagedObjectID*)objectID error:(NSError**)error {
+    return [self.currentContext existingObjectWithID:objectID error:error];
+}
+
+- (void)insertObject:(NSManagedObject* _Nonnull)object {
+    [self.currentContext insertObject:object];
+}
+
+- (void)deleteObject:(NSManagedObject* _Nonnull)object {
+    [self.currentContext deleteObject:object];
+}
+
+- (void)refreshObject:(NSManagedObject* _Nonnull)object mergeChanges:(BOOL)flag {
+    [self.currentContext refreshObject:object mergeChanges:flag];
+}
+
+- (void)refreshRegisteredObjectsMergeChanges:(BOOL)flag {
+    NSManagedObjectContext* currentContext = self.currentContext;
+    for(NSManagedObject* object in currentContext.registeredObjects) {
+        [currentContext refreshObject:object mergeChanges:flag];
+    }
+}
+
+- (void)detectConflictsForObject:(NSManagedObject* _Nonnull)object {
+    [self.currentContext detectConflictsForObject:object];
 }
 
 #pragma mark - Private

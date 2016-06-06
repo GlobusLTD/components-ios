@@ -133,7 +133,15 @@ typedef void(^GLBManagedManagerPerform)();
 
 - (BOOL)save;
 
-- (nullable __kindof NSManagedObject*)objectWithID:(NSManagedObjectID* _Nonnull)objectID;
+- (__kindof NSManagedObject* _Nullable)objectRegisteredForID:(NSManagedObjectID* _Nonnull)objectID;
+- (__kindof NSManagedObject* _Nullable)objectWithID:(NSManagedObjectID* _Nonnull)objectID;
+- (__kindof NSManagedObject* _Nullable)existingObjectWithID:(NSManagedObjectID* _Nonnull)objectID error:(NSError* _Nullable * _Nullable)error;
+
+- (void)insertObject:(NSManagedObject* _Nonnull)object;
+- (void)deleteObject:(NSManagedObject* _Nonnull)object;
+- (void)refreshObject:(NSManagedObject* _Nonnull)object mergeChanges:(BOOL)flag;
+- (void)refreshRegisteredObjectsMergeChanges:(BOOL)flag;
+- (void)detectConflictsForObject:(NSManagedObject* _Nonnull)object;
 
 @end
 
