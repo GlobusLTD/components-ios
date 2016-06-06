@@ -36,11 +36,18 @@
 
 /*--------------------------------------------------*/
 
-@interface GLBManagedManager ()
+@interface GLBManagedManager () {
+    NSMutableArray< NSValue* >* _observers;
+    NSURL* _containerUrl;
+}
 
-@property(nonatomic, readonly, nullable, strong) NSURL* containerUrl;
+@property(nonatomic, readonly, nullable, strong) NSManagedObjectContext* storeContext;
+@property(nonatomic, readonly, nullable, strong) NSManagedObjectContext* mainContext;
+@property(nonatomic, readonly, nullable, strong) NSManagedObjectContext* backgroundContext;
+@property(nonatomic, readonly, nullable, strong) NSManagedObjectContext* currentContext;
+@property(nonatomic, readonly, nullable, strong) NSManagedObjectModel* model;
+@property(nonatomic, readonly, nullable, strong) NSPersistentStoreCoordinator* coordinator;
 @property(nonatomic, nullable, strong) NSURL* existStoreUrl;
-@property(nonatomic, readonly, nullable, strong) NSURL* storeUrl;
 
 @end
 

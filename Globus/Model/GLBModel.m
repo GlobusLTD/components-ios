@@ -701,8 +701,8 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
 
 #pragma mark - Public
 
-- (void)remove {
-    [self.managedObjectContext deleteObject:self];
+- (void)refreshMergeChanges:(BOOL)flag {
+    [self.managedObjectContext refreshObject:self mergeChanges:flag];
 }
 
 - (BOOL)save {
@@ -712,6 +712,10 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
         NSLog(@"Failure save %@", error);
     }
     return result;
+}
+
+- (void)remove {
+    [self.managedObjectContext deleteObject:self];
 }
 
 #pragma mark - Private
@@ -751,8 +755,10 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
 /*--------------------------------------------------*/
 
 static GLBManagedManager* GLBManagedManagerInstance = nil;
-static NSString* GLBManagedManagerModelNameKey = @"GLBManagedManagerModelName";
-static NSString* GLBManagedManagerModelExtensionKey = @"GLBManagedManagerModelExtension";
+
+/*--------------------------------------------------*/
+
+static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistStoreUrl";
 
 /*--------------------------------------------------*/
 
@@ -789,10 +795,12 @@ static NSString* GLBManagedManagerModelExtensionKey = @"GLBManagedManagerModelEx
 }
 
 - (void)setup {
+    _observers = [NSMutableArray array];
+    _allowsLazyInitialize = YES;
     _allowsCreateStoreDatabase = YES;
-    _modelLocalPath = NSFileManager.glb_libraryDirectory;
-    _modelName = [NSBundle.mainBundle glb_objectForInfoDictionaryKey:GLBManagedManagerModelNameKey defaultValue:@"default"];
-    _modelExtension = [NSBundle.mainBundle glb_objectForInfoDictionaryKey:GLBManagedManagerModelExtensionKey defaultValue:@"db"];
+    _storeLocalPath = NSFileManager.glb_libraryDirectory;
+    _modelName = @"default";
+    _modelExtension = @"db";
 }
 
 - (void)dealloc {
@@ -801,42 +809,37 @@ static NSString* GLBManagedManagerModelExtensionKey = @"GLBManagedManagerModelEx
 #pragma mark - Property
 
 - (NSManagedObjectContext*)storeContext {
-    if((_storeContext == nil) && (self.coordinator != nil)) {
-        [self.class _perform:^{
-            _storeContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-            _storeContext.persistentStoreCoordinator = self.coordinator;
-            _storeContext.mergePolicy = NSErrorMergePolicy;
-        }];
+    if(_storeContext != nil) {
+        return _storeContext;
+    }
+    if(_allowsLazyInitialize == YES) {
+        [self initializeStore];
+    } else {
+        @throw [NSException exceptionWithName:GLBManagedManagerErrorDomain reason:@"Disable lazy initialization" userInfo:nil];
     }
     return _storeContext;
 }
 
 - (NSManagedObjectContext*)mainContext {
-    if((_mainContext == nil) && (self.storeContext != nil)) {
-        [self.class _perform:^{
-            _mainContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-            _mainContext.parentContext = self.storeContext;
-            _mainContext.mergePolicy = _mainContext.parentContext.mergePolicy;
-            [NSNotificationCenter.defaultCenter addObserver:self
-                                                   selector:@selector(_notificationDidSaveMainContext:)
-                                                       name:NSManagedObjectContextDidSaveNotification
-                                                     object:_mainContext];
-        }];
+    if(_mainContext != nil) {
+        return _mainContext;
+    }
+    if(_allowsLazyInitialize == YES) {
+        [self initializeStore];
+    } else {
+        @throw [NSException exceptionWithName:GLBManagedManagerErrorDomain reason:@"Disable lazy initialization" userInfo:nil];
     }
     return _mainContext;
 }
 
 - (NSManagedObjectContext*)backgroundContext {
-    if((_backgroundContext == nil) && (self.mainContext != nil)) {
-        [self.class _perform:^{
-            _backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-            _backgroundContext.parentContext = self.mainContext;
-            _backgroundContext.mergePolicy = _backgroundContext.parentContext.mergePolicy;
-            [NSNotificationCenter.defaultCenter addObserver:self
-                                                   selector:@selector(_notificationDidSaveBackgroundContext:)
-                                                       name:NSManagedObjectContextDidSaveNotification
-                                                     object:_backgroundContext];
-        }];
+    if(_backgroundContext != nil) {
+        return _backgroundContext;
+    }
+    if(_allowsLazyInitialize == YES) {
+        [self initializeStore];
+    } else {
+        @throw [NSException exceptionWithName:GLBManagedManagerErrorDomain reason:@"Disable lazy initialization" userInfo:nil];
     }
     return _backgroundContext;
 }
@@ -849,176 +852,339 @@ static NSString* GLBManagedManagerModelExtensionKey = @"GLBManagedManagerModelEx
 }
 
 - (NSManagedObjectModel*)model {
-    if(_model == nil) {
-        [self.class _perform:^{
-            NSURL* url = [NSBundle.mainBundle URLForResource:_modelName withExtension:@"momd"];
-            if(url != nil) {
-                _model = [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
-            }
-        }];
+    if(_model != nil) {
+        return _model;
+    }
+    if(_allowsLazyInitialize == YES) {
+        [self initializeStore];
+    } else {
+        @throw [NSException exceptionWithName:GLBManagedManagerErrorDomain reason:@"Disable lazy initialization" userInfo:nil];
     }
     return _model;
 }
 
 - (NSPersistentStoreCoordinator*)coordinator {
-    if((_coordinator == nil) && (self.model != nil)) {
-        [self.class _perform:^{
-            NSMutableDictionary* options = [NSMutableDictionary dictionary];
-            options[NSMigratePersistentStoresAutomaticallyOption] = @YES;
-            options[NSInferMappingModelAutomaticallyOption] = @YES;
-            options[NSSQLitePragmasOption] = @{ @"journal_mode" : @"WAL" };
-            NSError* error = nil;
-            NSURL* srcStoreUrl = self.existStoreUrl;
-            NSURL* dstStoreUrl = self.storeUrl;
-            NSPersistentStoreCoordinator* coordinator = nil;
-            NSPersistentStore* store = nil;
-            if((srcStoreUrl != nil) || (dstStoreUrl != nil)) {
-                if(_allowsCreateStoreDatabase == YES) {
-                    if((srcStoreUrl != nil) && (dstStoreUrl != nil)) {
-                        if([srcStoreUrl isEqual:dstStoreUrl] == NO) {
-                            if([NSFileManager.defaultManager fileExistsAtPath:srcStoreUrl.path] == YES) {
-                                if([NSFileManager.defaultManager fileExistsAtPath:dstStoreUrl.path] == YES) {
-                                    if([NSFileManager.defaultManager removeItemAtURL:dstStoreUrl error:&error] == NO) {
-                                        dstStoreUrl = nil;
-                                    } else {
-                                        NSLog(@"%@: Cant remove destination database: %@", self.glb_className, error);
-                                    }
-                                }
-                            } else {
-                                dstStoreUrl = nil;
-                            }
-                        } else {
-                            dstStoreUrl = nil;
-                        }
-                    } else if((srcStoreUrl == nil) && (dstStoreUrl != nil)) {
-                        srcStoreUrl = dstStoreUrl;
-                        dstStoreUrl = nil;
-                    }
-                    if([self _migrateURL:srcStoreUrl options:options type:NSSQLiteStoreType model:self.model error:&error] == YES) {
-                        coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.model];
-                        store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:srcStoreUrl options:options error:&error];
-                        if(store == nil) {
-                            options[NSSQLitePragmasOption] = @{ @"journal_mode" : @"DELETE" };
-                            store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:srcStoreUrl options:options error:&error];
-                            if(store != nil) {
-                                [coordinator removePersistentStore:store error:NULL];
-                                options[NSSQLitePragmasOption] = @{ @"journal_mode" : @"WAL" };
-                                store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:srcStoreUrl options:options error:&error];
-                                if(store == nil) {
-                                    NSLog(@"%@: Unresolved error: %@", self.glb_className, error);
-                                }
-                            } else {
-                                NSLog(@"%@: Unresolved error: %@", self.glb_className, error);
-                            }
-                            dstStoreUrl = nil;
-                        }
-                        if(dstStoreUrl != nil) {
-                            store = [coordinator migratePersistentStore:store toURL:dstStoreUrl options:options withType:NSSQLiteStoreType error:&error];
-                            if(store != nil) {
-                                if([NSFileManager.defaultManager removeItemAtURL:srcStoreUrl error:&error] == NO) {
-                                    NSLog(@"%@: Cant remove source database: %@", self.glb_className, error);
-                                }
-                            } else {
-                                NSLog(@"%@: Unresolved error: %@", self.glb_className, error);
-                            }
-                            self.existStoreUrl = dstStoreUrl;
-                        } else {
-                            self.existStoreUrl = srcStoreUrl;
-                        }
-                    } else {
-                        NSLog(@"%@: Unresolved error: %@", self.glb_className, error);
-                    }
-                } else {
-                    NSURL* storeUrl = (dstStoreUrl != nil) ? dstStoreUrl : srcStoreUrl;
-                    if([NSFileManager.defaultManager fileExistsAtPath:storeUrl.path] == YES) {
-                        if([self _migrateURL:storeUrl options:options type:NSSQLiteStoreType model:self.model error:&error] == YES) {
-                            coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.model];
-                            store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:options error:&error];
-                            if(store == nil) {
-                                options[NSSQLitePragmasOption] = @{ @"journal_mode" : @"DELETE" };
-                                store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:options error:&error];
-                                if(store != nil) {
-                                    [coordinator removePersistentStore:store error:NULL];
-                                    options[NSSQLitePragmasOption] = @{ @"journal_mode" : @"WAL" };
-                                    store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:options error:&error];
-                                    if(store == nil) {
-                                        NSLog(@"%@: Unresolved error: %@", self.glb_className, error);
-                                    }
-                                } else {
-                                    NSLog(@"%@: Unresolved error: %@", self.glb_className, error);
-                                }
-                                dstStoreUrl = nil;
-                            }
-                        } else {
-                            NSLog(@"%@: Unresolved error: %@", self.glb_className, error);
-                        }
-                    }
-                }
-            } else {
-                NSLog(@"%@: Invalid store url", self.glb_className);
-            }
-            if(store != nil) {
-                _coordinator = coordinator;
-            } else {
-                if([_delegate respondsToSelector:@selector(failedInitializeStoreInManagedManager:)] == YES) {
-                    [_delegate failedInitializeStoreInManagedManager:self];
-                }
-            }
-        }];
+    if(_coordinator != nil) {
+        return _coordinator;
+    }
+    if(_allowsLazyInitialize == YES) {
+        [self initializeStore];
+    } else {
+        @throw [NSException exceptionWithName:GLBManagedManagerErrorDomain reason:@"Disable lazy initialization" userInfo:nil];
     }
     return _coordinator;
 }
 
-- (void)setModelAppGroupName:(NSString*)modelAppGroupName {
-    if(_modelAppGroupName != modelAppGroupName) {
-        [self.class _perform:^{
-            _modelAppGroupName = modelAppGroupName;
-            if(_modelAppGroupName.length > 0) {
-                _containerUrl = [NSFileManager.defaultManager containerURLForSecurityApplicationGroupIdentifier:_modelAppGroupName];
-            } else {
-                _containerUrl = nil;
-            }
-        }];
+- (void)setStoreAppGroupName:(NSString*)storeAppGroupName {
+    if(_storeAppGroupName != storeAppGroupName) {
+        if(_initialized == YES) {
+            @throw [NSException exceptionWithName:GLBManagedManagerErrorDomain reason:@"Store already initialized" userInfo:nil];
+        }
+        _storeAppGroupName = storeAppGroupName;
+        if(_storeAppGroupName.length > 0) {
+            _containerUrl = [NSFileManager.defaultManager containerURLForSecurityApplicationGroupIdentifier:_storeAppGroupName];
+        } else {
+            _containerUrl = nil;
+        }
+    }
+}
+
+- (void)setStoreLocalPath:(NSString*)storeLocalPath {
+    if(_storeLocalPath != storeLocalPath) {
+        if(_initialized == YES) {
+            @throw [NSException exceptionWithName:GLBManagedManagerErrorDomain reason:@"Store already initialized" userInfo:nil];
+        }
+        _storeLocalPath = storeLocalPath;
+    }
+}
+
+- (void)setModelName:(NSString*)modelName {
+    if(_modelName != modelName) {
+        if(_initialized == YES) {
+            @throw [NSException exceptionWithName:GLBManagedManagerErrorDomain reason:@"Store already initialized" userInfo:nil];
+        }
+        _modelName = modelName;
+    }
+}
+
+- (void)setModelExtension:(NSString*)modelExtension {
+    if(_modelExtension != modelExtension) {
+        if(_initialized == YES) {
+            @throw [NSException exceptionWithName:GLBManagedManagerErrorDomain reason:@"Store already initialized" userInfo:nil];
+        }
+        _modelExtension = modelExtension;
     }
 }
 
 - (void)setExistStoreUrl:(NSURL*)existStoreUrl {
     if([_existStoreUrl isEqual:existStoreUrl] == NO) {
-        [self.class _perform:^{
-            _existStoreUrl = existStoreUrl;
-            [NSUserDefaults.standardUserDefaults setURL:_existStoreUrl forKey:GLBManagedManagerExistStoreUrlKey];
-            [NSUserDefaults.standardUserDefaults synchronize];
-        }];
+        _existStoreUrl = existStoreUrl;
+        [NSUserDefaults.standardUserDefaults setURL:_existStoreUrl forKey:GLBManagedManagerExistStoreUrlKey];
+        [NSUserDefaults.standardUserDefaults synchronize];
     }
 }
 
 - (NSURL*)existStoreUrl {
     if(_existStoreUrl == nil) {
-        [self.class _perform:^{
-            _existStoreUrl = [NSUserDefaults.standardUserDefaults URLForKey:GLBManagedManagerExistStoreUrlKey];
-            if([_delegate respondsToSelector:@selector(existStoreUrlInManagedManager:)] == YES) {
-                _existStoreUrl = [_delegate existStoreUrlInManagedManager:self];
-            }
-        }];
+        _existStoreUrl = [NSUserDefaults.standardUserDefaults URLForKey:GLBManagedManagerExistStoreUrlKey];
+        if(_existStoreUrl == nil) {
+            _existStoreUrl = [self _observeExistStoreUrl];
+        }
     }
     return _existStoreUrl;
 }
 
 - (NSURL*)storeUrl {
     if(_storeUrl == nil) {
-        [self.class _perform:^{
-            if(_containerUrl != nil) {
-                _storeUrl = [NSURL fileURLWithPath:[_containerUrl.path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", _modelName, _modelExtension]]];
-            }
-            if((_storeUrl == nil) && (_modelLocalPath.length > 0)) {
-                _storeUrl = [NSURL fileURLWithPath:[_modelLocalPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", _modelName, _modelExtension]]];
-            }
-        }];
+        if(_containerUrl != nil) {
+            _storeUrl = [NSURL fileURLWithPath:[_containerUrl.path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", _modelName, _modelExtension]]];
+        }
+        if((_storeUrl == nil) && (_storeLocalPath.length > 0)) {
+            _storeUrl = [NSURL fileURLWithPath:[_storeLocalPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", _modelName, _modelExtension]]];
+        }
     }
     return _storeUrl;
 }
 
 #pragma mark - Public
+
+- (void)addObserver:(id< GLBManagedManagerObserver >)observer {
+    NSUInteger index = [_observers indexOfObjectPassingTest:^BOOL(NSValue* value, NSUInteger index, BOOL* stop) {
+        return (value.nonretainedObjectValue == observer);
+    }];
+    if(index == NSNotFound) {
+        [_observers addObject:[NSValue valueWithNonretainedObject:observer]];
+    }
+}
+
+- (void)removeObserver:(id< GLBManagedManagerObserver >)observer {
+    [_observers glb_each:^(NSValue* value) {
+        if(value.nonretainedObjectValue == observer) {
+            [_observers removeObject:value];
+        }
+    }];
+}
+
+- (BOOL)initializeStore {
+    if(_initialized == NO) {
+        NSError* error = nil;
+        if(_model == nil) {
+            NSURL* url = [NSBundle.mainBundle URLForResource:_modelName withExtension:@"momd"];
+            if(url != nil) {
+                _model = [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
+            } else {
+                error = [NSError errorWithDomain:GLBManagedManagerErrorDomain
+                                            code:GLBManagedManagerErrorInitializeModel
+                                        userInfo:nil];
+            }
+        }
+        if((_coordinator == nil) && (_model != nil)) {
+            NSPersistentStoreCoordinator* coordinator = nil;
+            NSMutableDictionary* coordinatorOptions = [NSMutableDictionary dictionary];
+            coordinatorOptions[NSMigratePersistentStoresAutomaticallyOption] = @YES;
+            coordinatorOptions[NSInferMappingModelAutomaticallyOption] = @YES;
+            coordinatorOptions[NSSQLitePragmasOption] = @{
+                @"journal_mode" : @"WAL"
+            };
+            NSPersistentStore* store = nil;
+            NSURL* storeSrcUrl = self.existStoreUrl;
+            NSURL* storeDstUrl = self.storeUrl;
+            if((storeSrcUrl != nil) || (storeDstUrl != nil)) {
+                if(_allowsCreateStoreDatabase == YES) {
+                    if((storeSrcUrl != nil) && (storeDstUrl != nil)) {
+                        if([storeSrcUrl isEqual:storeDstUrl] == NO) {
+                            if([NSFileManager.defaultManager fileExistsAtPath:storeSrcUrl.path] == YES) {
+                                if([NSFileManager.defaultManager fileExistsAtPath:storeDstUrl.path] == YES) {
+                                    if([NSFileManager.defaultManager removeItemAtURL:storeDstUrl error:&error] == NO) {
+                                        storeDstUrl = nil;
+                                    }
+                                }
+                            } else {
+                                storeDstUrl = nil;
+                            }
+                        } else {
+                            storeDstUrl = nil;
+                        }
+                    } else if((storeSrcUrl == nil) && (storeDstUrl != nil)) {
+                        storeSrcUrl = storeDstUrl;
+                        storeDstUrl = nil;
+                    }
+                    if([self _migrateURL:storeSrcUrl options:coordinatorOptions type:NSSQLiteStoreType model:_model error:&error] == YES) {
+                        coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_model];
+                        store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                          configuration:nil
+                                                                    URL:storeSrcUrl
+                                                                options:coordinatorOptions
+                                                                  error:&error];
+                        if(store == nil) {
+                            coordinatorOptions[NSSQLitePragmasOption] = @{
+                                @"journal_mode" : @"DELETE"
+                            };
+                            store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                              configuration:nil
+                                                                        URL:storeSrcUrl
+                                                                    options:coordinatorOptions
+                                                                      error:&error];
+                            if(store != nil) {
+                                [coordinator removePersistentStore:store error:NULL];
+                                coordinatorOptions[NSSQLitePragmasOption] = @{
+                                    @"journal_mode" : @"WAL"
+                                };
+                                store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                                  configuration:nil URL:storeSrcUrl
+                                                                        options:coordinatorOptions
+                                                                          error:&error];
+                            }
+                            storeDstUrl = nil;
+                        }
+                        if(storeDstUrl != nil) {
+                            store = [coordinator migratePersistentStore:store
+                                                                  toURL:storeDstUrl
+                                                                options:coordinatorOptions
+                                                               withType:NSSQLiteStoreType
+                                                                  error:&error];
+                            if(store != nil) {
+                                [NSFileManager.defaultManager removeItemAtURL:storeSrcUrl error:&error];
+                            }
+                            self.existStoreUrl = storeDstUrl;
+                        } else {
+                            self.existStoreUrl = storeSrcUrl;
+                        }
+                    } else {
+                        if(error == nil) {
+                            error = [NSError errorWithDomain:GLBManagedManagerErrorDomain
+                                                        code:GLBManagedManagerErrorInitializeMigration
+                                                    userInfo:nil];
+                        }
+                    }
+                } else {
+                    NSURL* storeUrl = (storeDstUrl != nil) ? storeDstUrl : storeSrcUrl;
+                    if([NSFileManager.defaultManager fileExistsAtPath:storeUrl.path] == YES) {
+                        if([self _migrateURL:storeUrl options:coordinatorOptions type:NSSQLiteStoreType model:_model error:&error] == YES) {
+                            coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_model];
+                            store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                              configuration:nil
+                                                                        URL:storeUrl
+                                                                    options:coordinatorOptions
+                                                                      error:&error];
+                            if(store == nil) {
+                                coordinatorOptions[NSSQLitePragmasOption] = @{
+                                    @"journal_mode" : @"DELETE"
+                                };
+                                store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                                  configuration:nil
+                                                                            URL:storeUrl
+                                                                        options:coordinatorOptions
+                                                                          error:&error];
+                                if(store != nil) {
+                                    [coordinator removePersistentStore:store error:NULL];
+                                    coordinatorOptions[NSSQLitePragmasOption] = @{
+                                        @"journal_mode" : @"WAL"
+                                    };
+                                    store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                                      configuration:nil
+                                                                                URL:storeUrl
+                                                                            options:coordinatorOptions error:&error];
+                                }
+                                storeDstUrl = nil;
+                            }
+                        }
+                    }
+                }
+            }
+            if(store != nil) {
+                _coordinator = coordinator;
+            } else {
+                error = [NSError errorWithDomain:GLBManagedManagerErrorDomain
+                                            code:GLBManagedManagerErrorInitializeStore
+                                        userInfo:nil];
+            }
+        }
+        if((_storeContext == nil) && (_coordinator != nil)) {
+            _storeContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+            if(_storeContext != nil) {
+                _storeContext.persistentStoreCoordinator = _coordinator;
+                _storeContext.mergePolicy = NSErrorMergePolicy;
+            } else {
+                error = [NSError errorWithDomain:GLBManagedManagerErrorDomain
+                                            code:GLBManagedManagerErrorInitializeContext
+                                        userInfo:nil];
+            }
+        }
+        if((_mainContext == nil) && (_storeContext != nil)) {
+            _mainContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+            if(_mainContext != nil) {
+                _mainContext.parentContext = _storeContext;
+                _mainContext.mergePolicy = _storeContext.mergePolicy;
+                [NSNotificationCenter.defaultCenter addObserver:self
+                                                       selector:@selector(_notificationDidSaveMainContext:)
+                                                           name:NSManagedObjectContextDidSaveNotification
+                                                         object:_mainContext];
+            } else {
+                error = [NSError errorWithDomain:GLBManagedManagerErrorDomain
+                                            code:GLBManagedManagerErrorInitializeContext
+                                        userInfo:nil];
+            }
+        }
+        if((_backgroundContext == nil) && (_mainContext != nil)) {
+            _backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+            if(_backgroundContext != nil) {
+                _backgroundContext.parentContext = _mainContext;
+                _backgroundContext.mergePolicy = _mainContext.mergePolicy;
+                [NSNotificationCenter.defaultCenter addObserver:self
+                                                       selector:@selector(_notificationDidSaveBackgroundContext:)
+                                                           name:NSManagedObjectContextDidSaveNotification
+                                                         object:_backgroundContext];
+            } else {
+                error = [NSError errorWithDomain:GLBManagedManagerErrorDomain
+                                            code:GLBManagedManagerErrorInitializeContext
+                                        userInfo:nil];
+            }
+        }
+        if((_model != nil) && (_coordinator != nil) && (_storeContext != nil) && (_mainContext != nil) && (_backgroundContext != nil)) {
+            _initialized = YES;
+        } else {
+            if(error == nil) {
+                error = [NSError errorWithDomain:GLBManagedManagerErrorDomain
+                                            code:GLBManagedManagerErrorInitializeUnknown
+                                        userInfo:nil];
+            }
+        }
+        [self _observeInitializeStoreError:error];
+    }
+    return _initialized;
+}
+
+- (void)closeStore {
+    if(_initialized == YES) {
+        if(_backgroundContext != nil) {
+            [NSNotificationCenter.defaultCenter removeObserver:self
+                                                          name:NSManagedObjectContextDidSaveNotification
+                                                        object:_backgroundContext];
+            _backgroundContext = nil;
+        }
+        if(_mainContext != nil) {
+            [NSNotificationCenter.defaultCenter removeObserver:self
+                                                          name:NSManagedObjectContextDidSaveNotification
+                                                        object:_mainContext];
+            _mainContext = nil;
+        }
+        if(_storeContext != nil) {
+            // TODO
+            _storeContext = nil;
+        }
+        if(_coordinator != nil) {
+            // TODO
+            _coordinator = nil;
+        }
+        if(_model != nil) {
+            // TODO
+            _model = nil;
+        }
+        _initialized = NO;
+        [self _observeCloseStore];
+    }
+}
 
 - (void)performBlock:(GLBManagedManagerPerform)update {
     [self.currentContext performBlock:update];
@@ -1060,6 +1226,14 @@ static NSString* GLBManagedManagerModelExtensionKey = @"GLBManagedManagerModelEx
     return [self.currentContext existingObjectWithID:objectID error:error];
 }
 
+- (NSArray*)executeFetchRequest:(NSFetchRequest*)request error:(NSError**)error {
+    return [self.currentContext executeFetchRequest:request error:error];
+}
+
+- (NSUInteger)countForFetchRequest:(NSFetchRequest*)request error: (NSError**)error {
+    return [self.currentContext countForFetchRequest:request error:error];
+}
+
 - (void)insertObject:(NSManagedObject* _Nonnull)object {
     [self.currentContext insertObject:object];
 }
@@ -1084,14 +1258,6 @@ static NSString* GLBManagedManagerModelExtensionKey = @"GLBManagedManagerModelEx
 }
 
 #pragma mark - Private
-
-+ (void)_perform:(dispatch_block_t)block {
-    if(NSThread.isMainThread == YES) {
-        block();
-    } else {
-        dispatch_sync(dispatch_get_main_queue(), block);
-    }
-}
 
 - (BOOL)_saveContext:(NSManagedObjectContext*)context {
     BOOL result = NO;
@@ -1249,6 +1415,39 @@ static NSString* GLBManagedManagerModelExtensionKey = @"GLBManagedManagerModelEx
     }];
 }
 
+#pragma mark - Observer
+
+- (NSURL*)_observeExistStoreUrl {
+    __block NSURL* result = nil;
+    [_observers enumerateObjectsUsingBlock:^(NSValue* value, NSUInteger index, BOOL* stop) {
+        id< GLBManagedManagerObserver > observer = value.nonretainedObjectValue;
+        if([observer respondsToSelector:@selector(existStoreUrlInManagedManager:)] == YES) {
+            result = [observer existStoreUrlInManagedManager:self];
+            if(result != nil) {
+            }
+        }
+    }];
+    return result;
+}
+
+- (void)_observeInitializeStoreError:(NSError*)error {
+    [_observers glb_each:^(NSValue* value) {
+        id< GLBManagedManagerObserver > observer = value.nonretainedObjectValue;
+        if([observer respondsToSelector:@selector(initializeStoreInManagedManager:error:)] == YES) {
+            [observer initializeStoreInManagedManager:self error:error];
+        }
+    }];
+}
+
+- (void)_observeCloseStore {
+    [_observers glb_each:^(NSValue* value) {
+        id< GLBManagedManagerObserver > observer = value.nonretainedObjectValue;
+        if([observer respondsToSelector:@selector(closeStoreInManagedManager:)] == YES) {
+            [observer closeStoreInManagedManager:self];
+        }
+    }];
+}
+
 @end
 
 /*--------------------------------------------------*/
@@ -1305,9 +1504,5 @@ static NSString* GLBManagedManagerModelExtensionKey = @"GLBManagedManagerModelEx
 /*--------------------------------------------------*/
 
 NSString* GLBManagedManagerErrorDomain = @"GLBManagedManagerErrorDomain";
-
-/*--------------------------------------------------*/
-
-NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistStoreUrl";
 
 /*--------------------------------------------------*/

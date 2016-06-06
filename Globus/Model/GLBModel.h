@@ -89,10 +89,26 @@ typedef void (^GLBModelBlock)();
 + (NSManagedObjectContext* _Nullable)entityContext;
 + (NSString* _Nullable)entityName;
 
-- (void)remove;
+- (void)refreshMergeChanges:(BOOL)flag;
+
 - (BOOL)save;
+- (void)remove;
 
 @end
+
+/*--------------------------------------------------*/
+
+extern NSString* _Nonnull GLBManagedManagerErrorDomain;
+
+/*--------------------------------------------------*/
+
+typedef NS_ENUM(NSUInteger, GLBManagedManagerError) {
+    GLBManagedManagerErrorInitializeModel,
+    GLBManagedManagerErrorInitializeStore,
+    GLBManagedManagerErrorInitializeContext,
+    GLBManagedManagerErrorInitializeMigration,
+    GLBManagedManagerErrorInitializeUnknown
+};
 
 /*--------------------------------------------------*/
 
@@ -100,31 +116,36 @@ typedef void(^GLBManagedManagerPerform)();
 
 /*--------------------------------------------------*/
 
-@protocol GLBManagedManagerDelegate;
+@protocol GLBManagedManagerObserver;
 
 /*--------------------------------------------------*/
 
 @interface GLBManagedManager : NSObject
 
-@property(nonatomic, nullable, weak) id< GLBManagedManagerDelegate > delegate;
-@property(nonatomic, readonly, nullable, strong) NSManagedObjectContext* storeContext;
-@property(nonatomic, readonly, nullable, strong) NSManagedObjectContext* mainContext;
-@property(nonatomic, readonly, nullable, strong) NSManagedObjectContext* backgroundContext;
-@property(nonatomic, readonly, nullable, strong) NSManagedObjectContext* currentContext;
-@property(nonatomic, readonly, nullable, strong) NSManagedObjectModel* model;
-@property(nonatomic, readonly, nullable, strong) NSPersistentStoreCoordinator* coordinator;
+@property(nonatomic, readonly, getter=isInitialized) BOOL initialized;
+@property(nonatomic) BOOL allowsLazyInitialize;
 @property(nonatomic) BOOL allowsCreateStoreDatabase;
-@property(nonatomic, nullable, strong) NSString* modelAppGroupName;
-@property(nonatomic, nullable, strong) NSString* modelLocalPath;
+
+@property(nonatomic, nullable, strong) NSString* storeAppGroupName;
+@property(nonatomic, nullable, strong) NSString* storeLocalPath;
 @property(nonatomic, nullable, strong) NSString* modelName;
 @property(nonatomic, nullable, strong) NSString* modelExtension;
+
+@property(nonatomic, readonly, nullable, strong) NSURL* existStoreUrl;
+@property(nonatomic, readonly, nullable, strong) NSURL* storeUrl;
 
 + (_Nullable instancetype)shared;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)performBlock:(nonnull GLBManagedManagerPerform)update;
-- (void)performBlockAndWait:(nonnull GLBManagedManagerPerform)update;
+- (void)addObserver:(_Nonnull id< GLBManagedManagerObserver >)observer;
+- (void)removeObserver:(_Nonnull id< GLBManagedManagerObserver >)observer;
+
+- (BOOL)initializeStore;
+- (void)closeStore;
+
+- (void)performBlock:(_Nonnull GLBManagedManagerPerform)update;
+- (void)performBlockAndWait:(_Nonnull GLBManagedManagerPerform)update;
 
 - (void)undo;
 - (void)redo;
@@ -137,6 +158,9 @@ typedef void(^GLBManagedManagerPerform)();
 - (__kindof NSManagedObject* _Nullable)objectWithID:(NSManagedObjectID* _Nonnull)objectID;
 - (__kindof NSManagedObject* _Nullable)existingObjectWithID:(NSManagedObjectID* _Nonnull)objectID error:(NSError* _Nullable * _Nullable)error;
 
+- (NSArray* _Nullable)executeFetchRequest:(NSFetchRequest* _Nonnull)request error:(NSError* _Nullable * _Nullable)error;
+- (NSUInteger)countForFetchRequest:(NSFetchRequest* _Nonnull)request error: (NSError* _Nullable * _Nullable)error;
+
 - (void)insertObject:(NSManagedObject* _Nonnull)object;
 - (void)deleteObject:(NSManagedObject* _Nonnull)object;
 - (void)refreshObject:(NSManagedObject* _Nonnull)object mergeChanges:(BOOL)flag;
@@ -147,19 +171,12 @@ typedef void(^GLBManagedManagerPerform)();
 
 /*--------------------------------------------------*/
 
-extern NSString* _Nonnull GLBManagedManagerErrorDomain;
-
-/*--------------------------------------------------*/
-
-extern NSString* _Nonnull GLBManagedManagerExistStoreUrlKey;
-
-/*--------------------------------------------------*/
-
-@protocol GLBManagedManagerDelegate < NSObject >
+@protocol GLBManagedManagerObserver < NSObject >
 
 @optional
 - (NSURL* _Nullable)existStoreUrlInManagedManager:(GLBManagedManager* _Nonnull)managedManager;
-- (void)failedInitializeStoreInManagedManager:(GLBManagedManager* _Nonnull)managedManager;
+- (void)initializeStoreInManagedManager:(GLBManagedManager* _Nonnull)managedManager error:(NSError* _Nullable)error;
+- (void)closeStoreInManagedManager:(GLBManagedManager* _Nonnull)managedManager;
 
 @end
 
