@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.1.42'
+  s.version = '0.1.43'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -23,6 +23,8 @@ Pod::Spec.new do |s|
     ss.dependency 'Globus/RegExpParser'
     ss.dependency 'Globus/TaskManager'
     ss.dependency 'Globus/ApiManager'
+    ss.dependency 'Globus/Model'
+    ss.dependency 'Globus/ManagedModel'
     ss.dependency 'Globus/DataSource'
     ss.dependency 'Globus/Window'
     ss.dependency 'Globus/TextField'
@@ -150,9 +152,16 @@ Pod::Spec.new do |s|
       'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_MODEL'
     }
     ss.source_files = 'Globus/Model/**/*.{h,m}'
+    ss.dependency 'Globus/CoreFoundation'
+  end
+  s.subspec 'ManagedModel' do |ss|
+    ss.xcconfig = {
+      'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_MANAGED_MODEL'
+    }
+    ss.source_files = 'Globus/ManagedModel/**/*.{h,m}'
     ss.ios.frameworks = 'CoreData'
     ss.watchos.frameworks = 'CoreData'
-    ss.dependency 'Globus/CoreFoundation'
+    ss.dependency 'Globus/Model'
   end
   s.subspec 'Cache' do |ss|
     ss.xcconfig = {

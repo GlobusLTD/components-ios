@@ -232,6 +232,9 @@
 		40BB8D0F1BF3EE9400D2E180 /* GLBAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BB8D0E1BF3EE9400D2E180 /* GLBAction.m */; };
 		40CD43701C09B2330070348A /* GLBApiResponse+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 40CD436F1C09B2330070348A /* GLBApiResponse+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40CD43721C09B23C0070348A /* GLBApiRequest+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 40CD43711C09B23C0070348A /* GLBApiRequest+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		40D649441D0882BD008EA701 /* GLBManagedModel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 40D649431D0882BD008EA701 /* GLBManagedModel.h */; };
+		40D649461D0882BD008EA701 /* GLBManagedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D649451D0882BD008EA701 /* GLBManagedModel.m */; };
+		40D6494E1D0882F2008EA701 /* GLBManagedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D6494D1D0882F2008EA701 /* GLBManagedModel.m */; };
 		40D98EDA1C03FB41006937FC /* NSSet+GLBNS.h in Headers */ = {isa = PBXBuildFile; fileRef = 40D98ED81C03FB41006937FC /* NSSet+GLBNS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40D98EDB1C03FB41006937FC /* NSSet+GLBNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D98ED91C03FB41006937FC /* NSSet+GLBNS.m */; };
 		40D98EDE1C03FCD1006937FC /* NSOrderedSet+GLBNS.h in Headers */ = {isa = PBXBuildFile; fileRef = 40D98EDC1C03FCD1006937FC /* NSOrderedSet+GLBNS.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -276,6 +279,16 @@
 			dstSubfolderSpec = 7;
 			files = (
 				407CD6671C5A658E00E2E5BF /* GLBMoon.bundle in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40D6493F1D0882BC008EA701 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				40D649441D0882BD008EA701 /* GLBManagedModel.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,6 +574,12 @@
 		40BB8D3B1BF3EF7300D2E180 /* libGLBRegExpParser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBRegExpParser.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		40CD436F1C09B2330070348A /* GLBApiResponse+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBApiResponse+Private.h"; sourceTree = "<group>"; };
 		40CD43711C09B23C0070348A /* GLBApiRequest+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBApiRequest+Private.h"; sourceTree = "<group>"; };
+		40D649411D0882BC008EA701 /* libGLBManagedModel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBManagedModel.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		40D649431D0882BD008EA701 /* GLBManagedModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLBManagedModel.h; sourceTree = "<group>"; };
+		40D649451D0882BD008EA701 /* GLBManagedModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLBManagedModel.m; sourceTree = "<group>"; };
+		40D6494B1D0882F2008EA701 /* GLBManagedModel+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBManagedModel+Private.h"; sourceTree = "<group>"; };
+		40D6494C1D0882F2008EA701 /* GLBManagedModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBManagedModel.h; sourceTree = "<group>"; };
+		40D6494D1D0882F2008EA701 /* GLBManagedModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBManagedModel.m; sourceTree = "<group>"; };
 		40D98ED81C03FB41006937FC /* NSSet+GLBNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSSet+GLBNS.h"; sourceTree = "<group>"; };
 		40D98ED91C03FB41006937FC /* NSSet+GLBNS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSSet+GLBNS.m"; sourceTree = "<group>"; };
 		40D98EDC1C03FCD1006937FC /* NSOrderedSet+GLBNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOrderedSet+GLBNS.h"; sourceTree = "<group>"; };
@@ -955,6 +974,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		40BB8D381BF3EF7300D2E180 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40D6493E1D0882BC008EA701 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1623,6 +1649,7 @@
 				402B56221BF479680084F50C /* RegExpParser */,
 				402B566C1BF481E40084F50C /* TaskManager */,
 				402B56B91BF484D10084F50C /* Model */,
+				40D6494A1D0882F2008EA701 /* ManagedModel */,
 				402B56871BF483B30084F50C /* Cache */,
 				402B573F1BF48BB50084F50C /* ApiManager */,
 				4055C46B1CFAECC800A36F5A /* DataSource */,
@@ -1669,6 +1696,7 @@
 				40F374C51C65132B0016507F /* AudioRecorder */,
 				4036BD731CA4830B00E5A793 /* VideoPlayerView */,
 				403D4CBC1CF478300078DB66 /* WatchManager */,
+				40D649421D0882BD008EA701 /* GLBManagedModel */,
 				4034B0901CE1E1270019FBCC /* Frameworks */,
 				40BB8CC21BF3EDBE00D2E180 /* Products */,
 			);
@@ -1735,6 +1763,7 @@
 				4036BD6A1CA4820A00E5A793 /* libGLBVideoPlayerView.a */,
 				40B546281CA6BB76008E91E5 /* libGLBPhoneField.a */,
 				403D4CB31CF478050078DB66 /* libGLBWatchManager.a */,
+				40D649411D0882BC008EA701 /* libGLBManagedModel.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1790,6 +1819,26 @@
 			);
 			name = Action;
 			path = Globus/Action;
+			sourceTree = "<group>";
+		};
+		40D649421D0882BD008EA701 /* GLBManagedModel */ = {
+			isa = PBXGroup;
+			children = (
+				40D649431D0882BD008EA701 /* GLBManagedModel.h */,
+				40D649451D0882BD008EA701 /* GLBManagedModel.m */,
+			);
+			path = GLBManagedModel;
+			sourceTree = "<group>";
+		};
+		40D6494A1D0882F2008EA701 /* ManagedModel */ = {
+			isa = PBXGroup;
+			children = (
+				40D6494C1D0882F2008EA701 /* GLBManagedModel.h */,
+				40D6494B1D0882F2008EA701 /* GLBManagedModel+Private.h */,
+				40D6494D1D0882F2008EA701 /* GLBManagedModel.m */,
+			);
+			name = ManagedModel;
+			path = Globus/ManagedModel;
 			sourceTree = "<group>";
 		};
 		40DF70371CA0A6EB005EBB6B /* SplitViewController */ = {
@@ -3257,6 +3306,23 @@
 			productReference = 40BB8D3B1BF3EF7300D2E180 /* libGLBRegExpParser.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		40D649401D0882BC008EA701 /* GLBManagedModel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 40D649491D0882BD008EA701 /* Build configuration list for PBXNativeTarget "GLBManagedModel" */;
+			buildPhases = (
+				40D6493D1D0882BC008EA701 /* Sources */,
+				40D6493E1D0882BC008EA701 /* Frameworks */,
+				40D6493F1D0882BC008EA701 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GLBManagedModel;
+			productName = GLBManagedModel;
+			productReference = 40D649411D0882BC008EA701 /* libGLBManagedModel.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		40DF702D1CA0A6C9005EBB6B /* GLBSplitViewController */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 40DF70361CA0A6CA005EBB6B /* Build configuration list for PBXNativeTarget "GLBSplitViewController" */;
@@ -3524,6 +3590,9 @@
 					40BB8D3A1BF3EF7300D2E180 = {
 						CreatedOnToolsVersion = 7.1;
 					};
+					40D649401D0882BC008EA701 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
 					40DF702D1CA0A6C9005EBB6B = {
 						CreatedOnToolsVersion = 7.2.1;
 					};
@@ -3565,6 +3634,8 @@
 				40BB8D3A1BF3EF7300D2E180 /* GLBRegExpParser */,
 				402B56611BF4819D0084F50C /* GLBTaskManager */,
 				402B56AE1BF4849C0084F50C /* GLBModel */,
+				403D4CB21CF478050078DB66 /* GLBWatchManager */,
+				40D649401D0882BC008EA701 /* GLBManagedModel */,
 				402B567C1BF4839A0084F50C /* GLBCache */,
 				402B57341BF48B960084F50C /* GLBApiManager */,
 				401129181C3AC1AF006751E8 /* GLBDataSource */,
@@ -3594,6 +3665,7 @@
 				402B59421BF495B40084F50C /* GLBSlideViewController */,
 				402B59551BF4964B0084F50C /* GLBNavigationViewController */,
 				402B59681BF496900084F50C /* GLBTabBarViewController */,
+				4036BD691CA4820A00E5A793 /* GLBVideoPlayerView */,
 				40DF702D1CA0A6C9005EBB6B /* GLBSplitViewController */,
 				402B597B1BF496D00084F50C /* GLBViewController */,
 				402B598E1BF4970D0084F50C /* GLBPopoverController */,
@@ -3609,8 +3681,6 @@
 				40F374961C6512BB0016507F /* GLBAudioSession */,
 				40F374A31C6512D00016507F /* GLBAudioPlayer */,
 				40F374AF1C6512DF0016507F /* GLBAudioRecorder */,
-				4036BD691CA4820A00E5A793 /* GLBVideoPlayerView */,
-				403D4CB21CF478050078DB66 /* GLBWatchManager */,
 			);
 		};
 /* End PBXProject section */
@@ -4101,6 +4171,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				402B56251BF479680084F50C /* GLBRegExpParser.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40D6493D1D0882BC008EA701 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40D649461D0882BD008EA701 /* GLBManagedModel.m in Sources */,
+				40D6494E1D0882F2008EA701 /* GLBManagedModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4871,6 +4950,34 @@
 			};
 			name = Release;
 		};
+		40D649471D0882BD008EA701 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		40D649481D0882BD008EA701 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		40DF70341CA0A6CA005EBB6B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -5422,6 +5529,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		40D649491D0882BD008EA701 /* Build configuration list for PBXNativeTarget "GLBManagedModel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40D649471D0882BD008EA701 /* Debug */,
+				40D649481D0882BD008EA701 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		40DF70361CA0A6CA005EBB6B /* Build configuration list for PBXNativeTarget "GLBSplitViewController" */ = {
 			isa = XCConfigurationList;
