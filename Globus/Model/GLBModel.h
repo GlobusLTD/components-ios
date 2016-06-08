@@ -1,6 +1,6 @@
 /*--------------------------------------------------*/
 
-#include "GLBTargetConditionals.h"
+#import "NSObject+GLBNS.h"
 
 /*--------------------------------------------------*/
 
@@ -45,23 +45,21 @@ typedef void (^GLBModelBlock)();
 
 /*--------------------------------------------------*/
 
-@interface GLBModel : NSObject < GLBModel, NSCoding, NSCopying >
+@interface GLBModel : NSObject < GLBModel, NSCoding, NSCopying, GLBObjectDebugProtocol >
 
-@property(nonatomic, nullable, strong) NSString* userDefaultsKey;
+@property(nonatomic, nullable, strong) NSString* storeName;
 @property(nonatomic, nullable, strong) NSUserDefaults* userDefaults;
-@property(nonatomic, nullable, strong) NSString* fileName;
-@property(nonatomic, readonly, nullable, strong) NSString* filePath;
+@property(nonatomic, nullable, strong) NSString* appGroupIdentifier;
 
-+ (_Nullable instancetype)modelWithUserDefaultsKey:(NSString* _Nullable)userDefaultsKey;
-+ (_Nullable instancetype)modelWithUserDefaultsKey:(NSString* _Nullable)userDefaultsKey userDefaults:(NSUserDefaults* _Nullable)userDefaults;
-+ (_Nullable instancetype)modelWithFileName:(NSString* _Nullable)fileName;
++ (_Nullable instancetype)modelWithStoreName:(NSString* _Nullable)storeName userDefaults:(NSUserDefaults* _Nullable)userDefaults;
++ (_Nullable instancetype)modelWithStoreName:(NSString* _Nullable)storeName appGroupIdentifier:(NSString* _Nullable)appGroupIdentifier;
 
-- (_Nullable instancetype)initWithUserDefaultsKey:(NSString* _Nullable)userDefaultsKey;
-- (_Nullable instancetype)initWithUserDefaultsKey:(NSString* _Nullable)userDefaultsKey userDefaults:(NSUserDefaults* _Nullable)userDefaults;
-- (_Nullable instancetype)initWithFileName:(NSString* _Nullable)fileName;
+- (_Nullable instancetype)initWithStoreName:(NSString* _Nullable)storeName userDefaults:(NSUserDefaults* _Nullable)userDefaults;
+- (_Nullable instancetype)initWithStoreName:(NSString* _Nullable)storeName appGroupIdentifier:(NSString* _Nullable)appGroupIdentifier;
 
 - (void)setup NS_REQUIRES_SUPER;
 
++ (NSArray< NSString* >* _Nullable)propertyMap;
 + (NSArray< NSString* >* _Nullable)compareMap;
 + (NSArray< NSString* >* _Nullable)serializeMap;
 + (NSArray< NSString* >* _Nullable)copyMap;
@@ -82,12 +80,14 @@ typedef void (^GLBModelBlock)();
 
 /*--------------------------------------------------*/
 
-@interface GLBManagedModel : NSManagedObject < GLBModel, NSCoding >
+@interface GLBManagedModel : NSManagedObject < GLBModel, NSCoding, GLBObjectDebugProtocol >
 
 - (_Nullable instancetype)initWithDefaultContext;
 
 + (NSManagedObjectContext* _Nullable)entityContext;
 + (NSString* _Nullable)entityName;
+
++ (NSArray< NSString* >* _Nullable)propertyMap;
 
 - (void)refreshMergeChanges:(BOOL)flag;
 
@@ -160,6 +160,12 @@ typedef void(^GLBManagedManagerPerform)();
 
 - (NSArray* _Nullable)executeFetchRequest:(NSFetchRequest* _Nonnull)request error:(NSError* _Nullable * _Nullable)error;
 - (NSUInteger)countForFetchRequest:(NSFetchRequest* _Nonnull)request error: (NSError* _Nullable * _Nullable)error;
+
+- (void)setFetchRequestTemplate:(NSFetchRequest* _Nullable)fetchRequestTemplate forName:(NSString* _Nonnull)name;
+- (NSFetchRequest* _Nullable)fetchRequestTemplateForName:(NSString* _Nonnull)name;
+- (NSFetchRequest* _Nullable)fetchRequestFromTemplateWithName:(NSString* _Nonnull)name variables:(NSDictionary< NSString*, id >* _Nullable)variables;
+- (NSArray* _Nullable)executeTemplateFetchRequestForName:(NSString* _Nonnull)name error:(NSError* _Nullable * _Nullable)error;
+- (NSArray* _Nullable)executeTemplateFetchRequestForName:(NSString* _Nonnull)name variables:(NSDictionary< NSString*, id >* _Nullable)variables error:(NSError* _Nullable * _Nullable)error;
 
 - (void)insertObject:(NSManagedObject* _Nonnull)object;
 - (void)deleteObject:(NSManagedObject* _Nonnull)object;

@@ -4,11 +4,15 @@
 
 /*--------------------------------------------------*/
 
-#import "NSObject+GLBNS.h"
+#import "NSString+GLBNS.h"
 #import "NSArray+GLBNS.h"
 #import "NSDictionary+GLBNS.h"
 #import "NSFileManager+GLBNS.h"
 #import "NSBundle+GLBNS.h"
+
+/*--------------------------------------------------*/
+
+#include <objc/runtime.h>
 
 /*--------------------------------------------------*/
 #pragma mark -
@@ -24,30 +28,27 @@
 
 @synthesize jsonMap = _jsonMap;
 @synthesize packMap = _packMap;
+@synthesize propertyMap = _propertyMap;
 @synthesize compareMap = _compareMap;
 @synthesize serializeMap = _serializeMap;
 @synthesize copyMap = _copyMap;
 
 #pragma mark - Init / Free
 
-+ (instancetype)modelWithUserDefaultsKey:(NSString*)userDefaultsKey {
-    return [self modelWithUserDefaultsKey:userDefaultsKey userDefaults:NSUserDefaults.standardUserDefaults];
-}
-
-+ (instancetype)modelWithUserDefaultsKey:(NSString*)userDefaultsKey userDefaults:(NSUserDefaults*)userDefaults {
++ (instancetype)modelWithStoreName:(NSString*)storeName userDefaults:(NSUserDefaults*)userDefaults {
     if(userDefaults == nil) {
         userDefaults = NSUserDefaults.standardUserDefaults;
     }
-    if([userDefaults objectForKey:userDefaultsKey] != nil) {
-        return [[self alloc] initWithUserDefaultsKey:userDefaultsKey userDefaults:userDefaults];
+    if([userDefaults objectForKey:storeName] != nil) {
+        return [[self alloc] initWithStoreName:storeName userDefaults:userDefaults];
     }
     return nil;
 }
 
-+ (instancetype)modelWithFileName:(NSString*)fileName {
-    NSString* filePath = [NSFileManager.glb_cachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", fileName, GLB_MODEL_EXTENSION]];
++ (instancetype)modelWithStoreName:(NSString*)storeName appGroupIdentifier:(NSString*)appGroupIdentifier {
+    NSString* filePath = [self.class _filePathWithStoreName:storeName appGroupIdentifier:appGroupIdentifier];
     if([NSFileManager.defaultManager fileExistsAtPath:filePath] == YES) {
-        return [[self alloc] initWithFileName:fileName];
+        return [[self alloc] initWithStoreName:storeName appGroupIdentifier:appGroupIdentifier];
     }
     return nil;
 }
@@ -74,24 +75,10 @@
     return self;
 }
 
-- (instancetype)initWithFileName:(NSString*)fileName {
+- (instancetype)initWithStoreName:(NSString*)storeName userDefaults:(NSUserDefaults*)userDefaults {
     self = [super init];
     if(self != nil) {
-        self.fileName = fileName;
-        [self load];
-        [self setup];
-    }
-    return self;
-}
-
-- (instancetype)initWithUserDefaultsKey:(NSString*)userDefaultsKey {
-    return [self initWithUserDefaultsKey:userDefaultsKey userDefaults:NSUserDefaults.standardUserDefaults];
-}
-
-- (instancetype)initWithUserDefaultsKey:(NSString*)userDefaultsKey userDefaults:(NSUserDefaults*)userDefaults {
-    self = [super init];
-    if(self != nil) {
-        _userDefaultsKey = userDefaultsKey;
+        _storeName = storeName;
         _userDefaults = userDefaults;
         [self load];
         [self setup];
@@ -99,10 +86,18 @@
     return self;
 }
 
-- (void)setup {
-    if(_userDefaults == nil) {
-        _userDefaults = [NSUserDefaults standardUserDefaults];
+- (instancetype)initWithStoreName:(NSString*)storeName appGroupIdentifier:(NSString*)appGroupIdentifier {
+    self = [super init];
+    if(self != nil) {
+        _storeName = storeName;
+        _appGroupIdentifier = appGroupIdentifier;
+        [self load];
+        [self setup];
     }
+    return self;
+}
+
+- (void)setup {
 }
 
 #pragma mark - NSObject
@@ -152,9 +147,9 @@
 - (id)copyWithZone:(NSZone*)zone {
     GLBModel* result = [[self.class allocWithZone:zone] init];
     if(result != nil) {
-        result.userDefaultsKey = _userDefaultsKey;
+        result.storeName = _storeName;
         result.userDefaults = _userDefaults;
-        result.fileName = _fileName;
+        result.appGroupIdentifier = _appGroupIdentifier;
         NSArray* map = self.copyMap;
         if(map.count < 1) {
             map = self.serializeMap;
@@ -181,58 +176,62 @@
     return result;
 }
 
-#pragma mark - Debug
-
-- (NSString*)description {
-    NSMutableArray* result = NSMutableArray.array;
-    for(NSString* field in self.serializeMap) {
-        [result addObject:[NSString stringWithFormat:@"%@ = %@", field, [self valueForKey:field]]];
-    }
-    return [result componentsJoinedByString:@"; "];
-}
-
 #pragma mark - Property
 
-- (void)setFileName:(NSString*)fileName {
-    if(_fileName != fileName) {
-        _fileName = fileName;
-        if(_fileName != nil) {
-            _filePath = [NSFileManager.glb_cachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", _fileName, GLB_MODEL_EXTENSION]];
-        } else {
-            _filePath = nil;
+- (void)setUserDefaults:(NSUserDefaults*)userDefaults {
+    if(_userDefaults != userDefaults) {
+        _userDefaults = userDefaults;
+        if(_userDefaults != nil) {
+            _appGroupIdentifier = nil;
         }
     }
 }
 
-- (NSDictionary*)jsonMap {
+- (void)setAppGroupIdentifier:(NSString*)appGroupIdentifier {
+    if(_appGroupIdentifier != appGroupIdentifier) {
+        _appGroupIdentifier = appGroupIdentifier;
+        if(_appGroupIdentifier != nil) {
+            _userDefaults = nil;
+        }
+    }
+}
+
+- (NSDictionary< NSString*, GLBModelJson* >*)jsonMap {
     if(_jsonMap == nil) {
         _jsonMap = [self.class _buildJsonMap];
     }
     return _jsonMap;
 }
 
-- (NSDictionary*)packMap {
+- (NSDictionary< NSString*, GLBModelPack* >*)packMap {
     if(_packMap == nil) {
         _packMap = [self.class _buildPackMap];
     }
     return _packMap;
 }
 
-- (NSArray*)compareMap {
+- (NSArray< NSString* >*)propertyMap {
+    if(_propertyMap == nil) {
+        _propertyMap = [self.class _buildPropertyMap];
+    }
+    return _propertyMap;
+}
+
+- (NSArray< NSString* >*)compareMap {
     if(_compareMap == nil) {
         _compareMap = [self.class _buildCompareMap];
     }
     return _compareMap;
 }
 
-- (NSArray*)serializeMap {
+- (NSArray< NSString* >*)serializeMap {
     if(_serializeMap == nil) {
         _serializeMap = [self.class _buildSerializeMap];
     }
     return _serializeMap;
 }
 
-- (NSArray*)copyMap {
+- (NSArray< NSString* >*)copyMap {
     if(_copyMap == nil) {
         _copyMap = [self.class _buildCopyMap];
     }
@@ -350,15 +349,35 @@
 
 #pragma mark - Public
 
-+ (NSArray*)compareMap {
++ (NSArray< NSString* >*)propertyMap {
+    if(self == GLBModel.class) {
+        return nil;
+    }
+    NSMutableArray* result = NSMutableArray.array;
+    if(result != nil) {
+        unsigned int count;
+        objc_property_t* properties = class_copyPropertyList(self.class, &count);
+        for(unsigned int i = 0; i < count; i++) {
+            objc_property_t property = properties[i];
+            NSString* propertyName = [NSString stringWithUTF8String:property_getName(property)];
+            if(propertyName != nil) {
+                [result addObject:propertyName];
+            }
+        }
+        free(properties);
+    }
+    return result;
+}
+
++ (NSArray< NSString* >*)compareMap {
     return nil;
 }
 
-+ (NSArray*)serializeMap {
++ (NSArray< NSString* >*)serializeMap {
     return nil;
 }
 
-+ (NSArray*)copyMap {
++ (NSArray< NSString* >*)copyMap {
     return nil;
 }
 
@@ -384,6 +403,7 @@
 }
 
 - (BOOL)save {
+    BOOL result = NO;
     @try {
         NSMutableDictionary* dict = NSMutableDictionary.dictionary;
         if(dict != nil) {
@@ -398,21 +418,24 @@
                     }
                 }
                 @catch (NSException* exception) {
-                    NSLog(@"GLBModel::saveItem:%@ Exception = %@ Field=%@", _userDefaultsKey, exception, field);
+                    NSLog(@"GLBModel::save:%@ Field=%@ Exception = %@", _storeName, field, exception);
                 }
             }
-            if((_userDefaults != nil) && (_userDefaultsKey.length > 0)) {
-                [_userDefaults setObject:dict forKey:_userDefaultsKey];
-                return [_userDefaults synchronize];
-            } else if(_filePath.length > 0) {
-                return [NSKeyedArchiver archiveRootObject:dict toFile:_filePath];
+            if(_userDefaults != nil) {
+                [_userDefaults setObject:dict forKey:_storeName];
+                result = [_userDefaults synchronize];
+            } else {
+                NSString* filePath = [self _filePath];
+                if(filePath != nil) {
+                    result = [NSKeyedArchiver archiveRootObject:dict toFile:self._filePath];
+                }
             }
         }
     }
     @catch(NSException* exception) {
-        NSLog(@"GLBModel::saveItem:%@ Exception = %@", _userDefaultsKey, exception);
+        NSLog(@"GLBModel::save:%@ Exception = %@", _storeName, exception);
     }
-    return NO;
+    return result;
 }
 
 - (void)saveSuccess:(GLBModelBlock)success failure:(GLBModelBlock)failure {
@@ -436,10 +459,13 @@
 - (void)load {
     @try {
         NSDictionary* dict = nil;
-        if((_userDefaults != nil) && (_userDefaultsKey.length > 0)) {
-            dict = [_userDefaults objectForKey:_userDefaultsKey];
-        } else if(_filePath.length > 0) {
-            dict = [NSKeyedUnarchiver unarchiveObjectWithFile:_filePath];
+        if(_userDefaults != nil) {
+            dict = [_userDefaults objectForKey:_storeName];
+        } else {
+            NSString* filePath = [self _filePath];
+            if(filePath != nil) {
+                dict = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+            }
         }
         if(dict != nil) {
             for(NSString* field in self.serializeMap) {
@@ -460,7 +486,7 @@
         }
     }
     @catch(NSException* exception) {
-        NSLog(@"GLBModel::loadItem:%@ Exception = %@", _userDefaultsKey, exception);
+        NSLog(@"GLBModel::loadItem:%@ Exception = %@", _storeName, exception);
     }
 }
 
@@ -476,14 +502,14 @@
 }
 
 - (void)erase {
-    if((_userDefaults != nil) && (_userDefaultsKey.length > 0)) {
-        NSDictionary* dict = [_userDefaults objectForKey:_userDefaultsKey];
-        if(dict != nil) {
-            [_userDefaults removeObjectForKey:_userDefaultsKey];
-            [_userDefaults synchronize];
+    if(_userDefaults != nil) {
+        [_userDefaults removeObjectForKey:_storeName];
+        [_userDefaults synchronize];
+    } else {
+        NSString* filePath = [self _filePath];
+        if(filePath != nil) {
+            [NSFileManager.defaultManager removeItemAtPath:filePath error:nil];
         }
-    } else if(_filePath.length > 0) {
-        [NSFileManager.defaultManager removeItemAtPath:_filePath error:nil];
     }
 }
 
@@ -500,7 +526,21 @@
 
 #pragma mark - Private
 
-+ (NSDictionary*)_buildJsonMap {
++ (NSString*)_filePathWithStoreName:(NSString*)storeName appGroupIdentifier:(NSString*)appGroupIdentifier {
+    NSString* file = [NSString stringWithFormat:@"%@.%@", storeName, GLB_MODEL_EXTENSION];
+    NSString* filePath = nil;
+    if(appGroupIdentifier != nil) {
+        NSURL* containerUrl = [NSFileManager.defaultManager containerURLForSecurityApplicationGroupIdentifier:appGroupIdentifier];
+        if(containerUrl != nil) {
+            filePath = [containerUrl.path stringByAppendingPathComponent:file];
+        }
+    } else {
+        filePath = [NSFileManager.glb_cachesDirectory stringByAppendingPathComponent:file];
+    }
+    return filePath;
+}
+
++ (NSDictionary< NSString*, GLBModelJson* >*)_buildJsonMap {
     static NSMutableDictionary* cache = nil;
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;
@@ -508,7 +548,7 @@
     return [GLBManagedMap dictionaryMap:cache class:self.class selector:@selector(jsonMap)];
 }
 
-+ (NSDictionary*)_buildPackMap {
++ (NSDictionary< NSString*, GLBModelPack* >*)_buildPackMap {
     static NSMutableDictionary* cache = nil;
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;
@@ -516,7 +556,15 @@
     return [GLBManagedMap dictionaryMap:cache class:self.class selector:@selector(packMap)];
 }
 
-+ (NSArray*)_buildCompareMap {
++ (NSArray< NSString* >* _Nonnull)_buildPropertyMap {
+    static NSMutableDictionary* cache = nil;
+    if(cache == nil) {
+        cache = NSMutableDictionary.dictionary;
+    }
+    return [GLBManagedMap arrayMap:cache class:self.class selector:@selector(propertyMap)];
+}
+
++ (NSArray< NSString* >*)_buildCompareMap {
     static NSMutableDictionary* cache = nil;
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;
@@ -524,7 +572,7 @@
     return [GLBManagedMap arrayMap:cache class:self.class selector:@selector(compareMap)];
 }
 
-+ (NSArray*)_buildSerializeMap {
++ (NSArray< NSString* >*)_buildSerializeMap {
     static NSMutableDictionary* cache = nil;
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;
@@ -532,12 +580,60 @@
     return [GLBManagedMap arrayMap:cache class:self.class selector:@selector(serializeMap)];
 }
 
-+ (NSArray*)_buildCopyMap {
++ (NSArray< NSString* >*)_buildCopyMap {
     static NSMutableDictionary* cache = nil;
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;
     }
     return [GLBManagedMap arrayMap:cache class:self.class selector:@selector(copyMap)];
+}
+
+- (NSString*)_filePath {
+    return [self.class _filePathWithStoreName:_storeName appGroupIdentifier:_appGroupIdentifier];
+}
+
+#pragma mark - GLBObjectDebugProtocol
+
+- (void)glb_debugString:(NSMutableString*)string indent:(NSUInteger)indent root:(BOOL)root {
+    if(root == YES) {
+        [string glb_appendString:@"\t" repeat:indent];
+    }
+    NSUInteger baseIndent = indent + 1;
+    [string appendFormat:@"<%@\n", self.glb_className];
+    if(_storeName != nil) {
+        [string glb_appendString:@"\t" repeat:baseIndent];
+        [string appendFormat:@"StoreName : %@\n", _storeName];
+    }
+    if(_userDefaults != nil) {
+        if(_userDefaults == NSUserDefaults.standardUserDefaults) {
+            [string glb_appendString:@"\t" repeat:baseIndent];
+            [string appendString:@"UserDefault : Default\n"];
+        } else {
+            [string glb_appendString:@"\t" repeat:baseIndent];
+            [string appendString:@"UserDefault : Custom\n"];
+        }
+    }
+    if(_appGroupIdentifier != nil) {
+        [string glb_appendString:@"\t" repeat:baseIndent];
+        [string appendFormat:@"AppGroupIdentifier : %@\n", _appGroupIdentifier];
+    }
+    NSArray< NSString* >* propertyMap = self.propertyMap;
+    if(propertyMap.count > 0) {
+        NSUInteger propertyIndent = baseIndent + 1;
+        [string glb_appendString:@"\t" repeat:baseIndent];
+        [string appendString:@"Properties : {\n"];
+        for(NSString* property in self.propertyMap) {
+            id value = [self valueForKey:property];
+            if(value != nil) {
+                [string glb_appendString:@"\t" repeat:propertyIndent];
+                [string appendFormat:@"%@ : %@\n", property, [value glb_debug]];
+            }
+        }
+        [string glb_appendString:@"\t" repeat:baseIndent];
+        [string appendString:@"}\n"];
+    }
+    [string glb_appendString:@"\t" repeat:indent];
+    [string appendString:@">"];
 }
 
 @end
@@ -556,6 +652,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
 
 @synthesize jsonMap = _jsonMap;
 @synthesize packMap = _packMap;
+@synthesize propertyMap = _propertyMap;
 
 #pragma mark - Init / Free
 
@@ -575,6 +672,26 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
     return NSStringFromClass(self.class);
 }
 
++ (NSArray< NSString* >*)propertyMap {
+    if(self == GLBModel.class) {
+        return nil;
+    }
+    NSMutableArray* result = NSMutableArray.array;
+    if(result != nil) {
+        unsigned int count;
+        objc_property_t* properties = class_copyPropertyList(self.class, &count);
+        for(unsigned int i = 0; i < count; i++) {
+            objc_property_t property = properties[i];
+            NSString* propertyName = [NSString stringWithUTF8String:property_getName(property)];
+            if(propertyName != nil) {
+                [result addObject:propertyName];
+            }
+        }
+        free(properties);
+    }
+    return result;
+}
+
 #pragma mark - Property
 
 - (NSDictionary*)jsonMap {
@@ -591,6 +708,12 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
     return _packMap;
 }
 
+- (NSArray< NSString* >*)propertyMap {
+    if(_propertyMap == nil) {
+        _propertyMap = [self.class _buildPropertyMap];
+    }
+    return _propertyMap;
+}
 
 #pragma mark - GLBModel
 
@@ -736,6 +859,14 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
     return [GLBManagedMap dictionaryMap:cache class:self.class selector:@selector(packMap)];
 }
 
++ (NSArray< NSString* >* _Nonnull)_buildPropertyMap {
+    static NSMutableDictionary* cache = nil;
+    if(cache == nil) {
+        cache = NSMutableDictionary.dictionary;
+    }
+    return [GLBManagedMap arrayMap:cache class:self.class selector:@selector(propertyMap)];
+}
+
 #pragma mark - NSCoding
 
 - (instancetype)initWithCoder:(NSCoder*)coder {
@@ -746,6 +877,33 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
 
 - (void)encodeWithCoder:(NSCoder*)encoder {
     [encoder encodeObject:self.objectID.URIRepresentation forKey:GLBManagedModelUriKey];
+}
+
+#pragma mark - GLBObjectDebugProtocol
+
+- (void)glb_debugString:(NSMutableString*)string indent:(NSUInteger)indent root:(BOOL)root {
+    if(root == YES) {
+        [string glb_appendString:@"\t" repeat:indent];
+    }
+    NSUInteger baseIndent = indent + 1;
+    [string appendFormat:@"<%@\n", self.glb_className];
+    NSArray< NSString* >* propertyMap = self.propertyMap;
+    if(propertyMap.count > 0) {
+        NSUInteger propertyIndent = baseIndent + 1;
+        [string glb_appendString:@"\t" repeat:baseIndent];
+        [string appendString:@"Properties : {\n"];
+        for(NSString* property in self.propertyMap) {
+            id value = [self valueForKey:property];
+            if(value != nil) {
+                [string glb_appendString:@"\t" repeat:propertyIndent];
+                [string appendFormat:@"%@ : %@\n", property, [value glb_debug]];
+            }
+        }
+        [string glb_appendString:@"\t" repeat:baseIndent];
+        [string appendString:@"}\n"];
+    }
+    [string glb_appendString:@"\t" repeat:indent];
+    [string appendString:@">"];
 }
 
 @end
@@ -1234,6 +1392,34 @@ static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistSto
     return [self.currentContext countForFetchRequest:request error:error];
 }
 
+- (void)setFetchRequestTemplate:(NSFetchRequest*)fetchRequestTemplate forName:(NSString*)name {
+    [self.model setFetchRequestTemplate:fetchRequestTemplate forName:name];
+}
+
+- (NSFetchRequest*)fetchRequestTemplateForName:(NSString*)name {
+    return [self.model fetchRequestTemplateForName:name];
+}
+
+- (NSFetchRequest*)fetchRequestFromTemplateWithName:(NSString*)name variables:(NSDictionary< NSString*, id >*)variables {
+    return [self.model fetchRequestFromTemplateWithName:name substitutionVariables:variables];
+}
+
+- (NSArray*)executeTemplateFetchRequestForName:(NSString*)name error:(NSError**)error {
+    NSFetchRequest* request = [self.model fetchRequestTemplateForName:name];
+    if(request != nil) {
+        return [self.currentContext executeFetchRequest:request error:error];
+    }
+    return nil;
+}
+
+- (NSArray*)executeTemplateFetchRequestForName:(NSString*)name variables:(NSDictionary< NSString*, id >*)variables error:(NSError**)error {
+    NSFetchRequest* request = [self.model fetchRequestFromTemplateWithName:name substitutionVariables:variables];
+    if(request != nil) {
+        return [self.currentContext executeFetchRequest:request error:error];
+    }
+    return nil;
+}
+
 - (void)insertObject:(NSManagedObject* _Nonnull)object {
     [self.currentContext insertObject:object];
 }
@@ -1463,15 +1649,17 @@ static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistSto
     NSString* className = NSStringFromClass(class);
     NSMutableArray* map = cache[className];
     if(map == nil) {
-        map = NSMutableArray.array;
-        while(class != nil) {
-            if([class respondsToSelector:selector] == YES) {
-                NSArray* mapPart = [class performSelector:selector];
-                if([mapPart isKindOfClass:NSArray.class] == YES) {
-                    [map addObjectsFromArray:mapPart];
-                }
+        Class superClass = [class superclass];
+        NSArray* superMap = nil;
+        if(superClass != nil) {
+            superMap = [self arrayMap:cache class:superClass selector:selector];
+        }
+        map = [NSMutableArray arrayWithArray:superMap];
+        if([class respondsToSelector:selector] == YES) {
+            NSArray* mapPart = [class performSelector:selector];
+            if([mapPart isKindOfClass:NSArray.class] == YES) {
+                [map addObjectsFromArray:mapPart];
             }
-            class = [class superclass];
         }
         cache[className] = map;
     }
@@ -1482,15 +1670,17 @@ static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistSto
     NSString* className = NSStringFromClass(class);
     NSMutableDictionary* map = cache[className];
     if(map == nil) {
-        map = NSMutableDictionary.dictionary;
-        while(class != nil) {
-            if([class respondsToSelector:selector] == YES) {
-                NSDictionary* mapPart = [class performSelector:selector];
-                if([mapPart isKindOfClass:NSDictionary.class] == YES) {
-                    [map addEntriesFromDictionary:mapPart];
-                }
+        Class superClass = [class superclass];
+        NSDictionary* superMap = nil;
+        if(superClass != nil) {
+            superMap = [self dictionaryMap:cache class:superClass selector:selector];
+        }
+        map = [NSMutableDictionary dictionaryWithDictionary:superMap];
+        if([class respondsToSelector:selector] == YES) {
+            NSDictionary* mapPart = [class performSelector:selector];
+            if([mapPart isKindOfClass:NSDictionary.class] == YES) {
+                [map addEntriesFromDictionary:mapPart];
             }
-            class = [class superclass];
         }
         cache[className] = map;
     }

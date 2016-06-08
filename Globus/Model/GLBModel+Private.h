@@ -8,17 +8,23 @@
 
 @interface GLBModel ()
 
-@property(nonatomic, readonly, nonnull, strong) NSDictionary* jsonMap;
-@property(nonatomic, readonly, nonnull, strong) NSDictionary* packMap;
-@property(nonatomic, readonly, nonnull, strong) NSArray* compareMap;
-@property(nonatomic, readonly, nonnull, strong) NSArray* serializeMap;
-@property(nonatomic, readonly, nonnull, strong) NSArray* copyMap;
+@property(nonatomic, readonly, nonnull, strong) NSDictionary< NSString*, GLBModelJson* >* jsonMap;
+@property(nonatomic, readonly, nonnull, strong) NSDictionary< NSString*, GLBModelPack* >* packMap;
+@property(nonatomic, readonly, nonnull, strong) NSArray< NSString* >* propertyMap;
+@property(nonatomic, readonly, nonnull, strong) NSArray< NSString* >* compareMap;
+@property(nonatomic, readonly, nonnull, strong) NSArray< NSString* >* serializeMap;
+@property(nonatomic, readonly, nonnull, strong) NSArray< NSString* >* copyMap;
 
-+ (NSDictionary* _Nonnull)_buildJsonMap;
-+ (NSDictionary* _Nonnull)_buildPackMap;
-+ (NSArray* _Nonnull)_buildCompareMap;
-+ (NSArray* _Nonnull)_buildSerializeMap;
-+ (NSArray* _Nonnull)_buildCopyMap;
++ (NSString* _Nullable)_filePathWithStoreName:(NSString* _Nonnull)storeName appGroupIdentifier:(NSString* _Nullable)appGroupIdentifier;
+
++ (NSDictionary< NSString*, GLBModelJson* >* _Nonnull)_buildJsonMap;
++ (NSDictionary< NSString*, GLBModelPack* >* _Nonnull)_buildPackMap;
++ (NSArray< NSString* >* _Nonnull)_buildPropertyMap;
++ (NSArray< NSString* >* _Nonnull)_buildCompareMap;
++ (NSArray< NSString* >* _Nonnull)_buildSerializeMap;
++ (NSArray< NSString* >* _Nonnull)_buildCopyMap;
+
+- (NSString* _Nullable)_filePath;
 
 @end
 
@@ -26,11 +32,13 @@
 
 @interface GLBManagedModel ()
 
-@property(nonatomic, readonly, nonnull, strong) NSDictionary* jsonMap;
-@property(nonatomic, readonly, nonnull, strong) NSDictionary* packMap;
+@property(nonatomic, readonly, nonnull, strong) NSDictionary< NSString*, GLBModelJson* >* jsonMap;
+@property(nonatomic, readonly, nonnull, strong) NSDictionary< NSString*, GLBModelPack* >* packMap;
+@property(nonatomic, readonly, nonnull, strong) NSArray< NSString* >* propertyMap;
 
-+ (NSDictionary* _Nonnull)_buildJsonMap;
-+ (NSDictionary* _Nonnull)_buildPackMap;
++ (NSDictionary< NSString*, GLBModelJson* >* _Nonnull)_buildJsonMap;
++ (NSDictionary< NSString*, GLBModelPack* >* _Nonnull)_buildPackMap;
++ (NSArray< NSString* >* _Nonnull)_buildPropertyMap;
 
 @end
 
