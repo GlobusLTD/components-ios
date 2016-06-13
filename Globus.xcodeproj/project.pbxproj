@@ -232,8 +232,6 @@
 		40BB8D0F1BF3EE9400D2E180 /* GLBAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BB8D0E1BF3EE9400D2E180 /* GLBAction.m */; };
 		40CD43701C09B2330070348A /* GLBApiResponse+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 40CD436F1C09B2330070348A /* GLBApiResponse+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40CD43721C09B23C0070348A /* GLBApiRequest+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 40CD43711C09B23C0070348A /* GLBApiRequest+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		40D649441D0882BD008EA701 /* GLBManagedModel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 40D649431D0882BD008EA701 /* GLBManagedModel.h */; };
-		40D649461D0882BD008EA701 /* GLBManagedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D649451D0882BD008EA701 /* GLBManagedModel.m */; };
 		40D6494E1D0882F2008EA701 /* GLBManagedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D6494D1D0882F2008EA701 /* GLBManagedModel.m */; };
 		40D98EDA1C03FB41006937FC /* NSSet+GLBNS.h in Headers */ = {isa = PBXBuildFile; fileRef = 40D98ED81C03FB41006937FC /* NSSet+GLBNS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40D98EDB1C03FB41006937FC /* NSSet+GLBNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D98ED91C03FB41006937FC /* NSSet+GLBNS.m */; };
@@ -288,7 +286,6 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				40D649441D0882BD008EA701 /* GLBManagedModel.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,8 +572,6 @@
 		40CD436F1C09B2330070348A /* GLBApiResponse+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBApiResponse+Private.h"; sourceTree = "<group>"; };
 		40CD43711C09B23C0070348A /* GLBApiRequest+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBApiRequest+Private.h"; sourceTree = "<group>"; };
 		40D649411D0882BC008EA701 /* libGLBManagedModel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBManagedModel.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		40D649431D0882BD008EA701 /* GLBManagedModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLBManagedModel.h; sourceTree = "<group>"; };
-		40D649451D0882BD008EA701 /* GLBManagedModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLBManagedModel.m; sourceTree = "<group>"; };
 		40D6494B1D0882F2008EA701 /* GLBManagedModel+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBManagedModel+Private.h"; sourceTree = "<group>"; };
 		40D6494C1D0882F2008EA701 /* GLBManagedModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBManagedModel.h; sourceTree = "<group>"; };
 		40D6494D1D0882F2008EA701 /* GLBManagedModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBManagedModel.m; sourceTree = "<group>"; };
@@ -1696,7 +1691,6 @@
 				40F374C51C65132B0016507F /* AudioRecorder */,
 				4036BD731CA4830B00E5A793 /* VideoPlayerView */,
 				403D4CBC1CF478300078DB66 /* WatchManager */,
-				40D649421D0882BD008EA701 /* GLBManagedModel */,
 				4034B0901CE1E1270019FBCC /* Frameworks */,
 				40BB8CC21BF3EDBE00D2E180 /* Products */,
 			);
@@ -1819,15 +1813,6 @@
 			);
 			name = Action;
 			path = Globus/Action;
-			sourceTree = "<group>";
-		};
-		40D649421D0882BD008EA701 /* GLBManagedModel */ = {
-			isa = PBXGroup;
-			children = (
-				40D649431D0882BD008EA701 /* GLBManagedModel.h */,
-				40D649451D0882BD008EA701 /* GLBManagedModel.m */,
-			);
-			path = GLBManagedModel;
 			sourceTree = "<group>";
 		};
 		40D6494A1D0882F2008EA701 /* ManagedModel */ = {
@@ -4178,7 +4163,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40D649461D0882BD008EA701 /* GLBManagedModel.m in Sources */,
 				40D6494E1D0882F2008EA701 /* GLBManagedModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5537,6 +5521,7 @@
 				40D649481D0882BD008EA701 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		40DF70361CA0A6CA005EBB6B /* Build configuration list for PBXNativeTarget "GLBSplitViewController" */ = {
 			isa = XCConfigurationList;

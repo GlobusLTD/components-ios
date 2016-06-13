@@ -184,6 +184,7 @@
         }
         _pressGestureRecognizer = pressGestureRecognizer;
         if(_pressGestureRecognizer != nil) {
+            _pressGestureRecognizer.delaysTouchesBegan = YES;
             _pressGestureRecognizer.minimumPressDuration = 0.01f;
             _pressGestureRecognizer.delegate = self;
             [_rootView addGestureRecognizer:_pressGestureRecognizer];
@@ -198,6 +199,7 @@
         }
         _longPressGestureRecognizer = longPressGestureRecognizer;
         if(_longPressGestureRecognizer != nil) {
+            _longPressGestureRecognizer.delaysTouchesBegan = YES;
             _longPressGestureRecognizer.delegate = self;
             [_rootView addGestureRecognizer:_longPressGestureRecognizer];
         }
@@ -445,10 +447,13 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldReceiveTouch:(UITouch*)touch {
     UIView* view = touch.view;
-    if([view isKindOfClass:UIControl.class] == YES) {
-        return NO;
+    while(view != _rootView) {
+        if([view isKindOfClass:UIControl.class] == YES) {
+            return NO;
+        }
+        view = view.superview;
     }
-    return (view == _rootView) || (view.canBecomeFirstResponder == NO);
+    return (touch.view == _rootView) || (touch.view.canBecomeFirstResponder == NO);
 }
 
 #pragma mark - GLBSearchBarDelegate
