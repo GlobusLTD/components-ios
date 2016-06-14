@@ -469,18 +469,14 @@
         }
         if(dict != nil) {
             for(NSString* field in self.serializeMap) {
-                id value = dict[field];
-                if(value != nil) {
+                @try {
+                    id value = dict[field];
                     if([value isKindOfClass:NSData.class] == YES) {
-                        id unarchive = [NSKeyedUnarchiver unarchiveObjectWithData:value];
-                        if(unarchive != nil) {
-                            @try {
-                                [self setValue:unarchive forKey:field];
-                            }
-                            @catch(NSException *exception) {
-                            }
-                        }
+                        value = [NSKeyedUnarchiver unarchiveObjectWithData:value];
                     }
+                    [self setValue:value forKey:field];
+                }
+                @catch(NSException *exception) {
                 }
             }
         }
