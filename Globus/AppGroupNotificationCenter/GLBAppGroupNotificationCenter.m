@@ -183,27 +183,31 @@ void GLBAppGroupNotificationCenterNotificationCallback(CFNotificationCenterRef c
 }
 
 - (void)_receiveNotification:(NSNotification*)notification {
-    NSDictionary* userInfo = nil;
     NSString* name = notification.object;
-    NSString* userInfoFilePath = [self _objectFilePathForName:name];
-    if([_fileManager fileExistsAtPath:userInfoFilePath] == YES) {
-        NSData* userInfoData = [NSData dataWithContentsOfFile:userInfoFilePath];
-        if(userInfoData != nil) {
-            userInfo = [NSKeyedUnarchiver unarchiveObjectWithData:userInfoData];
-        }
-    }
-    if(userInfo != nil) {
-        NSNumber* processId = userInfo[GLBAppGroupNotificationCenterProcessIdKey];
-        if([_processId isEqualToNumber:processId] == NO) {
-            NSMutableArray* arguments = [NSMutableArray arrayWithObject:name];
-            id custom = userInfo[GLBAppGroupNotificationCenterCustomKey];
-            if(custom != nil) {
-                [arguments addObject:custom];
+    if(name != nil) {
+        NSDictionary* userInfo = nil;
+        NSString* userInfoFilePath = [self _objectFilePathForName:name];
+        if([_fileManager fileExistsAtPath:userInfoFilePath] == YES) {
+            NSData* userInfoData = [NSData dataWithContentsOfFile:userInfoFilePath];
+            if(userInfoData != nil) {
+                userInfo = [NSKeyedUnarchiver unarchiveObjectWithData:userInfoData];
             }
-            NSMutableArray* actions = _observers[name];
-            [actions glb_each:^(GLBAction* action) {
-                [action performWithArguments:arguments];
-            }];
+        }
+        if(userInfo != nil) {
+            NSNumber* processId = userInfo[GLBAppGroupNotificationCenterProcessIdKey];
+            if([_processId isEqualToNumber:processId] == NO) {
+                NSMutableArray* arguments = [NSMutableArray arrayWithObject:name];
+                if(arguments != nil) {
+                    id custom = userInfo[GLBAppGroupNotificationCenterCustomKey];
+                    if(custom != nil) {
+                        [arguments addObject:custom];
+                    }
+                    NSMutableArray* actions = _observers[name];
+                    [actions glb_each:^(GLBAction* action) {
+                        [action performWithArguments:arguments];
+                    }];
+                }
+            }
         }
     }
 }

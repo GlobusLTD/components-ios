@@ -89,7 +89,6 @@ typedef void(^GLBGeoLocationManagerPrefornBlock)();
 - (void)setup {
     _locationManager = [CLLocationManager new];
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    _locationManager.delegate = self;
     _requests = [NSMutableArray array];
     _authorizationStatus = CLLocationManager.authorizationStatus;
 }
@@ -261,6 +260,7 @@ typedef void(^GLBGeoLocationManagerPrefornBlock)();
 #endif
     if((_requests.count > 0) && (_updatingLocation == NO)) {
         _updatingLocation = YES;
+        _locationManager.delegate = self;
         [_locationManager startUpdatingLocation];
     }
 #elif defined(GLB_TARGET_WATCHOS)
@@ -289,6 +289,7 @@ typedef void(^GLBGeoLocationManagerPrefornBlock)();
 - (void)_stopUpdatingIfPossible {
     if((_requests.count < 1) && (_updatingLocation == YES)) {
         [_locationManager stopUpdatingLocation];
+        _locationManager.delegate = nil;
         _updatingLocation = NO;
     }
 }

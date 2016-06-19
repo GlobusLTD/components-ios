@@ -56,7 +56,9 @@
         NSInteger count = MIN(_signature.numberOfArguments - 2, arguments.count);
         for(NSInteger index = 0; index < count; ++index) {
             id arg = arguments[index];
-            [invocation setArgument:(void*)&arg atIndex:index + 2];
+            if(arg != nil) {
+                [invocation setArgument:(void*)&arg atIndex:index + 2];
+            }
         }
         if(_thread != nil) {
             [self performSelector:@selector(_performInvocation:) onThread:_thread withObject:invocation waitUntilDone:YES];
