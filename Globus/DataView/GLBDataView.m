@@ -86,24 +86,28 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 @synthesize constraintSearchBarTop = _constraintSearchBarTop;
 @synthesize constraintSearchBarLeft = _constraintSearchBarLeft;
 @synthesize topRefreshIteractionEnabled = _topRefreshIteractionEnabled;
+@synthesize topRefreshBelowDataView = _topRefreshBelowDataView;
 @synthesize topRefreshView = _topRefreshView;
 @synthesize constraintTopRefreshTop = _constraintTopRefreshTop;
 @synthesize constraintTopRefreshLeft = _constraintTopRefreshLeft;
 @synthesize constraintTopRefreshRight = _constraintTopRefreshRight;
 @synthesize constraintTopRefreshSize = _constraintTopRefreshSize;
 @synthesize bottomRefreshIteractionEnabled = _bottomRefreshIteractionEnabled;
+@synthesize bottomRefreshBelowDataView = _bottomRefreshBelowDataView;
 @synthesize bottomRefreshView = _bottomRefreshView;
 @synthesize constraintBottomRefreshBottom = _constraintBottomRefreshBottom;
 @synthesize constraintBottomRefreshLeft = _constraintBottomRefreshLeft;
 @synthesize constraintBottomRefreshRight = _constraintBottomRefreshRight;
 @synthesize constraintBottomRefreshSize = _constraintBottomRefreshSize;
 @synthesize leftRefreshIteractionEnabled = _leftRefreshIteractionEnabled;
+@synthesize leftRefreshBelowDataView = _leftRefreshBelowDataView;
 @synthesize leftRefreshView = _leftRefreshView;
 @synthesize constraintLeftRefreshTop = _constraintLeftRefreshTop;
 @synthesize constraintLeftRefreshBottom = _constraintLeftRefreshBottom;
 @synthesize constraintLeftRefreshLeft = _constraintLeftRefreshLeft;
 @synthesize constraintLeftRefreshSize = _constraintLeftRefreshSize;
 @synthesize rightRefreshIteractionEnabled = _rightRefreshIteractionEnabled;
+@synthesize rightRefreshBelowDataView = _rightRefreshBelowDataView;
 @synthesize rightRefreshView = _rightRefreshView;
 @synthesize constraintRightRefreshTop = _constraintRightRefreshTop;
 @synthesize constraintRightRefreshBottom = _constraintRightRefreshBottom;
@@ -178,9 +182,13 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     _showedSearchBar = NO;
     _searchBarStyle = GLBDataViewSearchBarStyleOverlay;
     _topRefreshIteractionEnabled = YES;
+    _topRefreshBelowDataView = YES;
     _bottomRefreshIteractionEnabled = YES;
+    _bottomRefreshBelowDataView = YES;
     _leftRefreshIteractionEnabled = YES;
+    _leftRefreshBelowDataView = YES;
     _rightRefreshIteractionEnabled = YES;
+    _rightRefreshBelowDataView = YES;
     
     self.longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_handlerLongPressGestureRecognizer:)];
     
@@ -207,6 +215,36 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 - (void)didMoveToSuperview {
     [super didMoveToSuperview];
     
+    if(self.superview != nil) {
+        if((_topRefreshView != nil) &&  (_topRefreshView.superview == nil)) {
+            if(_topRefreshBelowDataView == YES) {
+                [self.superview insertSubview:_topRefreshView belowSubview:self];
+            } else {
+                [self.superview insertSubview:_topRefreshView aboveSubview:self];
+            }
+        }
+        if((_bottomRefreshView != nil) &&  (_bottomRefreshView.superview == nil)) {
+            if(_bottomRefreshBelowDataView == YES) {
+                [self.superview insertSubview:_bottomRefreshView belowSubview:self];
+            } else {
+                [self.superview insertSubview:_bottomRefreshView aboveSubview:self];
+            }
+        }
+        if((_leftRefreshView != nil) &&  (_leftRefreshView.superview == nil)) {
+            if(_leftRefreshBelowDataView == YES) {
+                [self.superview insertSubview:_leftRefreshView belowSubview:self];
+            } else {
+                [self.superview insertSubview:_leftRefreshView aboveSubview:self];
+            }
+        }
+        if((_rightRefreshView != nil) &&  (_rightRefreshView.superview == nil)) {
+            if(_rightRefreshBelowDataView == YES) {
+                [self.superview insertSubview:_rightRefreshView belowSubview:self];
+            } else {
+                [self.superview insertSubview:_rightRefreshView aboveSubview:self];
+            }
+        }
+    }
     [self _updateSuperviewConstraints];
 }
 
@@ -563,6 +601,27 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     [self _setSearchBarInset:searchBarInset force:(self.tracking == NO)];
 }
 
+- (void)setTopRefreshBelowDataView:(BOOL)topRefreshBelowDataView {
+    if(_topRefreshBelowDataView != topRefreshBelowDataView) {
+        if(_topRefreshView != nil) {
+            self.constraintTopRefreshTop = nil;
+            self.constraintTopRefreshLeft = nil;
+            self.constraintTopRefreshRight = nil;
+            self.constraintTopRefreshSize = nil;
+            [_topRefreshView removeFromSuperview];
+        }
+        _topRefreshBelowDataView = topRefreshBelowDataView;
+        if(self.superview != nil) {
+            if(_topRefreshBelowDataView == YES) {
+                [self.superview insertSubview:_topRefreshView belowSubview:self];
+            } else {
+                [self.superview insertSubview:_topRefreshView aboveSubview:self];
+            }
+            [self _updateSuperviewConstraints];
+        }
+    }
+}
+
 - (void)setTopRefreshView:(GLBDataRefreshView*)topRefreshView {
     if(_topRefreshView != topRefreshView) {
         if(_topRefreshView != nil) {
@@ -579,7 +638,11 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             _topRefreshView.type = GLBDataRefreshViewTypeTop;
             _topRefreshView.view = self;
             if(self.superview != nil) {
-                [self.superview insertSubview:_topRefreshView belowSubview:self];
+                if(_topRefreshBelowDataView == YES) {
+                    [self.superview insertSubview:_topRefreshView belowSubview:self];
+                } else {
+                    [self.superview insertSubview:_topRefreshView aboveSubview:self];
+                }
                 [self _updateSuperviewConstraints];
             }
         }
@@ -636,6 +699,27 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     }
 }
 
+- (void)setBottomRefreshBelowDataView:(BOOL)bottomRefreshBelowDataView {
+    if(_bottomRefreshBelowDataView != bottomRefreshBelowDataView) {
+        if(_bottomRefreshView != nil) {
+            self.constraintBottomRefreshBottom = nil;
+            self.constraintBottomRefreshLeft = nil;
+            self.constraintBottomRefreshRight = nil;
+            self.constraintBottomRefreshSize = nil;
+            [_bottomRefreshView removeFromSuperview];
+        }
+        _bottomRefreshBelowDataView = bottomRefreshBelowDataView;
+        if(self.superview != nil) {
+            if(_bottomRefreshBelowDataView == YES) {
+                [self.superview insertSubview:_bottomRefreshView belowSubview:self];
+            } else {
+                [self.superview insertSubview:_bottomRefreshView aboveSubview:self];
+            }
+            [self _updateSuperviewConstraints];
+        }
+    }
+}
+
 - (void)setBottomRefreshView:(GLBDataRefreshView*)bottomRefreshView {
     if(_bottomRefreshView != bottomRefreshView) {
         if(_bottomRefreshView != nil) {
@@ -652,7 +736,11 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             _bottomRefreshView.type = GLBDataRefreshViewTypeBottom;
             _bottomRefreshView.view = self;
             if(self.superview != nil) {
-                [self.superview insertSubview:_bottomRefreshView belowSubview:self];
+                if(_bottomRefreshBelowDataView == YES) {
+                    [self.superview insertSubview:_bottomRefreshView belowSubview:self];
+                } else {
+                    [self.superview insertSubview:_bottomRefreshView aboveSubview:self];
+                }
                 [self _updateSuperviewConstraints];
             }
         }
@@ -709,6 +797,27 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     }
 }
 
+- (void)setLeftRefreshBelowDataView:(BOOL)leftRefreshBelowDataView {
+    if(_leftRefreshBelowDataView != leftRefreshBelowDataView) {
+        if(_leftRefreshView != nil) {
+            self.constraintLeftRefreshBottom = nil;
+            self.constraintLeftRefreshLeft = nil;
+            self.constraintLeftRefreshTop = nil;
+            self.constraintLeftRefreshSize = nil;
+            [_leftRefreshView removeFromSuperview];
+        }
+        _leftRefreshBelowDataView = leftRefreshBelowDataView;
+        if(self.superview != nil) {
+            if(_leftRefreshBelowDataView == YES) {
+                [self.superview insertSubview:_leftRefreshView belowSubview:self];
+            } else {
+                [self.superview insertSubview:_leftRefreshView aboveSubview:self];
+            }
+            [self _updateSuperviewConstraints];
+        }
+    }
+}
+
 - (void)setLeftRefreshView:(GLBDataRefreshView*)leftRefreshView {
     if(_leftRefreshView != leftRefreshView) {
         if(_leftRefreshView != nil) {
@@ -725,7 +834,11 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             _leftRefreshView.type = GLBDataRefreshViewTypeLeft;
             _leftRefreshView.view = self;
             if(self.superview != nil) {
-                [self.superview insertSubview:_leftRefreshView belowSubview:self];
+                if(_leftRefreshBelowDataView == YES) {
+                    [self.superview insertSubview:_leftRefreshView belowSubview:self];
+                } else {
+                    [self.superview insertSubview:_leftRefreshView aboveSubview:self];
+                }
                 [self _updateSuperviewConstraints];
             }
         }
@@ -782,6 +895,27 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     }
 }
 
+- (void)setRightRefreshBelowDataView:(BOOL)rightRefreshBelowDataView {
+    if(_rightRefreshBelowDataView != rightRefreshBelowDataView) {
+        if(_rightRefreshView != nil) {
+            self.constraintRightRefreshTop = nil;
+            self.constraintRightRefreshBottom = nil;
+            self.constraintRightRefreshRight = nil;
+            self.constraintRightRefreshSize = nil;
+            [_rightRefreshView removeFromSuperview];
+        }
+        _rightRefreshBelowDataView = rightRefreshBelowDataView;
+        if(self.superview != nil) {
+            if(_rightRefreshBelowDataView == YES) {
+                [self.superview insertSubview:_rightRefreshView belowSubview:self];
+            } else {
+                [self.superview insertSubview:_rightRefreshView aboveSubview:self];
+            }
+            [self _updateSuperviewConstraints];
+        }
+    }
+}
+
 - (void)setRightRefreshView:(GLBDataRefreshView*)rightRefreshView {
     if(_rightRefreshView != rightRefreshView) {
         if(_rightRefreshView != nil) {
@@ -798,7 +932,11 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             _rightRefreshView.type = GLBDataRefreshViewTypeRight;
             _rightRefreshView.view = self;
             if(self.superview != nil) {
-                [self.superview insertSubview:_rightRefreshView belowSubview:self];
+                if(_rightRefreshBelowDataView == YES) {
+                    [self.superview insertSubview:_rightRefreshView belowSubview:self];
+                } else {
+                    [self.superview insertSubview:_rightRefreshView aboveSubview:self];
+                }
                 [self _updateSuperviewConstraints];
             }
         }

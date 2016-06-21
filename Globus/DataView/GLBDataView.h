@@ -86,12 +86,16 @@ typedef NS_ENUM(NSUInteger, GLBDataViewSearchBarStyle) {
 @property(nonatomic, readonly, assign) CGFloat searchBarInset;
 
 @property(nonatomic) IBInspectable BOOL topRefreshIteractionEnabled;
+@property(nonatomic) IBInspectable BOOL topRefreshBelowDataView;
 @property(nonatomic, strong) IBOutlet __kindof GLBDataRefreshView* topRefreshView;
 @property(nonatomic) IBInspectable BOOL bottomRefreshIteractionEnabled;
+@property(nonatomic) IBInspectable BOOL bottomRefreshBelowDataView;
 @property(nonatomic, strong) IBOutlet __kindof GLBDataRefreshView* bottomRefreshView;
 @property(nonatomic) IBInspectable BOOL leftRefreshIteractionEnabled;
+@property(nonatomic) IBInspectable BOOL leftRefreshBelowDataView;
 @property(nonatomic, strong) IBOutlet __kindof GLBDataRefreshView* leftRefreshView;
 @property(nonatomic) IBInspectable BOOL rightRefreshIteractionEnabled;
+@property(nonatomic) IBInspectable BOOL rightRefreshBelowDataView;
 @property(nonatomic, strong) IBOutlet __kindof GLBDataRefreshView* rightRefreshView;
 @property(nonatomic, readonly, assign) UIEdgeInsets refreshViewInset;
 
