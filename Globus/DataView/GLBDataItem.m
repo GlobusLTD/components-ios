@@ -380,11 +380,16 @@
 
 - (void)setNeedReload {
     if(_cell != nil) {
-        [UIView performWithoutAnimation:^{
+        if(_view.isUpdating == YES) {
             _cell.frame = self.frame;
             [_cell reload];
-            [_cell layoutIfNeeded];
-        }];
+        } else {
+            [UIView performWithoutAnimation:^{
+                _cell.frame = self.frame;
+                [_cell reload];
+                [_cell layoutIfNeeded];
+            }];
+        }
     }
 }
 

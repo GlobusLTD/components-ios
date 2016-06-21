@@ -1634,6 +1634,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             [self performActionForKey:GLBDataViewAnimateRestore withArguments:@[ self, items ]];
             for(GLBDataItem* item in items) {
                 [self enqueueCellWithItem:item];
+                item.parent = nil;
             }
         } else {
             for(GLBDataItem* item in items) {
@@ -1643,6 +1644,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                     cell.alpha = 1.0f;
                 }
                 [self enqueueCellWithItem:item];
+                item.parent = nil;
             }
         }
     }
@@ -1665,6 +1667,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             [self performActionForKey:GLBDataViewAnimateRestore withArguments:@[ self, items ]];
             for(GLBDataItem* item in items) {
                 [self enqueueCellWithItem:item];
+                item.parent = nil;
             }
         } else {
             for(GLBDataItem* item in originItems) {
@@ -1674,6 +1677,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                     cell.alpha = 1.0f;
                 }
                 [self enqueueCellWithItem:item];
+                item.parent = nil;
             }
         }
     }
@@ -2656,6 +2660,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             [self performActionForKey:GLBDataViewAnimateRestore withArguments:@[ self, _reloadedBeforeItems ]];
             for(GLBDataItem* item in _reloadedBeforeItems) {
                 [self _disappearItem:item];
+                item.parent = nil;
             }
         } else {
             for(GLBDataItem* item in _reloadedBeforeItems) {
@@ -2665,6 +2670,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                     cell.alpha = 1.0f;
                 }
                 [self _disappearItem:item];
+                item.parent = nil;
             }
         }
         [_reloadedBeforeItems removeAllObjects];
@@ -2694,6 +2700,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             [self performActionForKey:GLBDataViewAnimateRestore withArguments:@[ self, _deletedItems ]];
             for(GLBDataItem* item in _deletedItems) {
                 [self _disappearItem:item];
+                item.parent = nil;
             }
         } else {
             for(GLBDataItem* item in _deletedItems) {
@@ -2703,6 +2710,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                     cell.alpha = 1.0f;
                 }
                 [self _disappearItem:item];
+                item.parent = nil;
             }
         }
         [_deletedItems removeAllObjects];
