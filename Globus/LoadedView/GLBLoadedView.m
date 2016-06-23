@@ -134,6 +134,38 @@
     }
 }
 
+- (void)setRootEdgeInsetsTop:(CGFloat)rootEdgeInsetsTop {
+    self.rootEdgeInsets = UIEdgeInsetsMake(rootEdgeInsetsTop, _rootEdgeInsets.left, _rootEdgeInsets.bottom, _rootEdgeInsets.right);
+}
+
+- (CGFloat)rootEdgeInsetsTop {
+    return _rootEdgeInsets.top;
+}
+
+- (void)setRootEdgeInsetsBottom:(CGFloat)rootEdgeInsetsBottom {
+    self.rootEdgeInsets = UIEdgeInsetsMake(_rootEdgeInsets.top, _rootEdgeInsets.left, rootEdgeInsetsBottom, _rootEdgeInsets.right);
+}
+
+- (CGFloat)rootEdgeInsetsBottom {
+    return _rootEdgeInsets.bottom;
+}
+
+- (void)setRootEdgeInsetsLeft:(CGFloat)rootEdgeInsetsLeft {
+    self.rootEdgeInsets = UIEdgeInsetsMake(_rootEdgeInsets.top, rootEdgeInsetsLeft, _rootEdgeInsets.bottom, _rootEdgeInsets.right);
+}
+
+- (CGFloat)rootEdgeInsetsLeft {
+    return _rootEdgeInsets.left;
+}
+
+- (void)setRootEdgeInsetsRight:(CGFloat)rootEdgeInsetsRight {
+    self.rootEdgeInsets = UIEdgeInsetsMake(_rootEdgeInsets.top, _rootEdgeInsets.left, _rootEdgeInsets.bottom, rootEdgeInsetsRight);
+}
+
+- (CGFloat)rootEdgeInsetsRight {
+    return _rootEdgeInsets.right;
+}
+
 @end
 
 /*--------------------------------------------------*/
