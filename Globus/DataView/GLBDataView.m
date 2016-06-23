@@ -339,6 +339,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             if(_visibleItems.count > 0) {
                 [_visibleItems glb_each:^(GLBDataItem* item) {
                     [self enqueueCellWithItem:item];
+                    item.parent = nil;
                 }];
                 [_visibleItems removeAllObjects];
             }
@@ -346,8 +347,8 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
         }
         _container = container;
         if(_container != nil) {
-            [self setNeedValidateLayout];
             _container.view = self;
+            [self setNeedValidateLayout];
         }
         [self validateLayoutIfNeed];
     }

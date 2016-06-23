@@ -78,6 +78,10 @@
     _backgroundAlpha = 1.0f;
 }
 
+- (void)dealloc {
+    _contentViewController.glb_dialogViewController = nil;
+}
+
 #pragma mark - Property
 
 - (void)setOwnerViewController:(UIViewController*)ownerViewController {
