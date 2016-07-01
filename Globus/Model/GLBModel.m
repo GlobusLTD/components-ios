@@ -622,7 +622,7 @@
             id value = [self valueForKey:property];
             if(value != nil) {
                 [string glb_appendString:@"\t" repeat:propertyIndent];
-                [string appendFormat:@"%@ : %@\n", property, [value glb_debug]];
+                [string appendFormat:@"%@ : %@\n", property, [value glb_debugIndent:propertyIndent root:NO]];
             }
         }
         [string glb_appendString:@"\t" repeat:baseIndent];

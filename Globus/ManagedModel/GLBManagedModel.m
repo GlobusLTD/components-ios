@@ -272,7 +272,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
             id value = [self valueForKey:property];
             if(value != nil) {
                 [string glb_appendString:@"\t" repeat:propertyIndent];
-                [string appendFormat:@"%@ : %@\n", property, [value glb_debug]];
+                [string appendFormat:@"%@ : %@\n", property, [value glb_debugIndent:propertyIndent root:NO]];
             }
         }
         [string glb_appendString:@"\t" repeat:baseIndent];
@@ -524,25 +524,26 @@ static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistSto
             NSURL* storeSrcUrl = self.existStoreUrl;
             NSURL* storeDstUrl = self.storeUrl;
             if((storeSrcUrl != nil) || (storeDstUrl != nil)) {
-                if(_allowsCreateStoreDatabase == YES) {
-                    if((storeSrcUrl != nil) && (storeDstUrl != nil)) {
-                        if([storeSrcUrl isEqual:storeDstUrl] == NO) {
-                            if([NSFileManager.defaultManager fileExistsAtPath:storeSrcUrl.path] == YES) {
-                                if([NSFileManager.defaultManager fileExistsAtPath:storeDstUrl.path] == YES) {
-                                    if([NSFileManager.defaultManager removeItemAtURL:storeDstUrl error:&error] == NO) {
-                                        storeDstUrl = nil;
-                                    }
+                if((storeSrcUrl != nil) && (storeDstUrl != nil)) {
+                    if([storeSrcUrl isEqual:storeDstUrl] == NO) {
+                        if([NSFileManager.defaultManager fileExistsAtPath:storeSrcUrl.path] == YES) {
+                            if([NSFileManager.defaultManager fileExistsAtPath:storeDstUrl.path] == YES) {
+                                if([NSFileManager.defaultManager removeItemAtURL:storeDstUrl error:&error] == NO) {
+                                    storeDstUrl = nil;
                                 }
-                            } else {
-                                storeDstUrl = nil;
                             }
                         } else {
                             storeDstUrl = nil;
                         }
-                    } else if((storeSrcUrl == nil) && (storeDstUrl != nil)) {
-                        storeSrcUrl = storeDstUrl;
+                    } else {
                         storeDstUrl = nil;
                     }
+                } else if((storeSrcUrl == nil) && (storeDstUrl != nil)) {
+                    storeSrcUrl = storeDstUrl;
+                    storeDstUrl = nil;
+                }
+                BOOL storeSrcExist = [NSFileManager.defaultManager fileExistsAtPath:storeSrcUrl.path];
+                if((_allowsCreateStoreDatabase == YES) || (storeSrcExist == YES)) {
                     if([self _migrateURL:storeSrcUrl options:coordinatorOptions type:NSSQLiteStoreType model:_model error:&error] == YES) {
                         coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_model];
                         store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType
@@ -589,39 +590,6 @@ static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistSto
                             error = [NSError errorWithDomain:GLBManagedManagerErrorDomain
                                                         code:GLBManagedManagerErrorInitializeMigration
                                                     userInfo:nil];
-                        }
-                    }
-                } else {
-                    NSURL* storeUrl = (storeDstUrl != nil) ? storeDstUrl : storeSrcUrl;
-                    if([NSFileManager.defaultManager fileExistsAtPath:storeUrl.path] == YES) {
-                        if([self _migrateURL:storeUrl options:coordinatorOptions type:NSSQLiteStoreType model:_model error:&error] == YES) {
-                            coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_model];
-                            store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType
-                                                              configuration:nil
-                                                                        URL:storeUrl
-                                                                    options:coordinatorOptions
-                                                                      error:&error];
-                            if(store == nil) {
-                                coordinatorOptions[NSSQLitePragmasOption] = @{
-                                    @"journal_mode" : @"DELETE"
-                                };
-                                store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType
-                                                                  configuration:nil
-                                                                            URL:storeUrl
-                                                                        options:coordinatorOptions
-                                                                          error:&error];
-                                if(store != nil) {
-                                    [coordinator removePersistentStore:store error:NULL];
-                                    coordinatorOptions[NSSQLitePragmasOption] = @{
-                                        @"journal_mode" : @"WAL"
-                                    };
-                                    store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType
-                                                                      configuration:nil
-                                                                                URL:storeUrl
-                                                                            options:coordinatorOptions error:&error];
-                                }
-                                storeDstUrl = nil;
-                            }
                         }
                     }
                 }

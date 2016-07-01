@@ -24,6 +24,9 @@
     if([self respondsToSelector:@selector(glb_debugString:indent:root:)] == YES) {
         [self glb_debugString:string indent:indent root:root];
     } else {
+        if(root == YES) {
+            [string glb_appendString:@"\t" repeat:indent];
+        }
         [string appendFormat:@"%@", self];
     }
     return string.copy;
