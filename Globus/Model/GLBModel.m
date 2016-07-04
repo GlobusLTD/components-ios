@@ -7,6 +7,7 @@
 #import "NSString+GLBNS.h"
 #import "NSArray+GLBNS.h"
 #import "NSDictionary+GLBNS.h"
+#import "NSPointerArray+GLBNS.h"
 #import "NSFileManager+GLBNS.h"
 #import "NSBundle+GLBNS.h"
 
@@ -590,7 +591,7 @@
 
 #pragma mark - GLBObjectDebugProtocol
 
-- (void)glb_debugString:(NSMutableString*)string indent:(NSUInteger)indent root:(BOOL)root {
+- (void)glb_debugString:(NSMutableString*)string context:(NSPointerArray*)context indent:(NSUInteger)indent root:(BOOL)root {
     if(root == YES) {
         [string glb_appendString:@"\t" repeat:indent];
     }
@@ -613,20 +614,27 @@
         [string glb_appendString:@"\t" repeat:baseIndent];
         [string appendFormat:@"AppGroupIdentifier : %@\n", _appGroupIdentifier];
     }
-    NSArray< NSString* >* propertyMap = self.propertyMap;
-    if(propertyMap.count > 0) {
-        NSUInteger propertyIndent = baseIndent + 1;
-        [string glb_appendString:@"\t" repeat:baseIndent];
-        [string appendString:@"Properties : {\n"];
-        for(NSString* property in self.propertyMap) {
-            id value = [self valueForKey:property];
-            if(value != nil) {
-                [string glb_appendString:@"\t" repeat:propertyIndent];
-                [string appendFormat:@"%@ : %@\n", property, [value glb_debugIndent:propertyIndent root:NO]];
+    if([context glb_indexForPointer:(__bridge void*)(self)] == NSNotFound) {
+        [context addPointer:(__bridge void*)(self)];
+        
+        NSArray< NSString* >* propertyMap = self.propertyMap;
+        if(propertyMap.count > 0) {
+            NSUInteger propertyIndent = baseIndent + 1;
+            [string glb_appendString:@"\t" repeat:baseIndent];
+            [string appendString:@"Properties : {\n"];
+            for(NSString* property in self.propertyMap) {
+                id value = [self valueForKey:property];
+                if(value != nil) {
+                    NSString* valueString = [value glb_debugContext:context indent:propertyIndent root:NO];
+                    if(valueString != nil) {
+                        [string glb_appendString:@"\t" repeat:propertyIndent];
+                        [string appendFormat:@"%@ : %@\n", property, valueString];
+                    }
+                }
             }
+            [string glb_appendString:@"\t" repeat:baseIndent];
+            [string appendString:@"}\n"];
         }
-        [string glb_appendString:@"\t" repeat:baseIndent];
-        [string appendString:@"}\n"];
     }
     [string glb_appendString:@"\t" repeat:indent];
     [string appendString:@">"];

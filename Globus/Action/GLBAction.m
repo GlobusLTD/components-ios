@@ -264,7 +264,7 @@
 
 #pragma mark - GLBObjectDebugProtocol
 
-- (void)glb_debugString:(NSMutableString*)string indent:(NSUInteger)indent root:(BOOL)root {
+- (void)glb_debugString:(NSMutableString*)string context:(NSPointerArray*)context indent:(NSUInteger)indent root:(BOOL)root {
     if(root == YES) {
         [string glb_appendString:@"\t" repeat:indent];
     }
@@ -277,7 +277,7 @@
     if(_actions.count > 0) {
         [string glb_appendString:@"\t" repeat:baseIndent];
         [string appendString:@"Actions : "];
-        [_actions glb_debugString:string indent:baseIndent root:NO];
+        [_actions glb_debugString:string context:context indent:baseIndent root:NO];
         [string appendString:@"\n"];
     }
     [string glb_appendString:@"\t" repeat:indent];

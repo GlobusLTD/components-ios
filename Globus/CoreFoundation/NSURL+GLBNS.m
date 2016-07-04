@@ -17,8 +17,8 @@
 
 #pragma mark - GLBObjectDebugProtocol
 
-- (void)glb_debugString:(NSMutableString*)string indent:(NSUInteger)indent root:(BOOL)root {
-    [self.absoluteString glb_debugString:string indent:indent root:root];
+- (void)glb_debugString:(NSMutableString*)string context:(NSPointerArray*)context indent:(NSUInteger)indent root:(BOOL)root {
+    [self.absoluteString glb_debugString:string context:context indent:indent root:root];
 }
 
 @end

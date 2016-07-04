@@ -102,6 +102,11 @@ extern NSString* GLBGeoLocationManagerUserDenied;
 
 /*--------------------------------------------------*/
 
+@interface CLLocation (GLBGeoLocation) < GLBObjectDebugProtocol >
+@end
+
+/*--------------------------------------------------*/
+
 @interface NSError (GLBGeoLocation)
 
 - (BOOL)glb_isGeoLocation;

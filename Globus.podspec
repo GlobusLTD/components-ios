@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.1.51'
+  s.version = '0.1.52'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -20,6 +20,7 @@ Pod::Spec.new do |s|
     ss.dependency 'Globus/Action'
     ss.dependency 'Globus/Timer'
     ss.dependency 'Globus/Timeout'
+    ss.dependency 'Globus/Observer'
     ss.dependency 'Globus/RegExpParser'
     ss.dependency 'Globus/TaskManager'
     ss.dependency 'Globus/ApiManager'
@@ -124,6 +125,13 @@ Pod::Spec.new do |s|
       'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_TIMEOUT'
     }
     ss.source_files = 'Globus/Timeout/**/*.{h,m}'
+    ss.dependency 'Globus/CoreFoundation'
+  end
+  s.subspec 'Observer' do |ss|
+    ss.xcconfig = {
+      'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_OBSERVER'
+    }
+    ss.source_files = 'Globus/Observer/**/*.{h,m}'
     ss.dependency 'Globus/CoreFoundation'
   end
   s.subspec 'KVO' do |ss|

@@ -206,15 +206,19 @@
 
 #pragma mark - GLBObjectDebugProtocol
 
-- (void)glb_debugString:(NSMutableString*)string indent:(NSUInteger)indent root:(BOOL)root {
+- (void)glb_debugString:(NSMutableString*)string context:(NSPointerArray*)context indent:(NSUInteger)indent root:(BOOL)root {
     if(root == YES) {
         [string glb_appendString:@"\t" repeat:indent];
     }
     NSUInteger baseIndent = indent + 1;
     [string appendString:@"{\n"];
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        [string glb_appendString:@"\t" repeat:baseIndent];
-        [string appendFormat:@"%@ : %@,\n", [key glb_debugIndent:baseIndent root:NO], [value glb_debugIndent:baseIndent root:NO]];
+        NSString* keyDebug = [key glb_debugContext:context indent:baseIndent root:NO];
+        NSString* valueDebug = [value glb_debugContext:context indent:baseIndent root:NO];
+        if((keyDebug != nil) && (valueDebug != nil)) {
+            [string glb_appendString:@"\t" repeat:baseIndent];
+            [string appendFormat:@"%@ : %@,\n", keyDebug, valueDebug];
+        }
     }];
     [string glb_appendString:@"\t" repeat:indent];
     [string appendString:@"}"];

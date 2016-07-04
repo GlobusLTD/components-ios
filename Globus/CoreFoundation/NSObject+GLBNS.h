@@ -7,7 +7,7 @@
 @protocol GLBObjectDebugProtocol <NSObject>
 
 @required
-- (void)glb_debugString:(NSMutableString* _Nonnull)string indent:(NSUInteger)indent root:(BOOL)root;
+- (void)glb_debugString:(NSMutableString* _Nonnull)string context:(NSPointerArray* _Nonnull)context indent:(NSUInteger)indent root:(BOOL)root;
 
 @end
 
@@ -19,7 +19,7 @@
 - (NSString* _Nonnull)glb_className;
 
 - (NSString* _Nullable)glb_debug;
-- (NSString* _Nullable)glb_debugIndent:(NSUInteger)indent root:(BOOL)root;
+- (NSString* _Nullable)glb_debugContext:(NSPointerArray* _Nullable)context indent:(NSUInteger)indent root:(BOOL)root;
 
 @end
 

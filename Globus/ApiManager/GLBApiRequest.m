@@ -224,7 +224,7 @@
 
 #pragma mark - GLBObjectDebugProtocol
 
-- (void)glb_debugString:(NSMutableString*)string indent:(NSUInteger)indent root:(BOOL)root {
+- (void)glb_debugString:(NSMutableString*)string context:(NSPointerArray*)context indent:(NSUInteger)indent root:(BOOL)root {
     if(root == YES) {
         [string glb_appendString:@"\t" repeat:indent];
     }
@@ -236,21 +236,21 @@
         if(url != nil) {
             [string glb_appendString:@"\t" repeat:baseIndent];
             [string appendString:@"URL : "];
-            [url glb_debugString:string indent:baseIndent root:NO];
+            [url glb_debugString:string context:context indent:baseIndent root:NO];
             [string appendString:@"\n"];
         }
         NSString* method = urlRequest.HTTPMethod;
         if(method != nil) {
             [string glb_appendString:@"\t" repeat:baseIndent];
             [string appendString:@"Method : "];
-            [method glb_debugString:string indent:baseIndent root:NO];
+            [method glb_debugString:string context:context indent:baseIndent root:NO];
             [string appendString:@"\n"];
         }
         NSDictionary* headers = urlRequest.allHTTPHeaderFields;
         if(headers != nil) {
             [string glb_appendString:@"\t" repeat:baseIndent];
             [string appendString:@"Headers : "];
-            [headers glb_debugString:string indent:baseIndent root:NO];
+            [headers glb_debugString:string context:context indent:baseIndent root:NO];
             [string appendString:@"\n"];
         }
         NSData* body = urlRequest.HTTPBody;
@@ -259,14 +259,14 @@
             if(json != nil) {
                 [string glb_appendString:@"\t" repeat:baseIndent];
                 [string appendString:@"Body : "];
-                [json glb_debugString:string indent:baseIndent root:NO];
+                [json glb_debugString:string context:context indent:baseIndent root:NO];
                 [string appendString:@"\n"];
             } else {
                 NSString* bodyString = [NSString glb_stringWithData:body encoding:NSUTF8StringEncoding];
                 if(bodyString != nil) {
                     [string glb_appendString:@"\t" repeat:baseIndent];
                     [string appendString:@"Body : "];
-                    [bodyString glb_debugString:string indent:baseIndent root:NO];
+                    [bodyString glb_debugString:string context:context indent:baseIndent root:NO];
                     [string appendString:@"\n"];
                 } else {
                     [string glb_appendString:@"\t" repeat:baseIndent];
