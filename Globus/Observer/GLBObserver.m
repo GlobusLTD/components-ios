@@ -10,12 +10,7 @@
 
 /*--------------------------------------------------*/
 
-#import <objc/runtime.h>
-
-/*--------------------------------------------------*/
-
 @interface GLBObserver () {
-    NSMutableDictionary< NSString*, NSMethodSignature* >* _signatures;
     NSPointerArray* _observers;
 }
 
@@ -37,8 +32,13 @@
 }
 
 - (void)setup {
-    _signatures = [NSMutableDictionary dictionary];
     _observers = [NSPointerArray weakObjectsPointerArray];
+}
+
+#pragma mark - Property
+
+- (NSUInteger)count {
+    return _observers.count;
 }
 
 #pragma mark - Public
@@ -58,40 +58,11 @@
     [_observers glb_removePointer:(__bridge void*)(observer)];
 }
 
-- (void)performSelector:(SEL)selector withArguments:(NSArray*)arguments {
-    NSString* selectorName = NSStringFromSelector(selector);
-    if(selectorName != nil) {
-        NSMethodSignature* signature = _signatures[selectorName];
-        if(signature == nil) {
-            struct objc_method_description desc = protocol_getMethodDescription(_protocol, selector, YES, YES);
-            if(desc.name == NULL) {
-                desc = protocol_getMethodDescription(_protocol, selector, NO, YES);
-            }
-            if(desc.name != NULL) {
-                signature = [NSMethodSignature signatureWithObjCTypes:desc.types];
-                if(signature != nil) {
-                    _signatures[selectorName] = signature;
-                }
-            }
-        }
-        if(signature != nil) {
-            NSInvocation* invocation = [NSInvocation invocationWithMethodSignature:signature];
-            if(invocation != nil) {
-                invocation.selector = selector;
-                NSInteger argumentCount = MIN(signature.numberOfArguments - 2, arguments.count);
-                for(NSInteger argumentIndex = 0; argumentIndex < argumentCount; ++argumentIndex) {
-                    id arg = arguments[argumentIndex];
-                    if(arg != nil) {
-                        [invocation setArgument:(void*)&arg atIndex:argumentIndex + 2];
-                    }
-                }
-                for(NSUInteger observerIndex = 0; observerIndex < _observers.count; observerIndex++) {
-                    id observer = [_observers pointerAtIndex:observerIndex];
-                    if([observer respondsToSelector:selector] == YES) {
-                        [invocation invokeWithTarget:observer];
-                    }
-                }
-            }
+- (void)performSelector:(SEL)selector block:(GLBObserverPerformBlock)block {
+    for(NSUInteger observerIndex = 0; observerIndex < _observers.count; observerIndex++) {
+        id observer = [_observers pointerAtIndex:observerIndex];
+        if([observer respondsToSelector:selector] == YES) {
+            block(observer);
         }
     }
 }

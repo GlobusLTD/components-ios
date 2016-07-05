@@ -8,9 +8,14 @@
 
 /*--------------------------------------------------*/
 
+typedef void(^GLBObserverPerformBlock)(id< GLBObserverProtocol > observer);
+
+/*--------------------------------------------------*/
+
 @interface GLBObserver : NSObject < GLBObjectDebugProtocol >
 
-@property(nonatomic, nonnull, assign) Protocol* protocol;
+@property(nonatomic, assign, nonnull) Protocol* protocol;
+@property(nonatomic, readonly, assign) NSUInteger count;
 
 - (_Nullable instancetype)initWithProtocol:(Protocol* _Nonnull)protocol;
 
@@ -21,7 +26,7 @@
 - (void)addObserver:(_Nonnull id< GLBObserverProtocol >)observer;
 - (void)removeObserver:(_Nonnull id< GLBObserverProtocol >)observer;
 
-- (void)performSelector:(_Nonnull SEL)selector withArguments:(NSArray* _Nullable)arguments;
+- (void)performSelector:(_Nonnull SEL)selector block:(_Nonnull GLBObserverPerformBlock)block;
 
 @end
 

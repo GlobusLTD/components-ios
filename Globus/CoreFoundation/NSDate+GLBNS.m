@@ -524,7 +524,7 @@
 
 #pragma mark - GLBObjectDebugProtocol
 
-- (void)glb_debugString:(NSMutableString*)string indent:(NSUInteger)indent root:(BOOL)root {
+- (void)glb_debugString:(NSMutableString*)string context:(NSPointerArray*)context indent:(NSUInteger)indent root:(BOOL)root {
     static NSDateFormatter* dateFormatter = nil;
     if(dateFormatter == nil) {
         dateFormatter = [NSDateFormatter new];
