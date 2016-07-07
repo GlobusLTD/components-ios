@@ -11,8 +11,14 @@
 #pragma mark - Transition
 
 - (void)_startTransition {
-    self.toView.frame = self.containerView.bounds;
-    [self.containerView addSubview:self.toView];
+    self.fromView.frame = self.initialFrameFromViewController;
+    if(self.fromView.superview == nil) {
+        [self.containerView addSubview:self.fromView];
+    }
+    self.toView.frame = self.finalFrameToViewController;
+    if(self.toView.superview == nil) {
+        [self.containerView addSubview:self.toView];
+    }
     [self.containerView sendSubviewToBack:self.toView];
     
     [UIView animateWithDuration:self.duration
@@ -36,8 +42,14 @@
 - (void)_startInteractive {
     [super _startInteractive];
     
-    self.toView.frame = self.containerView.bounds;
-    [self.containerView addSubview:self.toView];
+    self.fromView.frame = self.initialFrameFromViewController;
+    if(self.fromView.superview == nil) {
+        [self.containerView addSubview:self.fromView];
+    }
+    self.toView.frame = self.finalFrameToViewController;
+    if(self.toView.superview == nil) {
+        [self.containerView addSubview:self.toView];
+    }
     [self.containerView sendSubviewToBack:self.toView];
 }
 
@@ -45,7 +57,7 @@
     [super _updateInteractive:percentComplete];
     
     self.fromView.alpha = 1.0f - percentComplete;
-    self.toView.alpha = percentComplete;
+    // self.toView.alpha = percentComplete;
 }
 
 - (void)_finishInteractive {

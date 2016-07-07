@@ -485,7 +485,7 @@
         self.tasks[@(task.taskIdentifier)] = query;
         [self.lock unlock];
         
-        if(_logging == YES) {
+        if((_logging == YES) || (query.request.logging == YES)) {
             NSLog(@"\n%@\n", query.request.glb_debug);
         }
         
@@ -711,7 +711,7 @@
 }
 
 - (void)_didComplete {
-    if(_provider.logging == YES) {
+    if((_provider.logging == YES) || (_request.logging == YES)) {
         NSLog(@"\n%@\n", _request.response.glb_debug);
     }
     if(_completeBlock != nil) {

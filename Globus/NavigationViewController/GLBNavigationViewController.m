@@ -1,12 +1,12 @@
 /*--------------------------------------------------*/
 
 #import "GLBNavigationViewController.h"
-#import "GLBTransitionController.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+#import "GLBTransitionController.h"
 #import "GLBSlideViewController.h"
 
 /*--------------------------------------------------*/
@@ -16,11 +16,6 @@
 /*--------------------------------------------------*/
 
 @interface GLBNavigationViewController () < UIViewControllerTransitioningDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, GLBSlideViewControllerDelegate >
-
-@property(nonatomic, strong) UIScreenEdgePanGestureRecognizer* interactiveGesture;
-
-- (void)interactiveGestureHandle:(UIPanGestureRecognizer*)interactiveGesture;
-
 @end
 
 /*--------------------------------------------------*/
@@ -67,9 +62,6 @@
     self.delegate = self;
     self.transitioningDelegate = self;
     self.interactivePopGestureRecognizer.delegate = self;
-    
-    _interactiveGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(interactiveGestureHandle:)];
-    _transitionInteractive = [[GLBTransitionControllerSlide alloc] initWithRatio:0.2f];
 }
 
 - (void)dealloc {
@@ -87,21 +79,6 @@
         [self viewDidUnload];
     }
 #pragma clang diagnostic pop
-}
-
-- (void)setInteractiveGesture:(UIScreenEdgePanGestureRecognizer*)interactiveGesture {
-    if(_interactiveGesture != interactiveGesture) {
-        if(_interactiveGesture != nil) {
-            [self.view removeGestureRecognizer:_interactiveGesture];
-        }
-        _interactiveGesture = interactiveGesture;
-        if(_interactiveGesture != nil) {
-            _interactiveGesture.delegate = self;
-            _interactiveGesture.edges = UIRectEdgeLeft;
-            [self.view addGestureRecognizer:_interactiveGesture];
-
-        }
-    }
 }
 
 #pragma mark - Public
@@ -249,81 +226,41 @@
     return [self.topViewController preferredInterfaceOrientationForPresentation];
 }
 
-- (id< UIViewControllerInteractiveTransitioning >)navigationController:(UINavigationController*)navigationController interactionControllerForAnimationController:(id< UIViewControllerAnimatedTransitioning >)animationController {
-    if(animationController == _transitionInteractive) {
-        return _transitionInteractive;
-    }
+- (id< UIViewControllerInteractiveTransitioning >)navigationController:(UINavigationController*)navigationController
+                           interactionControllerForAnimationController:(id< UIViewControllerAnimatedTransitioning >)animationController {
     return nil;
 }
 
-- (id< UIViewControllerAnimatedTransitioning >)navigationController:(UINavigationController*)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController*)fromViewController toViewController:(UIViewController*)toViewController {
-    if((_transitionInteractive != nil) && (_transitionInteractive.isInteractive == YES)) {
-        switch(operation) {
-            case UINavigationControllerOperationPush: _transitionInteractive.operation = GLBTransitionOperationPush; break;
-            case UINavigationControllerOperationPop: _transitionInteractive.operation = GLBTransitionOperationPop; break;
-            default: break;
-        }
-        return _transitionInteractive;
-    } else if(_transitionNavigation != nil) {
-        switch(operation) {
-            case UINavigationControllerOperationPush: _transitionNavigation.operation = GLBTransitionOperationPush; break;
-            case UINavigationControllerOperationPop: _transitionNavigation.operation = GLBTransitionOperationPop; break;
-            default: break;
-        }
+- (id< UIViewControllerAnimatedTransitioning >)navigationController:(UINavigationController*)navigationController
+                                    animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                 fromViewController:(UIViewController*)fromViewController
+                                                   toViewController:(UIViewController*)toViewController {
+    switch(operation) {
+        case UINavigationControllerOperationPush:
+            _transitionNavigation.operation = GLBTransitionOperationPush;
+            break;
+        case UINavigationControllerOperationPop:
+            _transitionNavigation.operation = GLBTransitionOperationPop;
+            break;
+        default:
+            break;
+    }
+    if(self.interactivePopGestureRecognizer.state != UIGestureRecognizerStateBegan) {
         return _transitionNavigation;
     }
     return nil;
 }
 
-#pragma mark - Private
-
-- (void)interactiveGestureHandle:(UIPanGestureRecognizer*)interactiveGesture {
-    CGPoint translation = [_interactiveGesture translationInView:self.view];
-    CGFloat progress = translation.x / self.view.frame.size.width;
-    switch(_interactiveGesture.state) {
-        case UIGestureRecognizerStateBegan: {
-            [_transitionInteractive beginInteractive];
-            [self popViewControllerAnimated:YES];
-            break;
-        }
-        case UIGestureRecognizerStateChanged: {
-            [_transitionInteractive updateInteractive:MAX(0.0f, MIN(progress, 1.0f))];
-            break;
-        }
-        case UIGestureRecognizerStateEnded:
-        case UIGestureRecognizerStateCancelled: {
-            if((_transitionInteractive.isCancelled == NO) && (progress >= 0.3f)) {
-                [_transitionInteractive finishInteractive];
-            } else {
-                [_transitionInteractive cancelInteractive];
-            }
-            [_transitionInteractive endInteractive];
-            break;
-        }
-        default: {
-            break;
-        }
-    }
-}
-
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
-    if(_transitionInteractive != nil) {
-        if(_transitionInteractive.isAnimated == NO) {
-            if(self.viewControllers.count > 1) {
-                if(gestureRecognizer == _interactiveGesture) {
-                    return YES;
-                } else if(gestureRecognizer == self.interactivePopGestureRecognizer) {
-                    return YES;
-                }
-            }
-        }
+    if(gestureRecognizer == self.interactivePopGestureRecognizer) {
+        return (self.viewControllers.count > 1);
     }
     return NO;
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer*)gesture shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer*)otherGesture {
+- (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer*)otherGesture {
     if([otherGesture isKindOfClass:UIPanGestureRecognizer.class] == YES) {
         if(UIDevice.glb_systemVersion >= 8.0f) {
             if(otherGesture == self.barHideOnSwipeGestureRecognizer) {
