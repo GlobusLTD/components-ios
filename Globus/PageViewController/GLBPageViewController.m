@@ -528,11 +528,11 @@
             break;
     }
     if(notification == YES) {
-        if([currentViewController respondsToSelector:@selector(willDisappearInPageViewController:)] == YES) {
-            [currentViewController willDisappearInPageViewController:self];
+        if([currentViewController respondsToSelector:@selector(willDisappearInPageViewController:direction:)] == YES) {
+            [currentViewController willDisappearInPageViewController:self direction:direction];
         }
-        if([animateViewController respondsToSelector:@selector(willAppearInPageViewController:)] == YES) {
-            [animateViewController willAppearInPageViewController:self];
+        if([animateViewController respondsToSelector:@selector(willAppearInPageViewController:direction:)] == YES) {
+            [animateViewController willAppearInPageViewController:self direction:direction];
         }
     }
     if((self.isViewLoaded == YES) && (animateViewController != nil) && (animated == YES)) {
@@ -578,22 +578,22 @@
                              _rootView.userInteractionEnabled = YES;
                              _animating = NO;
                              if(notification == YES) {
-                                 if([animateViewController respondsToSelector:@selector(didAppearInPageViewController:)] == YES) {
-                                     [animateViewController didAppearInPageViewController:self];
+                                 if([animateViewController respondsToSelector:@selector(didAppearInPageViewController:direction:)] == YES) {
+                                     [animateViewController didAppearInPageViewController:self direction:direction];
                                  }
-                                 if([currentViewController respondsToSelector:@selector(didDisappearInPageViewController:)] == YES) {
-                                     [currentViewController didDisappearInPageViewController:self];
+                                 if([currentViewController respondsToSelector:@selector(didDisappearInPageViewController:direction:)] == YES) {
+                                     [currentViewController didDisappearInPageViewController:self direction:direction];
                                  }
                              }
                          }];
     } else {
         self.viewController = animateViewController;
         if(notification == YES) {
-            if([animateViewController respondsToSelector:@selector(didAppearInPageViewController:)] == YES) {
-                [animateViewController didAppearInPageViewController:self];
+            if([animateViewController respondsToSelector:@selector(didAppearInPageViewController:direction:)] == YES) {
+                [animateViewController didAppearInPageViewController:self direction:direction];
             }
-            if([currentViewController respondsToSelector:@selector(didDisappearInPageViewController:)] == YES) {
-                [currentViewController didDisappearInPageViewController:self];
+            if([currentViewController respondsToSelector:@selector(didDisappearInPageViewController:direction:)] == YES) {
+                [currentViewController didDisappearInPageViewController:self direction:direction];
             }
         }
     }

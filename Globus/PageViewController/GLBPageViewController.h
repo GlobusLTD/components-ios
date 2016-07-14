@@ -50,10 +50,10 @@ typedef NS_ENUM(NSInteger, GLBPageViewControllerDirection) {
 - (BOOL)allowAfterViewControllerInPageViewController:(GLBPageViewController*)pageController;
 
 @optional
-- (void)willAppearInPageViewController:(GLBPageViewController*)pageController;
-- (void)didAppearInPageViewController:(GLBPageViewController*)pageController;
-- (void)willDisappearInPageViewController:(GLBPageViewController*)pageController;
-- (void)didDisappearInPageViewController:(GLBPageViewController*)pageController;
+- (void)willAppearInPageViewController:(GLBPageViewController*)pageController direction:(GLBPageViewControllerDirection)direction;
+- (void)didAppearInPageViewController:(GLBPageViewController*)pageController direction:(GLBPageViewControllerDirection)direction;
+- (void)willDisappearInPageViewController:(GLBPageViewController*)pageController direction:(GLBPageViewControllerDirection)direction;
+- (void)didDisappearInPageViewController:(GLBPageViewController*)pageController direction:(GLBPageViewControllerDirection)direction;
 
 @optional
 - (UIViewController< GLBPageViewControllerDelegate >*)beforeViewControllerInPageViewController:(GLBPageViewController*)pageController;
