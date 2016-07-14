@@ -508,6 +508,67 @@
 }
 
 - (void)_movingItem:(GLBDataItem*)item location:(CGPoint)location delta:(CGPoint)delta allowsSorting:(BOOL)allowsSorting {
+    CGRect frame = item.updateFrame;
+    if(_items.count >= 2) {
+        NSUInteger srcIndex = [_items indexOfObject:item];
+        NSUInteger dstIndex = srcIndex;
+        switch(_orientation) {
+            case GLBDataContainerOrientationVertical: {
+                frame = CGRectOffset(frame, 0.0f, delta.y);
+                CGFloat upperLimit = CGRectGetMaxY(_items.firstObject.originFrame);
+                CGFloat lowerLimit = CGRectGetMinY(_items.lastObject.originFrame);
+                if(frame.origin.y < upperLimit) {
+                    if(_items.firstObject != item) {
+                        dstIndex = 0;
+                    }
+                } else if(frame.origin.y + frame.size.height > lowerLimit) {
+                    if(_items.lastObject != item) {
+                        dstIndex = _items.count - 1;
+                    }
+                } else {
+                    GLBDataItem* dstItem = [self itemForPoint:CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame))];
+                    if(dstItem != nil) {
+                        dstIndex = [_items indexOfObject:dstItem];
+                    }
+                }
+                break;
+            }
+            case GLBDataContainerOrientationHorizontal: {
+                frame = CGRectOffset(frame, delta.x, 0.0f);
+                CGFloat upperLimit = CGRectGetMaxX(_items.firstObject.originFrame);
+                CGFloat lowerLimit = CGRectGetMinX(_items.lastObject.originFrame);
+                if(frame.origin.x < upperLimit) {
+                    if(_items.firstObject != item) {
+                        dstIndex = 0;
+                    }
+                } else if(frame.origin.x + frame.size.width > lowerLimit) {
+                    if(_items.lastObject != item) {
+                        dstIndex = _items.count - 1;
+                    }
+                } else {
+                    GLBDataItem* dstItem = [self itemForPoint:CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame))];
+                    if(dstItem != nil) {
+                        dstIndex = [_items indexOfObject:dstItem];
+                    }
+                }
+                break;
+            }
+        }
+        if((srcIndex != dstIndex) && (allowsSorting == YES)) {
+            NSUInteger entrySrcIndex = [_entries indexOfObject:_items[srcIndex]];
+            NSUInteger entryDstIndex = [_entries indexOfObject:_items[dstIndex]];
+            if((entrySrcIndex != NSNotFound) && (entrySrcIndex != entryDstIndex)) {
+                [_entries glb_moveObjectAtIndex:entrySrcIndex toIndex:entryDstIndex];
+            }
+            [_items glb_moveObjectAtIndex:srcIndex toIndex:dstIndex];
+            
+            __weak typeof(self) weakSelf = self;
+            [self.view batchDuration:0.1f update:^{
+                [weakSelf.view setNeedValidateLayout];
+            }];
+        }
+    }
+    item.updateFrame = frame;
 }
 
 - (void)_endMovingItem:(GLBDataItem*)item location:(CGPoint)location {

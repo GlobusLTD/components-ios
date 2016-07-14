@@ -1,41 +1,9 @@
 /*--------------------------------------------------*/
 
-#import "GLBDialogViewController.h"
-#import "GLBSlideViewController.h"
-#import "GLBBlurView.h"
-
-/*--------------------------------------------------*/
-
-#import "UIWindow+GLBUI.h"
+#import "GLBDialogViewController+Private.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
-/*--------------------------------------------------*/
-
-@interface GLBDialogViewController () < UIGestureRecognizerDelegate >
-
-@property(nonatomic, strong) UIWindow* dialogWindow;
-@property(nonatomic, weak) UIWindow* ownerWindow;
-@property(nonatomic, strong) UIViewController* ownerViewController;
-
-@property(nonatomic, strong) GLBBlurView* backgroundView;
-@property(nonatomic, strong) UIViewController* contentViewController;
-@property(nonatomic, strong) NSLayoutConstraint* constraintContentViewHorizontalAlignment;
-@property(nonatomic, strong) NSLayoutConstraint* constraintContentViewVerticalAlignment;
-@property(nonatomic, strong) NSLayoutConstraint* constraintContentViewWidth;
-@property(nonatomic, strong) NSLayoutConstraint* constraintContentViewHeight;
-@property(nonatomic, strong) NSLayoutConstraint* constraintContentViewMinWidth;
-@property(nonatomic, strong) NSLayoutConstraint* constraintContentViewMinHeight;
-@property(nonatomic, strong) NSLayoutConstraint* constraintContentViewMaxWidth;
-@property(nonatomic, strong) NSLayoutConstraint* constraintContentViewMaxHeight;
-@property(nonatomic, strong) NSLayoutConstraint* constraintContentViewTop;
-@property(nonatomic, strong) NSLayoutConstraint* constraintContentViewBottom;
-@property(nonatomic, strong) NSLayoutConstraint* constraintContentViewLeft;
-@property(nonatomic, strong) NSLayoutConstraint* constraintContentViewRight;
-@property(nonatomic, strong) UITapGestureRecognizer* tapGesture;
-
-@end
-
 /*--------------------------------------------------*/
 
 @implementation GLBDialogViewController
@@ -76,6 +44,11 @@
     _backgroundColor = nil;
     _backgroundTintColor = [UIColor colorWithWhite:0.5f alpha:1.0f];
     _backgroundAlpha = 1.0f;
+    
+    _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pressedBackground:)];
+    _tapGesture.delegate = self;
+    
+    _autoUpdateConstraintContentView = YES;
 }
 
 - (void)dealloc {
@@ -83,79 +56,6 @@
 }
 
 #pragma mark - Property
-
-- (void)setOwnerViewController:(UIViewController*)ownerViewController {
-    if(_ownerViewController != ownerViewController) {
-        _ownerViewController = ownerViewController;
-        if(self.isViewLoaded == YES) {
-            [self setNeedsStatusBarAppearanceUpdate];
-        }
-    }
-}
-
-- (void)setDialogWindow:(UIWindow*)dialogWindow {
-    if(_dialogWindow != dialogWindow) {
-        if((_ownerWindow != nil) && (_dialogWindow != nil)) {
-            [_ownerWindow makeKeyAndVisible];
-        }
-        _dialogWindow = dialogWindow;
-        if(_dialogWindow != nil) {
-            _dialogWindow.windowLevel = _ownerWindow.windowLevel + 0.01f;
-            _dialogWindow.backgroundColor = UIColor.clearColor;
-            _dialogWindow.glb_userWindow = YES;
-            _dialogWindow.rootViewController = self;
-            [_dialogWindow makeKeyAndVisible];
-            [_dialogWindow layoutIfNeeded];
-        }
-    }
-}
-
-- (void)setBackgroundView:(GLBBlurView*)backgroundView {
-    if(_backgroundView != backgroundView) {
-        if(_backgroundView != nil) {
-            [_backgroundView removeFromSuperview];
-        }
-        _backgroundView = backgroundView;
-        if(_backgroundView != nil) {
-            UIViewController* currentViewController = _ownerWindow.glb_currentViewController;
-            _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-            if(currentViewController != nil) {
-                if(currentViewController.navigationController != nil) {
-                    _backgroundView.underlyingView = currentViewController.navigationController.view;
-                } else if(currentViewController.tabBarController != nil) {
-                    _backgroundView.underlyingView = currentViewController.tabBarController.view;
-                } else if(currentViewController.glb_slideViewController != nil) {
-                    _backgroundView.underlyingView = currentViewController.glb_slideViewController.view;
-                } else {
-                    _backgroundView.underlyingView = currentViewController.view;
-                }
-            } else {
-                _backgroundView.underlyingView = _ownerWindow.rootViewController.view;
-            }
-            _backgroundView.blurEnabled = _backgroundBlurred;
-            _backgroundView.blurRadius = _backgroundBlurRadius;
-            _backgroundView.blurIterations = _backgroundBlurIterations;
-            _backgroundView.backgroundColor = _backgroundColor;
-            _backgroundView.tintColor = _backgroundTintColor;
-            _backgroundView.alpha = _backgroundAlpha;
-            [self.view addSubview:_backgroundView];
-        }
-    }
-}
-
-- (void)setTapGesture:(UITapGestureRecognizer*)tapGesture {
-    if(_tapGesture != tapGesture) {
-        if(_tapGesture != nil) {
-            [self.view removeGestureRecognizer:_tapGesture];
-        }
-        _tapGesture = tapGesture;
-        if(_tapGesture != nil) {
-            [self.view addGestureRecognizer:_tapGesture];
-            _tapGesture.delegate = self;
-        }
-        
-    }
-}
 
 - (void)setBackgroundBlurred:(BOOL)backgroundBlurred {
     if(_backgroundBlurred != backgroundBlurred) {
@@ -206,8 +106,10 @@
     if(_contentVerticalAlignment != contentVerticalAlignment) {
         _contentVerticalAlignment = contentVerticalAlignment;
         if(self.isViewLoaded == YES) {
-            [self _clearConstraintContentView];
-            [self _updateConstraintContentView];
+            _needClearConstraintContentView = YES;
+            if(_autoUpdateConstraintContentView == YES) {
+                [self _updateConstraintContentView];
+            }
         }
     }
 }
@@ -215,7 +117,7 @@
 - (void)setContentVerticalOffset:(CGFloat)contentVerticalOffset {
     if(_contentVerticalOffset != contentVerticalOffset) {
         _contentVerticalOffset = contentVerticalOffset;
-        if(self.isViewLoaded == YES) {
+        if((self.isViewLoaded == YES) && (_autoUpdateConstraintContentView == YES)) {
             [self _updateConstraintContentView];
         }
     }
@@ -225,8 +127,10 @@
     if(_contentHorizontalAlignment != contentHorizontalAlignment) {
         _contentHorizontalAlignment = contentHorizontalAlignment;
         if(self.isViewLoaded == YES) {
-            [self _clearConstraintContentView];
-            [self _updateConstraintContentView];
+            _needClearConstraintContentView = YES;
+            if(_autoUpdateConstraintContentView == YES) {
+                [self _updateConstraintContentView];
+            }
         }
     }
 }
@@ -234,7 +138,7 @@
 - (void)setContentHorizontalOffset:(CGFloat)contentHorizontalOffset {
     if(_contentHorizontalOffset != contentHorizontalOffset) {
         _contentHorizontalOffset = contentHorizontalOffset;
-        if(self.isViewLoaded == YES) {
+        if((self.isViewLoaded == YES) && (_autoUpdateConstraintContentView == YES)) {
             [self _updateConstraintContentView];
         }
     }
@@ -244,8 +148,10 @@
     if(_contentWidthBehaviour != contentWidthBehaviour) {
         _contentWidthBehaviour = contentWidthBehaviour;
         if(self.isViewLoaded == YES) {
-            [self _clearConstraintContentView];
-            [self _updateConstraintContentView];
+            _needClearConstraintContentView = YES;
+            if(_autoUpdateConstraintContentView == YES) {
+                [self _updateConstraintContentView];
+            }
         }
     }
 }
@@ -254,8 +160,10 @@
     if(_contentHeightBehaviour != contentHeightBehaviour) {
         _contentHeightBehaviour = contentHeightBehaviour;
         if(self.isViewLoaded == YES) {
-            [self _clearConstraintContentView];
-            [self _updateConstraintContentView];
+            _needClearConstraintContentView = YES;
+            if(_autoUpdateConstraintContentView == YES) {
+                [self _updateConstraintContentView];
+            }
         }
     }
 }
@@ -263,7 +171,7 @@
 - (void)setContentSize:(CGSize)contentSize {
     if(CGSizeEqualToSize(_contentSize, contentSize) == NO) {
         _contentSize = contentSize;
-        if(self.isViewLoaded == YES) {
+        if((self.isViewLoaded == YES) && (_autoUpdateConstraintContentView == YES)) {
             [self _updateConstraintContentView];
         }
     }
@@ -288,7 +196,7 @@
 - (void)setContentMinSize:(CGSize)contentMinSize {
     if(CGSizeEqualToSize(_contentMinSize, contentMinSize) == NO) {
         _contentMinSize = contentMinSize;
-        if(self.isViewLoaded == YES) {
+        if((self.isViewLoaded == YES) && (_autoUpdateConstraintContentView == YES)) {
             [self _updateConstraintContentView];
         }
     }
@@ -313,7 +221,7 @@
 - (void)setContentMaxSize:(CGSize)contentMaxSize {
     if(CGSizeEqualToSize(_contentMaxSize, contentMaxSize) == NO) {
         _contentMaxSize = contentMaxSize;
-        if(self.isViewLoaded == YES) {
+        if((self.isViewLoaded == YES) && (_autoUpdateConstraintContentView == YES)) {
             [self _updateConstraintContentView];
         }
     }
@@ -338,7 +246,7 @@
 - (void)setContentInset:(UIEdgeInsets)contentInset {
     if(UIEdgeInsetsEqualToEdgeInsets(_contentInset, contentInset) == NO) {
         _contentInset = contentInset;
-        if(self.isViewLoaded == YES) {
+        if((self.isViewLoaded == YES) && (_autoUpdateConstraintContentView == YES)) {
             [self _updateConstraintContentView];
         }
     }
@@ -423,8 +331,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pressedBackground:)];
-    self.backgroundView = [[GLBBlurView alloc] initWithFrame:self.view.bounds];
+    if(_tapGesture != nil) {
+        [self.view addGestureRecognizer:_tapGesture];
+    }
+    
+    _backgroundView = [[GLBBlurView alloc] initWithFrame:self.view.bounds];
+    if(_backgroundView  != nil) {
+        _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _backgroundView.blurEnabled = _backgroundBlurred;
+        _backgroundView.blurRadius = _backgroundBlurRadius;
+        _backgroundView.blurIterations = _backgroundBlurIterations;
+        _backgroundView.backgroundColor = _backgroundColor;
+        _backgroundView.tintColor = _backgroundTintColor;
+        _backgroundView.alpha = _backgroundAlpha;
+        [self.view addSubview:_backgroundView];
+    }
     
     if(_contentViewController != nil) {
         _contentViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
@@ -432,9 +353,9 @@
         [self.view addSubview:_contentViewController.view];
         [self addChildViewController:_contentViewController];
         [_contentViewController didMoveToParentViewController:self];
-        
-        [self _updateConstraintContentView];
     }
+    
+    [self _updateConstraintContentView];
 }
 
 #pragma mark - Public
@@ -443,23 +364,45 @@
 #ifndef GLOBUS_APP_EXTENSION
     _ownerWindow = UIApplication.sharedApplication.keyWindow;
 #endif
+    if(_ownerWindow != nil) {
+        UIViewController* currentViewController = _ownerWindow.glb_currentViewController;
+        if(currentViewController != nil) {
+            if(currentViewController.navigationController != nil) {
+                _backgroundView.underlyingView = currentViewController.navigationController.view;
+            } else if(currentViewController.tabBarController != nil) {
+                _backgroundView.underlyingView = currentViewController.tabBarController.view;
+            } else if(currentViewController.glb_slideViewController != nil) {
+                _backgroundView.underlyingView = currentViewController.glb_slideViewController.view;
+            } else {
+                _backgroundView.underlyingView = currentViewController.view;
+            }
+        } else {
+            _backgroundView.underlyingView = _ownerWindow.rootViewController.view;
+        }
+    }
     _ownerViewController = viewController;
-    self.dialogWindow = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    self.view.userInteractionEnabled = YES;
-    self.view.alpha = 0.0;
-    
-    _backgroundView.blurRadius = (_backgroundBlurred == YES) ? 0.0f : _backgroundBlurRadius;
-    [UIView animateWithDuration:_animationDuration animations:^{
-        if(_backgroundBlurred == YES) {
-            _backgroundView.blurRadius = _backgroundBlurRadius;
+    if(_dialogWindow == nil) {
+        _dialogWindow = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+        if(_ownerWindow != nil) {
+            _dialogWindow.windowLevel = _ownerWindow.windowLevel + 0.01f;
+        } else {
+            _dialogWindow.windowLevel = UIWindowLevelNormal + 0.01f;
         }
-        self.view.alpha = 1.0;
-    } completion:^(BOOL finished) {
-        _tapGesture.enabled = YES;
-        if(completion != nil) {
-            completion(self);
+        _dialogWindow.backgroundColor = UIColor.clearColor;
+        _dialogWindow.rootViewController = self;
+        _dialogWindow.glb_userWindow = YES;
+        [_dialogWindow makeKeyAndVisible];
+        [_dialogWindow layoutIfNeeded];
+    } else {
+        if(_ownerWindow != nil) {
+            _dialogWindow.windowLevel = _ownerWindow.windowLevel + 0.01f;
+        } else {
+            _dialogWindow.windowLevel = UIWindowLevelNormal + 0.01f;
         }
-    }];
+    }
+    [self glb_loadViewIfNeed];
+    [self setNeedsStatusBarAppearanceUpdate];
+    [self _willPresentWithCompletion:completion];
 }
 
 - (void)presentWithCompletion:(GLBDialogViewControllerBlock)completion {
@@ -471,26 +414,155 @@
 }
 
 - (void)dismissWithCompletion:(GLBDialogViewControllerBlock)completion {
-    _tapGesture.enabled = NO;
-    [UIView animateWithDuration:_animationDuration animations:^{
-        if(_backgroundBlurred == YES) {
-            _backgroundView.blurRadius = 0.0f;
-        }
-        self.view.alpha = 0.0;
-    } completion:^(BOOL finished) {
-        self.dialogWindow = nil;
-        if(_dismiss != nil) {
-            _dismiss(self);
-        }
-        if(completion != nil) {
-            completion(self);
-        }
-    }];
+    [self _willDismissWithCompletion:completion];
 }
 
 #pragma mark - Private
 
+- (void)_willPresentWithCompletion:(GLBDialogViewControllerBlock)completion {
+    _autoUpdateConstraintContentView = NO;
+    _dialogWindow.userInteractionEnabled = NO;
+    _tapGesture.enabled = NO;
+    
+    id< GLBDialogContentViewController > contentViewController = ([_contentViewController conformsToProtocol:@protocol(GLBDialogContentViewController)] == YES) ? (id< GLBDialogContentViewController >)_contentViewController : nil;
+    if([contentViewController respondsToSelector:@selector(willPresentDialogViewController:)] == YES) {
+        [contentViewController willPresentDialogViewController:self];
+    }
+    
+    [self _presentWithCompletion:completion];
+}
+
+- (void)_presentWithCompletion:(GLBDialogViewControllerBlock)completion {
+    __weak typeof(self) weakSelf = self;
+    
+    GLBDialogAnimationController* animationController = _animationController;
+    if(animationController == nil) {
+        animationController = [GLBDialogDefaultAnimationController new];
+    }
+    [animationController presentDialogViewController:self completion:^{
+        [weakSelf _didPresentWithCompletion:completion];
+    }];
+}
+
+- (void)_didPresentWithCompletion:(GLBDialogViewControllerBlock)completion {
+    _autoUpdateConstraintContentView = YES;
+    _dialogWindow.userInteractionEnabled = YES;
+    _tapGesture.enabled = YES;
+    
+    id< GLBDialogContentViewController > contentViewController = ([_contentViewController conformsToProtocol:@protocol(GLBDialogContentViewController)] == YES) ? (id< GLBDialogContentViewController >)_contentViewController : nil;
+    if([contentViewController respondsToSelector:@selector(didPresentDialogViewController:)] == YES) {
+        [contentViewController didPresentDialogViewController:self];
+    }
+    
+    if(completion != nil) {
+        completion(self);
+    }
+}
+
+- (void)_willDismissWithCompletion:(GLBDialogViewControllerBlock)completion {
+    _autoUpdateConstraintContentView = NO;
+    _dialogWindow.userInteractionEnabled = NO;
+    _tapGesture.enabled = NO;
+    
+    id< GLBDialogContentViewController > contentViewController = ([_contentViewController conformsToProtocol:@protocol(GLBDialogContentViewController)] == YES) ? (id< GLBDialogContentViewController >)_contentViewController : nil;
+    if([contentViewController respondsToSelector:@selector(willDismissDialogViewController:)] == YES) {
+        [contentViewController willDismissDialogViewController:self];
+    }
+    
+    [self _dismissWithCompletion:completion];
+}
+
+- (void)_dismissWithCompletion:(GLBDialogViewControllerBlock)completion {
+    __weak typeof(self) weakSelf = self;
+    
+    GLBDialogAnimationController* animationController = _animationController;
+    if(animationController == nil) {
+        animationController = [GLBDialogDefaultAnimationController new];
+    }
+    [animationController dismissDialogViewController:self completion:^{
+        [weakSelf _didDismissWithCompletion:completion];
+    }];
+}
+
+- (void)_didDismissWithCompletion:(GLBDialogViewControllerBlock)completion {
+    _autoUpdateConstraintContentView = YES;
+    _dialogWindow.userInteractionEnabled = YES;
+    _tapGesture.enabled = YES;
+    
+    id< GLBDialogContentViewController > contentViewController = ([_contentViewController conformsToProtocol:@protocol(GLBDialogContentViewController)] == YES) ? (id< GLBDialogContentViewController >)_contentViewController : nil;
+    if([contentViewController respondsToSelector:@selector(didDismissDialogViewController:)] == YES) {
+        [contentViewController didDismissDialogViewController:self];
+    }
+    
+    if(_dialogWindow != nil) {
+        _dialogWindow.hidden = YES;
+    }
+    if(_ownerWindow != nil) {
+        [_ownerWindow makeKeyWindow];
+    }
+    if(_dismiss != nil) {
+        _dismiss(self);
+    }
+    
+    if(completion != nil) {
+        completion(self);
+    }
+}
+
 - (void)_updateConstraintContentView {
+    if(_needClearConstraintContentView == YES) {
+        
+        if(_constraintContentViewVerticalAlignment != nil) {
+            [self.view removeConstraint:_constraintContentViewVerticalAlignment];
+            _constraintContentViewVerticalAlignment = nil;
+        }
+        if(_constraintContentViewHorizontalAlignment != nil) {
+            [self.view removeConstraint:_constraintContentViewHorizontalAlignment];
+            _constraintContentViewHorizontalAlignment = nil;
+        }
+        
+        if(_constraintContentViewWidth != nil) {
+            [self.view removeConstraint:_constraintContentViewWidth];
+            _constraintContentViewWidth = nil;
+        }
+        if(_constraintContentViewMinWidth != nil) {
+            [self.view removeConstraint:_constraintContentViewMinWidth];
+            _constraintContentViewMinWidth = nil;
+        }
+        if(_constraintContentViewMaxWidth != nil) {
+            [self.view removeConstraint:_constraintContentViewMaxWidth];
+            _constraintContentViewMaxWidth = nil;
+        }
+        if(_constraintContentViewLeft != nil) {
+            [self.view removeConstraint:_constraintContentViewLeft];
+            _constraintContentViewLeft = nil;
+        }
+        if(_constraintContentViewRight != nil) {
+            [self.view removeConstraint:_constraintContentViewRight];
+            _constraintContentViewRight = nil;
+        }
+        
+        if(_constraintContentViewHeight != nil) {
+            [self.view removeConstraint:_constraintContentViewHeight];
+            _constraintContentViewHeight = nil;
+        }
+        if(_constraintContentViewMinHeight != nil) {
+            [self.view removeConstraint:_constraintContentViewMinHeight];
+            _constraintContentViewMinHeight = nil;
+        }
+        if(_constraintContentViewMaxHeight != nil) {
+            [self.view removeConstraint:_constraintContentViewMaxHeight];
+            _constraintContentViewMaxHeight = nil;
+        }
+        if(_constraintContentViewTop != nil) {
+            [self.view removeConstraint:_constraintContentViewTop];
+            _constraintContentViewTop = nil;
+        }
+        if(_constraintContentViewBottom != nil) {
+            [self.view removeConstraint:_constraintContentViewBottom];
+            _constraintContentViewBottom = nil;
+        }
+    }
     if(_constraintContentViewHorizontalAlignment == nil) {
         switch(_contentVerticalAlignment) {
             case GLBDialogViewControllerAlignmentVerticalTop:
@@ -757,59 +829,6 @@
     }
 }
 
-- (void)_clearConstraintContentView {
-    if(_constraintContentViewVerticalAlignment != nil) {
-        [self.view removeConstraint:_constraintContentViewVerticalAlignment];
-        _constraintContentViewVerticalAlignment = nil;
-    }
-    if(_constraintContentViewHorizontalAlignment != nil) {
-        [self.view removeConstraint:_constraintContentViewHorizontalAlignment];
-        _constraintContentViewHorizontalAlignment = nil;
-    }
-    
-    if(_constraintContentViewWidth != nil) {
-        [self.view removeConstraint:_constraintContentViewWidth];
-        _constraintContentViewWidth = nil;
-    }
-    if(_constraintContentViewMinWidth != nil) {
-        [self.view removeConstraint:_constraintContentViewMinWidth];
-        _constraintContentViewMinWidth = nil;
-    }
-    if(_constraintContentViewMaxWidth != nil) {
-        [self.view removeConstraint:_constraintContentViewMaxWidth];
-        _constraintContentViewMaxWidth = nil;
-    }
-    if(_constraintContentViewLeft != nil) {
-        [self.view removeConstraint:_constraintContentViewLeft];
-        _constraintContentViewLeft = nil;
-    }
-    if(_constraintContentViewRight != nil) {
-        [self.view removeConstraint:_constraintContentViewRight];
-        _constraintContentViewRight = nil;
-    }
-    
-    if(_constraintContentViewHeight != nil) {
-        [self.view removeConstraint:_constraintContentViewHeight];
-        _constraintContentViewHeight = nil;
-    }
-    if(_constraintContentViewMinHeight != nil) {
-        [self.view removeConstraint:_constraintContentViewMinHeight];
-        _constraintContentViewMinHeight = nil;
-    }
-    if(_constraintContentViewMaxHeight != nil) {
-        [self.view removeConstraint:_constraintContentViewMaxHeight];
-        _constraintContentViewMaxHeight = nil;
-    }
-    if(_constraintContentViewTop != nil) {
-        [self.view removeConstraint:_constraintContentViewTop];
-        _constraintContentViewTop = nil;
-    }
-    if(_constraintContentViewBottom != nil) {
-        [self.view removeConstraint:_constraintContentViewBottom];
-        _constraintContentViewBottom = nil;
-    }
-}
-
 #pragma mark - Actions
 
 - (IBAction)pressedBackground:(id)sender {
@@ -831,6 +850,60 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldReceivePress:(UIPress*)press {
     return NO;
+}
+
+@end
+
+
+/*--------------------------------------------------*/
+
+@implementation GLBDialogAnimationController
+
+#pragma mark - Public
+
+- (void)presentDialogViewController:(GLBDialogViewController*)dialogViewController completion:(GLBSimpleBlock)completion {
+}
+
+- (void)dismissDialogViewController:(GLBDialogViewController*)dialogViewController completion:(GLBSimpleBlock)completion {
+}
+
+@end
+
+/*--------------------------------------------------*/
+
+@implementation GLBDialogDefaultAnimationController
+
+#pragma mark - Public
+
+- (void)presentDialogViewController:(GLBDialogViewController*)dialogViewController completion:(GLBSimpleBlock)completion {
+    dialogViewController.view.alpha = 0.0;
+    
+    if(dialogViewController.backgroundBlurred == YES) {
+        dialogViewController.backgroundView.blurRadius = 0.0f;
+    }
+    [UIView animateWithDuration:dialogViewController.animationDuration animations:^{
+        if(dialogViewController.backgroundBlurred == YES) {
+            dialogViewController.backgroundView.blurRadius = dialogViewController.backgroundBlurRadius;
+        }
+        dialogViewController.view.alpha = 1.0;
+    } completion:^(BOOL finished) {
+        if(completion != nil) {
+            completion();
+        }
+    }];
+}
+
+- (void)dismissDialogViewController:(GLBDialogViewController*)dialogViewController completion:(GLBSimpleBlock)completion {
+    [UIView animateWithDuration:dialogViewController.animationDuration animations:^{
+        if(dialogViewController.backgroundBlurred == YES) {
+            dialogViewController.backgroundView.blurRadius = 0.0f;
+        }
+        dialogViewController.view.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        if(completion != nil) {
+            completion();
+        }
+    }];
 }
 
 @end

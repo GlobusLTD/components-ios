@@ -7,6 +7,7 @@
 /*--------------------------------------------------*/
 
 @class GLBDialogViewController;
+@class GLBDialogAnimationController;
 
 /*--------------------------------------------------*/
 
@@ -34,6 +35,8 @@ typedef void(^GLBDialogViewControllerBlock)(GLBDialogViewController* dialogViewC
 /*--------------------------------------------------*/
 
 @interface GLBDialogViewController : UIViewController
+
+@property(nonatomic, strong) GLBDialogAnimationController* animationController;
 
 @property(nonatomic) CGFloat animationDuration;
 
@@ -73,6 +76,34 @@ typedef void(^GLBDialogViewControllerBlock)(GLBDialogViewController* dialogViewC
 - (void)presentViewController:(UIViewController*)viewController withCompletion:(GLBDialogViewControllerBlock)completion;
 - (void)presentWithCompletion:(GLBDialogViewControllerBlock)completion;
 - (void)dismissWithCompletion:(GLBDialogViewControllerBlock)completion;
+
+@end
+
+/*--------------------------------------------------*/
+
+@interface GLBDialogAnimationController : NSObject
+
+- (void)presentDialogViewController:(GLBDialogViewController*)dialogViewController completion:(GLBSimpleBlock)completion;
+- (void)dismissDialogViewController:(GLBDialogViewController*)dialogViewController completion:(GLBSimpleBlock)completion;
+
+@end
+
+/*--------------------------------------------------*/
+
+@interface GLBDialogDefaultAnimationController : GLBDialogAnimationController
+@end
+
+/*--------------------------------------------------*/
+
+@protocol GLBDialogContentViewController < NSObject >
+
+@optional
+- (void)willPresentDialogViewController:(GLBDialogViewController*)dialogViewController;
+- (void)didPresentDialogViewController:(GLBDialogViewController*)dialogViewController;
+
+@optional
+- (void)willDismissDialogViewController:(GLBDialogViewController*)dialogViewController;
+- (void)didDismissDialogViewController:(GLBDialogViewController*)dialogViewController;
 
 @end
 
