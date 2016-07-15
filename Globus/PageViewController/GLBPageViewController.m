@@ -152,7 +152,7 @@
 - (void)setViewController:(UIViewController< GLBPageViewControllerDelegate >*)viewController {
     if(_viewController != viewController) {
         if(self.isViewLoaded == YES) {
-            if((_viewController != nil) && (_viewController.parentViewController != nil) && (_viewController.parentViewController != self)) {
+            if((_viewController != nil) && (_viewController.parentViewController != self)) {
                 [_viewController willMoveToParentViewController:nil];
                 [_viewController.view removeFromSuperview];
                 [_viewController removeFromParentViewController];
@@ -198,7 +198,7 @@
 
 - (void)setBeforeViewController:(UIViewController< GLBPageViewControllerDelegate >*)beforeViewController {
     if(_beforeViewController != beforeViewController) {
-        if((_beforeViewController != nil) && (_beforeViewController.parentViewController != nil) && (_beforeViewController.parentViewController != self)) {
+        if((_beforeViewController != nil) && (_beforeViewController.parentViewController != self)) {
             [_beforeViewController willMoveToParentViewController:nil];
             [_beforeViewController.view removeFromSuperview];
             [_beforeViewController removeFromParentViewController];
@@ -240,7 +240,7 @@
 
 - (void)setAfterViewController:(UIViewController< GLBPageViewControllerDelegate >*)afterViewController {
     if(_afterViewController != afterViewController) {
-        if((_afterViewController != nil) && (_afterViewController.parentViewController != nil) && (_afterViewController.parentViewController != self)) {
+        if((_afterViewController != nil) && (_afterViewController.parentViewController != self)) {
             [_afterViewController willMoveToParentViewController:nil];
             [_afterViewController.view removeFromSuperview];
             [_afterViewController removeFromParentViewController];
@@ -323,6 +323,22 @@
         }
     } else {
         self.afterViewController = nil;
+    }
+    [self _cleanupChildsViewController];
+}
+
+- (void)_cleanupChildsViewController {
+    NSMutableArray< UIViewController* >* unusedViewControllers = [NSMutableArray array];
+    NSArray< UIViewController* >* viewControllers = self.childViewControllers;
+    for(UIViewController* viewController in viewControllers) {
+        if((viewController != _viewController) && (viewController != _beforeViewController) && (viewController != _afterViewController)) {
+            [unusedViewControllers addObject:viewController];
+        }
+    }
+    for(UIViewController* viewController in unusedViewControllers) {
+        [viewController willMoveToParentViewController:nil];
+        [viewController.view removeFromSuperview];
+        [viewController removeFromParentViewController];
     }
 }
 

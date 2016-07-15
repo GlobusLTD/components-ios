@@ -258,6 +258,14 @@
     if(_appeared == YES) {
         _appeared = NO;
     }
+    if(_clearWhenDisapper == YES) {
+        _updating = YES;
+        _needUpdate = YES;
+        if(_needClear == YES) {
+            [self clear];
+        }
+        _updating = NO;
+    }
     [super viewDidDisappear:animated];
 }
 

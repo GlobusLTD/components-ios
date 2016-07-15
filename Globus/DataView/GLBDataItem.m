@@ -175,7 +175,6 @@
                     _cell.frame = _originFrame;
                 }
                 _cell.item = self;
-                [_cell layoutIfNeeded];
             }];
         }
     }
