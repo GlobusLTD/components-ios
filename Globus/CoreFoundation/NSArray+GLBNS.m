@@ -284,6 +284,28 @@
     return nil;
 }
 
+- (id)glb_find:(BOOL(^)(id object))block options:(NSEnumerationOptions)options {
+    __block id result = nil;
+    [self enumerateObjectsWithOptions:options usingBlock:^(id object, NSUInteger index, BOOL* stop) {
+        if(block(object)) {
+            result = object;
+            *stop = YES;
+        }
+    }];
+    return result;
+}
+
+- (id)glb_find:(BOOL(^)(id object))block  range:(NSRange)range options:(NSEnumerationOptions)options {
+    __block id result = nil;
+    [self enumerateObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:range] options:options usingBlock:^(id object, NSUInteger index, BOOL* stop) {
+        if(block(object)) {
+            result = object;
+            *stop = YES;
+        }
+    }];
+    return result;
+}
+
 - (NSArray*)glb_reverse {
     return self.reverseObjectEnumerator.allObjects;
 }

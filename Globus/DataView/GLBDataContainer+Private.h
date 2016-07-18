@@ -122,6 +122,7 @@
     __kindof GLBDataItem* _header;
     __kindof GLBDataItem* _footer;
     NSMutableArray< __kindof GLBDataItem* >* _items;
+    CGRect _movingFrame;
 }
 
 @end

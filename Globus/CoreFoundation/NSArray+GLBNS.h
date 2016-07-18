@@ -48,6 +48,8 @@
 - (NSArray< ObjectType >* _Nullable)glb_select:(BOOL(^ _Nonnull)(_Nonnull ObjectType object))block;
 - (NSArray< ObjectType >* _Nullable)glb_reject:(BOOL(^ _Nonnull)(_Nonnull ObjectType object))block;
 - (_Nullable ObjectType)glb_find:(BOOL(^ _Nonnull)(_Nonnull ObjectType object))block;
+- (_Nullable ObjectType)glb_find:(BOOL(^ _Nonnull)(_Nonnull ObjectType object))block options:(NSEnumerationOptions)options;
+- (_Nullable ObjectType)glb_find:(BOOL(^ _Nonnull)(_Nonnull ObjectType object))block  range:(NSRange)range options:(NSEnumerationOptions)options;
 - (NSArray< ObjectType >* _Nullable)glb_reverse;
 - (NSArray< ObjectType >* _Nullable)glb_intersectionWithArray:(NSArray< ObjectType >* _Nonnull)array;
 - (NSArray< ObjectType >* _Nullable)glb_intersectionWithArrays:(NSArray< ObjectType >* _Nonnull)firstArray, ... NS_REQUIRES_NIL_TERMINATION;

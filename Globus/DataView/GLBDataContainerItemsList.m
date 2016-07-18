@@ -47,6 +47,7 @@
     _spacing = UIOffsetZero;
     _defaultSize = CGSizeZero;
     _items = NSMutableArray.array;
+    _movingFrame = CGRectZero;
 }
 
 - (void)dealloc {
@@ -505,54 +506,51 @@
 }
 
 - (void)_beginMovingItem:(GLBDataItem*)item location:(CGPoint)location {
+    if(_items.count >= 2) {
+        GLBDataItem* firstMovingRange = [_items glb_find:^BOOL(GLBDataItem* existItem) {
+            return existItem.allowsMoving;
+        }];
+        GLBDataItem* lastMovingRange = [_items glb_find:^BOOL(GLBDataItem* existItem) {
+            return existItem.allowsMoving;
+        } options:NSEnumerationReverse];
+        if(firstMovingRange != lastMovingRange) {
+            _movingFrame = CGRectUnion(firstMovingRange.updateFrame, lastMovingRange.updateFrame);
+        }
+    }
 }
 
 - (void)_movingItem:(GLBDataItem*)item location:(CGPoint)location delta:(CGPoint)delta allowsSorting:(BOOL)allowsSorting {
     CGRect frame = item.updateFrame;
-    if(_items.count >= 2) {
+    if(CGRectIsEmpty(_movingFrame) == NO) {
         NSUInteger srcIndex = [_items indexOfObject:item];
         NSUInteger dstIndex = srcIndex;
         switch(_orientation) {
             case GLBDataContainerOrientationVertical: {
                 frame = CGRectOffset(frame, 0.0f, delta.y);
-                CGFloat upperLimit = CGRectGetMaxY(_items.firstObject.originFrame);
-                CGFloat lowerLimit = CGRectGetMinY(_items.lastObject.originFrame);
+                CGFloat upperLimit = CGRectGetMinY(_movingFrame);
+                CGFloat lowerLimit = CGRectGetMaxY(_movingFrame);
                 if(frame.origin.y < upperLimit) {
-                    if(_items.firstObject != item) {
-                        dstIndex = 0;
-                    }
+                    frame.origin.y = upperLimit;
                 } else if(frame.origin.y + frame.size.height > lowerLimit) {
-                    if(_items.lastObject != item) {
-                        dstIndex = _items.count - 1;
-                    }
-                } else {
-                    GLBDataItem* dstItem = [self itemForPoint:CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame))];
-                    if(dstItem != nil) {
-                        dstIndex = [_items indexOfObject:dstItem];
-                    }
+                    frame.origin.y = lowerLimit - frame.size.height;
                 }
                 break;
             }
             case GLBDataContainerOrientationHorizontal: {
                 frame = CGRectOffset(frame, delta.x, 0.0f);
-                CGFloat upperLimit = CGRectGetMaxX(_items.firstObject.originFrame);
-                CGFloat lowerLimit = CGRectGetMinX(_items.lastObject.originFrame);
+                CGFloat upperLimit = CGRectGetMinX(_movingFrame);
+                CGFloat lowerLimit = CGRectGetMaxX(_movingFrame);
                 if(frame.origin.x < upperLimit) {
-                    if(_items.firstObject != item) {
-                        dstIndex = 0;
-                    }
+                    frame.origin.x = upperLimit;
                 } else if(frame.origin.x + frame.size.width > lowerLimit) {
-                    if(_items.lastObject != item) {
-                        dstIndex = _items.count - 1;
-                    }
-                } else {
-                    GLBDataItem* dstItem = [self itemForPoint:CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame))];
-                    if(dstItem != nil) {
-                        dstIndex = [_items indexOfObject:dstItem];
-                    }
+                    frame.origin.x = lowerLimit - frame.size.width;
                 }
                 break;
             }
+        }
+        GLBDataItem* dstItem = [self itemForPoint:CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame))];
+        if(dstItem != nil) {
+            dstIndex = [_items indexOfObject:dstItem];
         }
         if((srcIndex != dstIndex) && (allowsSorting == YES)) {
             NSUInteger entrySrcIndex = [_entries indexOfObject:_items[srcIndex]];
@@ -572,6 +570,7 @@
 }
 
 - (void)_endMovingItem:(GLBDataItem*)item location:(CGPoint)location {
+    _movingFrame = CGRectZero;
 }
 
 @end
