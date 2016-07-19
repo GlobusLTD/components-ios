@@ -29,6 +29,7 @@
 
 @synthesize jsonMap = _jsonMap;
 @synthesize packMap = _packMap;
+@synthesize defaultsMap = _defaultsMap;
 @synthesize propertyMap = _propertyMap;
 @synthesize compareMap = _compareMap;
 @synthesize serializeMap = _serializeMap;
@@ -65,10 +66,24 @@
 - (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super init];
     if(self != nil) {
-        for(NSString* field in self.serializeMap) {
+        NSMutableArray* fields = [NSMutableArray array];
+        NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
+        if(defaultsMap.count > 0) {
+            [fields addObjectsFromArray:defaultsMap.allKeys];
+        }
+        NSArray< NSString* >* serializeMap = self.serializeMap;
+        if(serializeMap.count > 0) {
+            [fields addObjectsFromArray:serializeMap];
+        }
+        for(NSString* field in fields) {
             id value = [coder decodeObjectForKey:field];
-            if(value != nil) {
+            if(value == nil) {
+                value = defaultsMap[field];
+            }
+            @try {
                 [self setValue:value forKey:field];
+            }
+            @catch(NSException *exception) {
             }
         }
         [self setup];
@@ -160,17 +175,36 @@
             if([value isKindOfClass:NSArray.class] == YES) {
                 NSMutableArray* array = [NSMutableArray arrayWithCapacity:[value count]];
                 for(id item in value) {
-                    [array addObject:[item copyWithZone:zone]];
+                    id itemCopy = [item copyWithZone:zone];
+                    if(itemCopy != nil) {
+                        [array addObject:itemCopy];
+                    }
                 }
-                [result setValue:array forKey:field];
+                @try {
+                    [result setValue:array forKey:field];
+                }
+                @catch(NSException *exception) {
+                }
             } else if([value isKindOfClass:NSDictionary.class] == YES) {
                 NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithCapacity:[value count]];
                 [value glb_each:^(id key, id item) {
-                    dict[key] = [item copyWithZone:zone];
+                    id itemCopy = [item copyWithZone:zone];
+                    if(itemCopy != nil) {
+                        dict[key] = itemCopy;
+                    }
                 }];
-                [result setValue:dict forKey:field];
+                @try {
+                    [result setValue:dict forKey:field];
+                }
+                @catch(NSException *exception) {
+                }
             } else {
-                [result setValue:[value copyWithZone:zone] forKey:field];
+                value = [value copyWithZone:zone];
+                @try {
+                    [result setValue:value forKey:field];
+                }
+                @catch(NSException *exception) {
+                }
             }
         }
     }
@@ -209,6 +243,13 @@
         _packMap = [self.class _buildPackMap];
     }
     return _packMap;
+}
+
+- (NSDictionary< NSString*, id >*)defaultsMap {
+    if(_defaultsMap == nil) {
+        _defaultsMap = [self.class _buildDefaultsMap];
+    }
+    return _defaultsMap;
 }
 
 - (NSArray< NSString* >*)propertyMap {
@@ -292,12 +333,30 @@
 }
 
 - (void)fromJson:(id)json {
-    [self.jsonMap enumerateKeysAndObjectsUsingBlock:^(NSString* field, GLBModelJson* converter, BOOL* stop __unused) {
-        id value = [converter parseJson:json];
-        if(value != nil) {
+    NSMutableArray* fields = [NSMutableArray array];
+    NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
+    if(defaultsMap.count > 0) {
+        [fields addObjectsFromArray:defaultsMap.allKeys];
+    }
+    NSDictionary< NSString*, GLBModelJson* >* jsonMap = self.jsonMap;
+    if(jsonMap.count > 0) {
+        [fields addObjectsFromArray:jsonMap.allKeys];
+    }
+    for(NSString* field in fields) {
+        id value = nil;
+        GLBModelJson* converter = jsonMap[field];
+        if(converter != nil) {
+            value = [converter parseJson:json];
+        }
+        if(value == nil) {
+            value = defaultsMap[field];
+        }
+        @try {
             [self setValue:value forKey:field];
         }
-    }];
+        @catch(NSException *exception) {
+        }
+    }
 }
 
 - (void)fromJsonData:(NSData*)data {
@@ -330,15 +389,33 @@
 }
 
 - (void)unpack:(NSDictionary< NSString*, id >*)data {
-    [self.packMap enumerateKeysAndObjectsUsingBlock:^(NSString* field, GLBModelPack* converter, BOOL* stop __unused) {
+    NSMutableArray* fields = [NSMutableArray array];
+    NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
+    if(defaultsMap.count > 0) {
+        [fields addObjectsFromArray:defaultsMap.allKeys];
+    }
+    NSDictionary< NSString*, GLBModelPack* >* packMap = self.packMap;
+    if(packMap.count > 0) {
+        [fields addObjectsFromArray:packMap.allKeys];
+    }
+    for(NSString* field in fields) {
         id packValue = data[field];
         if(packValue != nil) {
-            id value = [converter unpack:packValue];
-            if(value != nil) {
+            id value = nil;
+            GLBModelPack* converter = packMap[field];
+            if(converter != nil) {
+                value = [converter unpack:packValue];
+            }
+            if(value == nil) {
+                value = defaultsMap[field];
+            }
+            @try {
                 [self setValue:value forKey:field];
             }
+            @catch(NSException *exception) {
+            }
         }
-    }];
+    }
 }
 
 - (void)unpackData:(NSData*)data {
@@ -349,6 +426,10 @@
 }
 
 #pragma mark - Public
+
++ (NSDictionary< NSString*, id >*)defaultsMap {
+    return nil;
+}
 
 + (NSArray< NSString* >*)propertyMap {
     if(self == GLBModel.class) {
@@ -383,9 +464,12 @@
 }
 
 - (void)clear {
-    for(NSString* field in self.serializeMap) {
+    NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
+    NSArray< NSString* >* serializeMap = self.serializeMap;
+    for(NSString* field in serializeMap) {
+        id value = defaultsMap[field];
         @try {
-            [self setValue:nil forKey:field];
+            [self setValue:value forKey:field];
         }
         @catch(NSException *exception) {
         }
@@ -469,12 +553,28 @@
             }
         }
         if(dict != nil) {
-            for(NSString* field in self.serializeMap) {
-                @try {
-                    id value = dict[field];
-                    if([value isKindOfClass:NSData.class] == YES) {
+            NSMutableArray* fields = [NSMutableArray array];
+            NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
+            if(defaultsMap.count > 0) {
+                [fields addObjectsFromArray:defaultsMap.allKeys];
+            }
+            NSArray< NSString* >* serializeMap = self.serializeMap;
+            if(serializeMap.count > 0) {
+                [fields addObjectsFromArray:serializeMap];
+            }
+            for(NSString* field in fields) {
+                id value = dict[field];
+                if(value == nil) {
+                    value = defaultsMap[field];
+                } else if([value isKindOfClass:NSData.class] == YES) {
+                    @try {
                         value = [NSKeyedUnarchiver unarchiveObjectWithData:value];
                     }
+                    @catch(NSException *exception) {
+                        value = nil;
+                    }
+                }
+                @try {
                     [self setValue:value forKey:field];
                 }
                 @catch(NSException *exception) {
@@ -551,6 +651,14 @@
         cache = NSMutableDictionary.dictionary;
     }
     return [GLBModelHelper dictionaryMap:cache class:self.class selector:@selector(packMap)];
+}
+
++ (NSDictionary< NSString*, id >*)_buildDefaultsMap {
+    static NSMutableDictionary* cache = nil;
+    if(cache == nil) {
+        cache = NSMutableDictionary.dictionary;
+    }
+    return [GLBModelHelper dictionaryMap:cache class:self.class selector:@selector(defaultsMap)];
 }
 
 + (NSArray< NSString* >* _Nonnull)_buildPropertyMap {

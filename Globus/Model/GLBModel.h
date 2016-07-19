@@ -55,6 +55,8 @@ typedef void (^GLBModelBlock)();
 
 - (void)setup NS_REQUIRES_SUPER;
 
++ (NSDictionary< NSString*, id >* _Nullable)defaultsMap;
+
 + (NSArray< NSString* >* _Nullable)propertyMap;
 + (NSArray< NSString* >* _Nullable)compareMap;
 + (NSArray< NSString* >* _Nullable)serializeMap;

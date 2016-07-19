@@ -10,6 +10,7 @@
 
 @property(nonatomic, readonly, nonnull, strong) NSDictionary< NSString*, GLBModelJson* >* jsonMap;
 @property(nonatomic, readonly, nonnull, strong) NSDictionary< NSString*, GLBModelPack* >* packMap;
+@property(nonatomic, readonly, nonnull, strong) NSDictionary< NSString*, id >* defaultsMap;
 @property(nonatomic, readonly, nonnull, strong) NSArray< NSString* >* propertyMap;
 @property(nonatomic, readonly, nonnull, strong) NSArray< NSString* >* compareMap;
 @property(nonatomic, readonly, nonnull, strong) NSArray< NSString* >* serializeMap;
@@ -19,6 +20,7 @@
 
 + (NSDictionary< NSString*, GLBModelJson* >* _Nonnull)_buildJsonMap;
 + (NSDictionary< NSString*, GLBModelPack* >* _Nonnull)_buildPackMap;
++ (NSDictionary< NSString*, id >* _Nonnull)_buildDefaultsMap;
 + (NSArray< NSString* >* _Nonnull)_buildPropertyMap;
 + (NSArray< NSString* >* _Nonnull)_buildCompareMap;
 + (NSArray< NSString* >* _Nonnull)_buildSerializeMap;

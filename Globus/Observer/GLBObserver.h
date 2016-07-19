@@ -8,7 +8,7 @@
 
 /*--------------------------------------------------*/
 
-typedef void(^GLBObserverPerformBlock)(id< GLBObserverProtocol > observer);
+typedef void(^GLBObserverPerformBlock)(_Nonnull id< GLBObserverProtocol > observer);
 
 /*--------------------------------------------------*/
 
