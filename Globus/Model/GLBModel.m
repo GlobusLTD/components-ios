@@ -66,7 +66,7 @@
 - (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super init];
     if(self != nil) {
-        NSMutableArray* fields = [NSMutableArray array];
+        NSMutableSet* fields = [NSMutableSet set];
         NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
         if(defaultsMap.count > 0) {
             [fields addObjectsFromArray:defaultsMap.allKeys];
@@ -333,7 +333,7 @@
 }
 
 - (void)fromJson:(id)json {
-    NSMutableArray* fields = [NSMutableArray array];
+    NSMutableSet* fields = [NSMutableSet set];
     NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
     if(defaultsMap.count > 0) {
         [fields addObjectsFromArray:defaultsMap.allKeys];
@@ -389,7 +389,7 @@
 }
 
 - (void)unpack:(NSDictionary< NSString*, id >*)data {
-    NSMutableArray* fields = [NSMutableArray array];
+    NSMutableSet* fields = [NSMutableSet set];
     NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
     if(defaultsMap.count > 0) {
         [fields addObjectsFromArray:defaultsMap.allKeys];
@@ -553,7 +553,7 @@
             }
         }
         if(dict != nil) {
-            NSMutableArray* fields = [NSMutableArray array];
+            NSMutableSet* fields = [NSMutableSet set];
             NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
             if(defaultsMap.count > 0) {
                 [fields addObjectsFromArray:defaultsMap.allKeys];
