@@ -160,7 +160,7 @@ Pod::Spec.new do |s|
       'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_MODEL'
     }
     ss.source_files = 'Globus/Model/**/*.{h,m}'
-    ss.dependency 'Globus/CoreFoundation'
+    ss.dependency 'Globus/UIKit'
   end
   s.subspec 'ManagedModel' do |ss|
     ss.xcconfig = {
