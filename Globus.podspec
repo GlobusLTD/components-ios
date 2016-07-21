@@ -96,6 +96,7 @@ Pod::Spec.new do |s|
     }
     ss.source_files = 'Globus/UIKit/**/*.{h,m}'
     ss.ios.frameworks = 'UIKit'
+    ss.watchos.frameworks = 'UIKit'
     ss.dependency 'Globus/CoreFoundation'
     ss.dependency 'Globus/CoreGraphics'
   end
