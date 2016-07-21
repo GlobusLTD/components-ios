@@ -5,9 +5,14 @@
 
 /*--------------------------------------------------*/
 
+#import <CoreLocation/CoreLocation.h>
+
+/*--------------------------------------------------*/
+
 #import "NSString+GLBNS.h"
 #import "NSArray+GLBNS.h"
 #import "NSDictionary+GLBNS.h"
+#import "UIColor+GLBUI.h"
 
 /*--------------------------------------------------*/
 #pragma mark -
@@ -443,6 +448,108 @@
 - (id)unpack:(id)value {
     if([value isKindOfClass:NSNumber.class] == YES) {
         return [NSDate dateWithTimeIntervalSince1970:[value doubleValue]];
+    }
+    return _defaultValue;
+}
+
+@end
+
+/*--------------------------------------------------*/
+#pragma mark -
+/*--------------------------------------------------*/
+
+@implementation GLBModelPackLocation
+
+#pragma mark - Init / Free
+
+- (instancetype)initWithDefaultValue:(CLLocation*)defaultValue {
+    self = [super init];
+    if(self != nil) {
+        _defaultValue = defaultValue;
+    }
+    return self;
+}
+
+#pragma mark - GLBModelPack
+
+- (id)pack:(id)value {
+    if([value isKindOfClass:CLLocation.class] == YES) {
+        CLLocation* location = value;
+        if((_defaultValue == nil) || ([location isEqual:_defaultValue] == NO)) {
+            return @{
+                @"lo" : @(location.coordinate.longitude),
+                @"la" : @(location.coordinate.latitude),
+                @"al" : @(location.altitude),
+                @"ha" : @(location.horizontalAccuracy),
+                @"va" : @(location.verticalAccuracy),
+#ifdef GLB_TARGET_IOS
+                @"co" : @(location.course),
+                @"sp" : @(location.speed),
+#endif
+                @"ts" : @([location.timestamp timeIntervalSince1970])
+            };
+        }
+    }
+    return nil;
+}
+
+- (id)unpack:(id)value {
+    if([value isKindOfClass:NSDictionary.class] == YES) {
+        NSNumber* longitude = [value glb_numberForKey:@"lo" orDefault:nil];
+        NSNumber* latitude = [value glb_numberForKey:@"la" orDefault:nil];
+        NSNumber* altitude = [value glb_numberForKey:@"al" orDefault:nil];
+        NSNumber* horizontalAccuracy = [value glb_numberForKey:@"ha" orDefault:nil];
+        NSNumber* verticalAccuracy = [value glb_numberForKey:@"va" orDefault:nil];
+#ifdef GLB_TARGET_IOS
+        NSNumber* course = [value glb_numberForKey:@"co" orDefault:nil];
+        NSNumber* speed = [value glb_numberForKey:@"sp" orDefault:nil];
+#endif
+        NSNumber* timestamp = [value glb_numberForKey:@"ts" orDefault:nil];
+        return [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue)
+                                             altitude:altitude.doubleValue
+                                   horizontalAccuracy:horizontalAccuracy.doubleValue
+                                     verticalAccuracy:verticalAccuracy.doubleValue
+#ifdef GLB_TARGET_IOS
+                                               course:course.doubleValue
+                                                speed:speed.doubleValue
+#endif
+                                            timestamp:[NSDate dateWithTimeIntervalSince1970:timestamp.doubleValue]];
+    }
+    return _defaultValue;
+}
+
+@end
+
+/*--------------------------------------------------*/
+#pragma mark -
+/*--------------------------------------------------*/
+
+@implementation GLBModelPackColor
+
+#pragma mark - Init / Free
+
+- (instancetype)initWithDefaultValue:(UIColor*)defaultValue {
+    self = [super init];
+    if(self != nil) {
+        _defaultValue = defaultValue;
+    }
+    return self;
+}
+
+#pragma mark - GLBModelPack
+
+- (id)pack:(id)value {
+    if([value isKindOfClass:UIColor.class] == YES) {
+        if((_defaultValue == nil) || ([value isEqual:_defaultValue] == NO)) {
+            return [value glb_stringValue];
+        }
+    }
+    return nil;
+}
+
+- (id)unpack:(id)value {
+    if([value isKindOfClass:NSString.class] == YES) {
+        return [UIColor glb_colorWithString:value];
     }
     return _defaultValue;
 }

@@ -47,6 +47,12 @@
     return ((CGFloat)result / 255.0f);
 }
 
+- (NSString*)glb_stringValue {
+    CGFloat r, g, b, a;
+    [self getRed:&r green:&g blue:&b alpha:&a];
+    return [NSString stringWithFormat:@"#%02X%02X%02X%02X", (int)(255 * r), (int)(255 * g), (int)(255 * b), (int)(255 * a)];
+}
+
 - (UIColor*)glb_multiplyColor:(UIColor*)color percent:(CGFloat)percent {
     CGFloat alpha = MAX(0.0f, MIN(percent, 1.0));
     CGFloat r1, g1, b1, a1;

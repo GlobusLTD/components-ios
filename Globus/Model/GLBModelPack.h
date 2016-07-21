@@ -110,6 +110,34 @@
 
 /*--------------------------------------------------*/
 
+@class CLLocation;
+
+/*--------------------------------------------------*/
+
+@interface GLBModelPackLocation : GLBModelPack
+
+@property(nonatomic, readonly, nullable, strong) CLLocation* defaultValue;
+
+- (_Nullable instancetype)initWithDefaultValue:(CLLocation* _Nullable)defaultValue;
+
+@end
+
+/*--------------------------------------------------*/
+
+@class UIColor;
+
+/*--------------------------------------------------*/
+
+@interface GLBModelPackColor : GLBModelPack
+
+@property(nonatomic, readonly, nullable, strong) UIColor* defaultValue;
+
+- (_Nullable instancetype)initWithDefaultValue:(UIColor* _Nullable)defaultValue;
+
+@end
+
+/*--------------------------------------------------*/
+
 @interface GLBModelPackModel : GLBModelPack
 
 @property(nonatomic, readonly, nullable, assign) Class modelClass;

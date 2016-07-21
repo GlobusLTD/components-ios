@@ -13,6 +13,7 @@
 #import "NSArray+GLBNS.h"
 #import "NSDictionary+GLBNS.h"
 #import "NSDate+GLBNS.h"
+#import "UIColor+GLBUI.h"
 
 /*--------------------------------------------------*/
 
@@ -967,6 +968,37 @@
         return result;
     } else if(_defaultValue != nil) {
         return _defaultValue;
+    }
+    return [super convertValue:value];
+}
+
+@end
+
+/*--------------------------------------------------*/
+#pragma mark -
+/*--------------------------------------------------*/
+
+@implementation GLBModelJsonColor
+
+#pragma mark - Init / Free
+
+- (instancetype)initWithPath:(NSString*)path defaultValue:(UIColor*)defaultValue {
+    return [self initWithPath:path defaultValue:defaultValue undefinedBehaviour:nil];
+}
+
+- (instancetype)initWithPath:(NSString*)path defaultValue:(UIColor*)defaultValue undefinedBehaviour:(GLBModelJsonUndefinedBehaviour)undefinedBehaviour {
+    self = [super initWithPath:path undefinedBehaviour:undefinedBehaviour];
+    if(self != nil) {
+        _defaultValue = defaultValue;
+    }
+    return self;
+}
+
+#pragma mark - GLBModelJson
+
+- (id)convertValue:(id)value {
+    if([value isKindOfClass:NSString.class] == YES) {
+        return [UIColor glb_colorWithString:value];
     }
     return [super convertValue:value];
 }

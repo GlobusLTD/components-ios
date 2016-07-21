@@ -227,6 +227,21 @@ typedef _Nullable id (^GLBModelJsonUndefinedBehaviour)(_Nullable id modelJson, _
 
 /*--------------------------------------------------*/
 
+@class UIColor;
+
+/*--------------------------------------------------*/
+
+@interface GLBModelJsonColor : GLBModelJson
+
+@property(nonatomic, readonly, nullable, strong) UIColor* defaultValue;
+
+- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path defaultValue:(UIColor* _Nullable)defaultValue;
+- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path defaultValue:(UIColor* _Nullable)defaultValue undefinedBehaviour:(_Nullable GLBModelJsonUndefinedBehaviour)undefinedBehaviour;
+
+@end
+
+/*--------------------------------------------------*/
+
 @interface GLBModelJsonModel : GLBModelJson
 
 @property(nonatomic, readonly, nullable, assign) Class modelClass;
