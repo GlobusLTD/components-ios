@@ -43,6 +43,8 @@ typedef void(^GLBDialogViewControllerBlock)(GLBDialogViewController* dialogViewC
 @property(nonatomic, getter=isBackgroundBlurred) BOOL backgroundBlurred;
 @property(nonatomic) CGFloat backgroundBlurRadius;
 @property(nonatomic) NSUInteger backgroundBlurIterations;
+@property(nonatomic, getter = isBackgroundBlurDynamic) IBInspectable BOOL backgroundBlurDynamic;
+@property(nonatomic) IBInspectable NSTimeInterval backgroundBlurUpdateInterval;
 @property(nonatomic, strong) UIColor* backgroundColor;
 @property(nonatomic, strong) UIColor* backgroundTintColor;
 @property(nonatomic) CGFloat backgroundAlpha;

@@ -41,6 +41,8 @@
     _backgroundBlurred = YES;
     _backgroundBlurRadius = 20.0f;
     _backgroundBlurIterations = 4;
+    _backgroundBlurDynamic = NO;
+    _backgroundBlurUpdateInterval = 0.1f;
     _backgroundColor = nil;
     _backgroundTintColor = [UIColor colorWithWhite:0.5f alpha:1.0f];
     _backgroundAlpha = 1.0f;
@@ -80,6 +82,24 @@
         _backgroundBlurIterations = backgroundBlurIterations;
         if(self.isViewLoaded == YES) {
             _backgroundView.blurIterations = _backgroundBlurIterations;
+        }
+    }
+}
+
+- (void)setBackgroundBlurDynamic:(BOOL)backgroundBlurDynamic {
+    if(_backgroundBlurDynamic != backgroundBlurDynamic) {
+        _backgroundBlurDynamic = backgroundBlurDynamic;
+        if(self.isViewLoaded == YES) {
+            _backgroundView.dynamic = _backgroundBlurDynamic;
+        }
+    }
+}
+
+- (void)setBackgroundBlurUpdateInterval:(NSTimeInterval)backgroundBlurUpdateInterval {
+    if(_backgroundBlurUpdateInterval != backgroundBlurUpdateInterval) {
+        _backgroundBlurUpdateInterval = backgroundBlurUpdateInterval;
+        if(self.isViewLoaded == YES) {
+            _backgroundView.updateInterval = _backgroundBlurUpdateInterval;
         }
     }
 }
@@ -331,6 +351,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = UIColor.clearColor;
+    
     if(_tapGesture != nil) {
         [self.view addGestureRecognizer:_tapGesture];
     }
@@ -341,6 +363,8 @@
         _backgroundView.blurEnabled = _backgroundBlurred;
         _backgroundView.blurRadius = _backgroundBlurRadius;
         _backgroundView.blurIterations = _backgroundBlurIterations;
+        _backgroundView.dynamic = _backgroundBlurDynamic;
+        _backgroundView.updateInterval = _backgroundBlurUpdateInterval;
         _backgroundView.backgroundColor = _backgroundColor;
         _backgroundView.tintColor = _backgroundTintColor;
         _backgroundView.alpha = _backgroundAlpha;
@@ -364,22 +388,6 @@
 #ifndef GLOBUS_APP_EXTENSION
     _ownerWindow = UIApplication.sharedApplication.keyWindow;
 #endif
-    if(_ownerWindow != nil) {
-        UIViewController* currentViewController = _ownerWindow.glb_currentViewController;
-        if(currentViewController != nil) {
-            if(currentViewController.navigationController != nil) {
-                _backgroundView.underlyingView = currentViewController.navigationController.view;
-            } else if(currentViewController.tabBarController != nil) {
-                _backgroundView.underlyingView = currentViewController.tabBarController.view;
-            } else if(currentViewController.glb_slideViewController != nil) {
-                _backgroundView.underlyingView = currentViewController.glb_slideViewController.view;
-            } else {
-                _backgroundView.underlyingView = currentViewController.view;
-            }
-        } else {
-            _backgroundView.underlyingView = _ownerWindow.rootViewController.view;
-        }
-    }
     _ownerViewController = viewController;
     if(_dialogWindow == nil) {
         _dialogWindow = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
@@ -398,6 +406,22 @@
             _dialogWindow.windowLevel = _ownerWindow.windowLevel + 0.01f;
         } else {
             _dialogWindow.windowLevel = UIWindowLevelNormal + 0.01f;
+        }
+    }
+    if(_ownerWindow != nil) {
+        UIViewController* currentViewController = _ownerWindow.glb_currentViewController;
+        if(currentViewController != nil) {
+            if(currentViewController.navigationController != nil) {
+                _backgroundView.underlyingView = currentViewController.navigationController.view;
+            } else if(currentViewController.tabBarController != nil) {
+                _backgroundView.underlyingView = currentViewController.tabBarController.view;
+            } else if(currentViewController.glb_slideViewController != nil) {
+                _backgroundView.underlyingView = currentViewController.glb_slideViewController.view;
+            } else {
+                _backgroundView.underlyingView = currentViewController.view;
+            }
+        } else {
+            _backgroundView.underlyingView = _ownerWindow.rootViewController.view;
         }
     }
     [self glb_loadViewIfNeed];
