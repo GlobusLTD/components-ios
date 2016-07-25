@@ -330,6 +330,12 @@
     }];
 }
 
+- (void)cancelAllRequests {
+    [_tasks glb_each:^(NSNumber* taskIdentifier, GLBApiProviderQuery* query) {
+        [query.request cancel];
+    }];
+}
+
 #pragma mark - NSURLSessionDelegate
 
 - (void)URLSession:(NSURLSession*)session didBecomeInvalidWithError:(NSError*)error {
@@ -371,7 +377,9 @@
 }
 
 - (void)URLSession:(NSURLSession*)session task:(NSURLSessionTask*)task didSendBodyData:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend {
+    [self.lock lock];
     GLBApiProviderQuery* query = self.tasks[@(task.taskIdentifier)];
+    [self.lock unlock];
     if(query != nil) {
         if(totalBytesExpectedToSend == NSURLSessionTransferSizeUnknown) {
             NSString* contentLength = [task.originalRequest valueForHTTPHeaderField:@"Content-Length"];
@@ -384,8 +392,8 @@
 }
 
 - (void)URLSession:(NSURLSession*)session task:(NSURLSessionTask*)task didCompleteWithError:(NSError*)error {
-    GLBApiProviderQuery* query = self.tasks[@(task.taskIdentifier)];
     [self.lock lock];
+    GLBApiProviderQuery* query = self.tasks[@(task.taskIdentifier)];
     [self.tasks removeObjectForKey:@(task.taskIdentifier)];
     [self.lock unlock];
     if(query != nil) {
@@ -397,7 +405,9 @@
 
 - (void)URLSession:(NSURLSession*)session dataTask:(NSURLSessionDataTask*)dataTask didReceiveResponse:(NSURLResponse*)response completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler {
     NSURLSessionResponseDisposition disposition = NSURLSessionResponseAllow;
+    [self.lock lock];
     GLBApiProviderQuery* query = self.tasks[@(dataTask.taskIdentifier)];
+    [self.lock unlock];
     if(query != nil) {
         [query _didReceiveResponse:response];
     }
@@ -407,31 +417,39 @@
 }
 
 - (void)URLSession:(NSURLSession*)session dataTask:(NSURLSessionDataTask*)dataTask didBecomeDownloadTask:(NSURLSessionDownloadTask*)downloadTask {
-    GLBApiProviderQuery* query = self.tasks[@(dataTask.taskIdentifier)];
     [self.lock lock];
+    GLBApiProviderQuery* query = self.tasks[@(dataTask.taskIdentifier)];
     [self.tasks removeObjectForKey:@(dataTask.taskIdentifier)];
     if(query != nil) {
         self.tasks[@(downloadTask.taskIdentifier)] = query;
-        [query _didBecomeDownloadTask:downloadTask];
     }
     [self.lock unlock];
+    if(query != nil) {
+        [query _didBecomeDownloadTask:downloadTask];
+    }
 }
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_9_0
+
 - (void)URLSession:(NSURLSession*)session dataTask:(NSURLSessionDataTask*)dataTask didBecomeStreamTask:(NSURLSessionStreamTask*)streamTask {
-    GLBApiProviderQuery* query = self.tasks[@(dataTask.taskIdentifier)];
     [self.lock lock];
+    GLBApiProviderQuery* query = self.tasks[@(dataTask.taskIdentifier)];
     [self.tasks removeObjectForKey:@(dataTask.taskIdentifier)];
     if(query != nil) {
         self.tasks[@(streamTask.taskIdentifier)] = query;
-        [query _didBecomeStreamTask:streamTask];
     }
     [self.lock unlock];
+    if(query != nil) {
+        [query _didBecomeStreamTask:streamTask];
+    }
 }
+
 #endif
 
 - (void)URLSession:(NSURLSession*)session dataTask:(NSURLSessionDataTask*)dataTask didReceiveData:(NSData*)data {
+    [self.lock lock];
     GLBApiProviderQuery* query = self.tasks[@(dataTask.taskIdentifier)];
+    [self.lock unlock];
     if(query != nil) {
         [query _didReceiveData:data];
     }
@@ -446,21 +464,27 @@
 #pragma mark - NSURLSessionDownloadDelegate
 
 - (void)URLSession:(NSURLSession*)session downloadTask:(NSURLSessionDownloadTask*)downloadTask didFinishDownloadingToURL:(NSURL*)location {
+    [self.lock lock];
     GLBApiProviderQuery* query = self.tasks[@(downloadTask.taskIdentifier)];
+    [self.lock unlock];
     if(query != nil) {
         [query _didDownloadToURL:location];
     }
 }
 
 - (void)URLSession:(NSURLSession*)session downloadTask:(NSURLSessionDownloadTask*)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
+    [self.lock lock];
     GLBApiProviderQuery* query = self.tasks[@(downloadTask.taskIdentifier)];
+    [self.lock unlock];
     if(query != nil) {
         [query _didDownloadBytes:totalBytesWritten totalBytes:totalBytesExpectedToWrite];
     }
 }
 
 - (void)URLSession:(NSURLSession*)session downloadTask:(NSURLSessionDownloadTask*)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes {
+    [self.lock lock];
     GLBApiProviderQuery* query = self.tasks[@(downloadTask.taskIdentifier)];
+    [self.lock unlock];
     if(query != nil) {
         [query _didResumeDownloadAtOffset:fileOffset totalBytes:expectedTotalBytes];
     }

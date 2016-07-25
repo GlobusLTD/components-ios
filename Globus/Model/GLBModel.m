@@ -232,50 +232,64 @@
 }
 
 - (NSDictionary< NSString*, GLBModelJson* >*)jsonMap {
-    if(_jsonMap == nil) {
-        _jsonMap = [self.class _buildJsonMap];
+    @synchronized(self) {
+        if(_jsonMap == nil) {
+            _jsonMap = [self.class _buildJsonMap];
+        }
     }
     return _jsonMap;
 }
 
 - (NSDictionary< NSString*, GLBModelPack* >*)packMap {
-    if(_packMap == nil) {
-        _packMap = [self.class _buildPackMap];
+    @synchronized(self) {
+        if(_packMap == nil) {
+            _packMap = [self.class _buildPackMap];
+        }
     }
     return _packMap;
 }
 
 - (NSDictionary< NSString*, id >*)defaultsMap {
-    if(_defaultsMap == nil) {
-        _defaultsMap = [self.class _buildDefaultsMap];
+    @synchronized(self) {
+        if(_defaultsMap == nil) {
+            _defaultsMap = [self.class _buildDefaultsMap];
+        }
     }
     return _defaultsMap;
 }
 
 - (NSArray< NSString* >*)propertyMap {
-    if(_propertyMap == nil) {
-        _propertyMap = [self.class _buildPropertyMap];
+    @synchronized(self) {
+        if(_propertyMap == nil) {
+            _propertyMap = [self.class _buildPropertyMap];
+        }
     }
     return _propertyMap;
 }
 
 - (NSArray< NSString* >*)compareMap {
-    if(_compareMap == nil) {
-        _compareMap = [self.class _buildCompareMap];
+    @synchronized(self) {
+        if(_compareMap == nil) {
+            _compareMap = [self.class _buildCompareMap];
+        }
     }
     return _compareMap;
 }
 
 - (NSArray< NSString* >*)serializeMap {
-    if(_serializeMap == nil) {
-        _serializeMap = [self.class _buildSerializeMap];
+    @synchronized(self) {
+        if(_serializeMap == nil) {
+            _serializeMap = [self.class _buildSerializeMap];
+        }
     }
     return _serializeMap;
 }
 
 - (NSArray< NSString* >*)copyMap {
-    if(_copyMap == nil) {
-        _copyMap = [self.class _buildCopyMap];
+    @synchronized(self) {
+        if(_copyMap == nil) {
+            _copyMap = [self.class _buildCopyMap];
+        }
     }
     return _copyMap;
 }

@@ -143,20 +143,24 @@
 }
 
 - (void)_insertEntry:(GLBDataItem*)entry atIndex:(NSUInteger)index {
-    [_entries insertObject:entry atIndex:index];
-    entry.parent = self;
-    if(_view != nil) {
-        [_view _didInsertItems:@[ entry ]];
+    if(index != NSNotFound) {
+        [_entries insertObject:entry atIndex:index];
+        entry.parent = self;
+        if(_view != nil) {
+            [_view _didInsertItems:@[ entry ]];
+        }
     }
 }
 
 - (void)_insertEntries:(NSArray*)entries atIndex:(NSUInteger)index {
-    [_entries insertObjects:entries atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, entries.count)]];
-    for(GLBDataItem* entry in entries) {
-        entry.parent = self;
-    }
-    if(_view != nil) {
-        [_view _didInsertItems:entries];
+    if(index != NSNotFound) {
+        [_entries insertObjects:entries atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, entries.count)]];
+        for(GLBDataItem* entry in entries) {
+            entry.parent = self;
+        }
+        if(_view != nil) {
+            [_view _didInsertItems:entries];
+        }
     }
 }
 
@@ -194,10 +198,12 @@
 
 - (void)_replaceOriginEntry:(GLBDataItem*)originEntry withEntry:(GLBDataItem*)entry {
     NSUInteger index = [_entries indexOfObject:originEntry];
-    entry.parent = self;
-    _entries[index] = entry;
-    if(_view != nil) {
-        [_view _didReplaceOriginItems:@[ originEntry ] withItems:@[ entry ]];
+    if(index != NSNotFound) {
+        entry.parent = self;
+        _entries[index] = entry;
+        if(_view != nil) {
+            [_view _didReplaceOriginItems:@[ originEntry ] withItems:@[ entry ]];
+        }
     }
 }
 
@@ -205,12 +211,14 @@
     NSIndexSet* indexSet = [_entries indexesOfObjectsPassingTest:^BOOL(GLBDataItem* originEntry, NSUInteger index __unused, BOOL* stop __unused) {
         return [originEntries containsObject:originEntry];
     }];
-    for(GLBDataItem* entry in entries) {
-        entry.parent = self;
-    }
-    [_entries replaceObjectsAtIndexes:indexSet withObjects:entries];
-    if(_view != nil) {
-        [_view _didReplaceOriginItems:originEntries withItems:entries];
+    if(indexSet.count > 0) {
+        for(GLBDataItem* entry in entries) {
+            entry.parent = self;
+        }
+        [_entries replaceObjectsAtIndexes:indexSet withObjects:entries];
+        if(_view != nil) {
+            [_view _didReplaceOriginItems:originEntries withItems:entries];
+        }
     }
 }
 

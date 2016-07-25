@@ -72,22 +72,28 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
 #pragma mark - Property
 
 - (NSDictionary*)jsonMap {
-    if(_jsonMap == nil) {
-        _jsonMap = [self.class _buildJsonMap];
+    @synchronized(self) {
+        if(_jsonMap == nil) {
+            _jsonMap = [self.class _buildJsonMap];
+        }
     }
     return _jsonMap;
 }
 
 - (NSDictionary*)packMap {
-    if(_packMap == nil) {
-        _packMap = [self.class _buildPackMap];
+    @synchronized(self) {
+        if(_packMap == nil) {
+            _packMap = [self.class _buildPackMap];
+        }
     }
     return _packMap;
 }
 
 - (NSArray< NSString* >*)propertyMap {
-    if(_propertyMap == nil) {
-        _propertyMap = [self.class _buildPropertyMap];
+    @synchronized(self) {
+        if(_propertyMap == nil) {
+            _propertyMap = [self.class _buildPropertyMap];
+        }
     }
     return _propertyMap;
 }

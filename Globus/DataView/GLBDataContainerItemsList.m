@@ -508,10 +508,10 @@
 - (void)_beginMovingItem:(GLBDataItem*)item location:(CGPoint)location {
     if(_items.count >= 2) {
         GLBDataItem* firstMovingRange = [_items glb_find:^BOOL(GLBDataItem* existItem) {
-            return existItem.allowsMoving;
+            return (existItem.allowsMoving == YES) && (existItem.hidden == NO);
         }];
         GLBDataItem* lastMovingRange = [_items glb_find:^BOOL(GLBDataItem* existItem) {
-            return existItem.allowsMoving;
+            return (existItem.allowsMoving == YES) && (existItem.hidden == NO);
         } options:NSEnumerationReverse];
         if(firstMovingRange != lastMovingRange) {
             _movingFrame = CGRectUnion(firstMovingRange.updateFrame, lastMovingRange.updateFrame);

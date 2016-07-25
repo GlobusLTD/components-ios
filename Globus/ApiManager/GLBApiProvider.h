@@ -68,6 +68,7 @@ typedef void (^GLBApiProviderCompleteBlock)(_Nonnull id request, _Nonnull id res
 
 - (void)cancelRequest:(GLBApiRequest* _Nonnull)request;
 - (void)cancelAllRequestsByTarget:(_Nonnull id)target;
+- (void)cancelAllRequests;
 
 @end
 

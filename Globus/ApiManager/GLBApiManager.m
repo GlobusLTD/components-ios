@@ -92,6 +92,14 @@ static GLBApiManager* GLBApiManagerInstance = nil;
     }
 }
 
+- (void)cancelAllRequests {
+    @synchronized(self) {
+        [_providers glb_each:^(GLBApiProvider* provider) {
+            [provider cancelAllRequests];
+        }];
+    }
+}
+
 #pragma mark - Private
 
 + (void)_perform:(dispatch_block_t)block {

@@ -224,34 +224,41 @@
 }
 
 - (GLBDataItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data order:(NSUInteger)order configure:(GLBDataContainerConfigureItemBlock)configure {
-    GLBDataItem* item = [GLBDataItem itemWithIdentifier:identifier order:order data:data];
-    if(configure != nil) {
-        configure(item);
+    GLBDataItem* item = nil;
+    if(index != NSNotFound) {
+        item = [GLBDataItem itemWithIdentifier:identifier order:order data:data];
+        if(configure != nil) {
+            configure(item);
+        }
+        [self insertItem:item atIndex:index];
     }
-    [self insertItem:item atIndex:index];
     return item;
 }
 
 - (void)insertItem:(GLBDataItem*)item atIndex:(NSUInteger)index {
-    [_items insertObject:item atIndex:index];
-    if(_header != nil) {
-        index = MAX(index, [_entries indexOfObject:_header] + 1);
+    if(index != NSNotFound) {
+        [_items insertObject:item atIndex:index];
+        if(_header != nil) {
+            index = MAX(index, [_entries indexOfObject:_header] + 1);
+        }
+        if(_footer != nil) {
+            index = MIN(index, [_entries indexOfObject:_footer] - 1);
+        }
+        [self _insertEntry:item atIndex:index];
     }
-    if(_footer != nil) {
-        index = MIN(index, [_entries indexOfObject:_footer] - 1);
-    }
-    [self _insertEntry:item atIndex:index];
 }
 
 - (void)insertItems:(NSArray*)items atIndex:(NSUInteger)index {
-    [_items insertObjects:items atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, items.count)]];
-    if(_header != nil) {
-        index = MAX(index, [_entries indexOfObject:_header] + 1);
+    if((index != NSNotFound) && (items.count > 0)) {
+        [_items insertObjects:items atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, items.count)]];
+        if(_header != nil) {
+            index = MAX(index, [_entries indexOfObject:_header] + 1);
+        }
+        if(_footer != nil) {
+            index = MIN(index, [_entries indexOfObject:_footer] - 1);
+        }
+        [self _insertEntries:items atIndex:index];
     }
-    if(_footer != nil) {
-        index = MIN(index, [_entries indexOfObject:_footer] - 1);
-    }
-    [self _insertEntries:items atIndex:index];
 }
 
 - (void)insertItem:(GLBDataItem*)item aboveItem:(GLBDataItem*)aboveItem {

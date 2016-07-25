@@ -149,10 +149,12 @@
 }
 
 - (void)insertSection:(GLBDataContainer*)section atIndex:(NSUInteger)index {
-    section.parent = self;
-    [_sections insertObject:section atIndex:index];
-    if(_view != nil) {
-        [_view _didInsertItems:section.allItems];
+    if(index != NSNotFound) {
+        section.parent = self;
+        [_sections insertObject:section atIndex:index];
+        if(_view != nil) {
+            [_view _didInsertItems:section.allItems];
+        }
     }
 }
 

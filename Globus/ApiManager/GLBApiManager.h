@@ -22,6 +22,7 @@
 
 - (void)cancelRequest:(GLBApiRequest* _Nonnull)request;
 - (void)cancelAllRequestsByTarget:(_Nonnull id)target;
+- (void)cancelAllRequests;
 
 @end
 
