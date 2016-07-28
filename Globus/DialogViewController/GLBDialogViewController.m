@@ -385,48 +385,53 @@
 #pragma mark - Public
 
 - (void)presentViewController:(UIViewController*)viewController withCompletion:(GLBDialogViewControllerBlock)completion {
+    if(_presented == NO) {
+        _presented = YES;
+        
 #ifndef GLOBUS_APP_EXTENSION
-    _ownerWindow = UIApplication.sharedApplication.keyWindow;
+        _ownerWindow = UIApplication.sharedApplication.keyWindow;
 #endif
-    _ownerViewController = viewController;
-    if(_dialogWindow == nil) {
-        _dialogWindow = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-        if(_ownerWindow != nil) {
-            _dialogWindow.windowLevel = _ownerWindow.windowLevel + 0.01f;
-        } else {
-            _dialogWindow.windowLevel = UIWindowLevelNormal + 0.01f;
-        }
-        _dialogWindow.backgroundColor = UIColor.clearColor;
-        _dialogWindow.rootViewController = self;
-        _dialogWindow.glb_userWindow = YES;
-        [_dialogWindow makeKeyAndVisible];
-        [_dialogWindow layoutIfNeeded];
-    } else {
-        if(_ownerWindow != nil) {
-            _dialogWindow.windowLevel = _ownerWindow.windowLevel + 0.01f;
-        } else {
-            _dialogWindow.windowLevel = UIWindowLevelNormal + 0.01f;
-        }
-    }
-    if(_ownerWindow != nil) {
-        UIViewController* currentViewController = _ownerWindow.glb_currentViewController;
-        if(currentViewController != nil) {
-            if(currentViewController.navigationController != nil) {
-                _backgroundView.underlyingView = currentViewController.navigationController.view;
-            } else if(currentViewController.tabBarController != nil) {
-                _backgroundView.underlyingView = currentViewController.tabBarController.view;
-            } else if(currentViewController.glb_slideViewController != nil) {
-                _backgroundView.underlyingView = currentViewController.glb_slideViewController.view;
+        _ownerViewController = viewController;
+        if(_dialogWindow == nil) {
+            _dialogWindow = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+            if(_ownerWindow != nil) {
+                _dialogWindow.windowLevel = _ownerWindow.windowLevel + 0.01f;
             } else {
-                _backgroundView.underlyingView = currentViewController.view;
+                _dialogWindow.windowLevel = UIWindowLevelNormal + 0.01f;
             }
+            _dialogWindow.backgroundColor = UIColor.clearColor;
+            _dialogWindow.rootViewController = self;
+            _dialogWindow.glb_userWindow = YES;
+            [_dialogWindow makeKeyAndVisible];
+            [_dialogWindow layoutIfNeeded];
         } else {
-            _backgroundView.underlyingView = _ownerWindow.rootViewController.view;
+            if(_ownerWindow != nil) {
+                _dialogWindow.windowLevel = _ownerWindow.windowLevel + 0.01f;
+            } else {
+                _dialogWindow.windowLevel = UIWindowLevelNormal + 0.01f;
+            }
+            _dialogWindow.hidden = NO;
         }
+        if(_ownerWindow != nil) {
+            UIViewController* currentViewController = _ownerWindow.glb_currentViewController;
+            if(currentViewController != nil) {
+                if(currentViewController.navigationController != nil) {
+                    _backgroundView.underlyingView = currentViewController.navigationController.view;
+                } else if(currentViewController.tabBarController != nil) {
+                    _backgroundView.underlyingView = currentViewController.tabBarController.view;
+                } else if(currentViewController.glb_slideViewController != nil) {
+                    _backgroundView.underlyingView = currentViewController.glb_slideViewController.view;
+                } else {
+                    _backgroundView.underlyingView = currentViewController.view;
+                }
+            } else {
+                _backgroundView.underlyingView = _ownerWindow.rootViewController.view;
+            }
+        }
+        [self glb_loadViewIfNeed];
+        [self setNeedsStatusBarAppearanceUpdate];
+        [self _willPresentWithCompletion:completion];
     }
-    [self glb_loadViewIfNeed];
-    [self setNeedsStatusBarAppearanceUpdate];
-    [self _willPresentWithCompletion:completion];
 }
 
 - (void)presentWithCompletion:(GLBDialogViewControllerBlock)completion {
@@ -438,7 +443,11 @@
 }
 
 - (void)dismissWithCompletion:(GLBDialogViewControllerBlock)completion {
-    [self _willDismissWithCompletion:completion];
+    if(_presented == YES) {
+        _presented = NO;
+        
+        [self _willDismissWithCompletion:completion];
+    }
 }
 
 #pragma mark - Private

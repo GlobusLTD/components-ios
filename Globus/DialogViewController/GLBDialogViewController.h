@@ -36,6 +36,8 @@ typedef void(^GLBDialogViewControllerBlock)(GLBDialogViewController* dialogViewC
 
 @interface GLBDialogViewController : UIViewController
 
+@property(nonatomic, getter=isPresented) BOOL presented;
+
 @property(nonatomic, strong) GLBDialogAnimationController* animationController;
 
 @property(nonatomic) CGFloat animationDuration;
