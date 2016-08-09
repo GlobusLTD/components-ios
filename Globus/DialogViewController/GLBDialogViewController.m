@@ -6,6 +6,10 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0f;
+
+/*--------------------------------------------------*/
+
 @implementation GLBDialogViewController
 
 #pragma mark - Init / Free
@@ -395,9 +399,9 @@
         if(_dialogWindow == nil) {
             _dialogWindow = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
             if(_ownerWindow != nil) {
-                _dialogWindow.windowLevel = _ownerWindow.windowLevel + 0.01f;
+                _dialogWindow.windowLevel = _ownerWindow.windowLevel + GLBDialogViewController_WindowLevelOffset;
             } else {
-                _dialogWindow.windowLevel = UIWindowLevelNormal + 0.01f;
+                _dialogWindow.windowLevel = UIWindowLevelNormal + GLBDialogViewController_WindowLevelOffset;
             }
             _dialogWindow.backgroundColor = UIColor.clearColor;
             _dialogWindow.rootViewController = self;
@@ -406,9 +410,9 @@
             [_dialogWindow layoutIfNeeded];
         } else {
             if(_ownerWindow != nil) {
-                _dialogWindow.windowLevel = _ownerWindow.windowLevel + 0.01f;
+                _dialogWindow.windowLevel = _ownerWindow.windowLevel + GLBDialogViewController_WindowLevelOffset;
             } else {
-                _dialogWindow.windowLevel = UIWindowLevelNormal + 0.01f;
+                _dialogWindow.windowLevel = UIWindowLevelNormal + GLBDialogViewController_WindowLevelOffset;
             }
             _dialogWindow.hidden = NO;
         }
