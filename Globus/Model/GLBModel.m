@@ -522,7 +522,14 @@
             }
             if(_userDefaults != nil) {
                 [_userDefaults setObject:dict forKey:_storeName];
-                result = [_userDefaults synchronize];
+                
+                NSString* requiredVersion = @"10.0";
+                NSString* currSystemVersion = [[UIDevice currentDevice] systemVersion];
+                if ([currSystemVersion compare:requiredVersion options:NSNumericSearch] == NSOrderedAscending) { // is not iOS 10
+                    result = [_userDefaults synchronize];
+                } else {
+                    result = YES;
+                }
             } else {
                 NSString* filePath = [self _filePath];
                 if(filePath != nil) {
