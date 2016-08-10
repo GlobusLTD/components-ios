@@ -589,6 +589,9 @@
     id result = nil;
     if([value isKindOfClass:NSString.class] == YES) {
         result = [NSURL URLWithString:value];
+        if (result == nil) {
+            result = [NSURL URLWithString:[value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        }
     }
     if(result != nil) {
         return result;
