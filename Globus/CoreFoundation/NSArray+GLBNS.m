@@ -241,7 +241,8 @@
 
 - (NSArray*)glb_map:(id(^)(id object))block {
     NSMutableArray* array = [NSMutableArray arrayWithCapacity:self.count];
-    for(id object in self) {
+    NSArray* copied = [self copy];
+    for(id object in copied) {
         id temp = block(object);
         if(temp != nil) {
             [array addObject:temp];
