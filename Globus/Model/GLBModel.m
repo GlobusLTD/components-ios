@@ -13,6 +13,10 @@
 
 /*--------------------------------------------------*/
 
+#import "UIDevice+GLBUI.h"
+
+/*--------------------------------------------------*/
+
 #include <objc/runtime.h>
 
 /*--------------------------------------------------*/
@@ -523,9 +527,7 @@
             if(_userDefaults != nil) {
                 [_userDefaults setObject:dict forKey:_storeName];
                 
-                NSString* requiredVersion = @"10.0";
-                NSString* currSystemVersion = [[UIDevice currentDevice] systemVersion];
-                if ([currSystemVersion compare:requiredVersion options:NSNumericSearch] == NSOrderedAscending) { // is not iOS 10
+                if(UIDevice.glb_systemVersion >= 10.0) {
                     result = [_userDefaults synchronize];
                 } else {
                     result = YES;
@@ -622,7 +624,9 @@
 - (void)erase {
     if(_userDefaults != nil) {
         [_userDefaults removeObjectForKey:_storeName];
-        [_userDefaults synchronize];
+        if(UIDevice.glb_systemVersion >= 10.0) {
+            [_userDefaults synchronize];
+        }
     } else {
         NSString* filePath = [self _filePath];
         if(filePath != nil) {
