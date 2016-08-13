@@ -526,12 +526,15 @@
             }
             if(_userDefaults != nil) {
                 [_userDefaults setObject:dict forKey:_storeName];
-                
+#if defined(GLB_TARGET_IOS)
                 if(UIDevice.glb_systemVersion >= 10.0) {
                     result = [_userDefaults synchronize];
                 } else {
                     result = YES;
                 }
+#else
+                result = [_userDefaults synchronize];
+#endif
             } else {
                 NSString* filePath = [self _filePath];
                 if(filePath != nil) {
@@ -624,9 +627,13 @@
 - (void)erase {
     if(_userDefaults != nil) {
         [_userDefaults removeObjectForKey:_storeName];
+#if defined(GLB_TARGET_IOS)
         if(UIDevice.glb_systemVersion >= 10.0) {
             [_userDefaults synchronize];
         }
+#else
+        [_userDefaults synchronize];
+#endif
     } else {
         NSString* filePath = [self _filePath];
         if(filePath != nil) {

@@ -590,7 +590,7 @@
     if([value isKindOfClass:NSString.class] == YES) {
         result = [NSURL URLWithString:value];
         if (result == nil) {
-            result = [NSURL URLWithString:[value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            result = [NSURL URLWithString:[value glb_stringByEncodingURLFormat]];
         }
     }
     if(result != nil) {
