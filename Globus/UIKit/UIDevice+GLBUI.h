@@ -62,6 +62,8 @@ typedef NS_ENUM(NSInteger, GLBDeviceDisplay) {
 @interface UIDevice (GLB_UI)
 
 + (CGFloat)glb_systemVersion;
++ (NSString* _Nullable)glb_systemVersionString;
++ (NSComparisonResult)glb_compareSystemVersion:(NSString* _Nonnull)requiredVersion;
 
 + (BOOL)glb_isSimulator;
 + (BOOL)glb_isIPhone;

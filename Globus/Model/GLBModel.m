@@ -527,7 +527,7 @@
             if(_userDefaults != nil) {
                 [_userDefaults setObject:dict forKey:_storeName];
 #if defined(GLB_TARGET_IOS)
-                if(UIDevice.glb_systemVersion >= 10.0) {
+                if([UIDevice glb_compareSystemVersion:@"10.0"] == NSOrderedAscending) {
                     result = [_userDefaults synchronize];
                 } else {
                     result = YES;
@@ -628,7 +628,7 @@
     if(_userDefaults != nil) {
         [_userDefaults removeObjectForKey:_storeName];
 #if defined(GLB_TARGET_IOS)
-        if(UIDevice.glb_systemVersion >= 10.0) {
+        if([UIDevice glb_compareSystemVersion:@"10.0"] == NSOrderedAscending) {
             [_userDefaults synchronize];
         }
 #else

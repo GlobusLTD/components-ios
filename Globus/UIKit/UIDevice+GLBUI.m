@@ -11,6 +11,7 @@
 /*--------------------------------------------------*/
 
 static NSNumber* GLB_SystemVersion = nil;
+static NSString* GLB_SystemVersionString = nil;
 static NSString* GLB_DeviceTypeString = nil;
 static NSString* GLB_DeviceVersionString = nil;
 static GLBDeviceFamily GLB_DeviceFamily = GLBDeviceFamilyUnknown;
@@ -25,6 +26,17 @@ static GLBDeviceModel GLB_DeviceModel = GLBDeviceModelUnknown;
         GLB_SystemVersion = @(self.currentDevice.systemVersion.floatValue);
     }
     return GLB_SystemVersion.floatValue;
+}
+
++ (NSString*)glb_systemVersionString {
+    if(GLB_SystemVersionString == nil) {
+        GLB_SystemVersionString = self.currentDevice.systemVersion;
+    }
+    return GLB_SystemVersionString;
+}
+
++ (NSComparisonResult)glb_compareSystemVersion:(NSString*)requiredVersion {
+    return [self.glb_systemVersionString compare:requiredVersion options:NSNumericSearch];
 }
 
 + (BOOL)glb_isSimulator {
