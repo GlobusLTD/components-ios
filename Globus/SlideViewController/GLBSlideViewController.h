@@ -17,6 +17,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerStyle) {
 
 @interface GLBSlideViewController : GLBBaseViewController < GLBViewController >
 
+@property(nonatomic, getter=isAnimating) IBInspectable BOOL animating;
 @property(nonatomic, readonly, getter=isSwipeDragging) BOOL swipeDragging;
 @property(nonatomic, readonly, getter=isSwipeDecelerating) BOOL swipeDecelerating;
 @property(nonatomic) IBInspectable CGFloat swipeVelocity;

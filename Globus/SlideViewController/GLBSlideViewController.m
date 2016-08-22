@@ -679,6 +679,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             if(self.isViewLoaded == NO) {
                 animated = NO;
             }
+            _animating = YES;
             _showedLeftViewController = YES;
             if(_canUseScreenshot == YES) {
                 [self _takeScreenshotView];
@@ -717,6 +718,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                         if([leftViewController respondsToSelector:@selector(didShowControllerInSlideViewController:)] == YES) {
                             [leftViewController didShowControllerInSlideViewController:self];
                         }
+                        [self _updateIteraction];
+                        _animating = NO;
                         if(complete != nil) {
                             complete();
                         }
@@ -739,6 +742,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                         if([leftViewController respondsToSelector:@selector(didShowControllerInSlideViewController:)] == YES) {
                             [leftViewController didShowControllerInSlideViewController:self];
                         }
+                        [self _updateIteraction];
+                        _animating = NO;
                         if(complete != nil) {
                             complete();
                         }
@@ -766,6 +771,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                 if([leftViewController respondsToSelector:@selector(didShowControllerInSlideViewController:)] == YES) {
                     [leftViewController didShowControllerInSlideViewController:self];
                 }
+                [self _updateIteraction];
+                _animating = NO;
                 if(complete != nil) {
                     complete();
                 }
@@ -781,6 +788,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         if(self.isViewLoaded == NO) {
             animated = NO;
         }
+        _animating = YES;
         _swipeProgress = 0.0f;
         CGRect leftFrame = [self _leftViewFrameByPercent:_swipeProgress];
         CGFloat leftAlpha = [self _leftViewAlphaByPercent:_swipeProgress];
@@ -816,6 +824,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                     if([leftViewController respondsToSelector:@selector(didHideControllerInSlideViewController:)] == YES) {
                         [leftViewController didHideControllerInSlideViewController:self];
                     }
+                    [self _updateIteraction];
+                    _animating = NO;
                     if(complete != nil) {
                         complete();
                     }
@@ -841,6 +851,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                     if([leftViewController respondsToSelector:@selector(didHideControllerInSlideViewController:)] == YES) {
                         [leftViewController didHideControllerInSlideViewController:self];
                     }
+                    [self _updateIteraction];
+                    _animating = NO;
                     if(complete != nil) {
                         complete();
                     }
@@ -871,6 +883,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             if([leftViewController respondsToSelector:@selector(didHideControllerInSlideViewController:)] == YES) {
                 [leftViewController didHideControllerInSlideViewController:self];
             }
+            [self _updateIteraction];
+            _animating = NO;
             if(complete != nil) {
                 complete();
             }
@@ -896,6 +910,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             if(self.isViewLoaded == NO) {
                 animated = NO;
             }
+            _animating = YES;
             _showedRightViewController = YES;
             if(_canUseScreenshot == YES) {
                 [self _takeScreenshotView];
@@ -934,6 +949,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                         if([rightViewController respondsToSelector:@selector(didShowControllerInSlideViewController:)] == YES) {
                             [rightViewController didShowControllerInSlideViewController:self];
                         }
+                        [self _updateIteraction];
+                        _animating = NO;
                         if(complete != nil) {
                             complete();
                         }
@@ -956,6 +973,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                         if([rightViewController respondsToSelector:@selector(didShowControllerInSlideViewController:)] == YES) {
                             [rightViewController didShowControllerInSlideViewController:self];
                         }
+                        [self _updateIteraction];
+                        _animating = NO;
                         if(complete != nil) {
                             complete();
                         }
@@ -984,6 +1003,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                 if([rightViewController respondsToSelector:@selector(didShowControllerInSlideViewController:)] == YES) {
                     [rightViewController didShowControllerInSlideViewController:self];
                 }
+                [self _updateIteraction];
+                _animating = NO;
                 if(complete != nil) {
                     complete();
                 }
@@ -999,6 +1020,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         if(self.isViewLoaded == NO) {
             animated = NO;
         }
+        _animating = YES;
         _swipeProgress = 0.0f;
         CGRect rightFrame = [self _rightViewFrameByPercent:_swipeProgress];
         CGFloat rightAlpha = [self _rightViewAlphaByPercent:_swipeProgress];
@@ -1034,6 +1056,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                     if([rightViewController respondsToSelector:@selector(didHideRightViewControllerInSlideViewController:)] == YES) {
                         [rightViewController didHideControllerInSlideViewController:self];
                     }
+                    [self _updateIteraction];
+                    _animating = NO;
                     if(complete != nil) {
                         complete();
                     }
@@ -1059,6 +1083,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                     if([rightViewController respondsToSelector:@selector(didHideRightViewControllerInSlideViewController:)] == YES) {
                         [rightViewController didHideControllerInSlideViewController:self];
                     }
+                    [self _updateIteraction];
+                    _animating = NO;
                     if(complete != nil) {
                         complete();
                     }
@@ -1089,6 +1115,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             if([rightViewController respondsToSelector:@selector(didHideRightViewControllerInSlideViewController:)] == YES) {
                 [rightViewController didHideControllerInSlideViewController:self];
             }
+            [self _updateIteraction];
+            _animating = NO;
             if(complete != nil) {
                 complete();
             }
@@ -1519,15 +1547,17 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 }
 
 - (void)_didEndedSwipe {
-    _showedLeftViewController = (_swipeProgress < 0.0f) ? YES : NO;
-    _showedRightViewController = (_swipeProgress > 0.0f) ? YES : NO;
-    _leftView.hidden = (_showedLeftViewController == NO);
-    _rightView.hidden = (_showedRightViewController == NO);
-    [self _updateIteraction];
-    _swipeDecelerating = NO;
-    if((_showedLeftViewController == NO) && (_showedRightViewController == NO)) {
-        self.screenshotView = nil;
+    if(_animating == NO) {
+        _showedLeftViewController = (_swipeProgress < 0.0f) ? YES : NO;
+        _showedRightViewController = (_swipeProgress > 0.0f) ? YES : NO;
+        _leftView.hidden = (_showedLeftViewController == NO);
+        _rightView.hidden = (_showedRightViewController == NO);
+        [self _updateIteraction];
+        if((_showedLeftViewController == NO) && (_showedRightViewController == NO)) {
+            self.screenshotView = nil;
+        }
     }
+    _swipeDecelerating = NO;
     id< GLBSlideViewControllerDelegate > centerViewController = ([_centerViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_centerViewController : nil;
     if(_swipeDirection == GLBSlideViewControllerSwipeCellDirectionLeft) {
         if([centerViewController respondsToSelector:@selector(didEndedLeftSwipeInSlideViewController:)] == YES) {
@@ -1596,15 +1626,19 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                         break;
                     }
                     case GLBSlideViewControllerSwipeCellDirectionLeft: {
-                        CGFloat localDelta = MIN(MAX(_swipeLeftWidth, delta), -_swipeLeftWidth);
-                        [self _updateSwipeProgress:_swipeProgress - (localDelta / _swipeLeftWidth) speed:localDelta endedSwipe:NO];
-                        [self _movingSwipe:_swipeProgress];
+                        if(_animating == NO) {
+                            CGFloat localDelta = MIN(MAX(_swipeLeftWidth, delta), -_swipeLeftWidth);
+                            [self _updateSwipeProgress:_swipeProgress - (localDelta / _swipeLeftWidth) speed:localDelta endedSwipe:NO];
+                            [self _movingSwipe:_swipeProgress];
+                        }
                         break;
                     }
                     case GLBSlideViewControllerSwipeCellDirectionRight: {
-                        CGFloat localDelta = MIN(MAX(-_swipeRightWidth, delta), _swipeRightWidth);
-                        [self _updateSwipeProgress:_swipeProgress + (localDelta / _swipeRightWidth) speed:localDelta endedSwipe:NO];
-                        [self _movingSwipe:_swipeProgress];
+                        if(_animating == NO) {
+                            CGFloat localDelta = MIN(MAX(-_swipeRightWidth, delta), _swipeRightWidth);
+                            [self _updateSwipeProgress:_swipeProgress + (localDelta / _swipeRightWidth) speed:localDelta endedSwipe:NO];
+                            [self _movingSwipe:_swipeProgress];
+                        }
                         break;
                     }
                 }
@@ -1618,19 +1652,23 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                 CGFloat minSwipeProgress = (_swipeDirection == GLBSlideViewControllerSwipeCellDirectionLeft) ? -1.0f : 0.0f;
                 CGFloat maxSwipeProgress = (_swipeDirection == GLBSlideViewControllerSwipeCellDirectionRight) ? 1.0f :0.0f;
                 CGFloat needSwipeProgress = MIN(MAX(minSwipeProgress, swipeProgress), maxSwipeProgress);
-                switch(_swipeDirection) {
-                    case GLBSlideViewControllerSwipeCellDirectionLeft: {
-                        [self _updateSwipeProgress:needSwipeProgress speed:_swipeLeftWidth * ABS(needSwipeProgress - _swipeProgress) endedSwipe:YES];
-                        break;
+                if(_animating == NO) {
+                    switch(_swipeDirection) {
+                        case GLBSlideViewControllerSwipeCellDirectionLeft: {
+                            [self _updateSwipeProgress:needSwipeProgress speed:_swipeLeftWidth * ABS(needSwipeProgress - _swipeProgress) endedSwipe:YES];
+                            break;
+                        }
+                        case GLBSlideViewControllerSwipeCellDirectionRight: {
+                            [self _updateSwipeProgress:needSwipeProgress speed:_swipeRightWidth * ABS(needSwipeProgress - _swipeProgress) endedSwipe:YES];
+                            break;
+                        }
+                        default: {
+                            [self _didEndedSwipe];
+                            break;
+                        }
                     }
-                    case GLBSlideViewControllerSwipeCellDirectionRight: {
-                        [self _updateSwipeProgress:needSwipeProgress speed:_swipeRightWidth * ABS(needSwipeProgress - _swipeProgress) endedSwipe:YES];
-                        break;
-                    }
-                    default: {
-                        [self _didEndedSwipe];
-                        break;
-                    }
+                } else {
+                    [self _didEndedSwipe];
                 }
                 break;
             }
