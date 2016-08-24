@@ -50,7 +50,7 @@
 }
 
 - (CGSize)sizeForItem:(id)item availableSize:(CGSize)size {
-    if(UIDevice.glb_systemVersion >= 8.0f) {
+    if([UIDevice glb_compareSystemVersion:@"8.0"] != NSOrderedAscending) {
         return [self systemLayoutSizeFittingSize:CGSizeMake(size.width, size.height) withHorizontalFittingPriority:[self fittingHorizontalPriority] verticalFittingPriority:[self fittingVerticalPriority]];
     }
     return [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];

@@ -185,7 +185,7 @@
     if([vc respondsToSelector:@selector(isToolbarHidden)] == YES) {
         [navigationController setToolbarHidden:[vc isToolbarHidden] animated:animated];
     }
-    if(UIDevice.glb_systemVersion >= 8.0f) {
+    if([UIDevice glb_compareSystemVersion:@"8.0"] != NSOrderedAscending) {
         if([vc respondsToSelector:@selector(hidesBarsWhenKeyboardAppears)] == YES) {
             navigationController.hidesBarsWhenKeyboardAppears = [vc hidesBarsWhenKeyboardAppears];
         }
@@ -262,7 +262,7 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer*)otherGesture {
     if([otherGesture isKindOfClass:UIPanGestureRecognizer.class] == YES) {
-        if(UIDevice.glb_systemVersion >= 8.0f) {
+        if([UIDevice glb_compareSystemVersion:@"8.0"] != NSOrderedAscending) {
             if(otherGesture == self.barHideOnSwipeGestureRecognizer) {
                 return YES;
             }

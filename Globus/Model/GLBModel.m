@@ -4,6 +4,7 @@
 
 /*--------------------------------------------------*/
 
+#import "NSObject+GLBNS.h"
 #import "NSString+GLBNS.h"
 #import "NSArray+GLBNS.h"
 #import "NSDictionary+GLBNS.h"
@@ -32,6 +33,7 @@
 #pragma mark - Synthesize
 
 @synthesize jsonMap = _jsonMap;
+@synthesize jsonShemeMap = _jsonShemeMap;
 @synthesize packMap = _packMap;
 @synthesize defaultsMap = _defaultsMap;
 @synthesize propertyMap = _propertyMap;
@@ -70,26 +72,34 @@
 - (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super init];
     if(self != nil) {
-        NSMutableSet* fields = [NSMutableSet set];
         NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
-        if(defaultsMap.count > 0) {
-            [fields addObjectsFromArray:defaultsMap.allKeys];
-        }
-        NSArray< NSString* >* serializeMap = self.serializeMap;
-        if(serializeMap.count > 0) {
-            [fields addObjectsFromArray:serializeMap];
-        }
-        for(NSString* field in fields) {
-            id value = [coder decodeObjectForKey:field];
+        NSDictionary< NSString*, id >* serializeMap = self.serializeMap;
+        [serializeMap enumerateKeysAndObjectsUsingBlock:^(NSString* propertyName, id field, BOOL* stop) {
+            id value = [coder decodeObjectForKey:propertyName];
             if(value == nil) {
-                value = defaultsMap[field];
+                if([field isKindOfClass:NSArray.class] == YES) {
+                    for(NSString* subField in field) {
+                        value = [coder decodeObjectForKey:subField];
+                        if(value != nil) {
+                            break;
+                        }
+                    }
+                } else {
+                    value = [coder decodeObjectForKey:field];
+                }
             }
-            @try {
-                [self setValue:value forKey:field];
+            if(value == nil) {
+                value = defaultsMap[propertyName];
             }
-            @catch(NSException *exception) {
+            if(value != nil) {
+                @try {
+                    [self setValue:value forKey:propertyName];
+                }
+                @catch(NSException* exception) {
+                    NSLog(@"GLBModel::initWithCoder:%@ Field=%@ Exception = %@", _storeName, field, exception);
+                }
             }
-        }
+        }];
         [self setup];
     }
     return self;
@@ -130,7 +140,7 @@
     if([object isKindOfClass:self.class] == YES) {
         NSArray* map = self.compareMap;
         if(map.count < 1) {
-            map = self.serializeMap;
+            map = self.serializeMap.allKeys;
         }
         if(map.count > 0) {
             result = YES;
@@ -154,12 +164,25 @@
 #pragma mark - NSCoding
 
 - (void)encodeWithCoder:(NSCoder*)coder {
-    for(NSString* field in self.serializeMap) {
-        id value = [self valueForKey:field];
-        if(value != nil) {
-            [coder encodeObject:value forKey:field];
+    NSDictionary< NSString*, id >* serializeMap = self.serializeMap;
+    [serializeMap enumerateKeysAndObjectsUsingBlock:^(NSString* propertyName, id field, BOOL* stop) {
+        id value = [self valueForKey:propertyName];
+        if(value == nil) {
+            if([field isKindOfClass:NSArray.class] == YES) {
+                for(NSString* subField in field) {
+                    value = [self valueForKey:subField];
+                    if(value != nil) {
+                        break;
+                    }
+                }
+            } else {
+                value = [self valueForKey:field];
+            }
         }
-    }
+        if(value != nil) {
+            [coder encodeObject:value forKey:propertyName];
+        }
+    }];
 }
 
 #pragma mark - NSCopying
@@ -172,7 +195,7 @@
         result.appGroupIdentifier = _appGroupIdentifier;
         NSArray* map = self.copyMap;
         if(map.count < 1) {
-            map = self.serializeMap;
+            map = self.serializeMap.allKeys;
         }
         for(NSString* field in map) {
             id value = [self valueForKey:field];
@@ -184,30 +207,39 @@
                         [array addObject:itemCopy];
                     }
                 }
-                @try {
-                    [result setValue:array forKey:field];
-                }
-                @catch(NSException *exception) {
+                if(value != nil) {
+                    @try {
+                        [result setValue:array forKey:field];
+                    }
+                    @catch(NSException* exception) {
+                        NSLog(@"GLBModel::copyWithZone:%@ Field=%@ Exception = %@", _storeName, field, exception);
+                    }
                 }
             } else if([value isKindOfClass:NSDictionary.class] == YES) {
                 NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithCapacity:[value count]];
-                [value glb_each:^(id key, id item) {
+                [value enumerateKeysAndObjectsUsingBlock:^(id key, id item, BOOL* stop) {
                     id itemCopy = [item copyWithZone:zone];
                     if(itemCopy != nil) {
                         dict[key] = itemCopy;
                     }
                 }];
-                @try {
-                    [result setValue:dict forKey:field];
-                }
-                @catch(NSException *exception) {
+                if(value != nil) {
+                    @try {
+                        [result setValue:dict forKey:field];
+                    }
+                    @catch(NSException* exception) {
+                        NSLog(@"GLBModel::copyWithZone:%@ Field=%@ Exception = %@", _storeName, field, exception);
+                    }
                 }
             } else {
                 value = [value copyWithZone:zone];
-                @try {
-                    [result setValue:value forKey:field];
-                }
-                @catch(NSException *exception) {
+                if(value != nil) {
+                    @try {
+                        [result setValue:value forKey:field];
+                    }
+                    @catch(NSException* exception) {
+                        NSLog(@"GLBModel::copyWithZone:%@ Field=%@ Exception = %@", _storeName, field, exception);
+                    }
                 }
             }
         }
@@ -244,6 +276,15 @@
     return _jsonMap;
 }
 
+- (NSDictionary< NSString*, NSDictionary< NSString*, GLBModelJson* >* >*)jsonShemeMap {
+    @synchronized(self) {
+        if(_jsonShemeMap == nil) {
+            _jsonShemeMap = [self.class _buildJsonShemeMap];
+        }
+    }
+    return _jsonShemeMap;
+}
+
 - (NSDictionary< NSString*, GLBModelPack* >*)packMap {
     @synchronized(self) {
         if(_packMap == nil) {
@@ -260,6 +301,15 @@
         }
     }
     return _defaultsMap;
+}
+
+- (NSDictionary< NSString*, id >*)serializeMap {
+    @synchronized(self) {
+        if(_serializeMap == nil) {
+            _serializeMap = [self.class _buildSerializeMap];
+        }
+    }
+    return _serializeMap;
 }
 
 - (NSArray< NSString* >*)propertyMap {
@@ -280,15 +330,6 @@
     return _compareMap;
 }
 
-- (NSArray< NSString* >*)serializeMap {
-    @synchronized(self) {
-        if(_serializeMap == nil) {
-            _serializeMap = [self.class _buildSerializeMap];
-        }
-    }
-    return _serializeMap;
-}
-
 - (NSArray< NSString* >*)copyMap {
     @synchronized(self) {
         if(_copyMap == nil) {
@@ -300,11 +341,15 @@
 
 #pragma mark - GLBModel
 
-+ (NSDictionary*)jsonMap {
++ (NSDictionary< NSString*, GLBModelJson* >*)jsonMap {
     return nil;
 }
 
-+ (NSDictionary*)packMap {
++ (NSDictionary< NSString*, NSDictionary< NSString*, GLBModelJson* >* >*)jsonShemeMap {
+    return nil;
+}
+
++ (NSDictionary< NSString*, GLBModelPack* >*)packMap {
     return nil;
 }
 
@@ -312,10 +357,22 @@
     return [[self alloc] initWithJson:json];
 }
 
++ (instancetype)modelWithJson:(id)json sheme:(NSString*)sheme {
+    return [[self alloc] initWithJson:json sheme:sheme];
+}
+
 + (instancetype)modelWithJsonData:(NSData*)data {
     id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     if(json != nil) {
-        return [self modelWithJson:json];
+        return [[self alloc] initWithJson:json];
+    }
+    return nil;
+}
+
++ (instancetype)modelWithJsonData:(NSData*)data sheme:(NSString*)sheme {
+    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    if(json != nil) {
+        return [[self alloc] initWithJson:json sheme:sheme];
     }
     return nil;
 }
@@ -325,9 +382,9 @@
 }
 
 + (instancetype)modelWithPackData:(NSData*)data {
-    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    if(json != nil) {
-        return [self modelWithPack:json];
+    id pack = [NSObject glb_unpackFromData:data];
+    if(pack != nil) {
+        return [self modelWithPack:pack];
     }
     return nil;
 }
@@ -336,6 +393,15 @@
     self = [super init];
     if(self != nil) {
         [self fromJson:json];
+        [self setup];
+    }
+    return self;
+}
+
+- (instancetype)initWithJson:(id)json sheme:(NSString*)sheme {
+    self = [super init];
+    if(self != nil) {
+        [self fromJson:json sheme:sheme];
         [self setup];
     }
     return self;
@@ -351,30 +417,24 @@
 }
 
 - (void)fromJson:(id)json {
-    NSMutableSet* fields = [NSMutableSet set];
-    NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
-    if(defaultsMap.count > 0) {
-        [fields addObjectsFromArray:defaultsMap.allKeys];
-    }
     NSDictionary< NSString*, GLBModelJson* >* jsonMap = self.jsonMap;
-    if(jsonMap.count > 0) {
-        [fields addObjectsFromArray:jsonMap.allKeys];
+    if(jsonMap == nil) {
+        return;
     }
-    for(NSString* field in fields) {
-        id value = nil;
-        GLBModelJson* converter = jsonMap[field];
-        if(converter != nil) {
-            value = [converter parseJson:json];
-        }
-        if(value == nil) {
-            value = defaultsMap[field];
-        }
-        @try {
-            [self setValue:value forKey:field];
-        }
-        @catch(NSException *exception) {
-        }
+    [self _fromJson:json sheme:nil jsonMap:jsonMap];
+}
+
+- (void)fromJson:(id)json sheme:(NSString*)sheme {
+    NSDictionary< NSString*, GLBModelJson* >* jsonMap = nil;
+    if(sheme != nil) {
+        jsonMap = self.jsonShemeMap[sheme];
+    } else {
+        jsonMap = self.jsonMap;
     }
+    if(jsonMap == nil) {
+        return;
+    }
+    [self _fromJson:json sheme:sheme jsonMap:jsonMap];
 }
 
 - (void)fromJsonData:(NSData*)data {
@@ -384,7 +444,51 @@
     }
 }
 
-- (NSDictionary< NSString*, id >* _Nullable)pack {
+- (void)fromJsonData:(NSData*)data sheme:(NSString*)sheme {
+    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    if(json != nil) {\
+        [self fromJson:json sheme:sheme];
+    }
+}
+
+- (NSDictionary*)toJson {
+    NSDictionary< NSString*, GLBModelJson* >* jsonMap = self.jsonMap;
+    if(jsonMap == nil) {
+        return nil;
+    }
+    return [self _toJson:nil jsonMap:self.jsonMap];
+}
+
+- (NSDictionary*)toJson:(NSString*)sheme {
+    NSDictionary< NSString*, GLBModelJson* >* jsonMap = nil;
+    if(sheme != nil) {
+        jsonMap = self.jsonShemeMap[sheme];
+    } else {
+        jsonMap = self.jsonMap;
+    }
+    if(jsonMap == nil) {
+        return nil;
+    }
+    return [self _toJson:nil jsonMap:jsonMap];
+}
+
+- (NSData*)toJsonData {
+    NSDictionary* json = [self toJson];
+    if(json != nil) {
+        return [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
+    }
+    return nil;
+}
+
+- (NSData*)toJsonData:(NSString*)sheme {
+    NSDictionary* json = [self toJson:sheme];
+    if(json != nil) {
+        return [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
+    }
+    return nil;
+}
+
+- (NSDictionary< NSString*, id >*)pack {
     NSMutableDictionary* result = NSMutableDictionary.dictionary;
     [self.packMap enumerateKeysAndObjectsUsingBlock:^(NSString* field, GLBModelPack* converter, BOOL* stop __unused) {
         id value = [self valueForKey:field];
@@ -399,9 +503,9 @@
 }
 
 - (NSData*)packData {
-    NSDictionary* packDict = self.pack;
-    if(packDict != nil) {
-        return [NSJSONSerialization dataWithJSONObject:packDict options:0 error:nil];
+    NSDictionary* pack = [self pack];
+    if(pack != nil) {
+        return [NSObject glb_packObject:pack];
     }
     return nil;
 }
@@ -427,19 +531,22 @@
             if(value == nil) {
                 value = defaultsMap[field];
             }
-            @try {
-                [self setValue:value forKey:field];
-            }
-            @catch(NSException *exception) {
+            if(value != nil) {
+                @try {
+                    [self setValue:value forKey:field];
+                }
+                @catch(NSException* exception) {
+                    NSLog(@"GLBModel::unpack:%@ Field=%@ Exception = %@", _storeName, field, exception);
+                }
             }
         }
     }
 }
 
 - (void)unpackData:(NSData*)data {
-    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    if(json != nil) {
-        [self unpack:json];
+    id object = [NSObject glb_unpackFromData:data];
+    if([object isKindOfClass:NSDictionary.class] == YES) {
+        [self unpack:object];
     }
 }
 
@@ -483,13 +590,16 @@
 
 - (void)clear {
     NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
-    NSArray< NSString* >* serializeMap = self.serializeMap;
-    for(NSString* field in serializeMap) {
+    NSDictionary< NSString*, id >* serializeMap = self.serializeMap;
+    for(NSString* field in serializeMap.allKeys) {
         id value = defaultsMap[field];
-        @try {
-            [self setValue:value forKey:field];
-        }
-        @catch(NSException *exception) {
+        if(value != nil) {
+            @try {
+                [self setValue:value forKey:field];
+            }
+            @catch(NSException* exception) {
+                NSLog(@"GLBModel::clear:%@ Field=%@ Exception = %@", _storeName, field, exception);
+            }
         }
     }
 }
@@ -579,37 +689,45 @@
             }
         }
         if(dict != nil) {
-            NSMutableSet* fields = [NSMutableSet set];
             NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
-            if(defaultsMap.count > 0) {
-                [fields addObjectsFromArray:defaultsMap.allKeys];
-            }
-            NSArray< NSString* >* serializeMap = self.serializeMap;
-            if(serializeMap.count > 0) {
-                [fields addObjectsFromArray:serializeMap];
-            }
-            for(NSString* field in fields) {
-                id value = dict[field];
+            NSDictionary< NSString*, id >* serializeMap = self.serializeMap;
+            [serializeMap enumerateKeysAndObjectsUsingBlock:^(NSString* propertyName, id field, BOOL* stop) {
+                id value = dict[propertyName];
                 if(value == nil) {
-                    value = defaultsMap[field];
+                    if([field isKindOfClass:NSArray.class] == YES) {
+                        for(NSString* subField in field) {
+                            value = dict[subField];
+                            if(value != nil) {
+                                break;
+                            }
+                        }
+                    } else {
+                        value = dict[field];
+                    }
+                }
+                if(value == nil) {
+                    value = defaultsMap[propertyName];
                 } else if([value isKindOfClass:NSData.class] == YES) {
                     @try {
                         value = [NSKeyedUnarchiver unarchiveObjectWithData:value];
                     }
-                    @catch(NSException *exception) {
+                    @catch(NSException* exception) {
                         value = nil;
                     }
                 }
-                @try {
-                    [self setValue:value forKey:field];
+                if(value != nil) {
+                    @try {
+                        [self setValue:value forKey:propertyName];
+                    }
+                    @catch(NSException* exception) {
+                        NSLog(@"GLBModel::load:%@ Field=%@ Exception = %@", _storeName, field, exception);
+                    }
                 }
-                @catch(NSException *exception) {
-                }
-            }
+            }];
         }
     }
     @catch(NSException* exception) {
-        NSLog(@"GLBModel::loadItem:%@ Exception = %@", _storeName, exception);
+        NSLog(@"GLBModel::load:%@ Exception = %@", _storeName, exception);
     }
 }
 
@@ -677,6 +795,14 @@
     return [GLBModelHelper dictionaryMap:cache class:self.class selector:@selector(jsonMap)];
 }
 
++ (NSDictionary< NSString*, NSDictionary< NSString*, GLBModelJson* >* >*)_buildJsonShemeMap {
+    static NSMutableDictionary* cache = nil;
+    if(cache == nil) {
+        cache = NSMutableDictionary.dictionary;
+    }
+    return [GLBModelHelper multiDictionaryMap:cache class:self.class selector:@selector(jsonShemeMap)];
+}
+
 + (NSDictionary< NSString*, GLBModelPack* >*)_buildPackMap {
     static NSMutableDictionary* cache = nil;
     if(cache == nil) {
@@ -691,6 +817,14 @@
         cache = NSMutableDictionary.dictionary;
     }
     return [GLBModelHelper dictionaryMap:cache class:self.class selector:@selector(defaultsMap)];
+}
+
++ (NSDictionary< NSString*, id >*)_buildSerializeMap {
+    static NSMutableDictionary* cache = nil;
+    if(cache == nil) {
+        cache = NSMutableDictionary.dictionary;
+    }
+    return [GLBModelHelper dictionaryMap:cache class:self.class selector:@selector(serializeMap)];
 }
 
 + (NSArray< NSString* >* _Nonnull)_buildPropertyMap {
@@ -709,14 +843,6 @@
     return [GLBModelHelper arrayMap:cache class:self.class selector:@selector(compareMap)];
 }
 
-+ (NSArray< NSString* >*)_buildSerializeMap {
-    static NSMutableDictionary* cache = nil;
-    if(cache == nil) {
-        cache = NSMutableDictionary.dictionary;
-    }
-    return [GLBModelHelper arrayMap:cache class:self.class selector:@selector(serializeMap)];
-}
-
 + (NSArray< NSString* >*)_buildCopyMap {
     static NSMutableDictionary* cache = nil;
     if(cache == nil) {
@@ -727,6 +853,73 @@
 
 - (NSString*)_filePath {
     return [self.class _filePathWithStoreName:_storeName appGroupIdentifier:_appGroupIdentifier];
+}
+
+- (void)_fromJson:(id)json sheme:(NSString*)sheme jsonMap:(NSDictionary< NSString*, GLBModelJson* >*)jsonMap {
+    NSMutableSet* fields = [NSMutableSet set];
+    NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
+    if(defaultsMap.count > 0) {
+        [fields addObjectsFromArray:defaultsMap.allKeys];
+    }
+    if(jsonMap.count > 0) {
+        [fields addObjectsFromArray:jsonMap.allKeys];
+    }
+    for(NSString* field in fields) {
+        id value = nil;
+        GLBModelJson* converter = jsonMap[field];
+        if(converter != nil) {
+            for(NSString* path in converter.subPaths) {
+                value = [json valueForKeyPath:path];
+                if(value != nil) {
+                    break;
+                }
+            }
+            if(value != nil) {
+                value = [converter fromJson:value sheme:sheme];
+            }
+        }
+        if(value == nil) {
+            value = defaultsMap[field];
+        }
+        if(value != nil) {
+            @try {
+                [self setValue:value forKey:field];
+            }
+            @catch(NSException* exception) {
+                NSLog(@"GLBModel::fromJson:%@ Field=%@ Exception = %@", _storeName, field, exception);
+            }
+        }
+    }
+}
+
+- (NSDictionary*)_toJson:(NSString*)sheme jsonMap:(NSDictionary< NSString*, GLBModelJson* >*)jsonMap {
+    NSMutableDictionary* result = [NSMutableDictionary dictionary];
+    [jsonMap enumerateKeysAndObjectsUsingBlock:^(NSString* field, GLBModelJson* converter, BOOL* stop __unused) {
+        if(converter.subPaths.count > 0) {
+            id value = [self valueForKey:field];
+            if(value != nil) {
+                id jsonValue = [converter toJson:value sheme:sheme];
+                if(jsonValue != nil) {
+                    __block NSMutableDictionary* dict = result;
+                    NSString* subPath = converter.subPaths.firstObject;
+                    NSArray* subPathParts = converter.subPathParts.firstObject;
+                    if(subPathParts.count > 1) {
+                        subPath = subPathParts.lastObject;
+                        [subPathParts glb_each:^(NSString* key) {
+                            NSMutableDictionary* subDict = dict[key];
+                            if(subDict == nil) {
+                                subDict = [NSMutableDictionary dictionary];
+                                dict[key] = subDict;
+                            }
+                            dict = subDict;
+                        } range:NSMakeRange(0, subPathParts.count - 1)];
+                    }
+                    [dict setValue:jsonValue forKeyPath:subPath];
+                }
+            }
+        }
+    }];
+    return result.copy;
 }
 
 #pragma mark - GLBObjectDebugProtocol
@@ -791,45 +984,94 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
-+ (NSArray*)arrayMap:(NSMutableDictionary*)cache class:(Class)class selector:(SEL)selector {
++ (NSDictionary< id, NSDictionary* >*)multiDictionaryMap:(NSMutableDictionary*)cache class:(Class)class selector:(SEL)selector {
     NSString* className = NSStringFromClass(class);
-    NSMutableArray* map = cache[className];
-    if(map == nil) {
-        Class superClass = [class superclass];
-        NSArray* superMap = nil;
-        if(superClass != nil) {
-            superMap = [self arrayMap:cache class:superClass selector:selector];
-        }
-        map = [NSMutableArray arrayWithArray:superMap];
-        if([class respondsToSelector:selector] == YES) {
-            NSArray* mapPart = [class performSelector:selector];
-            if([mapPart isKindOfClass:NSArray.class] == YES) {
-                [map addObjectsFromArray:mapPart];
-            }
-        }
-        cache[className] = map;
+    NSDictionary* classMap = cache[className];
+    if(classMap != nil) {
+        return classMap;
     }
+    if([class conformsToProtocol:@protocol(GLBModel)] != YES) {
+        return nil;
+    }
+    NSDictionary* map = nil;
+    NSDictionary< id, NSDictionary* >* superMap = nil;
+    Class superClass = [class superclass];
+    if(superClass != nil) {
+        superMap = [self dictionaryMap:cache class:superClass selector:selector];
+    }
+    NSDictionary< id, NSDictionary* >* partMap = [class performSelector:selector];
+    if(partMap != nil) {
+        NSMutableDictionary* mutMap = [NSMutableDictionary dictionary];
+        NSArray* shemes = [NSArray glb_arrayWithArray:superMap.allKeys addingObjectsFromArray:partMap.allKeys];
+        for(id sheme in shemes) {
+            NSDictionary* superShemeMap = superMap[sheme];
+            NSDictionary* partShemeMap = partMap[sheme];
+            NSMutableDictionary* shemeMap = [NSMutableDictionary dictionaryWithCapacity:superShemeMap.count + partShemeMap.count];
+            if(superShemeMap != nil) {
+                [shemeMap addEntriesFromDictionary:superShemeMap];
+            }
+            if(partShemeMap != nil) {
+                [shemeMap addEntriesFromDictionary:partShemeMap];
+            }
+            mutMap[sheme] = shemeMap;
+        }
+        map = mutMap.copy;
+    } else {
+        map = superMap;
+    }
+    cache[className] = map;
     return map;
 }
 
 + (NSDictionary*)dictionaryMap:(NSMutableDictionary*)cache class:(Class)class selector:(SEL)selector {
     NSString* className = NSStringFromClass(class);
-    NSMutableDictionary* map = cache[className];
-    if(map == nil) {
-        Class superClass = [class superclass];
-        NSDictionary* superMap = nil;
-        if(superClass != nil) {
-            superMap = [self dictionaryMap:cache class:superClass selector:selector];
-        }
-        map = [NSMutableDictionary dictionaryWithDictionary:superMap];
-        if([class respondsToSelector:selector] == YES) {
-            NSDictionary* mapPart = [class performSelector:selector];
-            if([mapPart isKindOfClass:NSDictionary.class] == YES) {
-                [map addEntriesFromDictionary:mapPart];
-            }
-        }
-        cache[className] = map;
+    NSDictionary* classMap = cache[className];
+    if(classMap != nil) {
+        return classMap;
     }
+    if([class conformsToProtocol:@protocol(GLBModel)] != YES) {
+        return nil;
+    }
+    NSMutableDictionary* mutMap = [NSMutableDictionary dictionary];
+    Class superClass = [class superclass];
+    if(superClass != nil) {
+        NSDictionary* superMap = [self dictionaryMap:cache class:superClass selector:selector];
+        if(superMap != nil) {
+            [mutMap addEntriesFromDictionary:superMap];
+        }
+    }
+    NSDictionary* partMap = [class performSelector:selector];
+    if(partMap != nil) {
+        [mutMap addEntriesFromDictionary:partMap];
+    }
+    NSDictionary* map = mutMap.copy;
+    cache[className] = map;
+    return map;
+}
+
++ (NSArray*)arrayMap:(NSMutableDictionary*)cache class:(Class)class selector:(SEL)selector {
+    NSString* className = NSStringFromClass(class);
+    NSArray* classMap = cache[className];
+    if(classMap != nil) {
+        return classMap;
+    }
+    if([class conformsToProtocol:@protocol(GLBModel)] != YES) {
+        return nil;
+    }
+    NSMutableArray* mutMap = [NSMutableArray array];
+    Class superClass = [class superclass];
+    if(superClass != nil) {
+        NSArray* superMap = [self arrayMap:cache class:superClass selector:selector];
+        if(superMap != nil) {
+            [mutMap addObjectsFromArray:superMap];
+        }
+    }
+    NSArray* partMap = [class performSelector:selector];
+    if(partMap != nil) {
+        [mutMap addObjectsFromArray:partMap];
+    }
+    NSArray* map = mutMap.copy;
+    cache[className] = map;
     return map;
 }
 

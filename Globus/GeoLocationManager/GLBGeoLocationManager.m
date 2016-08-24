@@ -123,13 +123,13 @@ typedef void(^GLBGeoLocationManagerPrefornBlock)();
 #if defined(GLB_TARGET_IOS)
 
 - (void)setAllowsBackgroundUpdates:(BOOL)allowsBackgroundUpdates {
-    if(UIDevice.glb_systemVersion >= 9.0f) {
+    if([UIDevice glb_compareSystemVersion:@"9.0"] != NSOrderedAscending) {
         _locationManager.allowsBackgroundLocationUpdates = allowsBackgroundUpdates;
     }
 }
 
 - (BOOL)allowsBackgroundUpdates {
-    if(UIDevice.glb_systemVersion >= 9.0f) {
+    if([UIDevice glb_compareSystemVersion:@"9.0"] != NSOrderedAscending) {
         return _locationManager.allowsBackgroundLocationUpdates;
     }
     return YES;
@@ -241,7 +241,7 @@ typedef void(^GLBGeoLocationManagerPrefornBlock)();
 - (void)_startUpdatingIfNeeded {
 #if defined(GLB_TARGET_IOS)
 #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0)
-    if(UIDevice.glb_systemVersion >= 8.0f) {
+    if([UIDevice glb_compareSystemVersion:@"8.0"] != NSOrderedAscending) {
         switch(CLLocationManager.authorizationStatus) {
             case kCLAuthorizationStatusNotDetermined: {
                 BOOL hasAlwaysKey = ([NSBundle.mainBundle objectForInfoDictionaryKey:@"NSLocationAlwaysUsageDescription"] != nil);

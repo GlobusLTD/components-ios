@@ -164,12 +164,26 @@
 		402B59B01BF497700084F50C /* GLBGeoLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 402B59AE1BF497700084F50C /* GLBGeoLocationManager.m */; };
 		402B59C21BF497B40084F50C /* GLBNotificationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 402B59C01BF497B40084F50C /* GLBNotificationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		402B59C31BF497B40084F50C /* GLBNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 402B59C11BF497B40084F50C /* GLBNotificationManager.m */; };
-		4034B0931CE1E6790019FBCC /* GLBModelPack.h in Headers */ = {isa = PBXBuildFile; fileRef = 4034B0911CE1E6790019FBCC /* GLBModelPack.h */; };
+		4034B0931CE1E6790019FBCC /* GLBModelPack.h in Headers */ = {isa = PBXBuildFile; fileRef = 4034B0911CE1E6790019FBCC /* GLBModelPack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4034B0941CE1E6790019FBCC /* GLBModelPack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4034B0921CE1E6790019FBCC /* GLBModelPack.m */; };
 		4036BD761CA4830B00E5A793 /* GLBVideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4036BD751CA4830B00E5A793 /* GLBVideoPlayerView.m */; };
 		4036BD781CA4837000E5A793 /* GLBVideoPlayerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4036BD741CA4830B00E5A793 /* GLBVideoPlayerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		403AEED71D6AEED4006C3DF1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 405B77C31C50E99B00DA763D /* WebKit.framework */; };
+		403AEED81D6AEED9006C3DF1 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403D4CC01CF4789E0078DB66 /* WatchConnectivity.framework */; };
+		403AEEE01D6AEF1A006C3DF1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEED91D6AEF1A006C3DF1 /* AVFoundation.framework */; };
+		403AEEE11D6AEF1A006C3DF1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEEDA1D6AEF1A006C3DF1 /* CoreData.framework */; };
+		403AEEE21D6AEF1A006C3DF1 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEEDB1D6AEF1A006C3DF1 /* CoreFoundation.framework */; };
+		403AEEE31D6AEF1A006C3DF1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEEDC1D6AEF1A006C3DF1 /* CoreGraphics.framework */; };
+		403AEEE41D6AEF1A006C3DF1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEEDD1D6AEF1A006C3DF1 /* CoreLocation.framework */; };
+		403AEEE51D6AEF1A006C3DF1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEEDE1D6AEF1A006C3DF1 /* Foundation.framework */; };
+		403AEEE61D6AEF1A006C3DF1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEEDF1D6AEF1A006C3DF1 /* UIKit.framework */; };
+		403AEEE91D6AF204006C3DF1 /* PersonModel-CustomSheme.json in Resources */ = {isa = PBXBuildFile; fileRef = 403AEEE71D6AF204006C3DF1 /* PersonModel-CustomSheme.json */; };
+		403AEEEA1D6AF204006C3DF1 /* PersonModel-DefaultSheme.json in Resources */ = {isa = PBXBuildFile; fileRef = 403AEEE81D6AF204006C3DF1 /* PersonModel-DefaultSheme.json */; };
 		403D4CBF1CF478490078DB66 /* GLBWatchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 403D4CBE1CF478490078DB66 /* GLBWatchManager.m */; };
 		403D4CC11CF4789E0078DB66 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403D4CC01CF4789E0078DB66 /* WatchConnectivity.framework */; };
+		40400DC11D6AE740002831A0 /* ModelTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 40400DC01D6AE740002831A0 /* ModelTest.m */; };
+		40400DC51D6AE790002831A0 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 40400DC41D6AE790002831A0 /* BaseModel.m */; };
+		40400DC91D6AE82A002831A0 /* PersonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 40400DC71D6AE82A002831A0 /* PersonModel.m */; };
 		40442C141C075482006FA684 /* GLBImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 40442C121C075482006FA684 /* GLBImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40442C151C075482006FA684 /* GLBImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40442C131C075482006FA684 /* GLBImageView.m */; };
 		4055C46F1CFAECC800A36F5A /* GLBDataSource+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4055C46C1CFAECC800A36F5A /* GLBDataSource+Private.h */; };
@@ -215,6 +229,10 @@
 		40A73F211BF4CED50059F177 /* GLBDataViewTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 40A73F081BF4CED50059F177 /* GLBDataViewTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40A73F331BF4D27E0059F177 /* GLBSearchBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 40A73F311BF4D27E0059F177 /* GLBSearchBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40A73F341BF4D27E0059F177 /* GLBSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A73F321BF4D27E0059F177 /* GLBSearchBar.m */; };
+		40A856251D5AF735008B30C6 /* NSStream+GLBNS.h in Headers */ = {isa = PBXBuildFile; fileRef = 40A856231D5AF735008B30C6 /* NSStream+GLBNS.h */; };
+		40A856261D5AF735008B30C6 /* NSStream+GLBNS.h in Headers */ = {isa = PBXBuildFile; fileRef = 40A856231D5AF735008B30C6 /* NSStream+GLBNS.h */; };
+		40A856271D5AF735008B30C6 /* NSStream+GLBNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A856241D5AF735008B30C6 /* NSStream+GLBNS.m */; };
+		40A856281D5AF735008B30C6 /* NSStream+GLBNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A856241D5AF735008B30C6 /* NSStream+GLBNS.m */; };
 		40AB69C11C4546C500507142 /* GLBTargetConditionals.h in Headers */ = {isa = PBXBuildFile; fileRef = 40AB69C01C4546C500507142 /* GLBTargetConditionals.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40ABC2DC1C13219E00C95233 /* GLBAppGroupNotificationCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 40ABC2DA1C13219E00C95233 /* GLBAppGroupNotificationCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40ABC2DD1C13219E00C95233 /* GLBAppGroupNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 40ABC2DB1C13219E00C95233 /* GLBAppGroupNotificationCenter.m */; };
@@ -258,9 +276,484 @@
 		40F374C41C6513210016507F /* GLBAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F374C21C6513210016507F /* GLBAudioPlayer.m */; };
 		40F374C81C65132B0016507F /* GLBAudioRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 40F374C61C65132B0016507F /* GLBAudioRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40F374C91C65132B0016507F /* GLBAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F374C71C65132B0016507F /* GLBAudioRecorder.m */; };
+		40FB28271D6AEC2E000ABDE1 /* libGLBAction.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BB8CDE1BF3EE7100D2E180 /* libGLBAction.a */; };
+		40FB28281D6AEC2E000ABDE1 /* libGLBActivityView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B57941BF48CB60084F50C /* libGLBActivityView.a */; };
+		40FB28291D6AEC2E000ABDE1 /* libGLBApiManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B57351BF48B960084F50C /* libGLBApiManager.a */; };
+		40FB282A1D6AEC2E000ABDE1 /* libGLBAppGroupNotificationCenter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40ABC2CA1C13206800C95233 /* libGLBAppGroupNotificationCenter.a */; };
+		40FB282B1D6AEC2E000ABDE1 /* libGLBAudioPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F374A41C6512D00016507F /* libGLBAudioPlayer.a */; };
+		40FB282C1D6AEC2E000ABDE1 /* libGLBAudioRecorder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F374B01C6512DF0016507F /* libGLBAudioRecorder.a */; };
+		40FB282D1D6AEC2E000ABDE1 /* libGLBAudioSession.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F374971C6512BB0016507F /* libGLBAudioSession.a */; };
+		40FB282E1D6AEC2E000ABDE1 /* libGLBBadgeView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58311BF48F380084F50C /* libGLBBadgeView.a */; };
+		40FB282F1D6AEC2E000ABDE1 /* libGLBBaseViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B590A1BF4947D0084F50C /* libGLBBaseViewController.a */; };
+		40FB28301D6AEC2E000ABDE1 /* libGLBBlurView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B57AD1BF48D350084F50C /* libGLBBlurView.a */; };
+		40FB28311D6AEC2E000ABDE1 /* libGLBButton.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58441BF48FB90084F50C /* libGLBButton.a */; };
+		40FB28321D6AEC2E000ABDE1 /* libGLBCache.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B567D1BF4839A0084F50C /* libGLBCache.a */; };
+		40FB28331D6AEC2E000ABDE1 /* libGLBCoreAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B56D41BF4879E0084F50C /* libGLBCoreAnimation.a */; };
+		40FB28341D6AEC2E000ABDE1 /* libGLBCoreFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BB8CD11BF3EE2A00D2E180 /* libGLBCoreFoundation.a */; };
+		40FB28351D6AEC2E000ABDE1 /* libGLBCoreGraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B56901BF4842A0084F50C /* libGLBCoreGraphics.a */; };
+		40FB28361D6AEC2E000ABDE1 /* libGLBDataSource.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 401129191C3AC1AF006751E8 /* libGLBDataSource.a */; };
+		40FB28371D6AEC2E000ABDE1 /* libGLBDataView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A73EE51BF4CEB70059F177 /* libGLBDataView.a */; };
+		40FB28381D6AEC2E000ABDE1 /* libGLBDateField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B57F31BF48E790084F50C /* libGLBDateField.a */; };
+		40FB28391D6AEC2E000ABDE1 /* libGLBDialogViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B591D1BF494E00084F50C /* libGLBDialogViewController.a */; };
+		40FB283A1D6AEC2E000ABDE1 /* libGLBGeoLocationManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B59A21BF4974B0084F50C /* libGLBGeoLocationManager.a */; };
+		40FB283B1D6AEC2E000ABDE1 /* libGLBGrid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4099D1121BF4F78B004C4976 /* libGLBGrid.a */; };
+		40FB283D1D6AEC2E000ABDE1 /* libGLBInputValidation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B57C61BF48DCE0084F50C /* libGLBInputValidation.a */; };
+		40FB283E1D6AEC2E000ABDE1 /* libGLBKVO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BB8D2E1BF3EF4B00D2E180 /* libGLBKVO.a */; };
+		40FB283F1D6AEC2E000ABDE1 /* libGLBLayoutView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58571BF490860084F50C /* libGLBLayoutView.a */; };
+		40FB28401D6AEC2E000ABDE1 /* libGLBListField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58011BF48EA70084F50C /* libGLBListField.a */; };
+		40FB28411D6AEC2E000ABDE1 /* libGLBLoadedView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B586A1BF490E20084F50C /* libGLBLoadedView.a */; };
+		40FB28421D6AEC2E000ABDE1 /* libGLBManagedModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D649411D0882BC008EA701 /* libGLBManagedModel.a */; };
+		40FB28431D6AEC2E000ABDE1 /* libGLBModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B56AF1BF4849C0084F50C /* libGLBModel.a */; };
+		40FB28441D6AEC2E000ABDE1 /* libGLBMoon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD3D0DBB1C57C95300C0F2C0 /* libGLBMoon.a */; };
+		40FB28451D6AEC2E000ABDE1 /* libGLBNavigationViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B59561BF4964B0084F50C /* libGLBNavigationViewController.a */; };
+		40FB28461D6AEC2E000ABDE1 /* libGLBNotificationManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B59B51BF497940084F50C /* libGLBNotificationManager.a */; };
+		40FB28471D6AEC2E000ABDE1 /* libGLBObserver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 406BC4C91D2AD2A0002F0EB0 /* libGLBObserver.a */; };
+		40FB28481D6AEC2E000ABDE1 /* libGLBPageControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B587D1BF491930084F50C /* libGLBPageControl.a */; };
+		40FB28491D6AEC2E000ABDE1 /* libGLBPageViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B59301BF495260084F50C /* libGLBPageViewController.a */; };
+		40FB284A1D6AEC2E000ABDE1 /* libGLBPhoneField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40B546281CA6BB76008E91E5 /* libGLBPhoneField.a */; };
+		40FB284B1D6AEC2E000ABDE1 /* libGLBPopoverController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B598F1BF4970D0084F50C /* libGLBPopoverController.a */; };
+		40FB284C1D6AEC2E000ABDE1 /* libGLBPressAndHoldGestureRecognizer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58C91BF492930084F50C /* libGLBPressAndHoldGestureRecognizer.a */; };
+		40FB284D1D6AEC2E000ABDE1 /* libGLBRegExpParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BB8D3B1BF3EF7300D2E180 /* libGLBRegExpParser.a */; };
+		40FB284E1D6AEC2E000ABDE1 /* libGLBRoundView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58901BF491CE0084F50C /* libGLBRoundView.a */; };
+		40FB284F1D6AEC2E000ABDE1 /* libGLBScrollView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58B61BF4925A0084F50C /* libGLBScrollView.a */; };
+		40FB28501D6AEC2E000ABDE1 /* libGLBSearchBar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A73F261BF4D2600059F177 /* libGLBSearchBar.a */; };
+		40FB28511D6AEC2E000ABDE1 /* libGLBSlideViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B59431BF495B40084F50C /* libGLBSlideViewController.a */; };
+		40FB28521D6AEC2E000ABDE1 /* libGLBSpinnerView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B57541BF48BCA0084F50C /* libGLBSpinnerView.a */; };
+		40FB28531D6AEC2E000ABDE1 /* libGLBSplitViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40DF702E1CA0A6C9005EBB6B /* libGLBSplitViewController.a */; };
+		40FB28541D6AEC2E000ABDE1 /* libGLBStyle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40EE54E91BFA92F90004E5BE /* libGLBStyle.a */; };
+		40FB28551D6AEC2E000ABDE1 /* libGLBTabBarViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B59691BF496900084F50C /* libGLBTabBarViewController.a */; };
+		40FB28561D6AEC2E000ABDE1 /* libGLBTaskManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B56621BF4819D0084F50C /* libGLBTaskManager.a */; };
+		40FB28571D6AEC2E000ABDE1 /* libGLBTextField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B57E51BF48E210084F50C /* libGLBTextField.a */; };
+		40FB28581D6AEC2E000ABDE1 /* libGLBTextView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B580F1BF48EBE0084F50C /* libGLBTextView.a */; };
+		40FB28591D6AEC2E000ABDE1 /* libGLBTimeout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BB8D211BF3EF3500D2E180 /* libGLBTimeout.a */; };
+		40FB285A1D6AEC2E000ABDE1 /* libGLBTimer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BB8D141BF3EF1E00D2E180 /* libGLBTimer.a */; };
+		40FB285B1D6AEC2E000ABDE1 /* libGLBTouchView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58A31BF4920E0084F50C /* libGLBTouchView.a */; };
+		40FB285C1D6AEC2E000ABDE1 /* libGLBTransitionController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58EF1BF4940C0084F50C /* libGLBTransitionController.a */; };
+		40FB285D1D6AEC2E000ABDE1 /* libGLBUIKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B56EA1BF488600084F50C /* libGLBUIKit.a */; };
+		40FB285E1D6AEC2E000ABDE1 /* libGLBVideoPlayerView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4036BD6A1CA4820A00E5A793 /* libGLBVideoPlayerView.a */; };
+		40FB285F1D6AEC2E000ABDE1 /* libGLBViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B597C1BF496D00084F50C /* libGLBViewController.a */; };
+		40FB28601D6AEC2E000ABDE1 /* libGLBWatchManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 403D4CB31CF478050078DB66 /* libGLBWatchManager.a */; };
+		40FB28611D6AEC2E000ABDE1 /* libGLBWebViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 405B77B11C50E7FA00DA763D /* libGLBWebViewController.a */; };
+		40FB28621D6AEC2E000ABDE1 /* libGLBWindow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58DC1BF492C20084F50C /* libGLBWindow.a */; };
 		CD3D0DC61C58394C00C0F2C0 /* GLBMoon.h in Headers */ = {isa = PBXBuildFile; fileRef = CD3D0DC41C58394C00C0F2C0 /* GLBMoon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD3D0DC71C58394C00C0F2C0 /* GLBMoon.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3D0DC51C58394C00C0F2C0 /* GLBMoon.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		40400DB91D6AE6B9002831A0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B56AE1BF4849C0084F50C;
+			remoteInfo = GLBModel;
+		};
+		40FB258C1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40BB8CD01BF3EE2A00D2E180;
+			remoteInfo = GLBCoreFoundation;
+		};
+		40FB258E1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B568F1BF4842A0084F50C;
+			remoteInfo = GLBCoreGraphics;
+		};
+		40FB25901D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B56D31BF4879E0084F50C;
+			remoteInfo = GLBCoreAnimation;
+		};
+		40FB25921D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B56E91BF488600084F50C;
+			remoteInfo = GLBUIKit;
+		};
+		40FB25941D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4099D1111BF4F78B004C4976;
+			remoteInfo = GLBGrid;
+		};
+		40FB25961D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40BB8CDD1BF3EE7100D2E180;
+			remoteInfo = GLBAction;
+		};
+		40FB25981D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40BB8D131BF3EF1E00D2E180;
+			remoteInfo = GLBTimer;
+		};
+		40FB259A1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40BB8D201BF3EF3500D2E180;
+			remoteInfo = GLBTimeout;
+		};
+		40FB259C1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40BB8D2D1BF3EF4B00D2E180;
+			remoteInfo = GLBKVO;
+		};
+		40FB259E1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40BB8D3A1BF3EF7300D2E180;
+			remoteInfo = GLBRegExpParser;
+		};
+		40FB25A01D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B56611BF4819D0084F50C;
+			remoteInfo = GLBTaskManager;
+		};
+		40FB25A21D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 403D4CB21CF478050078DB66;
+			remoteInfo = GLBWatchManager;
+		};
+		40FB25A41D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40D649401D0882BC008EA701;
+			remoteInfo = GLBManagedModel;
+		};
+		40FB25A61D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B567C1BF4839A0084F50C;
+			remoteInfo = GLBCache;
+		};
+		40FB25A81D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B57341BF48B960084F50C;
+			remoteInfo = GLBApiManager;
+		};
+		40FB25AA1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 401129181C3AC1AF006751E8;
+			remoteInfo = GLBDataSource;
+		};
+		40FB25AC1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B57531BF48BCA0084F50C;
+			remoteInfo = GLBSpinnerView;
+		};
+		40FB25AE1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B57AC1BF48D350084F50C;
+			remoteInfo = GLBBlurView;
+		};
+		40FB25B01D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B57931BF48CB60084F50C;
+			remoteInfo = GLBActivityView;
+		};
+		40FB25B21D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B57C51BF48DCE0084F50C;
+			remoteInfo = GLBInputValidation;
+		};
+		40FB25B41D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B57E41BF48E210084F50C;
+			remoteInfo = GLBTextField;
+		};
+		40FB25B61D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40B546271CA6BB76008E91E5;
+			remoteInfo = GLBPhoneField;
+		};
+		40FB25B81D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B57F21BF48E790084F50C;
+			remoteInfo = GLBDateField;
+		};
+		40FB25BA1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B58001BF48EA70084F50C;
+			remoteInfo = GLBListField;
+		};
+		40FB25BC1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B580E1BF48EBE0084F50C;
+			remoteInfo = GLBTextView;
+		};
+		40FB25BE1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B58301BF48F380084F50C;
+			remoteInfo = GLBBadgeView;
+		};
+		40FB25C01D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B58431BF48FB90084F50C;
+			remoteInfo = GLBButton;
+		};
+		40FB25C21D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B58561BF490860084F50C;
+			remoteInfo = GLBLayoutView;
+		};
+		40FB25C41D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B58691BF490E20084F50C;
+			remoteInfo = GLBLoadedView;
+		};
+		40FB25C61D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B587C1BF491930084F50C;
+			remoteInfo = GLBPageControl;
+		};
+		40FB25C81D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B588F1BF491CE0084F50C;
+			remoteInfo = GLBRoundView;
+		};
+		40FB25CA1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B58A21BF4920E0084F50C;
+			remoteInfo = GLBTouchView;
+		};
+		40FB25CC1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B58B51BF4925A0084F50C;
+			remoteInfo = GLBScrollView;
+		};
+		40FB25CE1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B58C81BF492930084F50C;
+			remoteInfo = GLBPressAndHoldGestureRecognizer;
+		};
+		40FB25D01D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B58DB1BF492C20084F50C;
+			remoteInfo = GLBWindow;
+		};
+		40FB25D21D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B58EE1BF4940C0084F50C;
+			remoteInfo = GLBTransitionController;
+		};
+		40FB25D41D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B59091BF4947D0084F50C;
+			remoteInfo = GLBBaseViewController;
+		};
+		40FB25D61D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B591C1BF494E00084F50C;
+			remoteInfo = GLBDialogViewController;
+		};
+		40FB25D81D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B592F1BF495260084F50C;
+			remoteInfo = GLBPageViewController;
+		};
+		40FB25DA1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B59421BF495B40084F50C;
+			remoteInfo = GLBSlideViewController;
+		};
+		40FB25DC1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B59551BF4964B0084F50C;
+			remoteInfo = GLBNavigationViewController;
+		};
+		40FB25DE1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B59681BF496900084F50C;
+			remoteInfo = GLBTabBarViewController;
+		};
+		40FB25E01D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4036BD691CA4820A00E5A793;
+			remoteInfo = GLBVideoPlayerView;
+		};
+		40FB25E21D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40DF702D1CA0A6C9005EBB6B;
+			remoteInfo = GLBSplitViewController;
+		};
+		40FB25E41D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B597B1BF496D00084F50C;
+			remoteInfo = GLBViewController;
+		};
+		40FB25E61D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B598E1BF4970D0084F50C;
+			remoteInfo = GLBPopoverController;
+		};
+		40FB25E81D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B59A11BF4974B0084F50C;
+			remoteInfo = GLBGeoLocationManager;
+		};
+		40FB25EA1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 402B59B41BF497940084F50C;
+			remoteInfo = GLBNotificationManager;
+		};
+		40FB25EC1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40A73F251BF4D2600059F177;
+			remoteInfo = GLBSearchBar;
+		};
+		40FB25EE1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40A73EE41BF4CEB70059F177;
+			remoteInfo = GLBDataView;
+		};
+		40FB25F01D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40EE54E81BFA92F90004E5BE;
+			remoteInfo = GLBStyle;
+		};
+		40FB25F21D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40ABC2C91C13206800C95233;
+			remoteInfo = GLBAppGroupNotificationCenter;
+		};
+		40FB25F61D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 405B77B01C50E7FA00DA763D;
+			remoteInfo = GLBWebViewController;
+		};
+		40FB25F81D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD3D0DB21C57C95300C0F2C0;
+			remoteInfo = GLBMoon;
+		};
+		40FB25FA1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40F374961C6512BB0016507F;
+			remoteInfo = GLBAudioSession;
+		};
+		40FB25FC1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40F374A31C6512D00016507F;
+			remoteInfo = GLBAudioPlayer;
+		};
+		40FB25FE1D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 40F374AF1C6512DF0016507F;
+			remoteInfo = GLBAudioRecorder;
+		};
+		40FB26001D6AEBD9000ABDE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40BB8CB91BF3EDBE00D2E180 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 406BC4C81D2AD2A0002F0EB0;
+			remoteInfo = GLBObserver;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		405B77C51C51086100DA763D /* CopyFiles */ = {
@@ -483,10 +976,28 @@
 		4036BD6A1CA4820A00E5A793 /* libGLBVideoPlayerView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBVideoPlayerView.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4036BD741CA4830B00E5A793 /* GLBVideoPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBVideoPlayerView.h; sourceTree = "<group>"; };
 		4036BD751CA4830B00E5A793 /* GLBVideoPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBVideoPlayerView.m; sourceTree = "<group>"; };
+		403AEED91D6AEF1A006C3DF1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		403AEEDA1D6AEF1A006C3DF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		403AEEDB1D6AEF1A006C3DF1 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		403AEEDC1D6AEF1A006C3DF1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		403AEEDD1D6AEF1A006C3DF1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		403AEEDE1D6AEF1A006C3DF1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		403AEEDF1D6AEF1A006C3DF1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		403AEEE71D6AF204006C3DF1 /* PersonModel-CustomSheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "PersonModel-CustomSheme.json"; sourceTree = "<group>"; };
+		403AEEE81D6AF204006C3DF1 /* PersonModel-DefaultSheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "PersonModel-DefaultSheme.json"; sourceTree = "<group>"; };
 		403D4CB31CF478050078DB66 /* libGLBWatchManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBWatchManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		403D4CBD1CF478490078DB66 /* GLBWatchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GLBWatchManager.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		403D4CBE1CF478490078DB66 /* GLBWatchManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBWatchManager.m; sourceTree = "<group>"; };
 		403D4CC01CF4789E0078DB66 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
+		40400DB31D6AE6B9002831A0 /* UnitTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		40400DB71D6AE6B9002831A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40400DC01D6AE740002831A0 /* ModelTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelTest.m; sourceTree = "<group>"; };
+		40400DC21D6AE790002831A0 /* BaseModel+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BaseModel+Private.h"; sourceTree = "<group>"; };
+		40400DC31D6AE790002831A0 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
+		40400DC41D6AE790002831A0 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
+		40400DC61D6AE82A002831A0 /* PersonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonModel.h; sourceTree = "<group>"; };
+		40400DC71D6AE82A002831A0 /* PersonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonModel.m; sourceTree = "<group>"; };
+		40400DC81D6AE82A002831A0 /* PersonModel+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PersonModel+Private.h"; sourceTree = "<group>"; };
 		40442C071C075448006FA684 /* libGLBImageView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBImageView.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		40442C121C075482006FA684 /* GLBImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBImageView.h; sourceTree = "<group>"; };
 		40442C131C075482006FA684 /* GLBImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBImageView.m; sourceTree = "<group>"; };
@@ -538,6 +1049,8 @@
 		40A73F261BF4D2600059F177 /* libGLBSearchBar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBSearchBar.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		40A73F311BF4D27E0059F177 /* GLBSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBSearchBar.h; sourceTree = "<group>"; };
 		40A73F321BF4D27E0059F177 /* GLBSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBSearchBar.m; sourceTree = "<group>"; };
+		40A856231D5AF735008B30C6 /* NSStream+GLBNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSStream+GLBNS.h"; sourceTree = "<group>"; };
+		40A856241D5AF735008B30C6 /* NSStream+GLBNS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSStream+GLBNS.m"; sourceTree = "<group>"; };
 		40AB69C01C4546C500507142 /* GLBTargetConditionals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBTargetConditionals.h; sourceTree = "<group>"; };
 		40ABC2CA1C13206800C95233 /* libGLBAppGroupNotificationCenter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBAppGroupNotificationCenter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		40ABC2DA1C13219E00C95233 /* GLBAppGroupNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBAppGroupNotificationCenter.h; sourceTree = "<group>"; };
@@ -888,6 +1401,81 @@
 			buildActionMask = 2147483647;
 			files = (
 				403D4CC11CF4789E0078DB66 /* WatchConnectivity.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40400DB01D6AE6B9002831A0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				403AEEE01D6AEF1A006C3DF1 /* AVFoundation.framework in Frameworks */,
+				403AEEE11D6AEF1A006C3DF1 /* CoreData.framework in Frameworks */,
+				403AEEE21D6AEF1A006C3DF1 /* CoreFoundation.framework in Frameworks */,
+				403AEEE31D6AEF1A006C3DF1 /* CoreGraphics.framework in Frameworks */,
+				403AEEE41D6AEF1A006C3DF1 /* CoreLocation.framework in Frameworks */,
+				403AEEE51D6AEF1A006C3DF1 /* Foundation.framework in Frameworks */,
+				403AEEE61D6AEF1A006C3DF1 /* UIKit.framework in Frameworks */,
+				403AEED71D6AEED4006C3DF1 /* WebKit.framework in Frameworks */,
+				403AEED81D6AEED9006C3DF1 /* WatchConnectivity.framework in Frameworks */,
+				40FB28271D6AEC2E000ABDE1 /* libGLBAction.a in Frameworks */,
+				40FB28281D6AEC2E000ABDE1 /* libGLBActivityView.a in Frameworks */,
+				40FB28291D6AEC2E000ABDE1 /* libGLBApiManager.a in Frameworks */,
+				40FB282A1D6AEC2E000ABDE1 /* libGLBAppGroupNotificationCenter.a in Frameworks */,
+				40FB282B1D6AEC2E000ABDE1 /* libGLBAudioPlayer.a in Frameworks */,
+				40FB282C1D6AEC2E000ABDE1 /* libGLBAudioRecorder.a in Frameworks */,
+				40FB282D1D6AEC2E000ABDE1 /* libGLBAudioSession.a in Frameworks */,
+				40FB282E1D6AEC2E000ABDE1 /* libGLBBadgeView.a in Frameworks */,
+				40FB282F1D6AEC2E000ABDE1 /* libGLBBaseViewController.a in Frameworks */,
+				40FB28301D6AEC2E000ABDE1 /* libGLBBlurView.a in Frameworks */,
+				40FB28311D6AEC2E000ABDE1 /* libGLBButton.a in Frameworks */,
+				40FB28321D6AEC2E000ABDE1 /* libGLBCache.a in Frameworks */,
+				40FB28331D6AEC2E000ABDE1 /* libGLBCoreAnimation.a in Frameworks */,
+				40FB28341D6AEC2E000ABDE1 /* libGLBCoreFoundation.a in Frameworks */,
+				40FB28351D6AEC2E000ABDE1 /* libGLBCoreGraphics.a in Frameworks */,
+				40FB28361D6AEC2E000ABDE1 /* libGLBDataSource.a in Frameworks */,
+				40FB28371D6AEC2E000ABDE1 /* libGLBDataView.a in Frameworks */,
+				40FB28381D6AEC2E000ABDE1 /* libGLBDateField.a in Frameworks */,
+				40FB28391D6AEC2E000ABDE1 /* libGLBDialogViewController.a in Frameworks */,
+				40FB283A1D6AEC2E000ABDE1 /* libGLBGeoLocationManager.a in Frameworks */,
+				40FB283B1D6AEC2E000ABDE1 /* libGLBGrid.a in Frameworks */,
+				40FB283D1D6AEC2E000ABDE1 /* libGLBInputValidation.a in Frameworks */,
+				40FB283E1D6AEC2E000ABDE1 /* libGLBKVO.a in Frameworks */,
+				40FB283F1D6AEC2E000ABDE1 /* libGLBLayoutView.a in Frameworks */,
+				40FB28401D6AEC2E000ABDE1 /* libGLBListField.a in Frameworks */,
+				40FB28411D6AEC2E000ABDE1 /* libGLBLoadedView.a in Frameworks */,
+				40FB28421D6AEC2E000ABDE1 /* libGLBManagedModel.a in Frameworks */,
+				40FB28431D6AEC2E000ABDE1 /* libGLBModel.a in Frameworks */,
+				40FB28441D6AEC2E000ABDE1 /* libGLBMoon.a in Frameworks */,
+				40FB28451D6AEC2E000ABDE1 /* libGLBNavigationViewController.a in Frameworks */,
+				40FB28461D6AEC2E000ABDE1 /* libGLBNotificationManager.a in Frameworks */,
+				40FB28471D6AEC2E000ABDE1 /* libGLBObserver.a in Frameworks */,
+				40FB28481D6AEC2E000ABDE1 /* libGLBPageControl.a in Frameworks */,
+				40FB28491D6AEC2E000ABDE1 /* libGLBPageViewController.a in Frameworks */,
+				40FB284A1D6AEC2E000ABDE1 /* libGLBPhoneField.a in Frameworks */,
+				40FB284B1D6AEC2E000ABDE1 /* libGLBPopoverController.a in Frameworks */,
+				40FB284C1D6AEC2E000ABDE1 /* libGLBPressAndHoldGestureRecognizer.a in Frameworks */,
+				40FB284D1D6AEC2E000ABDE1 /* libGLBRegExpParser.a in Frameworks */,
+				40FB284E1D6AEC2E000ABDE1 /* libGLBRoundView.a in Frameworks */,
+				40FB284F1D6AEC2E000ABDE1 /* libGLBScrollView.a in Frameworks */,
+				40FB28501D6AEC2E000ABDE1 /* libGLBSearchBar.a in Frameworks */,
+				40FB28511D6AEC2E000ABDE1 /* libGLBSlideViewController.a in Frameworks */,
+				40FB28521D6AEC2E000ABDE1 /* libGLBSpinnerView.a in Frameworks */,
+				40FB28531D6AEC2E000ABDE1 /* libGLBSplitViewController.a in Frameworks */,
+				40FB28541D6AEC2E000ABDE1 /* libGLBStyle.a in Frameworks */,
+				40FB28551D6AEC2E000ABDE1 /* libGLBTabBarViewController.a in Frameworks */,
+				40FB28561D6AEC2E000ABDE1 /* libGLBTaskManager.a in Frameworks */,
+				40FB28571D6AEC2E000ABDE1 /* libGLBTextField.a in Frameworks */,
+				40FB28581D6AEC2E000ABDE1 /* libGLBTextView.a in Frameworks */,
+				40FB28591D6AEC2E000ABDE1 /* libGLBTimeout.a in Frameworks */,
+				40FB285A1D6AEC2E000ABDE1 /* libGLBTimer.a in Frameworks */,
+				40FB285B1D6AEC2E000ABDE1 /* libGLBTouchView.a in Frameworks */,
+				40FB285C1D6AEC2E000ABDE1 /* libGLBTransitionController.a in Frameworks */,
+				40FB285D1D6AEC2E000ABDE1 /* libGLBUIKit.a in Frameworks */,
+				40FB285E1D6AEC2E000ABDE1 /* libGLBVideoPlayerView.a in Frameworks */,
+				40FB285F1D6AEC2E000ABDE1 /* libGLBViewController.a in Frameworks */,
+				40FB28601D6AEC2E000ABDE1 /* libGLBWatchManager.a in Frameworks */,
+				40FB28611D6AEC2E000ABDE1 /* libGLBWebViewController.a in Frameworks */,
+				40FB28621D6AEC2E000ABDE1 /* libGLBWindow.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1505,6 +2093,13 @@
 		4034B0901CE1E1270019FBCC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				403AEED91D6AEF1A006C3DF1 /* AVFoundation.framework */,
+				403AEEDA1D6AEF1A006C3DF1 /* CoreData.framework */,
+				403AEEDB1D6AEF1A006C3DF1 /* CoreFoundation.framework */,
+				403AEEDC1D6AEF1A006C3DF1 /* CoreGraphics.framework */,
+				403AEEDD1D6AEF1A006C3DF1 /* CoreLocation.framework */,
+				403AEEDE1D6AEF1A006C3DF1 /* Foundation.framework */,
+				403AEEDF1D6AEF1A006C3DF1 /* UIKit.framework */,
 				403D4CC01CF4789E0078DB66 /* WatchConnectivity.framework */,
 				405B77C31C50E99B00DA763D /* WebKit.framework */,
 			);
@@ -1529,6 +2124,47 @@
 			);
 			name = WatchManager;
 			path = Globus/WatchManager;
+			sourceTree = "<group>";
+		};
+		40400DB41D6AE6B9002831A0 /* UnitTest */ = {
+			isa = PBXGroup;
+			children = (
+				40400DBE1D6AE740002831A0 /* Model */,
+				40400DB71D6AE6B9002831A0 /* Info.plist */,
+			);
+			path = UnitTest;
+			sourceTree = "<group>";
+		};
+		40400DBE1D6AE740002831A0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				40400DCA1D6AE87E002831A0 /* Data */,
+				40400DBF1D6AE740002831A0 /* Models */,
+				40400DC01D6AE740002831A0 /* ModelTest.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		40400DBF1D6AE740002831A0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				40400DC31D6AE790002831A0 /* BaseModel.h */,
+				40400DC21D6AE790002831A0 /* BaseModel+Private.h */,
+				40400DC41D6AE790002831A0 /* BaseModel.m */,
+				40400DC61D6AE82A002831A0 /* PersonModel.h */,
+				40400DC81D6AE82A002831A0 /* PersonModel+Private.h */,
+				40400DC71D6AE82A002831A0 /* PersonModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		40400DCA1D6AE87E002831A0 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				403AEEE81D6AF204006C3DF1 /* PersonModel-DefaultSheme.json */,
+				403AEEE71D6AF204006C3DF1 /* PersonModel-CustomSheme.json */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		40442C111C075482006FA684 /* ImageView */ = {
@@ -1650,6 +2286,7 @@
 			children = (
 				40804A9F1BF8D1000059B277 /* Globus.podspec */,
 				4034B08F1CE1E1210019FBCC /* README.md */,
+				40400DB41D6AE6B9002831A0 /* UnitTest */,
 				40BB8CE71BF3EE8800D2E180 /* CoreFoundation */,
 				402B56991BF4844A0084F50C /* CoreGraphics */,
 				402B56DD1BF487BE0084F50C /* CoreAnimation */,
@@ -1778,6 +2415,7 @@
 				403D4CB31CF478050078DB66 /* libGLBWatchManager.a */,
 				40D649411D0882BC008EA701 /* libGLBManagedModel.a */,
 				406BC4C91D2AD2A0002F0EB0 /* libGLBObserver.a */,
+				40400DB31D6AE6B9002831A0 /* UnitTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1814,6 +2452,8 @@
 				40D98EDD1C03FCD1006937FC /* NSOrderedSet+GLBNS.m */,
 				406BC4C11D2ACAAB002F0EB0 /* NSPointerArray+GLBNS.h */,
 				406BC4C21D2ACAAB002F0EB0 /* NSPointerArray+GLBNS.m */,
+				40A856231D5AF735008B30C6 /* NSStream+GLBNS.h */,
+				40A856241D5AF735008B30C6 /* NSStream+GLBNS.m */,
 				40BB8CFC1BF3EE8800D2E180 /* NSString+GLBNS.h */,
 				40BB8CFD1BF3EE8800D2E180 /* NSString+GLBNS.m */,
 				40BB8CFE1BF3EE8800D2E180 /* NSURL+GLBNS.h */,
@@ -1929,6 +2569,7 @@
 				402B56341BF47BFE0084F50C /* NSBundle+GLBNS.h in Headers */,
 				402B56351BF47BFE0084F50C /* NSData+GLBNS.h in Headers */,
 				409DBC671C5033B900BEFC22 /* NSAttributedString+GLBNS.h in Headers */,
+				40A856251D5AF735008B30C6 /* NSStream+GLBNS.h in Headers */,
 				402B56361BF47BFE0084F50C /* NSDate+GLBNS.h in Headers */,
 				40EA70A91D04B3870037FE71 /* NSNumber+GLBNS.h in Headers */,
 				402B56371BF47BFE0084F50C /* NSDateFormatter+GLBNS.h in Headers */,
@@ -2022,6 +2663,7 @@
 				4034B0931CE1E6790019FBCC /* GLBModelPack.h in Headers */,
 				402B56C01BF484D10084F50C /* GLBModel.h in Headers */,
 				402B56BF1BF484D10084F50C /* GLBModel+Private.h in Headers */,
+				40A856261D5AF735008B30C6 /* NSStream+GLBNS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3092,6 +3734,82 @@
 			productReference = 403D4CB31CF478050078DB66 /* libGLBWatchManager.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		40400DB21D6AE6B9002831A0 /* UnitTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 40400DBD1D6AE6B9002831A0 /* Build configuration list for PBXNativeTarget "UnitTest" */;
+			buildPhases = (
+				40400DAF1D6AE6B9002831A0 /* Sources */,
+				40400DB01D6AE6B9002831A0 /* Frameworks */,
+				40400DB11D6AE6B9002831A0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				40FB258D1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB258F1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25911D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25931D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25951D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25971D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25991D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB259B1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB259D1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB259F1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25A11D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25A31D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25A51D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25A71D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25A91D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25AB1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25AD1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25AF1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25B11D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25B31D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25B51D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25B71D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25B91D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25BB1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25BD1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25BF1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25C11D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25C31D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25C51D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25C71D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25C91D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25CB1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25CD1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25CF1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25D11D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25D31D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25D51D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25D71D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25D91D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25DB1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25DD1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25DF1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25E11D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25E31D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25E51D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25E71D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25E91D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25EB1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25ED1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25EF1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25F11D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25F31D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25F71D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25F91D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25FB1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25FD1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB25FF1D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40FB26011D6AEBD9000ABDE1 /* PBXTargetDependency */,
+				40400DBA1D6AE6B9002831A0 /* PBXTargetDependency */,
+			);
+			name = UnitTest;
+			productName = UnitTest;
+			productReference = 40400DB31D6AE6B9002831A0 /* UnitTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		40442C061C075448006FA684 /* GLBImageView */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 40442C0F1C075448006FA684 /* Build configuration list for PBXNativeTarget "GLBImageView" */;
@@ -3574,6 +4292,9 @@
 					403D4CB21CF478050078DB66 = {
 						CreatedOnToolsVersion = 7.3.1;
 					};
+					40400DB21D6AE6B9002831A0 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
 					40442C061C075448006FA684 = {
 						CreatedOnToolsVersion = 7.1.1;
 					};
@@ -3648,6 +4369,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				40400DB21D6AE6B9002831A0 /* UnitTest */,
 				40BB8CD01BF3EE2A00D2E180 /* GLBCoreFoundation */,
 				402B568F1BF4842A0084F50C /* GLBCoreGraphics */,
 				402B56D31BF4879E0084F50C /* GLBCoreAnimation */,
@@ -3712,6 +4434,18 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		40400DB11D6AE6B9002831A0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				403AEEE91D6AF204006C3DF1 /* PersonModel-CustomSheme.json in Resources */,
+				403AEEEA1D6AF204006C3DF1 /* PersonModel-DefaultSheme.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		401129151C3AC1AF006751E8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -3753,6 +4487,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				402B56C31BF484D10084F50C /* GLBModelJson.m in Sources */,
+				40A856281D5AF735008B30C6 /* NSStream+GLBNS.m in Sources */,
 				4034B0941CE1E6790019FBCC /* GLBModelPack.m in Sources */,
 				402B56C11BF484D10084F50C /* GLBModel.m in Sources */,
 			);
@@ -4069,6 +4804,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		40400DAF1D6AE6B9002831A0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40400DC51D6AE790002831A0 /* BaseModel.m in Sources */,
+				40400DC11D6AE740002831A0 /* ModelTest.m in Sources */,
+				40400DC91D6AE82A002831A0 /* PersonModel.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		40442C031C075448006FA684 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4149,6 +4894,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40A856271D5AF735008B30C6 /* NSStream+GLBNS.m in Sources */,
 				40BB8D0A1BF3EE8800D2E180 /* NSString+GLBNS.m in Sources */,
 				40BB8D0B1BF3EE8800D2E180 /* NSURL+GLBNS.m in Sources */,
 				40BB8D001BF3EE8800D2E180 /* NSArray+GLBNS.m in Sources */,
@@ -4267,6 +5013,304 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		40400DBA1D6AE6B9002831A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B56AE1BF4849C0084F50C /* GLBModel */;
+			targetProxy = 40400DB91D6AE6B9002831A0 /* PBXContainerItemProxy */;
+		};
+		40FB258D1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40BB8CD01BF3EE2A00D2E180 /* GLBCoreFoundation */;
+			targetProxy = 40FB258C1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB258F1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B568F1BF4842A0084F50C /* GLBCoreGraphics */;
+			targetProxy = 40FB258E1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25911D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B56D31BF4879E0084F50C /* GLBCoreAnimation */;
+			targetProxy = 40FB25901D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25931D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B56E91BF488600084F50C /* GLBUIKit */;
+			targetProxy = 40FB25921D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25951D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4099D1111BF4F78B004C4976 /* GLBGrid */;
+			targetProxy = 40FB25941D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25971D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40BB8CDD1BF3EE7100D2E180 /* GLBAction */;
+			targetProxy = 40FB25961D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25991D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40BB8D131BF3EF1E00D2E180 /* GLBTimer */;
+			targetProxy = 40FB25981D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB259B1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40BB8D201BF3EF3500D2E180 /* GLBTimeout */;
+			targetProxy = 40FB259A1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB259D1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40BB8D2D1BF3EF4B00D2E180 /* GLBKVO */;
+			targetProxy = 40FB259C1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB259F1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40BB8D3A1BF3EF7300D2E180 /* GLBRegExpParser */;
+			targetProxy = 40FB259E1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25A11D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B56611BF4819D0084F50C /* GLBTaskManager */;
+			targetProxy = 40FB25A01D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25A31D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 403D4CB21CF478050078DB66 /* GLBWatchManager */;
+			targetProxy = 40FB25A21D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25A51D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40D649401D0882BC008EA701 /* GLBManagedModel */;
+			targetProxy = 40FB25A41D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25A71D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B567C1BF4839A0084F50C /* GLBCache */;
+			targetProxy = 40FB25A61D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25A91D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B57341BF48B960084F50C /* GLBApiManager */;
+			targetProxy = 40FB25A81D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25AB1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 401129181C3AC1AF006751E8 /* GLBDataSource */;
+			targetProxy = 40FB25AA1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25AD1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B57531BF48BCA0084F50C /* GLBSpinnerView */;
+			targetProxy = 40FB25AC1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25AF1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B57AC1BF48D350084F50C /* GLBBlurView */;
+			targetProxy = 40FB25AE1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25B11D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B57931BF48CB60084F50C /* GLBActivityView */;
+			targetProxy = 40FB25B01D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25B31D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B57C51BF48DCE0084F50C /* GLBInputValidation */;
+			targetProxy = 40FB25B21D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25B51D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B57E41BF48E210084F50C /* GLBTextField */;
+			targetProxy = 40FB25B41D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25B71D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40B546271CA6BB76008E91E5 /* GLBPhoneField */;
+			targetProxy = 40FB25B61D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25B91D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B57F21BF48E790084F50C /* GLBDateField */;
+			targetProxy = 40FB25B81D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25BB1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B58001BF48EA70084F50C /* GLBListField */;
+			targetProxy = 40FB25BA1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25BD1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B580E1BF48EBE0084F50C /* GLBTextView */;
+			targetProxy = 40FB25BC1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25BF1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B58301BF48F380084F50C /* GLBBadgeView */;
+			targetProxy = 40FB25BE1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25C11D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B58431BF48FB90084F50C /* GLBButton */;
+			targetProxy = 40FB25C01D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25C31D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B58561BF490860084F50C /* GLBLayoutView */;
+			targetProxy = 40FB25C21D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25C51D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B58691BF490E20084F50C /* GLBLoadedView */;
+			targetProxy = 40FB25C41D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25C71D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B587C1BF491930084F50C /* GLBPageControl */;
+			targetProxy = 40FB25C61D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25C91D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B588F1BF491CE0084F50C /* GLBRoundView */;
+			targetProxy = 40FB25C81D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25CB1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B58A21BF4920E0084F50C /* GLBTouchView */;
+			targetProxy = 40FB25CA1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25CD1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B58B51BF4925A0084F50C /* GLBScrollView */;
+			targetProxy = 40FB25CC1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25CF1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B58C81BF492930084F50C /* GLBPressAndHoldGestureRecognizer */;
+			targetProxy = 40FB25CE1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25D11D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B58DB1BF492C20084F50C /* GLBWindow */;
+			targetProxy = 40FB25D01D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25D31D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B58EE1BF4940C0084F50C /* GLBTransitionController */;
+			targetProxy = 40FB25D21D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25D51D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B59091BF4947D0084F50C /* GLBBaseViewController */;
+			targetProxy = 40FB25D41D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25D71D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B591C1BF494E00084F50C /* GLBDialogViewController */;
+			targetProxy = 40FB25D61D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25D91D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B592F1BF495260084F50C /* GLBPageViewController */;
+			targetProxy = 40FB25D81D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25DB1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B59421BF495B40084F50C /* GLBSlideViewController */;
+			targetProxy = 40FB25DA1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25DD1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B59551BF4964B0084F50C /* GLBNavigationViewController */;
+			targetProxy = 40FB25DC1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25DF1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B59681BF496900084F50C /* GLBTabBarViewController */;
+			targetProxy = 40FB25DE1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25E11D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4036BD691CA4820A00E5A793 /* GLBVideoPlayerView */;
+			targetProxy = 40FB25E01D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25E31D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40DF702D1CA0A6C9005EBB6B /* GLBSplitViewController */;
+			targetProxy = 40FB25E21D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25E51D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B597B1BF496D00084F50C /* GLBViewController */;
+			targetProxy = 40FB25E41D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25E71D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B598E1BF4970D0084F50C /* GLBPopoverController */;
+			targetProxy = 40FB25E61D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25E91D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B59A11BF4974B0084F50C /* GLBGeoLocationManager */;
+			targetProxy = 40FB25E81D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25EB1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 402B59B41BF497940084F50C /* GLBNotificationManager */;
+			targetProxy = 40FB25EA1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25ED1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40A73F251BF4D2600059F177 /* GLBSearchBar */;
+			targetProxy = 40FB25EC1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25EF1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40A73EE41BF4CEB70059F177 /* GLBDataView */;
+			targetProxy = 40FB25EE1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25F11D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40EE54E81BFA92F90004E5BE /* GLBStyle */;
+			targetProxy = 40FB25F01D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25F31D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40ABC2C91C13206800C95233 /* GLBAppGroupNotificationCenter */;
+			targetProxy = 40FB25F21D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25F71D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 405B77B01C50E7FA00DA763D /* GLBWebViewController */;
+			targetProxy = 40FB25F61D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25F91D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD3D0DB21C57C95300C0F2C0 /* GLBMoon */;
+			targetProxy = 40FB25F81D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25FB1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40F374961C6512BB0016507F /* GLBAudioSession */;
+			targetProxy = 40FB25FA1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25FD1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40F374A31C6512D00016507F /* GLBAudioPlayer */;
+			targetProxy = 40FB25FC1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB25FF1D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 40F374AF1C6512DF0016507F /* GLBAudioRecorder */;
+			targetProxy = 40FB25FE1D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+		40FB26011D6AEBD9000ABDE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 406BC4C81D2AD2A0002F0EB0 /* GLBObserver */;
+			targetProxy = 40FB26001D6AEBD9000ABDE1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		4011291F1C3AC1AF006751E8 /* Debug */ = {
@@ -4736,6 +5780,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		40400DBB1D6AE6B9002831A0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = UnitTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.globus-ltd.UnitTest";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		40400DBC1D6AE6B9002831A0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = UnitTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.globus-ltd.UnitTest";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -5449,6 +6513,15 @@
 			buildConfigurations = (
 				403D4CBA1CF478050078DB66 /* Debug */,
 				403D4CBB1CF478050078DB66 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		40400DBD1D6AE6B9002831A0 /* Build configuration list for PBXNativeTarget "UnitTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40400DBB1D6AE6B9002831A0 /* Debug */,
+				40400DBC1D6AE6B9002831A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

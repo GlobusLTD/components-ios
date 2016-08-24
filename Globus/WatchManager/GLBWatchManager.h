@@ -47,9 +47,14 @@ typedef void(^GLBWatchReachableReplyBlock)(NSDictionary< NSString*, id >* _Nulla
 
 /*--------------------------------------------------*/
 
+@protocol GLBWatchProviderDelegate;
+
+/*--------------------------------------------------*/
+
 @interface GLBWatchProvider : NSObject
 
 @property(nonatomic, readonly, nonnull, strong) NSString* identifier;
+@property(nonatomic, nullable, weak) id< GLBWatchProviderDelegate > delegate;
 
 - (_Nullable instancetype)initWithIdentifier:(NSString* _Nonnull)identifier;
 
@@ -57,12 +62,9 @@ typedef void(^GLBWatchReachableReplyBlock)(NSDictionary< NSString*, id >* _Nulla
 
 - (void)sendReachableInfo:(NSDictionary< NSString*, id >* _Nullable)reachableInfo;
 - (void)sendReachableInfo:(NSDictionary< NSString*, id >* _Nullable)reachableInfo block:(_Nullable GLBWatchReachableSendBlock)block;
-- (void)didReceiveReachableInfo:(NSDictionary< NSString*, id >* _Nullable)reachableInfo reply:(_Nullable GLBWatchReachableReplyBlock)reply;
 
 - (void)sendInfo:(NSDictionary< NSString*, id >* _Nullable)info data:(NSData* _Nullable)data;
 - (void)sendInfo:(NSDictionary< NSString*, id >* _Nullable)info data:(NSData* _Nullable)data complication:(BOOL)complication __WATCHOS_UNAVAILABLE;
-- (void)didSendInfo:(NSDictionary< NSString*, id >* _Nullable)info data:(NSData* _Nullable)data error:(NSError* _Nullable)error;
-- (void)didReceiveInfo:(NSDictionary< NSString*, id >* _Nullable)info data:(NSData* _Nullable)data;
 
 @end
 
@@ -75,6 +77,19 @@ typedef void(^GLBWatchReachableReplyBlock)(NSDictionary< NSString*, id >* _Nulla
 
 @optional
 - (void)watchManager:(GLBWatchManager* _Nonnull)watchManager reachability:(BOOL)reachability;
+
+@end
+
+/*--------------------------------------------------*/
+
+@protocol GLBWatchProviderDelegate < NSObject >
+
+@optional
+- (void)watchProvider:(GLBWatchProvider* _Nonnull)watchProvider receiveReachableInfo:(NSDictionary< NSString*, id >* _Nullable)reachableInfo reply:(_Nullable GLBWatchReachableReplyBlock)reply;
+
+@optional
+- (void)watchProvider:(GLBWatchProvider* _Nonnull)watchProvider sendInfo:(NSDictionary< NSString*, id >* _Nullable)info data:(NSData* _Nullable)data error:(NSError* _Nullable)error;
+- (void)watchProvider:(GLBWatchProvider* _Nonnull)watchProvider receiveInfo:(NSDictionary< NSString*, id >* _Nullable)info data:(NSData* _Nullable)data;
 
 @end
 

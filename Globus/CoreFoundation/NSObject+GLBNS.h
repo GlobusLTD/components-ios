@@ -4,7 +4,26 @@
 
 /*--------------------------------------------------*/
 
-@protocol GLBObjectDebugProtocol <NSObject>
+typedef NS_ENUM(uint8_t, GLBObjectPackType) {
+    GLBObjectPackTypeUnknown,
+    GLBObjectPackTypeInt8,
+    GLBObjectPackTypeUInt8,
+    GLBObjectPackTypeInt16,
+    GLBObjectPackTypeUInt16,
+    GLBObjectPackTypeInt32,
+    GLBObjectPackTypeUInt32,
+    GLBObjectPackTypeInt64,
+    GLBObjectPackTypeUInt64,
+    GLBObjectPackTypeReal32,
+    GLBObjectPackTypeReal64,
+    GLBObjectPackTypeString,
+    GLBObjectPackTypeArray,
+    GLBObjectPackTypeDictionary,
+};
+
+/*--------------------------------------------------*/
+
+@protocol GLBObjectDebugProtocol < NSObject >
 
 @required
 - (void)glb_debugString:(NSMutableString* _Nonnull)string context:(NSPointerArray* _Nonnull)context indent:(NSUInteger)indent root:(BOOL)root;
@@ -17,6 +36,12 @@
 
 + (NSString* _Nonnull)glb_className;
 - (NSString* _Nonnull)glb_className;
+
++ (NSData* _Nullable)glb_packObject:(_Nonnull id)object;
++ (void)glb_packObject:(_Nonnull id)object stream:(NSOutputStream* _Nonnull)stream;
+
++ (_Nullable id)glb_unpackFromData:(NSData* _Nonnull)data;
++ (_Nullable id)glb_unpackFromStream:(NSInputStream* _Nonnull)stream;
 
 - (NSString* _Nullable)glb_debug;
 - (NSString* _Nullable)glb_debugContext:(NSPointerArray* _Nullable)context indent:(NSUInteger)indent root:(BOOL)root;

@@ -39,7 +39,7 @@
 #pragma mark -
 /*--------------------------------------------------*/
 
-@interface GLBWatchProviderPack : NSObject
+@interface GLBWatchProviderCommand : NSObject
 
 @property(nonatomic, readonly, nullable, strong) NSDictionary< NSString*, id >* info;
 @property(nonatomic, readonly, nullable, strong) NSData* data;
@@ -103,7 +103,7 @@ static NSString* GLBWatchProviderFileName = @"file";
     _observers = [NSMutableArray array];
     _providers = [NSMutableArray array];
 #if defined(GLB_TARGET_IOS)
-    if(UIDevice.glb_systemVersion >= 9.0f) {
+    if([UIDevice glb_compareSystemVersion:@"9.0"] != NSOrderedAscending) {
         if(WCSession.isSupported == YES) {
             _session = WCSession.defaultSession;
             _session.delegate = self;
@@ -121,7 +121,7 @@ static NSString* GLBWatchProviderFileName = @"file";
 
 - (BOOL)isSupported {
 #ifdef GLB_TARGET_IOS
-    if(UIDevice.glb_systemVersion >= 9.0f) {
+    if([UIDevice glb_compareSystemVersion:@"9.0"] != NSOrderedAscending) {
         return WCSession.isSupported;
     }
     return NO;
@@ -133,28 +133,28 @@ static NSString* GLBWatchProviderFileName = @"file";
 #ifdef GLB_TARGET_IOS
 
 - (BOOL)isPaired {
-    if(UIDevice.glb_systemVersion >= 9.0f) {
+    if([UIDevice glb_compareSystemVersion:@"9.0"] != NSOrderedAscending) {
         return _session.isPaired;
     }
     return NO;
 }
 
 - (BOOL)isWatchAppInstalled {
-    if(UIDevice.glb_systemVersion >= 9.0f) {
+    if([UIDevice glb_compareSystemVersion:@"9.0"] != NSOrderedAscending) {
         return _session.isWatchAppInstalled;
     }
     return NO;
 }
 
 - (BOOL)isComplicationEnabled {
-    if(UIDevice.glb_systemVersion >= 9.0f) {
+    if([UIDevice glb_compareSystemVersion:@"9.0"] != NSOrderedAscending) {
         return _session.isComplicationEnabled;
     }
     return NO;
 }
 
 - (BOOL)isReachable {
-    if(UIDevice.glb_systemVersion >= 9.0f) {
+    if([UIDevice glb_compareSystemVersion:@"9.0"] != NSOrderedAscending) {
         return _session.isReachable;
     }
     return NO;
@@ -168,7 +168,7 @@ static NSString* GLBWatchProviderFileName = @"file";
     if(_session != nil) {
         [_session activateSession];
 #if defined(GLB_TARGET_IOS)
-        if(UIDevice.glb_systemVersion < 9.3f) {
+        if([UIDevice glb_compareSystemVersion:@"9.3"] == NSOrderedAscending) {
             if(_activate == NO) {
                 _activate = YES;
                 [self _observeActivate:_activate];
@@ -357,12 +357,12 @@ static NSString* GLBWatchProviderFileName = @"file";
 }
 
 - (void)sendReachableInfo:(NSDictionary< NSString*, id >*)reachableInfo block:(GLBWatchReachableSendBlock)block {
-    GLBWatchProviderPack* pack = [[GLBWatchProviderPack alloc] initWithProfider:self reachableInfo:reachableInfo];
-    if(pack != nil) {
+    GLBWatchProviderCommand* command = [[GLBWatchProviderCommand alloc] initWithProfider:self reachableInfo:reachableInfo];
+    if(command != nil) {
         if(block != nil) {
-            [GLBWatchManager.shared.session sendMessage:pack.metadata replyHandler:^(NSDictionary< NSString*, id >* replyMessage) {
+            [GLBWatchManager.shared.session sendMessage:command.metadata replyHandler:^(NSDictionary< NSString*, id >* replyMessage) {
                 if(block != nil) {
-                    GLBWatchProviderPack* reply = [[GLBWatchProviderPack alloc] initWithReachableMessage:replyMessage];
+                    GLBWatchProviderCommand* reply = [[GLBWatchProviderCommand alloc] initWithReachableMessage:replyMessage];
                     block(reply.info, nil);
                 }
             } errorHandler:^(NSError* error) {
@@ -372,103 +372,91 @@ static NSString* GLBWatchProviderFileName = @"file";
                 }
             }];
         } else {
-            [GLBWatchManager.shared.session sendMessage:pack.metadata replyHandler:nil errorHandler:^(NSError* error) {
+            [GLBWatchManager.shared.session sendMessage:command.metadata replyHandler:nil errorHandler:^(NSError* error) {
                 NSLog(@"sendReachable:(%@) %@", _identifier, error);
             }];
         }
     }
 }
 
-- (void)didReceiveReachableInfo:(NSDictionary< NSString*, id >*)reachableInfo reply:(GLBWatchReachableReplyBlock)reply {
-    NSLog(@"didReceiveReachable:(%@)", _identifier);
-}
-
 - (void)sendInfo:(NSDictionary< NSString*, id >*)info data:(NSData*)data {
-    GLBWatchProviderPack* pack = [[GLBWatchProviderPack alloc] initWithProfider:self info:info data:data complication:NO];
-    if(pack != nil) {
-        [GLBWatchManager.shared.session transferFile:pack.fileURL metadata:pack.metadata];
+    GLBWatchProviderCommand* command = [[GLBWatchProviderCommand alloc] initWithProfider:self info:info data:data complication:NO];
+    if(command != nil) {
+        [GLBWatchManager.shared.session transferFile:command.fileURL metadata:command.metadata];
     }
 }
 
 #if defined(GLB_TARGET_IOS)
 
 - (void)sendInfo:(NSDictionary< NSString*, id >*)info data:(NSData*)data complication:(BOOL)complication {
-    GLBWatchProviderPack* pack = [[GLBWatchProviderPack alloc] initWithProfider:self info:info data:data complication:complication];
-    if(pack != nil) {
-        [GLBWatchManager.shared.session transferFile:pack.fileURL metadata:pack.metadata];
+    GLBWatchProviderCommand* command = [[GLBWatchProviderCommand alloc] initWithProfider:self info:info data:data complication:complication];
+    if(command != nil) {
+        [GLBWatchManager.shared.session transferFile:command.fileURL metadata:command.metadata];
     }
 }
 
 #endif
 
-- (void)didSendInfo:(NSDictionary< NSString*, id >*)info data:(NSData*)data error:(NSError*)error {
-    NSLog(@"didSend:(%@) %@", _identifier, error);
-}
-
-- (void)didReceiveInfo:(NSDictionary< NSString*, id >*)info data:(NSData*)data {
-    NSLog(@"didReceive:(%@)", _identifier);
-}
-
 #pragma mark - Private
 
 - (void)_didReceiveMessage:(NSDictionary< NSString*, id >*)message replyHandler:(void(^)(NSDictionary< NSString*, id >* replyMessage))replyHandler {
-    GLBWatchProviderPack* pack = [[GLBWatchProviderPack alloc] initWithReachableMessage:message];
-    if(pack != nil) {
+    GLBWatchProviderCommand* command = [[GLBWatchProviderCommand alloc] initWithReachableMessage:message];
+    if(command != nil) {
         if(replyHandler != nil) {
-            [self didReceiveReachableInfo:pack.info reply:^(NSDictionary< NSString*, id >* reachableInfo) {
-                GLBWatchProviderPack* reply = [[GLBWatchProviderPack alloc] initWithProfider:self reachableInfo:reachableInfo];
+            [_delegate watchProvider:self receiveReachableInfo:command.info reply:^(NSDictionary< NSString*, id >* reachableInfo) {
+                GLBWatchProviderCommand* reply = [[GLBWatchProviderCommand alloc] initWithProfider:self reachableInfo:reachableInfo];
                 replyHandler(reply.metadata);
             }];
         } else {
-            [self didReceiveReachableInfo:pack.info reply:nil];
+            [_delegate watchProvider:self receiveReachableInfo:command.info reply:nil];
         }
     }
 }
 
 - (void)_didFinishUserInfoTransfer:(WCSessionUserInfoTransfer*)userInfoTransfer error:(NSError*)error {
-    GLBWatchProviderPack* pack = [[GLBWatchProviderPack alloc] initWithUserInfoTransfer:userInfoTransfer];
-    if(pack != nil) {
-        [self didSendInfo:pack.info data:pack.data error:error];
-        [pack cleanup];
+    GLBWatchProviderCommand* command = [[GLBWatchProviderCommand alloc] initWithUserInfoTransfer:userInfoTransfer];
+    if(command != nil) {
+        [_delegate watchProvider:self sendInfo:command.info data:command.data error:error];
+        [command cleanup];
     }
 }
 
 - (void)_didReceiveUserInfo:(NSDictionary< NSString*, id >*)userInfo {
-    GLBWatchProviderPack* pack = [[GLBWatchProviderPack alloc] initWithUserInfo:userInfo];
-    if(pack != nil) {
-        [self didReceiveInfo:pack.info data:pack.data];
-        [pack cleanup];
+    GLBWatchProviderCommand* command = [[GLBWatchProviderCommand alloc] initWithUserInfo:userInfo];
+    if(command != nil) {
+        [_delegate watchProvider:self receiveInfo:command.info data:command.data];
+        [command cleanup];
     }
 }
 
 - (void)_didFinishFileTransfer:(WCSessionFileTransfer*)fileTransfer error:(NSError*)error {
-    GLBWatchProviderPack* pack = [[GLBWatchProviderPack alloc] initWithFileTransfer:fileTransfer];
-    if(pack != nil) {
+    GLBWatchProviderCommand* command = [[GLBWatchProviderCommand alloc] initWithFileTransfer:fileTransfer];
+    if(command != nil) {
 #if defined(GLB_TARGET_IOS)
-        if(pack.isComplication == YES) {
+        if(command.isComplication == YES) {
             [GLBWatchManager.shared.session transferCurrentComplicationUserInfo:fileTransfer.file.metadata];
         } else {
-            [self didSendInfo:pack.info data:pack.data error:error];
-            [pack cleanup];
+            [_delegate watchProvider:self sendInfo:command.info data:command.data error:error];
+            [command cleanup];
         }
 #elif defined(GLB_TARGET_WATCHOS)
-        [self didSendInfo:pack.info data:pack.data error:error];
-        [pack cleanup];
+        [self didSendInfo:command.info data:command.data error:error];
+        [command cleanup];
 #endif
     }
 }
 
 - (void)_didReceiveFile:(WCSessionFile*)file {
-    GLBWatchProviderPack* pack = [[GLBWatchProviderPack alloc] initWithFile:file];
-    if(pack != nil) {
+    GLBWatchProviderCommand* command = [[GLBWatchProviderCommand alloc] initWithFile:file];
+    if(command != nil) {
 #if defined(GLB_TARGET_IOS)
-        if(pack.isComplication == NO) {
-            [self didReceiveInfo:pack.info data:pack.data];
-            [pack cleanup];
+        if(command.isComplication == NO) {
+            [_delegate watchProvider:self receiveInfo:command.info data:command.data];
+            [command cleanup];
         }
 #elif defined(GLB_TARGET_WATCHOS)
-        [self didReceiveInfo:pack.info data:pack.data];
-        [pack cleanup];
+        [self didReceiveInfo:command.info data:command.data];
+        [command cleanup];
 #endif
     }
 }
@@ -479,7 +467,7 @@ static NSString* GLBWatchProviderFileName = @"file";
 #pragma mark -
 /*--------------------------------------------------*/
 
-@implementation GLBWatchProviderPack
+@implementation GLBWatchProviderCommand
 
 #pragma mark - Synthesize
 
@@ -594,7 +582,7 @@ static NSString* GLBWatchProviderFileName = @"file";
     if(_fileURL != nil) {
         NSError* error = nil;
         if([NSFileManager.defaultManager removeItemAtURL:_fileURL error:&error] == NO) {
-            NSLog(@"Failure cleanup pack:(%@)", _metadata);
+            NSLog(@"Failure cleanup command:(%@)", _metadata);
         }
     }
 }

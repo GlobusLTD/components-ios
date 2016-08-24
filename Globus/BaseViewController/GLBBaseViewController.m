@@ -119,7 +119,7 @@
         _hidesBarsWhenKeyboardAppears = hidesBarsWhenKeyboardAppears;
         
         if((self.isViewLoaded == YES) && (self.navigationController.topViewController == self)) {
-            if(UIDevice.glb_systemVersion >= 8.0f) {
+            if([UIDevice glb_compareSystemVersion:@"8.0"] != NSOrderedAscending) {
                 self.navigationController.hidesBarsWhenKeyboardAppears = _hidesBarsWhenKeyboardAppears;
             }
         }
@@ -131,7 +131,7 @@
         _hidesBarsOnSwipe = hidesBarsOnSwipe;
         
         if((self.isViewLoaded == YES) && (self.navigationController.topViewController == self)) {
-            if(UIDevice.glb_systemVersion >= 8.0f) {
+            if([UIDevice glb_compareSystemVersion:@"8.0"] != NSOrderedAscending) {
                 self.navigationController.hidesBarsOnSwipe = _hidesBarsOnSwipe;
             }
         }
@@ -143,7 +143,7 @@
         _hidesBarsWhenVerticallyCompact = hidesBarsWhenVerticallyCompact;
         
         if((self.isViewLoaded == YES) && (self.navigationController.topViewController == self)) {
-            if(UIDevice.glb_systemVersion >= 8.0f) {
+            if([UIDevice glb_compareSystemVersion:@"8.0"] != NSOrderedAscending) {
                 self.navigationController.hidesBarsWhenVerticallyCompact = _hidesBarsWhenVerticallyCompact;
             }
         }
@@ -155,7 +155,7 @@
         _hidesBarsOnTap = hidesBarsOnTap;
         
         if((self.isViewLoaded == YES) && (self.navigationController.topViewController == self)) {
-            if(UIDevice.glb_systemVersion >= 8.0f) {
+            if([UIDevice glb_compareSystemVersion:@"8.0"] != NSOrderedAscending) {
                 self.navigationController.hidesBarsOnTap = _hidesBarsOnTap;
             }
         }
@@ -169,7 +169,7 @@
         _navigationBarHidden = navigationBarHidden;
         
         if((self.isViewLoaded == YES) && (self.navigationController.topViewController == self)) {
-            if(UIDevice.glb_systemVersion >= 8.0f) {
+            if([UIDevice glb_compareSystemVersion:@"8.0"] != NSOrderedAscending) {
                 [self.navigationController setNavigationBarHidden:_navigationBarHidden animated:animated];
             }
         }

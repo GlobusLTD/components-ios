@@ -456,7 +456,7 @@
 
 - (UIImage*)_imageFromResourceBundle:(NSString*)imageName {
     NSBundle* bundle = self.resourcesBundle;
-    if(UIDevice.glb_systemVersion >= 8.0f) {
+    if([UIDevice glb_compareSystemVersion:@"8.0"] != NSOrderedAscending) {
         return [UIImage imageNamed:imageName inBundle:bundle compatibleWithTraitCollection:nil];
     }
     if(bundle != NSBundle.mainBundle) {
@@ -467,7 +467,7 @@
 
 - (void)_attachWebView {
     UIView* webView = nil;
-    if((UIDevice.glb_systemVersion >= 8.0f) && (_allowsWebKit == YES)) {
+    if(([UIDevice glb_compareSystemVersion:@"8.0"] != NSOrderedAscending) && (_allowsWebKit == YES)) {
         _wkWebView = [[WKWebView alloc] initWithFrame:UIScreen.mainScreen.bounds];
         _wkWebView.translatesAutoresizingMaskIntoConstraints = NO;
         _wkWebView.UIDelegate = self;

@@ -107,7 +107,7 @@
     _initialFrameToViewController = [_transitionContext initialFrameForViewController:_toViewController];
     _finalFrameToViewController = [_transitionContext finalFrameForViewController:_toViewController];
     _containerView = _transitionContext.containerView;
-    if(UIDevice.glb_systemVersion >= 8.0f) {
+    if([UIDevice glb_compareSystemVersion:@"8.0"] != NSOrderedAscending) {
         _fromView = [_transitionContext viewForKey:UITransitionContextFromViewKey];
         _toView = [_transitionContext viewForKey:UITransitionContextToViewKey];
     } else {

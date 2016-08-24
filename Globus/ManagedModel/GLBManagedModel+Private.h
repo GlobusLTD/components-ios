@@ -8,10 +8,12 @@
 @interface GLBManagedModel ()
 
 @property(nonatomic, readonly, nonnull, strong) NSDictionary< NSString*, GLBModelJson* >* jsonMap;
+@property(nonatomic, readonly, nonnull, strong) NSDictionary< NSString*, NSDictionary< NSString*, GLBModelJson* >* >* jsonShemeMap;
 @property(nonatomic, readonly, nonnull, strong) NSDictionary< NSString*, GLBModelPack* >* packMap;
 @property(nonatomic, readonly, nonnull, strong) NSArray< NSString* >* propertyMap;
 
 + (NSDictionary< NSString*, GLBModelJson* >* _Nonnull)_buildJsonMap;
++ (NSDictionary< NSString*, NSDictionary< NSString*, GLBModelJson* >* >* _Nonnull)_buildJsonShemeMap;
 + (NSDictionary< NSString*, GLBModelPack* >* _Nonnull)_buildPackMap;
 + (NSArray< NSString* >* _Nonnull)_buildPropertyMap;
 
