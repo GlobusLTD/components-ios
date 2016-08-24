@@ -62,6 +62,7 @@ typedef NS_ENUM(NSUInteger, GLBDataViewDirection) {
     NSMutableArray* _insertedItems;
     BOOL _animating;
     BOOL _updating;
+    BOOL _transiting;
     BOOL _invalidLayout;
     __weak GLBPageControl* _pageControl;
     BOOL _searchBarIteractionEnabled;

@@ -53,6 +53,9 @@
 - (void)_movingItem:(GLBDataItem*)item location:(CGPoint)location delta:(CGPoint)delta allowsSorting:(BOOL)allowsSorting;
 - (void)_endMovingItem:(GLBDataItem*)item location:(CGPoint)location;
 
+- (void)_beginTransition;
+- (void)_endTransition;
+
 @end
 
 /*--------------------------------------------------*/

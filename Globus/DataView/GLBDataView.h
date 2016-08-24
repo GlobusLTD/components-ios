@@ -76,6 +76,7 @@ typedef NS_ENUM(NSUInteger, GLBDataViewSearchBarStyle) {
 @property(nonatomic, readonly, strong) __kindof GLBDataCell* movingCell;
 @property(nonatomic, readonly, assign, getter=isAnimating) BOOL animating;
 @property(nonatomic, readonly, assign, getter=isUpdating) BOOL updating;
+@property(nonatomic, readonly, assign, getter=isTransiting) BOOL transiting;
 
 @property(nonatomic, weak) IBOutlet __kindof GLBPageControl* pageControl;
 
@@ -158,6 +159,9 @@ typedef NS_ENUM(NSUInteger, GLBDataViewSearchBarStyle) {
 - (void)batchUpdate:(GLBSimpleBlock)update complete:(GLBSimpleBlock)complete;
 - (void)batchDuration:(NSTimeInterval)duration update:(GLBSimpleBlock)update;
 - (void)batchDuration:(NSTimeInterval)duration update:(GLBSimpleBlock)update complete:(GLBSimpleBlock)complete;
+
+- (void)beginTransition;
+- (void)endTransition;
 
 - (void)setNeedValidateLayout;
 - (void)validateLayoutIfNeed;

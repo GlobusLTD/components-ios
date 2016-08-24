@@ -74,6 +74,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 @synthesize insertedItems = _insertedItems;
 @synthesize animating = _animating;
 @synthesize updating = _updating;
+@synthesize transiting = _transiting;
 @synthesize invalidLayout = _invalidLayout;
 @synthesize pageControl = _pageControl;
 @synthesize searchBarIteractionEnabled = _searchBarIteractionEnabled;
@@ -194,11 +195,16 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     
     [self glb_registerAdjustmentResponder];
     
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_receiveMemoryWarning) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(_receiveMemoryWarning)
+                                               name:UIApplicationDidReceiveMemoryWarningNotification
+                                             object:nil];
 }
 
 - (void)dealloc {
-    [NSNotificationCenter.defaultCenter removeObserver:self name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+    [NSNotificationCenter.defaultCenter removeObserver:self
+                                                  name:UIApplicationDidReceiveMemoryWarningNotification
+                                                object:nil];
     
     [self glb_unregisterAdjustmentResponder];
 }
@@ -1295,6 +1301,20 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     }
 }
 
+- (void)beginTransition {
+    if(_transiting == NO) {
+        _transiting = YES;
+        [_container _beginTransition];
+    }
+}
+
+- (void)endTransition {
+    if(_transiting == YES) {
+        _transiting = NO;
+        [_container _endTransition];
+    }
+}
+
 - (void)setNeedValidateLayout {
     _invalidLayout = YES;
     [self setNeedsLayout];
@@ -1699,7 +1719,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 - (void)_layoutForVisible {
     CGRect bounds = self.bounds;
     [_container _willLayoutForBounds:bounds];
-    if(_animating == NO) {
+    if((_animating == NO) && (_transiting == NO)) {
         [_visibleItems glb_each:^(GLBDataItem* item) {
             [item invalidateLayoutForBounds:bounds];
         }];

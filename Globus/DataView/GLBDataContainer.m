@@ -175,6 +175,12 @@
 - (void)_endMovingItem:(GLBDataItem*)item location:(CGPoint)location {
 }
 
+- (void)_beginTransition {
+}
+
+- (void)_endTransition {
+}
+
 #pragma mark - Public
 
 - (NSArray*)allItems {

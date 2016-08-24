@@ -358,9 +358,11 @@
 - (void)setNeedResize {
     if(_needResize == NO) {
         _needResize = YES;
-        _originFrame = CGRectNull;
-        _updateFrame = CGRectNull;
-        _displayFrame = CGRectNull;
+        if((_view.isAnimating == NO) && (_view.isTransiting == NO)) {
+            _originFrame = CGRectNull;
+            _updateFrame = CGRectNull;
+            _displayFrame = CGRectNull;
+        }
         [_view setNeedValidateLayout];
     }
 }
@@ -425,6 +427,18 @@
         } else {
             [_cell invalidateLayoutForBounds:bounds];
         }
+    }
+}
+
+- (void)beginTransition {
+    if(_cell != nil) {
+        [_cell beginTransition];
+    }
+}
+
+- (void)endTransition {
+    if(_cell != nil) {
+        [_cell endTransition];
     }
 }
 

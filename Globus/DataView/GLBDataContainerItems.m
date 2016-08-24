@@ -284,6 +284,18 @@
     return contentOffset;
 }
 
+- (void)_beginTransition {
+    for(GLBDataItem* item in _entries) {
+        [item beginTransition];
+    }
+}
+
+- (void)_endTransition {
+    for(GLBDataItem* item in _entries) {
+        [item endTransition];
+    }
+}
+
 - (CGRect)_validateEntriesForAvailableFrame:(CGRect __unused)frame {
     return CGRectNull;
 }

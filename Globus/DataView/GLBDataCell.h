@@ -67,6 +67,9 @@
 - (void)validateLayoutForBounds:(CGRect)bounds;
 - (void)invalidateLayoutForBounds:(CGRect)bounds;
 
+- (void)beginTransition;
+- (void)endTransition;
+
 @end
 
 /*--------------------------------------------------*/

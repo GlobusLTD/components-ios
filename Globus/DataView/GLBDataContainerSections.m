@@ -88,6 +88,18 @@
     }
 }
 
+- (void)_beginTransition {
+    for(GLBDataContainer* section in _sections) {
+        [section _beginTransition];
+    }
+}
+
+- (void)_endTransition {
+    for(GLBDataContainer* section in _sections) {
+        [section _endTransition];
+    }
+}
+
 #pragma mark - Public override
 
 - (void)setNeedResize {
