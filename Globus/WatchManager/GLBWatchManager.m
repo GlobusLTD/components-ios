@@ -440,7 +440,7 @@ static NSString* GLBWatchProviderFileName = @"file";
             [command cleanup];
         }
 #elif defined(GLB_TARGET_WATCHOS)
-        [self didSendInfo:command.info data:command.data error:error];
+        [_delegate watchProvider:self sendInfo:command.info data:command.data error:error];
         [command cleanup];
 #endif
     }
@@ -455,7 +455,7 @@ static NSString* GLBWatchProviderFileName = @"file";
             [command cleanup];
         }
 #elif defined(GLB_TARGET_WATCHOS)
-        [self didReceiveInfo:command.info data:command.data];
+        [_delegate watchProvider:self receiveInfo:command.info data:command.data];
         [command cleanup];
 #endif
     }
