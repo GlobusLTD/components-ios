@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.1.75'
+  s.version = '0.1.76'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -40,6 +40,7 @@ Pod::Spec.new do |s|
     ss.dependency 'Globus/PageControl'
     ss.dependency 'Globus/RoundView'
     ss.dependency 'Globus/TouchView'
+    ss.dependency 'Globus/ImageView'
     ss.dependency 'Globus/ScrollView'
     ss.dependency 'Globus/SearchBar'
     ss.dependency 'Globus/DataView'
@@ -311,6 +312,15 @@ Pod::Spec.new do |s|
     }
     ss.source_files = 'Globus/TouchView/**/*.{h,m}'
     ss.dependency 'Globus/UIKit'
+  end
+  s.subspec 'ImageView' do |ss|
+    ss.xcconfig = {
+      'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_IMAGE_VIEW'
+    }
+    ss.source_files = 'Globus/ImageView/**/*.{h,m}'
+    ss.dependency 'Globus/UIKit'
+    ss.dependency 'Globus/ApiManager'
+    ss.dependency 'Globus/Cache'
   end
   s.subspec 'ScrollView' do |ss|
     ss.xcconfig = {

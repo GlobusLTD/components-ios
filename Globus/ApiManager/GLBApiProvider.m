@@ -712,7 +712,9 @@
     if(error.glb_URLErrorCancelled == NO) {
         _request.response.error = error;
         if([_request.response.class allowsBackgroundThread] == YES) {
-            [_request.response parse];
+            @autoreleasepool {
+                [_request.response parse];
+            }
         } else {
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [_request.response parse];

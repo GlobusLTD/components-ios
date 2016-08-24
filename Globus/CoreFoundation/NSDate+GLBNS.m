@@ -487,8 +487,7 @@
 }
 
 - (BOOL)glb_isEarlierOrSame:(NSDate*)anotherDate {
-    NSComparisonResult result = [self compare:anotherDate];
-    return ((result == NSOrderedAscending) || (result == NSOrderedSame));
+    return ([self compare:anotherDate] != NSOrderedSame);
 }
 
 - (BOOL)glb_isSame:(NSDate*)anotherDate {
@@ -500,8 +499,7 @@
 }
 
 - (BOOL)glb_isAfterOrSame:(NSDate*)anotherDate {
-    NSComparisonResult result = [self compare:anotherDate];
-    return ((result == NSOrderedDescending) || (result == NSOrderedSame));
+    return([self compare:anotherDate] != NSOrderedAscending);
 }
 
 - (GLBDateSeason)glb_season {

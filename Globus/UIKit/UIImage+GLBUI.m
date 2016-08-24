@@ -45,6 +45,57 @@
     return image;
 }
 
++ (instancetype)glb_imageWithData:(NSData*)data {
+    @autoreleasepool {
+        UIImage* image = [UIImage imageWithData:data scale:UIScreen.mainScreen.scale];
+        if(image == nil) {
+            return nil;
+        }
+        CGImageRef imageRef = image.CGImage;
+        CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef);
+        BOOL anyAlpha = ((alphaInfo == kCGImageAlphaFirst) ||
+                         (alphaInfo == kCGImageAlphaLast) ||
+                         (alphaInfo == kCGImageAlphaPremultipliedFirst) ||
+                         (alphaInfo == kCGImageAlphaPremultipliedLast));
+        if(anyAlpha == YES) {
+            return image;
+        }
+        CGColorSpaceModel colorSpaceModel = CGColorSpaceGetModel(CGImageGetColorSpace(imageRef));
+        CGColorSpaceRef colorSpaceRef = CGImageGetColorSpace(imageRef);
+        BOOL unsupportedColorSpace = ((colorSpaceModel == kCGColorSpaceModelUnknown) ||
+                                      (colorSpaceModel == kCGColorSpaceModelMonochrome) ||
+                                      (colorSpaceModel == kCGColorSpaceModelCMYK) ||
+                                      (colorSpaceModel == kCGColorSpaceModelIndexed));
+        if(unsupportedColorSpace == YES) {
+            colorSpaceRef = CGColorSpaceCreateDeviceRGB();
+        }
+        size_t width = CGImageGetWidth(imageRef);
+        size_t height = CGImageGetHeight(imageRef);
+        NSUInteger bytesPerPixel = 4;
+        NSUInteger bytesPerRow = bytesPerPixel * width;
+        NSUInteger bitsPerComponent = 8;
+        CGContextRef context = CGBitmapContextCreate(NULL,
+                                                     width,
+                                                     height,
+                                                     bitsPerComponent,
+                                                     bytesPerRow,
+                                                     colorSpaceRef,
+                                                     kCGBitmapByteOrderDefault | kCGImageAlphaNoneSkipLast);
+        CGContextDrawImage(context, CGRectMake(0, 0, width, height), imageRef);
+        CGImageRef imageRefWithoutAlpha = CGBitmapContextCreateImage(context);
+        UIImage* imageWithoutAlpha = [UIImage imageWithCGImage:imageRefWithoutAlpha
+                                                         scale:image.scale
+                                                   orientation:image.imageOrientation];
+        
+        if(unsupportedColorSpace == YES) {
+            CGColorSpaceRelease(colorSpaceRef);
+        }
+        CGContextRelease(context);
+        CGImageRelease(imageRefWithoutAlpha);
+        return imageWithoutAlpha;
+    }
+}
+
 - (UIImage*)glb_unrotate {
     UIImage* result = nil;
     CGImageRef imageRef = self.CGImage;

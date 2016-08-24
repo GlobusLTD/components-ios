@@ -12,29 +12,22 @@ typedef void (^GLBCacheComplete)();
 @interface GLBCache : NSObject
 
 @property(nonatomic, readonly, copy) NSString* name;
-@property(nonatomic) NSUInteger memoryCapacity;
-@property(nonatomic, readonly, assign) NSTimeInterval memoryStorageInterval;
-@property(nonatomic) NSUInteger discCapacity;
-@property(nonatomic, readonly, assign) NSTimeInterval discStorageInterval;
-@property(nonatomic, readonly, assign) NSUInteger currentMemoryUsage;
-@property(nonatomic, readonly, assign) NSUInteger currentDiscUsage;
+@property(nonatomic) NSUInteger capacity;
+@property(nonatomic, readonly, assign) NSTimeInterval storageInterval;
+@property(nonatomic, readonly, assign) NSUInteger currentUsage;
 
 + (instancetype)shared;
 
 - (instancetype)initWithName:(NSString*)name;
-- (instancetype)initWithName:(NSString*)name memoryCapacity:(NSUInteger)memoryCapacity discCapacity:(NSUInteger)discCapacity;
-- (instancetype)initWithName:(NSString*)name memoryCapacity:(NSUInteger)memoryCapacity memoryStorageInterval:(NSTimeInterval)memoryStorageInterval discCapacity:(NSUInteger)discCapacity discStorageInterval:(NSTimeInterval)discStorageInterval;
+- (instancetype)initWithName:(NSString*)name capacity:(NSUInteger)capacity;
+- (instancetype)initWithName:(NSString*)name capacity:(NSUInteger)capacity storageInterval:(NSTimeInterval)storageInterval;
 
 - (void)setup NS_REQUIRES_SUPER;
 
+- (BOOL)existDataForKey:(NSString*)key;
+
 - (void)setData:(NSData*)data forKey:(NSString*)key;
 - (void)setData:(NSData*)data forKey:(NSString*)key complete:(GLBCacheComplete)complete;
-- (void)setData:(NSData*)data forKey:(NSString*)key memoryStorageInterval:(NSTimeInterval)memoryStorageInterval;
-- (void)setData:(NSData*)data forKey:(NSString*)key memoryStorageInterval:(NSTimeInterval)memoryStorageInterval complete:(GLBCacheComplete)complete;
-- (void)setData:(NSData*)data forKey:(NSString*)key discStorageInterval:(NSTimeInterval)discStorageInterval;
-- (void)setData:(NSData*)data forKey:(NSString*)key discStorageInterval:(NSTimeInterval)discStorageInterval complete:(GLBCacheComplete)complete;
-- (void)setData:(NSData*)data forKey:(NSString*)key memoryStorageInterval:(NSTimeInterval)memoryStorageInterval discStorageInterval:(NSTimeInterval)discStorageInterval;
-- (void)setData:(NSData*)data forKey:(NSString*)key memoryStorageInterval:(NSTimeInterval)memoryStorageInterval discStorageInterval:(NSTimeInterval)discStorageInterval complete:(GLBCacheComplete)complete;
 - (NSData*)dataForKey:(NSString*)key;
 - (void)dataForKey:(NSString*)key complete:(GLBCacheDataForKey)complete;
 

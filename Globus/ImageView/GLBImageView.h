@@ -3,13 +3,17 @@
 #import "UIView+GLBUI.h"
 
 /*--------------------------------------------------*/
+#if defined(GLB_TARGET_IOS)
+/*--------------------------------------------------*/
 
-@class GLBApiProvider;
-@class GLBCache;
+@class GLBImageManager;
 
 /*--------------------------------------------------*/
 
 @interface GLBImageView : UIImageView
+
+@property(nonatomic, strong) GLBImageManager* manager;
+@property(nonatomic, readonly, getter=isDownloading) BOOL downloading;
 
 @property(nonatomic) IBInspectable BOOL roundCorners;
 @property(nonatomic, strong) IBInspectable UIImage* defaultImage;
@@ -17,46 +21,12 @@
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)didStart;
-- (void)didProgress:(NSProgress*)progress;
-- (void)didFinish;
+- (void)startDownload NS_REQUIRES_SUPER;
+- (void)downloadProgress:(NSProgress*)progress NS_REQUIRES_SUPER;
+- (void)finishDownload NS_REQUIRES_SUPER;
 
 @end
 
 /*--------------------------------------------------*/
-
-@protocol GLBImageDownloadManagerTarget;
-
-/*--------------------------------------------------*/
-
-@interface GLBImageDownloadManager : NSObject
-
-@property(nonatomic, readonly, strong) GLBApiProvider* provider;
-@property(nonatomic, readonly, strong) GLBCache* cache;
-
-+ (instancetype)shared;
-
-- (BOOL)existImageByUrl:(NSURL*)url;
-- (UIImage*)imageByUrl:(NSURL*)url;
-- (BOOL)setImage:(UIImage*)image byUrl:(NSURL*)url;
-- (void)removeImageByUrl:(NSURL*)url;
-- (void)cleanupImages;
-
-- (void)downloadImageByUrl:(NSURL*)url byTarget:(id< GLBImageDownloadManagerTarget >)target;
-- (void)cancelDownloadByTarget:(id< GLBImageDownloadManagerTarget >)target;
-- (void)cancelDownloadByUrl:(NSURL*)url;
-
-@end
-
-/*--------------------------------------------------*/
-
-@protocol GLBImageDownloadManagerTarget < NSObject >
-
-@optional
-- (void)imageDownloadManager:(GLBImageDownloadManager*)imageDownloadManager url:(NSURL*)url progress:(NSProgress*)progress;
-- (void)imageDownloadManager:(GLBImageDownloadManager*)imageDownloadManager url:(NSURL*)url image:(UIImage*)image;
-- (void)imageDownloadManager:(GLBImageDownloadManager*)imageDownloadManager url:(NSURL*)url error:(NSError*)error;
-
-@end
-
+#endif
 /*--------------------------------------------------*/
