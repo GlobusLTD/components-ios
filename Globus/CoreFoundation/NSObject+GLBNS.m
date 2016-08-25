@@ -77,14 +77,14 @@
     } else if([object isKindOfClass:NSArray.class] == YES) {
         NSArray* array = object;
         [stream glb_uint8:GLBObjectPackTypeArray];
-        [stream glb_uint32:array.count];
+        [stream glb_uint32:(uint32_t)array.count];
         for(id item in array) {
             [self glb_packObject:item stream:stream];
         }
     } else if([object isKindOfClass:NSDictionary.class] == YES) {
         NSDictionary* dictionary = object;
         [stream glb_uint8:GLBObjectPackTypeDictionary];
-        [stream glb_uint32:dictionary.count];
+        [stream glb_uint32:(uint32_t)dictionary.count];
         [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
             [self glb_packObject:key stream:stream];
             [self glb_packObject:obj stream:stream];

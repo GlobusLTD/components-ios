@@ -138,7 +138,7 @@
 }
 
 - (void)glb_data:(NSData*)value {
-    [self glb_uint32:value.length];
+    [self glb_uint32:(uint32_t)value.length];
     [self write:(const uint8_t*)value.bytes maxLength:value.length];
 }
 

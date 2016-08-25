@@ -185,18 +185,9 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
     } else {
         complete(existImage);
     }
+    __weak typeof(self) weakSelf = self;
     [self.cache dataForKey:uniqueKey complete:^(NSData* data) {
-        UIImage* image = [self _imageWithData:data];
-        if(image != nil) {
-            @synchronized(_imagesCache) {
-                _imagesCache[uniqueKey] = image;
-            }
-        } else {
-            [self.cache removeDataForKey:uniqueKey];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            complete(image);
-        });
+        [weakSelf _imageByUrl:url processing:processing complete:complete];
     }];
 }
 
@@ -212,13 +203,9 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
     if(processing != nil) {
         uniqueKey = [processing stringByAppendingString:uniqueKey];
     }
+    __weak typeof(self) weakSelf = self;
     dispatch_async(_queue, ^{
-        NSData* data = [self _dataWithImage:image];
-        @synchronized(_imagesCache) {
-            _imagesCache[uniqueKey] = image;
-        }
-        [self.cache setData:data forKey:uniqueKey];
-        dispatch_async(dispatch_get_main_queue(), complete);
+        [weakSelf _setImage:image url:url processing:processing complete:complete];
     });
 }
 
@@ -234,11 +221,9 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
     if(processing != nil) {
         uniqueKey = [processing stringByAppendingString:uniqueKey];
     };
+    __weak typeof(self) weakSelf = self;
     [self.cache removeDataForKey:uniqueKey complete:^{
-        @synchronized(_imagesCache) {
-            [_imagesCache removeObjectForKey:uniqueKey];
-        }
-        dispatch_async(dispatch_get_main_queue(), complete);
+        [weakSelf _removeImageByUrl:url processing:processing complete:complete];
     }];
 }
 
@@ -246,11 +231,9 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
     if(complete == nil) {
         return;
     }
+    __weak typeof(self) weakSelf = self;
     [self.cache removeAllDataComplete:^{
-        @synchronized(_imagesCache) {
-            [_imagesCache removeAllObjects];
-        }
-        dispatch_async(dispatch_get_main_queue(), complete);
+        [weakSelf _cleanupImagesComplete:complete];
     }];
 }
 
@@ -296,6 +279,43 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
 }
 
 #pragma mark - Private
+
+- (void)_imageByUrl:(NSURL*)url processing:(NSString*)processing complete:(GLBImageDownloadImageBlock)complete {
+    UIImage* image = [self _imageWithData:data];
+    if(image != nil) {
+        @synchronized(_imagesCache) {
+            _imagesCache[uniqueKey] = image;
+        }
+    } else {
+        [self.cache removeDataForKey:uniqueKey];
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        complete(image);
+    });
+}
+
+- (void)_setImage:(UIImage*)image url:(NSURL*)url processing:(NSString*)processing complete:(GLBSimpleBlock)complete {
+    NSData* data = [self _dataWithImage:image];
+    [self.cache setData:data forKey:uniqueKey];
+    @synchronized(_imagesCache) {
+        _imagesCache[uniqueKey] = image;
+    }
+    dispatch_async(dispatch_get_main_queue(), complete);
+}
+
+- (void)_removeImageByUrl:(NSURL*)url processing:(NSString*)processing complete:(GLBSimpleBlock)complete {
+    @synchronized(_imagesCache) {
+        [_imagesCache removeObjectForKey:uniqueKey];
+    }
+    dispatch_async(dispatch_get_main_queue(), complete);
+}
+
+- (void)_cleanupImagesComplete:(GLBSimpleBlock)complete {
+    @synchronized(_imagesCache) {
+        [_imagesCache removeAllObjects];
+    }
+    dispatch_async(dispatch_get_main_queue(), complete);
+}
 
 - (void)_setImage:(UIImage*)image data:(NSData*)data url:(NSURL*)url {
     [self _setImage:image data:data url:url processing:nil];
