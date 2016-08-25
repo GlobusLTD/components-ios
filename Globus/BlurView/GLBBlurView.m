@@ -266,11 +266,11 @@
     CALayer* underlyingLayer = self.underlyingLayer;
     CGRect bounds = [blurPresentationLayer convertRect:blurPresentationLayer.bounds toLayer:underlyingLayer];
     _lastUpdate = [NSDate date];
-    CGFloat scale = 0.5f;
+    CGFloat scale = 0.5;
     if(_blurIterations > 0) {
         CGFloat blockSize = 12.0f / _blurIterations;
         scale = blockSize / MAX(blockSize * 2.0f, blurPresentationLayer.blurRadius);
-        scale = 1.0f / floorf(1.0f / scale);
+        scale = 1.0 / floorf(1.0 / scale);
     }
     CGSize size = bounds.size;
     switch(self.contentMode) {

@@ -93,7 +93,7 @@ static GLBDeviceModel GLB_DeviceModel = GLBDeviceModelUnknown;
         NSString* deviceType = self.glb_deviceTypeString;
         [modelManifest enumerateKeysAndObjectsUsingBlock:^(NSString* string, NSNumber* number, BOOL* stop) {
             if([deviceType hasPrefix:string]) {
-                GLB_DeviceFamily = number.unsignedIntegerValue;
+                GLB_DeviceFamily = (GLBDeviceFamily)number.unsignedIntegerValue;
                 *stop = YES;
             }
         }];
@@ -180,7 +180,7 @@ static GLBDeviceModel GLB_DeviceModel = GLBDeviceModelUnknown;
         if(modelManifest != nil) {
             NSNumber* modelType = modelManifest[self.glb_deviceVersionString];
             if(modelType != nil) {
-                GLB_DeviceModel = modelType.unsignedIntegerValue;
+                GLB_DeviceModel = (GLBDeviceModel)modelType.unsignedIntegerValue;
             }
         }
 #endif

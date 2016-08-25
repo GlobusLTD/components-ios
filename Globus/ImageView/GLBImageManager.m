@@ -143,10 +143,7 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
 }
 
 - (UIImage*)imageByUrl:(NSURL*)url processing:(NSString*)processing {
-    NSString* uniqueKey = url.absoluteString;
-    if(processing != nil) {
-        uniqueKey = [processing stringByAppendingString:uniqueKey];
-    }
+    NSString* uniqueKey = [self _uniqueKeyWithUrl:url processing:processing];
     UIImage* image = nil;
     @synchronized(_imagesCache) {
         image = _imagesCache[uniqueKey];
@@ -173,10 +170,7 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
     if(complete == nil) {
         return;
     }
-    NSString* uniqueKey = url.absoluteString;
-    if(processing != nil) {
-        uniqueKey = [processing stringByAppendingString:uniqueKey];
-    }
+    NSString* uniqueKey = [self _uniqueKeyWithUrl:url processing:processing];
     UIImage* existImage = nil;
     @synchronized(_imagesCache) {
         existImage = _imagesCache[uniqueKey];
@@ -187,7 +181,7 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
     }
     __weak typeof(self) weakSelf = self;
     [self.cache dataForKey:uniqueKey complete:^(NSData* data) {
-        [weakSelf _imageByUrl:url processing:processing complete:complete];
+        [weakSelf _imageByData:data uniqueKey:uniqueKey complete:complete];
     }];
 }
 
@@ -199,13 +193,10 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
     if(complete == nil) {
         return;
     }
-    NSString* uniqueKey = url.absoluteString;
-    if(processing != nil) {
-        uniqueKey = [processing stringByAppendingString:uniqueKey];
-    }
+    NSString* uniqueKey = [self _uniqueKeyWithUrl:url processing:processing];
     __weak typeof(self) weakSelf = self;
     dispatch_async(_queue, ^{
-        [weakSelf _setImage:image url:url processing:processing complete:complete];
+        [weakSelf _setImage:image uniqueKey:uniqueKey complete:complete];
     });
 }
 
@@ -217,13 +208,10 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
     if(complete == nil) {
         return;
     }
-    NSString* uniqueKey = url.absoluteString;
-    if(processing != nil) {
-        uniqueKey = [processing stringByAppendingString:uniqueKey];
-    };
+    NSString* uniqueKey = [self _uniqueKeyWithUrl:url processing:processing];
     __weak typeof(self) weakSelf = self;
     [self.cache removeDataForKey:uniqueKey complete:^{
-        [weakSelf _removeImageByUrl:url processing:processing complete:complete];
+        [weakSelf _removeImageByUniqueKey:uniqueKey complete:complete];
     }];
 }
 
@@ -280,7 +268,7 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
 
 #pragma mark - Private
 
-- (void)_imageByUrl:(NSURL*)url processing:(NSString*)processing complete:(GLBImageDownloadImageBlock)complete {
+- (void)_imageByData:(NSData*)data uniqueKey:(NSString*)uniqueKey complete:(GLBImageDownloadImageBlock)complete {
     UIImage* image = [self _imageWithData:data];
     if(image != nil) {
         @synchronized(_imagesCache) {
@@ -294,7 +282,7 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
     });
 }
 
-- (void)_setImage:(UIImage*)image url:(NSURL*)url processing:(NSString*)processing complete:(GLBSimpleBlock)complete {
+- (void)_setImage:(UIImage*)image uniqueKey:(NSString*)uniqueKey complete:(GLBSimpleBlock)complete {
     NSData* data = [self _dataWithImage:image];
     [self.cache setData:data forKey:uniqueKey];
     @synchronized(_imagesCache) {
@@ -303,7 +291,7 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
     dispatch_async(dispatch_get_main_queue(), complete);
 }
 
-- (void)_removeImageByUrl:(NSURL*)url processing:(NSString*)processing complete:(GLBSimpleBlock)complete {
+- (void)_removeImageByUniqueKey:(NSString*)uniqueKey complete:(GLBSimpleBlock)complete {
     @synchronized(_imagesCache) {
         [_imagesCache removeObjectForKey:uniqueKey];
     }
@@ -322,14 +310,19 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
 }
 
 - (void)_setImage:(UIImage*)image data:(NSData*)data url:(NSURL*)url processing:(NSString*)processing {
-    NSString* uniqueKey = url.absoluteString;
-    if(processing != nil) {
-        uniqueKey = [processing stringByAppendingString:uniqueKey];
-    };
+    NSString* uniqueKey = [self _uniqueKeyWithUrl:url processing:processing];
     [self.cache setData:data forKey:uniqueKey];
     @synchronized(_imagesCache) {
         _imagesCache[uniqueKey] = image;
     }
+}
+
+- (NSString*)_uniqueKeyWithUrl:(NSURL*)url processing:(NSString*)processing {
+    NSString* uniqueKey = url.absoluteString;
+    if(processing != nil) {
+        uniqueKey = [processing stringByAppendingString:uniqueKey];
+    };
+    return uniqueKey;
 }
 
 - (NSData*)_dataWithImage:(UIImage*)image {

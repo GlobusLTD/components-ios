@@ -130,7 +130,7 @@
     CGSize spinnerSize = CGSizeMake(self.spinnerSize, self.spinnerSize);
     CGSize textSize = [self.textView glb_sizeForWidth:self.textWidth];
     CGSize panelSize = CGSizeMake(self.margin + MAX(spinnerSize.width, textSize.width) + self.margin, self.margin + spinnerSize.height + ((self.textView.text.length > 0) ? self.spacing + textSize.height : 0.0f) + self.margin);
-    CGFloat spinnerOffset = floorf((panelSize.width - spinnerSize.width) * 0.5f);
+    CGFloat spinnerOffset = (CGFloat)floorf((panelSize.width - spinnerSize.width) * 0.5f);
     
     self.panelView.frame = GLBRectMakeCenterPoint(self.glb_frameCenter, panelSize.width, panelSize.height);
     self.spinnerView.frame = CGRectMake(spinnerOffset, self.margin, spinnerSize.width, spinnerSize.height);
