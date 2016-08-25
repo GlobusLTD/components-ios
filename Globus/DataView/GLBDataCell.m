@@ -37,14 +37,25 @@
 #pragma mark - Calculating size
 
 + (CGSize)sizeForItem:(GLBDataItem*)item availableSize:(CGSize)size {
-    GLBDataCell* cell = [item.view _dequeueCellWithItem:item];
+    GLBDataCell* cell = item.cell;
+    GLBDataCell* dequeueCell = nil;
+    if(cell == nil) {
+        dequeueCell = [item.view _dequeueCellWithItem:item];;
+        cell = dequeueCell;
+    }
     if(cell != nil) {
-        cell.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
-        cell.item = item;
-        [cell setNeedsLayout];
+        if(dequeueCell != nil) {
+            cell.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
+            cell.item = item;
+            [cell setNeedsLayout];
+        } else {
+            cell.glb_frameSize = size;
+        }
         size = [cell sizeForItem:item availableSize:size];
-        [item.view _enqueueCell:cell forIdentifier:item.identifier];
-        cell.item = nil;
+        if(dequeueCell != nil) {
+            [item.view _enqueueCell:cell forIdentifier:item.identifier];
+            cell.item = nil;
+        }
     }
     return size;
 }
@@ -362,12 +373,6 @@
 }
 
 - (void)invalidateLayoutForBounds:(CGRect __unused)bounds {
-}
-
-- (void)beginTransition {
-}
-
-- (void)endTransition {
 }
 
 #pragma mark - Private
