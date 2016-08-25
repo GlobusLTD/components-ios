@@ -67,7 +67,7 @@ typedef void (^GLBModelBlock)();
 
 + (NSDictionary< NSString*, id >* _Nullable)defaultsMap;
 
-+ (NSDictionary< NSString*, id >* _Nullable)serializeMap;
++ (id _Nullable)serializeMap;
 + (NSArray< NSString* >* _Nullable)propertyMap;
 + (NSArray< NSString* >* _Nullable)compareMap;
 + (NSArray< NSString* >* _Nullable)copyMap;

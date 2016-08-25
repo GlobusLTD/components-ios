@@ -19,6 +19,7 @@ typedef NS_OPTIONS(NSUInteger, GLBUIImageAlignment) {
 + (instancetype _Nullable)glb_imageNamed:(NSString* _Nonnull)name capInsets:(UIEdgeInsets)capInsets;
 + (instancetype _Nullable)glb_imageWithColor:(UIColor* _Nonnull)color size:(CGSize)size;
 + (instancetype _Nullable)glb_imageWithColor:(UIColor* _Nonnull)color size:(CGSize)size cornerRadius:(CGFloat)cornerRadius;
++ (instancetype _Nullable)glb_imageWithData:(NSData* _Nonnull)data;
 
 - (UIImage* _Nullable)glb_unrotate;
 - (UIImage* _Nullable)glb_scaleToSize:(CGSize)size;

@@ -1,39 +1,24 @@
 /*--------------------------------------------------*/
 
 #import "GLBCache.h"
-#import "GLBTimer.h"
 #import "GLBModel.h"
 #import "GLBCG.h"
+#import "NSDate+GLBNS.h"
 #import "NSString+GLBNS.h"
-#import "NSBundle+GLBNS.h"
 #import "NSFileManager+GLBNS.h"
 
 /*--------------------------------------------------*/
 
-#if defined(GLB_TARGET_IOS)
-#import <UIKit/UIKit.h>
-#endif
+@interface GLBCache () {
+    dispatch_queue_t _queue;
+    NSMutableArray* _items;
+}
 
-/*--------------------------------------------------*/
-
-@interface GLBCache ()
-
-@property(nonatomic, copy) NSString* name;
-@property(nonatomic, strong) NSString* fileName;
-@property(nonatomic, strong) NSString* filePath;
-@property(nonatomic) NSTimeInterval memoryStorageInterval;
-@property(nonatomic) NSTimeInterval discStorageInterval;
-@property(nonatomic) NSUInteger currentMemoryUsage;
-@property(nonatomic) NSUInteger currentDiscUsage;
-
-@property(nonatomic, strong) GLBTimer* timer;
-@property(nonatomic, strong) NSMutableArray* items;
+@property(nonatomic, readonly, strong) NSString* filePath;
+@property(nonatomic, assign) NSUInteger currentUsage;
 
 - (void)_removeObsoleteItemsInViewOfReserveSize:(NSUInteger)reserveSize;
 - (void)_removeObsoleteItems;
-- (void)_saveItems;
-
-- (void)_notificationReceiveMemoryWarning:(NSNotification*)notification;
 
 @end
 
@@ -41,28 +26,20 @@
 #pragma mark -
 /*--------------------------------------------------*/
 
-@interface GLBCacheItem : GLBModel
+@interface GLBCacheItem : NSObject
 
-@property(nonatomic, weak) GLBCache* cache;
-@property(nonatomic, strong) NSString* key;
-@property(nonatomic, strong) NSString* fileName;
+@property(nonatomic, readonly, weak) GLBCache* cache;
+@property(nonatomic, readonly, strong) NSString* fileName;
 @property(nonatomic, readonly, strong) NSString* filePath;
 @property(nonatomic, readonly, strong) NSData* data;
 @property(nonatomic, readonly, assign) NSUInteger size;
-@property(nonatomic, readonly, assign) NSTimeInterval memoryStorageInterval;
-@property(nonatomic, readonly, assign) NSTimeInterval memoryStorageTime;
-@property(nonatomic, readonly, assign) NSTimeInterval discStorageInterval;
-@property(nonatomic, readonly, assign) NSTimeInterval discStorageTime;
-@property(nonatomic, readonly, assign, getter=isInMemory) BOOL inMemory;
+@property(nonatomic, readonly, strong) NSDate* updateDate;
 
-- (instancetype)initWithCache:(GLBCache*)cache key:(NSString*)key data:(NSData*)data memoryStorageInterval:(NSTimeInterval)memoryStorageInterval discStorageInterval:(NSTimeInterval)discStorageInterval;
+- (instancetype)initWithCache:(GLBCache*)cache fileName:(NSString*)fileName data:(NSData*)data;
+- (instancetype)initWithCache:(GLBCache*)cache fileName:(NSString*)fileName attributes:(NSDictionary< NSString*, id >*)attributes;
 
-- (void)updateData:(NSData*)data memoryStorageInterval:(NSTimeInterval)memoryStorageInterval discStorageInterval:(NSTimeInterval)discStorageInterval;
-
-- (void)saveToDiscCache;
-- (void)clearFromMemoryCache;
-- (void)clearFromDiscCache;
-- (void)clearFromAllCache;
+- (void)updateData:(NSData*)data;
+- (void)clear;
 
 @end
 
@@ -70,12 +47,9 @@
 #pragma mark -
 /*--------------------------------------------------*/
 
-#define GLB_CACHE_NAME                           @"GLBCache"
-#define GLB_CACHE_EXTENSION                      @"cache"
-#define GLB_CACHE_MEMORY_CAPACITY                (1024 * 1024) * 30
-#define GLB_CACHE_MEMORY_STORAGE_INTERVAL        (60 * 10)
-#define GLB_CACHE_DISC_CAPACITY                  (1024 * 1024) * 500
-#define GLB_CACHE_DISC_STORAGE_INTERVAL          ((60 * 60) * 24) * 90
+#define GLB_CACHE_NAME                              @"GLBCache"
+#define GLB_CACHE_CAPACITY                          (1024 * 1024) * 500
+#define GLB_CACHE_STORAGE_INTERVAL                  ((60 * 60) * 24) * 90
 
 /*--------------------------------------------------*/
 
@@ -88,13 +62,7 @@
     if(shared == nil) {
         @synchronized(self) {
             if(shared == nil) {
-                NSBundle* bundle = NSBundle.mainBundle;
-                NSString* name = [bundle glb_objectForInfoDictionaryKey:@"GLBCacheName" defaultValue:GLB_CACHE_NAME];
-                NSNumber* memoryCapacity = [bundle glb_objectForInfoDictionaryKey:@"GLBCacheMemoryCapacity" defaultValue:@(GLB_CACHE_MEMORY_CAPACITY)];
-                NSNumber* memoryStorageInterval = [bundle glb_objectForInfoDictionaryKey:@"GLBCacheMemoryStorageInterval" defaultValue:@(GLB_CACHE_MEMORY_STORAGE_INTERVAL)];
-                NSNumber* discCapacity = [bundle glb_objectForInfoDictionaryKey:@"GLBCacheDiscCapacity" defaultValue:@(GLB_CACHE_DISC_CAPACITY)];
-                NSNumber* discStorageInterval = [bundle glb_objectForInfoDictionaryKey:@"GLBCacheDiscStorageInterval" defaultValue:@(GLB_CACHE_DISC_STORAGE_INTERVAL)];
-                shared = [[self alloc] initWithName:name memoryCapacity:memoryCapacity.unsignedIntegerValue memoryStorageInterval:memoryStorageInterval.doubleValue discCapacity:discCapacity.unsignedIntegerValue discStorageInterval:discStorageInterval.doubleValue];
+                shared = [self new];
             }
         }
     }
@@ -104,75 +72,61 @@
 #pragma mark - Init / Free
 
 - (instancetype)init {
-    return [self initWithName:GLB_CACHE_NAME memoryCapacity:GLB_CACHE_MEMORY_CAPACITY memoryStorageInterval:GLB_CACHE_MEMORY_STORAGE_INTERVAL discCapacity:GLB_CACHE_DISC_CAPACITY discStorageInterval:GLB_CACHE_DISC_STORAGE_INTERVAL];
+    return [self initWithName:GLB_CACHE_NAME capacity:GLB_CACHE_CAPACITY storageInterval:GLB_CACHE_STORAGE_INTERVAL];
 }
 
 - (instancetype)initWithName:(NSString*)name {
-    return [self initWithName:name memoryCapacity:GLB_CACHE_MEMORY_CAPACITY memoryStorageInterval:GLB_CACHE_MEMORY_STORAGE_INTERVAL discCapacity:GLB_CACHE_DISC_CAPACITY discStorageInterval:GLB_CACHE_DISC_STORAGE_INTERVAL];
+    return [self initWithName:name capacity:GLB_CACHE_CAPACITY storageInterval:GLB_CACHE_STORAGE_INTERVAL];
 }
 
-- (instancetype)initWithName:(NSString*)name memoryCapacity:(NSUInteger)memoryCapacity discCapacity:(NSUInteger)discCapacity {
-    return [self initWithName:name memoryCapacity:memoryCapacity memoryStorageInterval:GLB_CACHE_MEMORY_STORAGE_INTERVAL discCapacity:discCapacity discStorageInterval:GLB_CACHE_DISC_STORAGE_INTERVAL];
+- (instancetype)initWithName:(NSString*)name capacity:(NSUInteger)capacity {
+    return [self initWithName:name capacity:capacity storageInterval:GLB_CACHE_STORAGE_INTERVAL];
 }
 
-- (instancetype)initWithName:(NSString*)name memoryCapacity:(NSUInteger)memoryCapacity memoryStorageInterval:(NSTimeInterval)memoryStorageInterval discCapacity:(NSUInteger)discCapacity discStorageInterval:(NSTimeInterval)discStorageInterval {
+- (instancetype)initWithName:(NSString*)name capacity:(NSUInteger)capacity storageInterval:(NSTimeInterval)storageInterval {
     self = [super init];
     if(self != nil) {
-        _name = name;
-        _fileName = [[[_name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] lowercaseString] glb_stringByMD5];
-        _filePath = [NSFileManager.glb_cachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", _fileName, GLB_CACHE_EXTENSION]];
-        _memoryCapacity = (memoryCapacity > discCapacity) ? discCapacity : memoryCapacity;
-        _memoryStorageInterval = (memoryStorageInterval > discStorageInterval) ? discStorageInterval : memoryStorageInterval;
-        _discCapacity = (discCapacity > memoryCapacity) ? discCapacity : memoryCapacity;
-        _discStorageInterval = (discStorageInterval > memoryStorageInterval) ? discStorageInterval : memoryStorageInterval;
-        _timer = [GLBTimer timerWithInterval:MIN(_memoryStorageInterval, _discStorageInterval) repeat:NSNotFound];
+        _name = [name stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+        _capacity = capacity;
+        _storageInterval = storageInterval;
+        
+        _queue = dispatch_queue_create(nil, DISPATCH_QUEUE_SERIAL);
+        _filePath = [NSFileManager.glb_cachesDirectory stringByAppendingPathComponent:_name];
         _items = NSMutableArray.array;
-        if([NSFileManager.defaultManager fileExistsAtPath:_filePath] == YES) {
-            id items = [NSKeyedUnarchiver unarchiveObjectWithFile:_filePath];
-            if([items isKindOfClass:NSArray.class] == YES) {
-                _items.array = items;
+        if([NSFileManager.defaultManager fileExistsAtPath:_filePath] == NO) {
+            NSError* error = nil;
+            BOOL success = [NSFileManager.defaultManager createDirectoryAtPath:_filePath withIntermediateDirectories:YES attributes:nil error:&error];
+            if((success == NO) || (error != nil)) {
+                NSLog(@"GLBCache::Init::Error %@", error);
             }
+        } else {
+            NSString* fileName = nil;
+            NSDirectoryEnumerator* dirEnumerator = [NSFileManager.defaultManager enumeratorAtPath:_filePath];
+            while(fileName = dirEnumerator.nextObject) {
+                GLBCacheItem* item = [[GLBCacheItem alloc] initWithCache:self fileName:fileName attributes:dirEnumerator.fileAttributes];
+                if(item != nil) {
+                    [_items addObject:item];
+                }
+            };
         }
-        for(GLBCacheItem* item in _items) {
-            item.cache = self;
-        }
-        [self _removeObsoleteItems];
         [self setup];
     }
     return self;
 }
 
 - (void)setup {
-#if defined(GLB_TARGET_IOS)
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_notificationReceiveMemoryWarning:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-#endif
-
-    if(_timer != nil) {
-        _timer.actionRepeat = [GLBAction actionWithTarget:self action:@selector(timerDidRepeat:)];
-        [_timer start];
-    }
+    [self _removeObsoleteItems];
 }
 
 - (void)dealloc {
-    [NSNotificationCenter.defaultCenter removeObserver:self];
 }
 
 #pragma mark - Property
 
-- (void)setMemoryCapacity:(NSUInteger)memoryCapacity {
-    if(_memoryCapacity != memoryCapacity) {
-        BOOL needRemoveObsoleteItems = (_memoryCapacity > memoryCapacity);
-        _memoryCapacity = memoryCapacity;
-        if(needRemoveObsoleteItems == YES) {
-            [self _removeObsoleteItems];
-        }
-    }
-}
-
-- (void)setDiscCapacity:(NSUInteger)discCapacity {
-    if(_discCapacity != discCapacity) {
-        BOOL needRemoveObsoleteItems = (_discCapacity > discCapacity);
-        _discCapacity = discCapacity;
+- (void)setCapacity:(NSUInteger)capacity {
+    if(_capacity != capacity) {
+        BOOL needRemoveObsoleteItems = (_capacity > capacity);
+        _capacity = capacity;
         if(needRemoveObsoleteItems == YES) {
             [self _removeObsoleteItems];
         }
@@ -181,54 +135,45 @@
 
 #pragma mark - Public
 
+- (BOOL)existDataForKey:(NSString*)key {
+    NSString* fileName = key.glb_stringByMD5;
+    @synchronized(_items) {
+        for(GLBCacheItem* item in _items) {
+            if([item.fileName isEqualToString:fileName] == YES) {
+                return YES;
+            }
+        }
+    }
+    return NO;
+}
+
 - (void)setData:(NSData*)data forKey:(NSString*)key {
-    [self setData:data forKey:key memoryStorageInterval:_memoryStorageInterval discStorageInterval:_discStorageInterval];
-}
-
-- (void)setData:(NSData*)data forKey:(NSString*)key complete:(GLBCacheComplete)complete {
-    [self setData:data forKey:key memoryStorageInterval:_memoryStorageInterval discStorageInterval:_discStorageInterval complete:complete];
-}
-
-- (void)setData:(NSData*)data forKey:(NSString*)key memoryStorageInterval:(NSTimeInterval)memoryStorageInterval {
-    [self setData:data forKey:key memoryStorageInterval:memoryStorageInterval discStorageInterval:_discStorageInterval];
-}
-
-- (void)setData:(NSData*)data forKey:(NSString*)key memoryStorageInterval:(NSTimeInterval)memoryStorageInterval complete:(GLBCacheComplete)complete {
-    [self setData:data forKey:key memoryStorageInterval:memoryStorageInterval discStorageInterval:_discStorageInterval complete:complete];
-}
-
-- (void)setData:(NSData*)data forKey:(NSString*)key discStorageInterval:(NSTimeInterval)discStorageInterval {
-    [self setData:data forKey:key memoryStorageInterval:_memoryStorageInterval discStorageInterval:discStorageInterval];
-}
-
-- (void)setData:(NSData*)data forKey:(NSString*)key discStorageInterval:(NSTimeInterval)discStorageInterval complete:(GLBCacheComplete)complete {
-    [self setData:data forKey:key memoryStorageInterval:_memoryStorageInterval discStorageInterval:discStorageInterval complete:complete];
-}
-
-- (void)setData:(NSData*)data forKey:(NSString*)key memoryStorageInterval:(NSTimeInterval)memoryStorageInterval discStorageInterval:(NSTimeInterval)discStorageInterval {
+    NSString* fileName = key.glb_stringByMD5;
     @synchronized(_items) {
         GLBCacheItem* foundedItem = nil;
         for(GLBCacheItem* item in _items) {
-            if([item.key isEqualToString:key] == YES) {
+            if([item.fileName isEqualToString:fileName] == YES) {
                 foundedItem = item;
                 break;
             }
         }
-        if(((_currentMemoryUsage + data.length) > _memoryCapacity) || ((_currentDiscUsage + data.length) > _discCapacity)) {
+        if((_currentUsage + data.length) > _capacity) {
             [self _removeObsoleteItemsInViewOfReserveSize:data.length];
         }
         if(foundedItem == nil) {
-            [_items addObject:[[GLBCacheItem alloc] initWithCache:self key:key data:data memoryStorageInterval:(memoryStorageInterval > discStorageInterval) ? discStorageInterval : memoryStorageInterval discStorageInterval:discStorageInterval]];
+            GLBCacheItem* newItem = [[GLBCacheItem alloc] initWithCache:self fileName:fileName data:data];
+            if(newItem != nil) {
+                [_items addObject:newItem];
+            }
         } else {
-            [foundedItem updateData:data memoryStorageInterval:(memoryStorageInterval > discStorageInterval) ? discStorageInterval : memoryStorageInterval discStorageInterval:discStorageInterval];
+            [foundedItem updateData:data];
         }
-        [self _saveItems];
     }
 }
 
-- (void)setData:(NSData*)data forKey:(NSString*)key memoryStorageInterval:(NSTimeInterval)memoryStorageInterval discStorageInterval:(NSTimeInterval)discStorageInterval complete:(GLBCacheComplete)complete {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self setData:data forKey:key memoryStorageInterval:memoryStorageInterval discStorageInterval:discStorageInterval];
+- (void)setData:(NSData*)data forKey:(NSString*)key complete:(GLBCacheComplete)complete {
+    dispatch_async(_queue, ^{
+        [self setData:data forKey:key];
         if(complete != nil) {
             complete();
         }
@@ -237,9 +182,10 @@
 
 - (NSData*)dataForKey:(NSString*)key {
     NSData* result = nil;
+    NSString* fileName = key.glb_stringByMD5;
     @synchronized(_items) {
         for(GLBCacheItem* item in _items) {
-            if([item.key isEqualToString:key] == YES) {
+            if([item.fileName isEqualToString:fileName] == YES) {
                 result = item.data;
                 break;
             }
@@ -250,7 +196,7 @@
 
 - (void)dataForKey:(NSString*)key complete:(GLBCacheDataForKey)complete {
     if(complete != nil) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(_queue, ^{
             complete([self dataForKey:key]);
         });
     }
@@ -259,22 +205,22 @@
 - (void)removeDataForKey:(NSString*)key {
     @synchronized(_items) {
         GLBCacheItem* foundedItem = nil;
+        NSString* fileName = key.glb_stringByMD5;
         for(GLBCacheItem* item in _items) {
-            if([item.key isEqualToString:key] == YES) {
+            if([item.fileName isEqualToString:fileName] == YES) {
                 foundedItem = item;
                 break;
             }
         }
         if(foundedItem != nil) {
-            [foundedItem clearFromAllCache];
+            [foundedItem clear];
             [_items removeObject:foundedItem];
-            [self _saveItems];
         }
     }
 }
 
 - (void)removeDataForKey:(NSString*)key complete:(GLBCacheComplete)complete {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(_queue, ^{
         [self removeDataForKey:key];
         if(complete != nil) {
             complete();
@@ -286,16 +232,15 @@
     @synchronized(_items) {
         if(_items.count > 0) {
             for(GLBCacheItem* item in _items) {
-                [item clearFromAllCache];
+                [item clear];
             }
             [_items removeAllObjects];
-            [self _saveItems];
         }
     }
 }
 
 - (void)removeAllDataComplete:(GLBCacheComplete)complete {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(_queue, ^{
         [self removeAllData];
         if(complete != nil) {
             complete();
@@ -306,86 +251,43 @@
 #pragma mark - Private
 
 - (void)_removeObsoleteItemsInViewOfReserveSize:(NSUInteger)reserveSize {
-    NSUInteger currentMemoryUsage = 0;
-    NSUInteger currentDiscUsage = 0;
+    NSUInteger currentUsage = reserveSize;
     if(_items.count > 0) {
-        NSTimeInterval now = NSDate.timeIntervalSinceReferenceDate;
-        NSMutableArray* removedMemoryItems = NSMutableArray.array;
-        NSMutableArray* removedDiscItems = NSMutableArray.array;
+        NSMutableArray* removedItems = NSMutableArray.array;
         [_items sortUsingComparator:^NSComparisonResult(GLBCacheItem* item1, GLBCacheItem* item2) {
-            if(item1.discStorageTime > item2.discStorageTime) {
-                return NSOrderedDescending;
-            } else if(item1.discStorageTime < item2.discStorageTime) {
-                return NSOrderedAscending;
-            } else {
-                if(item1.memoryStorageTime > item2.memoryStorageTime) {
-                    return NSOrderedDescending;
-                } else if(item1.memoryStorageTime < item2.memoryStorageTime) {
-                    return NSOrderedAscending;
-                } else {
-                    if(item1.size > item2.size) {
-                        return NSOrderedDescending;
-                    } else if(item1.size < item2.size) {
-                        return NSOrderedAscending;
-                    }
+            NSComparisonResult cr = [item1.updateDate compare:item2.updateDate];
+            if(cr == NSOrderedSame) {
+                if(item1.size > item2.size) {
+                    cr = NSOrderedDescending;
+                } else if(item1.size < item2.size) {
+                    cr = NSOrderedAscending;
                 }
             }
-            return NSOrderedSame;
+            return cr;
         }];
+        NSDate* now = NSDate.date;
         for(GLBCacheItem* item in _items) {
-            if((item.discStorageTime > now) && (((currentDiscUsage + reserveSize) + item.size) <= _discCapacity)) {
-                if((item.memoryStorageTime > now) && (((currentMemoryUsage + reserveSize) + item.size) <= _memoryCapacity)) {
-                    if([item isInMemory] == YES) {
-                        currentMemoryUsage += item.size;
-                    }
-                } else {
-                    [removedMemoryItems addObject:item];
-                }
-                currentDiscUsage += item.size;
+            NSDate* itemRemoveDate = [item.updateDate dateByAddingTimeInterval:_storageInterval];
+            if([itemRemoveDate glb_isSame:now] == YES) {
+                [removedItems addObject:item];
+            } else if((currentUsage + item.size) > _capacity) {
+                [removedItems addObject:item];
             } else {
-                [removedDiscItems addObject:item];
+                currentUsage += item.size;
             }
         }
-        if(removedMemoryItems.count > 0) {
-            for(GLBCacheItem* item in removedMemoryItems) {
-                [item clearFromMemoryCache];
+        if(removedItems.count > 0) {
+            for(GLBCacheItem* item in removedItems) {
+                [item clear];
             }
-        }
-        if(removedDiscItems.count > 0) {
-            for(GLBCacheItem* item in removedDiscItems) {
-                [item clearFromAllCache];
-            }
-            [_items removeObjectsInArray:removedDiscItems];
-            [self _saveItems];
+            [_items removeObjectsInArray:removedItems];
         }
     }
-    self.currentMemoryUsage = currentMemoryUsage;
-    self.currentDiscUsage = currentDiscUsage;
+    _currentUsage = currentUsage;
 }
 
 - (void)_removeObsoleteItems {
     [self _removeObsoleteItemsInViewOfReserveSize:0];
-}
-
-- (void)_saveItems {
-    [NSKeyedArchiver archiveRootObject:_items toFile:_filePath];
-}
-
-#pragma mark - NSNotificationCenter
-
-- (void)_notificationReceiveMemoryWarning:(NSNotification* __unused)notification {
-    for(GLBCacheItem* item in _items) {
-        [item clearFromMemoryCache];
-    }
-    self.currentMemoryUsage = 0;
-}
-
-#pragma mark - GLBTimerDelegate
-
--(void)timerDidRepeat:(GLBTimer* __unused)timer {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self _removeObsoleteItems];
-    });
 }
 
 @end
@@ -403,124 +305,63 @@
 #pragma mark - Synthesize
 
 @synthesize cache = _cache;
-@synthesize key = _key;
 @synthesize fileName = _fileName;
 @synthesize filePath = _filePath;
-@synthesize data = _data;
 @synthesize size = _size;
-@synthesize memoryStorageInterval = _memoryStorageInterval;
-@synthesize memoryStorageTime =_memoryStorageTime;
-@synthesize discStorageInterval = _discStorageInterval;
-@synthesize discStorageTime = _discStorageTime;
-@synthesize inMemory = _inMemory;
+@synthesize updateDate = _updateDate;
 
 #pragma mark - Init / Free
 
-- (instancetype)initWithCache:(GLBCache*)cache key:(NSString*)key data:(NSData*)data memoryStorageInterval:(NSTimeInterval)memoryStorageInterval discStorageInterval:(NSTimeInterval)discStorageInterval {
+- (instancetype)initWithCache:(GLBCache*)cache fileName:(NSString*)fileName data:(NSData*)data {
     self = [super init];
     if(self != nil) {
         _cache = cache;
-        _key = [key stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        _fileName = _key.lowercaseString.glb_stringByMD5;
-        _filePath = [NSFileManager.glb_cachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", _fileName, GLB_CACHE_ITEM_EXTENSION]];
-        _data = data;
-        _size = _data.length;
-        _memoryStorageInterval = memoryStorageInterval;
-        _memoryStorageTime = GLB_CEIL(NSDate.timeIntervalSinceReferenceDate + memoryStorageInterval);
-        _discStorageInterval = discStorageInterval;
-        _discStorageTime = GLB_CEIL(NSDate.timeIntervalSinceReferenceDate + discStorageInterval);
-        
-        _cache.currentMemoryUsage = _cache.currentMemoryUsage + _size;
-        [self saveToDiscCache];
+        _fileName = fileName;
+        _filePath = [cache.filePath stringByAppendingPathComponent:_fileName];
+        if([data writeToFile:_filePath atomically:YES] == YES) {
+            _size = data.length;
+            _updateDate = NSDate.date;
+            _cache.currentUsage += _size;
+        } else {
+            self = nil;
+        }
     }
     return self;
 }
 
-- (void)dealloc {
-    [self clearFromMemoryCache];
-}
-
-#pragma mark - GLBModel
-
-+ (NSArray*)compareMap {
-    return @[
-        @"key",
-    ];
-}
-
-+ (NSArray*)serializeMap {
-    return @[
-        @"key",
-        @"fileName",
-        @"size",
-        @"memoryStorageInterval",
-        @"memoryStorageTime",
-        @"discStorageInterval",
-        @"discStorageTime"
-    ];
+- (instancetype)initWithCache:(GLBCache*)cache fileName:(NSString*)fileName attributes:(NSDictionary< NSString*, id >*)attributes {
+    self = [super init];
+    if(self != nil) {
+        _cache = cache;
+        _fileName = fileName;
+        _filePath = [cache.filePath stringByAppendingPathComponent:fileName];
+        _size = attributes.fileSize;
+        _updateDate = attributes.fileModificationDate;
+        _cache.currentUsage += _size;
+    }
+    return self;
 }
 
 #pragma mark - Property
 
-- (void)setFileName:(NSString*)fileName {
-    if([_fileName isEqualToString:fileName] == NO) {
-        _fileName = fileName;
-        if(_fileName != nil) {
-            _filePath = [NSFileManager.glb_cachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", _fileName, GLB_CACHE_ITEM_EXTENSION]];
-        } else {
-            _filePath = nil;
-        }
-    }
-}
-
 - (NSData*)data {
-    if((_data == nil) && (_filePath != nil)) {
-        _data = [NSData dataWithContentsOfFile:_filePath];
-        if(_data != nil) {
-            _cache.currentMemoryUsage = _cache.currentMemoryUsage + _size;
-        }
-    }
-    return _data;
-}
-
-- (BOOL)isInMemory {
-    return (_data != nil);
+    return [NSData dataWithContentsOfFile:_filePath];
 }
 
 #pragma mark - Private
 
-- (void)updateData:(NSData*)data memoryStorageInterval:(NSTimeInterval)memoryStorageInterval discStorageInterval:(NSTimeInterval)discStorageInterval {
-    _cache.currentMemoryUsage = _cache.currentMemoryUsage - _size;
-    _data = data;
-    _size = data.length;
-    _cache.currentMemoryUsage = _cache.currentMemoryUsage + _size;
-    _memoryStorageInterval = memoryStorageInterval;
-    _memoryStorageTime = GLB_CEIL(NSDate.timeIntervalSinceReferenceDate + memoryStorageInterval);
-    _discStorageInterval = discStorageInterval;
-    _discStorageTime = GLB_CEIL(NSDate.timeIntervalSinceReferenceDate + discStorageInterval);
-    [self saveToDiscCache];
-}
-
-- (void)saveToDiscCache {
-    if([_data writeToFile:_filePath atomically:YES] == YES) {
-        _cache.currentDiscUsage = _cache.currentDiscUsage + _size;
+- (void)updateData:(NSData*)data {
+    if([data writeToFile:_filePath atomically:YES] == YES) {
+        _cache.currentUsage += (_size - data.length);
+        _size = data.length;
+        _updateDate = NSDate.date;
     }
 }
 
-- (void)clearFromMemoryCache {
-    _cache.currentMemoryUsage = _cache.currentMemoryUsage - _size;
-    _data = nil;
-}
-
-- (void)clearFromDiscCache {
+- (void)clear {
     if([NSFileManager.defaultManager removeItemAtPath:_filePath error:nil] == YES) {
-        _cache.currentDiscUsage = _cache.currentDiscUsage - _size;
+        _cache.currentUsage -= _size;
     }
-}
-
-- (void)clearFromAllCache {
-    [self clearFromMemoryCache];
-    [self clearFromDiscCache];
 }
 
 @end

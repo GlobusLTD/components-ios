@@ -1,21 +1,16 @@
 /*--------------------------------------------------*/
 
-#import "GLBImageView.h"
-#import "GLBDownloader.h"
+#import "GLBImageView+Private.h"
 
 /*--------------------------------------------------*/
-
-@interface GLBImageDownloader () < GLBDownloaderDelegate > {
-    GLBDownloader* _downloader;
-}
-
-@end
-
-/*--------------------------------------------------*/
-#pragma mark -
+#if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
 @implementation GLBImageView
+
+#pragma mark - Synthesize
+
+@synthesize manager = _manager;
 
 #pragma mark - Init / Free
 
@@ -44,66 +39,92 @@
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     [self _updateCorners];
-    [self _updateShadow];
 }
 
 - (void)setBounds:(CGRect)bounds {
     [super setBounds:bounds];
     [self _updateCorners];
-    [self _updateShadow];
-}
-
-#pragma mark - Property
-
-- (void)setRoundCorners:(BOOL)roundCorners {
-    if(_roundCorners != roundCorners) {
-        _roundCorners = roundCorners;
-        [self _updateCorners];
-        [self _updateShadow];
-    }
-}
-
-- (void)setAutomaticShadowPath:(BOOL)automaticShadowPath {
-    if(_automaticShadowPath != automaticShadowPath) {
-        _automaticShadowPath = automaticShadowPath;
-        self.clipsToBounds = (_automaticShadowPath == NO);
-        [self _updateShadow];
-    }
 }
 
 - (void)setImage:(UIImage*)image {
     if(image == nil) {
         image = _defaultImage;
     }
-    super.image = image;
+    [self _applyImage:image];
+}
+
+#pragma mark - Property
+
+- (void)setManager:(GLBImageManager*)manager {
+    if(_manager != manager) {
+        if(_manager != nil) {
+            [_manager cancelByTarget:self];
+        }
+        _manager = manager;
+        if((_manager != nil) && (_downloading == YES)) {
+            [self _applyImage:_defaultImage];
+            [self _applyImageUrl:_imageUrl processing:_processingKey];
+        }
+    }
+}
+
+- (GLBImageManager*)manager {
+    if(_manager == nil) {
+        _manager = [GLBImageManager defaultImageManager];
+    }
+    return _manager;
+}
+
+- (void)setRoundCorners:(BOOL)roundCorners {
+    if(_roundCorners != roundCorners) {
+        _roundCorners = roundCorners;
+        [self _updateCorners];
+    }
 }
 
 - (void)setImageUrl:(NSURL*)imageUrl {
-    [self setImageUrl:imageUrl complete:nil failure:nil];
-}
-
-- (void)setImageUrl:(NSURL*)imageUrl complete:(GLBSimpleBlock)complete failure:(GLBSimpleBlock)failure {
     if([_imageUrl isEqual:imageUrl] == NO) {
         if(_imageUrl != nil) {
-            [GLBImageDownloader.shared cancelByTarget:self];
+            [self.manager cancelByTarget:self];
+            _downloading = NO;
         }
         _imageUrl = imageUrl;
-        super.image = _defaultImage;
-        [GLBImageDownloader.shared downloadWithUrl:_imageUrl byTarget:self completeBlock:^(UIImage* image, NSURL* url __unused) {
-            super.image = image;
-            if(complete != nil) {
-                complete();
-            }
-        } failureBlock:^(NSURL* url __unused) {
-            if(failure != nil) {
-                failure();
-            }
-        }];
-    } else {
-        if(complete != nil) {
-            complete();
+        if(_imageUrl != nil) {
+            [self _applyImage:_defaultImage];
+            [self _applyImageUrl:_imageUrl processing:_processingKey];
+        } else {
+            [self _applyImage:_defaultImage];
         }
     }
+}
+
+- (void)setProcessingKey:(NSString*)processingKey {
+    if([_processingKey isEqualToString:processingKey] == NO) {
+        if(_imageUrl != nil) {
+            [self.manager cancelByTarget:self];
+            _downloading = NO;
+        }
+        _processingKey = processingKey.copy;
+        if(_imageUrl != nil) {
+            [self _applyImage:_defaultImage];
+            [self _applyImageUrl:_imageUrl processing:_processingKey];
+        } else {
+            [self _applyImage:_defaultImage];
+        }
+    }
+}
+
+#pragma mark - Public
+
+- (void)startDownload {
+    _downloading = YES;
+}
+
+- (void)downloadProgress:(NSProgress*)progress {
+}
+
+- (void)finishDownload {
+    _downloading = NO;
 }
 
 #pragma mark - Private
@@ -115,89 +136,45 @@
     }
 }
 
-- (void)_updateShadow {
-    if(_automaticShadowPath == YES) {
-        CGRect bounds = self.bounds;
-        if((bounds.size.width > 0.0f) && (bounds.size.height > 0.0f)) {
-            self.layer.shadowPath = [[UIBezierPath bezierPathWithRoundedRect:bounds cornerRadius:self.layer.cornerRadius] CGPath];
-        }
-    }
+- (void)_applyImage:(UIImage*)image {
+    super.image = image;
+}
+
+- (void)_applyImageUrl:(NSURL*)imageUrl processing:(NSString*)processing {
+    [self.manager imageByUrl:imageUrl processing:processing target:self];
+}
+
+#pragma mark - GLBImageManagerTarget
+
+- (void)imageManager:(GLBImageManager*)imageManager cacheImage:(UIImage*)image {
+    [self _applyImage:image];
+}
+
+- (UIImage*)imageManager:(GLBImageManager*)imageManager processing:(NSString*)processing image:(UIImage*)image {
+    return nil;
+}
+
+- (void)startDownloadInImageManager:(GLBImageManager*)imageManager {
+    [self startDownload];
+}
+
+- (void)finishDownloadInImageManager:(GLBImageManager*)imageManager {
+    [self finishDownload];
+}
+
+- (void)imageManager:(GLBImageManager*)imageManager downloadProgress:(NSProgress*)progress {
+    [self downloadProgress:progress];
+}
+
+- (void)imageManager:(GLBImageManager*)imageManager downloadImage:(UIImage*)image {
+    [self _applyImage:image];
+}
+
+- (void)imageManager:(GLBImageManager*)imageManager downloadError:(NSError*)error {
 }
 
 @end
 
 /*--------------------------------------------------*/
-#pragma mark -
-/*--------------------------------------------------*/
-
-@implementation GLBImageDownloader
-
-#pragma mark - Init / Free
-
-- (instancetype)init {
-    self = [super init];
-    if(self != nil) {
-        _downloader = [GLBDownloader downloaderWithDelegate:self];
-    }
-    return self;
-}
-
-#pragma mark - Public
-
-+ (instancetype)shared {
-    static id shared = nil;
-    if(shared == nil) {
-        @synchronized(self) {
-            if(shared == nil) {
-                shared = [self new];
-            }
-        }
-    }
-    return shared;
-}
-
-- (BOOL)isExistImageWithUrl:(NSURL*)url {
-    return [_downloader isExistEntryByUrl:url];
-}
-
-- (UIImage*)imageWithUrl:(NSURL*)url {
-    return [_downloader entryByUrl:url];
-}
-
-- (void)setImage:(UIImage*)image byUrl:(NSURL*)url {
-    [_downloader setEntry:image byUrl:url];
-}
-
-- (void)removeByUrl:(NSURL*)url {
-    [_downloader removeEntryByUrl:url];
-}
-
-- (void)cleanup {
-    [_downloader cleanup];
-}
-
-- (void)downloadWithUrl:(NSURL*)url byTarget:(id)target complete:(GLBImageDownloaderCompleteBlock)complete failure:(GLBImageDownloaderFailureBlock)failure {
-    [_downloader downloadWithUrl:url byTarget:target complete:complete failure:failure];
-}
-
-- (void)cancelByUrl:(NSURL*)url {
-    [_downloader cancelByUrl:url];
-}
-
-- (void)cancelByTarget:(id)target {
-    [_downloader cancelByTarget:target];
-}
-
-#pragma mark - GLBDownloaderDelegate
-
-- (id)downloader:(GLBDownloader* __unused)downloader entryFromData:(NSData*)data {
-    return [UIImage imageWithData:data];
-}
-
-- (NSData*)downloader:(GLBDownloader* __unused)downloader entryToData:(id)entry {
-    return UIImagePNGRepresentation(entry);
-}
-
-@end
-
+#endif
 /*--------------------------------------------------*/
