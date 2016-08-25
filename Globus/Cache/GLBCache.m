@@ -102,7 +102,7 @@
         } else {
             NSString* fileName = nil;
             NSDirectoryEnumerator* dirEnumerator = [NSFileManager.defaultManager enumeratorAtPath:_filePath];
-            while(fileName = dirEnumerator.nextObject) {
+            while((fileName = dirEnumerator.nextObject)) {
                 GLBCacheItem* item = [[GLBCacheItem alloc] initWithCache:self fileName:fileName attributes:dirEnumerator.fileAttributes];
                 if(item != nil) {
                     [_items addObject:item];
@@ -335,7 +335,7 @@
         _cache = cache;
         _fileName = fileName;
         _filePath = [cache.filePath stringByAppendingPathComponent:fileName];
-        _size = attributes.fileSize;
+        _size = (NSUInteger)attributes.fileSize;
         _updateDate = attributes.fileModificationDate;
         _cache.currentUsage += _size;
     }
