@@ -32,7 +32,7 @@ static NSString* GLBAppGroupNotificationCenterCustomKey = @"Custom";
 
 /*--------------------------------------------------*/
 
-void GLBAppGroupNotificationCenterNotificationCallback(CFNotificationCenterRef center, void* observer, CFStringRef name, const void* object, CFDictionaryRef userInfo) {
+static void GLBAppGroupNotificationCenterNotificationCallback(CFNotificationCenterRef center, void* observer, CFStringRef name, const void* object, CFDictionaryRef userInfo) {
     [NSNotificationCenter.defaultCenter postNotificationName:GLBAppGroupNotificationCenterNotification object:(__bridge_transfer NSString*)name userInfo:nil];
 }
 
@@ -83,16 +83,18 @@ void GLBAppGroupNotificationCenterNotificationCallback(CFNotificationCenterRef c
 
 - (void)postNotificationName:(NSString*)name object:(id< NSCoding >)object {
     if(name.length > 0) {
+        __weak typeof(self) weakSelf = self;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            __strong typeof(self) strongSelf = weakSelf;
             NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
-            userInfo[GLBAppGroupNotificationCenterProcessIdKey] = _processId;
+            userInfo[GLBAppGroupNotificationCenterProcessIdKey] = strongSelf.processId;
             if(object != nil) {
                 userInfo[GLBAppGroupNotificationCenterCustomKey] = object;
             }
-            NSString* userInfoFilePath = [self _objectFilePathForName:name];
+            NSString* userInfoFilePath = [strongSelf _objectFilePathForName:name];
             NSData* userInfoData = [NSKeyedArchiver archivedDataWithRootObject:userInfo];
             if([userInfoData writeToFile:userInfoFilePath atomically:YES] == YES) {
-                [self _postDarwinNotificationWithName:name];
+                [strongSelf _postDarwinNotificationWithName:name];
             }
         });
     }
@@ -107,7 +109,10 @@ void GLBAppGroupNotificationCenterNotificationCallback(CFNotificationCenterRef c
             
             [self _addDarwinObserverWithName:name];
         }
-        [actions addObject:[GLBAction actionWithTarget:observer action:selector]];
+        GLBAction* action = [GLBAction actionWithTarget:observer action:selector];
+        if(action != nil) {
+            [actions addObject:action];
+        }
     }
 }
 
@@ -163,7 +168,10 @@ void GLBAppGroupNotificationCenterNotificationCallback(CFNotificationCenterRef c
 - (void)_cleanupAllTempFiles {
     if(_directory != nil) {
         NSString* messagePassingPath = self.messagePassingPath;
-        NSArray* messageFiles = [_fileManager contentsOfDirectoryAtPath:messagePassingPath error:NULL];
+        if(messagePassingPath == nil) {
+            return;
+        }
+        NSArray* messageFiles = [_fileManager contentsOfDirectoryAtPath:messagePassingPath error:nil];
         for(NSString* path in messageFiles) {
             [_fileManager removeItemAtPath:[messagePassingPath stringByAppendingPathComponent:path] error:NULL];
         }

@@ -214,12 +214,11 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
     }
     dispatch_async(_queue, ^{
         NSData* data = [self _dataWithImage:image];
-        [self.cache setData:data forKey:uniqueKey complete:^{
-            @synchronized(_imagesCache) {
-                _imagesCache[uniqueKey] = image;
-            }
-            dispatch_async(dispatch_get_main_queue(), complete);
-        }];
+        @synchronized(_imagesCache) {
+            _imagesCache[uniqueKey] = image;
+        }
+        [self.cache setData:data forKey:uniqueKey];
+        dispatch_async(dispatch_get_main_queue(), complete);
     });
 }
 

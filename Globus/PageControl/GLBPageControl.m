@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
 
 @interface GLBPageControl () {
 @private
-    NSInteger _displayedPage;
+    NSUInteger _displayedPage;
     CGFloat _measuredIndicatorWidth;
     CGFloat	_measuredIndicatorHeight;
     CGImageRef _pageImageMask;
@@ -32,12 +32,12 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
 @property(nonatomic, strong) NSArray* pageRects;
 @property(nonatomic, strong) UIPageControl* accessibilityPageControl;
 
-- (void)_setCurrentPage:(NSInteger)currentPage sendAction:(BOOL)sendAction canDefer:(BOOL)defer;
+- (void)_setCurrentPage:(NSUInteger)currentPage sendAction:(BOOL)sendAction canDefer:(BOOL)defer;
 
 - (CGFloat)_leftOffset;
 - (CGFloat)_topOffsetForHeight:(CGFloat)height rect:(CGRect)rect;
-- (void)_setImage:(UIImage*)image forPage:(NSInteger)pageIndex type:(GLBPageControlImageType)type;
-- (id)_imageForPage:(NSInteger)pageIndex type:(GLBPageControlImageType)type;
+- (void)_setImage:(UIImage*)image forPage:(NSUInteger)pageIndex type:(GLBPageControlImageType)type;
+- (id)_imageForPage:(NSUInteger)pageIndex type:(GLBPageControlImageType)type;
 - (CGImageRef)_createMaskForImage:(UIImage*)image CF_RETURNS_RETAINED;
 - (void)_updateMeasuredIndicatorSizeWithSize:(CGSize)size;
 - (void)_updateMeasuredIndicatorSizes;
@@ -77,7 +77,6 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
 }
 
 - (void)setup {
-    _numberOfPages = 0;
     _indicatorDiameter = 7.0f;
     _indicatorMargin = 14.0f;
     _minHeight = 36.0f;
@@ -133,10 +132,9 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
     }
 }
 
-- (void)setNumberOfPages:(NSInteger)numberOfPages {
+- (void)setNumberOfPages:(NSUInteger)numberOfPages {
     if(_numberOfPages != numberOfPages) {
-        _numberOfPages = MAX(0, numberOfPages);
-        _accessibilityPageControl.numberOfPages = _numberOfPages;
+        _accessibilityPageControl.numberOfPages = (NSInteger)_numberOfPages;
         if([self respondsToSelector:@selector(invalidateIntrinsicContentSize)] == YES) {
             [self invalidateIntrinsicContentSize];
         }
@@ -145,7 +143,7 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
     }
 }
 
-- (void)setCurrentPage:(NSInteger)currentPage {
+- (void)setCurrentPage:(NSUInteger)currentPage {
     [self _setCurrentPage:currentPage sendAction:NO canDefer:NO];
 }
 
@@ -243,7 +241,7 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
         UIImage *image = nil;
         CGImageRef maskingImage = nil;
         CGSize maskSize = CGSizeZero;
-        for(NSInteger i = 0; i < _numberOfPages; i++) {
+        for(NSUInteger i = 0; i < _numberOfPages; i++) {
             NSNumber* indexNumber = @(i);
             if(i == _displayedPage) {
                 fillColor = _currentPageIndicatorTintColor ? _currentPageIndicatorTintColor : [UIColor whiteColor];
@@ -297,7 +295,7 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
     UITouch* touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];
     if(_tapBehavior == GLBPageControlTapBehaviorJump) {
-        __block NSInteger tappedIndicatorIndex = NSNotFound;
+        __block NSUInteger tappedIndicatorIndex = NSNotFound;
         [_pageRects enumerateObjectsUsingBlock:^(NSValue *value, NSUInteger index, BOOL *stop) {
             CGRect indicatorRect = [value CGRectValue];
             if(CGRectContainsPoint(indicatorRect, point)) {
@@ -322,11 +320,11 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
 
 #pragma mark - Private
 
-- (void)_setCurrentPage:(NSInteger)currentPage sendAction:(BOOL)sendAction canDefer:(BOOL)defer {
-    currentPage = MIN(MAX(0, currentPage), _numberOfPages - 1);
+- (void)_setCurrentPage:(NSUInteger)currentPage sendAction:(BOOL)sendAction canDefer:(BOOL)defer {
+    currentPage = MIN(currentPage, _numberOfPages - 1);
     if(_currentPage != currentPage) {
         _currentPage = currentPage;
-        _accessibilityPageControl.currentPage = _currentPage;
+        _accessibilityPageControl.currentPage = (NSInteger)_currentPage;
         [self updateAccessibilityValue];
         if((_defersCurrentPageDisplay == NO) || (defer == NO)) {
             _displayedPage = _currentPage;
@@ -360,8 +358,8 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
 	return top;
 }
 
-- (void)_setImage:(UIImage*)image forPage:(NSInteger)pageIndex type:(GLBPageControlImageType)type {
-    if((pageIndex >= 0) && (pageIndex < _numberOfPages)) {
+- (void)_setImage:(UIImage*)image forPage:(NSUInteger)pageIndex type:(GLBPageControlImageType)type {
+    if(pageIndex < _numberOfPages) {
         NSMutableDictionary* dictionary = nil;
         switch(type) {
             case GLBPageControlImageTypeCurrent: dictionary = _currentPageImages; break;
@@ -377,8 +375,8 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
     }
 }
 
-- (id)_imageForPage:(NSInteger)pageIndex type:(GLBPageControlImageType)type {
-    if((pageIndex >= 0) && (pageIndex < _numberOfPages)) {
+- (id)_imageForPage:(NSUInteger)pageIndex type:(GLBPageControlImageType)type {
+    if(pageIndex < _numberOfPages) {
         NSDictionary* dictionary = nil;
         switch(type) {
             case GLBPageControlImageTypeCurrent: dictionary = _currentPageImages; break;
@@ -393,8 +391,8 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
 
 - (CGImageRef)_createMaskForImage:(UIImage*)image CF_RETURNS_RETAINED {
     CGImageRef maskImage = NULL;
-    size_t pixelsWide = image.size.width * image.scale;
-    size_t pixelsHigh = image.size.height * image.scale;
+    size_t pixelsWide = (size_t)(image.size.width * image.scale);
+    size_t pixelsHigh = (size_t)(image.size.height * image.scale);
     size_t bitmapBytesPerRow = (pixelsWide * 1);
     CGContextRef context = CGBitmapContextCreate(NULL, pixelsWide, pixelsHigh, CGImageGetBitsPerComponent(image.CGImage), bitmapBytesPerRow, NULL, (CGBitmapInfo)kCGImageAlphaOnly);
     if(context != nil) {
@@ -440,8 +438,8 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
 	[self setNeedsDisplay];
 }
 
-- (CGRect)rectForPageIndicator:(NSInteger)pageIndex {
-    if((pageIndex >= 0) && (pageIndex < _numberOfPages)) {
+- (CGRect)rectForPageIndicator:(NSUInteger)pageIndex {
+    if(pageIndex < _numberOfPages) {
         CGFloat left = [self _leftOffset];
         CGSize size = [self sizeForNumberOfPages:pageIndex + 1];
         return CGRectMake(left + size.width - _measuredIndicatorWidth, 0, _measuredIndicatorWidth, _measuredIndicatorWidth);
@@ -449,32 +447,32 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
     return CGRectZero;
 }
 
-- (CGSize)sizeForNumberOfPages:(NSInteger)pageCount {
-	CGFloat marginSpace = MAX(0, pageCount - 1) * _indicatorMargin;
+- (CGSize)sizeForNumberOfPages:(NSUInteger)pageCount {
+	CGFloat marginSpace = (pageCount - 1) * _indicatorMargin;
 	CGFloat indicatorSpace = pageCount * _measuredIndicatorWidth;
 	CGSize size = CGSizeMake(marginSpace + indicatorSpace, _measuredIndicatorHeight);
 	return size;
 }
 
-- (void)setImage:(UIImage*)image forPage:(NSInteger)pageIndex {
+- (void)setImage:(UIImage*)image forPage:(NSUInteger)pageIndex {
     [self _setImage:image forPage:pageIndex type:GLBPageControlImageTypeNormal];
 	[self _updateMeasuredIndicatorSizes];
 }
 
-- (UIImage*)imageForPage:(NSInteger)pageIndex {
+- (UIImage*)imageForPage:(NSUInteger)pageIndex {
     return [self _imageForPage:pageIndex type:GLBPageControlImageTypeNormal];
 }
 
-- (void)setCurrentImage:(UIImage*)image forPage:(NSInteger)pageIndex {
+- (void)setCurrentImage:(UIImage*)image forPage:(NSUInteger)pageIndex {
 	[self _setImage:image forPage:pageIndex type:GLBPageControlImageTypeCurrent];;
 	[self _updateMeasuredIndicatorSizes];
 }
 
-- (UIImage*)currentImageForPage:(NSInteger)pageIndex {
+- (UIImage*)currentImageForPage:(NSUInteger)pageIndex {
     return [self _imageForPage:pageIndex type:GLBPageControlImageTypeCurrent];
 }
 
-- (void)setImageMask:(UIImage*)image forPage:(NSInteger)pageIndex {
+- (void)setImageMask:(UIImage*)image forPage:(NSUInteger)pageIndex {
 	[self _setImage:image forPage:pageIndex type:GLBPageControlImageTypeMask];
 	if(image != nil) {
         CGImageRef maskImage = [self _createMaskForImage:image];
@@ -489,7 +487,7 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
 	}
 }
 
-- (UIImage*)imageMaskForPage:(NSInteger)pageIndex {
+- (UIImage*)imageMaskForPage:(NSUInteger)pageIndex {
 	return [self _imageForPage:pageIndex type:GLBPageControlImageTypeMask];
 }
 
@@ -501,21 +499,21 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
 
 - (void)updatePageNumberForScrollView:(UIScrollView*)scrollView {
     CGSize boundsSize = scrollView.bounds.size;
-    self.numberOfPages = (NSInteger)floorf(scrollView.contentSize.width / boundsSize.width);
-    NSInteger currentPage = (NSInteger)floorf(scrollView.contentOffset.x / boundsSize.width);
+    self.numberOfPages = (NSUInteger)floorf(scrollView.contentSize.width / boundsSize.width);
+    NSUInteger currentPage = (NSUInteger)floorf(scrollView.contentOffset.x / boundsSize.width);
     [self _setCurrentPage:currentPage sendAction:YES canDefer:NO];
 }
 
 #pragma mark - UIAccessibility
 
-- (void)setName:(NSString*)name forPage:(NSInteger)pageIndex {
-    if((pageIndex >= 0) && (pageIndex < _numberOfPages)) {
+- (void)setName:(NSString*)name forPage:(NSUInteger)pageIndex {
+    if(pageIndex < _numberOfPages) {
         _pageNames[@(pageIndex)] = name;
 	}
 }
 
-- (NSString*)nameForPage:(NSInteger)pageIndex {
-    if((pageIndex >= 0) && (pageIndex < _numberOfPages)) {
+- (NSString*)nameForPage:(NSUInteger)pageIndex {
+    if(pageIndex < _numberOfPages) {
         return _pageNames[@(pageIndex)];
     }
     return nil;

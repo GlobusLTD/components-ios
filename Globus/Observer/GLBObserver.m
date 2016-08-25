@@ -48,7 +48,7 @@
 }
 
 - (void)addObserver:(id< GLBObserverProtocol >)observer {
-    NSInteger index = [_observers glb_indexForPointer:(__bridge void*)(observer)];
+    NSUInteger index = [_observers glb_indexForPointer:(__bridge void*)(observer)];
     if(index == NSNotFound) {
         [_observers addPointer:(__bridge void*)(observer)];
     }

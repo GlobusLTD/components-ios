@@ -621,7 +621,7 @@
         }
     } else if([json isKindOfClass:NSNumber.class] == YES) {
         NSTimeZone* timeZone = (_timeZone != nil) ? _timeZone : NSTimeZone.localTimeZone;
-        result = [NSDate glb_dateWithUnixTimestamp:[json longValue] timeZone:timeZone];
+        result = [NSDate glb_dateWithUnixTimestamp:[json unsignedLongValue] timeZone:timeZone];
     }
     if(result != nil) {
         return result;

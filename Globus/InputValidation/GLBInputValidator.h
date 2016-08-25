@@ -57,10 +57,10 @@
 @interface GLBInputMinLengthValidator : NSObject < GLBInputValidator >
 
 @property(nonatomic, strong) IBInspectable NSString* message;
-@property(nonatomic) IBInspectable NSInteger minLength;
+@property(nonatomic) IBInspectable NSUInteger minLength;
 @property(nonatomic, readonly, assign, getter=isRequired) IBInspectable BOOL required;
 
-- (instancetype)initWithMessage:(NSString*)message minLength:(NSInteger)minLength;
+- (instancetype)initWithMessage:(NSString*)message minLength:(NSUInteger)minLength;
 
 @end
 
@@ -69,10 +69,10 @@
 @interface GLBInputMaxLengthValidator : NSObject < GLBInputValidator >
 
 @property(nonatomic, strong) IBInspectable NSString* message;
-@property(nonatomic) IBInspectable NSInteger maxLength;
+@property(nonatomic) IBInspectable NSUInteger maxLength;
 @property(nonatomic, readonly, assign, getter=isRequired) IBInspectable BOOL required;
 
-- (instancetype)initWithMessage:(NSString*)message maxLength:(NSInteger)maxLength;
+- (instancetype)initWithMessage:(NSString*)message maxLength:(NSUInteger)maxLength;
 
 @end
 

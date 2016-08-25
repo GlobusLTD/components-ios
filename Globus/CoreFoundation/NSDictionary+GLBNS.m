@@ -132,7 +132,7 @@
 }
 
 - (void)glb_eachWithIndex:(void(^)(id key, id value, NSUInteger index))block {
-    __block NSInteger index = 0;
+    __block NSUInteger index = 0;
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
         block(key, obj, index);
         index++;
@@ -146,7 +146,7 @@
 }
 
 - (void)glb_eachKeyWithIndex:(void(^)(id key, NSUInteger index))block {
-    __block NSInteger index = 0;
+    __block NSUInteger index = 0;
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
         block(key, index);
         index++;
@@ -160,7 +160,7 @@
 }
 
 - (void)glb_eachValueWithIndex:(void(^)(id value, NSUInteger index))block {
-    __block NSInteger index = 0;
+    __block NSUInteger index = 0;
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
         block(obj, index);
         index++;

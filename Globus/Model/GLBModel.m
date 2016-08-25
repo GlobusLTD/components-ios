@@ -200,7 +200,7 @@
         for(NSString* field in map) {
             id value = [self valueForKey:field];
             if([value isKindOfClass:NSArray.class] == YES) {
-                NSMutableArray* array = [NSMutableArray arrayWithCapacity:[value count]];
+                NSMutableArray* array = [NSMutableArray arrayWithCapacity:[((NSArray*)(value)) count]];
                 for(id item in value) {
                     id itemCopy = [item copyWithZone:zone];
                     if(itemCopy != nil) {
@@ -216,7 +216,7 @@
                     }
                 }
             } else if([value isKindOfClass:NSDictionary.class] == YES) {
-                NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithCapacity:[value count]];
+                NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithCapacity:[((NSDictionary*)(value)) count]];
                 [value enumerateKeysAndObjectsUsingBlock:^(id key, id item, BOOL* stop) {
                     id itemCopy = [item copyWithZone:zone];
                     if(itemCopy != nil) {
@@ -1005,7 +1005,7 @@
         return classMap;
     }
     if([class conformsToProtocol:@protocol(GLBModel)] != YES) {
-        return nil;
+        return @{};
     }
     NSDictionary* map = nil;
     NSDictionary< id, NSDictionary* >* superMap = nil;
@@ -1038,6 +1038,9 @@
     } else {
         map = superMap;
     }
+    if(map == nil) {
+        map = @{};
+    }
     cache[className] = map;
     return map;
 }
@@ -1053,7 +1056,7 @@
         return classMap;
     }
     if([class conformsToProtocol:@protocol(GLBModel)] != YES) {
-        return nil;
+        return @{};
     }
     NSMutableDictionary* mutMap = [NSMutableDictionary dictionary];
     Class superClass = [class superclass];
@@ -1088,7 +1091,7 @@
         return classMap;
     }
     if([class conformsToProtocol:@protocol(GLBModel)] != YES) {
-        return nil;
+        return @[];
     }
     NSMutableArray* mutMap = [NSMutableArray array];
     Class superClass = [class superclass];

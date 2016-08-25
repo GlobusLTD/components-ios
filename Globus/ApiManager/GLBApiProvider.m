@@ -564,7 +564,7 @@
                 if(localCertificateData != nil) {
                     localHash = localCertificateData.glb_base64String.glb_stringBySHA256;
                 }
-                if([serverHash isEqualToString:localHash] == YES) {
+                if((localHash != nil) && ([serverHash isEqualToString:localHash] == YES)) {
                     credential = [NSURLCredential credentialForTrust:serverTrust];
                 } else {
                     disposition = NSURLSessionAuthChallengeCancelAuthenticationChallenge;
@@ -724,7 +724,8 @@
             NSTimeInterval now = NSDate.date.timeIntervalSince1970;
             if((now - _createTime) <= _request.retries) {
                 [_request reset];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, _request.delay * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                int64_t delay = (int64_t)(_request.delay * NSEC_PER_SEC);
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay), dispatch_get_main_queue(), ^{
                     [_provider _sendQuery:self];
                 });
             } else {

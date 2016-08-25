@@ -27,8 +27,8 @@ typedef NS_ENUM(NSUInteger, GLBPageControlTapBehavior) {
 
 @interface GLBPageControl : UIControl
 
-@property(nonatomic) IBInspectable NSInteger numberOfPages;
-@property(nonatomic) IBInspectable NSInteger currentPage;
+@property(nonatomic) IBInspectable NSUInteger numberOfPages;
+@property(nonatomic) IBInspectable NSUInteger currentPage;
 @property(nonatomic) IBInspectable CGFloat indicatorMargin;
 @property(nonatomic) IBInspectable CGFloat indicatorDiameter;
 @property(nonatomic) IBInspectable CGFloat minHeight;
@@ -47,23 +47,23 @@ typedef NS_ENUM(NSUInteger, GLBPageControlTapBehavior) {
 
 - (void)updateCurrentPageDisplay;
 
-- (CGRect)rectForPageIndicator:(NSInteger)pageIndex;
-- (CGSize)sizeForNumberOfPages:(NSInteger)pageCount;
+- (CGRect)rectForPageIndicator:(NSUInteger)pageIndex;
+- (CGSize)sizeForNumberOfPages:(NSUInteger)pageCount;
 
-- (void)setImage:(UIImage*)image forPage:(NSInteger)pageIndex;
-- (UIImage*)imageForPage:(NSInteger)pageIndex;
+- (void)setImage:(UIImage*)image forPage:(NSUInteger)pageIndex;
+- (UIImage*)imageForPage:(NSUInteger)pageIndex;
 
-- (void)setCurrentImage:(UIImage*)image forPage:(NSInteger)pageIndex;
-- (UIImage*)currentImageForPage:(NSInteger)pageIndex;
+- (void)setCurrentImage:(UIImage*)image forPage:(NSUInteger)pageIndex;
+- (UIImage*)currentImageForPage:(NSUInteger)pageIndex;
 
-- (void)setImageMask:(UIImage*)image forPage:(NSInteger)pageIndex;
-- (UIImage*)imageMaskForPage:(NSInteger)pageIndex;
+- (void)setImageMask:(UIImage*)image forPage:(NSUInteger)pageIndex;
+- (UIImage*)imageMaskForPage:(NSUInteger)pageIndex;
 
 - (void)setScrollViewContentOffsetForCurrentPage:(UIScrollView*)scrollView animated:(BOOL)animated;
 - (void)updatePageNumberForScrollView:(UIScrollView*)scrollView;
 
-- (void)setName:(NSString*)name forPage:(NSInteger)pageIndex;
-- (NSString*)nameForPage:(NSInteger)pageIndex;
+- (void)setName:(NSString*)name forPage:(NSUInteger)pageIndex;
+- (NSString*)nameForPage:(NSUInteger)pageIndex;
 
 @end
 

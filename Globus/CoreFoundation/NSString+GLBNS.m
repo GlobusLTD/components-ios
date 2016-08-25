@@ -199,7 +199,7 @@ static UInt32 GLB_CRC32(const char* aString) {
 
 - (NSArray*)glb_charactersArray {
     NSMutableArray* chars = NSMutableArray.array;
-    for(int i=0; i < self.length; i++) {
+    for(NSUInteger i = 0; i < self.length; i++) {
         [chars addObject:[NSString stringWithFormat:@"%c", [self characterAtIndex:i]]];
     }
     return chars;

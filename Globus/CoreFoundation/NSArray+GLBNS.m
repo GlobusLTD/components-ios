@@ -224,8 +224,8 @@
 - (NSArray*)glb_duplicates:(id(^)(id object1, id object2))block {
     NSUInteger count = self.count;
     NSMutableArray* result = [NSMutableArray arrayWithCapacity:count];
-    for(int i = 0; i < count; i++) {
-        for(int j = 0; j < count; j++) {
+    for(NSUInteger i = 0; i < count; i++) {
+        for(NSUInteger j = 0; j < count; j++) {
             if(i != j) {
                 id object1 = self[i];
                 id object2 = self[j];

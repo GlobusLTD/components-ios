@@ -58,7 +58,6 @@ static double GLBMoonNormalize(double v) {
         }
         ip = GLBMoonNormalize((jd - 2451550.1) / 29.530588853);
         age = ip * 29.53;
-        ip = ip * 2 * M_PI;
         return age;
     }
     return -1;

@@ -80,23 +80,23 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerStyle) {
 
 @optional
 - (BOOL)canShowLeftViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController;
-- (void)willShowLeftViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(CGFloat)duration;
+- (void)willShowLeftViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration;
 - (void)didShowLeftViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController;
-- (void)willHideLeftViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(CGFloat)duration;
+- (void)willHideLeftViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration;
 - (void)didHideLeftViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController;
 
 @optional
 - (BOOL)canShowRightViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController;
-- (void)willShowRightViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(CGFloat)duration;
+- (void)willShowRightViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration;
 - (void)didShowRightViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController;
-- (void)willHideRightViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(CGFloat)duration;
+- (void)willHideRightViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration;
 - (void)didHideRightViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController;
 
 @optional
 - (BOOL)canShowControllerInSlideViewController:(GLBSlideViewController*)slideViewController;
-- (void)willShowControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(CGFloat)duration;
+- (void)willShowControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration;
 - (void)didShowControllerInSlideViewController:(GLBSlideViewController*)slideViewController;
-- (void)willHideControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(CGFloat)duration;
+- (void)willHideControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration;
 - (void)didHideControllerInSlideViewController:(GLBSlideViewController*)slideViewController;
 
 @optional

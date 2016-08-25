@@ -1189,12 +1189,16 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                 [item beginEditingAnimated:animated];
             } else {
                 if(_editingItems.count > 0) {
-                    [_editingItems glb_each:^(GLBDataItem* item) {
-                        if([self shouldEndedEditItem:item] == YES) {
-                            [_editingItems removeObject:item];
-                            [item endEditingAnimated:animated];
+                    NSMutableArray* endEditItems = [NSMutableArray array];
+                    [_editingItems glb_each:^(GLBDataItem* editItem) {
+                        if([self shouldEndedEditItem:editItem] == YES) {
+                            [endEditItems addObject:editItem];
                         }
                     }];
+                    [_editingItems removeObjectsInArray:endEditItems];
+                    for(GLBDataItem* editItem in endEditItems) {
+                        [editItem endEditingAnimated:animated];
+                    }
                 }
                 [_editingItems addObject:item];
                 [item beginEditingAnimated:animated];
@@ -1520,7 +1524,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                 }
             }];
             if(viewIndex != NSNotFound) {
-                [self.contentView insertSubview:cell atIndex:viewIndex + 1];
+                [self.contentView insertSubview:cell atIndex:(NSInteger)(viewIndex + 1)];
             } else {
                 [self.contentView insertSubview:cell atIndex:0];
             }
@@ -1584,10 +1588,8 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                 [self performActionForIdentifier:item.identifier forKey:GLBDataViewSelectItem withArguments:@[ item ]];
             }
         } else {
-            if(_selectedItems.count > 0) {
-                [_selectedItems glb_each:^(GLBDataItem* item) {
-                    [self _deselectItem:item user:user animated:animated];
-                }];
+            while(_selectedItems.count > 0) {
+                [self _deselectItem:_selectedItems.firstObject user:user animated:animated];
             }
             [_selectedItems addObject:item];
             [item selectedAnimated:animated];

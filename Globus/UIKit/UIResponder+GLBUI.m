@@ -36,7 +36,7 @@ static UIResponder* GLB_CURRENT_FIRST_RESPONDER = nil;
 + (UIResponder*)glb_prevResponderFromView:(UIView*)view {
     NSArray* responders = view.window.glb_responders;
     if(responders.count > 1) {
-        NSInteger index = [responders indexOfObject:view];
+        NSUInteger index = [responders indexOfObject:view];
         if(index != NSNotFound) {
             if(index > 0) {
                 return responders[index - 1];
@@ -49,7 +49,7 @@ static UIResponder* GLB_CURRENT_FIRST_RESPONDER = nil;
 + (UIResponder*)glb_nextResponderFromView:(UIView*)view {
     NSArray* responders = view.window.glb_responders;
     if(responders.count > 1) {
-        NSInteger index = [responders indexOfObject:view];
+        NSUInteger index = [responders indexOfObject:view];
         if(index != NSNotFound) {
             if(index < responders.count - 1) {
                 return responders[index + 1];

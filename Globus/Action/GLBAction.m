@@ -53,11 +53,11 @@
     if(invocation != nil) {
         invocation.target = _target;
         invocation.selector = _action;
-        NSInteger count = MIN(_signature.numberOfArguments - 2, arguments.count);
-        for(NSInteger index = 0; index < count; ++index) {
+        NSUInteger count = MIN(_signature.numberOfArguments - 2, arguments.count);
+        for(NSUInteger index = 0; index < count; ++index) {
             id arg = arguments[index];
             if(arg != nil) {
-                [invocation setArgument:(void*)&arg atIndex:index + 2];
+                [invocation setArgument:(void*)&arg atIndex:(NSInteger)(index + 2)];
             }
         }
         if(_thread != nil) {

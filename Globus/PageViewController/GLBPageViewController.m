@@ -903,7 +903,7 @@
     return YES;
 }
 
-- (void)willShowLeftViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(CGFloat)duration {
+- (void)willShowLeftViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration {
     UIViewController< GLBSlideViewControllerDelegate >* viewController = (id)_viewController;
     if([viewController respondsToSelector:@selector(willShowLeftViewControllerInSlideViewController:duration:)] == YES) {
         [viewController willShowLeftViewControllerInSlideViewController:slideViewController duration:duration];
@@ -917,7 +917,7 @@
     }
 }
 
-- (void)willHideLeftViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(CGFloat)duration {
+- (void)willHideLeftViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration {
     UIViewController< GLBSlideViewControllerDelegate >* viewController = (id)_viewController;
     if([viewController respondsToSelector:@selector(willHideLeftViewControllerInSlideViewController:duration:)] == YES) {
         [viewController willHideLeftViewControllerInSlideViewController:slideViewController duration:duration];
@@ -939,7 +939,7 @@
     return YES;
 }
 
-- (void)willShowRightViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(CGFloat)duration {
+- (void)willShowRightViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration {
     UIViewController< GLBSlideViewControllerDelegate >* viewController = (id)_viewController;
     if([viewController respondsToSelector:@selector(willShowRightViewControllerInSlideViewController:duration:)] == YES) {
         [viewController willShowRightViewControllerInSlideViewController:slideViewController duration:duration];
@@ -953,7 +953,7 @@
     }
 }
 
-- (void)willHideRightViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(CGFloat)duration {
+- (void)willHideRightViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration {
     UIViewController< GLBSlideViewControllerDelegate >* viewController = (id)_viewController;
     if([viewController respondsToSelector:@selector(willHideRightViewControllerInSlideViewController:duration:)] == YES) {
         [viewController willHideRightViewControllerInSlideViewController:slideViewController duration:duration];
@@ -975,7 +975,7 @@
     return YES;
 }
 
-- (void)willShowControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(CGFloat)duration {
+- (void)willShowControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration {
     UIViewController< GLBSlideViewControllerDelegate >* viewController = (id)_viewController;
     if([viewController respondsToSelector:@selector(willShowControllerInSlideViewController:duration:)] == YES) {
         [viewController willShowControllerInSlideViewController:slideViewController duration:duration];
@@ -989,7 +989,7 @@
     }
 }
 
-- (void)willHideControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(CGFloat)duration {
+- (void)willHideControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration {
     UIViewController< GLBSlideViewControllerDelegate >* viewController = (id)_viewController;
     if([viewController respondsToSelector:@selector(willHideControllerInSlideViewController:duration:)] == YES) {
         [viewController willHideControllerInSlideViewController:slideViewController duration:duration];

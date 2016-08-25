@@ -21,8 +21,8 @@
 
 - (BOOL)containsObject:(id)object;
 - (BOOL)containsColumn:(NSUInteger)column row:(NSUInteger)row;
-- (BOOL)isEmptyColumn:(NSInteger)column;
-- (BOOL)isEmptyRow:(NSInteger)row;
+- (BOOL)isEmptyColumn:(NSUInteger)column;
+- (BOOL)isEmptyRow:(NSUInteger)row;
 
 - (id)objectAtColumn:(NSUInteger)column atRow:(NSUInteger)row;
 - (void)findObject:(id)object inColumn:(NSUInteger*)column inRow:(NSUInteger*)row;
@@ -31,13 +31,13 @@
 
 - (void)enumerateColumnsRowsUsingBlock:(void(^)(id object, NSUInteger column, NSUInteger row, BOOL* stopColumn, BOOL* stopRow))block;
 - (void)enumerateRowsColumnsUsingBlock:(void(^)(id object, NSUInteger column, NSUInteger row, BOOL* stopColumn, BOOL* stopRow))block;
-- (void)enumerateByColumn:(NSInteger)column usingBlock:(void(^)(id object, NSUInteger column, NSUInteger row, BOOL* stop))block;
-- (void)enumerateByRow:(NSInteger)row usingBlock:(void(^)(id object, NSUInteger column, NSUInteger row, BOOL* stop))block;
+- (void)enumerateByColumn:(NSUInteger)column usingBlock:(void(^)(id object, NSUInteger column, NSUInteger row, BOOL* stop))block;
+- (void)enumerateByRow:(NSUInteger)row usingBlock:(void(^)(id object, NSUInteger column, NSUInteger row, BOOL* stop))block;
 
 - (void)eachColumnsRows:(void(^)(id object, NSUInteger column, NSUInteger row))block;
 - (void)eachRowsColumns:(void(^)(id object, NSUInteger column, NSUInteger row))block;
-- (void)each:(void(^)(id object, NSUInteger column, NSUInteger row))block byColumn:(NSInteger)column;
-- (void)each:(void(^)(id object, NSUInteger column, NSUInteger row))block byRow:(NSInteger)row;
+- (void)each:(void(^)(id object, NSUInteger column, NSUInteger row))block byColumn:(NSUInteger)column;
+- (void)each:(void(^)(id object, NSUInteger column, NSUInteger row))block byRow:(NSUInteger)row;
 
 @end
 

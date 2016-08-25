@@ -86,7 +86,7 @@
         if(_urlParams.count > 0) {
             [urlParams addEntriesFromDictionary:_urlParams];
         }
-        if(urlParams.count > 0) {
+        if((url != nil) && (urlParams.count > 0)) {
             NSURLComponents* urlComponents = [NSURLComponents componentsWithString:url.absoluteString];
             NSMutableDictionary* queryParams = NSMutableDictionary.dictionary;
             if(urlComponents.query.length > 0) {
@@ -169,12 +169,14 @@
         } else if(_bodyData.length > 0) {
             bodyData = [NSMutableData dataWithData:_bodyData];
         }
-        NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
-        request.HTTPMethod = _method;
-        request.allHTTPHeaderFields = headers;
-        request.HTTPBody = bodyData;
-        request.timeoutInterval = _timeout;
-        _urlRequest = request;
+        if(url != nil) {
+            NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
+            request.HTTPMethod = _method;
+            request.allHTTPHeaderFields = headers;
+            request.HTTPBody = bodyData;
+            request.timeoutInterval = _timeout;
+            _urlRequest = request;
+        }
     }
     return _urlRequest;
 }
@@ -291,17 +293,25 @@
 
 - (void)_formDataFromDictionary:(NSMutableDictionary*)dictionary value:(id)value keyPath:(NSString*)keyPath {
     if([value isKindOfClass:NSDictionary.class] == YES) {
-        [value glb_each:^(id key, id value) {
-            [self _formDataFromDictionary:dictionary value:value keyPath:[NSString stringWithFormat:@"%@[%@]", keyPath, key]];
+        NSDictionary* dict = value;
+        [dict glb_each:^(id itemKey, id itemValue) {
+            [self _formDataFromDictionary:dictionary value:itemValue keyPath:[NSString stringWithFormat:@"%@[%@]", keyPath, itemKey]];
         }];
-    } else if(([value isKindOfClass:NSArray.class] == YES) || ([value isKindOfClass:NSOrderedSet.class] == YES) || ([value isKindOfClass:NSOrderedSet.class] == YES)) {
-        [value glb_eachWithIndex:^(id value, NSUInteger index) {
-            [self _formDataFromDictionary:dictionary value:value keyPath:[NSString stringWithFormat:@"%@[%lu]", keyPath, (unsigned long)index]];
+    } else if([value isKindOfClass:NSArray.class] == YES) {
+        NSArray* array = value;
+        [array glb_eachWithIndex:^(id itemValue, NSUInteger index) {
+            [self _formDataFromDictionary:dictionary value:itemValue keyPath:[NSString stringWithFormat:@"%@[%lu]", keyPath, (unsigned long)index]];
+        }];
+    } else if([value isKindOfClass:NSOrderedSet.class] == YES) {
+        NSOrderedSet* orderedSet = value;
+        [orderedSet glb_eachWithIndex:^(id itemValue, NSUInteger index) {
+            [self _formDataFromDictionary:dictionary value:itemValue keyPath:[NSString stringWithFormat:@"%@[%lu]", keyPath, (unsigned long)index]];
         }];
     } else if([value isKindOfClass:NSSet.class] == YES) {
+        NSSet* set = value;
         __block NSUInteger index = 0;
-        [value glb_each:^(id value) {
-            [self _formDataFromDictionary:dictionary value:value keyPath:[NSString stringWithFormat:@"%@[%lu]", keyPath, (unsigned long)index]];
+        [set glb_each:^(id itemValue) {
+            [self _formDataFromDictionary:dictionary value:itemValue keyPath:[NSString stringWithFormat:@"%@[%lu]", keyPath, (unsigned long)index]];
             index++;
         }];
     } else {

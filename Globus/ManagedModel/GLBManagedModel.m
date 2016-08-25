@@ -638,7 +638,7 @@ static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistSto
 #pragma mark - Public
 
 - (void)addObserver:(id< GLBManagedManagerObserver >)observer {
-    NSUInteger index = [_observers indexOfObjectPassingTest:^BOOL(NSValue* value, NSUInteger index, BOOL* stop) {
+    NSUInteger index = [_observers indexOfObjectPassingTest:^BOOL(NSValue* value, NSUInteger idx, BOOL* stop) {
         return (value.nonretainedObjectValue == observer);
     }];
     if(index == NSNotFound) {

@@ -207,7 +207,7 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
 - (void)seek:(CGFloat)to {
     if((_prepared == YES) && (_playing == YES) && (_paused == NO)) {
         Float64 seconds = CMTimeGetSeconds(self.playerItem.asset.duration);
-        [self.player seekToTime:CMTimeMake(ceil(seconds * to), 1)];
+        [self.player seekToTime:CMTimeMake((int64_t)ceil(seconds * to), 1)];
     }
 }
 
@@ -256,7 +256,7 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
 
 - (void)_notificationPeriodicTime:(CMTime)time {
     if(CMTIME_IS_INDEFINITE(_playerItem.duration) == NO) {
-        _rate = CMTimeGetSeconds(time) / CMTimeGetSeconds(_playerItem.duration);
+        _rate = (CGFloat)(CMTimeGetSeconds(time) / CMTimeGetSeconds(_playerItem.duration));
         if(_actionUpdateRate != nil) {
             [_actionUpdateRate performWithArguments:@[ self ]];
         }

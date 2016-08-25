@@ -151,7 +151,12 @@
     if(timeZone != nil) {
         offset = timeZone.secondsFromGMT - NSTimeZone.systemTimeZone.secondsFromGMT;
     }
-    return [NSDate dateWithTimeIntervalSince1970:timestamp + offset];
+    if(offset < 0) {
+        timestamp -= (NSUInteger)(-offset);
+    } else {
+        timestamp += (NSUInteger)(offset);
+    }
+    return [NSDate dateWithTimeIntervalSince1970:timestamp];
 }
 
 + (NSDate*)glb_dateWithUnixTimestamp:(NSUInteger)timestamp {
@@ -163,7 +168,13 @@
     if(timeZone != nil) {
         offset = timeZone.secondsFromGMT - NSTimeZone.systemTimeZone.secondsFromGMT;
     }
-    return (NSUInteger)self.timeIntervalSince1970 + offset;
+    NSUInteger timestamp = (NSUInteger)self.timeIntervalSince1970;
+    if(offset < 0) {
+        timestamp -= (NSUInteger)(-offset);
+    } else {
+        timestamp += (NSUInteger)(offset);
+    }
+    return timestamp;
 }
 
 - (NSUInteger)glb_unixTimestamp {
@@ -517,7 +528,7 @@
 
 - (GLBDateWeekday)glb_weekday {
     NSDateComponents* components = [NSCalendar.currentCalendar components:NSCalendarUnitWeekday fromDate:self];
-    return [components weekday];
+    return (GLBDateWeekday)components.weekday;
 }
 
 #pragma mark - GLBObjectDebugProtocol

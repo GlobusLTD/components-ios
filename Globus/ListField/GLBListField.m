@@ -33,7 +33,10 @@
         }
         [self.pickerView reloadAllComponents];
         if(self.selectedItem != nil) {
-            [self.pickerView selectRow:[self.items indexOfObject:self.selectedItem] inComponent:0 animated:NO];
+            NSUInteger index = [self.items indexOfObject:self.selectedItem];
+            if(index != NSNotFound) {
+                [self.pickerView selectRow:(NSInteger)(index) inComponent:0 animated:NO];
+            }
         }
     } else {
         [self endEditing:YES];
@@ -43,7 +46,7 @@
 - (void)didEndEditing {
     [super didEndEditing];
     
-    NSUInteger selectedItem = [self.pickerView selectedRowInComponent:0];
+    NSUInteger selectedItem = (NSUInteger)[self.pickerView selectedRowInComponent:0];
     if(selectedItem < self.items.count) {
         [self setSelectedItem:self.items[selectedItem] animated:YES emitted:YES];
     }
@@ -62,7 +65,10 @@
             self.selectedItem = items[0];
             self.text = self.selectedItem.title;
             if(self.isEditing == YES) {
-                [self.pickerView selectRow:[items indexOfObject:self.selectedItem] inComponent:0 animated:NO];
+                NSUInteger index = [self.items indexOfObject:self.selectedItem];
+                if(index != NSNotFound) {
+                    [self.pickerView selectRow:(NSInteger)(index) inComponent:0 animated:NO];
+                }
             }
         } else {
             self.text = @"";
@@ -90,7 +96,10 @@
             self.text = @"";
         }
         if(self.isEditing == YES) {
-            [self.pickerView selectRow:[self.items indexOfObject:selectedItem] inComponent:0 animated:animated];
+            NSUInteger index = [self.items indexOfObject:self.selectedItem];
+            if(index != NSNotFound) {
+                [self.pickerView selectRow:(NSInteger)(index) inComponent:0 animated:NO];
+            }
         }
         if(emitted == YES) {
             [self sendActionsForControlEvents:UIControlEventValueChanged];
@@ -105,18 +114,18 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView*)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return self.items.count;
+    return (NSInteger)(self.items.count);
 }
 
 #pragma mark - UIPickerViewDelegate
 
 - (NSString*)pickerView:(UIPickerView*)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    GLBListFieldItem* listItem = self.items[row];
+    GLBListFieldItem* listItem = self.items[(NSUInteger)row];
     return listItem.title;
 }
 
 - (NSAttributedString*)pickerView:(UIPickerView*)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    GLBListFieldItem* listItem = self.items[row];
+    GLBListFieldItem* listItem = self.items[(NSUInteger)row];
     return [[NSAttributedString alloc] initWithString:[listItem title] attributes:@{
         NSFontAttributeName : [listItem font],
         NSForegroundColorAttributeName: [listItem color]
@@ -124,7 +133,7 @@
 }
 
 - (void)pickerView:(UIPickerView*)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    [self setSelectedItem:self.items[row] animated:YES emitted:YES];
+    [self setSelectedItem:self.items[(NSUInteger)row] animated:YES emitted:YES];
 }
 
 #pragma mark - GLBInputField

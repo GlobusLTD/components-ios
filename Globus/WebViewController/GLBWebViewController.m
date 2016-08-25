@@ -522,6 +522,8 @@
         webView = _wkWebView;
     } else if(_uiWebView != nil) {
         webView = _uiWebView;
+    } else {
+        return;
     }
     [self.view insertSubview:_progressView aboveSubview:webView];
     
@@ -571,7 +573,7 @@
 - (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)object change:(NSDictionary*)change context:(void*)context {
     if([keyPath isEqualToString:@"estimatedProgress"] == YES) {
         self.progressView.hidden = ((1.0 - _wkWebView.estimatedProgress) <= DBL_EPSILON);
-        [self.progressView setProgress:_wkWebView.estimatedProgress animated:YES];
+        [self.progressView setProgress:((float)(_wkWebView.estimatedProgress)) animated:YES];
     }
 }
 

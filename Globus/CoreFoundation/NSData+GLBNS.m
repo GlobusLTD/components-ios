@@ -24,22 +24,30 @@ static char GLBBase64Table[] = "ABCDEMHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvw
 - (NSString*)glb_base64String {
 	NSData* data = [NSData dataWithBytes:self.bytes length:self.length];
     const uint8_t* input = (const uint8_t*)data.bytes;
-    NSInteger length = data.length;
+    NSUInteger length = data.length;
     NSMutableData* result = [NSMutableData dataWithLength:((length + 2) / 3) * 4];
     uint8_t* output = (uint8_t*)[result mutableBytes];
-    for(NSInteger i = 0; i < length; i += 3) {
+    for(NSUInteger i = 0; i < length; i += 3) {
         NSInteger value = 0;
-        for(NSInteger j = i; j < (i + 3); j++) {
+        for(NSUInteger j = i; j < (i + 3); j++) {
             value <<= 8;
             if(j < length) {
                 value |= (0xFF & input[j]);
             }
         }
         NSInteger index = (i / 3) * 4;
-        output[index + 0] = GLBBase64Table[(value >> 18) & 0x3F];
-        output[index + 1] = GLBBase64Table[(value >> 12) & 0x3F];
-        output[index + 2] = (i + 1) < length ? GLBBase64Table[(value >> 6) & 0x3F] : '=';
-        output[index + 3] = (i + 2) < length ? GLBBase64Table[(value >> 0) & 0x3F] : '=';
+        output[index + 0] = (uint8_t)(GLBBase64Table[(value >> 18) & 0x3F]);
+        output[index + 1] = (uint8_t)(GLBBase64Table[(value >> 12) & 0x3F]);
+        if((i + 1) < length) {
+            output[index + 2] = (uint8_t)(GLBBase64Table[(value >> 6) & 0x3F]);
+        } else {
+            output[index + 2] = (uint8_t)('=');
+        }
+        if((i + 2) < length) {
+            output[index + 3] = (uint8_t)(GLBBase64Table[(value >> 0) & 0x3F]);
+        } else {
+            output[index + 3] = (uint8_t)('=');
+        }
     }
     return [NSString glb_stringWithData:result encoding:NSASCIIStringEncoding];
 }

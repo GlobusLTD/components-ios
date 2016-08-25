@@ -168,7 +168,7 @@
     return self;
 }
 
-- (instancetype)initWithMessage:(NSString*)message minLength:(NSInteger)minLength {
+- (instancetype)initWithMessage:(NSString*)message minLength:(NSUInteger)minLength {
     if(self = [super init]) {
         _message = message;
         _minLength = minLength;
@@ -177,7 +177,7 @@
     return self;
 }
 
-- (void)setMinLength:(NSInteger)minLength {
+- (void)setMinLength:(NSUInteger)minLength {
     if(_minLength != minLength) {
         _minLength = minLength;
         [_field validate];
@@ -220,7 +220,7 @@
     return self;
 }
 
-- (instancetype)initWithMessage:(NSString*)message maxLength:(NSInteger)maxLength {
+- (instancetype)initWithMessage:(NSString*)message maxLength:(NSUInteger)maxLength {
     if(self = [super init]) {
         _message = message;
         _maxLength = maxLength;
@@ -229,7 +229,7 @@
     return self;
 }
 
-- (void)setMaxLength:(NSInteger)maxLength {
+- (void)setMaxLength:(NSUInteger)maxLength {
     if(_maxLength != maxLength) {
         _maxLength = maxLength;
         [_field validate];

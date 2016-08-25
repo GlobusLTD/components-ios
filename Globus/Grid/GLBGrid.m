@@ -127,7 +127,7 @@
     return ([_objects[column][row] isKindOfClass:NSNull.class] == NO);
 }
 
-- (BOOL)isEmptyColumn:(NSInteger)column {
+- (BOOL)isEmptyColumn:(NSUInteger)column {
     for(NSUInteger ir = 0; ir < _numberOfRows; ir++) {
         if([_objects[column][ir] isKindOfClass:NSNull.class] == NO) {
             return NO;
@@ -136,7 +136,7 @@
     return YES;
 }
 
-- (BOOL)isEmptyRow:(NSInteger)row {
+- (BOOL)isEmptyRow:(NSUInteger)row {
     for(NSUInteger ic = 0; ic < _numberOfColumns; ic++) {
         if([_objects[ic][row] isKindOfClass:NSNull.class] == NO) {
             return NO;
@@ -224,7 +224,7 @@
     }
 }
 
-- (void)enumerateByColumn:(NSInteger)column usingBlock:(void(^)(id object, NSUInteger column, NSUInteger row, BOOL* stop))block {
+- (void)enumerateByColumn:(NSUInteger)column usingBlock:(void(^)(id object, NSUInteger column, NSUInteger row, BOOL* stop))block {
     NSMutableArray* columnObjects = _objects[column];
     for(NSUInteger ir = 0; ir < _numberOfRows; ir++) {
         BOOL stop = NO;
@@ -235,7 +235,7 @@
     }
 }
 
-- (void)enumerateByRow:(NSInteger)row usingBlock:(void(^)(id object, NSUInteger column, NSUInteger row, BOOL* stop))block {
+- (void)enumerateByRow:(NSUInteger)row usingBlock:(void(^)(id object, NSUInteger column, NSUInteger row, BOOL* stop))block {
     for(NSUInteger ic = 0; ic < _numberOfColumns; ic++) {
         BOOL stop = NO;
         block(_objects[ic][row], ic, row, &stop);
@@ -262,14 +262,14 @@
     }
 }
 
-- (void)each:(void(^)(id object, NSUInteger column, NSUInteger row))block byColumn:(NSInteger)column {
+- (void)each:(void(^)(id object, NSUInteger column, NSUInteger row))block byColumn:(NSUInteger)column {
     NSMutableArray* columnObjects = _objects[column];
     for(NSUInteger ir = 0; ir < _numberOfRows; ir++) {
         block(columnObjects[ir], column, ir);
     }
 }
 
-- (void)each:(void(^)(id object, NSUInteger column, NSUInteger row))block byRow:(NSInteger)row {
+- (void)each:(void(^)(id object, NSUInteger column, NSUInteger row))block byRow:(NSUInteger)row {
     for(NSUInteger ic = 0; ic < _numberOfColumns; ic++) {
         block(_objects[ic][row], ic, row);
     }

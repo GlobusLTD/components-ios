@@ -6,8 +6,8 @@
 
 @interface GLBModelPack : NSObject
 
-- (_Nullable id)pack:(_Nullable id)value;
-- (_Nullable id)unpack:(_Nullable id)value;
+- (_Nullable id)pack:(_Nullable id)packPalue;
+- (_Nullable id)unpack:(_Nullable id)packPalue;
 
 @end
 

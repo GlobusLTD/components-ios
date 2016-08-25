@@ -649,15 +649,17 @@ static NSTimeInterval GLBNotificationManager_Dutation = 3.0f;
 }
 
 + (void)setStatusBarHidden:(BOOL)statusBarHidden {
+    GLBNotificationManager* instance = self.shared;
     if(statusBarHidden == YES) {
-        [[self.shared window] setWindowLevel:UIWindowLevelStatusBar + 1];
+        instance.window.windowLevel = UIWindowLevelStatusBar + 1;
     } else {
-        [[self.shared window] setWindowLevel:UIWindowLevelStatusBar - 1];
+        instance.window.windowLevel = UIWindowLevelStatusBar - 1;
     }
 }
 
 + (BOOL)statusBarHidden {
-    return [[self.shared window] windowLevel] >= UIWindowLevelStatusBar;
+    GLBNotificationManager* instance = self.shared;
+    return (instance.window.windowLevel >= UIWindowLevelStatusBar);
 }
 
 + (GLBNotificationView*)showView:(UIView*)view {

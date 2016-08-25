@@ -22,11 +22,11 @@
 
 #pragma mark - Public
 
-- (id)pack:(id)value {
+- (id)pack:(id)packValue {
     return nil;
 }
 
-- (id)unpack:(id)value {
+- (id)unpack:(id)packValue {
     return nil;
 }
 
@@ -54,10 +54,10 @@
 
 #pragma mark - GLBModelPack
 
-- (id)pack:(id)value {
-    if([value isKindOfClass:NSSet.class] == YES) {
+- (id)pack:(id)packValue {
+    if([packValue isKindOfClass:NSSet.class] == YES) {
         NSMutableSet* result = NSMutableSet.set;
-        for(id object in value) {
+        for(id object in packValue) {
             id convertedValue = [_converter pack:object];
             if(convertedValue != nil) {
                 [result addObject:convertedValue];
@@ -67,13 +67,13 @@
             return result.copy;
         }
     }
-    return [super pack:value];
+    return [super pack:packValue];
 }
 
-- (id)unpack:(id)value {
-    if([value isKindOfClass:NSSet.class] == YES) {
+- (id)unpack:(id)packValue {
+    if([packValue isKindOfClass:NSSet.class] == YES) {
         NSMutableSet* result = NSMutableSet.set;
-        for(id object in value) {
+        for(id object in packValue) {
             id convertedValue = [_converter unpack:object];
             if(convertedValue != nil) {
                 [result addObject:convertedValue];
@@ -83,7 +83,7 @@
             return result.copy;
         }
     }
-    return [super unpack:value];
+    return [super unpack:packValue];
 }
 
 @end
@@ -110,10 +110,10 @@
 
 #pragma mark - GLBModelPack
 
-- (id)pack:(id)value {
-    if([value isKindOfClass:NSOrderedSet.class] == YES) {
+- (id)pack:(id)packValue {
+    if([packValue isKindOfClass:NSOrderedSet.class] == YES) {
         NSMutableOrderedSet* result = NSMutableOrderedSet.orderedSet;
-        for(id object in value) {
+        for(id object in packValue) {
             id convertedValue = [_converter pack:object];
             if(convertedValue != nil) {
                 [result addObject:convertedValue];
@@ -123,13 +123,13 @@
             return result.copy;
         }
     }
-    return [super pack:value];
+    return [super pack:packValue];
 }
 
-- (id)unpack:(id)value {
-    if([value isKindOfClass:NSOrderedSet.class] == YES) {
+- (id)unpack:(id)packValue {
+    if([packValue isKindOfClass:NSOrderedSet.class] == YES) {
         NSMutableOrderedSet* result = NSMutableOrderedSet.orderedSet;
-        for(id object in value) {
+        for(id object in packValue) {
             id convertedValue = [_converter unpack:object];
             if(convertedValue != nil) {
                 [result addObject:convertedValue];
@@ -139,7 +139,7 @@
             return result.copy;
         }
     }
-    return [super unpack:value];
+    return [super unpack:packValue];
 }
 
 @end
@@ -166,10 +166,10 @@
 
 #pragma mark - GLBModelPack
 
-- (id)pack:(id)value {
-    if([value isKindOfClass:NSArray.class] == YES) {
+- (id)pack:(id)packValue {
+    if([packValue isKindOfClass:NSArray.class] == YES) {
         NSMutableArray* result = NSMutableArray.array;
-        for(id object in value) {
+        for(id object in packValue) {
             id convertedValue = [_converter pack:object];
             if(convertedValue != nil) {
                 [result addObject:convertedValue];
@@ -179,13 +179,13 @@
             return result.copy;
         }
     }
-    return [super pack:value];
+    return [super pack:packValue];
 }
 
-- (id)unpack:(id)value {
-    if([value isKindOfClass:NSArray.class] == YES) {
+- (id)unpack:(id)packValue {
+    if([packValue isKindOfClass:NSArray.class] == YES) {
         NSMutableArray* result = NSMutableArray.array;
-        for(id object in value) {
+        for(id object in packValue) {
             id convertedValue = [_converter unpack:object];
             if(convertedValue != nil) {
                 [result addObject:convertedValue];
@@ -195,7 +195,7 @@
             return result.copy;
         }
     }
-    return [super unpack:value];
+    return [super unpack:packValue];
 }
 
 @end
@@ -234,10 +234,10 @@
 
 #pragma mark - GLBModelPack
 
-- (id)pack:(id)value {
-    if([value isKindOfClass:NSDictionary.class] == YES) {
+- (id)pack:(id)packValue {
+    if([packValue isKindOfClass:NSDictionary.class] == YES) {
         NSMutableDictionary* result = NSMutableDictionary.dictionary;
-        [value enumerateKeysAndObjectsUsingBlock:^(id jsonKey, id jsonObject, BOOL* stop __unused) {
+        [packValue enumerateKeysAndObjectsUsingBlock:^(id jsonKey, id jsonObject, BOOL* stop __unused) {
             id key = (_keyConverter != nil) ? [_keyConverter pack:jsonKey] : jsonKey;
             if(key != nil) {
                 id value = [_valueConverter pack:jsonObject];
@@ -250,13 +250,13 @@
             return result.copy;
         }
     }
-    return [super pack:value];
+    return [super pack:packValue];
 }
 
-- (id)unpack:(id)value {
-    if([value isKindOfClass:NSDictionary.class] == YES) {
+- (id)unpack:(id)packValue {
+    if([packValue isKindOfClass:NSDictionary.class] == YES) {
         NSMutableDictionary* result = NSMutableDictionary.dictionary;
-        [value enumerateKeysAndObjectsUsingBlock:^(id jsonKey, id jsonObject, BOOL* stop __unused) {
+        [packValue enumerateKeysAndObjectsUsingBlock:^(id jsonKey, id jsonObject, BOOL* stop __unused) {
             id key = (_keyConverter != nil) ? [_keyConverter unpack:jsonKey] : jsonKey;
             if(key != nil) {
                 id value = [_valueConverter unpack:jsonObject];
@@ -269,7 +269,7 @@
             return result.copy;
         }
     }
-    return [super unpack:value];
+    return [super unpack:packValue];
 }
 
 @end
@@ -292,18 +292,18 @@
 
 #pragma mark - GLBModelPack
 
-- (id)pack:(id)value {
-    if([value isKindOfClass:NSNumber.class] == YES) {
-        if([value boolValue] != _defaultValue) {
-            return value;
+- (id)pack:(id)packValue {
+    if([packValue isKindOfClass:NSNumber.class] == YES) {
+        if([packValue boolValue] != _defaultValue) {
+            return packValue;
         }
     }
     return nil;
 }
 
-- (id)unpack:(id)value {
-    if([value isKindOfClass:NSNumber.class] == YES) {
-        return value;
+- (id)unpack:(id)packValue {
+    if([packValue isKindOfClass:NSNumber.class] == YES) {
+        return packValue;
     }
     return @(_defaultValue);
 }
@@ -328,18 +328,18 @@
 
 #pragma mark - GLBModelPack
 
-- (id)pack:(id)value {
-    if([value isKindOfClass:NSString.class] == YES) {
-        if((_defaultValue == nil) || ([value isEqualToString:_defaultValue] == NO)) {
-            return value;
+- (id)pack:(id)packValue {
+    if([packValue isKindOfClass:NSString.class] == YES) {
+        if((_defaultValue == nil) || ([packValue isEqualToString:_defaultValue] == NO)) {
+            return packValue;
         }
     }
     return nil;
 }
 
-- (id)unpack:(id)value {
-    if([value isKindOfClass:NSString.class] == YES) {
-        return value;
+- (id)unpack:(id)packValue {
+    if([packValue isKindOfClass:NSString.class] == YES) {
+        return packValue;
     }
     return _defaultValue;
 }
@@ -364,18 +364,18 @@
 
 #pragma mark - GLBModelPack
 
-- (id)pack:(id)value {
-    if([value isKindOfClass:NSURL.class] == YES) {
-        if((_defaultValue == nil) || ([value isEqual:_defaultValue] == NO)) {
-            return [value absoluteString];
+- (id)pack:(id)packValue {
+    if([packValue isKindOfClass:NSURL.class] == YES) {
+        if((_defaultValue == nil) || ([packValue isEqual:_defaultValue] == NO)) {
+            return [packValue absoluteString];
         }
     }
     return nil;
 }
 
-- (id)unpack:(id)value {
-    if([value isKindOfClass:NSString.class] == YES) {
-        return [NSURL URLWithString:value];
+- (id)unpack:(id)packValue {
+    if([packValue isKindOfClass:NSString.class] == YES) {
+        return [NSURL URLWithString:packValue];
     }
     return _defaultValue;
 }
@@ -400,18 +400,18 @@
 
 #pragma mark - GLBModelPack
 
-- (id)pack:(id)value {
-    if([value isKindOfClass:NSNumber.class] == YES) {
-        if((_defaultValue == nil) || ([value isEqualToNumber:_defaultValue] == NO)) {
-            return value;
+- (id)pack:(id)packValue {
+    if([packValue isKindOfClass:NSNumber.class] == YES) {
+        if((_defaultValue == nil) || ([packValue isEqualToNumber:_defaultValue] == NO)) {
+            return packValue;
         }
     }
     return nil;
 }
 
-- (id)unpack:(id)value {
-    if([value isKindOfClass:NSNumber.class] == YES) {
-        return value;
+- (id)unpack:(id)packValue {
+    if([packValue isKindOfClass:NSNumber.class] == YES) {
+        return packValue;
     }
     return _defaultValue;
 }
@@ -436,18 +436,18 @@
 
 #pragma mark - GLBModelPack
 
-- (id)pack:(id)value {
-    if([value isKindOfClass:NSDate.class] == YES) {
-        if((_defaultValue == nil) || ([value isEqualToDate:_defaultValue] == NO)) {
-            return @([value timeIntervalSince1970]);
+- (id)pack:(id)packValue {
+    if([packValue isKindOfClass:NSDate.class] == YES) {
+        if((_defaultValue == nil) || ([packValue isEqualToDate:_defaultValue] == NO)) {
+            return @([packValue timeIntervalSince1970]);
         }
     }
     return nil;
 }
 
-- (id)unpack:(id)value {
-    if([value isKindOfClass:NSNumber.class] == YES) {
-        return [NSDate dateWithTimeIntervalSince1970:[value doubleValue]];
+- (id)unpack:(id)packValue {
+    if([packValue isKindOfClass:NSNumber.class] == YES) {
+        return [NSDate dateWithTimeIntervalSince1970:[packValue doubleValue]];
     }
     return _defaultValue;
 }
@@ -472,9 +472,9 @@
 
 #pragma mark - GLBModelPack
 
-- (id)pack:(id)value {
-    if([value isKindOfClass:CLLocation.class] == YES) {
-        CLLocation* location = value;
+- (id)pack:(id)packValue {
+    if([packValue isKindOfClass:CLLocation.class] == YES) {
+        CLLocation* location = packValue;
         if((_defaultValue == nil) || ([location isEqual:_defaultValue] == NO)) {
             return @{
                 @"lo" : @(location.coordinate.longitude),
@@ -493,18 +493,18 @@
     return nil;
 }
 
-- (id)unpack:(id)value {
-    if([value isKindOfClass:NSDictionary.class] == YES) {
-        NSNumber* longitude = [value glb_numberForKey:@"lo" orDefault:nil];
-        NSNumber* latitude = [value glb_numberForKey:@"la" orDefault:nil];
-        NSNumber* altitude = [value glb_numberForKey:@"al" orDefault:nil];
-        NSNumber* horizontalAccuracy = [value glb_numberForKey:@"ha" orDefault:nil];
-        NSNumber* verticalAccuracy = [value glb_numberForKey:@"va" orDefault:nil];
+- (id)unpack:(id)packValue {
+    if([packValue isKindOfClass:NSDictionary.class] == YES) {
+        NSNumber* longitude = [packValue glb_numberForKey:@"lo" orDefault:nil];
+        NSNumber* latitude = [packValue glb_numberForKey:@"la" orDefault:nil];
+        NSNumber* altitude = [packValue glb_numberForKey:@"al" orDefault:nil];
+        NSNumber* horizontalAccuracy = [packValue glb_numberForKey:@"ha" orDefault:nil];
+        NSNumber* verticalAccuracy = [packValue glb_numberForKey:@"va" orDefault:nil];
 #ifdef GLB_TARGET_IOS
-        NSNumber* course = [value glb_numberForKey:@"co" orDefault:nil];
-        NSNumber* speed = [value glb_numberForKey:@"sp" orDefault:nil];
+        NSNumber* course = [packValue glb_numberForKey:@"co" orDefault:nil];
+        NSNumber* speed = [packValue glb_numberForKey:@"sp" orDefault:nil];
 #endif
-        NSNumber* timestamp = [value glb_numberForKey:@"ts" orDefault:nil];
+        NSNumber* timestamp = [packValue glb_numberForKey:@"ts" orDefault:nil];
         return [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue)
                                              altitude:altitude.doubleValue
                                    horizontalAccuracy:horizontalAccuracy.doubleValue
@@ -538,18 +538,18 @@
 
 #pragma mark - GLBModelPack
 
-- (id)pack:(id)value {
-    if([value isKindOfClass:UIColor.class] == YES) {
-        if((_defaultValue == nil) || ([value isEqual:_defaultValue] == NO)) {
-            return [value glb_stringValue];
+- (id)pack:(id)packValue {
+    if([packValue isKindOfClass:UIColor.class] == YES) {
+        if((_defaultValue == nil) || ([packValue isEqual:_defaultValue] == NO)) {
+            return [packValue glb_stringValue];
         }
     }
     return nil;
 }
 
-- (id)unpack:(id)value {
-    if([value isKindOfClass:NSString.class] == YES) {
-        return [UIColor glb_colorWithString:value];
+- (id)unpack:(id)packValue {
+    if([packValue isKindOfClass:NSString.class] == YES) {
+        return [UIColor glb_colorWithString:packValue];
     }
     return _defaultValue;
 }
@@ -578,9 +578,9 @@
 
 #pragma mark - GLBModelPack
 
-- (id)pack:(id)value {
-    if([value isKindOfClass:_modelClass] == YES) {
-        NSDictionary* pack = [value pack];
+- (id)pack:(id)packValue {
+    if([packValue isKindOfClass:_modelClass] == YES) {
+        NSDictionary* pack = [packValue pack];
         if(pack.count > 0) {
             return pack;
         }
@@ -588,9 +588,9 @@
     return nil;
 }
 
-- (id)unpack:(id)value {
-    if([value isKindOfClass:NSDictionary.class] == YES) {
-        return [_modelClass modelWithPack:value];
+- (id)unpack:(id)packValue {
+    if([packValue isKindOfClass:NSDictionary.class] == YES) {
+        return [_modelClass modelWithPack:packValue];
     }
     return nil;
 }
