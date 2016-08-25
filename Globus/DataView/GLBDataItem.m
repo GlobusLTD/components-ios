@@ -423,6 +423,7 @@
 }
 
 - (void)beginTransition {
+    [self setNeedResize];
     if(_cell != nil) {
         [_cell beginTransition];
     }
