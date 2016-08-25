@@ -192,11 +192,7 @@
             _originFrame = _updateFrame;
         }
         if((_cell != nil) && ((CGRectIsNull(_updateFrame) == NO) && (CGRectIsNull(_displayFrame) == YES))) {
-            BOOL relayout = (CGSizeEqualToSize(_cell.frame.size, _updateFrame.size) == NO);
             _cell.frame = _updateFrame;
-            if(relayout == YES) {
-                [_cell layoutIfNeeded];
-            }
         }
     }
 }
@@ -210,11 +206,7 @@
     if(CGRectEqualToRect(_displayFrame, displayFrame) == NO) {
         _displayFrame = displayFrame;
         if((_cell != nil) && (CGRectIsNull(_displayFrame) == NO)) {
-            BOOL relayout = (CGSizeEqualToSize(_cell.frame.size, _displayFrame.size) == NO);
             _cell.frame = _displayFrame;
-            if(relayout == YES) {
-                [_cell layoutIfNeeded];
-            }
         }
     }
 }

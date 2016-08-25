@@ -375,6 +375,12 @@
 - (void)invalidateLayoutForBounds:(CGRect __unused)bounds {
 }
 
+- (void)beginTransition {
+}
+
+- (void)endTransition {
+}
+
 #pragma mark - Private
 
 - (void)_willBeginDragging {
