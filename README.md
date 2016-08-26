@@ -6,6 +6,6 @@ Globus Components for iOS
 
 Установка
 ---------
-Основной способ установки осуществляется через Cocoapods.
+Основной способ установки через Cocoapods.
 
 `pod 'Globus/{ComponentName}'`
