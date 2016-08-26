@@ -31,7 +31,9 @@
  * @discussion Create hex string from NSData. Hexadecimal notation is used as a human-friendly representation of binary values.
  * @return Hex string.
  * @code
- * NSString *s = [@"string" glb_hexString];
+ * NSString *str = @"string";
+ * NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+ * NSString *hexString = [data glb_hexString];
  * @endcode
  */
 - (NSString* _Nullable)glb_hexString;
@@ -41,7 +43,9 @@
  * @discussion Encode the binary data into characters.
  * @return Base 64 string.
  * @code
- * NSString *s = [@"string" glb_base64String];
+ * NSString *str = @"string";
+ * NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+ * NSString *base64String = [data glb_base64String];
  * @endcode
  */
 - (NSString* _Nullable)glb_base64String;
