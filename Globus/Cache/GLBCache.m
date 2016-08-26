@@ -47,9 +47,9 @@
 #pragma mark -
 /*--------------------------------------------------*/
 
-#define GLB_CACHE_NAME                              @"GLBCache"
-#define GLB_CACHE_CAPACITY                          (1024 * 1024) * 500
-#define GLB_CACHE_STORAGE_INTERVAL                  ((60 * 60) * 24) * 90
+static NSString* GLBCacheName = @"GLBCache";
+static NSUInteger GLBCacheCapacity = (1024 * 1024) * 512;
+static NSTimeInterval GLBCacheStorageInterval = ((60 * 60) * 24) * 90;
 
 /*--------------------------------------------------*/
 
@@ -72,15 +72,15 @@
 #pragma mark - Init / Free
 
 - (instancetype)init {
-    return [self initWithName:GLB_CACHE_NAME capacity:GLB_CACHE_CAPACITY storageInterval:GLB_CACHE_STORAGE_INTERVAL];
+    return [self initWithName:GLBCacheName capacity:GLBCacheCapacity storageInterval:GLBCacheStorageInterval];
 }
 
 - (instancetype)initWithName:(NSString*)name {
-    return [self initWithName:name capacity:GLB_CACHE_CAPACITY storageInterval:GLB_CACHE_STORAGE_INTERVAL];
+    return [self initWithName:name capacity:GLBCacheCapacity storageInterval:GLBCacheStorageInterval];
 }
 
 - (instancetype)initWithName:(NSString*)name capacity:(NSUInteger)capacity {
-    return [self initWithName:name capacity:capacity storageInterval:GLB_CACHE_STORAGE_INTERVAL];
+    return [self initWithName:name capacity:capacity storageInterval:GLBCacheStorageInterval];
 }
 
 - (instancetype)initWithName:(NSString*)name capacity:(NSUInteger)capacity storageInterval:(NSTimeInterval)storageInterval {
@@ -268,7 +268,7 @@
         NSDate* now = NSDate.date;
         for(GLBCacheItem* item in _items) {
             NSDate* itemRemoveDate = [item.updateDate dateByAddingTimeInterval:_storageInterval];
-            if([itemRemoveDate glb_isSame:now] == YES) {
+            if([itemRemoveDate glb_isEarlier:now] == YES) {
                 [removedItems addObject:item];
             } else if((currentUsage + item.size) > _capacity) {
                 [removedItems addObject:item];
@@ -294,10 +294,6 @@
 
 /*--------------------------------------------------*/
 #pragma mark -
-/*--------------------------------------------------*/
-
-#define GLB_CACHE_ITEM_EXTENSION                 @"data"
-
 /*--------------------------------------------------*/
 
 @implementation GLBCacheItem

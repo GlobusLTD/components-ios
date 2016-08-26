@@ -13,6 +13,7 @@
     GLBImageDownloadRequest* request = [self new];
     request.method = @"GET";
     request.url = [url absoluteString];
+    request.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
     return request;
 }
 

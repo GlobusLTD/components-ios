@@ -36,6 +36,7 @@ typedef void (^GLBApiProviderCompleteBlock)(_Nonnull id request, _Nonnull id res
 @property(nonatomic) NSHTTPCookieAcceptPolicy cookieAcceptPolicy;
 @property(nonatomic) NSInteger maximumConnectionsPerHost;
 @property(nonatomic) NSURLRequestCachePolicy cachePolicy;
+@property(nonatomic, nullable) NSURLCache* cache;
 
 @property(nonatomic, nullable, copy) NSString* certificateFilename;
 @property(nonatomic) BOOL allowInvalidCertificates;

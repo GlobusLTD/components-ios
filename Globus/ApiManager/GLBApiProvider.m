@@ -145,54 +145,65 @@
 #pragma mark - Property
 
 - (NSURLSession*)session {
-    if(_session == nil) {
-        _session = [NSURLSession sessionWithConfiguration:self.configuration
-                                                 delegate:self
-                                            delegateQueue:self.queue];
+    @synchronized(self) {
+        if(_session == nil) {
+            _session = [NSURLSession sessionWithConfiguration:self.configuration
+                                                     delegate:self
+                                                delegateQueue:self.queue];
+        }
     }
     return _session;
 }
 
 - (NSURLSessionConfiguration*)configuration {
-    if(_configuration == nil) {
-        _configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        _configuration.timeoutIntervalForRequest = _timeoutIntervalForRequest;
-        _configuration.timeoutIntervalForResource = _timeoutIntervalForResource;
-        _configuration.networkServiceType = _networkServiceType;
-        _configuration.allowsCellularAccess = _allowsCellularAccess;
-        if(_minimumTLSProtocol != kSSLProtocolUnknown) {
-            _configuration.TLSMinimumSupportedProtocol = _minimumTLSProtocol;
+    @synchronized(self) {
+        if(_configuration == nil) {
+            _configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+            _configuration.timeoutIntervalForRequest = _timeoutIntervalForRequest;
+            _configuration.timeoutIntervalForResource = _timeoutIntervalForResource;
+            _configuration.networkServiceType = _networkServiceType;
+            _configuration.allowsCellularAccess = _allowsCellularAccess;
+            if(_minimumTLSProtocol != kSSLProtocolUnknown) {
+                _configuration.TLSMinimumSupportedProtocol = _minimumTLSProtocol;
+            }
+            if(_maximumTLSProtocol != kSSLProtocolUnknown) {
+                _configuration.TLSMaximumSupportedProtocol = _maximumTLSProtocol;
+            }
+            _configuration.HTTPShouldUsePipelining = _shouldPipelining;
+            _configuration.HTTPShouldSetCookies = _shouldCookies;
+            _configuration.HTTPCookieAcceptPolicy = _cookieAcceptPolicy;
+            _configuration.HTTPMaximumConnectionsPerHost = _maximumConnectionsPerHost;
+            _configuration.requestCachePolicy = _cachePolicy;
+            _configuration.URLCache = _cache;
         }
-        if(_maximumTLSProtocol != kSSLProtocolUnknown) {
-            _configuration.TLSMaximumSupportedProtocol = _maximumTLSProtocol;
-        }
-        _configuration.HTTPShouldUsePipelining = _shouldPipelining;
-        _configuration.HTTPShouldSetCookies = _shouldCookies;
-        _configuration.HTTPCookieAcceptPolicy = _cookieAcceptPolicy;
-        _configuration.HTTPMaximumConnectionsPerHost = _maximumConnectionsPerHost;
-        _configuration.requestCachePolicy = _cachePolicy;
     }
     return _configuration;
 }
 
 - (NSOperationQueue*)queue {
-    if(_queue == nil) {
-        _queue = [NSOperationQueue new];
-        _queue.maxConcurrentOperationCount = 1;
+    @synchronized(self) {
+        if(_queue == nil) {
+            _queue = [NSOperationQueue new];
+            _queue.maxConcurrentOperationCount = 1;
+        }
     }
     return _queue;
 }
 
 - (NSLock*)lock {
-    if(_lock == nil) {
-        _lock = [NSLock new];
+    @synchronized(self) {
+        if(_lock == nil) {
+            _lock = [NSLock new];
+        }
     }
     return _lock;
 }
 
 - (NSMutableDictionary*)tasks {
-    if(_tasks == nil) {
-        _tasks = [NSMutableDictionary dictionary];
+    @synchronized(self) {
+        if(_tasks == nil) {
+            _tasks = [NSMutableDictionary dictionary];
+        }
     }
     return _tasks;
 }
@@ -237,6 +248,114 @@
 
 - (NSDictionary*)bodyParams {
     return _bodyParams.copy;
+}
+
+- (void)setTimeoutIntervalForRequest:(NSTimeInterval)timeoutIntervalForRequest {
+    if(_timeoutIntervalForRequest != timeoutIntervalForRequest) {
+        _timeoutIntervalForRequest = timeoutIntervalForRequest;
+        if(_configuration != nil) {
+            _configuration.timeoutIntervalForRequest = _timeoutIntervalForRequest;
+        }
+    }
+}
+
+- (void)setTimeoutIntervalForResource:(NSTimeInterval)timeoutIntervalForResource {
+    if(_timeoutIntervalForResource != timeoutIntervalForResource) {
+        _timeoutIntervalForResource = timeoutIntervalForResource;
+        if(_configuration != nil) {
+            _configuration.timeoutIntervalForResource = _timeoutIntervalForResource;
+        }
+    }
+}
+
+- (void)setNetworkServiceType:(NSURLRequestNetworkServiceType)networkServiceType {
+    if(_networkServiceType != networkServiceType) {
+        _networkServiceType = networkServiceType;
+        if(_configuration != nil) {
+            _configuration.networkServiceType = _networkServiceType;
+        }
+    }
+}
+
+- (void)setAllowsCellularAccess:(BOOL)allowsCellularAccess {
+    if(_allowsCellularAccess != allowsCellularAccess) {
+        _allowsCellularAccess = allowsCellularAccess;
+        if(_configuration != nil) {
+            _configuration.allowsCellularAccess = _allowsCellularAccess;
+        }
+    }
+}
+
+- (void)setMinimumTLSProtocol:(SSLProtocol)minimumTLSProtocol {
+    if(_minimumTLSProtocol != minimumTLSProtocol) {
+        _minimumTLSProtocol = minimumTLSProtocol;
+        if((_configuration != nil) && (_minimumTLSProtocol != kSSLProtocolUnknown)) {
+            _configuration.TLSMinimumSupportedProtocol = _minimumTLSProtocol;
+        }
+    }
+}
+
+- (void)setMaximumTLSProtocol:(SSLProtocol)maximumTLSProtocol {
+    if(_maximumTLSProtocol != maximumTLSProtocol) {
+        _maximumTLSProtocol = maximumTLSProtocol;
+        if((_configuration != nil) && (_maximumTLSProtocol != kSSLProtocolUnknown)) {
+            _configuration.TLSMaximumSupportedProtocol = _maximumTLSProtocol;
+        }
+    }
+}
+
+- (void)setShouldPipelining:(BOOL)shouldPipelining {
+    if(_shouldPipelining != shouldPipelining) {
+        _shouldPipelining = shouldPipelining;
+        if(_configuration != nil) {
+            _configuration.HTTPShouldUsePipelining = _shouldPipelining;
+        }
+    }
+}
+
+- (void)setShouldCookies:(BOOL)shouldCookies {
+    if(_shouldCookies != shouldCookies) {
+        _shouldCookies = shouldCookies;
+        if(_configuration != nil) {
+            _configuration.HTTPShouldSetCookies = _shouldCookies;
+        }
+    }
+}
+
+- (void)setCookieAcceptPolicy:(NSHTTPCookieAcceptPolicy)cookieAcceptPolicy {
+    if(_cookieAcceptPolicy != cookieAcceptPolicy) {
+        _cookieAcceptPolicy = cookieAcceptPolicy;
+        if(_configuration != nil) {
+            _configuration.HTTPCookieAcceptPolicy = _cookieAcceptPolicy;
+        }
+    }
+}
+
+- (void)setMaximumConnectionsPerHost:(NSInteger)maximumConnectionsPerHost {
+    if(_maximumConnectionsPerHost != maximumConnectionsPerHost) {
+        _maximumConnectionsPerHost = maximumConnectionsPerHost;
+        if(_configuration != nil) {
+            _configuration.HTTPMaximumConnectionsPerHost = _maximumConnectionsPerHost;
+        }
+    }
+}
+
+- (void)setCachePolicy:(NSURLRequestCachePolicy)cachePolicy {
+    if(_cachePolicy != cachePolicy) {
+        _cachePolicy = cachePolicy;
+        if(_configuration != nil) {
+            _configuration.requestCachePolicy = _cachePolicy;
+        }
+    }
+}
+
+- (void)setCache:(NSURLCache*)cache {
+    if(_cache != cache) {
+        _cache = cache;
+        if(_configuration != nil) {
+            _configuration.URLCache = _cache;
+        }
+    }
 }
 
 #pragma mark - Public
@@ -380,15 +499,13 @@
     [self.lock lock];
     GLBApiProviderQuery* query = self.tasks[@(task.taskIdentifier)];
     [self.lock unlock];
-    if(query != nil) {
-        if(totalBytesExpectedToSend == NSURLSessionTransferSizeUnknown) {
-            NSString* contentLength = [task.originalRequest valueForHTTPHeaderField:@"Content-Length"];
-            if(contentLength != nil) {
-                totalBytesExpectedToSend = (int64_t)contentLength.longLongValue;
-            }
+    if(totalBytesExpectedToSend == NSURLSessionTransferSizeUnknown) {
+        NSString* contentLength = [task.originalRequest valueForHTTPHeaderField:@"Content-Length"];
+        if(contentLength != nil) {
+            totalBytesExpectedToSend = (int64_t)contentLength.longLongValue;
         }
-        [query _didUploadBytes:totalBytesSent totalBytes:totalBytesExpectedToSend];
     }
+    [query _didUploadBytes:totalBytesSent totalBytes:totalBytesExpectedToSend];
 }
 
 - (void)URLSession:(NSURLSession*)session task:(NSURLSessionTask*)task didCompleteWithError:(NSError*)error {
@@ -396,9 +513,7 @@
     GLBApiProviderQuery* query = self.tasks[@(task.taskIdentifier)];
     [self.tasks removeObjectForKey:@(task.taskIdentifier)];
     [self.lock unlock];
-    if(query != nil) {
-        [query _didCompleteWithError:error];
-    }
+    [query _didCompleteWithError:error];
 }
 
 #pragma mark - NSURLSessionDataDelegate
@@ -408,9 +523,7 @@
     [self.lock lock];
     GLBApiProviderQuery* query = self.tasks[@(dataTask.taskIdentifier)];
     [self.lock unlock];
-    if(query != nil) {
-        [query _didReceiveResponse:response];
-    }
+    [query _didReceiveResponse:response];
     if(completionHandler != nil) {
         completionHandler(disposition);
     }
@@ -424,9 +537,7 @@
         self.tasks[@(downloadTask.taskIdentifier)] = query;
     }
     [self.lock unlock];
-    if(query != nil) {
-        [query _didBecomeDownloadTask:downloadTask];
-    }
+    [query _didBecomeDownloadTask:downloadTask];
 }
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_9_0
@@ -439,9 +550,7 @@
         self.tasks[@(streamTask.taskIdentifier)] = query;
     }
     [self.lock unlock];
-    if(query != nil) {
-        [query _didBecomeStreamTask:streamTask];
-    }
+    [query _didBecomeStreamTask:streamTask];
 }
 
 #endif
@@ -450,15 +559,7 @@
     [self.lock lock];
     GLBApiProviderQuery* query = self.tasks[@(dataTask.taskIdentifier)];
     [self.lock unlock];
-    if(query != nil) {
-        [query _didReceiveData:data];
-    }
-}
-
-- (void)URLSession:(NSURLSession*)session dataTask:(NSURLSessionDataTask*)dataTask willCacheResponse:(NSCachedURLResponse*)proposedResponse completionHandler:(void (^)(NSCachedURLResponse* cachedResponse))completionHandler {
-    if(completionHandler != nil) {
-        completionHandler(nil);
-    }
+    [query _didReceiveData:data];
 }
 
 #pragma mark - NSURLSessionDownloadDelegate
@@ -467,27 +568,24 @@
     [self.lock lock];
     GLBApiProviderQuery* query = self.tasks[@(downloadTask.taskIdentifier)];
     [self.lock unlock];
-    if(query != nil) {
-        [query _didDownloadToURL:location];
+    if(downloadTask.response != nil) {
+        [query _didReceiveResponse:downloadTask.response];
     }
+    [query _didDownloadToURL:location];
 }
 
 - (void)URLSession:(NSURLSession*)session downloadTask:(NSURLSessionDownloadTask*)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
     [self.lock lock];
     GLBApiProviderQuery* query = self.tasks[@(downloadTask.taskIdentifier)];
     [self.lock unlock];
-    if(query != nil) {
-        [query _didDownloadBytes:totalBytesWritten totalBytes:totalBytesExpectedToWrite];
-    }
+    [query _didDownloadBytes:totalBytesWritten totalBytes:totalBytesExpectedToWrite];
 }
 
 - (void)URLSession:(NSURLSession*)session downloadTask:(NSURLSessionDownloadTask*)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes {
     [self.lock lock];
     GLBApiProviderQuery* query = self.tasks[@(downloadTask.taskIdentifier)];
     [self.lock unlock];
-    if(query != nil) {
-        [query _didResumeDownloadAtOffset:fileOffset totalBytes:expectedTotalBytes];
-    }
+    [query _didResumeDownloadAtOffset:fileOffset totalBytes:expectedTotalBytes];
 }
 
 #pragma mark - Private

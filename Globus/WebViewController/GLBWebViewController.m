@@ -82,7 +82,7 @@
 - (void)viewDidUnload {
     [self _dettachWebView];
     
-    [super viewDidLoad];
+    [super viewDidUnload];
 }
 
 #pragma mark - GLBViewController

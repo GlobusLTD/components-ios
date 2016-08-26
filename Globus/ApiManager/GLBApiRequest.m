@@ -34,9 +34,12 @@
     self = [super init];
     if(self != nil) {
         _includeArraySymbolsUrlParams = YES;
+        _encodeUrlParams = YES;
+        _encodeBodyParams = YES;
         _timeout = 30.0f;
         _retries = 3.0f;
         _delay = 0.5f;
+        _cachePolicy = NSURLRequestUseProtocolCachePolicy;
     }
     return self;
 }
@@ -175,6 +178,7 @@
             request.allHTTPHeaderFields = headers;
             request.HTTPBody = bodyData;
             request.timeoutInterval = _timeout;
+            request.cachePolicy = _cachePolicy;
             _urlRequest = request;
         }
     }

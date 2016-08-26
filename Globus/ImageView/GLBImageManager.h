@@ -22,7 +22,8 @@ typedef void(^GLBImageDownloadImageBlock)(UIImage* image);
 @interface GLBImageManager : NSObject
 
 @property(nonatomic, readonly, strong) GLBApiProvider* provider;
-@property(nonatomic, readonly, strong) GLBCache* cache;
+@property(nonatomic, readonly, strong) NSURLCache* urlCache;
+@property(nonatomic, readonly, strong) GLBCache* durableCache;
 
 + (instancetype)defaultImageManager;
 

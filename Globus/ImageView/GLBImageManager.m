@@ -59,7 +59,12 @@
 
 /*--------------------------------------------------*/
 
-static GLBImageManager* GLBImageManagerDefaultInstance;
+static GLBImageManager* GLBImageManagerDefaultInstance = nil;
+
+/*--------------------------------------------------*/
+
+static NSUInteger GLBImageManagerDefaultMemoryCapacity = (1024 * 1024) * 4;
+static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
 
 /*--------------------------------------------------*/
 #pragma mark -
@@ -70,7 +75,8 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
 #pragma mark - Synthesize
 
 @synthesize provider = _provider;
-@synthesize cache = _cache;
+@synthesize urlCache = _urlCache;
+@synthesize durableCache = _durableCache;
 
 #pragma mark - Singleton
 
@@ -110,24 +116,41 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
 #pragma mark - Property
 
 - (GLBApiProvider*)provider {
-    if(_provider == nil) {
-        _provider = [[GLBApiProvider alloc] initWithName:self.glb_className];
+    @synchronized(self) {
+        if(_provider == nil) {
+            _provider = [[GLBApiProvider alloc] initWithName:self.glb_className];
+            _provider.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
+            _provider.cache = self.urlCache;
+        }
     }
     return _provider;
 }
 
-- (GLBCache*)cache {
-    if(_cache == nil) {
-        _cache = [GLBCache shared];
+- (NSURLCache*)urlCache {
+    @synchronized(self) {
+        if(_urlCache == nil) {
+            _urlCache = [[NSURLCache alloc] initWithMemoryCapacity:GLBImageManagerDefaultMemoryCapacity
+                                                      diskCapacity:GLBImageManagerDefaultDiscCapacity
+                                                          diskPath:nil];
+        }
     }
-    return _cache;
+    return _urlCache;
+}
+
+- (GLBCache*)durableCache {
+    @synchronized(self) {
+        if(_durableCache == nil) {
+            _durableCache = [GLBCache shared];
+        }
+    }
+    return _durableCache;
 }
 
 #pragma mark - Public
 
 - (BOOL)existImageByUrl:(NSURL*)url {
     NSString* uniqueKey = url.absoluteString;
-    return [self.cache existDataForKey:uniqueKey];
+    return [self.durableCache existDataForKey:uniqueKey];
 }
 
 - (BOOL)existImageByUrl:(NSURL*)url processing:(NSString*)processing {
@@ -135,7 +158,7 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
     if(processing != nil) {
         uniqueKey = [processing stringByAppendingString:uniqueKey];
     }
-    return [self.cache existDataForKey:uniqueKey];
+    return [self.durableCache existDataForKey:uniqueKey];
 }
 
 - (UIImage*)imageByUrl:(NSURL*)url {
@@ -145,18 +168,18 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
 - (UIImage*)imageByUrl:(NSURL*)url processing:(NSString*)processing {
     NSString* uniqueKey = [self _uniqueKeyWithUrl:url processing:processing];
     UIImage* image = nil;
-    @synchronized(_imagesCache) {
+    @synchronized(self) {
         image = _imagesCache[uniqueKey];
     }
     if(image == nil) {
-        NSData* data = [self.cache dataForKey:uniqueKey];
+        NSData* data = [self.durableCache dataForKey:uniqueKey];
         image = [self _imageWithData:data];
         if(image != nil) {
-            @synchronized(_imagesCache) {
+            @synchronized(self) {
                 _imagesCache[uniqueKey] = image;
             }
         } else {
-            [self.cache removeDataForKey:uniqueKey];
+            [self.durableCache removeDataForKey:uniqueKey];
         }
     }
     return image;
@@ -172,7 +195,7 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
     }
     NSString* uniqueKey = [self _uniqueKeyWithUrl:url processing:processing];
     UIImage* existImage = nil;
-    @synchronized(_imagesCache) {
+    @synchronized(self) {
         existImage = _imagesCache[uniqueKey];
     }
     if(existImage == nil) {
@@ -180,7 +203,7 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
         complete(existImage);
     }
     __weak typeof(self) weakSelf = self;
-    [self.cache dataForKey:uniqueKey complete:^(NSData* data) {
+    [self.durableCache dataForKey:uniqueKey complete:^(NSData* data) {
         [weakSelf _imageByData:data uniqueKey:uniqueKey complete:complete];
     }];
 }
@@ -210,7 +233,7 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
     }
     NSString* uniqueKey = [self _uniqueKeyWithUrl:url processing:processing];
     __weak typeof(self) weakSelf = self;
-    [self.cache removeDataForKey:uniqueKey complete:^{
+    [self.durableCache removeDataForKey:uniqueKey complete:^{
         [weakSelf _removeImageByUniqueKey:uniqueKey complete:complete];
     }];
 }
@@ -220,7 +243,7 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
         return;
     }
     __weak typeof(self) weakSelf = self;
-    [self.cache removeAllDataComplete:^{
+    [self.durableCache removeAllDataComplete:^{
         [weakSelf _cleanupImagesComplete:complete];
     }];
 }
@@ -246,7 +269,7 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
                                                             processing:processing];
     }
     if(op != nil) {
-        @synchronized(_operationQueue) {
+        @synchronized(self) {
             _operationQueue.suspended = YES;
             [_operationQueue addOperation:op];
             _operationQueue.suspended = NO;
@@ -255,7 +278,7 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
 }
 
 - (void)cancelByTarget:(id< GLBImageManagerTarget >)target {
-    @synchronized(_operationQueue) {
+    @synchronized(self) {
         _operationQueue.suspended = YES;
         for(GLBImageManagerOperation* op in _operationQueue.operations) {
             if(op.target == target) {
@@ -271,11 +294,11 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
 - (void)_imageByData:(NSData*)data uniqueKey:(NSString*)uniqueKey complete:(GLBImageDownloadImageBlock)complete {
     UIImage* image = [self _imageWithData:data];
     if(image != nil) {
-        @synchronized(_imagesCache) {
+        @synchronized(self) {
             _imagesCache[uniqueKey] = image;
         }
     } else {
-        [self.cache removeDataForKey:uniqueKey];
+        [self.durableCache removeDataForKey:uniqueKey];
     }
     dispatch_async(dispatch_get_main_queue(), ^{
         complete(image);
@@ -284,22 +307,22 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
 
 - (void)_setImage:(UIImage*)image uniqueKey:(NSString*)uniqueKey complete:(GLBSimpleBlock)complete {
     NSData* data = [self _dataWithImage:image];
-    [self.cache setData:data forKey:uniqueKey];
-    @synchronized(_imagesCache) {
+    [self.durableCache setData:data forKey:uniqueKey];
+    @synchronized(self) {
         _imagesCache[uniqueKey] = image;
     }
     dispatch_async(dispatch_get_main_queue(), complete);
 }
 
 - (void)_removeImageByUniqueKey:(NSString*)uniqueKey complete:(GLBSimpleBlock)complete {
-    @synchronized(_imagesCache) {
+    @synchronized(self) {
         [_imagesCache removeObjectForKey:uniqueKey];
     }
     dispatch_async(dispatch_get_main_queue(), complete);
 }
 
 - (void)_cleanupImagesComplete:(GLBSimpleBlock)complete {
-    @synchronized(_imagesCache) {
+    @synchronized(self) {
         [_imagesCache removeAllObjects];
     }
     dispatch_async(dispatch_get_main_queue(), complete);
@@ -311,8 +334,8 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
 
 - (void)_setImage:(UIImage*)image data:(NSData*)data url:(NSURL*)url processing:(NSString*)processing {
     NSString* uniqueKey = [self _uniqueKeyWithUrl:url processing:processing];
-    [self.cache setData:data forKey:uniqueKey];
-    @synchronized(_imagesCache) {
+    [self.durableCache setData:data forKey:uniqueKey];
+    @synchronized(self) {
         _imagesCache[uniqueKey] = image;
     }
 }
@@ -336,7 +359,7 @@ static GLBImageManager* GLBImageManagerDefaultInstance;
 #pragma mark - NSNotificationCenter
 
 - (void)_receiveMemoryWarning:(NSNotification*)notification {
-    @synchronized(_imagesCache) {
+    @synchronized(self) {
         [_imagesCache removeAllObjects];
     }
 }

@@ -28,6 +28,7 @@
 @property(nonatomic) NSTimeInterval timeout;
 @property(nonatomic) NSTimeInterval retries;
 @property(nonatomic) NSTimeInterval delay;
+@property(nonatomic) NSURLRequestCachePolicy cachePolicy;
 @property(nonatomic) BOOL logging;
 
 @property(nonatomic, readonly, nullable, strong) NSProgress* uploadProgress;
