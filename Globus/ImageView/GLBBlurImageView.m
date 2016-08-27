@@ -2,6 +2,9 @@
 
 #import "GLBBlurImageView.h"
 #import "GLBImageView+Private.h"
+
+/*--------------------------------------------------*/
+
 #import "UIImage+GLBUI.h"
 #import "UIColor+GLBUI.h"
 
@@ -24,7 +27,7 @@
     [super setup];
     
     _blurEnabled = YES;
-    _blurRadius = 20.0f;
+    _blurRadius = 20.0;
     _blurIterations = 4;
     self.processingKey = [self _buildProcessingKey];
 }

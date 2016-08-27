@@ -1,7 +1,9 @@
 /*--------------------------------------------------*/
 
 #import "GLBWindow.h"
+#if __has_include("GLBActivityView.h")
 #import "GLBActivityView.h"
+#endif
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
@@ -93,9 +95,11 @@
 
 - (void)didAddSubview:(UIView*)subview {
     [super didAddSubview:subview];
+#if __has_include("GLBActivityView.h")
     if(_activityView != nil) {
         [self bringSubviewToFront:_activityView];
     }
+#endif
     [self bringSubviewToFront:_emptyView];
 }
 
@@ -142,7 +146,9 @@
 
 #pragma mark - Property
 
-- (void)setActivityView:(GLBActivityView *)activityView {
+#if __has_include("GLBActivityView.h")
+
+- (void)setActivityView:(GLBActivityView*)activityView {
     if(_activityView == activityView) {
         if(_activityView != nil) {
             [_activityView removeFromSuperview];
@@ -154,6 +160,8 @@
         }
     }
 }
+
+#endif
 
 #pragma mark - Private
 

@@ -373,7 +373,7 @@
     UIBarButtonItem* refreshStopBarButtonItem = (self.isLoading == YES) ? self.stopBarButtonItem : self.refreshBarButtonItem;
     UIBarButtonItem* fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     if(UIDevice.glb_isIPad == YES) {
-        fixedSpace.width = 35.0f;
+        fixedSpace.width = 35.0;
     }
     UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     if(UIDevice.glb_isIPad == YES) {
@@ -486,19 +486,19 @@
         [webView glb_addConstraintAttribute:NSLayoutAttributeTop
                                    relation:NSLayoutRelationEqual
                                   attribute:NSLayoutAttributeTop
-                                   constant:0.0f];
+                                   constant:0.0];
         [webView glb_addConstraintAttribute:NSLayoutAttributeBottom
                                    relation:NSLayoutRelationEqual
                                   attribute:NSLayoutAttributeBottom
-                                   constant:0.0f];
+                                   constant:0.0];
         [webView glb_addConstraintAttribute:NSLayoutAttributeLeft
                                    relation:NSLayoutRelationEqual
                                   attribute:NSLayoutAttributeLeft
-                                   constant:0.0f];
+                                   constant:0.0];
         [webView glb_addConstraintAttribute:NSLayoutAttributeRight
                                    relation:NSLayoutRelationEqual
                                   attribute:NSLayoutAttributeRight
-                                   constant:0.0f];
+                                   constant:0.0];
     }
     [self updateNavigationItems];
 }
@@ -531,18 +531,18 @@
                                      relation:NSLayoutRelationEqual
                                          view:self.topLayoutGuide
                                     attribute:NSLayoutAttributeBottom
-                                     constant:0.0f];
+                                     constant:0.0];
     [_progressView glb_addConstraintAttribute:NSLayoutAttributeLeft
                                      relation:NSLayoutRelationEqual
                                     attribute:NSLayoutAttributeLeft
-                                     constant:0.0f];
+                                     constant:0.0];
     [_progressView glb_addConstraintAttribute:NSLayoutAttributeRight
                                      relation:NSLayoutRelationEqual
                                     attribute:NSLayoutAttributeRight
-                                     constant:0.0f];
+                                     constant:0.0];
     [_progressView glb_addConstraintAttribute:NSLayoutAttributeHeight
                                      relation:NSLayoutRelationEqual
-                                     constant:1.0f];
+                                     constant:1.0];
 }
 
 - (void)_dettachProgressView {

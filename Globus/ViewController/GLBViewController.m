@@ -6,13 +6,11 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+#if __has_include("GLBActivityView.h")
 #import "GLBActivityView.h"
+#endif
 #import "UIDevice+GLBUI.h"
 #import "UINib+GLBUI.h"
-
-/*--------------------------------------------------*/
-
-#include <objc/runtime.h>
 
 /*--------------------------------------------------*/
 
@@ -82,6 +80,7 @@
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
+#if __has_include("GLBActivityView.h")
     if(_activityView != nil) {
         _activityView.frame = self.view.bounds;
         if(_activityView.superview == nil) {
@@ -89,10 +88,12 @@
         }
         [self.view bringSubviewToFront:_activityView];
     }
+#endif
 }
 
 #pragma mark - Property
 
+#if __has_include("GLBActivityView.h")
 - (void)setActivityView:(GLBActivityView *)activityView {
     if(_activityView == activityView) {
         if(_activityView != nil) {
@@ -106,6 +107,7 @@
         }
     }
 }
+#endif
 
 @end
 

@@ -133,7 +133,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.view layoutIfNeeded];
     
     if(_appeared == NO) {
         _appeared = YES;

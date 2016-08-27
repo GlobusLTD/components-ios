@@ -6,6 +6,7 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+#import "UIApplication+GLBUI.h"
 #import "UIWindow+GLBUI.h"
 #import "NSArray+GLBNS.h"
 
@@ -259,16 +260,16 @@ static NSTimeInterval GLBNotificationController_HideDutation = 0.2f;
                                                                                     relatedBy:NSLayoutRelationEqual
                                                                                        toItem:prevNotificationView
                                                                                     attribute:NSLayoutAttributeBottom
-                                                                                   multiplier:1.0f
-                                                                                     constant:0.0f];
+                                                                                   multiplier:1.0
+                                                                                     constant:0.0];
         } else {
             notificationView.constraintControllerTop = [NSLayoutConstraint constraintWithItem:notificationView
                                                                                     attribute:NSLayoutAttributeBottom
                                                                                     relatedBy:NSLayoutRelationEqual
                                                                                        toItem:self.view
                                                                                     attribute:NSLayoutAttributeTop
-                                                                                   multiplier:1.0f
-                                                                                     constant:0.0f];
+                                                                                   multiplier:1.0
+                                                                                     constant:0.0];
         }
     }
     notificationView.constraintControllerLeft = [NSLayoutConstraint constraintWithItem:notificationView
@@ -276,23 +277,23 @@ static NSTimeInterval GLBNotificationController_HideDutation = 0.2f;
                                                                              relatedBy:NSLayoutRelationEqual
                                                                                 toItem:self.view
                                                                              attribute:NSLayoutAttributeLeft
-                                                                            multiplier:1.0f
-                                                                              constant:0.0f];
+                                                                            multiplier:1.0
+                                                                              constant:0.0];
     notificationView.constraintControllerRight = [NSLayoutConstraint constraintWithItem:notificationView
                                                                               attribute:NSLayoutAttributeRight
                                                                               relatedBy:NSLayoutRelationEqual
                                                                                  toItem:self.view
                                                                               attribute:NSLayoutAttributeRight
-                                                                             multiplier:1.0f
-                                                                               constant:0.0f];
+                                                                             multiplier:1.0
+                                                                               constant:0.0];
     if(nextNotificationView != nil) {
         nextNotificationView.constraintControllerTop = [NSLayoutConstraint constraintWithItem:nextNotificationView
                                                                                     attribute:NSLayoutAttributeTop
                                                                                     relatedBy:NSLayoutRelationEqual
                                                                                        toItem:notificationView
                                                                                     attribute:NSLayoutAttributeBottom
-                                                                                   multiplier:1.0f
-                                                                                     constant:0.0f];
+                                                                                   multiplier:1.0
+                                                                                     constant:0.0];
     }
     if(animated == YES) {
         [self.view layoutIfNeeded];
@@ -303,20 +304,20 @@ static NSTimeInterval GLBNotificationController_HideDutation = 0.2f;
                                                                                 relatedBy:NSLayoutRelationEqual
                                                                                    toItem:prevNotificationView
                                                                                 attribute:NSLayoutAttributeBottom
-                                                                               multiplier:1.0f
-                                                                                 constant:0.0f];
+                                                                               multiplier:1.0
+                                                                                 constant:0.0];
     } else {
         notificationView.constraintControllerTop = [NSLayoutConstraint constraintWithItem:notificationView
                                                                                 attribute:NSLayoutAttributeTop
                                                                                 relatedBy:NSLayoutRelationEqual
                                                                                    toItem:self.view
                                                                                 attribute:NSLayoutAttributeTop
-                                                                               multiplier:1.0f
-                                                                                 constant:0.0f];
+                                                                               multiplier:1.0
+                                                                                 constant:0.0];
     }
     [notificationView willShow];
     if(animated == YES) {
-        [UIView animateWithDuration:GLBNotificationController_ShowDutation delay:0.0f options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut) animations:^{
+        [UIView animateWithDuration:GLBNotificationController_ShowDutation delay:0.0 options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut) animations:^{
             [self.view layoutIfNeeded];
         } completion:^(BOOL finished) {
             [notificationView didShow];
@@ -335,16 +336,16 @@ static NSTimeInterval GLBNotificationController_HideDutation = 0.2f;
                                                                                 relatedBy:NSLayoutRelationEqual
                                                                                    toItem:prevNotificationView
                                                                                 attribute:NSLayoutAttributeBottom
-                                                                               multiplier:1.0f
-                                                                                 constant:0.0f];
+                                                                               multiplier:1.0
+                                                                                 constant:0.0];
     } else {
         notificationView.constraintControllerTop = [NSLayoutConstraint constraintWithItem:notificationView
                                                                                 attribute:NSLayoutAttributeBottom
                                                                                 relatedBy:NSLayoutRelationEqual
                                                                                    toItem:self.view
                                                                                 attribute:NSLayoutAttributeTop
-                                                                               multiplier:1.0f
-                                                                                 constant:0.0f];
+                                                                               multiplier:1.0
+                                                                                 constant:0.0];
     }
     if(nextNotificationView != nil) {
         if(prevNotificationView != nil) {
@@ -353,21 +354,21 @@ static NSTimeInterval GLBNotificationController_HideDutation = 0.2f;
                                                                                         relatedBy:NSLayoutRelationEqual
                                                                                            toItem:prevNotificationView
                                                                                         attribute:NSLayoutAttributeBottom
-                                                                                       multiplier:1.0f
-                                                                                         constant:0.0f];
+                                                                                       multiplier:1.0
+                                                                                         constant:0.0];
         } else {
             nextNotificationView.constraintControllerTop = [NSLayoutConstraint constraintWithItem:nextNotificationView
                                                                                         attribute:NSLayoutAttributeTop
                                                                                         relatedBy:NSLayoutRelationEqual
                                                                                            toItem:self.view
                                                                                         attribute:NSLayoutAttributeTop
-                                                                                       multiplier:1.0f
-                                                                                         constant:0.0f];
+                                                                                       multiplier:1.0
+                                                                                         constant:0.0];
         }
     }
     [notificationView willHide];
     if(animated == YES) {
-        [UIView animateWithDuration:GLBNotificationController_HideDutation delay:0.0f options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut) animations:^{
+        [UIView animateWithDuration:GLBNotificationController_HideDutation delay:0.0 options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut) animations:^{
             [self.view layoutIfNeeded];
         } completion:^(BOOL finished) {
             notificationView.constraintControllerTop = nil;
@@ -430,25 +431,25 @@ static NSTimeInterval GLBNotificationController_HideDutation = 0.2f;
             _constraintViewCenterX = [_view glb_addConstraintAttribute:NSLayoutAttributeCenterX
                                                               relation:NSLayoutRelationEqual
                                                              attribute:NSLayoutAttributeCenterX
-                                                              constant:0.0f];
+                                                              constant:0.0];
         }
         if(_constraintViewCenterY == nil) {
             _constraintViewCenterY = [_view glb_addConstraintAttribute:NSLayoutAttributeCenterY
                                                               relation:NSLayoutRelationEqual
                                                              attribute:NSLayoutAttributeCenterY
-                                                              constant:0.0f];
+                                                              constant:0.0];
         }
         if(_constraintViewWidth == nil) {
             _constraintViewWidth = [_view glb_addConstraintAttribute:NSLayoutAttributeWidth
                                                             relation:NSLayoutRelationEqual
                                                            attribute:NSLayoutAttributeWidth
-                                                            constant:0.0f];
+                                                            constant:0.0];
         }
         if(_constraintViewHeight == nil) {
             _constraintViewHeight = [_view glb_addConstraintAttribute:NSLayoutAttributeHeight
                                                              relation:NSLayoutRelationEqual
                                                             attribute:NSLayoutAttributeHeight
-                                                             constant:0.0f];
+                                                             constant:0.0];
         }
     } else {
         if(_constraintViewCenterX != nil) {
@@ -595,7 +596,7 @@ static NSTimeInterval GLBNotificationController_HideDutation = 0.2f;
 #pragma mark -
 /*--------------------------------------------------*/
 
-static NSTimeInterval GLBNotificationManager_Dutation = 3.0f;
+static NSTimeInterval GLBNotificationManager_Dutation = 3.0;
 
 /*--------------------------------------------------*/
 
@@ -691,7 +692,7 @@ static NSTimeInterval GLBNotificationManager_Dutation = 3.0f;
 - (GLBNotificationWindow*)window {
     if(_window == nil) {
         _window = [[GLBNotificationWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-        _window.windowLevel = UIWindowLevelStatusBar - 1.0f;
+        _window.windowLevel = UIWindowLevelStatusBar - 1;
         _window.rootViewController = self.controller;
     }
     return _window;
@@ -720,12 +721,6 @@ static NSTimeInterval GLBNotificationManager_Dutation = 3.0f;
 }
 
 @end
-
-/*--------------------------------------------------*/
-#pragma mark -
-/*--------------------------------------------------*/
-
-#import <objc/runtime.h>
 
 /*--------------------------------------------------*/
 #pragma mark -

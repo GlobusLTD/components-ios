@@ -14,7 +14,7 @@
 /*--------------------------------------------------*/
 
 static const CGFloat GLBTextField_Duration = 0.2f;
-static const CGFloat GLBTextField_ToolbarHeight = 44.0f;
+static const CGFloat GLBTextField_ToolbarHeight = 44;
 
 /*--------------------------------------------------*/
 
@@ -123,7 +123,7 @@ static const CGFloat GLBTextField_ToolbarHeight = 44.0f;
         _hiddenToolbar = hiddenToolbar;
         
         if([self isEditing] == YES) {
-            CGFloat toolbarHeight = (_hiddenToolbar == NO) ? GLBTextField_ToolbarHeight : 0.0f;
+            CGFloat toolbarHeight = (_hiddenToolbar == NO) ? GLBTextField_ToolbarHeight : 0;
             if(animated == YES) {
                 [UIView animateWithDuration:GLBTextField_Duration
                                  animations:^{
@@ -158,7 +158,7 @@ static const CGFloat GLBTextField_ToolbarHeight = 44.0f;
         }
         self.prevButton.enabled = (self.prevInputResponder != nil);
         self.nextButton.enabled = (self.nextInputResponder != nil);
-        self.toolbar.glb_frameHeight = (self.hiddenToolbar == NO) ? GLBTextField_ToolbarHeight : 0.0f;
+        self.toolbar.glb_frameHeight = (self.hiddenToolbar == NO) ? GLBTextField_ToolbarHeight : 0;
         self.inputAccessoryView = self.toolbar;
         [self reloadInputViews];
     }

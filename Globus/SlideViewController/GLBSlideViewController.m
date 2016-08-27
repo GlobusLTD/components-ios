@@ -9,7 +9,7 @@
 #import "UIApplication+GLBUI.h"
 #import "UIDevice+GLBUI.h"
 #import "NSArray+GLBNS.h"
-#import "GLBCG.h"
+#include "GLBCG.h"
 
 /*--------------------------------------------------*/
 
@@ -88,26 +88,26 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
     [super setup];
     
     if(UIDevice.glb_isIPhone == YES) {
-        _swipeVelocity = 1050.0f;
-        _leftViewControllerWidth = 280.0f;
-        _rightViewControllerWidth = 280.0f;
+        _swipeVelocity = 1050.0;
+        _leftViewControllerWidth = 280.0;
+        _rightViewControllerWidth = 280.0;
     } else if(UIDevice.glb_isIPad == YES) {
-        _swipeVelocity = 3000.0f;
-        _leftViewControllerWidth = 320.0f;
-        _rightViewControllerWidth = 320.0f;
+        _swipeVelocity = 3000.0;
+        _leftViewControllerWidth = 320.0;
+        _rightViewControllerWidth = 320.0;
     }
     _leftViewControllerIteractionShowEnabled = YES;
     _leftViewControllerIteractionHideEnabled = YES;
-    _leftViewControllerShowAlpha = 1.0f;
-    _leftViewControllerHideAlpha = 1.0f;
+    _leftViewControllerShowAlpha = 1.0;
+    _leftViewControllerHideAlpha = 1.0;
     _leftViewControllerStyle = GLBSlideViewControllerStyleLeaves;
     _rightViewControllerIteractionShowEnabled = YES;
     _rightViewControllerIteractionHideEnabled = YES;
-    _rightViewControllerShowAlpha = 1.0f;
-    _rightViewControllerHideAlpha = 1.0f;
+    _rightViewControllerShowAlpha = 1.0;
+    _rightViewControllerHideAlpha = 1.0;
     _rightViewControllerStyle = GLBSlideViewControllerStyleLeaves;
-    _centerViewControllerShowAlpha = 1.0f;
-    _centerViewControllerHideAlpha = 1.0f;
+    _centerViewControllerShowAlpha = 1.0;
+    _centerViewControllerHideAlpha = 1.0;
     _swipeDamping = 0.8f;
     _draggingStatusBar = NO;
     
@@ -168,19 +168,19 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
     self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_panGestureHandle)];
     
     _backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
-    _leftView = [[UIView alloc] initWithFrame:[self _leftViewFrameByPercent:0.0f]];
+    _leftView = [[UIView alloc] initWithFrame:[self _leftViewFrameByPercent:0.0]];
     if(_leftView != nil) {
-        _leftView.alpha = [self _leftViewAlphaByPercent:0.0f];
+        _leftView.alpha = [self _leftViewAlphaByPercent:0.0];
         _leftView.hidden = NO;
     }
-    _rightView = [[UIView alloc] initWithFrame:[self _rightViewFrameByPercent:0.0f]];
+    _rightView = [[UIView alloc] initWithFrame:[self _rightViewFrameByPercent:0.0]];
     if(_rightView != nil) {
-        _rightView.alpha = [self _rightViewAlphaByPercent:0.0f];
+        _rightView.alpha = [self _rightViewAlphaByPercent:0.0];
         _rightView.hidden = YES;
     }
-    _centerView = [[UIView alloc] initWithFrame:[self _centerViewFrameByPercent:0.0f]];
+    _centerView = [[UIView alloc] initWithFrame:[self _centerViewFrameByPercent:0.0]];
     if(_centerView != nil) {
-        _centerView.alpha = [self _centerViewAlphaByPercent:0.0f];
+        _centerView.alpha = [self _centerViewAlphaByPercent:0.0];
     }
     [self.view glb_setSubviews:[self _orderedSubviews]];
 }
@@ -291,7 +291,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         }
         _leftView = leftView;
         if(_leftView != nil) {
-            _leftView.alpha = [self _leftViewAlphaByPercent:0.0f];
+            _leftView.alpha = [self _leftViewAlphaByPercent:0.0];
         }
         if(self.isViewLoaded == YES) {
             [self.view glb_setSubviews:[self _orderedSubviews]];
@@ -306,7 +306,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         }
         _rightView = rightView;
         if(_rightView != nil) {
-            _rightView.alpha = [self _rightViewAlphaByPercent:0.0f];
+            _rightView.alpha = [self _rightViewAlphaByPercent:0.0];
         }
         if(self.isViewLoaded == YES) {
             [self.view glb_setSubviews:[self _orderedSubviews]];
@@ -321,7 +321,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         }
         _centerView = centerView;
         if(_centerView != nil) {
-            _centerView.alpha = [self _centerViewAlphaByPercent:0.0f];
+            _centerView.alpha = [self _centerViewAlphaByPercent:0.0];
         }
         if(self.isViewLoaded == YES) {
             [self.view glb_setSubviews:[self _orderedSubviews]];
@@ -684,7 +684,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             if(_canUseScreenshot == YES) {
                 [self _takeScreenshotView];
             }
-            _swipeProgress = -1.0f;
+            _swipeProgress = -1.0;
             _leftView.hidden = NO;
             _rightView.hidden = YES;
             CGRect leftFrame = [self _leftViewFrameByPercent:_swipeProgress];
@@ -701,7 +701,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                 }
                 UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState;
                 if(_swipeUseSpring == YES) {
-                    [UIView animateWithDuration:duration delay:0.0f usingSpringWithDamping:_swipeDamping initialSpringVelocity:0.0f options:options | UIViewAnimationOptionCurveLinear animations:^{
+                    [UIView animateWithDuration:duration delay:0.0 usingSpringWithDamping:_swipeDamping initialSpringVelocity:0.0 options:options | UIViewAnimationOptionCurveLinear animations:^{
                         _leftView.frame = leftFrame;
                         _leftView.alpha = leftAlpha;
                         _centerView.frame = centerFrame;
@@ -725,7 +725,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                         }
                     }];
                 } else {
-                    [UIView animateWithDuration:duration delay:0.0f options:options | UIViewAnimationOptionCurveEaseOut animations:^{
+                    [UIView animateWithDuration:duration delay:0.0 options:options | UIViewAnimationOptionCurveEaseOut animations:^{
                         _leftView.frame = leftFrame;
                         _leftView.alpha = leftAlpha;
                         _centerView.frame = centerFrame;
@@ -751,10 +751,10 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                 }
             } else {
                 if([centerViewController respondsToSelector:@selector(willShowLeftViewControllerInSlideViewController:duration:)] == YES) {
-                    [centerViewController willShowLeftViewControllerInSlideViewController:self duration:0.0f];
+                    [centerViewController willShowLeftViewControllerInSlideViewController:self duration:0.0];
                 }
                 if([leftViewController respondsToSelector:@selector(willShowControllerInSlideViewController:duration:)] == YES) {
-                    [leftViewController willShowControllerInSlideViewController:self duration:0.0f];
+                    [leftViewController willShowControllerInSlideViewController:self duration:0.0];
                 }
                 _leftView.frame = leftFrame;
                 _leftView.alpha = leftAlpha;
@@ -789,7 +789,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             animated = NO;
         }
         _animating = YES;
-        _swipeProgress = 0.0f;
+        _swipeProgress = 0.0;
         CGRect leftFrame = [self _leftViewFrameByPercent:_swipeProgress];
         CGFloat leftAlpha = [self _leftViewAlphaByPercent:_swipeProgress];
         CGRect centerFrame = [self _centerViewFrameByPercent:_swipeProgress];
@@ -804,7 +804,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             }
             UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState;
             if(_swipeUseSpring == YES) {
-                [UIView animateWithDuration:duration delay:0.0f usingSpringWithDamping:_swipeDamping initialSpringVelocity:0.0f options:options | UIViewAnimationOptionCurveLinear animations:^{
+                [UIView animateWithDuration:duration delay:0.0 usingSpringWithDamping:_swipeDamping initialSpringVelocity:0.0 options:options | UIViewAnimationOptionCurveLinear animations:^{
                     _leftView.frame = leftFrame;
                     _leftView.alpha = leftAlpha;
                     _centerView.frame = centerFrame;
@@ -831,7 +831,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                     }
                 }];
             } else {
-                [UIView animateWithDuration:duration delay:0.0f options:options | UIViewAnimationOptionCurveEaseOut animations:^{
+                [UIView animateWithDuration:duration delay:0.0 options:options | UIViewAnimationOptionCurveEaseOut animations:^{
                     _leftView.frame = leftFrame;
                     _leftView.alpha = leftAlpha;
                     _centerView.frame = centerFrame;
@@ -860,10 +860,10 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             }
         } else {
             if([centerViewController respondsToSelector:@selector(willHideLeftViewControllerInSlideViewController:duration:)] == YES) {
-                [centerViewController willHideLeftViewControllerInSlideViewController:self duration:0.0f];
+                [centerViewController willHideLeftViewControllerInSlideViewController:self duration:0.0];
             }
             if([leftViewController respondsToSelector:@selector(willHideControllerInSlideViewController:duration:)] == YES) {
-                [leftViewController willHideControllerInSlideViewController:self duration:0.0f];
+                [leftViewController willHideControllerInSlideViewController:self duration:0.0];
             }
             _leftView.frame = leftFrame;
             _leftView.alpha = leftAlpha;
@@ -915,7 +915,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             if(_canUseScreenshot == YES) {
                 [self _takeScreenshotView];
             }
-            _swipeProgress = 1.0f;
+            _swipeProgress = 1.0;
             _leftView.hidden = YES;
             _rightView.hidden = NO;
             CGRect rightFrame = [self _rightViewFrameByPercent:_swipeProgress];
@@ -932,7 +932,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                 }
                 UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState;
                 if(_swipeUseSpring == YES) {
-                    [UIView animateWithDuration:duration delay:0.0f usingSpringWithDamping:_swipeDamping initialSpringVelocity:0.0f options:options | UIViewAnimationOptionCurveLinear animations:^{
+                    [UIView animateWithDuration:duration delay:0.0 usingSpringWithDamping:_swipeDamping initialSpringVelocity:0.0 options:options | UIViewAnimationOptionCurveLinear animations:^{
                         _rightView.frame = rightFrame;
                         _rightView.alpha = rightAlpha;
                         _centerView.frame = centerFrame;
@@ -956,7 +956,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                         }
                     }];
                 } else {
-                    [UIView animateWithDuration:duration delay:0.0f options:options | UIViewAnimationOptionCurveEaseOut animations:^{
+                    [UIView animateWithDuration:duration delay:0.0 options:options | UIViewAnimationOptionCurveEaseOut animations:^{
                         _rightView.frame = rightFrame;
                         _rightView.alpha = rightAlpha;
                         _centerView.frame = centerFrame;
@@ -982,10 +982,10 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                 }
             } else {
                 if([centerViewController respondsToSelector:@selector(willShowRightViewControllerInSlideViewController:duration:)] == YES) {
-                    [centerViewController willShowRightViewControllerInSlideViewController:self duration:0.0f];
+                    [centerViewController willShowRightViewControllerInSlideViewController:self duration:0.0];
                 }
                 if([rightViewController respondsToSelector:@selector(willShowControllerInSlideViewController:duration:)] == YES) {
-                    [rightViewController willShowControllerInSlideViewController:self duration:0.0f];
+                    [rightViewController willShowControllerInSlideViewController:self duration:0.0];
                 }
                 _rightView.frame = rightFrame;
                 _rightView.alpha = rightAlpha;
@@ -1021,7 +1021,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             animated = NO;
         }
         _animating = YES;
-        _swipeProgress = 0.0f;
+        _swipeProgress = 0.0;
         CGRect rightFrame = [self _rightViewFrameByPercent:_swipeProgress];
         CGFloat rightAlpha = [self _rightViewAlphaByPercent:_swipeProgress];
         CGRect centerFrame = [self _centerViewFrameByPercent:_swipeProgress];
@@ -1036,7 +1036,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             }
             UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState;
             if(_swipeUseSpring == YES) {
-                [UIView animateWithDuration:duration delay:0.0f usingSpringWithDamping:_swipeDamping initialSpringVelocity:0.0f options:options | UIViewAnimationOptionCurveLinear animations:^{
+                [UIView animateWithDuration:duration delay:0.0 usingSpringWithDamping:_swipeDamping initialSpringVelocity:0.0 options:options | UIViewAnimationOptionCurveLinear animations:^{
                     _rightView.frame = rightFrame;
                     _rightView.alpha = rightAlpha;
                     _centerView.frame = centerFrame;
@@ -1063,7 +1063,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                     }
                 }];
             } else {
-                [UIView animateWithDuration:duration delay:0.0f options:options | UIViewAnimationOptionCurveEaseOut animations:^{
+                [UIView animateWithDuration:duration delay:0.0 options:options | UIViewAnimationOptionCurveEaseOut animations:^{
                     _rightView.frame = rightFrame;
                     _rightView.alpha = rightAlpha;
                     _centerView.frame = centerFrame;
@@ -1092,10 +1092,10 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             }
         } else {
             if([centerViewController respondsToSelector:@selector(willHideRightViewControllerInSlideViewController:duration:)] == YES) {
-                [centerViewController willHideRightViewControllerInSlideViewController:self duration:0.0f];
+                [centerViewController willHideRightViewControllerInSlideViewController:self duration:0.0];
             }
             if([rightViewController respondsToSelector:@selector(willHideRightViewControllerInSlideViewController:duration:)] == YES) {
-                [rightViewController willHideControllerInSlideViewController:self duration:0.0f];
+                [rightViewController willHideControllerInSlideViewController:self duration:0.0];
             }
             _rightView.frame = rightFrame;
             _rightView.alpha = rightAlpha;
@@ -1289,7 +1289,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 }
 
 - (CGRect)_centerViewFrameFromBounds:(CGRect)bounds byPercent:(CGFloat)percent {
-    CGFloat p = 0.0f;
+    CGFloat p = 0.0;
     if(percent < -FLT_EPSILON) {
         p = -percent;
         switch(_leftViewControllerStyle) {
@@ -1408,8 +1408,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 }
 
 - (void)_updateSwipeProgress:(CGFloat)swipeProgress speed:(CGFloat)speed endedSwipe:(BOOL)endedSwipe {
-    CGFloat minSwipeProgress = (_swipeDirection == GLBSlideViewControllerSwipeCellDirectionLeft) ? -1.0f : 0.0f;
-    CGFloat maxSwipeProgress = (_swipeDirection == GLBSlideViewControllerSwipeCellDirectionRight) ? 1.0f :0.0f;
+    CGFloat minSwipeProgress = (_swipeDirection == GLBSlideViewControllerSwipeCellDirectionLeft) ? -1.0 : 0.0;
+    CGFloat maxSwipeProgress = (_swipeDirection == GLBSlideViewControllerSwipeCellDirectionRight) ? 1.0 :0.0;
     CGFloat normalizedSwipeProgress = MIN(MAX(minSwipeProgress, swipeProgress), maxSwipeProgress);
     if(_swipeProgress != normalizedSwipeProgress) {
         _swipeProgress = normalizedSwipeProgress;
@@ -1418,7 +1418,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         CGFloat duration = ABS(speed) / _swipeVelocity;
         UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState;
         if((_swipeUseSpring == YES) && (endedSwipe == YES)) {
-            [UIView animateWithDuration:duration delay:0.0f usingSpringWithDamping:_swipeDamping initialSpringVelocity:0.0f options:options | UIViewAnimationOptionCurveLinear animations:^{
+            [UIView animateWithDuration:duration delay:0.0 usingSpringWithDamping:_swipeDamping initialSpringVelocity:0.0 options:options | UIViewAnimationOptionCurveLinear animations:^{
                 _leftView.frame = [self _leftViewFrameFromBounds:bounds byPercent:_swipeProgress];
                 _leftView.alpha = [self _leftViewAlphaByPercent:_swipeProgress];
                 _centerView.frame = [self _centerViewFrameFromBounds:bounds byPercent:_swipeProgress];
@@ -1435,7 +1435,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             if(endedSwipe == YES) {
                 options |= UIViewAnimationOptionCurveEaseOut;
             }
-            [UIView animateWithDuration:duration delay:0.0f options:options animations:^{
+            [UIView animateWithDuration:duration delay:0.0 options:options animations:^{
                 _leftView.frame = [self _leftViewFrameFromBounds:bounds byPercent:_swipeProgress];
                 _leftView.alpha = [self _leftViewAlphaByPercent:_swipeProgress];
                 _centerView.frame = [self _centerViewFrameFromBounds:bounds byPercent:_swipeProgress];
@@ -1548,8 +1548,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 
 - (void)_didEndedSwipe {
     if(_animating == NO) {
-        _showedLeftViewController = (_swipeProgress < 0.0f) ? YES : NO;
-        _showedRightViewController = (_swipeProgress > 0.0f) ? YES : NO;
+        _showedLeftViewController = (_swipeProgress < 0.0) ? YES : NO;
+        _showedRightViewController = (_swipeProgress > 0.0) ? YES : NO;
         _leftView.hidden = (_showedLeftViewController == NO);
         _rightView.hidden = (_showedRightViewController == NO);
         [self _updateIteraction];
@@ -1649,8 +1649,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             default: {
                 [self _willEndedSwipe];
                 CGFloat swipeProgress = roundf(_swipeProgress - (_swipeLastVelocity / _swipeVelocity));
-                CGFloat minSwipeProgress = (_swipeDirection == GLBSlideViewControllerSwipeCellDirectionLeft) ? -1.0f : 0.0f;
-                CGFloat maxSwipeProgress = (_swipeDirection == GLBSlideViewControllerSwipeCellDirectionRight) ? 1.0f :0.0f;
+                CGFloat minSwipeProgress = (_swipeDirection == GLBSlideViewControllerSwipeCellDirectionLeft) ? -1.0 : 0.0;
+                CGFloat maxSwipeProgress = (_swipeDirection == GLBSlideViewControllerSwipeCellDirectionRight) ? 1.0 :0.0;
                 CGFloat needSwipeProgress = MIN(MAX(minSwipeProgress, swipeProgress), maxSwipeProgress);
                 if(_animating == NO) {
                     switch(_swipeDirection) {
@@ -1785,12 +1785,6 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 }
 
 @end
-
-/*--------------------------------------------------*/
-#pragma mark -
-/*--------------------------------------------------*/
-
-#import <objc/runtime.h>
 
 /*--------------------------------------------------*/
 #pragma mark -

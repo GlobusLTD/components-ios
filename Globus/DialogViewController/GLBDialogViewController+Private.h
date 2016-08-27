@@ -2,7 +2,6 @@
 
 #import "GLBDialogViewController.h"
 #import "GLBSlideViewController.h"
-#import "GLBBlurView.h"
 
 /*--------------------------------------------------*/
 
@@ -10,6 +9,10 @@
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
+/*--------------------------------------------------*/
+
+@class GLBBlurView;
+
 /*--------------------------------------------------*/
 
 @interface GLBDialogViewController () < UIGestureRecognizerDelegate >

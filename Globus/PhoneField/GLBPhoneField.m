@@ -395,7 +395,7 @@
 
 #pragma mark - NSFormatter
 
-- (BOOL)getObjectValue:(id*)object forString:(NSString*)string errorDescription:(NSString**)error {
+- (BOOL)getObjectValue:(id __autoreleasing *)object forString:(NSString*)string errorDescription:(NSString* __autoreleasing *)error {
     *object = [self _digitOnlyString:string];
     return YES;
 }

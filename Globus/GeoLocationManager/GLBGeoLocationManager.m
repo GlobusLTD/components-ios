@@ -150,7 +150,7 @@ typedef void(^GLBGeoLocationManagerPrefornBlock)();
                                              success:(GLBAction*)success
                                              failure:(GLBAction*)failure {
     return [self requestWithDesiredAccuracy:desiredAccuracy
-                            timeoutInterval:0.0f
+                            timeoutInterval:0.0
                                     success:success
                                     failure:failure];
 }
@@ -170,7 +170,7 @@ typedef void(^GLBGeoLocationManagerPrefornBlock)();
                                                success:(GLBAction*)success
                                                failure:(GLBAction*)failure {
     return [self subscribeWithDesiredAccuracy:desiredAccuracy
-                               updateInterval:0.0f
+                               updateInterval:0.0
                                      success:success
                                       failure:failure];
 }

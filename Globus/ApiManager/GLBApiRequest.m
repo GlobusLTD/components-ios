@@ -36,8 +36,8 @@
         _includeArraySymbolsUrlParams = YES;
         _encodeUrlParams = YES;
         _encodeBodyParams = YES;
-        _timeout = 30.0f;
-        _retries = 3.0f;
+        _timeout = 30.0;
+        _retries = 3.0;
         _delay = 0.5f;
         _cachePolicy = NSURLRequestUseProtocolCachePolicy;
     }

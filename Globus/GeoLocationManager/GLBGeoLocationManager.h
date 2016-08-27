@@ -1,6 +1,6 @@
 /*--------------------------------------------------*/
 
-#include "GLBTargetConditionals.h"
+#import "GLBTargetConditionals.h"
 #import "GLBAction.h"
 
 /*--------------------------------------------------*/

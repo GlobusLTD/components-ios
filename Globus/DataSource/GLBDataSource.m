@@ -40,7 +40,9 @@
 }
 
 - (void)cancel {
-    [self _cancel];
+    if(_updating == YES) {
+        [self _cancel];
+    }
 }
 
 #pragma mark - Private
@@ -57,6 +59,7 @@
 }
 
 - (void)_cancel {
+    _updating = NO;
 }
 
 - (BOOL)_shouldUpdate {

@@ -5,6 +5,9 @@
 /*--------------------------------------------------*/
 
 @class GLBAction;
+
+/*--------------------------------------------------*/
+
 @protocol GLBInputField;
 @protocol GLBInputValidator;
 

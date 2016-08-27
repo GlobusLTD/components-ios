@@ -6,7 +6,13 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0f;
+#if __has_include("GLBBlurView.h")
+#import "GLBBlurView.h"
+#endif
+
+/*--------------------------------------------------*/
+
+static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0;
 
 /*--------------------------------------------------*/
 
@@ -43,13 +49,13 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0f;
 - (void)setup {
     _animationDuration = 0.4f;
     _backgroundBlurred = YES;
-    _backgroundBlurRadius = 20.0f;
+    _backgroundBlurRadius = 20.0;
     _backgroundBlurIterations = 4;
     _backgroundBlurDynamic = NO;
     _backgroundBlurUpdateInterval = 0.1f;
     _backgroundColor = nil;
-    _backgroundTintColor = [UIColor colorWithWhite:0.5f alpha:1.0f];
-    _backgroundAlpha = 1.0f;
+    _backgroundTintColor = [UIColor colorWithWhite:0.5f alpha:1.0];
+    _backgroundAlpha = 1.0;
     
     _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pressedBackground:)];
     _tapGesture.delegate = self;
@@ -66,63 +72,92 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0f;
 - (void)setBackgroundBlurred:(BOOL)backgroundBlurred {
     if(_backgroundBlurred != backgroundBlurred) {
         _backgroundBlurred = backgroundBlurred;
+#if __has_include("GLBBlurView.h")
         if(self.isViewLoaded == YES) {
             _backgroundView.blurEnabled = _backgroundBlurred;
         }
+#endif
     }
 }
 
 - (void)setBackgroundBlurRadius:(CGFloat)backgroundBlurRadius {
     if(_backgroundBlurRadius != backgroundBlurRadius) {
         _backgroundBlurRadius = backgroundBlurRadius;
+#if __has_include("GLBBlurView.h")
         if(self.isViewLoaded == YES) {
             _backgroundView.blurRadius = _backgroundBlurRadius;
         }
+#endif
     }
 }
 
 - (void)setBackgroundBlurIterations:(NSUInteger)backgroundBlurIterations {
     if(_backgroundBlurIterations != backgroundBlurIterations) {
         _backgroundBlurIterations = backgroundBlurIterations;
+#if __has_include("GLBBlurView.h")
         if(self.isViewLoaded == YES) {
             _backgroundView.blurIterations = _backgroundBlurIterations;
         }
+#endif
     }
 }
 
 - (void)setBackgroundBlurDynamic:(BOOL)backgroundBlurDynamic {
     if(_backgroundBlurDynamic != backgroundBlurDynamic) {
         _backgroundBlurDynamic = backgroundBlurDynamic;
+#if __has_include("GLBBlurView.h")
         if(self.isViewLoaded == YES) {
             _backgroundView.dynamic = _backgroundBlurDynamic;
         }
+#endif
     }
 }
 
 - (void)setBackgroundBlurUpdateInterval:(NSTimeInterval)backgroundBlurUpdateInterval {
     if(_backgroundBlurUpdateInterval != backgroundBlurUpdateInterval) {
         _backgroundBlurUpdateInterval = backgroundBlurUpdateInterval;
+#if __has_include("GLBBlurView.h")
         if(self.isViewLoaded == YES) {
             _backgroundView.updateInterval = _backgroundBlurUpdateInterval;
         }
+#endif
     }
 }
 
 - (void)setBackgroundColor:(UIColor*)backgroundColor {
     if([_backgroundColor isEqual:backgroundColor] == NO) {
         _backgroundColor = backgroundColor;
+#if __has_include("GLBBlurView.h")
         if(self.isViewLoaded == YES) {
             _backgroundView.backgroundColor = _backgroundColor;
         }
+#else
+        if(self.isViewLoaded == YES) {
+            self.view.backgroundColor = _backgroundColor;
+        }
+#endif
     }
 }
 
 - (void)setBackgroundTintColor:(UIColor*)backgroundTintColor {
     if([_backgroundTintColor isEqual:backgroundTintColor] == NO) {
         _backgroundTintColor = backgroundTintColor;
+#if __has_include("GLBBlurView.h")
         if(self.isViewLoaded == YES) {
             _backgroundView.tintColor = _backgroundTintColor;
         }
+#endif
+    }
+}
+
+- (void)setBackgroundAlpha:(CGFloat)backgroundAlpha {
+    if(_backgroundAlpha != backgroundAlpha) {
+        _backgroundAlpha = backgroundAlpha;
+#if __has_include("GLBBlurView.h")
+        if(self.isViewLoaded == YES) {
+            _backgroundView.alpha = _backgroundAlpha;
+        }
+#endif
     }
 }
 
@@ -355,14 +390,15 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = UIColor.clearColor;
-    
     if(_tapGesture != nil) {
         [self.view addGestureRecognizer:_tapGesture];
     }
     
+#if __has_include("GLBBlurView.h")
+    self.view.backgroundColor = UIColor.clearColor;
+    
     _backgroundView = [[GLBBlurView alloc] initWithFrame:self.view.bounds];
-    if(_backgroundView  != nil) {
+    if(_backgroundView != nil) {
         _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _backgroundView.blurEnabled = _backgroundBlurred;
         _backgroundView.blurRadius = _backgroundBlurRadius;
@@ -374,6 +410,9 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0f;
         _backgroundView.alpha = _backgroundAlpha;
         [self.view addSubview:_backgroundView];
     }
+#else
+    self.view.backgroundColor = _backgroundColor;
+#endif
     
     if(_contentViewController != nil) {
         _contentViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
@@ -407,7 +446,6 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0f;
             _dialogWindow.rootViewController = self;
             _dialogWindow.glb_userWindow = YES;
             [_dialogWindow makeKeyAndVisible];
-            [_dialogWindow layoutIfNeeded];
         } else {
             if(_ownerWindow != nil) {
                 _dialogWindow.windowLevel = _ownerWindow.windowLevel + GLBDialogViewController_WindowLevelOffset;
@@ -416,6 +454,7 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0f;
             }
             _dialogWindow.hidden = NO;
         }
+#if __has_include("GLBBlurView.h")
         if(_ownerWindow != nil) {
             UIViewController* currentViewController = _ownerWindow.glb_currentViewController;
             if(currentViewController != nil) {
@@ -432,6 +471,7 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0f;
                 _backgroundView.underlyingView = _ownerWindow.rootViewController.view;
             }
         }
+#endif
         [self glb_loadViewIfNeed];
         [self setNeedsStatusBarAppearanceUpdate];
         [self _willPresentWithCompletion:completion];
@@ -608,7 +648,7 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0f;
                                                                                                           attribute:NSLayoutAttributeTop
                                                                                                            constant:_contentVerticalOffset
                                                                                                            priority:UILayoutPriorityRequired
-                                                                                                         multiplier:1.0f];
+                                                                                                         multiplier:1.0];
                 break;
             case GLBDialogViewControllerAlignmentVerticalCenter:
                 _constraintContentViewHorizontalAlignment = [_contentViewController.view glb_addConstraintAttribute:NSLayoutAttributeCenterY
@@ -616,7 +656,7 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0f;
                                                                                                           attribute:NSLayoutAttributeCenterY
                                                                                                            constant:_contentVerticalOffset
                                                                                                            priority:UILayoutPriorityRequired
-                                                                                                         multiplier:1.0f];
+                                                                                                         multiplier:1.0];
                 break;
             case GLBDialogViewControllerAlignmentVerticalBottom:
                 _constraintContentViewHorizontalAlignment = [_contentViewController.view glb_addConstraintAttribute:NSLayoutAttributeBottom
@@ -624,7 +664,7 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0f;
                                                                                                           attribute:NSLayoutAttributeBottom
                                                                                                            constant:-_contentVerticalOffset
                                                                                                            priority:UILayoutPriorityRequired
-                                                                                                         multiplier:1.0f];
+                                                                                                         multiplier:1.0];
                 break;
         }
     } else {
@@ -648,7 +688,7 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0f;
                                                                                                         attribute:NSLayoutAttributeLeft
                                                                                                          constant:_contentHorizontalOffset
                                                                                                          priority:UILayoutPriorityRequired
-                                                                                                       multiplier:1.0f];
+                                                                                                       multiplier:1.0];
                 break;
             case GLBDialogViewControllerAlignmentHorizontalCenter:
                 _constraintContentViewVerticalAlignment = [_contentViewController.view glb_addConstraintAttribute:NSLayoutAttributeCenterX
@@ -656,7 +696,7 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0f;
                                                                                                         attribute:NSLayoutAttributeCenterX
                                                                                                          constant:_contentHorizontalOffset
                                                                                                          priority:UILayoutPriorityRequired
-                                                                                                       multiplier:1.0f];
+                                                                                                       multiplier:1.0];
                 break;
             case GLBDialogViewControllerAlignmentHorizontalRight:
                 _constraintContentViewVerticalAlignment = [_contentViewController.view glb_addConstraintAttribute:NSLayoutAttributeRight
@@ -664,7 +704,7 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0f;
                                                                                                         attribute:NSLayoutAttributeRight
                                                                                                          constant:-_contentHorizontalOffset
                                                                                                          priority:UILayoutPriorityRequired
-                                                                                                       multiplier:1.0f];
+                                                                                                       multiplier:1.0];
                 break;
         }
     } else {
@@ -915,13 +955,17 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0f;
 - (void)presentDialogViewController:(GLBDialogViewController*)dialogViewController completion:(GLBSimpleBlock)completion {
     dialogViewController.view.alpha = 0.0;
     
+#if __has_include("GLBBlurView.h")
     if(dialogViewController.backgroundBlurred == YES) {
-        dialogViewController.backgroundView.blurRadius = 0.0f;
+        dialogViewController.backgroundView.blurRadius = 0.0;
     }
+#endif
     [UIView animateWithDuration:dialogViewController.animationDuration animations:^{
+#if __has_include("GLBBlurView.h")
         if(dialogViewController.backgroundBlurred == YES) {
             dialogViewController.backgroundView.blurRadius = dialogViewController.backgroundBlurRadius;
         }
+#endif
         dialogViewController.view.alpha = 1.0;
     } completion:^(BOOL finished) {
         if(completion != nil) {
@@ -932,9 +976,11 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0f;
 
 - (void)dismissDialogViewController:(GLBDialogViewController*)dialogViewController completion:(GLBSimpleBlock)completion {
     [UIView animateWithDuration:dialogViewController.animationDuration animations:^{
+#if __has_include("GLBBlurView.h")
         if(dialogViewController.backgroundBlurred == YES) {
-            dialogViewController.backgroundView.blurRadius = 0.0f;
+            dialogViewController.backgroundView.blurRadius = 0.0;
         }
+#endif
         dialogViewController.view.alpha = 0.0;
     } completion:^(BOOL finished) {
         if(completion != nil) {
@@ -944,12 +990,6 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0f;
 }
 
 @end
-
-/*--------------------------------------------------*/
-#pragma mark -
-/*--------------------------------------------------*/
-
-#import <objc/runtime.h>
 
 /*--------------------------------------------------*/
 #pragma mark -

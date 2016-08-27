@@ -11,7 +11,7 @@ static BOOL GLBNeedRandomizeSeed = YES;
 NSInteger GLBIntegerRandom(NSInteger min, NSInteger max) {
     if(GLBNeedRandomizeSeed == YES) {
         GLBNeedRandomizeSeed = NO;
-        srand((int)time(NULL));
+        srand((unsigned)time(NULL));
     }
     return (NSInteger)(min + (NSInteger)arc4random_uniform((u_int32_t)(max - min + 1)));
 }
@@ -23,7 +23,7 @@ NSInteger GLBIntegerLerp(NSInteger from, NSInteger to, CGFloat progress) {
 CGFloat GLBFloatRandom(CGFloat min, CGFloat max) {
     if(GLBNeedRandomizeSeed == YES) {
         GLBNeedRandomizeSeed = NO;
-        srand((int)time(NULL));
+        srand((unsigned)time(NULL));
     }
     return ((arc4random() % RAND_MAX) / (CGFloat)RAND_MAX) * (max - min) + min;
 }
@@ -37,7 +37,7 @@ CGFloat GLBFloatNearestMore(CGFloat value, CGFloat step) {
 }
 
 CGFloat GLBFloatLerp(CGFloat from, CGFloat to, CGFloat progress) {
-    return ((1.0f - progress) * from) + (progress * to);
+    return ((1 - progress) * from) + (progress * to);
 }
 
 /*--------------------------------------------------*/

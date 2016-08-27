@@ -9,7 +9,7 @@
 #import "GLBSpinnerView.h"
 #import "UIView+GLBUI.h"
 #import "UILabel+GLBUI.h"
-#import "GLBRect.h"
+#include "GLBRect.h"
 
 /*--------------------------------------------------*/
 
@@ -26,14 +26,14 @@
 #pragma mark -
 /*--------------------------------------------------*/
 
-#define GLBActivityViewMargin                       15.0f
-#define GLBActivityViewSpacing                      8.0f
+#define GLBActivityViewMargin                       15.0
+#define GLBActivityViewSpacing                      8.0
 #define GLBActivityViewBackgroundColor              [UIColor colorWithWhite:0.1f alpha:0.2f]
 #define GLBActivityViewPanelColor                   [UIColor colorWithWhite:0.2f alpha:0.8f]
-#define GLBActivityViewPanelCornerRadius            8.0f
-#define GLBActivityViewSpinnerColor                 [UIColor colorWithWhite:1.0f alpha:0.8f]
-#define GLBActivityViewSpinnerSize                  42.0f
-#define GLBActivityViewTextColor                    [UIColor colorWithWhite:1.0f alpha:0.8f]
+#define GLBActivityViewPanelCornerRadius            8.0
+#define GLBActivityViewSpinnerColor                 [UIColor colorWithWhite:1.0 alpha:0.8f]
+#define GLBActivityViewSpinnerSize                  42.0
+#define GLBActivityViewTextColor                    [UIColor colorWithWhite:1.0 alpha:0.8f]
 #define GLBActivityViewTextFont                     [UIFont boldSystemFontOfSize:[UIFont systemFontSize]]
 #define GLBActivityViewTextWidth                    NSNotFound
 #define GLBActivityDuration                         0.1f
@@ -71,7 +71,7 @@
         
         self.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
         self.backgroundColor = GLBActivityViewBackgroundColor;
-        self.alpha = 0.0f;
+        self.alpha = 0.0;
         
         _panelView = [[UIView alloc] initWithFrame:CGRectZero];
         _panelView.backgroundColor = GLBActivityViewPanelColor;
@@ -110,7 +110,7 @@
     
     CGSize spinnerSize = CGSizeMake(self.spinnerSize, self.spinnerSize);
     CGSize textSize = [self.textView glb_sizeForWidth:self.textWidth];
-    CGSize panelSize = CGSizeMake(self.margin + MAX(spinnerSize.width, textSize.width) + self.margin, self.margin + spinnerSize.height + ((self.textView.text.length > 0) ? self.spacing + textSize.height : 0.0f) + self.margin);
+    CGSize panelSize = CGSizeMake(self.margin + MAX(spinnerSize.width, textSize.width) + self.margin, self.margin + spinnerSize.height + ((self.textView.text.length > 0) ? self.spacing + textSize.height : 0) + self.margin);
     CGFloat spinnerOffset = (CGFloat)floorf((panelSize.width - spinnerSize.width) * 0.5f);
     
     self.panelView.frame = GLBRectMakeCenterPoint(self.glb_frameCenter, panelSize.width, panelSize.height);
@@ -226,8 +226,8 @@
                                  prepare();
                                  [self layoutIfNeeded];
                              }
-                             self.panelView.alpha = 1.0f;
-                             self.alpha = 1.0f;
+                             self.panelView.alpha = 1.0;
+                             self.alpha = 1.0;
                          } completion:^(BOOL finished) {
                              if(complete != nil) {
                                  complete();
@@ -258,8 +258,8 @@
                                  prepare();
                                  [self layoutIfNeeded];
                              }
-                             self.panelView.alpha = 0.0f;
-                             self.alpha = 0.0f;
+                             self.panelView.alpha = 0.0;
+                             self.alpha = 0.0;
                          } completion:^(BOOL finished) {
                              [self.spinnerView stopAnimating];
                              if(complete != nil) {

@@ -2,4 +2,4 @@
 
 cd "$(dirname "$0")"
 bundle install
-bundle exec pod spec lint ./Globus.podspec
+bundle exec pod spec lint ./Globus.podspec --verbose

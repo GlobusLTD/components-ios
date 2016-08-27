@@ -123,7 +123,7 @@
         NSMutableString* resultString = [NSMutableString stringWithString:_string];
         NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:_expression options:0 error:nil];
         if(regex != nil) {
-            __block NSInteger offset = 0;
+            __block NSUInteger offset = 0;
             [regex enumerateMatchesInString:_string options:0 range:NSMakeRange(0, _string.length) usingBlock:^(NSTextCheckingResult* checkingResult, NSMatchingFlags flags, BOOL* stop) {
                 NSUInteger numberOfRanges = checkingResult.numberOfRanges;
                 

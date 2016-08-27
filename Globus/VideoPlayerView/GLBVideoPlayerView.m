@@ -185,8 +185,8 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
         _prepared = NO;
         _playing = NO;
         _paused = NO;
-        _buffer = 0.0f;
-        _rate = 0.0f;
+        _buffer = 0.0;
+        _rate = 0.0;
         self.playerItem = nil;
         if(_actionCleaned != nil) {
             [_actionCleaned performWithArguments:@[ self ]];
@@ -264,8 +264,8 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
 }
 
 - (void)_notificationDidPlayToEndTime {
-    _rate = 1.0f;
-    _buffer = 1.0f;
+    _rate = 1.0;
+    _buffer = 1.0;
     if(_actionFinished != nil) {
         [_actionFinished performWithArguments:@[ self ]];
     }

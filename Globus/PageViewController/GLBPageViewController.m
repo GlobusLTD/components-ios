@@ -70,10 +70,10 @@
     [super setup];
     
     _userInteractionEnabled = YES;
-    _draggingRate = 0.5f;
-    _bounceRate = 0.5f;
-    _thresholdHorizontal = 50.0f;
-    _thresholdVertical = 100.0f;
+    _draggingRate = (CGFloat)(0.5);
+    _bounceRate = (CGFloat)(0.5);
+    _thresholdHorizontal = 50.0;
+    _thresholdVertical = 100.0;
     
     _friendlyGestures = [NSMutableArray array];
 }
@@ -183,7 +183,7 @@
             [_beforeDecorView removeFromSuperview];
         }
         _beforeDecorView = beforeDecorView;
-        _canBeforeDecor.applyFromProgress = [_beforeDecorView respondsToSelector:@selector(pageController:applyFromProgress:)];
+        _canBeforeDecor.applyFromProgress = (unsigned int)[_beforeDecorView respondsToSelector:@selector(pageController:applyFromProgress:)];
         if(_beforeDecorView != nil) {
             CGRect currentFrame = [self _currentFrame];
             _beforeDecorView.frame = [self _beforeDecorFrameFromFrame:currentFrame];
@@ -225,7 +225,7 @@
             [_afterDecorView removeFromSuperview];
         }
         _afterDecorView = afterDecorView;
-        _canAfterDecor.applyFromProgress = [_afterDecorView respondsToSelector:@selector(pageController:applyFromProgress:)];
+        _canAfterDecor.applyFromProgress = (unsigned int)[_afterDecorView respondsToSelector:@selector(pageController:applyFromProgress:)];
         if(_afterDecorView != nil) {
             CGRect currentFrame = [self _currentFrame];
             _afterDecorView.frame = [self _afterDecorFrameFromFrame:currentFrame];
@@ -401,21 +401,21 @@
     CGRect beforeFrame = [self _beforeFrame];
     switch(_orientation) {
         case GLBPageViewControllerOrientationVertical:
-            result.origin.x = CGRectGetMidX(beforeFrame) - (_beforeDecorSize.width * 0.5f);
+            result.origin.x = CGRectGetMidX(beforeFrame) - (_beforeDecorSize.width * (CGFloat)(0.5));
             result.origin.y = CGRectGetMaxY(beforeFrame) - _beforeDecorSize.height;
             result.size.width = _beforeDecorSize.width;
             result.size.height = _beforeDecorSize.height;
             break;
         case GLBPageViewControllerOrientationHorizontal:
             result.origin.x = CGRectGetMaxX(beforeFrame) - _beforeDecorSize.width;
-            result.origin.y = CGRectGetMidY(beforeFrame) - (_beforeDecorSize.height * 0.5f);
+            result.origin.y = CGRectGetMidY(beforeFrame) - (_beforeDecorSize.height * (CGFloat)(0.5));
             result.size.width = _beforeDecorSize.width;
             result.size.height = _beforeDecorSize.height;
             break;
     }
     result = UIEdgeInsetsInsetRect(result, _beforeDecorInsets);
-    result.size.width = MAX(0.0f, result.size.width);
-    result.size.height = MAX(0.0f, result.size.height);
+    result.size.width = MAX(0, result.size.width);
+    result.size.height = MAX(0, result.size.height);
     return result;
 }
 
@@ -425,39 +425,39 @@
     switch(_orientation) {
         case GLBPageViewControllerOrientationVertical: {
             CGFloat delta = CGRectGetMinY(currentFrame) - CGRectGetMaxY(beforeFrame);
-            result.origin.x = CGRectGetMidX(beforeFrame) - (_beforeDecorSize.width * 0.5f);
-            result.origin.y = (CGRectGetMaxY(beforeFrame) + (delta * 0.5f)) - (_beforeDecorSize.height * 0.5f);
+            result.origin.x = CGRectGetMidX(beforeFrame) - (_beforeDecorSize.width * (CGFloat)(0.5));
+            result.origin.y = (CGRectGetMaxY(beforeFrame) + (delta * (CGFloat)(0.5))) - (_beforeDecorSize.height * (CGFloat)(0.5));
             result.size.width = _beforeDecorSize.width;
             result.size.height = _beforeDecorSize.height;
             break;
         }
         case GLBPageViewControllerOrientationHorizontal: {
             CGFloat delta = CGRectGetMinX(currentFrame) - CGRectGetMaxX(beforeFrame);
-            result.origin.x = (CGRectGetMaxX(beforeFrame) + (delta * 0.5f)) - (_beforeDecorSize.width * 0.5f);
-            result.origin.y = CGRectGetMidY(beforeFrame) - (_beforeDecorSize.height * 0.5f);
+            result.origin.x = (CGRectGetMaxX(beforeFrame) + (delta * (CGFloat)(0.5))) - (_beforeDecorSize.width * (CGFloat)(0.5));
+            result.origin.y = CGRectGetMidY(beforeFrame) - (_beforeDecorSize.height * (CGFloat)(0.5));
             result.size.width = _beforeDecorSize.width;
             result.size.height = _beforeDecorSize.height;
             break;
         }
     }
     result = UIEdgeInsetsInsetRect(result, _beforeDecorInsets);
-    result.size.width = MAX(0.0f, result.size.width);
-    result.size.height = MAX(0.0f, result.size.height);
+    result.size.width = MAX(0, result.size.width);
+    result.size.height = MAX(0, result.size.height);
     return result;
 }
 
 - (CGFloat)_beforeDecorProgressFromFrame:(CGRect)currentFrame {
-    CGFloat result = 0.0f;
+    CGFloat result = 0;
     CGRect beforeFrame = [self _beforeFrame];
     switch(_orientation) {
         case GLBPageViewControllerOrientationVertical: {
             CGFloat delta = CGRectGetMinY(currentFrame) - CGRectGetMaxY(beforeFrame);
-            result = MAX(0.0f, ABS(delta) / _beforeDecorSize.height);
+            result = MAX(0, ABS(delta) / _beforeDecorSize.height);
             break;
         }
         case GLBPageViewControllerOrientationHorizontal: {
             CGFloat delta = CGRectGetMinX(currentFrame) - CGRectGetMaxX(beforeFrame);
-            result = MAX(0.0f, ABS(delta) / _beforeDecorSize.width);
+            result = MAX(0, ABS(delta) / _beforeDecorSize.width);
             break;
         }
     }
@@ -469,21 +469,21 @@
     CGRect _afterFrame = [self _afterFrame];
     switch(_orientation) {
         case GLBPageViewControllerOrientationVertical:
-            result.origin.x = CGRectGetMidX(_afterFrame) - (_afterDecorSize.width * 0.5f);
+            result.origin.x = CGRectGetMidX(_afterFrame) - (_afterDecorSize.width * (CGFloat)(0.5));
             result.origin.y = CGRectGetMinY(_afterFrame);
             result.size.width = _beforeDecorSize.width;
             result.size.height = _beforeDecorSize.height;
             break;
         case GLBPageViewControllerOrientationHorizontal:
             result.origin.x = CGRectGetMinX(_afterFrame);
-            result.origin.y = CGRectGetMidY(_afterFrame) - (_afterDecorSize.height * 0.5f);
+            result.origin.y = CGRectGetMidY(_afterFrame) - (_afterDecorSize.height * (CGFloat)(0.5));
             result.size.width = _afterDecorSize.width;
             result.size.height = _afterDecorSize.height;
             break;
     }
     result = UIEdgeInsetsInsetRect(result, _afterDecorInsets);
-    result.size.width = MAX(0.0f, result.size.width);
-    result.size.height = MAX(0.0f, result.size.height);
+    result.size.width = MAX(0, result.size.width);
+    result.size.height = MAX(0, result.size.height);
     return result;
 }
 
@@ -493,39 +493,39 @@
     switch(_orientation) {
         case GLBPageViewControllerOrientationVertical: {
             CGFloat delta = CGRectGetMinY(_afterFrame) - CGRectGetMaxY(currentFrame);
-            result.origin.x = CGRectGetMidX(_afterFrame) - (_afterDecorSize.width * 0.5f);
-            result.origin.y = (CGRectGetMinY(_afterFrame) - (delta * 0.5f)) - (_afterDecorSize.height * 0.5f);
+            result.origin.x = CGRectGetMidX(_afterFrame) - (_afterDecorSize.width * (CGFloat)(0.5));
+            result.origin.y = (CGRectGetMinY(_afterFrame) - (delta * (CGFloat)(0.5))) - (_afterDecorSize.height * (CGFloat)(0.5));
             result.size.width = _afterDecorSize.width;
             result.size.height = _afterDecorSize.height;
             break;
         }
         case GLBPageViewControllerOrientationHorizontal: {
             CGFloat delta = CGRectGetMinX(_afterFrame) - CGRectGetMaxX(currentFrame);
-            result.origin.x = CGRectGetMinX(_afterFrame) - (delta * 0.5f) - (_afterDecorSize.width * 0.5f);
-            result.origin.y = CGRectGetMidY(_afterFrame) - (_afterDecorSize.height * 0.5f);
+            result.origin.x = CGRectGetMinX(_afterFrame) - (delta * (CGFloat)(0.5)) - (_afterDecorSize.width * (CGFloat)(0.5));
+            result.origin.y = CGRectGetMidY(_afterFrame) - (_afterDecorSize.height * (CGFloat)(0.5));
             result.size.width = _afterDecorSize.width;
             result.size.height = _afterDecorSize.height;
             break;
         }
     }
     result = UIEdgeInsetsInsetRect(result, _afterDecorInsets);
-    result.size.width = MAX(0.0f, result.size.width);
-    result.size.height = MAX(0.0f, result.size.height);
+    result.size.width = MAX(0, result.size.width);
+    result.size.height = MAX(0, result.size.height);
     return result;
 }
 
 - (CGFloat)_afterDecorProgressFromFrame:(CGRect)currentFrame {
-    CGFloat result = 0.0f;
+    CGFloat result = 0;
     CGRect _afterFrame = [self _afterFrame];
     switch(_orientation) {
         case GLBPageViewControllerOrientationVertical: {
             CGFloat delta = CGRectGetMinY(_afterFrame) - CGRectGetMaxY(currentFrame);
-            result = MAX(0.0f, ABS(delta) / _afterDecorSize.height);
+            result = MAX(0, ABS(delta) / _afterDecorSize.height);
             break;
         }
         case GLBPageViewControllerOrientationHorizontal: {
             CGFloat delta = CGRectGetMinX(_afterFrame) - CGRectGetMaxX(currentFrame);
-            result = MAX(0.0f, ABS(delta) / _afterDecorSize.width);
+            result = MAX(0, ABS(delta) / _afterDecorSize.width);
             break;
         }
     }
@@ -644,10 +644,10 @@
                                 CGRect frame = scrollView.frame;
                                 switch(_orientation) {
                                     case GLBPageViewControllerOrientationVertical: {
-                                        if(((contentOffset.y + contentInsets.top) <= offset.y) && (offset.y > 0.0f)) {
+                                        if(((contentOffset.y + contentInsets.top) <= offset.y) && (offset.y > 0)) {
                                             scrollView.glb_contentOffsetY = -contentInsets.top;
                                             scrollView.scrollEnabled = NO;
-                                        } else if(((contentOffset.y + frame.size.height) >= contentSize.height + offset.y) && (offset.y < 0.0f)) {
+                                        } else if(((contentOffset.y + frame.size.height) >= contentSize.height + offset.y) && (offset.y < 0)) {
                                             scrollView.glb_contentOffsetY = (contentSize.height - frame.size.height) + contentInsets.bottom;
                                             scrollView.scrollEnabled = NO;
                                         } else {
@@ -656,10 +656,10 @@
                                         break;
                                     }
                                     case GLBPageViewControllerOrientationHorizontal: {
-                                        if(((contentOffset.x + contentInsets.left) <= offset.x) && (offset.x > 0.0f)) {
+                                        if(((contentOffset.x + contentInsets.left) <= offset.x) && (offset.x > 0)) {
                                             scrollView.glb_contentOffsetX = -contentInsets.left;
                                             scrollView.scrollEnabled = NO;
-                                        } else if(((contentOffset.x + frame.size.width) >= contentSize.width + offset.x) && (offset.x < 0.0f)) {
+                                        } else if(((contentOffset.x + frame.size.width) >= contentSize.width + offset.x) && (offset.x < 0)) {
                                             scrollView.glb_contentOffsetX = (contentSize.width - frame.size.width) + contentInsets.right;
                                             scrollView.scrollEnabled = NO;
                                         } else {
@@ -677,26 +677,26 @@
                     case GLBPageViewControllerOrientationVertical:
                         offset.y = (currentPosition.y - _panBeganPosition.y) * _draggingRate;
                         if(_allowBeforeViewController == YES) {
-                            if((currentFrame.origin.y + offset.y) > 0.0f) {
-                                offset.y = (_bounceRate > 0.0f) ? offset.y * _bounceRate : 0.0f;
+                            if((currentFrame.origin.y + offset.y) > 0) {
+                                offset.y = (_bounceRate > 0) ? offset.y * _bounceRate : 0;
                             }
                         }
                         if(_allowAfterViewController == YES) {
-                            if((currentFrame.origin.y + offset.y) < 0.0f) {
-                                offset.y = (_bounceRate > 0.0f) ? offset.y * _bounceRate : 0.0f;
+                            if((currentFrame.origin.y + offset.y) < 0) {
+                                offset.y = (_bounceRate > 0) ? offset.y * _bounceRate : 0;
                             }
                         }
                         break;
                     case GLBPageViewControllerOrientationHorizontal:
                         offset.x = (currentPosition.x - _panBeganPosition.x) * _draggingRate;
                         if(_allowBeforeViewController == YES) {
-                            if((currentFrame.origin.x + offset.x) > 0.0f) {
-                                offset.x = (_bounceRate > 0.0f) ? offset.x * _bounceRate : 0.0f;
+                            if((currentFrame.origin.x + offset.x) > 0) {
+                                offset.x = (_bounceRate > 0) ? offset.x * _bounceRate : 0;
                             }
                         }
                         if(_allowAfterViewController == YES) {
-                            if((currentFrame.origin.x + offset.x) < 0.0f) {
-                                offset.x = (_bounceRate > 0.0f) ? offset.x * _bounceRate : 0.0f;
+                            if((currentFrame.origin.x + offset.x) < 0) {
+                                offset.x = (_bounceRate > 0) ? offset.x * _bounceRate : 0;
                             }
                         }
                         break;
@@ -855,10 +855,10 @@
             switch(_orientation) {
                 case GLBPageViewControllerOrientationVertical:
                     if(ABS(translation.y) >= ABS(translation.x)) {
-                        if(translation.y > 0.0f) {
-                            result = (_allowBeforeViewController == YES) || (_bounceRate > 0.0f);
-                        } else if(translation.y < 0.0f) {
-                            result = (_allowAfterViewController == YES) || (_bounceRate > 0.0f);
+                        if(translation.y > 0) {
+                            result = (_allowBeforeViewController == YES) || (_bounceRate > 0);
+                        } else if(translation.y < 0) {
+                            result = (_allowAfterViewController == YES) || (_bounceRate > 0);
                         } else {
                             result = (_allowAfterViewController == YES) || (_allowBeforeViewController == YES);
                         }
@@ -866,10 +866,10 @@
                     break;
                 case GLBPageViewControllerOrientationHorizontal:
                     if(ABS(translation.x) >= ABS(translation.y)) {
-                        if(translation.x > 0.0f) {
-                            result = (_allowBeforeViewController == YES) || (_bounceRate > 0.0f);
-                        } else if(translation.x < 0.0f) {
-                            result = (_allowAfterViewController == YES) || (_bounceRate > 0.0f);
+                        if(translation.x > 0) {
+                            result = (_allowBeforeViewController == YES) || (_bounceRate > 0);
+                        } else if(translation.x < 0) {
+                            result = (_allowAfterViewController == YES) || (_bounceRate > 0);
                         } else {
                             result = (_allowAfterViewController == YES) || (_allowBeforeViewController == YES);
                         }
@@ -1118,12 +1118,6 @@
 }
 
 @end
-
-/*--------------------------------------------------*/
-#pragma mark -
-/*--------------------------------------------------*/
-
-#include <objc/runtime.h>
 
 /*--------------------------------------------------*/
 #pragma mark -

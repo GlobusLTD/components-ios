@@ -4,7 +4,6 @@
 
 /*--------------------------------------------------*/
 
-#import "NSDictionary+GLBNS.h"
 #import "NSPointerArray+GLBNS.h"
 #import "NSString+GLBNS.h"
 

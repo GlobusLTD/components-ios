@@ -5,6 +5,7 @@
 
 /*--------------------------------------------------*/
 
+#import "NSString+GLBNS.h"
 #import "UIDevice+GLBUI.h"
 
 /*--------------------------------------------------*/
@@ -160,6 +161,24 @@
             }
         }
     }
+}
+
+#pragma mark - KVC
+
+- (void)setValue:(id)value forUndefinedKey:(NSString*)key {
+    NSString* selectorName = [NSString stringWithFormat:@"set%@:", key.glb_stringByUppercaseFirstCharacterString];
+    SEL selector = NSSelectorFromString(selectorName);
+    if([self respondsToSelector:selector] == YES) {
+        [self performSelector:selector withObject:value];
+    }
+}
+
+- (id)valueForUndefinedKey:(NSString*)key {
+    SEL selector = NSSelectorFromString(key);
+    if([self respondsToSelector:selector] == YES) {
+        return [self performSelector:selector];
+    }
+    return nil;
 }
 
 #pragma mark - Public

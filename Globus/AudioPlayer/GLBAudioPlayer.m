@@ -117,7 +117,7 @@
 }
 
 - (CGFloat)peakPower {
-    CGFloat result = 0.0f;
+    CGFloat result = 0.0;
     if(_prepared == YES) {
         NSUInteger numberOfChannels = _player.numberOfChannels;
         for(NSUInteger channel = 0; channel < numberOfChannels; channel++) {
@@ -129,7 +129,7 @@
 }
 
 - (CGFloat)averagePower {
-    CGFloat result = 0.0f;
+    CGFloat result = 0.0;
     if(_prepared == YES) {
         NSUInteger numberOfChannels = _player.numberOfChannels;
         for(NSUInteger channel = 0; channel < numberOfChannels; channel++) {
@@ -248,7 +248,7 @@
     if((_prepared == YES) && (_playing == YES)) {
         _playing = NO;
         _paused = NO;
-        _player.currentTime = 0.0f;
+        _player.currentTime = 0.0;
         [_player stop];
         if(_actionStoped != nil) {
             [_actionStoped performWithArguments:@[ self ]];
@@ -284,7 +284,7 @@
 }
 
 - (CGFloat)peakPowerForChannel:(NSUInteger)channelNumber {
-    CGFloat result = 0.0f;
+    CGFloat result = 0.0;
     if(_prepared == YES) {
         result = [_player peakPowerForChannel:channelNumber];
     }
@@ -292,7 +292,7 @@
 }
 
 - (CGFloat)averagePowerForChannel:(NSUInteger)channelNumber {
-    CGFloat result = 0.0f;
+    CGFloat result = 0.0;
     if(_prepared == YES) {
         result = [_player averagePowerForChannel:channelNumber];
     }

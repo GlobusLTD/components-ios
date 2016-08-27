@@ -4,7 +4,6 @@
 
 /*--------------------------------------------------*/
 
-#import "NSObject+GLBNS.h"
 #import "NSString+GLBNS.h"
 #import "NSArray+GLBNS.h"
 #import "NSDictionary+GLBNS.h"
@@ -15,10 +14,6 @@
 /*--------------------------------------------------*/
 
 #import "UIDevice+GLBUI.h"
-
-/*--------------------------------------------------*/
-
-#include <objc/runtime.h>
 
 /*--------------------------------------------------*/
 #pragma mark -

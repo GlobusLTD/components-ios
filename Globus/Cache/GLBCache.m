@@ -1,7 +1,9 @@
 /*--------------------------------------------------*/
 
 #import "GLBCache.h"
-#import "GLBCG.h"
+
+/*--------------------------------------------------*/
+
 #import "NSDate+GLBNS.h"
 #import "NSString+GLBNS.h"
 #import "NSFileManager+GLBNS.h"
