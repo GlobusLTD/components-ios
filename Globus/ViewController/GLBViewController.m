@@ -6,8 +6,13 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+#import "GLBActivityView.h"
 #import "UIDevice+GLBUI.h"
 #import "UINib+GLBUI.h"
+
+/*--------------------------------------------------*/
+
+#include <objc/runtime.h>
 
 /*--------------------------------------------------*/
 
@@ -19,10 +24,6 @@
 /*--------------------------------------------------*/
 
 @implementation GLBViewController
-
-#pragma mark - Synthesize
-
-@synthesize activity = _activity;
 
 #pragma mark - Init / Free
 
@@ -81,36 +82,28 @@
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
-    if(_activity != nil) {
-        _activity.frame = self.view.bounds;
-        if(_activity.superview == nil) {
-            [self.view addSubview:_activity];
+    if(_activityView != nil) {
+        _activityView.frame = self.view.bounds;
+        if(_activityView.superview == nil) {
+            [self.view addSubview:_activityView];
         }
-        [self.view bringSubviewToFront:_activity];
+        [self.view bringSubviewToFront:_activityView];
     }
 }
 
 #pragma mark - Property
 
-- (GLBActivityView*)activity {
-    if(_activity == nil) {
-        _activity = [GLBActivityView activityViewWithStyle:_activityStyle];
-        if(self.isViewLoaded == YES) {
-            _activity.frame = self.view.bounds;
-            [self.view addSubview:_activity];
-            [self.view bringSubviewToFront:_activity];
+- (void)setActivityView:(GLBActivityView *)activityView {
+    if(_activityView == activityView) {
+        if(_activityView != nil) {
+            [_activityView removeFromSuperview];
         }
-    }
-    return _activity;
-}
-
-- (void)setActivityStyle:(GLBActivityViewStyle)activityStyle {
-    if(_activityStyle != activityStyle) {
-        if(_activity != nil) {
-            [_activity removeFromSuperview];
-            _activity = nil;
+        _activityView = activityView;
+        if((_activityView != nil) && (self.isViewLoaded == YES)) {
+            _activityView.frame = self.view.bounds;
+            [self.view addSubview:_activityView];
+            [self.view bringSubviewToFront:_activityView];
         }
-        _activityStyle = activityStyle;
     }
 }
 

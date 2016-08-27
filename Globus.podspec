@@ -66,6 +66,9 @@ Pod::Spec.new do |s|
     ss.dependency 'Globus/AudioRecorder'
     ss.dependency 'Globus/VideoPlayerView'
   end
+  s.subspec 'CocoaPods' do |ss|
+    ss.source_files = 'Globus/CocoaPods/CocoaPods.h'
+  end
   s.subspec 'CoreFoundation' do |ss|
     ss.xcconfig = {
       'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_CORE_FOUNDATION'
@@ -180,8 +183,6 @@ Pod::Spec.new do |s|
     ss.source_files = 'Globus/Cache/**/*.{h,m}'
     ss.dependency 'Globus/CoreFoundation'
     ss.dependency 'Globus/CoreGraphics'
-    ss.dependency 'Globus/Timer'
-    ss.dependency 'Globus/Model'
   end
   s.subspec 'ApiManager' do |ss|
     ss.xcconfig = {
@@ -218,7 +219,6 @@ Pod::Spec.new do |s|
     }
     ss.source_files = 'Globus/ActivityView/**/*.{h,m}'
     ss.dependency 'Globus/SpinnerView'
-    ss.dependency 'Globus/BlurView'
   end
   s.subspec 'InputValidation' do |ss|
     ss.xcconfig = {
@@ -343,12 +343,12 @@ Pod::Spec.new do |s|
       'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_DATA_VIEW'
     }
     ss.source_files = 'Globus/DataView/**/*.{h,m}'
-    ss.dependency 'Globus/Grid'
     ss.dependency 'Globus/Timeout'
     ss.dependency 'Globus/UIKit'
     ss.dependency 'Globus/SearchBar'
     ss.dependency 'Globus/PageControl'
-    ss.dependency 'Globus/Window'
+
+    ss.dependency 'Globus/Grid'
   end
   s.subspec 'PressAndHoldGestureRecognizer' do |ss|
     ss.xcconfig = {
@@ -363,7 +363,7 @@ Pod::Spec.new do |s|
       'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_WINDOW'
     }
     ss.source_files = 'Globus/Window/**/*.{h,m}'
-    ss.dependency 'Globus/ActivityView'
+    ss.dependency 'Globus/UIKit'
   end
   s.subspec 'TransitionController' do |ss|
     ss.xcconfig = {
@@ -378,16 +378,13 @@ Pod::Spec.new do |s|
     }
     ss.source_files = 'Globus/BaseViewController/**/*.{h,m}'
     ss.dependency 'Globus/TransitionController'
-    ss.dependency 'Globus/Window'
   end
   s.subspec 'DialogViewController' do |ss|
     ss.xcconfig = {
       'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_DIALOG_VIEW_CONTROLLER'
     }
     ss.source_files = 'Globus/DialogViewController/**/*.{h,m}'
-    ss.dependency 'Globus/BaseViewController'
-    ss.dependency 'Globus/SlideViewController'
-    ss.dependency 'Globus/BlurView'
+    ss.dependency 'Globus/UIKit'
   end
   s.subspec 'SlideViewController' do |ss|
     ss.xcconfig = {
@@ -402,31 +399,27 @@ Pod::Spec.new do |s|
     }
     ss.source_files = 'Globus/PageViewController/**/*.{h,m}'
     ss.dependency 'Globus/BaseViewController'
-    ss.dependency 'Globus/SlideViewController'
   end
   s.subspec 'NavigationViewController' do |ss|
     ss.xcconfig = {
       'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_NAVIGATION_VIEW_CONTROLLER'
     }
     ss.source_files = 'Globus/NavigationViewController/**/*.{h,m}'
-    ss.dependency 'Globus/BaseViewController'
-    ss.dependency 'Globus/SlideViewController'
+    ss.dependency 'Globus/UIKit'
   end
   s.subspec 'TabBarViewController' do |ss|
     ss.xcconfig = {
       'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_TAB_BAR_VIEW_CONTROLLER'
     }
     ss.source_files = 'Globus/TabBarViewController/**/*.{h,m}'
-    ss.dependency 'Globus/BaseViewController'
-    ss.dependency 'Globus/SlideViewController'
+    ss.dependency 'Globus/UIKit'
   end
   s.subspec 'SplitViewController' do |ss|
     ss.xcconfig = {
       'GCC_PREPROCESSOR_DEFINITIONS' => 'GLOBUS_SPLIT_VIEW_CONTROLLER'
     }
     ss.source_files = 'Globus/SplitViewController/**/*.{h,m}'
-    ss.dependency 'Globus/BaseViewController'
-    ss.dependency 'Globus/SlideViewController'
+    ss.dependency 'Globus/UIKit'
   end
   s.subspec 'ViewController' do |ss|
     ss.xcconfig = {
@@ -434,7 +427,6 @@ Pod::Spec.new do |s|
     }
     ss.source_files = 'Globus/ViewController/**/*.{h,m}'
     ss.dependency 'Globus/BaseViewController'
-    ss.dependency 'Globus/ActivityView'
   end
   s.subspec 'PopoverController' do |ss|
     ss.xcconfig = {

@@ -52,5 +52,14 @@
 #define GLB_DEPRECATED __attribute__((deprecated))
 
 /*--------------------------------------------------*/
+
+#define GLB_XSTR(STR)                               #STR
+#define GLB_STR(STR)                                GLB_XSTR(STR)
+
+/*--------------------------------------------------*/
+
+#define GLB_EXIST_CLASS(NAME)                       (objc_getClass(GLB_STR(NAME)) != nil)
+
+/*--------------------------------------------------*/
 #endif
 /*--------------------------------------------------*/

@@ -251,6 +251,75 @@
 		40AB69C11C4546C500507142 /* GLBTargetConditionals.h in Headers */ = {isa = PBXBuildFile; fileRef = 40AB69C01C4546C500507142 /* GLBTargetConditionals.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40ABC2DC1C13219E00C95233 /* GLBAppGroupNotificationCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 40ABC2DA1C13219E00C95233 /* GLBAppGroupNotificationCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40ABC2DD1C13219E00C95233 /* GLBAppGroupNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 40ABC2DB1C13219E00C95233 /* GLBAppGroupNotificationCenter.m */; };
+		40AEB98B1D70ABC10050A6DE /* libGLBAction.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BB8CDE1BF3EE7100D2E180 /* libGLBAction.a */; };
+		40AEB98C1D70ABC10050A6DE /* libGLBActivityView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B57941BF48CB60084F50C /* libGLBActivityView.a */; };
+		40AEB98D1D70ABC10050A6DE /* libGLBApiManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B57351BF48B960084F50C /* libGLBApiManager.a */; };
+		40AEB98E1D70ABC10050A6DE /* libGLBAppGroupNotificationCenter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40ABC2CA1C13206800C95233 /* libGLBAppGroupNotificationCenter.a */; };
+		40AEB98F1D70ABC10050A6DE /* libGLBAudioPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F374A41C6512D00016507F /* libGLBAudioPlayer.a */; };
+		40AEB9901D70ABC10050A6DE /* libGLBAudioRecorder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F374B01C6512DF0016507F /* libGLBAudioRecorder.a */; };
+		40AEB9911D70ABC10050A6DE /* libGLBAudioSession.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F374971C6512BB0016507F /* libGLBAudioSession.a */; };
+		40AEB9921D70ABC10050A6DE /* libGLBBadgeView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58311BF48F380084F50C /* libGLBBadgeView.a */; };
+		40AEB9931D70ABC10050A6DE /* libGLBBaseViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B590A1BF4947D0084F50C /* libGLBBaseViewController.a */; };
+		40AEB9941D70ABC10050A6DE /* libGLBBlurView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B57AD1BF48D350084F50C /* libGLBBlurView.a */; };
+		40AEB9951D70ABC10050A6DE /* libGLBButton.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58441BF48FB90084F50C /* libGLBButton.a */; };
+		40AEB9961D70ABC10050A6DE /* libGLBCache.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B567D1BF4839A0084F50C /* libGLBCache.a */; };
+		40AEB9971D70ABC10050A6DE /* libGLBCoreAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B56D41BF4879E0084F50C /* libGLBCoreAnimation.a */; };
+		40AEB9981D70ABC10050A6DE /* libGLBCoreFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BB8CD11BF3EE2A00D2E180 /* libGLBCoreFoundation.a */; };
+		40AEB9991D70ABC10050A6DE /* libGLBCoreGraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B56901BF4842A0084F50C /* libGLBCoreGraphics.a */; };
+		40AEB99A1D70ABC10050A6DE /* libGLBDataSource.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 401129191C3AC1AF006751E8 /* libGLBDataSource.a */; };
+		40AEB99B1D70ABC10050A6DE /* libGLBDataView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A73EE51BF4CEB70059F177 /* libGLBDataView.a */; };
+		40AEB99C1D70ABC10050A6DE /* libGLBDateField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B57F31BF48E790084F50C /* libGLBDateField.a */; };
+		40AEB99D1D70ABC10050A6DE /* libGLBDialogViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B591D1BF494E00084F50C /* libGLBDialogViewController.a */; };
+		40AEB99E1D70ABC10050A6DE /* libGLBGeoLocationManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B59A21BF4974B0084F50C /* libGLBGeoLocationManager.a */; };
+		40AEB99F1D70ABC10050A6DE /* libGLBGrid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4099D1121BF4F78B004C4976 /* libGLBGrid.a */; };
+		40AEB9A01D70ABC10050A6DE /* libGLBImageView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40442C071C075448006FA684 /* libGLBImageView.a */; };
+		40AEB9A11D70ABC10050A6DE /* libGLBInputValidation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B57C61BF48DCE0084F50C /* libGLBInputValidation.a */; };
+		40AEB9A21D70ABC10050A6DE /* libGLBKVO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BB8D2E1BF3EF4B00D2E180 /* libGLBKVO.a */; };
+		40AEB9A31D70ABC10050A6DE /* libGLBLayoutView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58571BF490860084F50C /* libGLBLayoutView.a */; };
+		40AEB9A41D70ABC10050A6DE /* libGLBListField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58011BF48EA70084F50C /* libGLBListField.a */; };
+		40AEB9A51D70ABC10050A6DE /* libGLBLoadedView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B586A1BF490E20084F50C /* libGLBLoadedView.a */; };
+		40AEB9A61D70ABC10050A6DE /* libGLBManagedModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D649411D0882BC008EA701 /* libGLBManagedModel.a */; };
+		40AEB9A71D70ABC10050A6DE /* libGLBModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B56AF1BF4849C0084F50C /* libGLBModel.a */; };
+		40AEB9A81D70ABC10050A6DE /* libGLBMoon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD3D0DBB1C57C95300C0F2C0 /* libGLBMoon.a */; };
+		40AEB9A91D70ABC10050A6DE /* libGLBNavigationViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B59561BF4964B0084F50C /* libGLBNavigationViewController.a */; };
+		40AEB9AA1D70ABC10050A6DE /* libGLBNotificationManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B59B51BF497940084F50C /* libGLBNotificationManager.a */; };
+		40AEB9AB1D70ABC10050A6DE /* libGLBObserver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 406BC4C91D2AD2A0002F0EB0 /* libGLBObserver.a */; };
+		40AEB9AC1D70ABC10050A6DE /* libGLBPageControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B587D1BF491930084F50C /* libGLBPageControl.a */; };
+		40AEB9AD1D70ABC10050A6DE /* libGLBPageViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B59301BF495260084F50C /* libGLBPageViewController.a */; };
+		40AEB9AE1D70ABC10050A6DE /* libGLBPhoneField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40B546281CA6BB76008E91E5 /* libGLBPhoneField.a */; };
+		40AEB9AF1D70ABC10050A6DE /* libGLBPopoverController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B598F1BF4970D0084F50C /* libGLBPopoverController.a */; };
+		40AEB9B01D70ABC10050A6DE /* libGLBPressAndHoldGestureRecognizer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58C91BF492930084F50C /* libGLBPressAndHoldGestureRecognizer.a */; };
+		40AEB9B11D70ABC10050A6DE /* libGLBRegExpParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BB8D3B1BF3EF7300D2E180 /* libGLBRegExpParser.a */; };
+		40AEB9B21D70ABC10050A6DE /* libGLBRoundView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58901BF491CE0084F50C /* libGLBRoundView.a */; };
+		40AEB9B31D70ABC10050A6DE /* libGLBScrollView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58B61BF4925A0084F50C /* libGLBScrollView.a */; };
+		40AEB9B41D70ABC10050A6DE /* libGLBSearchBar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A73F261BF4D2600059F177 /* libGLBSearchBar.a */; };
+		40AEB9B51D70ABC10050A6DE /* libGLBSlideViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B59431BF495B40084F50C /* libGLBSlideViewController.a */; };
+		40AEB9B61D70ABC10050A6DE /* libGLBSpinnerView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B57541BF48BCA0084F50C /* libGLBSpinnerView.a */; };
+		40AEB9B71D70ABC10050A6DE /* libGLBSplitViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40DF702E1CA0A6C9005EBB6B /* libGLBSplitViewController.a */; };
+		40AEB9B81D70ABC10050A6DE /* libGLBStyle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40EE54E91BFA92F90004E5BE /* libGLBStyle.a */; };
+		40AEB9B91D70ABC10050A6DE /* libGLBTabBarViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B59691BF496900084F50C /* libGLBTabBarViewController.a */; };
+		40AEB9BA1D70ABC10050A6DE /* libGLBTaskManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B56621BF4819D0084F50C /* libGLBTaskManager.a */; };
+		40AEB9BB1D70ABC10050A6DE /* libGLBTextField.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B57E51BF48E210084F50C /* libGLBTextField.a */; };
+		40AEB9BC1D70ABC10050A6DE /* libGLBTextView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B580F1BF48EBE0084F50C /* libGLBTextView.a */; };
+		40AEB9BD1D70ABC10050A6DE /* libGLBTimeout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BB8D211BF3EF3500D2E180 /* libGLBTimeout.a */; };
+		40AEB9BE1D70ABC10050A6DE /* libGLBTimer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BB8D141BF3EF1E00D2E180 /* libGLBTimer.a */; };
+		40AEB9BF1D70ABC10050A6DE /* libGLBTouchView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58A31BF4920E0084F50C /* libGLBTouchView.a */; };
+		40AEB9C01D70ABC10050A6DE /* libGLBTransitionController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58EF1BF4940C0084F50C /* libGLBTransitionController.a */; };
+		40AEB9C11D70ABC10050A6DE /* libGLBUIKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B56EA1BF488600084F50C /* libGLBUIKit.a */; };
+		40AEB9C21D70ABC10050A6DE /* libGLBVideoPlayerView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4036BD6A1CA4820A00E5A793 /* libGLBVideoPlayerView.a */; };
+		40AEB9C31D70ABC10050A6DE /* libGLBViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B597C1BF496D00084F50C /* libGLBViewController.a */; };
+		40AEB9C41D70ABC10050A6DE /* libGLBWatchManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 403D4CB31CF478050078DB66 /* libGLBWatchManager.a */; };
+		40AEB9C51D70ABC10050A6DE /* libGLBWebViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 405B77B11C50E7FA00DA763D /* libGLBWebViewController.a */; };
+		40AEB9C61D70ABC10050A6DE /* libGLBWindow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B58DC1BF492C20084F50C /* libGLBWindow.a */; };
+		40AEB9C71D70AC310050A6DE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEED91D6AEF1A006C3DF1 /* AVFoundation.framework */; };
+		40AEB9C81D70AC310050A6DE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEEDA1D6AEF1A006C3DF1 /* CoreData.framework */; };
+		40AEB9C91D70AC310050A6DE /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEEDB1D6AEF1A006C3DF1 /* CoreFoundation.framework */; };
+		40AEB9CA1D70AC310050A6DE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEEDC1D6AEF1A006C3DF1 /* CoreGraphics.framework */; };
+		40AEB9CB1D70AC310050A6DE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEEDD1D6AEF1A006C3DF1 /* CoreLocation.framework */; };
+		40AEB9CC1D70AC310050A6DE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEEDE1D6AEF1A006C3DF1 /* Foundation.framework */; };
+		40AEB9CD1D70AC310050A6DE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEEDF1D6AEF1A006C3DF1 /* UIKit.framework */; };
+		40AEB9CE1D70AC310050A6DE /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403D4CC01CF4789E0078DB66 /* WatchConnectivity.framework */; };
+		40AEB9CF1D70AC310050A6DE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 405B77C31C50E99B00DA763D /* WebKit.framework */; };
 		40B546351CA6BBD7008E91E5 /* GLBPhoneField.h in Headers */ = {isa = PBXBuildFile; fileRef = 40B546331CA6BBD7008E91E5 /* GLBPhoneField.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40B546361CA6BBD7008E91E5 /* GLBPhoneField.m in Sources */ = {isa = PBXBuildFile; fileRef = 40B546341CA6BBD7008E91E5 /* GLBPhoneField.m */; };
 		40BB8D001BF3EE8800D2E180 /* NSArray+GLBNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BB8CE91BF3EE8800D2E180 /* NSArray+GLBNS.m */; };
@@ -1089,6 +1158,7 @@
 		40ABC2CA1C13206800C95233 /* libGLBAppGroupNotificationCenter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBAppGroupNotificationCenter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		40ABC2DA1C13219E00C95233 /* GLBAppGroupNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBAppGroupNotificationCenter.h; sourceTree = "<group>"; };
 		40ABC2DB1C13219E00C95233 /* GLBAppGroupNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBAppGroupNotificationCenter.m; sourceTree = "<group>"; };
+		40AEB9D11D71CA6C0050A6DE /* CocoaPods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaPods.h; sourceTree = "<group>"; };
 		40B546281CA6BB76008E91E5 /* libGLBPhoneField.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGLBPhoneField.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		40B546331CA6BBD7008E91E5 /* GLBPhoneField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBPhoneField.h; sourceTree = "<group>"; };
 		40B546341CA6BBD7008E91E5 /* GLBPhoneField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBPhoneField.m; sourceTree = "<group>"; };
@@ -1532,6 +1602,75 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40AEB9C71D70AC310050A6DE /* AVFoundation.framework in Frameworks */,
+				40AEB9C81D70AC310050A6DE /* CoreData.framework in Frameworks */,
+				40AEB9C91D70AC310050A6DE /* CoreFoundation.framework in Frameworks */,
+				40AEB9CA1D70AC310050A6DE /* CoreGraphics.framework in Frameworks */,
+				40AEB9CB1D70AC310050A6DE /* CoreLocation.framework in Frameworks */,
+				40AEB9CC1D70AC310050A6DE /* Foundation.framework in Frameworks */,
+				40AEB9CD1D70AC310050A6DE /* UIKit.framework in Frameworks */,
+				40AEB9CE1D70AC310050A6DE /* WatchConnectivity.framework in Frameworks */,
+				40AEB9CF1D70AC310050A6DE /* WebKit.framework in Frameworks */,
+				40AEB98B1D70ABC10050A6DE /* libGLBAction.a in Frameworks */,
+				40AEB98C1D70ABC10050A6DE /* libGLBActivityView.a in Frameworks */,
+				40AEB98D1D70ABC10050A6DE /* libGLBApiManager.a in Frameworks */,
+				40AEB98E1D70ABC10050A6DE /* libGLBAppGroupNotificationCenter.a in Frameworks */,
+				40AEB98F1D70ABC10050A6DE /* libGLBAudioPlayer.a in Frameworks */,
+				40AEB9901D70ABC10050A6DE /* libGLBAudioRecorder.a in Frameworks */,
+				40AEB9911D70ABC10050A6DE /* libGLBAudioSession.a in Frameworks */,
+				40AEB9921D70ABC10050A6DE /* libGLBBadgeView.a in Frameworks */,
+				40AEB9931D70ABC10050A6DE /* libGLBBaseViewController.a in Frameworks */,
+				40AEB9941D70ABC10050A6DE /* libGLBBlurView.a in Frameworks */,
+				40AEB9951D70ABC10050A6DE /* libGLBButton.a in Frameworks */,
+				40AEB9961D70ABC10050A6DE /* libGLBCache.a in Frameworks */,
+				40AEB9971D70ABC10050A6DE /* libGLBCoreAnimation.a in Frameworks */,
+				40AEB9981D70ABC10050A6DE /* libGLBCoreFoundation.a in Frameworks */,
+				40AEB9991D70ABC10050A6DE /* libGLBCoreGraphics.a in Frameworks */,
+				40AEB99A1D70ABC10050A6DE /* libGLBDataSource.a in Frameworks */,
+				40AEB99B1D70ABC10050A6DE /* libGLBDataView.a in Frameworks */,
+				40AEB99C1D70ABC10050A6DE /* libGLBDateField.a in Frameworks */,
+				40AEB99D1D70ABC10050A6DE /* libGLBDialogViewController.a in Frameworks */,
+				40AEB99E1D70ABC10050A6DE /* libGLBGeoLocationManager.a in Frameworks */,
+				40AEB99F1D70ABC10050A6DE /* libGLBGrid.a in Frameworks */,
+				40AEB9A01D70ABC10050A6DE /* libGLBImageView.a in Frameworks */,
+				40AEB9A11D70ABC10050A6DE /* libGLBInputValidation.a in Frameworks */,
+				40AEB9A21D70ABC10050A6DE /* libGLBKVO.a in Frameworks */,
+				40AEB9A31D70ABC10050A6DE /* libGLBLayoutView.a in Frameworks */,
+				40AEB9A41D70ABC10050A6DE /* libGLBListField.a in Frameworks */,
+				40AEB9A51D70ABC10050A6DE /* libGLBLoadedView.a in Frameworks */,
+				40AEB9A61D70ABC10050A6DE /* libGLBManagedModel.a in Frameworks */,
+				40AEB9A71D70ABC10050A6DE /* libGLBModel.a in Frameworks */,
+				40AEB9A81D70ABC10050A6DE /* libGLBMoon.a in Frameworks */,
+				40AEB9A91D70ABC10050A6DE /* libGLBNavigationViewController.a in Frameworks */,
+				40AEB9AA1D70ABC10050A6DE /* libGLBNotificationManager.a in Frameworks */,
+				40AEB9AB1D70ABC10050A6DE /* libGLBObserver.a in Frameworks */,
+				40AEB9AC1D70ABC10050A6DE /* libGLBPageControl.a in Frameworks */,
+				40AEB9AD1D70ABC10050A6DE /* libGLBPageViewController.a in Frameworks */,
+				40AEB9AE1D70ABC10050A6DE /* libGLBPhoneField.a in Frameworks */,
+				40AEB9AF1D70ABC10050A6DE /* libGLBPopoverController.a in Frameworks */,
+				40AEB9B01D70ABC10050A6DE /* libGLBPressAndHoldGestureRecognizer.a in Frameworks */,
+				40AEB9B11D70ABC10050A6DE /* libGLBRegExpParser.a in Frameworks */,
+				40AEB9B21D70ABC10050A6DE /* libGLBRoundView.a in Frameworks */,
+				40AEB9B31D70ABC10050A6DE /* libGLBScrollView.a in Frameworks */,
+				40AEB9B41D70ABC10050A6DE /* libGLBSearchBar.a in Frameworks */,
+				40AEB9B51D70ABC10050A6DE /* libGLBSlideViewController.a in Frameworks */,
+				40AEB9B61D70ABC10050A6DE /* libGLBSpinnerView.a in Frameworks */,
+				40AEB9B71D70ABC10050A6DE /* libGLBSplitViewController.a in Frameworks */,
+				40AEB9B81D70ABC10050A6DE /* libGLBStyle.a in Frameworks */,
+				40AEB9B91D70ABC10050A6DE /* libGLBTabBarViewController.a in Frameworks */,
+				40AEB9BA1D70ABC10050A6DE /* libGLBTaskManager.a in Frameworks */,
+				40AEB9BB1D70ABC10050A6DE /* libGLBTextField.a in Frameworks */,
+				40AEB9BC1D70ABC10050A6DE /* libGLBTextView.a in Frameworks */,
+				40AEB9BD1D70ABC10050A6DE /* libGLBTimeout.a in Frameworks */,
+				40AEB9BE1D70ABC10050A6DE /* libGLBTimer.a in Frameworks */,
+				40AEB9BF1D70ABC10050A6DE /* libGLBTouchView.a in Frameworks */,
+				40AEB9C01D70ABC10050A6DE /* libGLBTransitionController.a in Frameworks */,
+				40AEB9C11D70ABC10050A6DE /* libGLBUIKit.a in Frameworks */,
+				40AEB9C21D70ABC10050A6DE /* libGLBVideoPlayerView.a in Frameworks */,
+				40AEB9C31D70ABC10050A6DE /* libGLBViewController.a in Frameworks */,
+				40AEB9C41D70ABC10050A6DE /* libGLBWatchManager.a in Frameworks */,
+				40AEB9C51D70ABC10050A6DE /* libGLBWebViewController.a in Frameworks */,
+				40AEB9C61D70ABC10050A6DE /* libGLBWindow.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2262,6 +2401,7 @@
 		406D7E181D6DE331001D321D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				40AEB9D01D71CA590050A6DE /* CocoaPods */,
 				40BB8CE71BF3EE8800D2E180 /* CoreFoundation */,
 				402B56991BF4844A0084F50C /* CoreGraphics */,
 				402B56DD1BF487BE0084F50C /* CoreAnimation */,
@@ -2410,6 +2550,15 @@
 			);
 			name = AppGroupNotificationCenter;
 			path = Globus/AppGroupNotificationCenter;
+			sourceTree = "<group>";
+		};
+		40AEB9D01D71CA590050A6DE /* CocoaPods */ = {
+			isa = PBXGroup;
+			children = (
+				40AEB9D11D71CA6C0050A6DE /* CocoaPods.h */,
+			);
+			name = CocoaPods;
+			path = Globus/CocoaPods;
 			sourceTree = "<group>";
 		};
 		40B546321CA6BBD7008E91E5 /* PhoneField */ = {
@@ -5999,9 +6148,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Demo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.globus-ltd.Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6013,9 +6160,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Demo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.globus-ltd.Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
