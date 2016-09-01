@@ -458,7 +458,7 @@
         
         CGFloat needSwipeProgress = (showedLeftSwipeView == YES) ? -1.0f : 0.0f;
         [self _updateSwipeProgress:needSwipeProgress
-                             speed:(animated == YES) ? _leftSwipeView.glb_frameWidth * GLB_FABS(needSwipeProgress - _panSwipeProgress) : FLT_EPSILON
+                             speed:(animated == YES) ? _leftSwipeView.glb_frameWidth * ABS(needSwipeProgress - _panSwipeProgress) : FLT_EPSILON
                         endedSwipe:NO];
     }
 }
@@ -470,7 +470,7 @@
         
         CGFloat needSwipeProgress = (_showedRightSwipeView == YES) ? 1.0f : 0.0f;
         [self _updateSwipeProgress:needSwipeProgress
-                             speed:(animated == YES) ? _rightSwipeView.glb_frameWidth * GLB_FABS(needSwipeProgress - _panSwipeProgress) : FLT_EPSILON
+                             speed:(animated == YES) ? _rightSwipeView.glb_frameWidth * ABS(needSwipeProgress - _panSwipeProgress) : FLT_EPSILON
                         endedSwipe:NO];
     }
 }
@@ -541,7 +541,7 @@
             }
         }
     } else {
-        progress = roundf(progress);
+        progress = GLB_ROUND(progress);
     }
     return MIN(MAX(minProgress, progress), maxProgress);
 }
@@ -669,7 +669,7 @@
         if(endedSwipe == YES) {
             [self willEndedSwipe:_panSwipeProgress];
         }
-        CGFloat duration = GLB_FABS(speed) / _swipeVelocity;
+        CGFloat duration = ABS(speed) / _swipeVelocity;
         UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState;
         if((_swipeUseSpring == YES) && (endedSwipe == YES)) {
             [UIView animateWithDuration:duration delay:0.0f usingSpringWithDamping:_swipeDamping initialSpringVelocity:0.0f options:options | UIViewAnimationOptionCurveLinear animations:^{
@@ -774,9 +774,9 @@
             case UIGestureRecognizerStateCancelled: {
                 CGFloat swipeProgress = [self endedSwipeProgress:_panSwipeProgress - (_panSwipeLastVelocity / _swipeVelocity)];
                 if(_panSwipeDirection == GLBDataCellSwipeDirectionLeft) {
-                    [self _updateSwipeProgress:swipeProgress speed:_panSwipeLeftWidth * GLB_FABS(swipeProgress - _panSwipeProgress) endedSwipe:YES];
+                    [self _updateSwipeProgress:swipeProgress speed:_panSwipeLeftWidth * ABS(swipeProgress - _panSwipeProgress) endedSwipe:YES];
                 } else if(_panSwipeDirection == GLBDataCellSwipeDirectionRight) {
-                    [self _updateSwipeProgress:swipeProgress speed:_panSwipeRightWidth * GLB_FABS(swipeProgress - _panSwipeProgress) endedSwipe:YES];
+                    [self _updateSwipeProgress:swipeProgress speed:_panSwipeRightWidth * ABS(swipeProgress - _panSwipeProgress) endedSwipe:YES];
                 }
                 break;
             }
@@ -796,8 +796,8 @@
             if((_swipeEnabled == YES) && (_swipeDragging == NO) && (_swipeDecelerating == NO)) {
                 if([_item.view shouldBeganEditItem:_item] == YES) {
                     CGPoint translation = [_panGestureRecognizer translationInView:self];
-                    CGFloat absX = GLB_FABS(translation.x);
-                    CGFloat absY = GLB_FABS(translation.y);
+                    CGFloat absX = ABS(translation.x);
+                    CGFloat absY = ABS(translation.y);
                     if(absX >= absY) {
                         if((_leftSwipeEnabled == YES) && (_leftSwipeView != nil)) {
                             if(_showedLeftSwipeView == YES) {

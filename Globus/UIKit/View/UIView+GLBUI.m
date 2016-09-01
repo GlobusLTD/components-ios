@@ -235,7 +235,7 @@
 }
 
 - (void)setGlb_shadowOpacity:(CGFloat)shadowOpacity {
-    self.layer.shadowOpacity = shadowOpacity;
+    self.layer.shadowOpacity = (float)shadowOpacity;
 }
 
 - (CGFloat)glb_shadowOpacity {

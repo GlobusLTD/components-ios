@@ -16,7 +16,7 @@
 
 /*--------------------------------------------------*/
 
-@interface NSString (GLB_NS) < GLBObjectDebugProtocol >
+@interface NSString (GLB_NS)
 
 + (instancetype _Nullable)glb_stringWithData:(NSData* _Nonnull)data encoding:(NSStringEncoding)encoding;
 

@@ -5,11 +5,6 @@
 
 /*--------------------------------------------------*/
 
-#import "NSArray+GLBNS.h"
-#import "NSDictionary+GLBNS.h"
-
-/*--------------------------------------------------*/
-
 static NSString* const GLBAppGroupNotificationCenterNotification = @"GLBAppGroupNotificationCenterNotification";
 
 /*--------------------------------------------------*/

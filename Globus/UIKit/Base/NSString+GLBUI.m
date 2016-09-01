@@ -39,7 +39,7 @@
     if(textRect.size.height < font.lineHeight) {
         textRect.size.height = font.lineHeight;
     }
-    return CGSizeMake(ceilf(textRect.size.width), ceilf(textRect.size.height));
+    return CGSizeMake(GLB_CEIL(textRect.size.width), GLB_CEIL(textRect.size.height));
 }
 
 - (void)glb_drawAtPoint:(CGPoint)point
@@ -71,7 +71,7 @@
         case GLBUIVerticalAlignmentBottom: rect.origin.y -= rect.size.height; break;
         default: break;
     }
-    [self drawWithRect:CGRectMake(floorf(rect.origin.x), floorf(rect.origin.y), ceilf(rect.size.width), ceilf(rect.size.height))
+    [self drawWithRect:CGRectMake(GLB_FLOOR(rect.origin.x), GLB_FLOOR(rect.origin.y), GLB_CEIL(rect.size.width), GLB_CEIL(rect.size.height))
                options:options
             attributes:attributes
                context:nil];
@@ -102,7 +102,7 @@
         case GLBUIVerticalAlignmentBottom: rect.origin.y -= boundingRect.size.height - rect.size.height; break;
         default: break;
     }
-    [self drawWithRect:CGRectMake(floorf(rect.origin.x), floorf(rect.origin.y), ceilf(rect.size.width), ceilf(rect.size.height))
+    [self drawWithRect:CGRectMake(GLB_FLOOR(rect.origin.x), GLB_FLOOR(rect.origin.y), GLB_CEIL(rect.size.width), GLB_CEIL(rect.size.height))
                options:options
             attributes:attributes
                context:nil];

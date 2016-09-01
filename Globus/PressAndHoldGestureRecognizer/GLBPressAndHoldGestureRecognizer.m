@@ -6,12 +6,15 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import <UIKit/UIGestureRecognizerSubclass.h>
+#import "NSArray+GLBNS.h"
 
 /*--------------------------------------------------*/
 
 #import "GLBAction.h"
-#import "NSArray+GLBNS.h"
+
+/*--------------------------------------------------*/
+
+#import <UIKit/UIGestureRecognizerSubclass.h>
 
 /*--------------------------------------------------*/
 

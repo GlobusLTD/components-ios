@@ -1,8 +1,6 @@
 /*--------------------------------------------------*/
 
 #import "GLBGeoLocationManager.h"
-#import "NSString+GLBNS.h"
-#import "UIDevice+GLBUI.h"
 
 /*--------------------------------------------------*/
 #pragma mark -

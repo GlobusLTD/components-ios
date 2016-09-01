@@ -13,10 +13,11 @@
 /****************************************************/
 
 #import "NSObject+GLBNS.h"
+#import "NSString+GLBNS.h"
 
 /*--------------------------------------------------*/
 
-@interface NSURL (GLB_NS) < GLBObjectDebugProtocol >
+@interface NSURL (GLB_NS)
 
 - (NSDictionary* _Nullable)glb_queryComponents;
 - (NSDictionary* _Nullable)glb_fragmentComponents;

@@ -701,7 +701,7 @@
                         }
                         break;
                 }
-                currentFrame = CGRectOffset(currentFrame, floorf(offset.x), floorf(offset.y));
+                currentFrame = CGRectOffset(currentFrame, GLB_FLOOR(offset.x), GLB_FLOOR(offset.y));
                 _viewController.view.frame = currentFrame;
                 if(_beforeDecorView != nil) {
                     _beforeDecorView.frame = [self _beforeDecorFrameFromFrame:currentFrame];

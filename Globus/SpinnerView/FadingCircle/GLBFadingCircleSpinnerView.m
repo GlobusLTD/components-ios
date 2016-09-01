@@ -18,8 +18,8 @@
     CGFloat radius2 = radius - squareSize2;
     for(NSInteger i = 0; i < 12; i++) {
         CGFloat angle = i * (CGFloat)(M_PI_2 / 3);
-        CGFloat x = (radius + (sinf(angle) * radius2)) - squareSize2;
-        CGFloat y = (radius - (cosf(angle) * radius2)) - squareSize2;
+        CGFloat x = (radius + (sin(angle) * radius2)) - squareSize2;
+        CGFloat y = (radius - (cos(angle) * radius2)) - squareSize2;
         
         CALayer* square = [CALayer layer];
         square.frame = CGRectMake(x, y, squareSize, squareSize);

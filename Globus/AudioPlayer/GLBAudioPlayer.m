@@ -69,7 +69,7 @@
 }
 
 - (void)setVolume:(CGFloat)volume {
-    _player.volume = volume;
+    _player.volume = (float)volume;
 }
 
 - (CGFloat)volume {
@@ -77,7 +77,7 @@
 }
 
 - (void)setPan:(CGFloat)pan {
-    _player.pan = pan;
+    _player.pan = (float)pan;
 }
 
 - (CGFloat)pan {
@@ -93,7 +93,7 @@
 }
 
 - (void)setRate:(CGFloat)rate {
-    _player.rate = rate;
+    _player.rate = (float)rate;
 }
 
 - (CGFloat)rate {

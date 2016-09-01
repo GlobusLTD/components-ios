@@ -161,7 +161,7 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
 }
 
 - (void)setVolume:(CGFloat)volume {
-    self.player.volume = volume;
+    self.player.volume = (float)volume;
 }
 
 - (CGFloat)volume {
@@ -207,7 +207,7 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
 - (void)seek:(CGFloat)to {
     if((_prepared == YES) && (_playing == YES) && (_paused == NO)) {
         Float64 seconds = CMTimeGetSeconds(self.playerItem.asset.duration);
-        [self.player seekToTime:CMTimeMake((int64_t)ceil(seconds * to), 1)];
+        [self.player seekToTime:CMTimeMake((int64_t)GLB_CEIL(seconds * to), 1)];
     }
 }
 

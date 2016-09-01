@@ -18,8 +18,8 @@
     CGFloat radius2 = radius - circleSize2;
     for(NSInteger i = 0; i < 8; i++) {
         CGFloat angle = (CGFloat)(i * M_PI_4);
-        CGFloat x = (radius + (sinf(angle) * radius2)) - circleSize2;
-        CGFloat y = (radius - (cosf(angle) * radius2)) - circleSize2;
+        CGFloat x = (radius + (GLB_SIN(angle) * radius2)) - circleSize2;
+        CGFloat y = (radius - (GLB_COS(angle) * radius2)) - circleSize2;
         
         CALayer* circle = [CALayer layer];
         circle.frame = CGRectMake(x, y, circleSize, circleSize);

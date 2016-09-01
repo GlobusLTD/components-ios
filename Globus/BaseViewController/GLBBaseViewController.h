@@ -1,6 +1,8 @@
 /*--------------------------------------------------*/
 
+#import "NSString+GLBNS.h"
 #import "UIViewController+GLBUI.h"
+#import "UIDevice+GLBUI.h"
 #import "GLBWindow.h"
 
 /*--------------------------------------------------*/

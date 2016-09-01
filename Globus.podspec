@@ -20,13 +20,23 @@ Pod::Spec.new do |s|
   end
   s.subspec 'CoreFoundation' do |ss|
     ss.subspec 'Base' do |sss|
-      sss.source_files = 'Globus/CoreFoundation/GLBTargetConditionals.h'
+      sss.source_files = 'Globus/CoreFoundation/Base/**/*.{h,m}'
       sss.ios.frameworks = 'Foundation'
       sss.watchos.frameworks = 'Foundation'
     end
+    ss.subspec 'Debug' do |sss|
+      sss.source_files = 'Globus/CoreFoundation/Debug/**/*.{h,m}'
+      sss.dependency 'Globus/CoreFoundation/PointerArray'
+      sss.dependency 'Globus/CoreFoundation/String'
+      sss.dependency 'Globus/CoreFoundation/Data'
+    end
+    ss.subspec 'Pack' do |sss|
+      sss.source_files = 'Globus/CoreFoundation/Pack/**/*.{h,m}'
+      sss.dependency 'Globus/CoreFoundation/Base'
+    end
     ss.subspec 'Array' do |sss|
       sss.source_files = 'Globus/CoreFoundation/Array/**/*.{h,m}'
-      sss.dependency 'Globus/CoreFoundation/String'
+      sss.dependency 'Globus/CoreFoundation/Base'
     end
     ss.subspec 'AttributedString' do |sss|
       sss.source_files = 'Globus/CoreFoundation/AttributedString/**/*.{h,m}'
@@ -38,11 +48,11 @@ Pod::Spec.new do |s|
     end
     ss.subspec 'Data' do |sss|
       sss.source_files = 'Globus/CoreFoundation/Data/**/*.{h,m}'
-      sss.dependency 'Globus/CoreFoundation/String'
+      sss.dependency 'Globus/CoreFoundation/Base'
     end
     ss.subspec 'Date' do |sss|
       sss.source_files = 'Globus/CoreFoundation/Date/**/*.{h,m}'
-      sss.dependency 'Globus/CoreFoundation/String'
+      sss.dependency 'Globus/CoreFoundation/Base'
     end
     ss.subspec 'DateFormatter' do |sss|
       sss.source_files = 'Globus/CoreFoundation/DateFormatter/**/*.{h,m}'
@@ -66,29 +76,23 @@ Pod::Spec.new do |s|
     end
     ss.subspec 'Null' do |sss|
       sss.source_files = 'Globus/CoreFoundation/Null/**/*.{h,m}'
-      sss.dependency 'Globus/CoreFoundation/String'
+      sss.dependency 'Globus/CoreFoundation/Base'
     end
     ss.subspec 'Number' do |sss|
       sss.source_files = 'Globus/CoreFoundation/Number/**/*.{h,m}'
-      sss.dependency 'Globus/CoreFoundation/String'
-    end
-    ss.subspec 'Object' do |sss|
-      sss.source_files = 'Globus/CoreFoundation/Object/**/*.{h,m}'
-      sss.dependency 'Globus/CoreFoundation/PointerArray'
-      sss.dependency 'Globus/CoreFoundation/Stream'
-      sss.dependency 'Globus/CoreFoundation/String'
+      sss.dependency 'Globus/CoreFoundation/Base'
     end
     ss.subspec 'OrderedSet' do |sss|
       sss.source_files = 'Globus/CoreFoundation/OrderedSet/**/*.{h,m}'
-      sss.dependency 'Globus/CoreFoundation/String'
+      sss.dependency 'Globus/CoreFoundation/Base'
     end
     ss.subspec 'PointerArray' do |sss|
       sss.source_files = 'Globus/CoreFoundation/PointerArray/**/*.{h,m}'
-      sss.dependency 'Globus/CoreFoundation/String'
+      sss.dependency 'Globus/CoreFoundation/Base'
     end
     ss.subspec 'Set' do |sss|
       sss.source_files = 'Globus/CoreFoundation/Set/**/*.{h,m}'
-      sss.dependency 'Globus/CoreFoundation/String'
+      sss.dependency 'Globus/CoreFoundation/Base'
     end
     ss.subspec 'Stream' do |sss|
       sss.source_files = 'Globus/CoreFoundation/Stream/**/*.{h,m}'
@@ -152,14 +156,14 @@ Pod::Spec.new do |s|
     end
     ss.subspec 'NavigationController' do |sss|
       sss.source_files = 'Globus/UIKit/NavigationController/**/*.{h,m}'
+      sss.dependency 'Globus/CoreFoundation/Array'
       sss.dependency 'Globus/UIKit/ViewController'
       sss.dependency 'Globus/UIKit/Button'
-      sss.dependency 'Globus/CoreFoundation/Array'
     end
     ss.subspec 'Nib' do |sss|
       sss.source_files = 'Globus/UIKit/Nib/**/*.{h,m}'
-      sss.dependency 'Globus/UIKit/Device'
       sss.dependency 'Globus/CoreFoundation/Array'
+      sss.dependency 'Globus/UIKit/Device'
     end
     ss.subspec 'Responder' do |sss|
       sss.source_files = 'Globus/UIKit/Responder/**/*.{h,m}'
@@ -193,9 +197,9 @@ Pod::Spec.new do |s|
   end
   s.subspec 'Action' do |ss|
     ss.source_files = 'Globus/Action/**/*.{h,m}'
-    ss.dependency 'Globus/CoreFoundation/Object'
-    ss.dependency 'Globus/CoreFoundation/Array'
+    ss.dependency 'Globus/CoreFoundation/Debug'
     ss.dependency 'Globus/CoreFoundation/Dictionary'
+    ss.dependency 'Globus/CoreFoundation/Array'
     ss.dependency 'Globus/CoreFoundation/String'
   end
   s.subspec 'Timer' do |ss|
@@ -208,7 +212,7 @@ Pod::Spec.new do |s|
   end
   s.subspec 'Observer' do |ss|
     ss.source_files = 'Globus/Observer/**/*.{h,m}'
-    ss.dependency 'Globus/CoreFoundation/Object'
+    ss.dependency 'Globus/CoreFoundation/Debug'
     ss.dependency 'Globus/CoreFoundation/PointerArray'
     ss.dependency 'Globus/CoreFoundation/String'
   end
@@ -251,11 +255,11 @@ Pod::Spec.new do |s|
   end
   s.subspec 'ApiManager' do |ss|
     ss.source_files = 'Globus/ApiManager/**/*.{h,m}'
-    ss.dependency 'Globus/CoreFoundation/Object'
-    ss.dependency 'Globus/CoreFoundation/Array'
+    ss.dependency 'Globus/CoreFoundation/Debug'
     ss.dependency 'Globus/CoreFoundation/Dictionary'
-    ss.dependency 'Globus/CoreFoundation/Set'
+    ss.dependency 'Globus/CoreFoundation/Array'
     ss.dependency 'Globus/CoreFoundation/OrderedSet'
+    ss.dependency 'Globus/CoreFoundation/Set'
     ss.dependency 'Globus/CoreFoundation/String'
     ss.dependency 'Globus/CoreFoundation/Date'
     ss.dependency 'Globus/CoreFoundation/Data'
@@ -594,6 +598,7 @@ Pod::Spec.new do |s|
   end
   s.subspec 'AudioRecorder' do |ss|
     ss.source_files = 'Globus/AudioRecorder/**/*.{h,m}'
+    ss.dependency 'Globus/CoreFoundation/FileManager'
     ss.dependency 'Globus/AudioSession'
     ss.dependency 'Globus/Action'
   end

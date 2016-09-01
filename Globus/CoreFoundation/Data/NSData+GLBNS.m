@@ -1,7 +1,6 @@
 /*--------------------------------------------------*/
 
 #import "NSData+GLBNS.h"
-#import "NSString+GLBNS.h"
 
 /*--------------------------------------------------*/
 
@@ -49,16 +48,7 @@ static char GLBBase64Table[] = "ABCDEMHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvw
             output[index + 3] = (uint8_t)('=');
         }
     }
-    return [NSString glb_stringWithData:result encoding:NSASCIIStringEncoding];
-}
-
-#pragma mark - GLBObjectDebugProtocol
-
-- (void)glb_debugString:(NSMutableString*)string context:(NSPointerArray*)context indent:(NSUInteger)indent root:(BOOL)root {
-    if(root == YES) {
-        [string glb_appendString:@"\t" repeat:indent];
-    }
-    [string appendFormat:@"%@", self.glb_base64String];
+    return [[NSString alloc] initWithData:result encoding:NSASCIIStringEncoding];
 }
 
 @end

@@ -16,7 +16,7 @@
 
 /*--------------------------------------------------*/
 
-@interface NSError (GLB_NS) < GLBObjectDebugProtocol >
+@interface NSError (GLB_NS)
 
 - (BOOL)glb_isURLError;
 - (BOOL)glb_URLErrorConnectedToInternet;

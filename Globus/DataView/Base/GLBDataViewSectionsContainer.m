@@ -247,11 +247,11 @@
                     }
                     CGFloat dx = alingPoint.x - alingSectionCorner.x;
                     CGFloat dy = alingPoint.y - alingSectionCorner.y;
-                    if((GLB_FABS(alingSectionCorner.x - contentOffset.x) > FLT_EPSILON) && (GLB_FABS(dx) <= _alignThreshold.horizontal)) {
+                    if((ABS(alingSectionCorner.x - contentOffset.x) > FLT_EPSILON) && (ABS(dx) <= _alignThreshold.horizontal)) {
                         contentOffset.x -= dx;
                         alingPoint.x -= dx;
                     }
-                    if((GLB_FABS(alingSectionCorner.y - contentOffset.y) > FLT_EPSILON) && (GLB_FABS(dy) <= _alignThreshold.vertical)) {
+                    if((ABS(alingSectionCorner.y - contentOffset.y) > FLT_EPSILON) && (ABS(dy) <= _alignThreshold.vertical)) {
                         contentOffset.y -= dy;
                         alingPoint.y -= dy;
                     }

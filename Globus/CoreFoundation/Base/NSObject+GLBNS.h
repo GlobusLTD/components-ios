@@ -12,15 +12,14 @@
 /*                                                  */
 /****************************************************/
 
-#import "NSObject+GLBNS.h"
+#include "GLBTargetConditionals.h"
 
 /*--------------------------------------------------*/
 
-@interface NSPointerArray (GLB_NS)
+@interface NSObject (GLB_NS)
 
-- (NSUInteger)glb_indexForPointer:(nullable void *)pointer;
-
-- (void)glb_removePointer:(nullable void *)pointer;
++ (NSString* _Nonnull)glb_className;
+- (NSString* _Nonnull)glb_className;
 
 @end
 

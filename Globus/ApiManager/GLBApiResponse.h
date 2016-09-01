@@ -1,6 +1,7 @@
 /*--------------------------------------------------*/
 
-#import "NSObject+GLBNS.h"
+#import "NSObject+GLBDebug.h"
+#import "NSString+GLBNS.h"
 
 /*--------------------------------------------------*/
 

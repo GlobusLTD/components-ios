@@ -32,8 +32,8 @@
     CGFloat radius2 = radius - squareSize2;
     for(NSUInteger i = 0; i < _numberOfCircle;  i++) {
         CGFloat angle = (CGFloat)(GLB_DEG_TO_RAD * ((360.0 / _numberOfCircle) * i));
-        CGFloat x = (radius + (cosf(angle) * radius2)) - squareSize2;
-        CGFloat y = (radius - (sinf(angle) * radius2)) - squareSize2;
+        CGFloat x = (radius + (cos(angle) * radius2)) - squareSize2;
+        CGFloat y = (radius - (sin(angle) * radius2)) - squareSize2;
         
         CALayer* circle = [CALayer layer];
         circle.backgroundColor = self.color.CGColor;

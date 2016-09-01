@@ -26,7 +26,7 @@
  * @remark Very useful methods ;)
  * @version 0.1
  */
-@interface NSArray< __covariant ObjectType > (GLB_NS) < GLBObjectDebugProtocol >
+@interface NSArray< __covariant ObjectType > (GLB_NS)
 
 /**
  * @brief Adds an object to the immutable array.

@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, GLBDateWeekday) {
  * @version 0.1
  */
 
-@interface NSDate (GLB_NS) < GLBObjectDebugProtocol >
+@interface NSDate (GLB_NS)
 
 + (NSDate* _Nullable)glb_dateByYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day;
 + (NSDate* _Nullable)glb_dateByHour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)seccond;

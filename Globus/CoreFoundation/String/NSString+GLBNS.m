@@ -1,7 +1,6 @@
 /*--------------------------------------------------*/
 
 #import "NSString+GLBNS.h"
-#import "NSArray+GLBNS.h"
 
 /*--------------------------------------------------*/
 
@@ -133,7 +132,9 @@ static UInt32 GLB_CRC32(const char* aString) {
                 queryComponents[key] = value;
             } else {
                 if([queryValue isKindOfClass:NSArray.class] == YES) {
-                    queryComponents[key] = [NSArray glb_arrayWithArray:queryValue addingObject:value];
+                    NSMutableArray* temp = [NSMutableArray arrayWithArray:queryValue];
+                    [temp addObject:value];
+                    queryComponents[key] = [NSArray arrayWithArray:temp];
                 } else {
                     queryComponents[key] = [NSArray arrayWithObjects:queryValue, value, nil];
                 }
@@ -207,15 +208,6 @@ static UInt32 GLB_CRC32(const char* aString) {
 
 - (UInt32)glb_crc32 {
     return GLB_CRC32(self.UTF8String);
-}
-
-#pragma mark - GLBObjectDebugProtocol
-
-- (void)glb_debugString:(NSMutableString*)string context:(NSPointerArray*)context indent:(NSUInteger)indent root:(BOOL)root {
-    if(root == YES) {
-        [string glb_appendString:@"\t" repeat:indent];
-    }
-    [string appendFormat:@"\"%@\"", self];
 }
 
 @end

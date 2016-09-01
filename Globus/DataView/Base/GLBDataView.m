@@ -10,10 +10,6 @@
 #import "GLBPageControl.h"
 #endif
 #import "GLBTimeout.h"
-#import "NSObject+GLBNS.h"
-#import "NSArray+GLBNS.h"
-#import "NSDictionary+GLBNS.h"
-#import "UIDevice+GLBUI.h"
 #include "GLBPoint.h"
 #include "GLBRect.h"
 
@@ -2225,8 +2221,8 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
         if((self.directionalLockEnabled == YES) && (dragging == YES)) {
             switch(_scrollDirection) {
                 case GLBDataViewDirectionUnknown: {
-                    CGFloat dx = GLB_FABS(contentOffset.x - _scrollBeginPosition.x);
-                    CGFloat dy = GLB_FABS(contentOffset.y - _scrollBeginPosition.y);
+                    CGFloat dx = ABS(contentOffset.x - _scrollBeginPosition.x);
+                    CGFloat dy = ABS(contentOffset.y - _scrollBeginPosition.y);
                     if(dx > dy) {
                         _scrollDirection = GLBDataViewDirectionHorizontal;
                         contentOffset.y = _scrollBeginPosition.y;
@@ -2640,7 +2636,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     [self _updateSuperviewConstraints];
     
     if(animated == YES) {
-        [UIView animateWithDuration:GLB_FABS(from - to) / GLB_FABS(velocity)
+        [UIView animateWithDuration:ABS(from - to) / ABS(velocity)
                               delay:0.01f
                             options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut)
                          animations:^{
@@ -2667,7 +2663,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     [self _updateSuperviewConstraints];
     
     if(animated == YES) {
-        [UIView animateWithDuration:GLB_FABS(from - to) / GLB_FABS(velocity)
+        [UIView animateWithDuration:ABS(from - to) / ABS(velocity)
                               delay:0.01f
                             options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut)
                          animations:^{
@@ -3039,10 +3035,10 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView*)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint*)targetContentOffset {
-    CGFloat vx = (GLB_FABS(velocity.x) > FLT_EPSILON) ? (velocity.x * 1000.0f) : _view.velocity;
-    CGFloat vy = (GLB_FABS(velocity.y) > FLT_EPSILON) ? (velocity.y * 1000.0f) : _view.velocity;
-    CGFloat nvx = MAX(_view.velocityMin, MIN(GLB_FABS(vx), _view.velocityMax));
-    CGFloat nvy = MAX(_view.velocityMin, MIN(GLB_FABS(vy), _view.velocityMax));
+    CGFloat vx = (ABS(velocity.x) > FLT_EPSILON) ? (velocity.x * 1000.0f) : _view.velocity;
+    CGFloat vy = (ABS(velocity.y) > FLT_EPSILON) ? (velocity.y * 1000.0f) : _view.velocity;
+    CGFloat nvx = MAX(_view.velocityMin, MIN(ABS(vx), _view.velocityMax));
+    CGFloat nvy = MAX(_view.velocityMin, MIN(ABS(vy), _view.velocityMax));
     [_view _willEndDraggingWithVelocity:CGPointMake((vx > FLT_EPSILON) ? nvx : -nvx, (vy > FLT_EPSILON) ? nvy : -nvy) contentOffset:targetContentOffset contentSize:scrollView.contentSize visibleSize:_view.glb_boundsSize];
     if([_delegate respondsToSelector:_cmd] == YES) {
         [_delegate scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];

@@ -270,7 +270,7 @@
     if(_blurIterations > 0) {
         CGFloat blockSize = 12 / _blurIterations;
         scale = blockSize / MAX(blockSize * 2, blurPresentationLayer.blurRadius);
-        scale = 1 / floorf(1 / scale);
+        scale = 1 / GLB_FLOOR(1 / scale);
     }
     CGSize size = bounds.size;
     switch(self.contentMode) {
@@ -278,8 +278,8 @@
         case UIViewContentModeScaleAspectFill:
         case UIViewContentModeScaleAspectFit:
         case UIViewContentModeRedraw: {
-            size.width = floorf(size.width * scale) / scale;
-            size.height = floorf(size.height * scale) / scale;
+            size.width = GLB_FLOOR(size.width * scale) / scale;
+            size.height = GLB_FLOOR(size.height * scale) / scale;
             break;
         }
         default: {
@@ -303,7 +303,7 @@
         }
     }
     UIImage* snapshot = nil;
-    if(floorf(size.width) * floorf(size.height) > FLT_EPSILON) {
+    if(GLB_FLOOR(size.width) * GLB_FLOOR(size.height) > FLT_EPSILON) {
         UIGraphicsBeginImageContextWithOptions(size, NO, scale);
         CGContextRef context = UIGraphicsGetCurrentContext();
         CGContextTranslateCTM(context, -bounds.origin.x, -bounds.origin.y);

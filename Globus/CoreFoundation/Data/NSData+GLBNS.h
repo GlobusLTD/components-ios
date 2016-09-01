@@ -26,7 +26,7 @@
  * @remark Very useful methods ;)
  * @version 0.1
  */
-@interface NSData (GLB_NS) < GLBObjectDebugProtocol >
+@interface NSData (GLB_NS)
 
 /**
  * @brief String to hex.

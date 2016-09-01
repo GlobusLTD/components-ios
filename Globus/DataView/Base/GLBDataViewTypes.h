@@ -1,6 +1,16 @@
 /*--------------------------------------------------*/
 
-#import "GLBUI.h"
+#import "NSDictionary+GLBNS.h"
+#import "NSArray+GLBNS.h"
+
+/*--------------------------------------------------*/
+
+#import "UIGestureRecognizer+GLBUI.h"
+#import "UINib+GLBUI.h"
+#import "UIDevice+GLBUI.h"
+
+/*--------------------------------------------------*/
+
 #import "GLBAction.h"
 
 /*--------------------------------------------------*/

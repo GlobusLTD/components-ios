@@ -380,12 +380,17 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0;
     return [_contentViewController supportedInterfaceOrientations];
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     if(_ownerViewController != nil) {
         return [_ownerViewController shouldAutorotateToInterfaceOrientation:interfaceOrientation];
     }
     return [_contentViewController shouldAutorotateToInterfaceOrientation:interfaceOrientation];
 }
+
+#pragma clang diagnostic pop
 
 - (void)viewDidLoad {
     [super viewDidLoad];

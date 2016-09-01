@@ -79,11 +79,16 @@
     }
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (void)viewDidUnload {
     [self _dettachWebView];
     
     [super viewDidUnload];
 }
+
+#pragma clang diagnostic pop
 
 #pragma mark - GLBViewController
 

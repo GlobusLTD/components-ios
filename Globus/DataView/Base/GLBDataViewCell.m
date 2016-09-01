@@ -6,10 +6,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "NSArray+GLBNS.h"
-#import "UIGestureRecognizer+GLBUI.h"
-#import "UIDevice+GLBUI.h"
-#import "UINib+GLBUI.h"
 #include "GLBCG.h"
 
 /*--------------------------------------------------*/

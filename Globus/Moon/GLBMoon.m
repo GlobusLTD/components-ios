@@ -19,7 +19,7 @@ static double const edgeGLBMoonPhaseMorningCrescent = 27.68493;
 /*--------------------------------------------------*/
 
 static double GLBMoonNormalize(double v) {
-    v = v - floor(v);
+    v = v - GLB_FLOOR(v);
     if(v < 0) {
         v = v + 1;
     }
@@ -44,14 +44,14 @@ static double GLBMoonNormalize(double v) {
         double age;
         int yy, mm, k1, k2, k3, jd;
         double ip;
-        yy = year - (int)round((12.0 - month) / 10.0);
+        yy = year - (int)GLB_ROUND((12.0 - month) / 10.0);
         mm = month + 9;
         if(mm >= 12) {
             mm = mm - 12;
         }
-        k1 = (int)floor(365.25 * (yy + 4712.0));
-        k2 = (int)floor(30.6 * mm + 0.5);
-        k3 = (int)floor(((yy / 100.0) + 49.0) * 0.75) - 38;
+        k1 = (int)GLB_FLOOR(365.25 * (yy + 4712.0));
+        k2 = (int)GLB_FLOOR(30.6 * mm + 0.5);
+        k3 = (int)GLB_FLOOR(((yy / 100.0) + 49.0) * 0.75) - 38;
         jd = k1 + k2 + day + 59;
         if(jd > 2299160) {
             jd = jd - k3;

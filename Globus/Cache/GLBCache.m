@@ -4,12 +4,6 @@
 
 /*--------------------------------------------------*/
 
-#import "NSDate+GLBNS.h"
-#import "NSString+GLBNS.h"
-#import "NSFileManager+GLBNS.h"
-
-/*--------------------------------------------------*/
-
 @interface GLBCache () {
     dispatch_queue_t _queue;
     NSMutableArray* _items;

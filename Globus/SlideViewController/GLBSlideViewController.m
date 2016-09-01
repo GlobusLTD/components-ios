@@ -6,13 +6,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "UIApplication+GLBUI.h"
-#import "UIDevice+GLBUI.h"
-#import "NSArray+GLBNS.h"
-#include "GLBCG.h"
-
-/*--------------------------------------------------*/
-
 typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
     GLBSlideViewControllerSwipeCellDirectionUnknown,
     GLBSlideViewControllerSwipeCellDirectionLeft,
@@ -135,9 +128,14 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
     return _centerViewController.supportedInterfaceOrientations;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {
     return [_centerViewController shouldAutorotateToInterfaceOrientation:orientation];
 }
+
+#pragma clang diagnostic pop
 
 - (BOOL)prefersStatusBarHidden {
     if((_canUseScreenshot == YES) && (_screenshotView != nil)) {
@@ -1648,7 +1646,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             }
             default: {
                 [self _willEndedSwipe];
-                CGFloat swipeProgress = roundf(_swipeProgress - (_swipeLastVelocity / _swipeVelocity));
+                CGFloat swipeProgress = GLB_ROUND(_swipeProgress - (_swipeLastVelocity / _swipeVelocity));
                 CGFloat minSwipeProgress = (_swipeDirection == GLBSlideViewControllerSwipeCellDirectionLeft) ? -1.0 : 0.0;
                 CGFloat maxSwipeProgress = (_swipeDirection == GLBSlideViewControllerSwipeCellDirectionRight) ? 1.0 :0.0;
                 CGFloat needSwipeProgress = MIN(MAX(minSwipeProgress, swipeProgress), maxSwipeProgress);

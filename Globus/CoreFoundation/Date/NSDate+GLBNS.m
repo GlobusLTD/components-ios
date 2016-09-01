@@ -1,7 +1,6 @@
 /*--------------------------------------------------*/
 
 #import "NSDate+GLBNS.h"
-#import "NSString+GLBNS.h"
 
 /*--------------------------------------------------*/
 
@@ -529,22 +528,6 @@
 - (GLBDateWeekday)glb_weekday {
     NSDateComponents* components = [NSCalendar.currentCalendar components:NSCalendarUnitWeekday fromDate:self];
     return (GLBDateWeekday)components.weekday;
-}
-
-#pragma mark - GLBObjectDebugProtocol
-
-- (void)glb_debugString:(NSMutableString*)string context:(NSPointerArray*)context indent:(NSUInteger)indent root:(BOOL)root {
-    static NSDateFormatter* dateFormatter = nil;
-    if(dateFormatter == nil) {
-        dateFormatter = [NSDateFormatter new];
-        dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss:SSS ZZ";
-    }
-    dateFormatter.locale = NSLocale.currentLocale;
-    
-    if(root == YES) {
-        [string glb_appendString:@"\t" repeat:indent];
-    }
-    [string appendFormat:@"%@", [dateFormatter stringFromDate:self]];
 }
 
 @end

@@ -1,7 +1,6 @@
 /*--------------------------------------------------*/
 
 #import "GLBAudioSession.h"
-#import "NSArray+GLBNS.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
@@ -88,7 +87,7 @@
 }
 
 - (void)setVolume:(CGFloat)volume {
-    self.volumeSlider.value = volume;
+    self.volumeSlider.value = (float)volume;
 }
 
 - (CGFloat)volume {

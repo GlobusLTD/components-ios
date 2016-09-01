@@ -49,9 +49,14 @@
     return _supportedOrientationMask;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {
     return ((_supportedOrientationMask & orientation) != 0);
 }
+
+#pragma clang diagnostic pop
 
 - (void)loadView {
     UINib* nib = nil;

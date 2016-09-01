@@ -17,7 +17,7 @@
         circle.frame = CGRectInset(CGRectMake(0, 0, self.size, self.size), 2, 2);
         circle.backgroundColor = self.color.CGColor;
         circle.anchorPoint = CGPointMake(0.5, 0.5);
-        circle.opacity = (CGFloat)(0.6);
+        circle.opacity = (float)(0.6);
         circle.cornerRadius = CGRectGetHeight(circle.bounds) / 2;
         circle.transform = CATransform3DMakeScale(0, 0, 0);
         [self.layer addSublayer:circle];

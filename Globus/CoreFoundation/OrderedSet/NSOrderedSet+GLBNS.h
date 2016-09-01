@@ -16,7 +16,7 @@
 
 /*--------------------------------------------------*/
 
-@interface NSOrderedSet< __covariant ObjectType > (GLB_NS) < GLBObjectDebugProtocol >
+@interface NSOrderedSet< __covariant ObjectType > (GLB_NS)
 
 + (instancetype _Nullable)glb_orderedSetWithOrderedSet:(NSOrderedSet< ObjectType >* _Nullable)orderedSet addingObject:(_Nonnull ObjectType)object;
 + (instancetype _Nullable)glb_orderedSetWithOrderedSet:(NSOrderedSet< ObjectType >* _Nullable)orderedSet addingObjectsFromOrderedSet:(NSOrderedSet< ObjectType >* _Nonnull)addingObjects;

@@ -12,7 +12,7 @@
 /*                                                  */
 /****************************************************/
 
-#include "GLBTargetConditionals.h"
+#import "NSStream+GLBNS.h"
 
 /*--------------------------------------------------*/
 
@@ -35,28 +35,13 @@ typedef NS_ENUM(uint8_t, GLBObjectPackType) {
 
 /*--------------------------------------------------*/
 
-@protocol GLBObjectDebugProtocol < NSObject >
-
-@required
-- (void)glb_debugString:(NSMutableString* _Nonnull)string context:(NSPointerArray* _Nonnull)context indent:(NSUInteger)indent root:(BOOL)root;
-
-@end
-
-/*--------------------------------------------------*/
-
-@interface NSObject (GLB_NS) < GLBObjectDebugProtocol >
-
-+ (NSString* _Nonnull)glb_className;
-- (NSString* _Nonnull)glb_className;
+@interface NSObject (GLB_NSPack)
 
 + (NSData* _Nullable)glb_packObject:(_Nonnull id)object;
 + (void)glb_packObject:(_Nonnull id)object stream:(NSOutputStream* _Nonnull)stream;
 
 + (_Nullable id)glb_unpackFromData:(NSData* _Nonnull)data;
 + (_Nullable id)glb_unpackFromStream:(NSInputStream* _Nonnull)stream;
-
-- (NSString* _Nullable)glb_debug;
-- (NSString* _Nullable)glb_debugContext:(NSPointerArray* _Nullable)context indent:(NSUInteger)indent root:(BOOL)root;
 
 @end
 

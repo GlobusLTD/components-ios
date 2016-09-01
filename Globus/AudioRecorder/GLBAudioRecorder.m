@@ -3,7 +3,6 @@
 #import "GLBAudioRecorder.h"
 #import "GLBAudioSession.h"
 #import "GLBAction.h"
-#import "NSFileManager+GLBNS.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)

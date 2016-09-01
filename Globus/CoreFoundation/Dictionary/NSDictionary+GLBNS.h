@@ -13,10 +13,11 @@
 /****************************************************/
 
 #import "NSObject+GLBNS.h"
+#import "NSString+GLBNS.h"
 
 /*--------------------------------------------------*/
 
-@interface NSDictionary< KeyType, ObjectType > (GLB_NS) < GLBObjectDebugProtocol >
+@interface NSDictionary< KeyType, ObjectType > (GLB_NS)
 
 - (BOOL)glb_boolForKey:(_Nonnull KeyType)key orDefault:(BOOL)defaultValue;
 - (NSInteger)glb_integerForKey:(_Nonnull KeyType)key orDefault:(NSInteger)defaultValue;

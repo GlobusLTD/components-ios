@@ -16,7 +16,7 @@
 
 /*--------------------------------------------------*/
 
-@interface NSNumber (GLB_NS) < GLBObjectDebugProtocol >
+@interface NSNumber (GLB_NS)
 @end
 
 /*--------------------------------------------------*/

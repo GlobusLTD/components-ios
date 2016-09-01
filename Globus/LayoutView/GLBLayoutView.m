@@ -7,10 +7,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "NSArray+GLBNS.h"
-
-/*--------------------------------------------------*/
-
 @interface GLBLayoutView () {
     NSMutableArray* _hiddenObservers;
     NSMutableArray* _topConstraints;

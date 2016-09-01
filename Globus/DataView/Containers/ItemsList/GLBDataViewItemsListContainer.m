@@ -6,10 +6,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "NSArray+GLBNS.h"
-
-/*--------------------------------------------------*/
-
 @implementation GLBDataViewItemsListContainer
 
 #pragma mark - Synthesize

@@ -6,12 +6,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "UIApplication+GLBUI.h"
-#import "UIWindow+GLBUI.h"
-#import "NSArray+GLBNS.h"
-
-/*--------------------------------------------------*/
-
 @interface GLBNotificationWindow : UIWindow {
 }
 
@@ -197,9 +191,14 @@ static NSTimeInterval GLBNotificationController_HideDutation = 0.2f;
     return [_parentWindow.rootViewController supportedInterfaceOrientations];
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {
     return [_parentWindow.rootViewController shouldAutorotateToInterfaceOrientation:orientation];
 }
+
+#pragma clang diagnostic pop
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -139,7 +139,7 @@
             while(rootView.superview != nil) {
                 rootView = rootView.superview;
             }
-            [UIView animateWithDuration:GLB_FABS(_size - _constraintSize.constant) / GLB_FABS(velocity)
+            [UIView animateWithDuration:ABS(_size - _constraintSize.constant) / ABS(velocity)
                                   delay:0.01f
                                 options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut)
                              animations:^{
@@ -190,7 +190,7 @@
             while(rootView.superview != nil) {
                 rootView = rootView.superview;
             }
-            [UIView animateWithDuration:_size / GLB_FABS(velocity)
+            [UIView animateWithDuration:_size / ABS(velocity)
                                   delay:0.00f
                                 options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut)
                              animations:^{

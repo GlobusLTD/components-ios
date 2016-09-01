@@ -101,9 +101,14 @@
     return self.topViewController.supportedInterfaceOrientations;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {
     return [self.topViewController shouldAutorotateToInterfaceOrientation:orientation];
 }
+
+#pragma clang diagnostic pop
 
 - (BOOL)prefersStatusBarHidden {
     return self.topViewController.prefersStatusBarHidden;
@@ -123,11 +128,16 @@
     self.view.clipsToBounds = YES;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (void)viewDidUnload {
     [self setNeedUpdate];
     
     [super viewDidUnload];
 }
+
+#pragma clang diagnostic pop
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

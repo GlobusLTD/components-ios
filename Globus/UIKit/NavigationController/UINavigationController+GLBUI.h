@@ -1,6 +1,11 @@
 /*--------------------------------------------------*/
 
+#import "NSArray+GLBNS.h"
+
+/*--------------------------------------------------*/
+
 #import "UIViewController+GLBUI.h"
+#import "UIButton+GLBUI.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)

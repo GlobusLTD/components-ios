@@ -1,7 +1,6 @@
 /*--------------------------------------------------*/
 
 #import "UILabel+GLBUI.h"
-#import "NSString+GLBUI.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)

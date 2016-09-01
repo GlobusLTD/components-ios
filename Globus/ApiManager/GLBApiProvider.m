@@ -7,15 +7,6 @@
 
 /*--------------------------------------------------*/
 
-#import "NSURL+GLBNS.h"
-#import "NSString+GLBNS.h"
-#import "NSArray+GLBNS.h"
-#import "NSDictionary+GLBNS.h"
-#import "NSData+GLBNS.h"
-#import "NSError+GLBNS.h"
-
-/*--------------------------------------------------*/
-
 @class GLBApiProviderQuery;
 
 /*--------------------------------------------------*/
