@@ -3,6 +3,18 @@
 #define GLB_COCOAPODS_H
 /*--------------------------------------------------*/
 
+#if __has_include("NSObject+GLBNS.h")
+#import "NSObject+GLBNS.h"
+#endif
+
+#if __has_include("NSObject+GLBDebug.h")
+#import "NSObject+GLBDebug.h"
+#endif
+
+#if __has_include("NSObject+GLBPack.h")
+#import "NSObject+GLBPack.h"
+#endif
+
 #if __has_include("NSArray+GLBNS.h")
 #import "NSArray+GLBNS.h"
 #endif
@@ -49,10 +61,6 @@
 
 #if __has_include("NSNumber+GLBNS.h")
 #import "NSNumber+GLBNS.h"
-#endif
-
-#if __has_include("NSObject+GLBNS.h")
-#import "NSObject+GLBNS.h"
 #endif
 
 #if __has_include("NSOrderedSet+GLBNS.h")

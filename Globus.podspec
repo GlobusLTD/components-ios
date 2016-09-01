@@ -32,7 +32,7 @@ Pod::Spec.new do |s|
     end
     ss.subspec 'Pack' do |sss|
       sss.source_files = 'Globus/CoreFoundation/Pack/**/*.{h,m}'
-      sss.dependency 'Globus/CoreFoundation/Base'
+      sss.dependency 'Globus/CoreFoundation/Stream'
     end
     ss.subspec 'Array' do |sss|
       sss.source_files = 'Globus/CoreFoundation/Array/**/*.{h,m}'
@@ -231,6 +231,7 @@ Pod::Spec.new do |s|
   s.subspec 'Model' do |ss|
     ss.source_files = 'Globus/Model/**/*.{h,m}'
     ss.dependency 'Globus/CoreFoundation/Debug'
+    ss.dependency 'Globus/CoreFoundation/Pack'
     ss.dependency 'Globus/CoreFoundation/Dictionary'
     ss.dependency 'Globus/CoreFoundation/Array'
     ss.dependency 'Globus/CoreFoundation/PointerArray'
@@ -439,6 +440,7 @@ Pod::Spec.new do |s|
       sss.dependency 'Globus/UIKit/Nib'
       sss.dependency 'Globus/UIKit/Device'
       sss.dependency 'Globus/CoreGraphics'
+      sss.dependency 'Globus/Window'
       sss.dependency 'Globus/SearchBar'
       sss.dependency 'Globus/Action'
       sss.dependency 'Globus/Timeout'
@@ -499,6 +501,7 @@ Pod::Spec.new do |s|
   s.subspec 'BaseViewController' do |ss|
     ss.source_files = 'Globus/BaseViewController/**/*.{h,m}'
     ss.dependency 'Globus/TransitionController/Base'
+    ss.dependency 'Globus/Window'
     ss.dependency 'Globus/CoreFoundation/String'
     ss.dependency 'Globus/UIKit/ViewController'
     ss.dependency 'Globus/UIKit/Device'
