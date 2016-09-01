@@ -13,6 +13,7 @@
 /* Legacy                                           */
 /*--------------------------------------------------*/
 
+GLB_DEPRECATED
 @interface GLBSpinnerViewCircleFlip : GLBCircleFlipSpinnerView
 @end
 

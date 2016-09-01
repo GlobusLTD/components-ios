@@ -32,6 +32,7 @@ extern NSString* GLBDataContainerCurrentSectionChanged;
 /* Legacy                                           */
 /*--------------------------------------------------*/
 
+GLB_DEPRECATED
 @interface GLBDataContainerSectionsList : GLBDataViewSectionsListContainer
 @end
 

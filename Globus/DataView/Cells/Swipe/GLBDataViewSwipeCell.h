@@ -64,6 +64,7 @@ typedef NS_ENUM(NSUInteger, GLBDataSwipeCellStyle) {
 /* Legacy                                           */
 /*--------------------------------------------------*/
 
+GLB_DEPRECATED
 @interface GLBDataCellSwipe : GLBDataViewSwipeCell
 @end
 

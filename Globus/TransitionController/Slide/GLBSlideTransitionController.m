@@ -170,8 +170,13 @@
 /* Legacy                                           */
 /*--------------------------------------------------*/
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 @implementation GLBTransitionControllerSlide
 @end
+
+#pragma clang diagnostic pop
 
 /*--------------------------------------------------*/
 #endif

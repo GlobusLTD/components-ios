@@ -20,6 +20,7 @@
 /* Legacy                                           */
 /*--------------------------------------------------*/
 
+GLB_DEPRECATED
 @interface GLBSpinnerViewFadingCircleAlt : GLBFadingCircleAltSpinnerView
 @end
 

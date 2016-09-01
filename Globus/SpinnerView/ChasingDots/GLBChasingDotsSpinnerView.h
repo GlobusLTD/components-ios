@@ -13,6 +13,7 @@
 /* Legacy                                           */
 /*--------------------------------------------------*/
 
+GLB_DEPRECATED
 @interface GLBSpinnerViewChasingDots : GLBChasingDotsSpinnerView
 @end
 

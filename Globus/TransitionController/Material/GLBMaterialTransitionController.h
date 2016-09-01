@@ -23,6 +23,7 @@
 /* Legacy                                           */
 /*--------------------------------------------------*/
 
+GLB_DEPRECATED
 @interface GLBTransitionControllerMaterial : GLBMaterialTransitionController
 @end
 

@@ -25,6 +25,7 @@
 /* Legacy                                           */
 /*--------------------------------------------------*/
 
+GLB_DEPRECATED
 @interface GLBDataContainerSections : GLBDataViewSectionsContainer
 @end
 

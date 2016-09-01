@@ -14,6 +14,7 @@
 /* Legacy                                           */
 /*--------------------------------------------------*/
 
+GLB_DEPRECATED
 @interface GLBTransitionControllerCrossFade : GLBCrossFadeTransitionController
 @end
 

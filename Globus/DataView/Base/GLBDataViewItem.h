@@ -91,6 +91,7 @@
 /* Legacy                                           */
 /*--------------------------------------------------*/
 
+GLB_DEPRECATED
 @interface GLBDataItem : GLBDataViewItem
 @end
 

@@ -71,6 +71,7 @@ typedef NS_ENUM(NSUInteger, GLBDataViewItemsListContainerMode) {
 /* Legacy                                           */
 /*--------------------------------------------------*/
 
+GLB_DEPRECATED
 @interface GLBDataContainerItemsList : GLBDataViewItemsListContainer
 @end
 

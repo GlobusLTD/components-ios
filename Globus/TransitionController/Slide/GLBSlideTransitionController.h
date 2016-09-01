@@ -22,6 +22,7 @@
 /* Legacy                                           */
 /*--------------------------------------------------*/
 
+GLB_DEPRECATED
 @interface GLBTransitionControllerSlide : GLBSlideTransitionController
 @end
 

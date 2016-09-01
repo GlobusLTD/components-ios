@@ -518,8 +518,13 @@ NSString* GLBDataViewCellLongPressed = @"GLBDataViewCellLongPressed";
 /* Legacy                                           */
 /*--------------------------------------------------*/
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 @implementation GLBDataCell
 @end
+
+#pragma clang diagnostic pop
 
 /*--------------------------------------------------*/
 #endif

@@ -61,6 +61,7 @@
 /* Legacy                                           */
 /*--------------------------------------------------*/
 
+GLB_DEPRECATED
 @interface GLBDataContainerItemsFlow : GLBDataViewItemsFlowContainer
 @end
 
