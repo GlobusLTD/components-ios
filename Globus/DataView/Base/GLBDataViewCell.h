@@ -35,6 +35,7 @@
 
 + (CGSize)sizeForItem:(id)item availableSize:(CGSize)size;
 
+- (CGSize)sizeForItem:(id)item availableSize:(CGSize)size GLB_DEPRECATED;
 - (CGSize)sizeForAvailableSize:(CGSize)size;
 - (UILayoutPriority)fittingHorizontalPriority;
 - (UILayoutPriority)fittingVerticalPriority;

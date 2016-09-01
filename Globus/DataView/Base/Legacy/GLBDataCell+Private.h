@@ -8,9 +8,6 @@
 /*--------------------------------------------------*/
 
 @interface GLBDataCell ()
-
-- (CGSize)sizeForItem:(id)item availableSize:(CGSize)size GLB_DEPRECATED;
-
 @end
 
 /*--------------------------------------------------*/

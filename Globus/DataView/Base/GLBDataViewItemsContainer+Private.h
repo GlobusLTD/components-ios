@@ -29,6 +29,8 @@
 - (void)_deleteEntries:(NSArray*)entries;
 - (void)_deleteAllEntries;
 
+- (CGRect)_validateEntriesForAvailableFrame:(CGRect)frame GLB_DEPRECATED;
+
 - (CGRect)_frameEntriesForAvailableFrame:(CGRect)frame;
 - (void)_layoutEntriesForFrame:(CGRect)frame;
 

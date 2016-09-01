@@ -8,9 +8,6 @@
 /*--------------------------------------------------*/
 
 @interface GLBDataContainerItems ()
-
-- (CGRect)_validateEntriesForAvailableFrame:(CGRect)frame GLB_DEPRECATED;
-
 @end
 
 /*--------------------------------------------------*/

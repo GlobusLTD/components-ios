@@ -268,7 +268,11 @@
     return contentOffset;
 }
 
-- (CGRect)_frameSectionsForAvailableFrame:(CGRect)frame {
+- (CGRect)_validateSectionsForAvailableFrame:(CGRect __unused)frame {
+    return CGRectNull;
+}
+
+- (CGRect)_frameSectionsForAvailableFrame:(CGRect __unused)frame {
     return CGRectNull;
 }
 

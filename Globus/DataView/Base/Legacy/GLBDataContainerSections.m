@@ -16,10 +16,6 @@
     return _frame;
 }
 
-- (CGRect)_validateSectionsForAvailableFrame:(CGRect)frame {
-    return CGRectNull;
-}
-
 @end
 
 #pragma clang diagnostic pop

@@ -311,6 +311,10 @@
     }
 }
 
+- (CGRect)_validateEntriesForAvailableFrame:(CGRect __unused)frame {
+    return CGRectNull;
+}
+
 - (CGRect)_frameEntriesForAvailableFrame:(CGRect __unused)frame {
     return CGRectNull;
 }
@@ -318,7 +322,7 @@
 - (void)_layoutEntriesForFrame:(CGRect __unused)frame {
 }
 
-- (void)_willEntriesLayoutForBounds:(CGRect)bounds {
+- (void)_willEntriesLayoutForBounds:(CGRect __unused)bounds {
 }
 
 - (void)_didEntriesLayoutForBounds:(CGRect)bounds {

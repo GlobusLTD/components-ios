@@ -8,9 +8,6 @@
 /*--------------------------------------------------*/
 
 @interface GLBDataContainerSections ()
-
-- (CGRect)_validateSectionsForAvailableFrame:(CGRect)frame GLB_DEPRECATED;
-
 @end
 
 /*--------------------------------------------------*/
