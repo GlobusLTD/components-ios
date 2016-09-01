@@ -147,8 +147,8 @@ Pod::Spec.new do |s|
     end
     ss.subspec 'Image' do |sss|
       sss.source_files = 'Globus/UIKit/Image/**/*.{h,m}'
-      sss.dependency 'Globus/CoreGraphics'
       sss.dependency 'Globus/UIKit/Base'
+      sss.dependency 'Globus/CoreGraphics'
     end
     ss.subspec 'Label' do |sss|
       sss.source_files = 'Globus/UIKit/Label/**/*.{h,m}'
@@ -162,7 +162,6 @@ Pod::Spec.new do |s|
     end
     ss.subspec 'Nib' do |sss|
       sss.source_files = 'Globus/UIKit/Nib/**/*.{h,m}'
-      sss.dependency 'Globus/CoreFoundation/Array'
       sss.dependency 'Globus/UIKit/Device'
     end
     ss.subspec 'Responder' do |sss|
@@ -175,7 +174,7 @@ Pod::Spec.new do |s|
     end
     ss.subspec 'TabBar' do |sss|
       sss.source_files = 'Globus/UIKit/TabBar/**/*.{h,m}'
-      sss.dependency 'Globus/UIKit/Base'
+      sss.dependency 'Globus/UIKit/View'
     end
     ss.subspec 'View' do |sss|
       sss.source_files = 'Globus/UIKit/View/**/*.{h,m}'
@@ -183,7 +182,7 @@ Pod::Spec.new do |s|
     end
     ss.subspec 'ViewController' do |sss|
       sss.source_files = 'Globus/UIKit/ViewController/**/*.{h,m}'
-      sss.dependency 'Globus/BaseViewController'
+      sss.dependency 'Globus/UIKit/View'
       sss.dependency 'Globus/UIKit/Nib'
     end
     ss.subspec 'Window' do |sss|

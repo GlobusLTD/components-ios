@@ -1,7 +1,6 @@
 /*--------------------------------------------------*/
 
 #import "UIResponder+GLBUI.h"
-#import "UIView+GLBUI.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
