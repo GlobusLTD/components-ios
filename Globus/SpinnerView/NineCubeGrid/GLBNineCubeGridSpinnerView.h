@@ -10,13 +10,11 @@
 @end
 
 /*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-GLB_DEPRECATED
-@interface GLBSpinnerViewNineCubeGrid : GLBNineCubeGridSpinnerView
-@end
-
-/*--------------------------------------------------*/
 #endif
+/*--------------------------------------------------*/
+
+#if __has_include("GLBSpinnerViewNineCubeGrid.h")
+#import "GLBSpinnerViewNineCubeGrid.h"
+#endif
+
 /*--------------------------------------------------*/

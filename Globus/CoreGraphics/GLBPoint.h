@@ -1,6 +1,6 @@
 /*--------------------------------------------------*/
-#ifndef GLB_POINT
-#define GLB_POINT
+#ifndef GLB_POINT_H
+#define GLB_POINT_H
 /*--------------------------------------------------*/
 
 #include "GLBCG.h"

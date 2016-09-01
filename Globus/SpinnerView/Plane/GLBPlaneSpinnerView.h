@@ -10,13 +10,11 @@
 @end
 
 /*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-GLB_DEPRECATED
-@interface GLBSpinnerViewPlane : GLBPlaneSpinnerView
-@end
-
-/*--------------------------------------------------*/
 #endif
+/*--------------------------------------------------*/
+
+#if __has_include("GLBSpinnerViewPlane.h")
+#import "GLBSpinnerViewPlane.h"
+#endif
+
 /*--------------------------------------------------*/

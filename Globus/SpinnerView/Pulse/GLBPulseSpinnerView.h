@@ -10,13 +10,11 @@
 @end
 
 /*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-GLB_DEPRECATED
-@interface GLBSpinnerViewPulse : GLBPulseSpinnerView
-@end
-
-/*--------------------------------------------------*/
 #endif
+/*--------------------------------------------------*/
+
+#if __has_include("GLBPulseSpinnerView.h")
+#import "GLBPulseSpinnerView.h"
+#endif
+
 /*--------------------------------------------------*/

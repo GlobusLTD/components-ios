@@ -1,6 +1,7 @@
 /*--------------------------------------------------*/
 
 #import "GLBDataViewSectionsContainer.h"
+#import "GLBDataViewContainer+Private.h"
 #import "GLBDataViewItem+Private.h"
 
 /*--------------------------------------------------*/
@@ -9,7 +10,7 @@
 
 @interface GLBDataViewSectionsContainer () {
 @protected
-    NSMutableArray< __kindof GLBDataContainer* >* _sections;
+    NSMutableArray< __kindof GLBDataViewContainer* >* _sections;
 }
 
 - (CGRect)_frameSectionsForAvailableFrame:(CGRect)frame;

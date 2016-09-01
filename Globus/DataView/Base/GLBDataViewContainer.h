@@ -8,44 +8,44 @@
 /*--------------------------------------------------*/
 
 @class GLBDataView;
-@class GLBDataContainer;
+@class GLBDataViewContainer;
 @class GLBDataViewItem;
 @class GLBDataViewCell;
 
 /*--------------------------------------------------*/
 
-typedef NS_ENUM(NSUInteger, GLBDataContainerOrientation) {
-    GLBDataContainerOrientationVertical,
-    GLBDataContainerOrientationHorizontal,
+typedef NS_ENUM(NSUInteger, GLBDataViewContainerOrientation) {
+    GLBDataViewContainerOrientationVertical,
+    GLBDataViewContainerOrientationHorizontal,
 };
 
-typedef NS_OPTIONS(NSUInteger, GLBDataContainerAlign) {
-    GLBDataContainerAlignNone = GLBDataViewPositionNone,
-    GLBDataContainerAlignTop = GLBDataViewPositionTop,
-    GLBDataContainerAlignCenteredVertically = GLBDataViewPositionCenteredVertically,
-    GLBDataContainerAlignBottom = GLBDataViewPositionBottom,
-    GLBDataContainerAlignLeft = GLBDataViewPositionLeft,
-    GLBDataContainerAlignCenteredHorizontally = GLBDataViewPositionCenteredHorizontally,
-    GLBDataContainerAlignRight = GLBDataViewPositionRight,
-    GLBDataContainerAlignCentered = GLBDataContainerAlignCenteredVertically | GLBDataContainerAlignCenteredHorizontally,
+typedef NS_OPTIONS(NSUInteger, GLBDataViewContainerAlign) {
+    GLBDataViewContainerAlignNone = GLBDataViewPositionNone,
+    GLBDataViewContainerAlignTop = GLBDataViewPositionTop,
+    GLBDataViewContainerAlignCenteredVertically = GLBDataViewPositionCenteredVertically,
+    GLBDataViewContainerAlignBottom = GLBDataViewPositionBottom,
+    GLBDataViewContainerAlignLeft = GLBDataViewPositionLeft,
+    GLBDataViewContainerAlignCenteredHorizontally = GLBDataViewPositionCenteredHorizontally,
+    GLBDataViewContainerAlignRight = GLBDataViewPositionRight,
+    GLBDataViewContainerAlignCentered = GLBDataViewContainerAlignCenteredVertically | GLBDataViewContainerAlignCenteredHorizontally,
 };
 
 /*--------------------------------------------------*/
 
-typedef void(^GLBDataContainerConfigureItemBlock)(__kindof GLBDataViewItem* item);
+typedef void(^GLBDataViewContainerConfigureItemBlock)(__kindof GLBDataViewItem* item);
 
 /*--------------------------------------------------*/
 
-@interface GLBDataContainer : NSObject< GLBSearchBarDelegate >
+@interface GLBDataViewContainer : NSObject< GLBSearchBarDelegate >
 
 @property(nonatomic, readonly, weak) __kindof GLBDataView* dataView;
-@property(nonatomic, readonly, weak) __kindof GLBDataContainer* dataContainer;
+@property(nonatomic, readonly, weak) __kindof GLBDataViewContainer* dataContainer;
 @property(nonatomic, readonly, assign) CGRect frame;
 @property(nonatomic, getter=isHidden) BOOL hidden;
 @property(nonatomic, readonly, assign, getter=isHiddenInHierarchy) BOOL hiddenInHierarchy;
 @property(nonatomic) BOOL allowAutoAlign;
 @property(nonatomic) UIEdgeInsets alignInsets;
-@property(nonatomic) GLBDataContainerAlign alignPosition;
+@property(nonatomic) GLBDataViewContainerAlign alignPosition;
 @property(nonatomic) UIOffset alignThreshold;
 
 - (void)setup NS_REQUIRES_SUPER;

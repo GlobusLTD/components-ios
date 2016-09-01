@@ -8,7 +8,7 @@
 /*--------------------------------------------------*/
 
 @interface GLBDataViewItemsListContainer () {
-    GLBDataContainerOrientation _orientation;
+    GLBDataViewContainerOrientation _orientation;
     GLBDataViewItemsListContainerMode _mode;
     BOOL _reverse;
     UIEdgeInsets _margin;

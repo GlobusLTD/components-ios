@@ -1,6 +1,7 @@
 /*--------------------------------------------------*/
 
 #import "GLBDataViewItemsContainer.h"
+#import "GLBDataViewContainer+Private.h"
 #import "GLBDataViewItem+Private.h"
 
 /*--------------------------------------------------*/

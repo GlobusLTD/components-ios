@@ -1,6 +1,9 @@
 /*--------------------------------------------------*/
+#ifndef GLB_UI_H
+#define GLB_UI_H
+/*--------------------------------------------------*/
 
-#include "NSObject+GLBNS.h"
+#import "NSObject+GLBNS.h"
 
 /*--------------------------------------------------*/
 
@@ -20,4 +23,6 @@ typedef NS_OPTIONS(NSUInteger, GLBUIHorizontalAlignment) {
     GLBUIHorizontalAlignmentRight
 };
 
+/*--------------------------------------------------*/
+#endif
 /*--------------------------------------------------*/

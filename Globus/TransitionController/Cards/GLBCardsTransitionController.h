@@ -1,6 +1,6 @@
 /*--------------------------------------------------*/
 
-#include "GLBTransitionController.h"
+#import "GLBTransitionController.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
@@ -10,13 +10,11 @@
 @end
 
 /*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-GLB_DEPRECATED
-@interface GLBTransitionControllerCards : GLBCardsTransitionController
-@end
-
-/*--------------------------------------------------*/
 #endif
+/*--------------------------------------------------*/
+
+#if __has_include("GLBTransitionControllerCards.h")
+#import "GLBTransitionControllerCards.h"
+#endif
+
 /*--------------------------------------------------*/

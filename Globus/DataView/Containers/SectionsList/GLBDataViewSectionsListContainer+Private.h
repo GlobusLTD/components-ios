@@ -8,11 +8,11 @@
 /*--------------------------------------------------*/
 
 @interface GLBDataViewSectionsListContainer () {
-    GLBDataContainerOrientation _orientation;
+    GLBDataViewContainerOrientation _orientation;
     UIEdgeInsets _margin;
     UIOffset _spacing;
     BOOL _pagingEnabled;
-    __kindof GLBDataContainer* _currentSection;
+    __kindof GLBDataViewContainer* _currentSection;
 }
 
 @end

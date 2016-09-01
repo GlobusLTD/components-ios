@@ -17,13 +17,11 @@
 @end
 
 /*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-GLB_DEPRECATED
-@interface GLBSpinnerViewFadingCircleAlt : GLBFadingCircleAltSpinnerView
-@end
-
-/*--------------------------------------------------*/
 #endif
+/*--------------------------------------------------*/
+
+#if __has_include("GLBSpinnerViewFadingCircleAlt.h")
+#import "GLBSpinnerViewFadingCircleAlt.h"
+#endif
+
 /*--------------------------------------------------*/

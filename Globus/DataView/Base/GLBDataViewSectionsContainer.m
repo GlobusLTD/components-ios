@@ -26,7 +26,7 @@
 }
 
 - (void)_didChangeView {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         section.view = _view;
     }
 }
@@ -35,20 +35,20 @@
 
 - (void)_beginUpdateAnimated:(BOOL)animated {
     [super _beginUpdateAnimated:animated];
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         [section _beginUpdateAnimated:animated];
     }
 }
 
 - (void)_updateAnimated:(BOOL)animated {
     [super _updateAnimated:animated];
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         [section _updateAnimated:animated];
     }
 }
 
 - (void)_endUpdateAnimated:(BOOL)animated {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         [section _endUpdateAnimated:animated];
     }
     [super _endUpdateAnimated:animated];
@@ -77,37 +77,37 @@
 }
 
 - (void)_beginMovingItem:(GLBDataViewItem*)item location:(CGPoint)location {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         [section _beginMovingItem:item location:location];
     }
 }
 
 - (void)_movingItem:(GLBDataViewItem*)item location:(CGPoint)location delta:(CGPoint)delta allowsSorting:(BOOL)allowsSorting {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         [section _movingItem:item location:location delta:delta allowsSorting:allowsSorting];
     }
 }
 
 - (void)_endMovingItem:(GLBDataViewItem*)item location:(CGPoint)location {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         [section _endMovingItem:item location:location];
     }
 }
 
 - (void)_beginTransition {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         [section _beginTransition];
     }
 }
 
 - (void)_transitionResize {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         [section _transitionResize];
     }
 }
 
 - (void)_endTransition {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         [section _endTransition];
     }
 }
@@ -128,14 +128,14 @@
 
 - (NSArray*)allItems {
     NSMutableArray* result = NSMutableArray.array;
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         [result addObjectsFromArray:section.allItems];
     }
     return result;
 }
 
 - (GLBDataViewItem*)itemForPoint:(CGPoint)point {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         GLBDataViewItem* item = [section itemForPoint:point];
         if(item != nil) {
             return item;
@@ -145,7 +145,7 @@
 }
 
 - (GLBDataViewItem*)itemForData:(id)data {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         GLBDataViewItem* item = [section itemForData:data];
         if(item != nil) {
             return item;
@@ -156,7 +156,7 @@
 
 #pragma mark - Public
 
-- (void)prependSection:(GLBDataContainer*)section {
+- (void)prependSection:(GLBDataViewContainer*)section {
     section.parent = self;
     [_sections insertObject:section atIndex:0];
     if(_view != nil) {
@@ -164,7 +164,7 @@
     }
 }
 
-- (void)appendSection:(GLBDataContainer*)section {
+- (void)appendSection:(GLBDataViewContainer*)section {
     section.parent = self;
     [_sections addObject:section];
     if(_view != nil) {
@@ -172,7 +172,7 @@
     }
 }
 
-- (void)insertSection:(GLBDataContainer*)section atIndex:(NSUInteger)index {
+- (void)insertSection:(GLBDataViewContainer*)section atIndex:(NSUInteger)index {
     if(index != NSNotFound) {
         section.parent = self;
         [_sections insertObject:section atIndex:index];
@@ -182,7 +182,7 @@
     }
 }
 
-- (void)replaceOriginSection:(GLBDataContainer*)originSection withSection:(GLBDataContainer*)section {
+- (void)replaceOriginSection:(GLBDataViewContainer*)originSection withSection:(GLBDataViewContainer*)section {
     NSUInteger index = [_sections indexOfObject:originSection];
     if(index != NSNotFound) {
         section.parent = self;
@@ -193,7 +193,7 @@
     }
 }
 
-- (void)deleteSection:(GLBDataContainer*)section {
+- (void)deleteSection:(GLBDataViewContainer*)section {
     [_sections removeObject:section];
     if(_view != nil) {
         [_view _didDeleteItems:section.allItems];
@@ -210,7 +210,7 @@
     }
 }
 
-- (void)scrollToSection:(GLBDataContainer*)section scrollPosition:(GLBDataViewPosition)scrollPosition animated:(BOOL)animated {
+- (void)scrollToSection:(GLBDataViewContainer*)section scrollPosition:(GLBDataViewPosition)scrollPosition animated:(BOOL)animated {
     [_view scrollToRect:section.frame scrollPosition:scrollPosition animated:animated];
 }
 
@@ -220,23 +220,23 @@
     if((_allowAutoAlign == YES) && (_hidden == NO)) {
         CGPoint alingPoint = [self _alignPointWithContentOffset:contentOffset contentSize:contentSize visibleSize:visibleSize];
         if(CGRectContainsPoint(_frame, alingPoint) == YES) {
-            for(GLBDataContainer* section in _sections) {
+            for(GLBDataViewContainer* section in _sections) {
                 if(section.allowAutoAlign == YES) {
                     CGPoint alingSectionCorner = CGPointZero;
-                    if((_alignPosition & GLBDataContainerAlignLeft) != 0) {
+                    if((_alignPosition & GLBDataViewContainerAlignLeft) != 0) {
                         alingSectionCorner.x = CGRectGetMinX(section.frame);
-                    } else if((_alignPosition & GLBDataContainerAlignCenteredHorizontally) != 0) {
+                    } else if((_alignPosition & GLBDataViewContainerAlignCenteredHorizontally) != 0) {
                         alingSectionCorner.x = CGRectGetMidX(section.frame);
-                    } else if((_alignPosition & GLBDataContainerAlignRight) != 0) {
+                    } else if((_alignPosition & GLBDataViewContainerAlignRight) != 0) {
                         alingSectionCorner.x = CGRectGetMaxX(section.frame);
                     } else {
                         alingSectionCorner.x = alingPoint.x;
                     }
-                    if((_alignPosition & GLBDataContainerAlignTop) != 0) {
+                    if((_alignPosition & GLBDataViewContainerAlignTop) != 0) {
                         alingSectionCorner.y = CGRectGetMinY(section.frame);
-                    } else if((_alignPosition & GLBDataContainerAlignCenteredVertically) != 0) {
+                    } else if((_alignPosition & GLBDataViewContainerAlignCenteredVertically) != 0) {
                         alingSectionCorner.y = CGRectGetMidY(section.frame);
-                    } else if((_alignPosition & GLBDataContainerAlignBottom) != 0) {
+                    } else if((_alignPosition & GLBDataViewContainerAlignBottom) != 0) {
                         alingSectionCorner.y = CGRectGetMaxY(section.frame);
                     } else {
                         alingSectionCorner.y = alingPoint.y;
@@ -258,7 +258,7 @@
         }
     }
     if(CGRectContainsPoint(_frame, contentOffset) == YES) {
-        for(GLBDataContainer* section in _sections) {
+        for(GLBDataViewContainer* section in _sections) {
             if(section.hidden == YES) {
                 continue;
             }
@@ -276,7 +276,7 @@
 }
 
 - (void)_willSectionsLayoutForBounds:(CGRect)bounds {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         if(section.hidden == YES) {
             continue;
         }
@@ -285,7 +285,7 @@
 }
 
 - (void)_didSectionsLayoutForBounds:(CGRect)bounds {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         if(section.hidden == YES) {
             continue;
         }
@@ -296,66 +296,54 @@
 #pragma mark - GLBSearchBarDelegate
 
 - (void)searchBarBeginSearch:(GLBSearchBar*)searchBar {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         [section searchBarBeginSearch:searchBar];
     }
 }
 
 - (void)searchBarEndSearch:(GLBSearchBar*)searchBar {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         [section searchBarEndSearch:searchBar];
     }
 }
 
 - (void)searchBarBeginEditing:(GLBSearchBar*)searchBar {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         [section searchBarBeginEditing:searchBar];
     }
 }
 
 - (void)searchBar:(GLBSearchBar*)searchBar textChanged:(NSString*)textChanged {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         [section searchBar:searchBar textChanged:textChanged];
     }
 }
 
 - (void)searchBarEndEditing:(GLBSearchBar*)searchBar {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         [section searchBarEndEditing:searchBar];
     }
 }
 
 - (void)searchBarPressedClear:(GLBSearchBar*)searchBar {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         [section searchBarPressedClear:searchBar];
     }
 }
 
 - (void)searchBarPressedReturn:(GLBSearchBar*)searchBar {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         [section searchBarPressedReturn:searchBar];
     }
 }
 
 - (void)searchBarPressedCancel:(GLBSearchBar*)searchBar {
-    for(GLBDataContainer* section in _sections) {
+    for(GLBDataViewContainer* section in _sections) {
         [section searchBarPressedCancel:searchBar];
     }
 }
 
 @end
-
-/*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-@implementation GLBDataContainerSections
-@end
-
-#pragma clang diagnostic pop
 
 /*--------------------------------------------------*/
 #endif

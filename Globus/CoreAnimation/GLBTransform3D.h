@@ -1,6 +1,6 @@
 /*--------------------------------------------------*/
-#ifndef GLB_TRANSFORM_3D
-#define GLB_TRANSFORM_3D
+#ifndef GLB_TRANSFORM_3D_H
+#define GLB_TRANSFORM_3D_H
 /*--------------------------------------------------*/
 
 #include "GLBTargetConditionals.h"

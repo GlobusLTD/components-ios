@@ -48,3 +48,17 @@
 /*--------------------------------------------------*/
 #endif
 /*--------------------------------------------------*/
+
+#if __has_include("GLBDataCell+Private.h")
+#import "GLBDataCell+Private.h"
+#endif
+
+#if __has_include("GLBDataViewSwipeCell+Private.h")
+#import "GLBDataViewSwipeCell+Private.h"
+#endif
+
+#if __has_include("GLBDataCellSwipe+Private.h")
+#import "GLBDataCellSwipe+Private.h"
+#endif
+
+/*--------------------------------------------------*/

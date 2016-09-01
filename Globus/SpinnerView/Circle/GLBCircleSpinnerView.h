@@ -10,13 +10,11 @@
 @end
 
 /*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-GLB_DEPRECATED
-@interface GLBSpinnerViewCircle : GLBCircleSpinnerView
-@end
-
-/*--------------------------------------------------*/
 #endif
+/*--------------------------------------------------*/
+
+#if __has_include("GLBSpinnerViewCircle.h")
+#import "GLBSpinnerViewCircle.h"
+#endif
+
 /*--------------------------------------------------*/

@@ -2,7 +2,7 @@
 
 #import "GLBDataViewItem.h"
 #import "GLBDataView+Private.h"
-#import "GLBDataContainer+Private.h"
+#import "GLBDataViewContainer+Private.h"
 #import "GLBDataViewCell+Private.h"
 
 /*--------------------------------------------------*/
@@ -12,7 +12,7 @@
 @interface GLBDataViewItem () {
 @protected
     __weak GLBDataView* _view;
-    __weak GLBDataContainer* _parent;
+    __weak GLBDataViewContainer* _parent;
     NSString* _identifier;
     NSUInteger _order;
     id _data;
@@ -38,7 +38,7 @@
 }
 
 @property(nonatomic, weak) GLBDataView* view;
-@property(nonatomic, weak) GLBDataContainer* parent;
+@property(nonatomic, weak) GLBDataViewContainer* parent;
 @property(nonatomic, strong) NSString* identifier;
 @property(nonatomic) BOOL needResize;
 @property(nonatomic, getter=isMoving) BOOL moving;

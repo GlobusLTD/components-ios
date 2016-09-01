@@ -1,6 +1,6 @@
 /*--------------------------------------------------*/
-#ifndef GLB_SIZE
-#define GLB_SIZE
+#ifndef GLB_SIZE_H
+#define GLB_SIZE_H
 /*--------------------------------------------------*/
 
 #include "GLBCG.h"

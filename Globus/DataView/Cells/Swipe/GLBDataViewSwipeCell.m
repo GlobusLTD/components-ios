@@ -58,7 +58,7 @@
     self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_handlerPanGestureRecognizer:)];
     
     _swipeEnabled = YES;
-    _swipeStyle = GLBDataSwipeCellStyleLeaves;
+    _swipeStyle = GLBDataViewSwipeCellStyleLeaves;
     _swipeThreshold = 2.0f;
     _swipeVelocity = 1050.0f;
     _swipeDamping = 0.8f;
@@ -185,8 +185,8 @@
 - (NSArray*)orderedSubviews {
     NSMutableArray* result = NSMutableArray.array;
     switch(_swipeStyle) {
-        case GLBDataSwipeCellStyleStands:
-        case GLBDataSwipeCellStyleStretch: {
+        case GLBDataViewSwipeCellStyleStands:
+        case GLBDataViewSwipeCellStyleStretch: {
             if(_leftSwipeView != nil) {
                 [result addObject:_leftSwipeView];
             }
@@ -198,8 +198,8 @@
             }
             break;
         }
-        case GLBDataSwipeCellStyleLeaves:
-        case GLBDataSwipeCellStylePushes: {
+        case GLBDataViewSwipeCellStyleLeaves:
+        case GLBDataViewSwipeCellStylePushes: {
             if(_rootView != nil) {
                 [result addObject:_rootView];
             }
@@ -252,7 +252,7 @@
     }
 }
 
-- (void)setSwipeStyle:(GLBDataSwipeCellStyle)swipeStyle {
+- (void)setSwipeStyle:(GLBDataViewSwipeCellStyle)swipeStyle {
     if(_swipeStyle != swipeStyle) {
         self.constraintLeftSwipeViewOffsetX = nil;
         self.constraintLeftSwipeViewCenterY = nil;
@@ -510,7 +510,7 @@
 - (CGFloat)endedSwipeProgress:(CGFloat)progress {
     CGFloat minProgress = (_panSwipeDirection == GLBDataCellSwipeDirectionLeft) ? -1.0f : 0.0f;
     CGFloat maxProgress = (_panSwipeDirection == GLBDataCellSwipeDirectionRight) ? 1.0f : 0.0f;
-    if(_swipeStyle == GLBDataSwipeCellStyleStretch) {
+    if(_swipeStyle == GLBDataViewSwipeCellStyleStretch) {
         if(progress < 0.0f) {
             if(_panSwipeDirection == GLBDataCellSwipeDirectionLeft) {
                 if(progress < -_leftSwipeStretchMaxThreshold) {
@@ -568,22 +568,22 @@
 
 - (UIOffset)_rootViewOffsetBySwipeProgress:(CGFloat)swipeProgress {
     switch(_swipeStyle) {
-        case GLBDataSwipeCellStyleStands:
-        case GLBDataSwipeCellStyleLeaves:
+        case GLBDataViewSwipeCellStyleStands:
+        case GLBDataViewSwipeCellStyleLeaves:
             if(swipeProgress < 0.0f) {
                 return UIOffsetMake(_leftSwipeView.glb_frameWidth * -swipeProgress, _rootViewOffset.vertical);
             } else if(swipeProgress > 0.0f) {
                 return UIOffsetMake(-_rightSwipeView.glb_frameWidth * swipeProgress, _rootViewOffset.vertical);
             }
             break;
-        case GLBDataSwipeCellStyleStretch:
+        case GLBDataViewSwipeCellStyleStretch:
             if(swipeProgress < 0.0f) {
                 return UIOffsetMake(_rootView.glb_frameWidth * -swipeProgress, _rootViewOffset.vertical);
             } else if(swipeProgress > 0.0f) {
                 return UIOffsetMake(-_rootView.glb_frameWidth * swipeProgress, _rootViewOffset.vertical);
             }
             break;
-        case GLBDataSwipeCellStylePushes:
+        case GLBDataViewSwipeCellStylePushes:
             break;
     }
     return UIOffsetMake(0.0f, _rootViewOffset.vertical);
@@ -592,15 +592,15 @@
 - (CGFloat)_leftViewOffsetBySwipeProgress:(CGFloat)swipeProgress {
     CGFloat leftWidth = _leftSwipeView.glb_frameWidth;
     switch(_swipeStyle) {
-        case GLBDataSwipeCellStyleStands:
+        case GLBDataViewSwipeCellStyleStands:
             return 0.0f;
-        case GLBDataSwipeCellStyleLeaves:
-        case GLBDataSwipeCellStylePushes:
+        case GLBDataViewSwipeCellStyleLeaves:
+        case GLBDataViewSwipeCellStylePushes:
             if(swipeProgress < 0.0f) {
                 return -leftWidth + (leftWidth * (-swipeProgress));
             }
             break;
-        case GLBDataSwipeCellStyleStretch:
+        case GLBDataViewSwipeCellStyleStretch:
             return 0.0f;
     }
     return -leftWidth;
@@ -608,7 +608,7 @@
 
 - (CGFloat)_leftViewSizeBySwipeProgress:(CGFloat)swipeProgress {
     switch(_swipeStyle) {
-        case GLBDataSwipeCellStyleStretch:
+        case GLBDataViewSwipeCellStyleStretch:
             if(swipeProgress < 0.0f) {
                 return _rootView.glb_frameWidth * -swipeProgress;
             }
@@ -622,15 +622,15 @@
 - (CGFloat)_rightViewOffsetBySwipeProgress:(CGFloat)swipeProgress {
     CGFloat rigthWidth = _rightSwipeView.glb_frameWidth;
     switch(_swipeStyle) {
-        case GLBDataSwipeCellStyleStands:
+        case GLBDataViewSwipeCellStyleStands:
             return 0.0f;
-        case GLBDataSwipeCellStyleLeaves:
-        case GLBDataSwipeCellStylePushes:
+        case GLBDataViewSwipeCellStyleLeaves:
+        case GLBDataViewSwipeCellStylePushes:
             if(swipeProgress > 0.0f) {
                 return rigthWidth * (1.0f - swipeProgress);
             }
             break;
-        case GLBDataSwipeCellStyleStretch:
+        case GLBDataViewSwipeCellStyleStretch:
             return 0.0f;
     }
     return rigthWidth;
@@ -638,7 +638,7 @@
 
 - (CGFloat)_rightViewSizeBySwipeProgress:(CGFloat)swipeProgress {
     switch(_swipeStyle) {
-        case GLBDataSwipeCellStyleStretch:
+        case GLBDataViewSwipeCellStyleStretch:
             if(swipeProgress > 0.0f) {
                 return _rootView.glb_frameWidth * swipeProgress;
             }
@@ -705,13 +705,13 @@
                 _panSwipeLastOffset = translation.x;
                 _panSwipeLastVelocity = velocity.x;
                 switch(_swipeStyle) {
-                    case GLBDataSwipeCellStyleStands:
-                    case GLBDataSwipeCellStyleLeaves:
-                    case GLBDataSwipeCellStylePushes:
+                    case GLBDataViewSwipeCellStyleStands:
+                    case GLBDataViewSwipeCellStyleLeaves:
+                    case GLBDataViewSwipeCellStylePushes:
                         _panSwipeLeftWidth = -_leftSwipeView.glb_frameWidth;
                         _panSwipeRightWidth = _rightSwipeView.glb_frameWidth;
                         break;
-                    case GLBDataSwipeCellStyleStretch:
+                    case GLBDataViewSwipeCellStyleStretch:
                         _panSwipeLeftWidth = (_leftSwipeView != nil) ? -_rootView.glb_frameWidth : 0.0f;
                         _panSwipeRightWidth = (_rightSwipeView != nil) ? _rootView.glb_frameWidth : 0.0f;
                         break;
@@ -723,9 +723,9 @@
                 CGFloat delta = _panSwipeLastOffset - translation.x;
                 if(_panSwipeDirection == GLBDataCellSwipeDirectionUnknown) {
                     switch(_swipeStyle) {
-                        case GLBDataSwipeCellStyleStands:
-                        case GLBDataSwipeCellStyleLeaves:
-                        case GLBDataSwipeCellStylePushes:
+                        case GLBDataViewSwipeCellStyleStands:
+                        case GLBDataViewSwipeCellStyleLeaves:
+                        case GLBDataViewSwipeCellStylePushes:
                             if((_leftSwipeEnabled == YES) && (_showedLeftSwipeView == YES) && (_leftSwipeView != nil) && (delta > _swipeThreshold)) {
                                 _panSwipeDirection = GLBDataCellSwipeDirectionLeft;
                                 [self didBeganSwipe];
@@ -740,7 +740,7 @@
                                 [self didBeganSwipe];
                             }
                             break;
-                        case GLBDataSwipeCellStyleStretch:
+                        case GLBDataViewSwipeCellStyleStretch:
                             if(((_leftSwipeEnabled == YES) && (_leftSwipeView != nil) && (delta < -_swipeThreshold)) || (_showedLeftSwipeView == YES)) {
                                 _panSwipeDirection = GLBDataCellSwipeDirectionLeft;
                                 [self didBeganSwipe];
@@ -825,18 +825,6 @@
 }
 
 @end
-
-/*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-@implementation GLBDataCellSwipe
-@end
-
-#pragma clang diagnostic pop
 
 /*--------------------------------------------------*/
 #endif

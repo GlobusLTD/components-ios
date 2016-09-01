@@ -256,20 +256,20 @@
                 }
                 if(item.allowsAlign == YES) {
                     CGPoint alingItemCorner = CGPointZero;
-                    if((_alignPosition & GLBDataContainerAlignLeft) != 0) {
+                    if((_alignPosition & GLBDataViewContainerAlignLeft) != 0) {
                         alingItemCorner.x = CGRectGetMinX(item.updateFrame);
-                    } else if((_alignPosition & GLBDataContainerAlignCenteredHorizontally) != 0) {
+                    } else if((_alignPosition & GLBDataViewContainerAlignCenteredHorizontally) != 0) {
                         alingItemCorner.x = CGRectGetMidX(item.updateFrame);
-                    } else if((_alignPosition & GLBDataContainerAlignRight) != 0) {
+                    } else if((_alignPosition & GLBDataViewContainerAlignRight) != 0) {
                         alingItemCorner.x = CGRectGetMaxX(item.updateFrame);
                     } else {
                         alingItemCorner.x = alingPoint.x;
                     }
-                    if((_alignPosition & GLBDataContainerAlignTop) != 0) {
+                    if((_alignPosition & GLBDataViewContainerAlignTop) != 0) {
                         alingItemCorner.y = CGRectGetMinY(item.updateFrame);
-                    } else if((_alignPosition & GLBDataContainerAlignCenteredVertically) != 0) {
+                    } else if((_alignPosition & GLBDataViewContainerAlignCenteredVertically) != 0) {
                         alingItemCorner.y = CGRectGetMidY(item.updateFrame);
-                    } else if((_alignPosition & GLBDataContainerAlignBottom) != 0) {
+                    } else if((_alignPosition & GLBDataViewContainerAlignBottom) != 0) {
                         alingItemCorner.y = CGRectGetMaxY(item.updateFrame);
                     } else {
                         alingItemCorner.y = alingPoint.y;
@@ -381,18 +381,6 @@
 }
 
 @end
-
-/*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-@implementation GLBDataContainerItems
-@end
-
-#pragma clang diagnostic pop
 
 /*--------------------------------------------------*/
 #endif

@@ -1,6 +1,6 @@
 /*--------------------------------------------------*/
 
-#include "GLBRect.h"
+#import "GLBRect.h"
 
 /*--------------------------------------------------*/
 
@@ -19,13 +19,11 @@
 @end
 
 /*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-GLB_DEPRECATED
-@interface GLBTransitionControllerSlide : GLBSlideTransitionController
-@end
-
-/*--------------------------------------------------*/
 #endif
+/*--------------------------------------------------*/
+
+#if __has_include("GLBTransitionControllerSlide.h")
+#import "GLBTransitionControllerSlide.h"
+#endif
+
 /*--------------------------------------------------*/

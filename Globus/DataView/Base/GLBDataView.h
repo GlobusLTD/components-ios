@@ -7,7 +7,7 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@class GLBDataContainer;
+@class GLBDataViewContainer;
 @class GLBDataViewItem;
 @class GLBDataViewCell;
 @class GLBDataRefreshView;
@@ -61,7 +61,7 @@ typedef NS_ENUM(NSUInteger, GLBDataViewSearchBarStyle) {
 @property(nonatomic) CGFloat edgeInsetBottom;
 @property(nonatomic) CGFloat edgeInsetLeft;
 
-@property(nonatomic, strong) __kindof GLBDataContainer* container;
+@property(nonatomic, strong) __kindof GLBDataViewContainer* container;
 @property(nonatomic) UIEdgeInsets containerInset;
 @property(nonatomic) CGFloat containerInsetTop;
 @property(nonatomic) CGFloat containerInsetRight;

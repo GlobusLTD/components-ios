@@ -1,26 +1,26 @@
 /*--------------------------------------------------*/
 
-#import "GLBDataContainer.h"
+#import "GLBDataViewContainer.h"
 #import "GLBDataViewItem+Private.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@interface GLBDataContainer () {
+@interface GLBDataViewContainer () {
 @protected
     __weak GLBDataView* _view;
-    __weak GLBDataContainer* _parent;
+    __weak GLBDataViewContainer* _parent;
     BOOL _hidden;
     BOOL _allowAutoAlign;
     UIEdgeInsets _alignInsets;
-    GLBDataContainerAlign _alignPosition;
+    GLBDataViewContainerAlign _alignPosition;
     UIOffset _alignThreshold;
     CGRect _frame;
 }
 
 @property(nonatomic, weak) __kindof GLBDataView* view;
-@property(nonatomic, weak) __kindof GLBDataContainer* parent;
+@property(nonatomic, weak) __kindof GLBDataViewContainer* parent;
 
 - (void)_willChangeView;
 - (void)_didChangeView;

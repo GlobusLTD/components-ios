@@ -1,12 +1,12 @@
 /*--------------------------------------------------*/
 
-#import "GLBDataContainer+Private.h"
+#import "GLBDataViewContainer+Private.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@implementation GLBDataContainer
+@implementation GLBDataViewContainer
 
 #pragma mark - Synthesize
 
@@ -29,7 +29,7 @@
 }
 
 - (void)setup {
-    _alignPosition = GLBDataContainerAlignNone;
+    _alignPosition = GLBDataViewContainerAlignNone;
     _alignThreshold = UIOffsetMake(20.0f, 20.0f);
 }
 
@@ -46,7 +46,7 @@
     }
 }
 
-- (void)setParent:(GLBDataContainer*)parent {
+- (void)setParent:(GLBDataViewContainer*)parent {
     if(_parent != parent) {
         [self _willChangeParent];
         _parent = parent;
@@ -129,20 +129,20 @@
 - (CGPoint)_alignPointWithContentOffset:(CGPoint)contentOffset contentSize:(CGSize)contentSize visibleSize:(CGSize)visibleSize {
     CGPoint alignPoint = CGPointZero;
     CGRect visibleRect = CGRectMake(_alignInsets.left, _alignInsets.top, visibleSize.width - (_alignInsets.left + _alignInsets.right), visibleSize.height - (_alignInsets.top + _alignInsets.bottom));
-    if((_alignPosition & GLBDataContainerAlignLeft) != 0) {
+    if((_alignPosition & GLBDataViewContainerAlignLeft) != 0) {
         alignPoint.x = contentOffset.x + visibleRect.origin.x;
-    } else if((_alignPosition & GLBDataContainerAlignCenteredHorizontally) != 0) {
+    } else if((_alignPosition & GLBDataViewContainerAlignCenteredHorizontally) != 0) {
         alignPoint.x = contentOffset.x + (visibleRect.origin.x + (visibleRect.size.width * 0.5f));
-    } else if((_alignPosition & GLBDataContainerAlignRight) != 0) {
+    } else if((_alignPosition & GLBDataViewContainerAlignRight) != 0) {
         alignPoint.x = contentOffset.x + (visibleRect.origin.x + visibleRect.size.width);
     } else {
         alignPoint.x = contentOffset.x;
     }
-    if((_alignPosition & GLBDataContainerAlignTop) != 0) {
+    if((_alignPosition & GLBDataViewContainerAlignTop) != 0) {
         alignPoint.y = contentOffset.y + visibleRect.origin.y;
-    } else if((_alignPosition & GLBDataContainerAlignCenteredVertically) != 0) {
+    } else if((_alignPosition & GLBDataViewContainerAlignCenteredVertically) != 0) {
         alignPoint.y = contentOffset.y + (visibleRect.origin.y + (visibleRect.size.height * 0.5f));
-    } else if((_alignPosition & GLBDataContainerAlignBottom) != 0) {
+    } else if((_alignPosition & GLBDataViewContainerAlignBottom) != 0) {
         alignPoint.y = contentOffset.y + (visibleRect.origin.y + visibleRect.size.height);
     } else {
         alignPoint.y = contentOffset.y;

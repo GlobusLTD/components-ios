@@ -19,7 +19,7 @@ typedef NS_ENUM(NSUInteger, GLBDataCellSwipeDirection) {
 @protected
     UIPanGestureRecognizer* _panGestureRecognizer;
     BOOL _swipeEnabled;
-    GLBDataSwipeCellStyle _swipeStyle;
+    GLBDataViewSwipeCellStyle _swipeStyle;
     CGFloat _swipeThreshold;
     CGFloat _swipeVelocity;
     CGFloat _swipeDamping;

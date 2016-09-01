@@ -1,7 +1,7 @@
 /*--------------------------------------------------*/
 
 #import "GLBDataView.h"
-#import "GLBDataContainer+Private.h"
+#import "GLBDataViewContainer+Private.h"
 #import "GLBDataViewItem+Private.h"
 #import "GLBDataViewCell+Private.h"
 #import "GLBDataRefreshView+Private.h"
@@ -43,7 +43,7 @@ typedef NS_ENUM(NSUInteger, GLBDataViewDirection) {
     GLBDataViewDirection _scrollDirection;
     CGPoint _scrollBeginPosition;
     UIEdgeInsets _edgeInset;
-    GLBDataContainer* _container;
+    GLBDataViewContainer* _container;
     UIEdgeInsets _containerInset;
     UIEdgeInsets _saveContainerInset;
     NSMutableArray* _visibleItems;

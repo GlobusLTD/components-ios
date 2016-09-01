@@ -8,33 +8,25 @@
 
 @interface GLBDataViewSectionsListContainer : GLBDataViewSectionsContainer
 
-@property(nonatomic) GLBDataContainerOrientation orientation;
+@property(nonatomic) GLBDataViewContainerOrientation orientation;
 @property(nonatomic) UIEdgeInsets margin;
 @property(nonatomic) UIOffset spacing;
 @property(nonatomic) BOOL pagingEnabled;
 @property(nonatomic) NSUInteger currentSectionIndex;
-@property(nonatomic, strong) GLBDataContainer* currentSection;
+@property(nonatomic, strong) GLBDataViewContainer* currentSection;
 
-+ (instancetype)containerWithOrientation:(GLBDataContainerOrientation)orientation;
++ (instancetype)containerWithOrientation:(GLBDataViewContainerOrientation)orientation;
 
-- (instancetype)initWithOrientation:(GLBDataContainerOrientation)orientation;
+- (instancetype)initWithOrientation:(GLBDataViewContainerOrientation)orientation;
 
 - (void)setCurrentSectionIndex:(NSUInteger)currentSectionIndex animated:(BOOL)animated;
-- (void)setCurrentSection:(GLBDataContainer*)currentSection animated:(BOOL)animated;
+- (void)setCurrentSection:(GLBDataViewContainer*)currentSection animated:(BOOL)animated;
 
 @end
 
 /*--------------------------------------------------*/
 
-extern NSString* GLBDataContainerCurrentSectionChanged;
-
-/*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-GLB_DEPRECATED
-@interface GLBDataContainerSectionsList : GLBDataViewSectionsListContainer
-@end
+extern NSString* GLBDataViewContainerCurrentSectionChanged;
 
 /*--------------------------------------------------*/
 #endif

@@ -6,11 +6,11 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-typedef NS_ENUM(NSUInteger, GLBDataSwipeCellStyle) {
-    GLBDataSwipeCellStyleStands,
-    GLBDataSwipeCellStyleLeaves,
-    GLBDataSwipeCellStylePushes,
-    GLBDataSwipeCellStyleStretch
+typedef NS_ENUM(NSUInteger, GLBDataViewSwipeCellStyle) {
+    GLBDataViewSwipeCellStyleStands,
+    GLBDataViewSwipeCellStyleLeaves,
+    GLBDataViewSwipeCellStylePushes,
+    GLBDataViewSwipeCellStyleStretch
 };
 
 /*--------------------------------------------------*/
@@ -20,7 +20,7 @@ typedef NS_ENUM(NSUInteger, GLBDataSwipeCellStyle) {
 @property(nonatomic, readonly, strong) UIPanGestureRecognizer* panGestureRecognizer;
 
 @property(nonatomic, getter=isSwipeEnabled) BOOL swipeEnabled;
-@property(nonatomic) IBInspectable GLBDataSwipeCellStyle swipeStyle;
+@property(nonatomic) IBInspectable GLBDataViewSwipeCellStyle swipeStyle;
 @property(nonatomic) IBInspectable CGFloat swipeThreshold;
 @property(nonatomic) IBInspectable CGFloat swipeVelocity;
 @property(nonatomic) IBInspectable CGFloat swipeDamping;
@@ -58,14 +58,6 @@ typedef NS_ENUM(NSUInteger, GLBDataSwipeCellStyle) {
 
 - (CGFloat)endedSwipeProgress:(CGFloat)progress;
 
-@end
-
-/*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-GLB_DEPRECATED
-@interface GLBDataCellSwipe : GLBDataViewSwipeCell
 @end
 
 /*--------------------------------------------------*/

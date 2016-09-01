@@ -1,6 +1,6 @@
 /*--------------------------------------------------*/
-#ifndef GLB_CG
-#define GLB_CG
+#ifndef GLB_CG_H
+#define GLB_CG_H
 /*--------------------------------------------------*/
 
 #include "GLBTargetConditionals.h"

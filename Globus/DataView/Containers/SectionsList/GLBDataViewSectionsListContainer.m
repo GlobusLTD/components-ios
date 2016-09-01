@@ -18,11 +18,11 @@
 
 #pragma mark - Init / Free
 
-+ (instancetype)containerWithOrientation:(GLBDataContainerOrientation)orientation {
++ (instancetype)containerWithOrientation:(GLBDataViewContainerOrientation)orientation {
     return [[self alloc] initWithOrientation:orientation];
 }
 
-- (instancetype)initWithOrientation:(GLBDataContainerOrientation)orientation {
+- (instancetype)initWithOrientation:(GLBDataViewContainerOrientation)orientation {
     self = [super init];
     if(self != nil) {
         _orientation = orientation;
@@ -48,7 +48,7 @@
     }
 }
 
-- (void)setOrientation:(GLBDataContainerOrientation)orientation {
+- (void)setOrientation:(GLBDataViewContainerOrientation)orientation {
     if(_orientation != orientation) {
         _orientation = orientation;
         if(_view != nil) {
@@ -100,11 +100,11 @@
     return [_sections indexOfObjectIdenticalTo:_currentSection];
 }
 
-- (void)setCurrentSection:(GLBDataContainer*)currentSection {
+- (void)setCurrentSection:(GLBDataViewContainer*)currentSection {
     [self setCurrentSection:currentSection animated:NO];
 }
 
-- (void)setCurrentSection:(GLBDataContainer*)currentSection animated:(BOOL)animated {
+- (void)setCurrentSection:(GLBDataViewContainer*)currentSection animated:(BOOL)animated {
     if(_currentSection != currentSection) {
         _currentSection = currentSection;
         if((_pagingEnabled == YES) && (_currentSection != nil)) {
@@ -115,14 +115,14 @@
 
 #pragma mark - Public override
 
-- (void)replaceOriginSection:(GLBDataContainer*)originSection withSection:(GLBDataContainer*)section {
+- (void)replaceOriginSection:(GLBDataViewContainer*)originSection withSection:(GLBDataViewContainer*)section {
     if((_pagingEnabled == YES) && (_currentSection == originSection)) {
         _currentSection = section;
     }
     [super replaceOriginSection:originSection withSection:section];
 }
 
-- (void)deleteSection:(GLBDataContainer*)section {
+- (void)deleteSection:(GLBDataViewContainer*)section {
     if((_pagingEnabled == YES) && (_currentSection == section)) {
         _currentSection = [_sections glb_nextObjectOfObject:_currentSection];
     }
@@ -143,13 +143,13 @@
     
     if((_pagingEnabled == YES) && (decelerate == NO)) {
         CGPoint alignPoint = [self alignPoint];
-        for(GLBDataContainer* section in _sections) {
+        for(GLBDataViewContainer* section in _sections) {
             if(section.hidden == YES) {
                 continue;
             }
             if(CGRectContainsPoint(section.frame, alignPoint) == YES) {
                 _currentSection = section;
-                [self performActionForKey:GLBDataContainerCurrentSectionChanged withArguments:@[ _currentSection ]];
+                [self performActionForKey:GLBDataViewContainerCurrentSectionChanged withArguments:@[ _currentSection ]];
                 break;
             }
         }
@@ -161,13 +161,13 @@
     
     if(_pagingEnabled == YES) {
         CGPoint alignPoint = [self alignPoint];
-        for(GLBDataContainer* section in _sections) {
+        for(GLBDataViewContainer* section in _sections) {
             if(section.hidden == YES) {
                 continue;
             }
             if(CGRectContainsPoint(section.frame, alignPoint) == YES) {
                 _currentSection = section;
-                [self performActionForKey:GLBDataContainerCurrentSectionChanged withArguments:@[ _currentSection ]];
+                [self performActionForKey:GLBDataViewContainerCurrentSectionChanged withArguments:@[ _currentSection ]];
                 break;
             }
         }
@@ -187,8 +187,8 @@
     CGSize restriction = CGSizeMake(frame.size.width - (_margin.left + _margin.right), frame.size.height - (_margin.left + _margin.right));
     CGSize cumulative = CGSizeZero;
     switch(_orientation) {
-        case GLBDataContainerOrientationVertical: {
-            for(GLBDataContainer* container in _sections) {
+        case GLBDataViewContainerOrientationVertical: {
+            for(GLBDataViewContainer* container in _sections) {
                 if(container.hidden == YES) {
                     continue;
                 }
@@ -200,8 +200,8 @@
             }
             break;
         }
-        case GLBDataContainerOrientationHorizontal: {
-            for(GLBDataContainer* container in _sections) {
+        case GLBDataViewContainerOrientationHorizontal: {
+            for(GLBDataViewContainer* container in _sections) {
                 if(container.hidden == YES) {
                     continue;
                 }
@@ -223,8 +223,8 @@
     CGSize restriction = CGSizeMake(frame.size.width - (_margin.left + _margin.right), frame.size.height - (_margin.left + _margin.right));
     CGSize cumulative = CGSizeZero;
     switch(_orientation) {
-        case GLBDataContainerOrientationVertical: {
-            for(GLBDataContainer* container in _sections) {
+        case GLBDataViewContainerOrientationVertical: {
+            for(GLBDataViewContainer* container in _sections) {
                 if(container.hidden == YES) {
                     continue;
                 }
@@ -236,8 +236,8 @@
             cumulative.height -= _spacing.vertical;
             break;
         }
-        case GLBDataContainerOrientationHorizontal: {
-            for(GLBDataContainer* container in _sections) {
+        case GLBDataViewContainerOrientationHorizontal: {
+            for(GLBDataViewContainer* container in _sections) {
                 if(container.hidden == YES) {
                     continue;
                 }
@@ -258,8 +258,8 @@
     CGSize restriction = CGSizeMake(frame.size.width - (_margin.left + _margin.right), frame.size.height - (_margin.left + _margin.right));
     CGSize cumulative = CGSizeZero;
     switch(_orientation) {
-        case GLBDataContainerOrientationVertical: {
-            for(GLBDataContainer* container in _sections) {
+        case GLBDataViewContainerOrientationVertical: {
+            for(GLBDataViewContainer* container in _sections) {
                 if(container.hidden == YES) {
                     continue;
                 }
@@ -272,8 +272,8 @@
             cumulative.height -= _spacing.vertical;
             break;
         }
-        case GLBDataContainerOrientationHorizontal: {
-            for(GLBDataContainer* container in _sections) {
+        case GLBDataViewContainerOrientationHorizontal: {
+            for(GLBDataViewContainer* container in _sections) {
                 if(container.hidden == YES) {
                     continue;
                 }
@@ -295,19 +295,7 @@
 /* Constants                                        */
 /*--------------------------------------------------*/
 
-NSString* GLBDataContainerCurrentSectionChanged = @"GLBDataContainerCurrentSectionChanged";
-
-/*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-@implementation GLBDataContainerSectionsList
-@end
-
-#pragma clang diagnostic pop
+NSString* GLBDataViewContainerCurrentSectionChanged = @"GLBDataViewContainerCurrentSectionChanged";
 
 /*--------------------------------------------------*/
 #endif

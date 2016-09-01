@@ -10,13 +10,11 @@
 @end
 
 /*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-GLB_DEPRECATED
-@interface GLBSpinnerViewThreeBounce : GLBThreeBounceSpinnerView
-@end
-
-/*--------------------------------------------------*/
 #endif
+/*--------------------------------------------------*/
+
+#if __has_include("GLBSpinnerViewThreeBounce.h")
+#import "GLBSpinnerViewThreeBounce.h"
+#endif
+
 /*--------------------------------------------------*/

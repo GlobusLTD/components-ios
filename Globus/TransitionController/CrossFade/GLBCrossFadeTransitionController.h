@@ -11,13 +11,11 @@
 @end
 
 /*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-GLB_DEPRECATED
-@interface GLBTransitionControllerCrossFade : GLBCrossFadeTransitionController
-@end
-
-/*--------------------------------------------------*/
 #endif
+/*--------------------------------------------------*/
+
+#if __has_include("GLBTransitionControllerCrossFade.h")
+#import "GLBTransitionControllerCrossFade.h"
+#endif
+
 /*--------------------------------------------------*/

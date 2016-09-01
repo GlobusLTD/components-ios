@@ -72,7 +72,7 @@
 /* Macros                                           */
 /*--------------------------------------------------*/
 
-#define GLB_DEPRECATED __attribute__((deprecated))
+#define GLB_DEPRECATED                              __attribute__((deprecated))
 
 /*--------------------------------------------------*/
 

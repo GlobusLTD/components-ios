@@ -28,6 +28,71 @@
 		4043CACE1D78211200EE76F1 /* GLBTargetConditionals.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CACB1D78211200EE76F1 /* GLBTargetConditionals.h */; };
 		4043CACF1D78211200EE76F1 /* NSObject+GLBNS.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CACC1D78211200EE76F1 /* NSObject+GLBNS.h */; };
 		4043CAD01D78211200EE76F1 /* NSObject+GLBNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CACD1D78211200EE76F1 /* NSObject+GLBNS.m */; };
+		4043CAEE1D78519500EE76F1 /* GLBDataCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CAE21D78519500EE76F1 /* GLBDataCell.h */; };
+		4043CAEF1D78519500EE76F1 /* GLBDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CAE31D78519500EE76F1 /* GLBDataCell.m */; };
+		4043CAF01D78519500EE76F1 /* GLBDataCell+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CAE41D78519500EE76F1 /* GLBDataCell+Private.h */; };
+		4043CAF11D78519500EE76F1 /* GLBDataContainerItems.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CAE51D78519500EE76F1 /* GLBDataContainerItems.h */; };
+		4043CAF21D78519500EE76F1 /* GLBDataContainerItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CAE61D78519500EE76F1 /* GLBDataContainerItems.m */; };
+		4043CAF31D78519500EE76F1 /* GLBDataContainerItems+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CAE71D78519500EE76F1 /* GLBDataContainerItems+Private.h */; };
+		4043CAF41D78519500EE76F1 /* GLBDataContainerSections.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CAE81D78519500EE76F1 /* GLBDataContainerSections.h */; };
+		4043CAF51D78519500EE76F1 /* GLBDataContainerSections.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CAE91D78519500EE76F1 /* GLBDataContainerSections.m */; };
+		4043CAF61D78519500EE76F1 /* GLBDataContainerSections+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CAEA1D78519500EE76F1 /* GLBDataContainerSections+Private.h */; };
+		4043CAF71D78519500EE76F1 /* GLBDataItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CAEB1D78519500EE76F1 /* GLBDataItem.h */; };
+		4043CAF81D78519500EE76F1 /* GLBDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CAEC1D78519500EE76F1 /* GLBDataItem.m */; };
+		4043CAF91D78519500EE76F1 /* GLBDataItem+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CAED1D78519500EE76F1 /* GLBDataItem+Private.h */; };
+		4043CAFE1D7852F300EE76F1 /* GLBDataCellSwipe+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CAFB1D7852F300EE76F1 /* GLBDataCellSwipe+Private.h */; };
+		4043CAFF1D7852F300EE76F1 /* GLBDataCellSwipe.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CAFC1D7852F300EE76F1 /* GLBDataCellSwipe.h */; };
+		4043CB001D7852F300EE76F1 /* GLBDataCellSwipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CAFD1D7852F300EE76F1 /* GLBDataCellSwipe.m */; };
+		4043CB051D78542400EE76F1 /* GLBDataContainerSectionsList+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB021D78542400EE76F1 /* GLBDataContainerSectionsList+Private.h */; };
+		4043CB061D78542400EE76F1 /* GLBDataContainerSectionsList.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB031D78542400EE76F1 /* GLBDataContainerSectionsList.h */; };
+		4043CB071D78542400EE76F1 /* GLBDataContainerSectionsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB041D78542400EE76F1 /* GLBDataContainerSectionsList.m */; };
+		4043CB0C1D78546C00EE76F1 /* GLBDataContainerItemsList+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB091D78546C00EE76F1 /* GLBDataContainerItemsList+Private.h */; };
+		4043CB0D1D78546C00EE76F1 /* GLBDataContainerItemsList.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB0A1D78546C00EE76F1 /* GLBDataContainerItemsList.h */; };
+		4043CB0E1D78546C00EE76F1 /* GLBDataContainerItemsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB0B1D78546C00EE76F1 /* GLBDataContainerItemsList.m */; };
+		4043CB131D7854F300EE76F1 /* GLBDataContainerItemsFlow+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB101D7854F300EE76F1 /* GLBDataContainerItemsFlow+Private.h */; };
+		4043CB141D7854F300EE76F1 /* GLBDataContainerItemsFlow.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB111D7854F300EE76F1 /* GLBDataContainerItemsFlow.h */; };
+		4043CB151D7854F300EE76F1 /* GLBDataContainerItemsFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB121D7854F300EE76F1 /* GLBDataContainerItemsFlow.m */; };
+		4043CB191D78556E00EE76F1 /* GLBSpinnerViewArc.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB171D78556E00EE76F1 /* GLBSpinnerViewArc.h */; };
+		4043CB1A1D78556E00EE76F1 /* GLBSpinnerViewArc.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB181D78556E00EE76F1 /* GLBSpinnerViewArc.m */; };
+		4043CB1E1D7855AC00EE76F1 /* GLBSpinnerViewArcAlt.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB1C1D7855AC00EE76F1 /* GLBSpinnerViewArcAlt.h */; };
+		4043CB1F1D7855AC00EE76F1 /* GLBSpinnerViewArcAlt.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB1D1D7855AC00EE76F1 /* GLBSpinnerViewArcAlt.m */; };
+		4043CB231D7855F200EE76F1 /* GLBSpinnerViewBounce.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB211D7855F200EE76F1 /* GLBSpinnerViewBounce.h */; };
+		4043CB241D7855F200EE76F1 /* GLBSpinnerViewBounce.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB221D7855F200EE76F1 /* GLBSpinnerViewBounce.m */; };
+		4043CB281D78562800EE76F1 /* GLBSpinnerViewChasingDots.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB261D78562800EE76F1 /* GLBSpinnerViewChasingDots.h */; };
+		4043CB291D78562800EE76F1 /* GLBSpinnerViewChasingDots.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB271D78562800EE76F1 /* GLBSpinnerViewChasingDots.m */; };
+		4043CB2D1D78566200EE76F1 /* GLBSpinnerViewCircle.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB2B1D78566200EE76F1 /* GLBSpinnerViewCircle.h */; };
+		4043CB2E1D78566200EE76F1 /* GLBSpinnerViewCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB2C1D78566200EE76F1 /* GLBSpinnerViewCircle.m */; };
+		4043CB321D78569600EE76F1 /* GLBSpinnerViewCircleFlip.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB301D78569600EE76F1 /* GLBSpinnerViewCircleFlip.h */; };
+		4043CB331D78569600EE76F1 /* GLBSpinnerViewCircleFlip.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB311D78569600EE76F1 /* GLBSpinnerViewCircleFlip.m */; };
+		4043CB371D7856CE00EE76F1 /* GLBSpinnerViewFadingCircle.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB351D7856CE00EE76F1 /* GLBSpinnerViewFadingCircle.h */; };
+		4043CB381D7856CE00EE76F1 /* GLBSpinnerViewFadingCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB361D7856CE00EE76F1 /* GLBSpinnerViewFadingCircle.m */; };
+		4043CB3C1D78572000EE76F1 /* GLBSpinnerViewFadingCircleAlt.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB3A1D78572000EE76F1 /* GLBSpinnerViewFadingCircleAlt.h */; };
+		4043CB3D1D78572000EE76F1 /* GLBSpinnerViewFadingCircleAlt.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB3B1D78572000EE76F1 /* GLBSpinnerViewFadingCircleAlt.m */; };
+		4043CB411D78575600EE76F1 /* GLBSpinnerViewNineCubeGrid.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB3F1D78575600EE76F1 /* GLBSpinnerViewNineCubeGrid.h */; };
+		4043CB421D78575600EE76F1 /* GLBSpinnerViewNineCubeGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB401D78575600EE76F1 /* GLBSpinnerViewNineCubeGrid.m */; };
+		4043CB461D78577D00EE76F1 /* GLBSpinnerViewPlane.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB441D78577D00EE76F1 /* GLBSpinnerViewPlane.h */; };
+		4043CB471D78577D00EE76F1 /* GLBSpinnerViewPlane.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB451D78577D00EE76F1 /* GLBSpinnerViewPlane.m */; };
+		4043CB4B1D7857A500EE76F1 /* GLBSpinnerViewPulse.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB491D7857A500EE76F1 /* GLBSpinnerViewPulse.h */; };
+		4043CB4C1D7857A500EE76F1 /* GLBSpinnerViewPulse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB4A1D7857A500EE76F1 /* GLBSpinnerViewPulse.m */; };
+		4043CB501D7857EF00EE76F1 /* GLBSpinnerViewThreeBounce.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB4E1D7857EF00EE76F1 /* GLBSpinnerViewThreeBounce.h */; };
+		4043CB511D7857EF00EE76F1 /* GLBSpinnerViewThreeBounce.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB4F1D7857EF00EE76F1 /* GLBSpinnerViewThreeBounce.m */; };
+		4043CB551D78581D00EE76F1 /* GLBSpinnerViewWanderingCubes.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB531D78581D00EE76F1 /* GLBSpinnerViewWanderingCubes.h */; };
+		4043CB561D78581D00EE76F1 /* GLBSpinnerViewWanderingCubes.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB541D78581D00EE76F1 /* GLBSpinnerViewWanderingCubes.m */; };
+		4043CB5A1D78584500EE76F1 /* GLBSpinnerViewWave.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB581D78584500EE76F1 /* GLBSpinnerViewWave.h */; };
+		4043CB5B1D78584500EE76F1 /* GLBSpinnerViewWave.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB591D78584500EE76F1 /* GLBSpinnerViewWave.m */; };
+		4043CB5F1D78587100EE76F1 /* GLBSpinnerViewWordPress.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB5D1D78587100EE76F1 /* GLBSpinnerViewWordPress.h */; };
+		4043CB601D78587100EE76F1 /* GLBSpinnerViewWordPress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB5E1D78587100EE76F1 /* GLBSpinnerViewWordPress.m */; };
+		4043CB641D7858AB00EE76F1 /* GLBTransitionControllerCards.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB621D7858AB00EE76F1 /* GLBTransitionControllerCards.h */; };
+		4043CB651D7858AB00EE76F1 /* GLBTransitionControllerCards.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB631D7858AB00EE76F1 /* GLBTransitionControllerCards.m */; };
+		4043CB691D7858EB00EE76F1 /* GLBTransitionControllerCrossFade.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB671D7858EB00EE76F1 /* GLBTransitionControllerCrossFade.h */; };
+		4043CB6A1D7858EB00EE76F1 /* GLBTransitionControllerCrossFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB681D7858EB00EE76F1 /* GLBTransitionControllerCrossFade.m */; };
+		4043CB6E1D78591A00EE76F1 /* GLBTransitionControllerMaterial.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB6C1D78591A00EE76F1 /* GLBTransitionControllerMaterial.h */; };
+		4043CB6F1D78591A00EE76F1 /* GLBTransitionControllerMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB6D1D78591A00EE76F1 /* GLBTransitionControllerMaterial.m */; };
+		4043CB731D78595100EE76F1 /* GLBTransitionControllerSlide.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB711D78595100EE76F1 /* GLBTransitionControllerSlide.h */; };
+		4043CB741D78595100EE76F1 /* GLBTransitionControllerSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB721D78595100EE76F1 /* GLBTransitionControllerSlide.m */; };
+		4043CB781D785BAA00EE76F1 /* GLBDataContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB751D785BAA00EE76F1 /* GLBDataContainer.h */; };
+		4043CB791D785BAA00EE76F1 /* GLBDataContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4043CB761D785BAA00EE76F1 /* GLBDataContainer.m */; };
+		4043CB7A1D785BAA00EE76F1 /* GLBDataContainer+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4043CB771D785BAA00EE76F1 /* GLBDataContainer+Private.h */; };
 		4057F4821D762DCA00D48E49 /* GLBDataViewItemsFlowContainer+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4057F4771D762DCA00D48E49 /* GLBDataViewItemsFlowContainer+Private.h */; };
 		4057F4831D762DCA00D48E49 /* GLBDataViewItemsFlowContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4057F4781D762DCA00D48E49 /* GLBDataViewItemsFlowContainer.h */; };
 		4057F4841D762DCA00D48E49 /* GLBDataViewItemsFlowContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4057F4791D762DCA00D48E49 /* GLBDataViewItemsFlowContainer.m */; };
@@ -185,9 +250,9 @@
 		40E88FAD1D76274100275E43 /* GLBDataViewCell+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 40E88E441D76274100275E43 /* GLBDataViewCell+Private.h */; };
 		40E88FAE1D76274100275E43 /* GLBDataViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 40E88E451D76274100275E43 /* GLBDataViewCell.h */; };
 		40E88FAF1D76274100275E43 /* GLBDataViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E88E461D76274100275E43 /* GLBDataViewCell.m */; };
-		40E88FB01D76274100275E43 /* GLBDataContainer+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 40E88E471D76274100275E43 /* GLBDataContainer+Private.h */; };
-		40E88FB11D76274100275E43 /* GLBDataContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 40E88E481D76274100275E43 /* GLBDataContainer.h */; };
-		40E88FB21D76274100275E43 /* GLBDataContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E88E491D76274100275E43 /* GLBDataContainer.m */; };
+		40E88FB01D76274100275E43 /* GLBDataViewContainer+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 40E88E471D76274100275E43 /* GLBDataViewContainer+Private.h */; };
+		40E88FB11D76274100275E43 /* GLBDataViewContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 40E88E481D76274100275E43 /* GLBDataViewContainer.h */; };
+		40E88FB21D76274100275E43 /* GLBDataViewContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E88E491D76274100275E43 /* GLBDataViewContainer.m */; };
 		40E88FB31D76274100275E43 /* GLBDataViewItemsContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E88E4A1D76274100275E43 /* GLBDataViewItemsContainer.m */; };
 		40E88FB41D76274100275E43 /* GLBDataViewSectionsContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E88E4B1D76274100275E43 /* GLBDataViewSectionsContainer.m */; };
 		40E88FB51D76274100275E43 /* GLBDataViewItem+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 40E88E4C1D76274100275E43 /* GLBDataViewItem+Private.h */; };
@@ -386,6 +451,71 @@
 		4043CACB1D78211200EE76F1 /* GLBTargetConditionals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBTargetConditionals.h; sourceTree = "<group>"; };
 		4043CACC1D78211200EE76F1 /* NSObject+GLBNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+GLBNS.h"; sourceTree = "<group>"; };
 		4043CACD1D78211200EE76F1 /* NSObject+GLBNS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+GLBNS.m"; sourceTree = "<group>"; };
+		4043CAE21D78519500EE76F1 /* GLBDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBDataCell.h; sourceTree = "<group>"; };
+		4043CAE31D78519500EE76F1 /* GLBDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataCell.m; sourceTree = "<group>"; };
+		4043CAE41D78519500EE76F1 /* GLBDataCell+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataCell+Private.h"; sourceTree = "<group>"; };
+		4043CAE51D78519500EE76F1 /* GLBDataContainerItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBDataContainerItems.h; sourceTree = "<group>"; };
+		4043CAE61D78519500EE76F1 /* GLBDataContainerItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataContainerItems.m; sourceTree = "<group>"; };
+		4043CAE71D78519500EE76F1 /* GLBDataContainerItems+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataContainerItems+Private.h"; sourceTree = "<group>"; };
+		4043CAE81D78519500EE76F1 /* GLBDataContainerSections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBDataContainerSections.h; sourceTree = "<group>"; };
+		4043CAE91D78519500EE76F1 /* GLBDataContainerSections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataContainerSections.m; sourceTree = "<group>"; };
+		4043CAEA1D78519500EE76F1 /* GLBDataContainerSections+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataContainerSections+Private.h"; sourceTree = "<group>"; };
+		4043CAEB1D78519500EE76F1 /* GLBDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBDataItem.h; sourceTree = "<group>"; };
+		4043CAEC1D78519500EE76F1 /* GLBDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataItem.m; sourceTree = "<group>"; };
+		4043CAED1D78519500EE76F1 /* GLBDataItem+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataItem+Private.h"; sourceTree = "<group>"; };
+		4043CAFB1D7852F300EE76F1 /* GLBDataCellSwipe+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataCellSwipe+Private.h"; sourceTree = "<group>"; };
+		4043CAFC1D7852F300EE76F1 /* GLBDataCellSwipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBDataCellSwipe.h; sourceTree = "<group>"; };
+		4043CAFD1D7852F300EE76F1 /* GLBDataCellSwipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataCellSwipe.m; sourceTree = "<group>"; };
+		4043CB021D78542400EE76F1 /* GLBDataContainerSectionsList+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataContainerSectionsList+Private.h"; sourceTree = "<group>"; };
+		4043CB031D78542400EE76F1 /* GLBDataContainerSectionsList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBDataContainerSectionsList.h; sourceTree = "<group>"; };
+		4043CB041D78542400EE76F1 /* GLBDataContainerSectionsList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataContainerSectionsList.m; sourceTree = "<group>"; };
+		4043CB091D78546C00EE76F1 /* GLBDataContainerItemsList+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataContainerItemsList+Private.h"; sourceTree = "<group>"; };
+		4043CB0A1D78546C00EE76F1 /* GLBDataContainerItemsList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBDataContainerItemsList.h; sourceTree = "<group>"; };
+		4043CB0B1D78546C00EE76F1 /* GLBDataContainerItemsList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataContainerItemsList.m; sourceTree = "<group>"; };
+		4043CB101D7854F300EE76F1 /* GLBDataContainerItemsFlow+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataContainerItemsFlow+Private.h"; sourceTree = "<group>"; };
+		4043CB111D7854F300EE76F1 /* GLBDataContainerItemsFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBDataContainerItemsFlow.h; sourceTree = "<group>"; };
+		4043CB121D7854F300EE76F1 /* GLBDataContainerItemsFlow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataContainerItemsFlow.m; sourceTree = "<group>"; };
+		4043CB171D78556E00EE76F1 /* GLBSpinnerViewArc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBSpinnerViewArc.h; sourceTree = "<group>"; };
+		4043CB181D78556E00EE76F1 /* GLBSpinnerViewArc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBSpinnerViewArc.m; sourceTree = "<group>"; };
+		4043CB1C1D7855AC00EE76F1 /* GLBSpinnerViewArcAlt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBSpinnerViewArcAlt.h; sourceTree = "<group>"; };
+		4043CB1D1D7855AC00EE76F1 /* GLBSpinnerViewArcAlt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBSpinnerViewArcAlt.m; sourceTree = "<group>"; };
+		4043CB211D7855F200EE76F1 /* GLBSpinnerViewBounce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBSpinnerViewBounce.h; sourceTree = "<group>"; };
+		4043CB221D7855F200EE76F1 /* GLBSpinnerViewBounce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBSpinnerViewBounce.m; sourceTree = "<group>"; };
+		4043CB261D78562800EE76F1 /* GLBSpinnerViewChasingDots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBSpinnerViewChasingDots.h; sourceTree = "<group>"; };
+		4043CB271D78562800EE76F1 /* GLBSpinnerViewChasingDots.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBSpinnerViewChasingDots.m; sourceTree = "<group>"; };
+		4043CB2B1D78566200EE76F1 /* GLBSpinnerViewCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBSpinnerViewCircle.h; sourceTree = "<group>"; };
+		4043CB2C1D78566200EE76F1 /* GLBSpinnerViewCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBSpinnerViewCircle.m; sourceTree = "<group>"; };
+		4043CB301D78569600EE76F1 /* GLBSpinnerViewCircleFlip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBSpinnerViewCircleFlip.h; sourceTree = "<group>"; };
+		4043CB311D78569600EE76F1 /* GLBSpinnerViewCircleFlip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBSpinnerViewCircleFlip.m; sourceTree = "<group>"; };
+		4043CB351D7856CE00EE76F1 /* GLBSpinnerViewFadingCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBSpinnerViewFadingCircle.h; sourceTree = "<group>"; };
+		4043CB361D7856CE00EE76F1 /* GLBSpinnerViewFadingCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBSpinnerViewFadingCircle.m; sourceTree = "<group>"; };
+		4043CB3A1D78572000EE76F1 /* GLBSpinnerViewFadingCircleAlt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBSpinnerViewFadingCircleAlt.h; sourceTree = "<group>"; };
+		4043CB3B1D78572000EE76F1 /* GLBSpinnerViewFadingCircleAlt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBSpinnerViewFadingCircleAlt.m; sourceTree = "<group>"; };
+		4043CB3F1D78575600EE76F1 /* GLBSpinnerViewNineCubeGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBSpinnerViewNineCubeGrid.h; sourceTree = "<group>"; };
+		4043CB401D78575600EE76F1 /* GLBSpinnerViewNineCubeGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBSpinnerViewNineCubeGrid.m; sourceTree = "<group>"; };
+		4043CB441D78577D00EE76F1 /* GLBSpinnerViewPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBSpinnerViewPlane.h; sourceTree = "<group>"; };
+		4043CB451D78577D00EE76F1 /* GLBSpinnerViewPlane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBSpinnerViewPlane.m; sourceTree = "<group>"; };
+		4043CB491D7857A500EE76F1 /* GLBSpinnerViewPulse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBSpinnerViewPulse.h; sourceTree = "<group>"; };
+		4043CB4A1D7857A500EE76F1 /* GLBSpinnerViewPulse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBSpinnerViewPulse.m; sourceTree = "<group>"; };
+		4043CB4E1D7857EF00EE76F1 /* GLBSpinnerViewThreeBounce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBSpinnerViewThreeBounce.h; sourceTree = "<group>"; };
+		4043CB4F1D7857EF00EE76F1 /* GLBSpinnerViewThreeBounce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBSpinnerViewThreeBounce.m; sourceTree = "<group>"; };
+		4043CB531D78581D00EE76F1 /* GLBSpinnerViewWanderingCubes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBSpinnerViewWanderingCubes.h; sourceTree = "<group>"; };
+		4043CB541D78581D00EE76F1 /* GLBSpinnerViewWanderingCubes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBSpinnerViewWanderingCubes.m; sourceTree = "<group>"; };
+		4043CB581D78584500EE76F1 /* GLBSpinnerViewWave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBSpinnerViewWave.h; sourceTree = "<group>"; };
+		4043CB591D78584500EE76F1 /* GLBSpinnerViewWave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBSpinnerViewWave.m; sourceTree = "<group>"; };
+		4043CB5D1D78587100EE76F1 /* GLBSpinnerViewWordPress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBSpinnerViewWordPress.h; sourceTree = "<group>"; };
+		4043CB5E1D78587100EE76F1 /* GLBSpinnerViewWordPress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBSpinnerViewWordPress.m; sourceTree = "<group>"; };
+		4043CB621D7858AB00EE76F1 /* GLBTransitionControllerCards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBTransitionControllerCards.h; sourceTree = "<group>"; };
+		4043CB631D7858AB00EE76F1 /* GLBTransitionControllerCards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBTransitionControllerCards.m; sourceTree = "<group>"; };
+		4043CB671D7858EB00EE76F1 /* GLBTransitionControllerCrossFade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBTransitionControllerCrossFade.h; sourceTree = "<group>"; };
+		4043CB681D7858EB00EE76F1 /* GLBTransitionControllerCrossFade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBTransitionControllerCrossFade.m; sourceTree = "<group>"; };
+		4043CB6C1D78591A00EE76F1 /* GLBTransitionControllerMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBTransitionControllerMaterial.h; sourceTree = "<group>"; };
+		4043CB6D1D78591A00EE76F1 /* GLBTransitionControllerMaterial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBTransitionControllerMaterial.m; sourceTree = "<group>"; };
+		4043CB711D78595100EE76F1 /* GLBTransitionControllerSlide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBTransitionControllerSlide.h; sourceTree = "<group>"; };
+		4043CB721D78595100EE76F1 /* GLBTransitionControllerSlide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBTransitionControllerSlide.m; sourceTree = "<group>"; };
+		4043CB751D785BAA00EE76F1 /* GLBDataContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBDataContainer.h; sourceTree = "<group>"; };
+		4043CB761D785BAA00EE76F1 /* GLBDataContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataContainer.m; sourceTree = "<group>"; };
+		4043CB771D785BAA00EE76F1 /* GLBDataContainer+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataContainer+Private.h"; sourceTree = "<group>"; };
 		4057F4771D762DCA00D48E49 /* GLBDataViewItemsFlowContainer+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataViewItemsFlowContainer+Private.h"; sourceTree = "<group>"; };
 		4057F4781D762DCA00D48E49 /* GLBDataViewItemsFlowContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GLBDataViewItemsFlowContainer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4057F4791D762DCA00D48E49 /* GLBDataViewItemsFlowContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataViewItemsFlowContainer.m; sourceTree = "<group>"; };
@@ -540,9 +670,9 @@
 		40E88E441D76274100275E43 /* GLBDataViewCell+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataViewCell+Private.h"; sourceTree = "<group>"; };
 		40E88E451D76274100275E43 /* GLBDataViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBDataViewCell.h; sourceTree = "<group>"; };
 		40E88E461D76274100275E43 /* GLBDataViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataViewCell.m; sourceTree = "<group>"; };
-		40E88E471D76274100275E43 /* GLBDataContainer+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataContainer+Private.h"; sourceTree = "<group>"; };
-		40E88E481D76274100275E43 /* GLBDataContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBDataContainer.h; sourceTree = "<group>"; };
-		40E88E491D76274100275E43 /* GLBDataContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataContainer.m; sourceTree = "<group>"; };
+		40E88E471D76274100275E43 /* GLBDataViewContainer+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataViewContainer+Private.h"; sourceTree = "<group>"; };
+		40E88E481D76274100275E43 /* GLBDataViewContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBDataViewContainer.h; sourceTree = "<group>"; };
+		40E88E491D76274100275E43 /* GLBDataViewContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataViewContainer.m; sourceTree = "<group>"; };
 		40E88E4A1D76274100275E43 /* GLBDataViewItemsContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataViewItemsContainer.m; sourceTree = "<group>"; };
 		40E88E4B1D76274100275E43 /* GLBDataViewSectionsContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataViewSectionsContainer.m; sourceTree = "<group>"; };
 		40E88E4C1D76274100275E43 /* GLBDataViewItem+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataViewItem+Private.h"; sourceTree = "<group>"; };
@@ -834,9 +964,243 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		4043CAD11D78516900EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CAEB1D78519500EE76F1 /* GLBDataItem.h */,
+				4043CAED1D78519500EE76F1 /* GLBDataItem+Private.h */,
+				4043CAEC1D78519500EE76F1 /* GLBDataItem.m */,
+				4043CAE21D78519500EE76F1 /* GLBDataCell.h */,
+				4043CAE41D78519500EE76F1 /* GLBDataCell+Private.h */,
+				4043CAE31D78519500EE76F1 /* GLBDataCell.m */,
+				4043CB751D785BAA00EE76F1 /* GLBDataContainer.h */,
+				4043CB771D785BAA00EE76F1 /* GLBDataContainer+Private.h */,
+				4043CB761D785BAA00EE76F1 /* GLBDataContainer.m */,
+				4043CAE51D78519500EE76F1 /* GLBDataContainerItems.h */,
+				4043CAE71D78519500EE76F1 /* GLBDataContainerItems+Private.h */,
+				4043CAE61D78519500EE76F1 /* GLBDataContainerItems.m */,
+				4043CAE81D78519500EE76F1 /* GLBDataContainerSections.h */,
+				4043CAEA1D78519500EE76F1 /* GLBDataContainerSections+Private.h */,
+				4043CAE91D78519500EE76F1 /* GLBDataContainerSections.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CAFA1D7852F300EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CAFC1D7852F300EE76F1 /* GLBDataCellSwipe.h */,
+				4043CAFB1D7852F300EE76F1 /* GLBDataCellSwipe+Private.h */,
+				4043CAFD1D7852F300EE76F1 /* GLBDataCellSwipe.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB011D78542400EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB031D78542400EE76F1 /* GLBDataContainerSectionsList.h */,
+				4043CB021D78542400EE76F1 /* GLBDataContainerSectionsList+Private.h */,
+				4043CB041D78542400EE76F1 /* GLBDataContainerSectionsList.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB081D78546C00EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB0A1D78546C00EE76F1 /* GLBDataContainerItemsList.h */,
+				4043CB091D78546C00EE76F1 /* GLBDataContainerItemsList+Private.h */,
+				4043CB0B1D78546C00EE76F1 /* GLBDataContainerItemsList.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB0F1D7854F300EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB111D7854F300EE76F1 /* GLBDataContainerItemsFlow.h */,
+				4043CB101D7854F300EE76F1 /* GLBDataContainerItemsFlow+Private.h */,
+				4043CB121D7854F300EE76F1 /* GLBDataContainerItemsFlow.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB161D78556E00EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB171D78556E00EE76F1 /* GLBSpinnerViewArc.h */,
+				4043CB181D78556E00EE76F1 /* GLBSpinnerViewArc.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB1B1D7855AC00EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB1C1D7855AC00EE76F1 /* GLBSpinnerViewArcAlt.h */,
+				4043CB1D1D7855AC00EE76F1 /* GLBSpinnerViewArcAlt.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB201D7855F200EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB211D7855F200EE76F1 /* GLBSpinnerViewBounce.h */,
+				4043CB221D7855F200EE76F1 /* GLBSpinnerViewBounce.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB251D78562800EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB261D78562800EE76F1 /* GLBSpinnerViewChasingDots.h */,
+				4043CB271D78562800EE76F1 /* GLBSpinnerViewChasingDots.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB2A1D78566200EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB2B1D78566200EE76F1 /* GLBSpinnerViewCircle.h */,
+				4043CB2C1D78566200EE76F1 /* GLBSpinnerViewCircle.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB2F1D78569600EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB301D78569600EE76F1 /* GLBSpinnerViewCircleFlip.h */,
+				4043CB311D78569600EE76F1 /* GLBSpinnerViewCircleFlip.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB341D7856CE00EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB351D7856CE00EE76F1 /* GLBSpinnerViewFadingCircle.h */,
+				4043CB361D7856CE00EE76F1 /* GLBSpinnerViewFadingCircle.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB391D78572000EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB3A1D78572000EE76F1 /* GLBSpinnerViewFadingCircleAlt.h */,
+				4043CB3B1D78572000EE76F1 /* GLBSpinnerViewFadingCircleAlt.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB3E1D78575600EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB3F1D78575600EE76F1 /* GLBSpinnerViewNineCubeGrid.h */,
+				4043CB401D78575600EE76F1 /* GLBSpinnerViewNineCubeGrid.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB431D78577D00EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB441D78577D00EE76F1 /* GLBSpinnerViewPlane.h */,
+				4043CB451D78577D00EE76F1 /* GLBSpinnerViewPlane.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB481D7857A500EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB491D7857A500EE76F1 /* GLBSpinnerViewPulse.h */,
+				4043CB4A1D7857A500EE76F1 /* GLBSpinnerViewPulse.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB4D1D7857EF00EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB4E1D7857EF00EE76F1 /* GLBSpinnerViewThreeBounce.h */,
+				4043CB4F1D7857EF00EE76F1 /* GLBSpinnerViewThreeBounce.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB521D78581D00EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB531D78581D00EE76F1 /* GLBSpinnerViewWanderingCubes.h */,
+				4043CB541D78581D00EE76F1 /* GLBSpinnerViewWanderingCubes.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB571D78584500EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB581D78584500EE76F1 /* GLBSpinnerViewWave.h */,
+				4043CB591D78584500EE76F1 /* GLBSpinnerViewWave.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB5C1D78587100EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB5D1D78587100EE76F1 /* GLBSpinnerViewWordPress.h */,
+				4043CB5E1D78587100EE76F1 /* GLBSpinnerViewWordPress.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB611D7858AB00EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB621D7858AB00EE76F1 /* GLBTransitionControllerCards.h */,
+				4043CB631D7858AB00EE76F1 /* GLBTransitionControllerCards.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB661D7858EB00EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB671D7858EB00EE76F1 /* GLBTransitionControllerCrossFade.h */,
+				4043CB681D7858EB00EE76F1 /* GLBTransitionControllerCrossFade.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB6B1D78591A00EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB6C1D78591A00EE76F1 /* GLBTransitionControllerMaterial.h */,
+				4043CB6D1D78591A00EE76F1 /* GLBTransitionControllerMaterial.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4043CB701D78595100EE76F1 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4043CB711D78595100EE76F1 /* GLBTransitionControllerSlide.h */,
+				4043CB721D78595100EE76F1 /* GLBTransitionControllerSlide.m */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
 		4057F4761D762DCA00D48E49 /* itemsFlow */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB0F1D7854F300EE76F1 /* Legacy */,
 				4057F4781D762DCA00D48E49 /* GLBDataViewItemsFlowContainer.h */,
 				4057F4771D762DCA00D48E49 /* GLBDataViewItemsFlowContainer+Private.h */,
 				4057F4791D762DCA00D48E49 /* GLBDataViewItemsFlowContainer.m */,
@@ -847,6 +1211,7 @@
 		4057F47A1D762DCA00D48E49 /* ItemsList */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB081D78546C00EE76F1 /* Legacy */,
 				4057F47C1D762DCA00D48E49 /* GLBDataViewItemsListContainer.h */,
 				4057F47B1D762DCA00D48E49 /* GLBDataViewItemsListContainer+Private.h */,
 				4057F47D1D762DCA00D48E49 /* GLBDataViewItemsListContainer.m */,
@@ -857,6 +1222,7 @@
 		4057F47E1D762DCA00D48E49 /* SectionsList */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB011D78542400EE76F1 /* Legacy */,
 				4057F4801D762DCA00D48E49 /* GLBDataViewSectionsListContainer.h */,
 				4057F47F1D762DCA00D48E49 /* GLBDataViewSectionsListContainer+Private.h */,
 				4057F4811D762DCA00D48E49 /* GLBDataViewSectionsListContainer.m */,
@@ -877,6 +1243,7 @@
 		4057F48F1D76328F00D48E49 /* Cards */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB611D7858AB00EE76F1 /* Legacy */,
 				4057F4901D76328F00D48E49 /* GLBCardsTransitionController.h */,
 				4057F4911D76328F00D48E49 /* GLBCardsTransitionController.m */,
 			);
@@ -886,6 +1253,7 @@
 		4057F4921D76328F00D48E49 /* CrossFade */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB661D7858EB00EE76F1 /* Legacy */,
 				4057F4931D76328F00D48E49 /* GLBCrossFadeTransitionController.h */,
 				4057F4941D76328F00D48E49 /* GLBCrossFadeTransitionController.m */,
 			);
@@ -895,6 +1263,7 @@
 		4057F4951D76328F00D48E49 /* Material */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB6B1D78591A00EE76F1 /* Legacy */,
 				4057F4961D76328F00D48E49 /* GLBMaterialTransitionController.h */,
 				4057F4971D76328F00D48E49 /* GLBMaterialTransitionController.m */,
 			);
@@ -904,6 +1273,7 @@
 		4057F4981D76328F00D48E49 /* Slide */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB701D78595100EE76F1 /* Legacy */,
 				4057F4991D76328F00D48E49 /* GLBSlideTransitionController.h */,
 				4057F49A1D76328F00D48E49 /* GLBSlideTransitionController.m */,
 			);
@@ -1541,15 +1911,16 @@
 		40E88E431D76274100275E43 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				4043CAD11D78516900EE76F1 /* Legacy */,
 				40E88E531D76274100275E43 /* GLBDataView.h */,
 				40E88E521D76274100275E43 /* GLBDataView+Private.h */,
 				40E88E541D76274100275E43 /* GLBDataView.m */,
 				40E88E4D1D76274100275E43 /* GLBDataViewItem.h */,
 				40E88E4C1D76274100275E43 /* GLBDataViewItem+Private.h */,
 				40E88E4E1D76274100275E43 /* GLBDataViewItem.m */,
-				40E88E481D76274100275E43 /* GLBDataContainer.h */,
-				40E88E471D76274100275E43 /* GLBDataContainer+Private.h */,
-				40E88E491D76274100275E43 /* GLBDataContainer.m */,
+				40E88E481D76274100275E43 /* GLBDataViewContainer.h */,
+				40E88E471D76274100275E43 /* GLBDataViewContainer+Private.h */,
+				40E88E491D76274100275E43 /* GLBDataViewContainer.m */,
 				40E88E451D76274100275E43 /* GLBDataViewCell.h */,
 				40E88E441D76274100275E43 /* GLBDataViewCell+Private.h */,
 				40E88E461D76274100275E43 /* GLBDataViewCell.m */,
@@ -1578,6 +1949,7 @@
 		40E88E571D76274100275E43 /* Swipe */ = {
 			isa = PBXGroup;
 			children = (
+				4043CAFA1D7852F300EE76F1 /* Legacy */,
 				40E88E591D76274100275E43 /* GLBDataViewSwipeCell.h */,
 				40E88E581D76274100275E43 /* GLBDataViewSwipeCell+Private.h */,
 				40E88E5A1D76274100275E43 /* GLBDataViewSwipeCell.m */,
@@ -1875,6 +2247,7 @@
 		40E88ED31D76274100275E43 /* Arc */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB161D78556E00EE76F1 /* Legacy */,
 				40E88ED41D76274100275E43 /* GLBArcSpinnerView.h */,
 				40E88ED51D76274100275E43 /* GLBArcSpinnerView.m */,
 			);
@@ -1884,6 +2257,7 @@
 		40E88ED61D76274100275E43 /* ArcAlt */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB1B1D7855AC00EE76F1 /* Legacy */,
 				40E88ED71D76274100275E43 /* GLBArcAltSpinnerView.h */,
 				40E88ED81D76274100275E43 /* GLBArcAltSpinnerView.m */,
 			);
@@ -1893,6 +2267,7 @@
 		40E88ED91D76274100275E43 /* Bounce */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB201D7855F200EE76F1 /* Legacy */,
 				40E88EDA1D76274100275E43 /* GLBBounceSpinnerView.h */,
 				40E88EDB1D76274100275E43 /* GLBBounceSpinnerView.m */,
 			);
@@ -1902,6 +2277,7 @@
 		40E88EDC1D76274100275E43 /* ChasingDots */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB251D78562800EE76F1 /* Legacy */,
 				40E88EDD1D76274100275E43 /* GLBChasingDotsSpinnerView.h */,
 				40E88EDE1D76274100275E43 /* GLBChasingDotsSpinnerView.m */,
 			);
@@ -1911,6 +2287,7 @@
 		40E88EDF1D76274100275E43 /* Circle */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB2A1D78566200EE76F1 /* Legacy */,
 				40E88EE01D76274100275E43 /* GLBCircleSpinnerView.h */,
 				40E88EE11D76274100275E43 /* GLBCircleSpinnerView.m */,
 			);
@@ -1920,6 +2297,7 @@
 		40E88EE21D76274100275E43 /* CircleFlip */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB2F1D78569600EE76F1 /* Legacy */,
 				40E88EE31D76274100275E43 /* GLBCircleFlipSpinnerView.h */,
 				40E88EE41D76274100275E43 /* GLBCircleFlipSpinnerView.m */,
 			);
@@ -1929,6 +2307,7 @@
 		40E88EE51D76274100275E43 /* FadingCircle */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB341D7856CE00EE76F1 /* Legacy */,
 				40E88EE61D76274100275E43 /* GLBFadingCircleSpinnerView.h */,
 				40E88EE71D76274100275E43 /* GLBFadingCircleSpinnerView.m */,
 			);
@@ -1938,6 +2317,7 @@
 		40E88EE81D76274100275E43 /* FadingCircleAlt */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB391D78572000EE76F1 /* Legacy */,
 				40E88EE91D76274100275E43 /* GLBFadingCircleAltSpinnerView.h */,
 				40E88EEA1D76274100275E43 /* GLBFadingCircleAltSpinnerView.m */,
 			);
@@ -1947,6 +2327,7 @@
 		40E88EED1D76274100275E43 /* NineCubeGrid */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB3E1D78575600EE76F1 /* Legacy */,
 				40E88EEE1D76274100275E43 /* GLBNineCubeGridSpinnerView.h */,
 				40E88EEF1D76274100275E43 /* GLBNineCubeGridSpinnerView.m */,
 			);
@@ -1956,6 +2337,7 @@
 		40E88EF01D76274100275E43 /* Plane */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB431D78577D00EE76F1 /* Legacy */,
 				40E88EF11D76274100275E43 /* GLBPlaneSpinnerView.h */,
 				40E88EF21D76274100275E43 /* GLBPlaneSpinnerView.m */,
 			);
@@ -1965,6 +2347,7 @@
 		40E88EF31D76274100275E43 /* Pulse */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB481D7857A500EE76F1 /* Legacy */,
 				40E88EF41D76274100275E43 /* GLBPulseSpinnerView.h */,
 				40E88EF51D76274100275E43 /* GLBPulseSpinnerView.m */,
 			);
@@ -1974,6 +2357,7 @@
 		40E88EF61D76274100275E43 /* ThreeBounce */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB4D1D7857EF00EE76F1 /* Legacy */,
 				40E88EF71D76274100275E43 /* GLBThreeBounceSpinnerView.h */,
 				40E88EF81D76274100275E43 /* GLBThreeBounceSpinnerView.m */,
 			);
@@ -1983,6 +2367,7 @@
 		40E88EF91D76274100275E43 /* WanderingCubes */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB521D78581D00EE76F1 /* Legacy */,
 				40E88EFA1D76274100275E43 /* GLBWanderingCubesSpinnerView.h */,
 				40E88EFB1D76274100275E43 /* GLBWanderingCubesSpinnerView.m */,
 			);
@@ -1992,6 +2377,7 @@
 		40E88EFC1D76274100275E43 /* Wave */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB571D78584500EE76F1 /* Legacy */,
 				40E88EFD1D76274100275E43 /* GLBWaveSpinnerView.h */,
 				40E88EFE1D76274100275E43 /* GLBWaveSpinnerView.m */,
 			);
@@ -2001,6 +2387,7 @@
 		40E88EFF1D76274100275E43 /* WordPress */ = {
 			isa = PBXGroup;
 			children = (
+				4043CB5C1D78587100EE76F1 /* Legacy */,
 				40E88F001D76274100275E43 /* GLBWordPressSpinnerView.h */,
 				40E88F011D76274100275E43 /* GLBWordPressSpinnerView.m */,
 			);
@@ -2203,18 +2590,22 @@
 				40E88FEA1D76274100275E43 /* GLBKVO.h in Headers */,
 				40E890381D76274100275E43 /* GLBSplitViewController.h in Headers */,
 				4057F4FC1D763BFB00D48E49 /* UIWindow+GLBUI.h in Headers */,
-				40E88FB01D76274100275E43 /* GLBDataContainer+Private.h in Headers */,
+				40E88FB01D76274100275E43 /* GLBDataViewContainer+Private.h in Headers */,
 				40E890321D76274100275E43 /* GLBWanderingCubesSpinnerView.h in Headers */,
 				40E88F831D76274100275E43 /* NSDate+GLBNS.h in Headers */,
 				40E88FF01D76274100275E43 /* GLBLoadedView.h in Headers */,
+				4043CAFE1D7852F300EE76F1 /* GLBDataCellSwipe+Private.h in Headers */,
 				40E88F721D76274100275E43 /* GLBBlurView.h in Headers */,
 				40E88F811D76274100275E43 /* NSData+GLBNS.h in Headers */,
 				40E88F5E1D76274100275E43 /* GLBApiProvider.h in Headers */,
 				40E88FFA1D76274100275E43 /* GLBModelPack.h in Headers */,
 				40E88FEC1D76274100275E43 /* GLBLayoutView.h in Headers */,
+				4043CB2D1D78566200EE76F1 /* GLBSpinnerViewCircle.h in Headers */,
 				40E88F6C1D76274100275E43 /* GLBAudioSession.h in Headers */,
 				40E890061D76274100275E43 /* GLBPageViewController.h in Headers */,
 				40E88F9E1D76274100275E43 /* NSString+GLBNS.h in Headers */,
+				4043CB051D78542400EE76F1 /* GLBDataContainerSectionsList+Private.h in Headers */,
+				4043CB781D785BAA00EE76F1 /* GLBDataContainer.h in Headers */,
 				40E88F761D76274100275E43 /* GLBCache.h in Headers */,
 				4043CAC31D781C3C00EE76F1 /* NSObject+GLBDebug.h in Headers */,
 				4057F4A41D76328F00D48E49 /* GLBSlideTransitionController.h in Headers */,
@@ -2223,15 +2614,19 @@
 				40E8902C1D76274100275E43 /* GLBPlaneSpinnerView.h in Headers */,
 				4057F4851D762DCA00D48E49 /* GLBDataViewItemsListContainer+Private.h in Headers */,
 				4057F4821D762DCA00D48E49 /* GLBDataViewItemsFlowContainer+Private.h in Headers */,
+				4043CB411D78575600EE76F1 /* GLBSpinnerViewNineCubeGrid.h in Headers */,
 				4057F4E61D763BFB00D48E49 /* UIDevice+GLBUI.h in Headers */,
+				4043CAF61D78519500EE76F1 /* GLBDataContainerSections+Private.h in Headers */,
 				40E8902A1D76274100275E43 /* GLBNineCubeGridSpinnerView.h in Headers */,
+				4043CB691D7858EB00EE76F1 /* GLBTransitionControllerCrossFade.h in Headers */,
 				4057F4E01D763BFB00D48E49 /* UIButton+GLBUI.h in Headers */,
 				40E88F5C1D76274100275E43 /* GLBApiManager.h in Headers */,
 				4057F4EC1D763BFB00D48E49 /* UILabel+GLBUI.h in Headers */,
 				40E88FA61D76274100275E43 /* GLBRect.h in Headers */,
 				40E890101D76274100275E43 /* GLBRoundView.h in Headers */,
+				4043CB4B1D7857A500EE76F1 /* GLBSpinnerViewPulse.h in Headers */,
 				4057F5011D763F2200D48E49 /* GLBSpinnerView.h in Headers */,
-				40E88FB11D76274100275E43 /* GLBDataContainer.h in Headers */,
+				40E88FB11D76274100275E43 /* GLBDataViewContainer.h in Headers */,
 				40E88FDA1D76274100275E43 /* GLBBlurImageView.h in Headers */,
 				40E890751D76274100275E43 /* GLBViewController.h in Headers */,
 				40E88FA21D76274100275E43 /* GLBCG.h in Headers */,
@@ -2240,40 +2635,58 @@
 				40E88F8B1D76274100275E43 /* NSFileManager+GLBNS.h in Headers */,
 				40E890001D76274100275E43 /* GLBNotificationManager.h in Headers */,
 				40E88FF21D76274100275E43 /* GLBManagedModel+Private.h in Headers */,
+				4043CB321D78569600EE76F1 /* GLBSpinnerViewCircleFlip.h in Headers */,
 				40E88FD31D76274100275E43 /* GLBDialogViewController+Private.h in Headers */,
+				4043CB0D1D78546C00EE76F1 /* GLBDataContainerItemsList.h in Headers */,
 				40E8903A1D76274100275E43 /* GLBStyle.h in Headers */,
+				4043CAF41D78519500EE76F1 /* GLBDataContainerSections.h in Headers */,
 				40E8903E1D76274100275E43 /* GLBTaskManager.h in Headers */,
 				40E88FE51D76274100275E43 /* GLBInputField.h in Headers */,
 				40E88FE61D76274100275E43 /* GLBInputForm.h in Headers */,
 				40E88F9A1D76274100275E43 /* NSSet+GLBNS.h in Headers */,
+				4043CAF91D78519500EE76F1 /* GLBDataItem+Private.h in Headers */,
 				40E890421D76274100275E43 /* GLBTextView.h in Headers */,
 				40E88FFE1D76274100275E43 /* GLBNavigationViewController.h in Headers */,
 				40E890441D76274100275E43 /* GLBTimeout.h in Headers */,
 				4057F4EA1D763BFB00D48E49 /* UIImage+GLBUI.h in Headers */,
+				4043CB3C1D78572000EE76F1 /* GLBSpinnerViewFadingCircleAlt.h in Headers */,
 				40E890481D76274100275E43 /* GLBTouchView.h in Headers */,
 				40E890241D76274100275E43 /* GLBFadingCircleSpinnerView.h in Headers */,
+				4043CB371D7856CE00EE76F1 /* GLBSpinnerViewFadingCircle.h in Headers */,
 				4043CACF1D78211200EE76F1 /* NSObject+GLBNS.h in Headers */,
 				40E88FDC1D76274100275E43 /* GLBImageDownloadRequest.h in Headers */,
 				4057F4831D762DCA00D48E49 /* GLBDataViewItemsFlowContainer.h in Headers */,
+				4043CB461D78577D00EE76F1 /* GLBSpinnerViewPlane.h in Headers */,
 				40E88FA41D76274100275E43 /* GLBPoint.h in Headers */,
 				4057F4F61D763BFB00D48E49 /* UITabBar+GLBUI.h in Headers */,
 				4043CACE1D78211200EE76F1 /* GLBTargetConditionals.h in Headers */,
+				4043CB061D78542400EE76F1 /* GLBDataContainerSectionsList.h in Headers */,
 				40E88F7F1D76274100275E43 /* NSBundle+GLBNS.h in Headers */,
+				4043CB1E1D7855AC00EE76F1 /* GLBSpinnerViewArcAlt.h in Headers */,
+				4043CB641D7858AB00EE76F1 /* GLBTransitionControllerCards.h in Headers */,
 				40E88F701D76274100275E43 /* GLBBaseViewController.h in Headers */,
 				40E8908A1D7627AC00275E43 /* GLBDataViewItemsContainer.h in Headers */,
 				40E8907B1D76274100275E43 /* GLBWindow.h in Headers */,
 				40E88F901D76274100275E43 /* NSNull+GLBNS.h in Headers */,
 				4057F49B1D76328F00D48E49 /* GLBTransitionController+Private.h in Headers */,
+				4043CB731D78595100EE76F1 /* GLBTransitionControllerSlide.h in Headers */,
+				4043CB5F1D78587100EE76F1 /* GLBSpinnerViewWordPress.h in Headers */,
 				40E890141D76274100275E43 /* GLBSearchBar.h in Headers */,
 				40E88FD11D76274100275E43 /* GLBDateField.h in Headers */,
 				40E88FF51D76274100275E43 /* GLBModel+Private.h in Headers */,
+				4043CB231D7855F200EE76F1 /* GLBSpinnerViewBounce.h in Headers */,
 				40E88FE31D76274100275E43 /* GLBImageView.h in Headers */,
 				40E88F871D76274100275E43 /* NSDictionary+GLBNS.h in Headers */,
 				4057F49E1D76328F00D48E49 /* GLBCardsTransitionController.h in Headers */,
 				40E88F981D76274100275E43 /* NSPointerArray+GLBNS.h in Headers */,
+				4043CB191D78556E00EE76F1 /* GLBSpinnerViewArc.h in Headers */,
+				4043CAFF1D7852F300EE76F1 /* GLBDataCellSwipe.h in Headers */,
 				40E88FBE1D76274100275E43 /* GLBDataViewTypes.h in Headers */,
 				40E88F921D76274100275E43 /* NSNumber+GLBNS.h in Headers */,
+				4043CAF11D78519500EE76F1 /* GLBDataContainerItems.h in Headers */,
 				4057F4881D762DCA00D48E49 /* GLBDataViewSectionsListContainer+Private.h in Headers */,
+				4043CAF31D78519500EE76F1 /* GLBDataContainerItems+Private.h in Headers */,
+				4043CB551D78581D00EE76F1 /* GLBSpinnerViewWanderingCubes.h in Headers */,
 				40E8902E1D76274100275E43 /* GLBPulseSpinnerView.h in Headers */,
 				40E890261D76274100275E43 /* GLBFadingCircleAltSpinnerView.h in Headers */,
 				4057F4FA1D763BFB00D48E49 /* UIViewController+GLBUI.h in Headers */,
@@ -2289,6 +2702,7 @@
 				40E88F7D1D76274100275E43 /* NSAttributedString+GLBNS.h in Headers */,
 				40E8903C1D76274100275E43 /* GLBTabBarViewController.h in Headers */,
 				4057F4F41D763BFB00D48E49 /* UIScrollView+GLBUI.h in Headers */,
+				4043CB6E1D78591A00EE76F1 /* GLBTransitionControllerMaterial.h in Headers */,
 				40E88FBB1D76274100275E43 /* GLBDataView+Private.h in Headers */,
 				4057F4F21D763BFB00D48E49 /* UIResponder+GLBUI.h in Headers */,
 				40E88FDE1D76274100275E43 /* GLBImageDownloadResponse.h in Headers */,
@@ -2297,7 +2711,9 @@
 				40E890161D76274100275E43 /* GLBSlideViewController.h in Headers */,
 				40E88F791D76274100275E43 /* GLBTransform3D.h in Headers */,
 				40E890201D76274100275E43 /* GLBCircleSpinnerView.h in Headers */,
+				4043CB131D7854F300EE76F1 /* GLBDataContainerItemsFlow+Private.h in Headers */,
 				4057F4E41D763BFB00D48E49 /* UIColor+GLBUI.h in Headers */,
+				4043CAEE1D78519500EE76F1 /* GLBDataCell.h in Headers */,
 				40E88FE21D76274100275E43 /* GLBImageView+Private.h in Headers */,
 				40E890301D76274100275E43 /* GLBThreeBounceSpinnerView.h in Headers */,
 				40E890181D76274100275E43 /* GLBArcSpinnerView.h in Headers */,
@@ -2305,13 +2721,16 @@
 				40E8901C1D76274100275E43 /* GLBBounceSpinnerView.h in Headers */,
 				40E88FEE1D76274100275E43 /* GLBListField.h in Headers */,
 				40E88FB91D76274100275E43 /* GLBDataRefreshView.h in Headers */,
+				4043CB7A1D785BAA00EE76F1 /* GLBDataContainer+Private.h in Headers */,
 				40E8908B1D7627AC00275E43 /* GLBDataViewItemsContainer+Private.h in Headers */,
 				40E88FA01D76274100275E43 /* NSURL+GLBNS.h in Headers */,
 				40E88FF81D76274100275E43 /* GLBModelJson.h in Headers */,
 				4057F4F01D763BFB00D48E49 /* UINib+GLBUI.h in Headers */,
+				4043CB5A1D78584500EE76F1 /* GLBSpinnerViewWave.h in Headers */,
 				40E88FB61D76274100275E43 /* GLBDataViewItem.h in Headers */,
 				40E88F6A1D76274100275E43 /* GLBAudioRecorder.h in Headers */,
 				40E890731D76274100275E43 /* GLBVideoPlayerView.h in Headers */,
+				4043CB501D7857EF00EE76F1 /* GLBSpinnerViewThreeBounce.h in Headers */,
 				40E890221D76274100275E43 /* GLBCircleFlipSpinnerView.h in Headers */,
 				4057F4DE1D763BFB00D48E49 /* NSString+GLBUI.h in Headers */,
 				40E88F7B1D76274100275E43 /* NSArray+GLBNS.h in Headers */,
@@ -2321,21 +2740,26 @@
 				40E890461D76274100275E43 /* GLBTimer.h in Headers */,
 				40E890081D76274100275E43 /* GLBPhoneField.h in Headers */,
 				40E88F611D76274100275E43 /* GLBApiRequest.h in Headers */,
+				4043CAF01D78519500EE76F1 /* GLBDataCell+Private.h in Headers */,
 				40E8901A1D76274100275E43 /* GLBArcAltSpinnerView.h in Headers */,
 				40E8900C1D76274100275E43 /* GLBPressAndHoldGestureRecognizer.h in Headers */,
 				40E890341D76274100275E43 /* GLBWaveSpinnerView.h in Headers */,
 				40E88FB51D76274100275E43 /* GLBDataViewItem+Private.h in Headers */,
 				40E88F641D76274100275E43 /* GLBApiResponse.h in Headers */,
 				40E88F631D76274100275E43 /* GLBApiResponse+Private.h in Headers */,
+				4043CB281D78562800EE76F1 /* GLBSpinnerViewChasingDots.h in Headers */,
 				40E88FE01D76274100275E43 /* GLBImageManager.h in Headers */,
 				40E88F581D76274100275E43 /* GLBAction.h in Headers */,
 				4057F4A01D76328F00D48E49 /* GLBCrossFadeTransitionController.h in Headers */,
 				40E8908C1D7627AC00275E43 /* GLBDataViewSectionsContainer.h in Headers */,
+				4043CAF71D78519500EE76F1 /* GLBDataItem.h in Headers */,
 				40E88F961D76274100275E43 /* NSOrderedSet+GLBNS.h in Headers */,
 				4057F49C1D76328F00D48E49 /* GLBTransitionController.h in Headers */,
 				40E88FFC1D76274100275E43 /* GLBMoon.h in Headers */,
 				40E88F601D76274100275E43 /* GLBApiRequest+Private.h in Headers */,
+				4043CB0C1D78546C00EE76F1 /* GLBDataContainerItemsList+Private.h in Headers */,
 				40E88F891D76274100275E43 /* NSError+GLBNS.h in Headers */,
+				4043CB141D7854F300EE76F1 /* GLBDataContainerItemsFlow.h in Headers */,
 				4043CAC81D781C6500EE76F1 /* NSObject+GLBPack.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2493,12 +2917,16 @@
 				40E8900B1D76274100275E43 /* GLBPopoverController.m in Sources */,
 				4057F4DF1D763BFB00D48E49 /* NSString+GLBUI.m in Sources */,
 				40E88FAC1D76274100275E43 /* GLBDataSource.m in Sources */,
+				4043CB6A1D7858EB00EE76F1 /* GLBTransitionControllerCrossFade.m in Sources */,
+				4043CB001D7852F300EE76F1 /* GLBDataCellSwipe.m in Sources */,
+				4043CB601D78587100EE76F1 /* GLBSpinnerViewWordPress.m in Sources */,
 				40E88F9F1D76274100275E43 /* NSString+GLBNS.m in Sources */,
 				4057F4E51D763BFB00D48E49 /* UIColor+GLBUI.m in Sources */,
 				4057F4DB1D763BFB00D48E49 /* UIApplication+GLBUI.m in Sources */,
 				40E88FC11D76274100275E43 /* GLBDataViewSwipeCell.m in Sources */,
 				4057F4E11D763BFB00D48E49 /* UIButton+GLBUI.m in Sources */,
 				4057F4FB1D763BFB00D48E49 /* UIViewController+GLBUI.m in Sources */,
+				4043CB151D7854F300EE76F1 /* GLBDataContainerItemsFlow.m in Sources */,
 				40E890151D76274100275E43 /* GLBSearchBar.m in Sources */,
 				40E88FD71D76274100275E43 /* GLBGeoLocationManager.m in Sources */,
 				4057F4A51D76328F00D48E49 /* GLBSlideTransitionController.m in Sources */,
@@ -2511,8 +2939,15 @@
 				4057F4F71D763BFB00D48E49 /* UITabBar+GLBUI.m in Sources */,
 				40E88F731D76274100275E43 /* GLBBlurView.m in Sources */,
 				40E88FDD1D76274100275E43 /* GLBImageDownloadRequest.m in Sources */,
+				4043CB1F1D7855AC00EE76F1 /* GLBSpinnerViewArcAlt.m in Sources */,
 				40E88F651D76274100275E43 /* GLBApiResponse.m in Sources */,
+				4043CB421D78575600EE76F1 /* GLBSpinnerViewNineCubeGrid.m in Sources */,
+				4043CB3D1D78572000EE76F1 /* GLBSpinnerViewFadingCircleAlt.m in Sources */,
+				4043CB471D78577D00EE76F1 /* GLBSpinnerViewPlane.m in Sources */,
+				4043CB071D78542400EE76F1 /* GLBDataContainerSectionsList.m in Sources */,
+				4043CB1A1D78556E00EE76F1 /* GLBSpinnerViewArc.m in Sources */,
 				4057F4A11D76328F00D48E49 /* GLBCrossFadeTransitionController.m in Sources */,
+				4043CB6F1D78591A00EE76F1 /* GLBTransitionControllerMaterial.m in Sources */,
 				40E88FF41D76274100275E43 /* GLBManagedModel.m in Sources */,
 				40E8902B1D76274100275E43 /* GLBNineCubeGridSpinnerView.m in Sources */,
 				40E890071D76274100275E43 /* GLBPageViewController.m in Sources */,
@@ -2527,10 +2962,13 @@
 				40E890411D76274100275E43 /* GLBTextField.m in Sources */,
 				4057F4841D762DCA00D48E49 /* GLBDataViewItemsFlowContainer.m in Sources */,
 				40E88F841D76274100275E43 /* NSDate+GLBNS.m in Sources */,
+				4043CB2E1D78566200EE76F1 /* GLBSpinnerViewCircle.m in Sources */,
 				40E88FE71D76274100275E43 /* GLBInputForm.m in Sources */,
 				40E890191D76274100275E43 /* GLBArcSpinnerView.m in Sources */,
+				4043CAF51D78519500EE76F1 /* GLBDataContainerSections.m in Sources */,
 				40E88FB31D76274100275E43 /* GLBDataViewItemsContainer.m in Sources */,
 				40E890741D76274100275E43 /* GLBVideoPlayerView.m in Sources */,
+				4043CAEF1D78519500EE76F1 /* GLBDataCell.m in Sources */,
 				40E88FA11D76274100275E43 /* NSURL+GLBNS.m in Sources */,
 				40E890091D76274100275E43 /* GLBPhoneField.m in Sources */,
 				40E88FA51D76274100275E43 /* GLBPoint.m in Sources */,
@@ -2540,6 +2978,7 @@
 				40E88F6B1D76274100275E43 /* GLBAudioRecorder.m in Sources */,
 				40E88F801D76274100275E43 /* NSBundle+GLBNS.m in Sources */,
 				40E8902F1D76274100275E43 /* GLBPulseSpinnerView.m in Sources */,
+				4043CB561D78581D00EE76F1 /* GLBSpinnerViewWanderingCubes.m in Sources */,
 				40E890431D76274100275E43 /* GLBTextView.m in Sources */,
 				40E890031D76274100275E43 /* GLBObserver.m in Sources */,
 				40E890051D76274100275E43 /* GLBPageControl.m in Sources */,
@@ -2551,6 +2990,7 @@
 				40E88F621D76274100275E43 /* GLBApiRequest.m in Sources */,
 				40E88FEB1D76274100275E43 /* GLBKVO.m in Sources */,
 				4057F4F11D763BFB00D48E49 /* UINib+GLBUI.m in Sources */,
+				4043CB651D7858AB00EE76F1 /* GLBTransitionControllerCards.m in Sources */,
 				40E8900F1D76274100275E43 /* GLBRegExpParser.m in Sources */,
 				40E88FE41D76274100275E43 /* GLBImageView.m in Sources */,
 				40E88F711D76274100275E43 /* GLBBaseViewController.m in Sources */,
@@ -2558,25 +2998,32 @@
 				40E88F971D76274100275E43 /* NSOrderedSet+GLBNS.m in Sources */,
 				40E890011D76274100275E43 /* GLBNotificationManager.m in Sources */,
 				40E88F6F1D76274100275E43 /* GLBBadgeView.m in Sources */,
+				4043CB241D7855F200EE76F1 /* GLBSpinnerViewBounce.m in Sources */,
 				40E88F8A1D76274100275E43 /* NSError+GLBNS.m in Sources */,
 				40E88FD51D76274100275E43 /* GLBDialogViewController.m in Sources */,
+				4043CB4C1D7857A500EE76F1 /* GLBSpinnerViewPulse.m in Sources */,
 				40E88F7E1D76274100275E43 /* NSAttributedString+GLBNS.m in Sources */,
 				40E88FA71D76274100275E43 /* GLBRect.m in Sources */,
+				4043CB291D78562800EE76F1 /* GLBSpinnerViewChasingDots.m in Sources */,
 				4043CAD01D78211200EE76F1 /* NSObject+GLBNS.m in Sources */,
 				40E88F591D76274100275E43 /* GLBAction.m in Sources */,
 				40E88FDB1D76274100275E43 /* GLBBlurImageView.m in Sources */,
+				4043CB511D7857EF00EE76F1 /* GLBSpinnerViewThreeBounce.m in Sources */,
 				4057F4EB1D763BFB00D48E49 /* UIImage+GLBUI.m in Sources */,
 				40E88F931D76274100275E43 /* NSNumber+GLBNS.m in Sources */,
 				40E88FFD1D76274100275E43 /* GLBMoon.m in Sources */,
 				40E88FD21D76274100275E43 /* GLBDateField.m in Sources */,
 				4057F4EF1D763BFB00D48E49 /* UINavigationController+GLBUI.m in Sources */,
 				40E890251D76274100275E43 /* GLBFadingCircleSpinnerView.m in Sources */,
+				4043CB791D785BAA00EE76F1 /* GLBDataContainer.m in Sources */,
+				4043CB741D78595100EE76F1 /* GLBTransitionControllerSlide.m in Sources */,
 				40E8902D1D76274100275E43 /* GLBPlaneSpinnerView.m in Sources */,
 				40E88FAF1D76274100275E43 /* GLBDataViewCell.m in Sources */,
 				40E890761D76274100275E43 /* GLBViewController.m in Sources */,
 				40E88F5B1D76274100275E43 /* GLBActivityView.m in Sources */,
 				4057F49F1D76328F00D48E49 /* GLBCardsTransitionController.m in Sources */,
 				40E88FF91D76274100275E43 /* GLBModelJson.m in Sources */,
+				4043CB331D78569600EE76F1 /* GLBSpinnerViewCircleFlip.m in Sources */,
 				40E8900D1D76274100275E43 /* GLBPressAndHoldGestureRecognizer.m in Sources */,
 				40E88FB41D76274100275E43 /* GLBDataViewSectionsContainer.m in Sources */,
 				40E88F9B1D76274100275E43 /* NSSet+GLBNS.m in Sources */,
@@ -2586,10 +3033,12 @@
 				40E890211D76274100275E43 /* GLBCircleSpinnerView.m in Sources */,
 				40E890391D76274100275E43 /* GLBSplitViewController.m in Sources */,
 				40E8901D1D76274100275E43 /* GLBBounceSpinnerView.m in Sources */,
+				4043CAF81D78519500EE76F1 /* GLBDataItem.m in Sources */,
 				40E890491D76274100275E43 /* GLBTouchView.m in Sources */,
 				40E8907A1D76274100275E43 /* GLBWebViewController.m in Sources */,
 				40E890451D76274100275E43 /* GLBTimeout.m in Sources */,
 				40E88F861D76274100275E43 /* NSDateFormatter+GLBNS.m in Sources */,
+				4043CB0E1D78546C00EE76F1 /* GLBDataContainerItemsList.m in Sources */,
 				40E88F8C1D76274100275E43 /* NSFileManager+GLBNS.m in Sources */,
 				40E88FE11D76274100275E43 /* GLBImageManager.m in Sources */,
 				4057F4E91D763BFB00D48E49 /* UIGestureRecognizer+GLBUI.m in Sources */,
@@ -2599,14 +3048,16 @@
 				4057F49D1D76328F00D48E49 /* GLBTransitionController.m in Sources */,
 				40E890271D76274100275E43 /* GLBFadingCircleAltSpinnerView.m in Sources */,
 				40E88FF71D76274100275E43 /* GLBModel.m in Sources */,
-				40E88FB21D76274100275E43 /* GLBDataContainer.m in Sources */,
+				40E88FB21D76274100275E43 /* GLBDataViewContainer.m in Sources */,
 				4057F4ED1D763BFB00D48E49 /* UILabel+GLBUI.m in Sources */,
 				40E890331D76274100275E43 /* GLBWanderingCubesSpinnerView.m in Sources */,
 				40E88FBA1D76274100275E43 /* GLBDataRefreshView.m in Sources */,
 				40E88F671D76274100275E43 /* GLBAppGroupNotificationCenter.m in Sources */,
+				4043CB381D7856CE00EE76F1 /* GLBSpinnerViewFadingCircle.m in Sources */,
 				40E88FF11D76274100275E43 /* GLBLoadedView.m in Sources */,
 				40E88FE91D76274100275E43 /* GLBInputValidator.m in Sources */,
 				40E890311D76274100275E43 /* GLBThreeBounceSpinnerView.m in Sources */,
+				4043CB5B1D78584500EE76F1 /* GLBSpinnerViewWave.m in Sources */,
 				40E88F691D76274100275E43 /* GLBAudioPlayer.m in Sources */,
 				40E890171D76274100275E43 /* GLBSlideViewController.m in Sources */,
 				40E88F771D76274100275E43 /* GLBCache.m in Sources */,
@@ -2615,6 +3066,7 @@
 				40E88FA31D76274100275E43 /* GLBCG.m in Sources */,
 				40E88F6D1D76274100275E43 /* GLBAudioSession.m in Sources */,
 				40E88F751D76274100275E43 /* GLBButton.m in Sources */,
+				4043CAF21D78519500EE76F1 /* GLBDataContainerItems.m in Sources */,
 				40E88FED1D76274100275E43 /* GLBLayoutView.m in Sources */,
 				40E88FFB1D76274100275E43 /* GLBModelPack.m in Sources */,
 				4057F4E71D763BFB00D48E49 /* UIDevice+GLBUI.m in Sources */,

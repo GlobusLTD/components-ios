@@ -10,13 +10,11 @@
 @end
 
 /*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-GLB_DEPRECATED
-@interface GLBSpinnerViewWanderingCubes : GLBWanderingCubesSpinnerView
-@end
-
-/*--------------------------------------------------*/
 #endif
+/*--------------------------------------------------*/
+
+#if __has_include("GLBSpinnerViewWanderingCubes.h")
+#import "GLBSpinnerViewWanderingCubes.h"
+#endif
+
 /*--------------------------------------------------*/

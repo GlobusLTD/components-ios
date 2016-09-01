@@ -143,7 +143,7 @@
 
 #pragma mark - Property
 
-- (void)setParent:(GLBDataContainer*)parent {
+- (void)setParent:(GLBDataViewContainer*)parent {
     if(_parent != parent) {
         _parent = parent;
         if(_parent != nil) {
@@ -474,18 +474,6 @@
 }
 
 @end
-
-/*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-@implementation GLBDataItem
-@end
-
-#pragma clang diagnostic pop
 
 /*--------------------------------------------------*/
 #endif

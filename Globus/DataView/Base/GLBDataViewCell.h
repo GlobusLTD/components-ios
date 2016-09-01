@@ -80,16 +80,5 @@ extern NSString* GLBDataViewCellPressed;
 extern NSString* GLBDataViewCellLongPressed;
 
 /*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-GLB_DEPRECATED
-@interface GLBDataCell : GLBDataViewCell
-@end
-
-#define GLBDataCellPressed GLBDataViewCellPressed
-#define GLBDataCellLongPressed GLBDataViewCellLongPressed
-
-/*--------------------------------------------------*/
 #endif
 /*--------------------------------------------------*/

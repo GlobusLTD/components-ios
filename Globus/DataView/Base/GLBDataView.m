@@ -337,7 +337,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     return _contentView;
 }
 
-- (void)setContainer:(GLBDataContainer*)container {
+- (void)setContainer:(GLBDataViewContainer*)container {
     if(_container != container) {
         if(_container != nil) {
             [self setNeedValidateLayout];

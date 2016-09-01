@@ -23,11 +23,11 @@
 
 #pragma mark - Init / Free
 
-+ (instancetype)containerWithOrientation:(GLBDataContainerOrientation)orientation {
++ (instancetype)containerWithOrientation:(GLBDataViewContainerOrientation)orientation {
     return [[self alloc] initWithOrientation:orientation];
 }
 
-- (instancetype)initWithOrientation:(GLBDataContainerOrientation)orientation {
+- (instancetype)initWithOrientation:(GLBDataViewContainerOrientation)orientation {
     self = [super init];
     if(self != nil) {
         _orientation = orientation;
@@ -38,7 +38,7 @@
 - (void)setup {
     [super setup];
     
-    _orientation = GLBDataContainerOrientationVertical;
+    _orientation = GLBDataViewContainerOrientationVertical;
     _margin = UIEdgeInsetsZero;
     _spacing = UIOffsetZero;
     _defaultSize = CGSizeZero;
@@ -51,7 +51,7 @@
 
 #pragma mark - Property
 
-- (void)setOrientation:(GLBDataContainerOrientation)orientation {
+- (void)setOrientation:(GLBDataViewContainerOrientation)orientation {
     if(_orientation != orientation) {
         _orientation = orientation;
         if(_view != nil) {
@@ -146,7 +146,7 @@
     return [self prependIdentifier:identifier byData:data order:_defaultOrder configure:nil];
 }
 
-- (GLBDataViewItem*)prependIdentifier:(NSString*)identifier byData:(id)data configure:(GLBDataContainerConfigureItemBlock)configure {
+- (GLBDataViewItem*)prependIdentifier:(NSString*)identifier byData:(id)data configure:(GLBDataViewContainerConfigureItemBlock)configure {
     return [self prependIdentifier:identifier byData:data order:_defaultOrder configure:configure];
 }
 
@@ -154,7 +154,7 @@
     return [self prependIdentifier:identifier byData:data order:order configure:nil];
 }
 
-- (GLBDataViewItem*)prependIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order configure:(GLBDataContainerConfigureItemBlock)configure {
+- (GLBDataViewItem*)prependIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order configure:(GLBDataViewContainerConfigureItemBlock)configure {
     GLBDataViewItem* item = [GLBDataViewItem itemWithIdentifier:identifier order:order data:data];
     if(configure != nil) {
         configure(item);
@@ -185,7 +185,7 @@
     return [self appendIdentifier:identifier byData:data order:_defaultOrder configure:nil];
 }
 
-- (GLBDataViewItem*)appendIdentifier:(NSString*)identifier byData:(id)data configure:(GLBDataContainerConfigureItemBlock)configure {
+- (GLBDataViewItem*)appendIdentifier:(NSString*)identifier byData:(id)data configure:(GLBDataViewContainerConfigureItemBlock)configure {
     return [self appendIdentifier:identifier byData:data order:_defaultOrder configure:configure];
 }
 
@@ -193,7 +193,7 @@
     return [self appendIdentifier:identifier byData:data order:order configure:nil];
 }
 
-- (GLBDataViewItem*)appendIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order configure:(GLBDataContainerConfigureItemBlock)configure {
+- (GLBDataViewItem*)appendIdentifier:(NSString*)identifier byData:(id)data order:(NSUInteger)order configure:(GLBDataViewContainerConfigureItemBlock)configure {
     GLBDataViewItem* item = [GLBDataViewItem itemWithIdentifier:identifier order:order data:data];
     if(configure != nil) {
         configure(item);
@@ -224,7 +224,7 @@
     return [self insertIdentifier:identifier atIndex:index byData:data order:_defaultOrder configure:nil];
 }
 
-- (GLBDataViewItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data configure:(GLBDataContainerConfigureItemBlock)configure {
+- (GLBDataViewItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data configure:(GLBDataViewContainerConfigureItemBlock)configure {
     return [self insertIdentifier:identifier atIndex:index byData:data order:_defaultOrder configure:configure];
 }
 
@@ -232,7 +232,7 @@
     return [self insertIdentifier:identifier atIndex:index byData:data order:order configure:nil];
 }
 
-- (GLBDataViewItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data order:(NSUInteger)order configure:(GLBDataContainerConfigureItemBlock)configure {
+- (GLBDataViewItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data order:(NSUInteger)order configure:(GLBDataViewContainerConfigureItemBlock)configure {
     GLBDataViewItem* item = [GLBDataViewItem itemWithIdentifier:identifier order:order data:data];
     if(configure != nil) {
         configure(item);
@@ -338,7 +338,7 @@
     CGSize cumulative = CGSizeZero;
     
     switch(_orientation) {
-        case GLBDataContainerOrientationVertical: {
+        case GLBDataViewContainerOrientationVertical: {
             CGFloat availableWidth = (_defaultSize.width > 0) ? _defaultSize.width : restriction.width;
             CGFloat availableHeight = (_defaultSize.height > 0) ? _defaultSize.height : restriction.height;
             CGSize availableSize = CGSizeMake(availableWidth, availableHeight);
@@ -369,7 +369,7 @@
             }
             break;
         }
-        case GLBDataContainerOrientationHorizontal: {
+        case GLBDataViewContainerOrientationHorizontal: {
             CGFloat availableWidth = (_defaultSize.width > 0) ? _defaultSize.width : restriction.width;
             CGFloat availableHeight = (_defaultSize.height > 0) ? _defaultSize.height : restriction.height;
             CGSize availableSize = CGSizeMake(availableWidth, availableHeight);
@@ -409,7 +409,7 @@
     CGSize restriction = CGSizeMake(frame.size.width - (_margin.left + _margin.right), frame.size.height - (_margin.top + _margin.bottom));
     CGSize cumulative = CGSizeZero;
     switch(_orientation) {
-        case GLBDataContainerOrientationVertical: {
+        case GLBDataViewContainerOrientationVertical: {
             CGFloat availableWidth = (_defaultSize.width > 0) ? _defaultSize.width : restriction.width;
             CGFloat availableHeight = (_defaultSize.height > 0) ? _defaultSize.height : restriction.height;
             CGSize availableSize = CGSizeMake(availableWidth, availableHeight);
@@ -452,7 +452,7 @@
             } options:enumOption];
             break;
         }
-        case GLBDataContainerOrientationHorizontal: {
+        case GLBDataViewContainerOrientationHorizontal: {
             CGFloat availableWidth = (_defaultSize.width > 0) ? _defaultSize.width : restriction.width;
             CGFloat availableHeight = (_defaultSize.height > 0) ? _defaultSize.height : restriction.height;
             CGSize availableSize = CGSizeMake(availableWidth, availableHeight);
@@ -500,7 +500,7 @@
 
 - (void)_willEntriesLayoutForBounds:(CGRect)bounds {
     switch(_orientation) {
-        case GLBDataContainerOrientationVertical: {
+        case GLBDataViewContainerOrientationVertical: {
             CGFloat boundsBefore = bounds.origin.y;
             CGFloat boundsAfter = bounds.origin.y + bounds.size.height;
             CGFloat entriesBefore = _frame.origin.y;
@@ -531,7 +531,7 @@
             }
             break;
         }
-        case GLBDataContainerOrientationHorizontal: {
+        case GLBDataViewContainerOrientationHorizontal: {
             CGFloat boundsBefore = bounds.origin.x;
             CGFloat boundsAfter = bounds.origin.x + bounds.size.width;
             CGFloat entriesBefore = _frame.origin.x;
@@ -585,7 +585,7 @@
         NSUInteger srcIndex = [_items indexOfObject:item];
         NSUInteger dstIndex = srcIndex;
         switch(_orientation) {
-            case GLBDataContainerOrientationVertical: {
+            case GLBDataViewContainerOrientationVertical: {
                 frame = CGRectOffset(frame, 0.0f, delta.y);
                 CGFloat upperLimit = CGRectGetMinY(_movingFrame);
                 CGFloat lowerLimit = CGRectGetMaxY(_movingFrame);
@@ -596,7 +596,7 @@
                 }
                 break;
             }
-            case GLBDataContainerOrientationHorizontal: {
+            case GLBDataViewContainerOrientationHorizontal: {
                 frame = CGRectOffset(frame, delta.x, 0.0f);
                 CGFloat upperLimit = CGRectGetMinX(_movingFrame);
                 CGFloat lowerLimit = CGRectGetMaxX(_movingFrame);
@@ -634,18 +634,6 @@
 }
 
 @end
-
-/*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-@implementation GLBDataContainerItemsList
-@end
-
-#pragma clang diagnostic pop
 
 /*--------------------------------------------------*/
 #endif

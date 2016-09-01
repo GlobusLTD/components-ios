@@ -8,7 +8,7 @@
 /*--------------------------------------------------*/
 
 @class GLBDataView;
-@class GLBDataContainer;
+@class GLBDataViewContainer;
 @class GLBDataViewCell;
 
 /*--------------------------------------------------*/
@@ -16,7 +16,7 @@
 @interface GLBDataViewItem : NSObject< NSCopying, GLBSearchBarDelegate >
 
 @property(nonatomic, readonly, weak) __kindof GLBDataView* view;
-@property(nonatomic, readonly, weak) __kindof GLBDataContainer* parent;
+@property(nonatomic, readonly, weak) __kindof GLBDataViewContainer* parent;
 @property(nonatomic, readonly, strong) NSString* identifier;
 @property(nonatomic, readonly, assign) NSUInteger order;
 @property(nonatomic, strong) id data;
@@ -85,14 +85,6 @@
 - (void)transitionResize;
 - (void)endTransition;
 
-@end
-
-/*--------------------------------------------------*/
-/* Legacy                                           */
-/*--------------------------------------------------*/
-
-GLB_DEPRECATED
-@interface GLBDataItem : GLBDataViewItem
 @end
 
 /*--------------------------------------------------*/

@@ -8,7 +8,7 @@
 /*--------------------------------------------------*/
 
 @interface GLBDataViewItemsFlowContainer () {
-    GLBDataContainerOrientation _orientation;
+    GLBDataViewContainerOrientation _orientation;
     UIEdgeInsets _margin;
     UIOffset _spacing;
     CGSize _defaultSize;
