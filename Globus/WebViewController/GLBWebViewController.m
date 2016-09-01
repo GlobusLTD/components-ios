@@ -1,7 +1,6 @@
 /*--------------------------------------------------*/
 
 #import "GLBWebViewController.h"
-#import "UIDevice+GLBUI.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)

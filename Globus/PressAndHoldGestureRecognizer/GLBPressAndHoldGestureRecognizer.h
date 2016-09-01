@@ -1,13 +1,9 @@
 /*--------------------------------------------------*/
 
-#include "GLBTargetConditionals.h"
+#include "GLBUI.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
-/*--------------------------------------------------*/
-
-#import <UIKit/UIKit.h>
-
 /*--------------------------------------------------*/
 
 @interface GLBPressAndHoldGestureRecognizer : UILongPressGestureRecognizer

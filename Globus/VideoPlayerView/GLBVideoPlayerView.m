@@ -1,15 +1,9 @@
 /*--------------------------------------------------*/
 
 #import "GLBVideoPlayerView.h"
-#import "GLBAction.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
-/*--------------------------------------------------*/
-
-#import <AVFoundation/AVFoundation.h>
-#import <math.h>
-
 /*--------------------------------------------------*/
 
 static NSString* GLBVideoPlayerViewItemStatusKeyPath = @"status";

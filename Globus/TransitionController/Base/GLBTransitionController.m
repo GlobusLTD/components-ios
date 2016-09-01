@@ -6,10 +6,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "UIDevice+GLBUI.h"
-
-/*--------------------------------------------------*/
-
 @implementation GLBTransitionController
 
 @synthesize transitionContext = _transitionContext;

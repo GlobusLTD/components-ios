@@ -6,10 +6,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "UIImage+GLBUI.h"
-
-/*--------------------------------------------------*/
-
 @implementation GLBImageDownloadResponse
 
 #pragma mark - Public

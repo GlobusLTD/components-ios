@@ -6,16 +6,19 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "GLBTransitionController.h"
+#if __has_include("GLBSlideViewController.h")
 #import "GLBSlideViewController.h"
+#endif
 
 /*--------------------------------------------------*/
 
-#import "UIDevice+GLBUI.h"
+@interface GLBNavigationViewController () <
+    UIViewControllerTransitioningDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate
+#if __has_include("GLBSlideViewController.h")
+    ,GLBSlideViewControllerDelegate
+#endif
+>
 
-/*--------------------------------------------------*/
-
-@interface GLBNavigationViewController () < UIViewControllerTransitioningDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, GLBSlideViewControllerDelegate >
 @end
 
 /*--------------------------------------------------*/
@@ -289,6 +292,8 @@
     return YES;
 }
 
+#if __has_include("GLBSlideViewController.h")
+
 #pragma mark - GLBSlideViewControllerDelegate
 
 - (BOOL)canShowLeftViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController {
@@ -503,6 +508,8 @@
         [controller didEndedSwipeInSlideViewController:slideViewController];
     }
 }
+
+#endif
 
 #pragma mark - GLBViewController
 

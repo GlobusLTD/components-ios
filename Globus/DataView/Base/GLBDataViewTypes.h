@@ -5,9 +5,17 @@
 
 /*--------------------------------------------------*/
 
+#import "UIScrollView+GLBUI.h"
 #import "UIGestureRecognizer+GLBUI.h"
 #import "UINib+GLBUI.h"
 #import "UIDevice+GLBUI.h"
+
+/*--------------------------------------------------*/
+
+#include "GLBCG.h"
+#include "GLBPoint.h"
+#include "GLBSize.h"
+#include "GLBRect.h"
 
 /*--------------------------------------------------*/
 

@@ -6,6 +6,10 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+#if __has_include("GLBSlideViewController.h")
+#import "GLBSlideViewController.h"
+#endif
+
 #if __has_include("GLBBlurView.h")
 #import "GLBBlurView.h"
 #endif
@@ -467,8 +471,10 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0;
                     _backgroundView.underlyingView = currentViewController.navigationController.view;
                 } else if(currentViewController.tabBarController != nil) {
                     _backgroundView.underlyingView = currentViewController.tabBarController.view;
+#if __has_include("GLBSlideViewController.h")
                 } else if(currentViewController.glb_slideViewController != nil) {
                     _backgroundView.underlyingView = currentViewController.glb_slideViewController.view;
+#endif
                 } else {
                     _backgroundView.underlyingView = currentViewController.view;
                 }

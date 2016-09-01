@@ -6,13 +6,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "GLBSpinnerView.h"
-#import "UIView+GLBUI.h"
-#import "UILabel+GLBUI.h"
-#include "GLBRect.h"
-
-/*--------------------------------------------------*/
-
 @interface GLBActivityView ()
 
 @property(nonatomic, strong) UIView* panelView;

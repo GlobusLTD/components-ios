@@ -116,7 +116,7 @@ Pod::Spec.new do |s|
   end
   s.subspec 'CoreAnimation' do |ss|
     ss.source_files = 'Globus/CoreAnimation/**/*.{h,m}'
-    ss.dependency 'Globus/CoreGraphics'
+    ss.dependency 'Globus/CoreFoundation/Base'
   end
   s.subspec 'UIKit' do |ss|
     ss.subspec 'Base' do |sss|
@@ -183,8 +183,8 @@ Pod::Spec.new do |s|
     end
     ss.subspec 'ViewController' do |sss|
       sss.source_files = 'Globus/UIKit/ViewController/**/*.{h,m}'
-      sss.dependency 'Globus/UIKit/Application'
-      sss.dependency 'Globus/UIKit/View'
+      sss.dependency 'Globus/BaseViewController'
+      sss.dependency 'Globus/UIKit/Nib'
     end
     ss.subspec 'Window' do |sss|
       sss.source_files = 'Globus/UIKit/Window/**/*.{h,m}'
@@ -226,16 +226,17 @@ Pod::Spec.new do |s|
   end
   s.subspec 'TaskManager' do |ss|
     ss.source_files = 'Globus/TaskManager/**/*.{h,m}'
+    ss.ios.frameworks = 'UIKit'
     ss.dependency 'Globus/CoreFoundation/Base'
   end
   s.subspec 'Model' do |ss|
     ss.source_files = 'Globus/Model/**/*.{h,m}'
-    ss.dependency 'Globus/CoreFoundation/Object'
-    ss.dependency 'Globus/CoreFoundation/Array'
+    ss.dependency 'Globus/CoreFoundation/Debug'
     ss.dependency 'Globus/CoreFoundation/Dictionary'
+    ss.dependency 'Globus/CoreFoundation/Array'
+    ss.dependency 'Globus/CoreFoundation/PointerArray'
     ss.dependency 'Globus/CoreFoundation/String'
     ss.dependency 'Globus/CoreFoundation/Date'
-    ss.dependency 'Globus/CoreFoundation/PointerArray'
     ss.dependency 'Globus/CoreFoundation/FileManager'
     ss.dependency 'Globus/CoreFoundation/Bundle'
     ss.dependency 'Globus/UIKit/Device'
@@ -307,7 +308,6 @@ Pod::Spec.new do |s|
     ss.subspec 'FadingCircleAlt' do |sss|
       sss.source_files = 'Globus/SpinnerView/FadingCircleAlt/**/*.{h,m}'
       sss.dependency 'Globus/SpinnerView/Base'
-      sss.dependency 'Globus/CoreGraphics'
     end
     ss.subspec 'NineCubeGrid' do |sss|
       sss.source_files = 'Globus/SpinnerView/NineCubeGrid/**/*.{h,m}'
@@ -329,7 +329,6 @@ Pod::Spec.new do |s|
     ss.subspec 'WanderingCubes' do |sss|
       sss.source_files = 'Globus/SpinnerView/WanderingCubes/**/*.{h,m}'
       sss.dependency 'Globus/SpinnerView/Base'
-      sss.dependency 'Globus/CoreGraphics'
     end
     ss.subspec 'Wave' do |sss|
       sss.source_files = 'Globus/SpinnerView/Wave/**/*.{h,m}'
@@ -350,6 +349,7 @@ Pod::Spec.new do |s|
     ss.dependency 'Globus/SpinnerView/Base'
     ss.dependency 'Globus/UIKit/View'
     ss.dependency 'Globus/UIKit/Label'
+    ss.dependency 'Globus/CoreGraphics'
   end
   s.subspec 'InputValidation' do |ss|
     ss.source_files = 'Globus/InputValidation/**/*.{h,m}'
@@ -387,7 +387,7 @@ Pod::Spec.new do |s|
   end
   s.subspec 'Button' do |ss|
     ss.source_files = 'Globus/Button/**/*.{h,m}'
-    ss.dependency 'Globus/UIKit/View'
+    ss.dependency 'Globus/UIKit/Button'
     ss.dependency 'Globus/UIKit/Color'
   end
   s.subspec 'LayoutView' do |ss|
@@ -433,13 +433,12 @@ Pod::Spec.new do |s|
   s.subspec 'DataView' do |ss|
     ss.subspec 'Base' do |sss|
       sss.source_files = 'Globus/DataView/Base/**/*.{h,m}'
-      sss.dependency 'Globus/CoreFoundation/Object'
+      sss.dependency 'Globus/CoreFoundation/Dictionary'
+      sss.dependency 'Globus/CoreFoundation/Array'
       sss.dependency 'Globus/UIKit/ScrollView'
       sss.dependency 'Globus/UIKit/GestureRecognizer'
-      sss.dependency 'Globus/UIKit/Device'
       sss.dependency 'Globus/UIKit/Nib'
-      sss.dependency 'Globus/CoreFoundation/Array'
-      sss.dependency 'Globus/CoreFoundation/Dictionary'
+      sss.dependency 'Globus/UIKit/Device'
       sss.dependency 'Globus/CoreGraphics'
       sss.dependency 'Globus/SearchBar'
       sss.dependency 'Globus/Action'
@@ -470,9 +469,9 @@ Pod::Spec.new do |s|
   end
   s.subspec 'Window' do |ss|
     ss.source_files = 'Globus/Window/**/*.{h,m}'
+    ss.dependency 'Globus/UIKit/Responder'
     ss.dependency 'Globus/UIKit/Application'
     ss.dependency 'Globus/UIKit/Window'
-    ss.dependency 'Globus/UIKit/Responder'
   end
   s.subspec 'TransitionController' do |ss|
     ss.subspec 'Base' do |sss|
@@ -507,15 +506,17 @@ Pod::Spec.new do |s|
   end
   s.subspec 'DialogViewController' do |ss|
     ss.source_files = 'Globus/DialogViewController/**/*.{h,m}'
-    ss.dependency 'Globus/ViewController'
+    ss.dependency 'Globus/UIKit/Application'
+    ss.dependency 'Globus/UIKit/ViewController'
+    ss.dependency 'Globus/UIKit/Window'
   end
   s.subspec 'SlideViewController' do |ss|
     ss.source_files = 'Globus/SlideViewController/**/*.{h,m}'
     ss.dependency 'Globus/BaseViewController'
-    ss.dependency 'Globus/UIKit/Application'
-    ss.dependency 'Globus/UIKit/Device'
     ss.dependency 'Globus/CoreFoundation/Array'
     ss.dependency 'Globus/CoreGraphics'
+    ss.dependency 'Globus/UIKit/Application'
+    ss.dependency 'Globus/UIKit/Device'
   end
   s.subspec 'PageViewController' do |ss|
     ss.source_files = 'Globus/PageViewController/**/*.{h,m}'
@@ -536,6 +537,7 @@ Pod::Spec.new do |s|
   end
   s.subspec 'SplitViewController' do |ss|
     ss.source_files = 'Globus/SplitViewController/**/*.{h,m}'
+    ss.dependency 'Globus/TransitionController/Base'
     ss.dependency 'Globus/UIKit/ViewController'
     ss.dependency 'Globus/UIKit/Device'
   end
@@ -577,7 +579,6 @@ Pod::Spec.new do |s|
     ss.ios.weak_framework = 'WebKit'
     ss.resources = 'Globus/WebViewController/GLBWebViewController.bundle'
     ss.dependency 'Globus/ViewController'
-    ss.dependency 'Globus/UIKit/Device'
   end
   s.subspec 'Moon' do |ss|
     ss.source_files = 'Globus/Moon/**/*.{h,m}'
@@ -586,10 +587,11 @@ Pod::Spec.new do |s|
   end
   s.subspec 'AudioSession' do |ss|
     ss.source_files = 'Globus/AudioSession/**/*.{h,m}'
+    ss.ios.frameworks = 'UIKit'
     ss.ios.frameworks = 'AVFoundation'
     ss.ios.frameworks = 'MediaPlayer'
-    ss.ios.frameworks = 'UIKit'
     ss.dependency 'Globus/CoreFoundation/Array'
+    ss.dependency 'Globus/Observer'
   end
   s.subspec 'AudioPlayer' do |ss|
     ss.source_files = 'Globus/AudioPlayer/**/*.{h,m}'
@@ -604,15 +606,16 @@ Pod::Spec.new do |s|
   end
   s.subspec 'VideoPlayerView' do |ss|
     ss.source_files = 'Globus/VideoPlayerView/**/*.{h,m}'
-    ss.dependency 'Globus/AudioSession'
+    ss.ios.frameworks = 'AVFoundation'
     ss.dependency 'Globus/UIKit/View'
     ss.dependency 'Globus/Action'
   end
   s.subspec 'WatchManager' do |ss|
     ss.source_files = 'Globus/WatchManager/**/*.{h,m}'
     ss.ios.frameworks = 'WatchConnectivity'
-    ss.dependency 'Globus/CoreFoundation/Array'
+    ss.watchos.frameworks = 'WatchConnectivity'
     ss.dependency 'Globus/CoreFoundation/Dictionary'
+    ss.dependency 'Globus/CoreFoundation/Array'
     ss.dependency 'Globus/CoreFoundation/FileManager'
     ss.dependency 'Globus/UIKit/Device'
   end

@@ -8,12 +8,12 @@
 
 /*--------------------------------------------------*/
 
-#import "UIApplication+GLBUI.h"
-#import "UIDevice+GLBUI.h"
+#include "GLBCG.h"
 
 /*--------------------------------------------------*/
 
-#include "GLBCG.h"
+#import "UIApplication+GLBUI.h"
+#import "UIDevice+GLBUI.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)

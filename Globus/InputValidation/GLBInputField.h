@@ -12,7 +12,7 @@
 
 /*--------------------------------------------------*/
 
-@protocol GLBInputField <NSObject>
+@protocol GLBInputField < NSObject >
 
 @property(nonatomic, weak) GLBInputForm* form;
 @property(nonatomic, strong) id< GLBInputValidator > validator;

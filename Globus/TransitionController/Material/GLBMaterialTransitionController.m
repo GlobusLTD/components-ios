@@ -7,10 +7,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "UIView+GLBUI.h"
-
-/*--------------------------------------------------*/
-
 @interface GLBMaterialTransitionController ()
 @end
 

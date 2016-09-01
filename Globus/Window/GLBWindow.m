@@ -1,15 +1,14 @@
 /*--------------------------------------------------*/
 
 #import "GLBWindow.h"
-#if __has_include("GLBActivityView.h")
-#import "GLBActivityView.h"
-#endif
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "UIResponder+GLBUI.h"
+#if __has_include("GLBActivityView.h")
+#import "GLBActivityView.h"
+#endif
 
 /*--------------------------------------------------*/
 

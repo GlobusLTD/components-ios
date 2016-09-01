@@ -1,21 +1,23 @@
 /*--------------------------------------------------*/
 
 #import "GLBSplitViewController.h"
-#import "GLBTransitionController.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+#if __has_include("GLBSlideViewController.h")
 #import "GLBSlideViewController.h"
+#endif
 
 /*--------------------------------------------------*/
 
-#import "UIDevice+GLBUI.h"
-
-/*--------------------------------------------------*/
-
-@interface GLBSplitViewController () < UIViewControllerTransitioningDelegate, UISplitViewControllerDelegate, GLBSlideViewControllerDelegate >
+@interface GLBSplitViewController () <
+    UIViewControllerTransitioningDelegate, UISplitViewControllerDelegate
+#if __has_include("GLBSlideViewController.h")
+    , GLBSlideViewControllerDelegate
+#endif
+>
 
 - (void)_updateViewControllers;
 
@@ -186,9 +188,11 @@
     return _transitionModal;
 }
 
+#if __has_include("GLBSlideViewController.h")
+
 #pragma mark - UISplitViewControllerDelegate
 
-
+#endif
 
 #pragma mark - Private
 

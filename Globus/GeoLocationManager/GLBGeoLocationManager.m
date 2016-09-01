@@ -5,8 +5,6 @@
 /*--------------------------------------------------*/
 #pragma mark -
 /*--------------------------------------------------*/
-typedef void(^GLBGeoLocationManagerPrefornBlock)();
-/*--------------------------------------------------*/
 
 @interface GLBGeoLocationManager () < CLLocationManagerDelegate > {
     CLLocationManager* _locationManager;

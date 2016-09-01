@@ -1,13 +1,14 @@
 /*--------------------------------------------------*/
 
 #import "GLBPageViewController.h"
-#import "GLBSlideViewController.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "UIScrollView+GLBUI.h"
+#if __has_include("GLBSlideViewController.h")
+#import "GLBSlideViewController.h"
+#endif
 
 /*--------------------------------------------------*/
 
@@ -15,7 +16,12 @@
 
 /*--------------------------------------------------*/
 
-@interface GLBPageViewController () < UIGestureRecognizerDelegate, GLBSlideViewControllerDelegate > {
+@interface GLBPageViewController () <
+    UIGestureRecognizerDelegate
+#if __has_include("GLBSlideViewController.h")
+    , GLBSlideViewControllerDelegate
+#endif
+> {
     BOOL _animating;
     BOOL _allowBeforeViewController;
     BOOL _allowAfterViewController;
@@ -893,6 +899,8 @@
     return NO;
 }
 
+#if __has_include("GLBSlideViewController.h")
+
 #pragma mark - GLBSlideViewControllerDelegate
 
 - (BOOL)canShowLeftViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController {
@@ -1107,6 +1115,8 @@
         [viewController didEndedSwipeInSlideViewController:slideViewController];
     }
 }
+
+#endif
 
 #pragma mark - GLBViewController
 

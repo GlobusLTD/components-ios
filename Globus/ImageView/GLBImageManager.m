@@ -3,8 +3,6 @@
 #import "GLBImageManager.h"
 #import "GLBImageDownloadRequest.h"
 #import "GLBImageDownloadResponse.h"
-#import "GLBApiProvider.h"
-#import "GLBCache.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)

@@ -1,6 +1,5 @@
 /*--------------------------------------------------*/
 
-#import "UIScrollView+GLBUI.h"
 #import "GLBDataViewTypes.h"
 #import "GLBSearchBar.h"
 

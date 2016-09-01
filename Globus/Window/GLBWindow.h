@@ -1,5 +1,6 @@
 /*--------------------------------------------------*/
 
+#import "UIResponder+GLBUI.h"
 #import "UIApplication+GLBUI.h"
 #import "UIWindow+GLBUI.h"
 

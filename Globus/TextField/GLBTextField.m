@@ -1,16 +1,9 @@
 /*--------------------------------------------------*/
 
 #import "GLBTextField.h"
-#import "GLBInputForm.h"
-#import "GLBInputValidator.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
-/*--------------------------------------------------*/
-
-#import "UIResponder+GLBUI.h"
-#import "UIView+GLBUI.h"
-
 /*--------------------------------------------------*/
 
 static const CGFloat GLBTextField_Duration = 0.2f;

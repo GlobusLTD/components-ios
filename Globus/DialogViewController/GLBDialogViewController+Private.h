@@ -1,11 +1,6 @@
 /*--------------------------------------------------*/
 
 #import "GLBDialogViewController.h"
-#import "GLBSlideViewController.h"
-
-/*--------------------------------------------------*/
-
-#import "UIWindow+GLBUI.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)

@@ -7,10 +7,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#include "GLBRect.h"
-
-/*--------------------------------------------------*/
-
 @implementation GLBSlideTransitionController
 
 #pragma mark - Init / Free

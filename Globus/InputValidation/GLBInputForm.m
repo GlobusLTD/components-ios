@@ -6,10 +6,6 @@
 
 /*--------------------------------------------------*/
 
-#import "GLBAction.h"
-
-/*--------------------------------------------------*/
-
 @interface GLBInputForm ()
 
 @property(nonatomic, strong) NSMutableSet* validatedFields;

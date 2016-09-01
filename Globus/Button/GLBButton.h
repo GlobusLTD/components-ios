@@ -1,6 +1,7 @@
 /*--------------------------------------------------*/
 
 #import "UIButton+GLBUI.h"
+#import "UIColor+GLBUI.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)

@@ -10,8 +10,6 @@
 #import "GLBPageControl.h"
 #endif
 #import "GLBTimeout.h"
-#include "GLBPoint.h"
-#include "GLBRect.h"
 
 /*--------------------------------------------------*/
 

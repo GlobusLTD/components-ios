@@ -9,11 +9,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "UIView+GLBUI.h"
-#import "UIColor+GLBUI.h"
-
-/*--------------------------------------------------*/
-
 @interface GLBButton ()
 
 #if __has_include("GLBBadgeView.h")

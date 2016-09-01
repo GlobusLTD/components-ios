@@ -6,10 +6,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "UIView+GLBUI.h"
-
-/*--------------------------------------------------*/
-
 @interface GLBBadgeView ()
 
 @property(nonatomic, strong) UILabel* label;

@@ -5,10 +5,6 @@
 
 /*--------------------------------------------------*/
 
-#import "GLBAction.h"
-
-/*--------------------------------------------------*/
-
 @implementation GLBInputEmptyValidator
 
 @synthesize field = _field;

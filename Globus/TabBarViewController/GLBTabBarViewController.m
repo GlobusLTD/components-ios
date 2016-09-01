@@ -1,21 +1,23 @@
 /*--------------------------------------------------*/
 
 #import "GLBTabBarViewController.h"
-#import "GLBTransitionController.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+#if __has_include("GLBSlideViewController.h")
 #import "GLBSlideViewController.h"
+#endif
 
 /*--------------------------------------------------*/
 
-#import "UIDevice+GLBUI.h"
-
-/*--------------------------------------------------*/
-
-@interface GLBTabBarViewController () < UIViewControllerTransitioningDelegate, UITabBarControllerDelegate, GLBSlideViewControllerDelegate >
+@interface GLBTabBarViewController () <
+    UIViewControllerTransitioningDelegate, UITabBarControllerDelegate
+#if __has_include("GLBSlideViewController.h")
+    , GLBSlideViewControllerDelegate
+#endif
+>
 
 @end
 
@@ -274,6 +276,8 @@
     return nil;
 }
 
+#if __has_include("GLBSlideViewController.h")
+
 #pragma mark - GLBSlideViewControllerDelegate
 
 - (BOOL)canShowLeftViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController {
@@ -488,6 +492,8 @@
         [controller didEndedSwipeInSlideViewController:slideViewController];
     }
 }
+
+#endif
 
 #pragma mark - GLBViewController
 

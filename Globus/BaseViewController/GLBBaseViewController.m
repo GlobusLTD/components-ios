@@ -1,7 +1,6 @@
 /*--------------------------------------------------*/
 
 #import "GLBBaseViewController.h"
-#import "GLBTransitionController.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)

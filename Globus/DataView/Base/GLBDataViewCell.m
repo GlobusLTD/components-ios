@@ -6,10 +6,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#include "GLBCG.h"
-
-/*--------------------------------------------------*/
-
 @implementation GLBDataViewCell
 
 #pragma mark - Synthesize
