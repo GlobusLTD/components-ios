@@ -63,7 +63,7 @@
 - (NSOrderedSet*)glb_orderedSetByObjectClass:(Class)objectClass {
     NSMutableOrderedSet* result = NSMutableOrderedSet.orderedSet;
     for(id object in self) {
-        if([object isKindOfClass:objectClass]) {
+        if([object isKindOfClass:objectClass] == YES) {
             [result addObject:object];
         }
     }
@@ -73,7 +73,7 @@
 - (NSOrderedSet*)glb_orderedSetByObjectProtocol:(Protocol*)objectProtocol {
     NSMutableOrderedSet* result = NSMutableOrderedSet.orderedSet;
     for(id object in self) {
-        if([object conformsToProtocol:objectProtocol]) {
+        if([object conformsToProtocol:objectProtocol] == YES) {
             [result addObject:object];
         }
     }
@@ -83,7 +83,7 @@
 - (id)glb_firstObjectIsClass:(Class)objectClass {
     id result = nil;
     for(id object in self) {
-        if([object isKindOfClass:objectClass]) {
+        if([object isKindOfClass:objectClass] == YES) {
             result = object;
             break;
         }
@@ -94,7 +94,7 @@
 - (id)glb_lastObjectIsClass:(Class)objectClass {
     __block id result = nil;
     [self enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id object, NSUInteger index, BOOL *stop) {
-        if([object isKindOfClass:objectClass]) {
+        if([object isKindOfClass:objectClass] == YES) {
             result = object;
             *stop = YES;
         }
@@ -105,7 +105,7 @@
 - (id)glb_firstObjectIsProtocol:(Protocol*)objectProtocol {
     id result = nil;
     for(id object in self) {
-        if([object conformsToProtocol:objectProtocol]) {
+        if([object conformsToProtocol:objectProtocol] == YES) {
             result = object;
             break;
         }
@@ -116,7 +116,7 @@
 - (id)glb_lastObjectIsProtocol:(Protocol*)objectProtocol {
     __block id result = nil;
     [self enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id object, NSUInteger index, BOOL *stop) {
-        if([object conformsToProtocol:objectProtocol]) {
+        if([object conformsToProtocol:objectProtocol] == YES) {
             result = object;
             *stop = YES;
         }
@@ -178,56 +178,79 @@
 }
 
 - (void)glb_each:(void(^)(id object))block {
-    [self enumerateObjectsUsingBlock:^(id object, NSUInteger index, BOOL* stop) {
+    typeof(self) copy = self.copy;
+    for(id object in copy) {
         block(object);
-    }];
+    }
 }
 
 - (void)glb_each:(void(^)(id object))block range:(NSRange)range {
-    [self enumerateObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:range] options:0 usingBlock:^(id object, NSUInteger index, BOOL* stop) {
+    typeof(self) copy = self.copy;
+    NSUInteger index = 0;
+    for(id object in copy) {
+        if(NSLocationInRange(index, range) == NO) {
+            index++;
+            continue;
+        }
         block(object);
-    }];
+        index++;
+    }
 }
 
 - (void)glb_eachWithIndex:(void(^)(id object, NSUInteger index))block {
-    [self enumerateObjectsUsingBlock:^(id object, NSUInteger index, BOOL* stop) {
+    typeof(self) copy = self.copy;
+    NSUInteger index = 0;
+    for(id object in copy) {
         block(object, index);
-    }];
+        index++;
+    }
 }
 
 - (void)glb_eachWithIndex:(void(^)(id object, NSUInteger index))block range:(NSRange)range {
-    [self enumerateObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:range] options:0 usingBlock:^(id object, NSUInteger index, BOOL* stop) {
+    typeof(self) copy = self.copy;
+    NSUInteger index = 0;
+    for(id object in copy) {
+        if(NSLocationInRange(index, range) == NO) {
+            index++;
+            continue;
+        }
         block(object, index);
-    }];
+        index++;
+    }
 }
 
 - (void)glb_each:(void(^)(id object))block options:(NSEnumerationOptions)options {
-    [self enumerateObjectsWithOptions:options usingBlock:^(id object, NSUInteger index, BOOL* stop) {
+    typeof(self) copy = self.copy;
+    [copy enumerateObjectsWithOptions:options usingBlock:^(id object, NSUInteger index, BOOL* stop) {
         block(object);
     }];
 }
 
 - (void)glb_each:(void(^)(id object))block range:(NSRange)range options:(NSEnumerationOptions)options {
-    [self enumerateObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:range] options:options usingBlock:^(id object, NSUInteger index, BOOL* stop) {
+    typeof(self) copy = self.copy;
+    [copy enumerateObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:range] options:options usingBlock:^(id object, NSUInteger index, BOOL* stop) {
         block(object);
     }];
 }
 
 - (void)glb_eachWithIndex:(void(^)(id object, NSUInteger index))block options:(NSEnumerationOptions)options {
-    [self enumerateObjectsWithOptions:options usingBlock:^(id object, NSUInteger index, BOOL* stop) {
+    typeof(self) copy = self.copy;
+    [copy enumerateObjectsWithOptions:options usingBlock:^(id object, NSUInteger index, BOOL* stop) {
         block(object, index);
     }];
 }
 
 - (void)glb_eachWithIndex:(void(^)(id object, NSUInteger index))block range:(NSRange)range options:(NSEnumerationOptions)options {
-    [self enumerateObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:range] options:options usingBlock:^(id object, NSUInteger index, BOOL* stop) {
+    typeof(self) copy = self.copy;
+    [copy enumerateObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:range] options:options usingBlock:^(id object, NSUInteger index, BOOL* stop) {
         block(object, index);
     }];
 }
 
 - (NSOrderedSet*)glb_map:(id(^)(id object))block {
-    NSMutableOrderedSet* orderedSet = [NSMutableOrderedSet orderedSetWithCapacity:self.count];
-    for(id object in self) {
+    typeof(self) copy = self.copy;
+    NSMutableOrderedSet* orderedSet = [NSMutableOrderedSet orderedSetWithCapacity:copy.count];
+    for(id object in copy) {
         id temp = block(object);
         if(temp != nil) {
             [orderedSet addObject:temp];
@@ -237,8 +260,9 @@
 }
 
 - (NSDictionary*)glb_groupBy:(id(^)(id object))block {
+    typeof(self) copy = self.copy;
     NSMutableDictionary* dictionary = NSMutableDictionary.dictionary;
-    for(id object in self) {
+    for(id object in copy) {
         id temp = block(object);
         if(dictionary[temp] != nil) {
             [dictionary[temp] addObject:object];
@@ -250,19 +274,22 @@
 }
 
 - (NSOrderedSet*)glb_select:(BOOL(^)(id object))block {
-    return [self filteredOrderedSetUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary* bindings) {
+    typeof(self) copy = self.copy;
+    return [copy filteredOrderedSetUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary* bindings) {
         return (block(evaluatedObject));
     }]];
 }
 
 - (NSOrderedSet*)glb_reject:(BOOL(^)(id object))block {
-    return [self filteredOrderedSetUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary* bindings) {
+    typeof(self) copy = self.copy;
+    return [copy filteredOrderedSetUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary* bindings) {
         return (block(evaluatedObject) == NO);
     }]];
 }
 
 - (id)glb_find:(BOOL(^)(id object))block {
-    for(id object in self) {
+    typeof(self) copy = self.copy;
+    for(id object in copy) {
         if(block(object)) {
             return object;
         }
@@ -271,8 +298,9 @@
 }
 
 - (id)glb_find:(BOOL(^)(id object))block options:(NSEnumerationOptions)options {
+    typeof(self) copy = self.copy;
     __block id result = nil;
-    [self enumerateObjectsWithOptions:options usingBlock:^(id object, NSUInteger index, BOOL* stop) {
+    [copy enumerateObjectsWithOptions:options usingBlock:^(id object, NSUInteger index, BOOL* stop) {
         if(block(object)) {
             result = object;
             *stop = YES;
@@ -282,8 +310,9 @@
 }
 
 - (id)glb_find:(BOOL(^)(id object))block  range:(NSRange)range options:(NSEnumerationOptions)options {
+    typeof(self) copy = self.copy;
     __block id result = nil;
-    [self enumerateObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:range] options:options usingBlock:^(id object, NSUInteger index, BOOL* stop) {
+    [copy enumerateObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:range] options:options usingBlock:^(id object, NSUInteger index, BOOL* stop) {
         if(block(object)) {
             result = object;
             *stop = YES;

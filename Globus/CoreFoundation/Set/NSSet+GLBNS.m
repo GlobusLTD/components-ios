@@ -51,7 +51,7 @@
 - (NSSet*)glb_setByObjectClass:(Class)objectClass {
     NSMutableSet* result = NSMutableSet.set;
     for(id object in self) {
-        if([object isKindOfClass:objectClass]) {
+        if([object isKindOfClass:objectClass] == YES) {
             [result addObject:object];
         }
     }
@@ -61,7 +61,7 @@
 - (NSSet*)glb_setByObjectProtocol:(Protocol*)objectProtocol {
     NSMutableSet* result = NSMutableSet.set;
     for(id object in self) {
-        if([object conformsToProtocol:objectProtocol]) {
+        if([object conformsToProtocol:objectProtocol] == YES) {
             [result addObject:object];
         }
     }
@@ -78,20 +78,23 @@
 }
 
 - (void)glb_each:(void(^)(id object))block {
-    [self enumerateObjectsUsingBlock:^(id object, BOOL* stop) {
+    typeof(self) copy = self.copy;
+    for(id object in copy) {
         block(object);
-    }];
+    }
 }
 
 - (void)glb_each:(void(^)(id object))block options:(NSEnumerationOptions)options {
-    [self enumerateObjectsWithOptions:options usingBlock:^(id object, BOOL* stop) {
+    typeof(self) copy = self.copy;
+    [copy enumerateObjectsWithOptions:options usingBlock:^(id object, BOOL* stop) {
         block(object);
     }];
 }
 
 - (NSSet*)glb_map:(id(^)(id object))block {
+    typeof(self) copy = self.copy;
     NSMutableSet* set = [NSMutableSet setWithCapacity:self.count];
-    for(id object in self) {
+    for(id object in copy) {
         id temp = block(object);
         if(temp != nil) {
             [set addObject:temp];
@@ -101,8 +104,9 @@
 }
 
 - (NSDictionary*)glb_groupBy:(id(^)(id object))block {
+    typeof(self) copy = self.copy;
     NSMutableDictionary* dictionary = NSMutableDictionary.dictionary;
-    for(id object in self) {
+    for(id object in copy) {
         id temp = block(object);
         if(dictionary[temp] != nil) {
             [dictionary[temp] addObject:object];
@@ -114,19 +118,22 @@
 }
 
 - (NSSet*)glb_select:(BOOL(^)(id object))block {
-    return [self filteredSetUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary* bindings) {
+    typeof(self) copy = self.copy;
+    return [copy filteredSetUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary* bindings) {
         return (block(evaluatedObject));
     }]];
 }
 
 - (NSSet*)glb_reject:(BOOL(^)(id object))block {
-    return [self filteredSetUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary* bindings) {
+    typeof(self) copy = self.copy;
+    return [copy filteredSetUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary* bindings) {
         return (block(evaluatedObject) == NO);
     }]];
 }
 
 - (id)glb_find:(BOOL(^)(id object))block {
-    for(id object in self) {
+    typeof(self) copy = self.copy;
+    for(id object in copy) {
         if(block(object)) {
             return object;
         }
