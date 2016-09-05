@@ -1,6 +1,6 @@
 /****************************************************/
 /*                                                  */
-/* This file is part of the Globus Componetns iOS   */
+/* This file is part of the Globus Components iOS   */
 /* Copyright 2014-2016 Globus-Ltd.                  */
 /* http://www.globus-ltd.com                        */
 /* Created by Alexander Trifonov                    */
