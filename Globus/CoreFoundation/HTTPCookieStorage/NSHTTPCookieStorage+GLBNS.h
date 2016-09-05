@@ -16,8 +16,26 @@
 
 /*--------------------------------------------------*/
 
+/**
+ * @file NSHTTPCookieStorage+GLBNS.h
+ * @class NSHTTPCookieStorage+GLBNS
+ * @classdesign It is a category
+ * @helps NSHTTPCookieStorage
+ * @brief Many helpful methods for NSHTTPCookieStorage support.
+ * @discussion NSHTTPCookieStorage support for coockie handle.
+ * @remark Very useful methods ;)
+ * @version 0.1
+ */
 @interface NSHTTPCookieStorage (GLB_NS)
 
+/**
+ * @brief Clear cookies.
+ * @discussion Clear cookies cache.
+ * @param URL string
+ * @code
+ * [NSHTTPCookieStorage glb_clearCookieWithDomain:urlString];
+ * @endcode
+ */
 + (void)glb_clearCookieWithDomain:(NSString* _Nonnull)domain;
 
 @end
