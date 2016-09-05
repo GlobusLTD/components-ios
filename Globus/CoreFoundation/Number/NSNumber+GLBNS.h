@@ -16,6 +16,16 @@
 
 /*--------------------------------------------------*/
 
+/**
+ * @file NSNumber+GLBNS.h
+ * @class NSNumber+GLBNS
+ * @classdesign It is a category
+ * @helps NSNumber
+ * @brief Many helpful methods for NSNumber support.
+ * @discussion NSNumber present a number object.
+ * @remark Very useful methods ;)
+ * @version 0.1
+ */
 @interface NSNumber (GLB_NS)
 @end
 
