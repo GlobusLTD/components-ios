@@ -1,13 +1,14 @@
 /*--------------------------------------------------*/
 
 #import "UIViewController+GLBUI.h"
+#import "UIDevice+GLBUI.h"
+
+/*--------------------------------------------------*/
+
+#import "GLBTransitionController.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
-/*--------------------------------------------------*/
-
-@class GLBTransitionController;
-
 /*--------------------------------------------------*/
 
 @interface GLBTabBarViewController : UITabBarController< GLBViewController >

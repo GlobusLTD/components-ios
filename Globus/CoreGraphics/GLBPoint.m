@@ -65,7 +65,9 @@ CGPoint GLBPointRotateAroundPoint(CGPoint point, CGPoint pivot, CGFloat angle) {
 }
 
 CGFloat GLBPointDistance(CGPoint p1, CGPoint p2) {
-    return GLB_SQRT(GLB_POW(p1.x - p2.x, 2) + GLB_POW(p1.y - p2.y, 2));
+    CGFloat pow1 = GLB_POW(p1.x - p2.x, 2);
+    CGFloat pow2 = GLB_POW(p1.y - p2.y, 2);
+    return GLB_SQRT(pow1 + pow2);
 }
 
 /*--------------------------------------------------*/

@@ -6,14 +6,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "GLBBlurView.h"
-#import "GLBSpinnerView.h"
-#import "UIView+GLBUI.h"
-#import "UILabel+GLBUI.h"
-#import "GLBRect.h"
-
-/*--------------------------------------------------*/
-
 @interface GLBActivityView ()
 
 @property(nonatomic, strong) UIView* panelView;
@@ -27,14 +19,14 @@
 #pragma mark -
 /*--------------------------------------------------*/
 
-#define GLBActivityViewMargin                       15.0f
-#define GLBActivityViewSpacing                      8.0f
+#define GLBActivityViewMargin                       15.0
+#define GLBActivityViewSpacing                      8.0
 #define GLBActivityViewBackgroundColor              [UIColor colorWithWhite:0.1f alpha:0.2f]
 #define GLBActivityViewPanelColor                   [UIColor colorWithWhite:0.2f alpha:0.8f]
-#define GLBActivityViewPanelCornerRadius            8.0f
-#define GLBActivityViewSpinnerColor                 [UIColor colorWithWhite:1.0f alpha:0.8f]
-#define GLBActivityViewSpinnerSize                  42.0f
-#define GLBActivityViewTextColor                    [UIColor colorWithWhite:1.0f alpha:0.8f]
+#define GLBActivityViewPanelCornerRadius            8.0
+#define GLBActivityViewSpinnerColor                 [UIColor colorWithWhite:1.0 alpha:0.8f]
+#define GLBActivityViewSpinnerSize                  42.0
+#define GLBActivityViewTextColor                    [UIColor colorWithWhite:1.0 alpha:0.8f]
 #define GLBActivityViewTextFont                     [UIFont boldSystemFontOfSize:[UIFont systemFontSize]]
 #define GLBActivityViewTextWidth                    NSNotFound
 #define GLBActivityDuration                         0.1f
@@ -46,22 +38,22 @@
 
 #pragma mark - Init / Free
 
-+ (instancetype)activityViewWithStyle:(GLBActivityViewStyle)style {
-    return [[self alloc] initWithStyle:style text:nil textWidth:GLBActivityViewTextWidth];
++ (instancetype)activityViewWithSpinnerView:(GLBSpinnerView*)spinnerView {
+    return [[self alloc] initWithSpinnerView:spinnerView text:nil textWidth:GLBActivityViewTextWidth];
 }
 
-+ (instancetype)activityViewWithStyle:(GLBActivityViewStyle)style text:(NSString*)text {
-    return [[self alloc] initWithStyle:style text:text textWidth:GLBActivityViewTextWidth];
++ (instancetype)activityViewWithSpinnerView:(GLBSpinnerView*)spinnerView text:(NSString*)text {
+    return [[self alloc] initWithSpinnerView:spinnerView text:text textWidth:GLBActivityViewTextWidth];
 }
 
-+ (instancetype)activityViewWithStyle:(GLBActivityViewStyle)style text:(NSString*)text textWidth:(NSUInteger)textWidth {
-    return [[self alloc] initWithStyle:style text:text textWidth:textWidth];
++ (instancetype)activityViewWithSpinnerView:(GLBSpinnerView*)spinnerView text:(NSString*)text textWidth:(NSUInteger)textWidth {
+    return [[self alloc] initWithSpinnerView:spinnerView text:text textWidth:textWidth];
 }
 
-- (instancetype)initWithStyle:(GLBActivityViewStyle)style text:(NSString*)text textWidth:(NSUInteger)textWidth {
+- (instancetype)initWithSpinnerView:(GLBSpinnerView*)spinnerView text:(NSString*)text textWidth:(NSUInteger)textWidth {
     self = [super initWithFrame:UIScreen.mainScreen.bounds];
     if(self != nil) {
-        _style = style;
+        _spinnerView = spinnerView;
         _margin = GLBActivityViewMargin;
         _spacing = GLBActivityViewSpacing;
         _textWidth = textWidth;
@@ -72,7 +64,7 @@
         
         self.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
         self.backgroundColor = GLBActivityViewBackgroundColor;
-        self.alpha = 0.0f;
+        self.alpha = 0.0;
         
         _panelView = [[UIView alloc] initWithFrame:CGRectZero];
         _panelView.backgroundColor = GLBActivityViewPanelColor;
@@ -80,24 +72,6 @@
         _panelView.clipsToBounds = YES;
         [self addSubview:_panelView];
         
-        switch(_style) {
-            case GLBActivityViewStylePlane: _spinnerView = [[GLBSpinnerViewPlane alloc] initWithFrame:CGRectZero]; break;
-            case GLBActivityViewStyleBounce: _spinnerView = [[GLBSpinnerViewBounce alloc] initWithFrame:CGRectZero]; break;
-            case GLBActivityViewStyleWave: _spinnerView = [[GLBSpinnerViewWave alloc] initWithFrame:CGRectZero]; break;
-            case GLBActivityViewStyleWanderingCubes: _spinnerView = [[GLBSpinnerViewWanderingCubes alloc] initWithFrame:CGRectZero]; break;
-            case GLBActivityViewStylePulse: _spinnerView = [[GLBSpinnerViewPulse alloc] initWithFrame:CGRectZero]; break;
-            case GLBActivityViewStyleChasingDots: _spinnerView = [[GLBSpinnerViewChasingDots alloc] initWithFrame:CGRectZero]; break;
-            case GLBActivityViewStyleThreeBounce: _spinnerView = [[GLBSpinnerViewThreeBounce alloc] initWithFrame:CGRectZero]; break;
-            case GLBActivityViewStyleCircle: _spinnerView = [[GLBSpinnerViewCircle alloc] initWithFrame:CGRectZero]; break;
-            case GLBActivityViewStyleCircleFlip: _spinnerView = [[GLBSpinnerViewCircleFlip alloc] initWithFrame:CGRectZero]; break;
-            case GLBActivityViewStyle9CubeGrid: _spinnerView = [[GLBSpinnerView9CubeGrid alloc] initWithFrame:CGRectZero]; break;
-            case GLBActivityViewStyleWordPress: _spinnerView = [[GLBSpinnerViewWordPress alloc] initWithFrame:CGRectZero]; break;
-            case GLBActivityViewStyleFadingCircle: _spinnerView = [[GLBSpinnerViewFadingCircle alloc] initWithFrame:CGRectZero]; break;
-            case GLBActivityViewStyleFadingCircleAlt: _spinnerView = [[GLBSpinnerViewFadingCircleAlt alloc] initWithFrame:CGRectZero]; break;
-            case GLBActivityViewStyleArc: _spinnerView = [[GLBSpinnerViewArc alloc] initWithFrame:CGRectZero]; break;
-            case GLBActivityViewStyleArcAlt: _spinnerView = [[GLBSpinnerViewArcAlt alloc] initWithFrame:CGRectZero]; break;
-            default: break;
-        }
         if(_spinnerView != nil) {
             _spinnerView.color = GLBActivityViewSpinnerColor;
             _spinnerView.size = GLBActivityViewSpinnerSize;
@@ -129,8 +103,8 @@
     
     CGSize spinnerSize = CGSizeMake(self.spinnerSize, self.spinnerSize);
     CGSize textSize = [self.textView glb_sizeForWidth:self.textWidth];
-    CGSize panelSize = CGSizeMake(self.margin + MAX(spinnerSize.width, textSize.width) + self.margin, self.margin + spinnerSize.height + ((self.textView.text.length > 0) ? self.spacing + textSize.height : 0.0f) + self.margin);
-    CGFloat spinnerOffset = (CGFloat)floorf((panelSize.width - spinnerSize.width) * 0.5f);
+    CGSize panelSize = CGSizeMake(self.margin + MAX(spinnerSize.width, textSize.width) + self.margin, self.margin + spinnerSize.height + ((self.textView.text.length > 0) ? self.spacing + textSize.height : 0) + self.margin);
+    CGFloat spinnerOffset = GLB_FLOOR((panelSize.width - spinnerSize.width) * 0.5f);
     
     self.panelView.frame = GLBRectMakeCenterPoint(self.glb_frameCenter, panelSize.width, panelSize.height);
     self.spinnerView.frame = CGRectMake(spinnerOffset, self.margin, spinnerSize.width, spinnerSize.height);
@@ -245,8 +219,8 @@
                                  prepare();
                                  [self layoutIfNeeded];
                              }
-                             self.panelView.alpha = 1.0f;
-                             self.alpha = 1.0f;
+                             self.panelView.alpha = 1.0;
+                             self.alpha = 1.0;
                          } completion:^(BOOL finished) {
                              if(complete != nil) {
                                  complete();
@@ -277,8 +251,8 @@
                                  prepare();
                                  [self layoutIfNeeded];
                              }
-                             self.panelView.alpha = 0.0f;
-                             self.alpha = 0.0f;
+                             self.panelView.alpha = 0.0;
+                             self.alpha = 0.0;
                          } completion:^(BOOL finished) {
                              [self.spinnerView stopAnimating];
                              if(complete != nil) {

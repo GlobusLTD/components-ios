@@ -1,19 +1,13 @@
 /*--------------------------------------------------*/
 
 #import "GLBAudioSession.h"
-#import "NSArray+GLBNS.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import <MediaPlayer/MediaPlayer.h>
-
-/*--------------------------------------------------*/
-
 @interface GLBAudioSession () < AVAudioSessionDelegate > {
-    NSMutableArray< NSValue* >* _observers;
+    GLBObserver* _observer;
 }
 
 @property(nonatomic, strong) MPVolumeView* volumeView;
@@ -50,7 +44,7 @@
 }
 
 - (void)setup {
-    _observers = [NSMutableArray array];
+    _observer = [[GLBObserver alloc] initWithProtocol:@protocol(GLBAudioSessionObserver)];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(_notificationInterruption:)
@@ -88,7 +82,7 @@
 }
 
 - (void)setVolume:(CGFloat)volume {
-    self.volumeSlider.value = volume;
+    self.volumeSlider.value = (float)volume;
 }
 
 - (CGFloat)volume {
@@ -98,20 +92,11 @@
 #pragma mark - Public
 
 - (void)addObserver:(id< GLBAudioSessionObserver >)observer {
-    if([observer respondsToSelector:@selector(audioSessionChangeDeviceVolume:)] == YES) {
-        if(self.volumeSlider == nil) {
-            NSLog(@"%s: Not allowed change device volume", __PRETTY_FUNCTION__);
-        }
-    }
-    [_observers addObject:[NSValue valueWithNonretainedObject:observer]];
+    [_observer addObserver:observer];
 }
 
 - (void)removeObserver:(id< GLBAudioSessionObserver >)observer {
-    [_observers glb_each:^(NSValue* value) {
-        if(value.nonretainedObjectValue == observer) {
-            [_observers removeObject:value];
-        }
-    }];
+    [_observer removeObserver:observer];
 }
 
 + (void)activateWithOptions:(AVAudioSessionSetActiveOptions)activeOptions
@@ -188,29 +173,20 @@
 #pragma mark - Observer
 
 - (void)_notifyBeginInterruption {
-    [_observers glb_each:^(NSValue* value) {
-        id< GLBAudioSessionObserver > observer = value.nonretainedObjectValue;
-        if([observer respondsToSelector:@selector(audioSessionBeginInterruption)] == YES) {
-            [observer audioSessionBeginInterruption];
-        }
+    [_observer performSelector:@selector(audioSessionBeginInterruption) block:^(id< GLBAudioSessionObserver > observer) {
+        [observer audioSessionBeginInterruption];
     }];
 }
 
 - (void)_notifyEndInterruptionWithFlags:(NSUInteger)flags {
-    [_observers glb_each:^(NSValue* value) {
-        id< GLBAudioSessionObserver > observer = value.nonretainedObjectValue;
-        if([observer respondsToSelector:@selector(audioSessionEndInterruptionWithFlags:)] == YES) {
-            [observer audioSessionEndInterruptionWithFlags:flags];
-        }
+    [_observer performSelector:@selector(audioSessionEndInterruptionWithFlags:) block:^(id< GLBAudioSessionObserver > observer) {
+        [observer audioSessionEndInterruptionWithFlags:flags];
     }];
 }
 
 - (void)_notifyChangeDeviceVolume:(CGFloat)volume {
-    [_observers glb_each:^(NSValue* value) {
-        id< GLBAudioSessionObserver > observer = value.nonretainedObjectValue;
-        if([observer respondsToSelector:@selector(audioSessionChangeDeviceVolume:)] == YES) {
-            [observer audioSessionChangeDeviceVolume:volume];
-        }
+    [_observer performSelector:@selector(audioSessionChangeDeviceVolume:) block:^(id< GLBAudioSessionObserver > observer) {
+        [observer audioSessionChangeDeviceVolume:volume];
     }];
 }
 

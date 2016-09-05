@@ -7,15 +7,6 @@
 
 /*--------------------------------------------------*/
 
-#import "NSURL+GLBNS.h"
-#import "NSString+GLBNS.h"
-#import "NSArray+GLBNS.h"
-#import "NSDictionary+GLBNS.h"
-#import "NSData+GLBNS.h"
-#import "NSError+GLBNS.h"
-
-/*--------------------------------------------------*/
-
 @class GLBApiProviderQuery;
 
 /*--------------------------------------------------*/
@@ -129,8 +120,8 @@
         _bodyParams = [NSMutableDictionary dictionary];
     }
     
-    _timeoutIntervalForRequest = 30.0f;
-    _timeoutIntervalForResource = 60.0f;
+    _timeoutIntervalForRequest = 30.0;
+    _timeoutIntervalForResource = 60.0;
     _networkServiceType = NSURLNetworkServiceTypeDefault;
     _allowsCellularAccess = YES;
     _minimumTLSProtocol = kSSLProtocolUnknown;

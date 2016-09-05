@@ -5,12 +5,6 @@
 
 /*--------------------------------------------------*/
 
-#import "GLBAction.h"
-#import "NSArray+GLBNS.h"
-#import "NSString+GLBNS.h"
-
-/*--------------------------------------------------*/
-
 @implementation GLBInputEmptyValidator
 
 @synthesize field = _field;

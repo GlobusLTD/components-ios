@@ -1,6 +1,7 @@
 /*--------------------------------------------------*/
 
-#include "GLBTargetConditionals.h"
+#import "NSArray+GLBNS.h"
+#import "NSString+GLBNS.h"
 
 /*--------------------------------------------------*/
 

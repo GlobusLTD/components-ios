@@ -1,12 +1,18 @@
 /*--------------------------------------------------*/
 
-#include "GLBTargetConditionals.h"
+#import "NSArray+GLBNS.h"
+
+/*--------------------------------------------------*/
+
+#import "GLBObserver.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+#import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 /*--------------------------------------------------*/
 
@@ -40,7 +46,7 @@ typedef void (^GLBAudioSessionPermissionBlock)();
 
 /*--------------------------------------------------*/
 
-@protocol GLBAudioSessionObserver < NSObject >
+@protocol GLBAudioSessionObserver < GLBObserverProtocol >
 
 @optional
 - (void)audioSessionBeginInterruption;

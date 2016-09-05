@@ -6,12 +6,6 @@
 
 /*--------------------------------------------------*/
 
-#import "GLBAction.h"
-#import "NSArray+GLBNS.h"
-#import "NSString+GLBNS.h"
-
-/*--------------------------------------------------*/
-
 @interface GLBInputForm ()
 
 @property(nonatomic, strong) NSMutableSet* validatedFields;
@@ -53,7 +47,7 @@
 #pragma mark - Public
 
 - (void)addField:(id< GLBInputField >)field {
-    if(([_fields containsObject:field] == NO) && (field.form == nil)) {
+    if([_fields containsObject:field] == NO) {
         _fields = [NSArray glb_arrayWithArray:_fields addingObject:field];
         [_validatedFields addObject:field];
         field.form = self;
@@ -61,7 +55,7 @@
 }
 
 - (void)removeField:(id< GLBInputField >)field {
-    if(([_fields containsObject:field] == YES) && (field.form == self)) {
+    if([_fields containsObject:field] == YES) {
         _fields = [NSArray glb_arrayWithArray:_fields removingObject:field];
         field.form = nil;
     }
@@ -87,7 +81,7 @@
     }
     [results glb_eachWithIndex:^(NSString* r, NSUInteger index) {
         output = [output stringByAppendingString:r];
-        if(index != results.count-1) {
+        if(index != results.count - 1) {
             output = [output stringByAppendingString:@"\n"];
         }
     }];

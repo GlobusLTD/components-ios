@@ -4,8 +4,8 @@
 
 /*--------------------------------------------------*/
 
-#import <GLBModel/GLBModelJson.h>
-#import <GLBModel/GLBModelPack.h>
+#import "GLBModelJson.h"
+#import "GLBModelPack.h"
 
 /*--------------------------------------------------*/
 #pragma mark - Private interface

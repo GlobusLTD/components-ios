@@ -1,11 +1,6 @@
 /*--------------------------------------------------*/
 
 #import "GLBBaseViewController.h"
-#import "GLBTransitionController.h"
-
-/*--------------------------------------------------*/
-
-#import "UIDevice+GLBUI.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
@@ -162,6 +157,29 @@
     }
 }
 
+#pragma mark - KVC
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+
+- (void)setValue:(id)value forUndefinedKey:(NSString*)key {
+    NSString* selectorName = [NSString stringWithFormat:@"set%@:", key.glb_stringByUppercaseFirstCharacterString];
+    SEL selector = NSSelectorFromString(selectorName);
+    if([self respondsToSelector:selector] == YES) {
+        [self performSelector:selector withObject:value];
+    }
+}
+
+- (id)valueForUndefinedKey:(NSString*)key {
+    SEL selector = NSSelectorFromString(key);
+    if([self respondsToSelector:selector] == YES) {
+        return [self performSelector:selector];
+    }
+    return nil;
+}
+
+#pragma clang diagnostic pop
+
 #pragma mark - Public
 
 - (void)setNavigationBarHidden:(BOOL)navigationBarHidden animated:(BOOL)animated {
@@ -223,6 +241,9 @@
     return _statusBarAnimation;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (void)viewDidUnload {
     if(_updating == NO) {
         _updating = YES;
@@ -235,6 +256,8 @@
     
     [super viewDidUnload];
 }
+
+#pragma clang diagnostic pop
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

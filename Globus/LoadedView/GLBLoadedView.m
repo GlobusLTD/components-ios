@@ -6,10 +6,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "UINib+GLBUI.h"
-
-/*--------------------------------------------------*/
-
 @interface GLBLoadedView ()
 
 @property(nonatomic, strong) NSLayoutConstraint* constraintRootViewTop;

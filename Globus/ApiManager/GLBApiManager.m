@@ -5,10 +5,6 @@
 
 /*--------------------------------------------------*/
 
-#import "NSArray+GLBNS.h"
-
-/*--------------------------------------------------*/
-
 @interface GLBApiManager () {
 @protected
     NSMutableArray* _providers;

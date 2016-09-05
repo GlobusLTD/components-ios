@@ -6,7 +6,9 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "UIResponder+GLBUI.h"
+#if __has_include("GLBActivityView.h")
+#import "GLBActivityView.h"
+#endif
 
 /*--------------------------------------------------*/
 
@@ -28,10 +30,6 @@
 /*--------------------------------------------------*/
 
 @implementation GLBWindow
-
-#pragma mark - Synthesize
-
-@synthesize activity = _activity;
 
 #pragma mark - Init / Free
 
@@ -96,9 +94,11 @@
 
 - (void)didAddSubview:(UIView*)subview {
     [super didAddSubview:subview];
-    if(_activity != nil) {
-        [self bringSubviewToFront:_activity];
+#if __has_include("GLBActivityView.h")
+    if(_activityView != nil) {
+        [self bringSubviewToFront:_activityView];
     }
+#endif
     [self bringSubviewToFront:_emptyView];
 }
 
@@ -145,24 +145,22 @@
 
 #pragma mark - Property
 
-- (GLBActivityView*)activity {
-    if(_activity == nil) {
-        _activity = [GLBActivityView activityViewWithStyle:self.activityStyle];
-        _activity.frame = self.bounds;
-        [self addSubview:_activity];
+#if __has_include("GLBActivityView.h")
+
+- (void)setActivityView:(GLBActivityView*)activityView {
+    if(_activityView == activityView) {
+        if(_activityView != nil) {
+            [_activityView removeFromSuperview];
+        }
+        _activityView = activityView;
+        if(_activityView != nil) {
+            _activityView.frame = self.bounds;
+            [self addSubview:_activityView];
+        }
     }
-    return _activity;
 }
 
-- (void)setActivityStyle:(GLBActivityViewStyle)activityStyle {
-    if(_activityStyle != activityStyle) {
-        if(_activity != nil) {
-            [_activity removeFromSuperview];
-            _activity = nil;
-        }
-        _activityStyle = activityStyle;
-    }
-}
+#endif
 
 #pragma mark - Private
 

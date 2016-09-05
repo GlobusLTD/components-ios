@@ -94,12 +94,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import <objc/runtime.h>
-
-/*--------------------------------------------------*/
-#pragma mark -
-/*--------------------------------------------------*/
-
 @implementation UIResponder (GLBStyle)
 
 - (void)setGlb_style:(GLBStyle*)style {

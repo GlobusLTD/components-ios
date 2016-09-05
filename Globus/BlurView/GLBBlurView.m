@@ -6,10 +6,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "UIImage+GLBUI.h"
-
-/*--------------------------------------------------*/
-
 @class GLBBlurLayer;
 
 /*--------------------------------------------------*/
@@ -86,7 +82,7 @@
 
 - (void)setup {
     _blurEnabled = YES;
-    self.blurLayer.blurRadius = 20.0f;
+    self.blurLayer.blurRadius = 20.0;
     _blurIterations = 4;
     _dynamic = YES;
     _updateInterval = 0.1f;
@@ -153,7 +149,7 @@
 - (void)setUpdateInterval:(NSTimeInterval)updateInterval {
     _updateInterval = updateInterval;
     if(_updateInterval <= DBL_EPSILON) {
-        _updateInterval = 1.0f / 60.0f;
+        _updateInterval = 1.0 / 60.0;
     }
 }
 
@@ -268,9 +264,9 @@
     _lastUpdate = [NSDate date];
     CGFloat scale = 0.5;
     if(_blurIterations > 0) {
-        CGFloat blockSize = 12.0f / _blurIterations;
-        scale = blockSize / MAX(blockSize * 2.0f, blurPresentationLayer.blurRadius);
-        scale = 1.0 / floorf(1.0 / scale);
+        CGFloat blockSize = 12 / _blurIterations;
+        scale = blockSize / MAX(blockSize * 2, blurPresentationLayer.blurRadius);
+        scale = 1 / GLB_FLOOR(1 / scale);
     }
     CGSize size = bounds.size;
     switch(self.contentMode) {
@@ -278,12 +274,12 @@
         case UIViewContentModeScaleAspectFill:
         case UIViewContentModeScaleAspectFit:
         case UIViewContentModeRedraw: {
-            size.width = floorf(size.width * scale) / scale;
-            size.height = floorf(size.height * scale) / scale;
+            size.width = GLB_FLOOR(size.width * scale) / scale;
+            size.height = GLB_FLOOR(size.height * scale) / scale;
             break;
         }
         default: {
-            scale = 1.0f;
+            scale = 1.0;
             break;
         }
     }
@@ -303,7 +299,7 @@
         }
     }
     UIImage* snapshot = nil;
-    if(floorf(size.width) * floorf(size.height) > FLT_EPSILON) {
+    if(GLB_FLOOR(size.width) * GLB_FLOOR(size.height) > FLT_EPSILON) {
         UIGraphicsBeginImageContextWithOptions(size, NO, scale);
         CGContextRef context = UIGraphicsGetCurrentContext();
         CGContextTranslateCTM(context, -bounds.origin.x, -bounds.origin.y);
@@ -428,7 +424,7 @@
     if((_blurEnabled == YES) && (_updatesEnabled > 0) && (_updating == NO)) {
         NSUInteger blurViewsCount = _blurViews.count;
         if(blurViewsCount > 0) {
-            NSTimeInterval timeUntilNextUpdate = 1.0f / 60.0f;
+            NSTimeInterval timeUntilNextUpdate = 1.0 / 60.0;
             _blurViewIndex = _blurViewIndex % blurViewsCount;
             for(NSUInteger i = _blurViewIndex; i < blurViewsCount; i++) {
                 GLBBlurView* view = _blurViews[i];

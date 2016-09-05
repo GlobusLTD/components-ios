@@ -7,10 +7,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "NSArray+GLBNS.h"
-
-/*--------------------------------------------------*/
-
 @interface GLBLayoutView () {
     NSMutableArray* _hiddenObservers;
     NSMutableArray* _topConstraints;
@@ -163,7 +159,7 @@
                         [_bottomConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeBottom relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeBottom constant:_margins.bottom]];
                         break;
                     case GLBLayoutViewAlignmentCenter:
-                        [subview glb_addConstraintAttribute:NSLayoutAttributeCenterY relation:NSLayoutRelationEqual attribute:NSLayoutAttributeCenterY constant:0.0f];
+                        [subview glb_addConstraintAttribute:NSLayoutAttributeCenterY relation:NSLayoutRelationEqual attribute:NSLayoutAttributeCenterY constant:0.0];
                         [_topConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeTop relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeTop constant:_margins.top]];
                         [_bottomConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeBottom relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeBottom constant:_margins.bottom]];
                         break;
@@ -189,7 +185,7 @@
                         [_rightConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeRight relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeRight constant:_margins.right]];
                         break;
                     case GLBLayoutViewAlignmentCenter:
-                        [subview glb_addConstraintAttribute:NSLayoutAttributeCenterX relation:NSLayoutRelationEqual attribute:NSLayoutAttributeCenterX constant:0.0f];
+                        [subview glb_addConstraintAttribute:NSLayoutAttributeCenterX relation:NSLayoutRelationEqual attribute:NSLayoutAttributeCenterX constant:0.0];
                         [_leftConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeLeft relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeLeft constant:_margins.left]];
                         [_rightConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeRight relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeRight constant:_margins.right]];
                         break;

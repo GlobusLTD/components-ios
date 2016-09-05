@@ -1,25 +1,9 @@
 /*--------------------------------------------------*/
 
 #import "GLBPhoneField.h"
-#import "GLBInputForm.h"
-#import "GLBInputValidator.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
-/*--------------------------------------------------*/
-
-@class GLBPhoneFieldFormatter;
-
-/*--------------------------------------------------*/
-
-@interface GLBPhoneField () {
-    GLBPhoneFieldFormatter* _formatter;
-}
-
-@property(nonatomic, strong) id userInfo;
-
-@end
-
 /*--------------------------------------------------*/
 
 @interface GLBPhoneFieldFormatter : NSFormatter < UITextFieldDelegate > {
@@ -32,103 +16,15 @@
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (NSDictionary*)_defaultPattern;
-- (NSDictionary*)_defaultFormat;
-- (void)_resetFormats;
-- (void)_resetDefaultFormat;
-- (void)_setDefaultOutputPattern:(NSString*)pattern userInfo:(id)userInfo;
-- (void)_addOutputPattern:(NSString*)pattern forRegExp:(NSString*)regexp userInfo:(id)userInfo;
-- (BOOL)_logicTextField:(GLBPhoneField*)field shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString*)string;
-- (void)_applyFormat:(GLBPhoneField*)field forText:(NSString*)text;
-- (NSInteger)_pushCaretPosition:(UITextField*)textField range:(NSRange)range;
-- (void)_popCaretPosition:(UITextField*)textField range:(NSRange)range caretPosition:(NSInteger)caretPosition;
-- (void)_selectTextForInput:(UITextField*)input atRange:(NSRange)range;
-- (BOOL)_isValuableChar:(unichar)ch;
-- (NSString*)_formattedRemove:(NSString*)string atIndex:(NSRange)range;
-- (NSInteger)_valuableCharCountIn:(NSString*)string;
-- (NSString*)_digitOnlyString:(NSString*)string;
-- (NSDictionary*)_valuesForString:(NSString*)string;
-- (NSString*)_stringWithoutFormat:(NSString*)string;
-- (NSDictionary*)_configForSequence:(NSString*)string;
-- (BOOL)_matchString:(NSString*)string withPattern:(NSString*)pattern;
-- (NSString*)_applyFormat:(NSString*)format forFormattedString:(NSString*)formattedDigits;
-- (BOOL)_isRequireSubstitute:(unichar)ch;
-
 @end
 
 /*--------------------------------------------------*/
 
-@implementation GLBPhoneField
-
-#pragma mark - Init / Free
-
-- (void)setup {
-    [super setup];
-    
-    self.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    self.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.keyboardType = UIKeyboardTypeNumberPad;
-    
-    _formatter = [GLBPhoneFieldFormatter new];
-    _formatter.field = self;
-    [super setDelegate:_formatter];
+@interface GLBPhoneField () {
+    GLBPhoneFieldFormatter* _formatter;
 }
 
-#pragma mark - Property
-
-- (void)setDelegate:(id< UITextFieldDelegate >)delegate {
-    _formatter.delegate = delegate;
-}
-
-- (id< UITextFieldDelegate >)delegate {
-    return _formatter.delegate;
-}
-
-- (void)setPrefix:(NSString*)prefix {
-    _formatter.prefix = prefix;
-}
-
-- (NSString*)prefix {
-    return _formatter.prefix;
-}
-
-#pragma mark - Public
-
-- (void)setFormattedText:(NSString*)text {
-    [_formatter _applyFormat:self forText:text];
-}
-
-- (NSString*)phoneNumberWithoutPrefix {
-    return [_formatter _digitOnlyString:[self.text stringByReplacingOccurrencesOfString:_formatter.prefix withString:@""]];
-}
-
-- (NSString*)phoneNumber {
-    return [_formatter _digitOnlyString:self.text];
-}
-
-- (void)resetFormats {
-    [_formatter _resetFormats];
-}
-
-- (void)resetDefaultFormat {
-    [_formatter _resetDefaultFormat];
-}
-
-- (void)setDefaultOutputPattern:(NSString*)pattern {
-    [_formatter _setDefaultOutputPattern:pattern userInfo:nil];
-}
-
-- (void)setDefaultOutputPattern:(NSString*)pattern userInfo:(id)userInfo {
-    [_formatter _setDefaultOutputPattern:pattern userInfo:userInfo];
-}
-
-- (void)addOutputPattern:(NSString*)pattern forRegExp:(NSString*)regexp {
-    [_formatter _addOutputPattern:pattern forRegExp:regexp userInfo:nil];
-}
-
-- (void)addOutputPattern:(NSString*)pattern forRegExp:(NSString*)regexp userInfo:(id)userInfo {
-    [_formatter _addOutputPattern:pattern forRegExp:regexp userInfo:userInfo];
-}
+@property(nonatomic, strong) id userInfo;
 
 @end
 
@@ -233,7 +129,7 @@
     if((_prefix.length < 1) && (range.location < _prefix.length)) {
         return NO;
     }
-    NSInteger caretPosition = [self _pushCaretPosition:field range:range];
+    NSUInteger caretPosition = [self _pushCaretPosition:field range:range];
     NSString* newString = [field.text stringByReplacingCharactersInRange:range withString:string];
     [self _applyFormat:field forText:newString];
     [self _popCaretPosition:field range:range caretPosition:caretPosition];
@@ -250,19 +146,20 @@
     field.userInfo = result[@"userInfo"];
 }
 
-- (NSInteger)_pushCaretPosition:(UITextField*)textField range:(NSRange)range {
+- (NSUInteger)_pushCaretPosition:(UITextField*)textField range:(NSRange)range {
     NSString* subString = [textField.text substringFromIndex:range.location + range.length];
     return [self _valuableCharCountIn:subString];
 }
 
-- (void)_popCaretPosition:(UITextField*)textField range:(NSRange)range caretPosition:(NSInteger)caretPosition {
+- (void)_popCaretPosition:(UITextField*)textField range:(NSRange)range caretPosition:(NSUInteger)caretPosition {
     if(range.length == 0) {
         range.length = 1;
     }
     NSString* text = textField.text;
-    NSInteger lasts = caretPosition;
-    NSInteger start = [text length];
-    for(NSInteger index = [text length] - 1; index >= 0 && lasts > 0; index--) {
+    NSUInteger lasts = caretPosition;
+    NSUInteger length = text.length;
+    NSUInteger start = length;
+    for(NSUInteger index = length - 1; index != NSUIntegerMax && lasts > 0; index--) {
         unichar ch = [text characterAtIndex:index];
         if([self _isValuableChar:ch]) {
             lasts--;
@@ -276,8 +173,8 @@
 }
 
 - (void)_selectTextForInput:(UITextField*)input atRange:(NSRange)range {
-    UITextPosition* start = [input positionFromPosition:input.beginningOfDocument offset:range.location ];
-    UITextPosition* end = [input positionFromPosition:start offset:range.length];
+    UITextPosition* start = [input positionFromPosition:input.beginningOfDocument offset:(NSInteger)range.location];
+    UITextPosition* end = [input positionFromPosition:start offset:(NSInteger)range.length];
     [input setSelectedTextRange:[input textRangeFromPosition:start toPosition:end]];
 }
 
@@ -287,12 +184,12 @@
 
 - (NSString*)_formattedRemove:(NSString*)string atIndex:(NSRange)range {
     NSMutableString* newString = [NSMutableString stringWithString:string];
-    NSInteger removeCount = [self _valuableCharCountIn:[newString substringWithRange:range]];
+    NSUInteger removeCount = [self _valuableCharCountIn:[newString substringWithRange:range]];
     if(range.length == 1) {
         removeCount = 1;
     }
-    for(NSInteger wordCount = 0 ; wordCount < removeCount; wordCount++) {
-        for(NSInteger i = range.location + range.length - wordCount -1; i >= 0; i--) {
+    for(NSUInteger wordCount = 0 ; wordCount < removeCount; wordCount++) {
+        for(NSUInteger i = range.location + range.length - wordCount - 1; i != NSUIntegerMax; i--) {
             unichar ch = [newString characterAtIndex:i];
             if([self _isValuableChar:ch] == YES) {
                 [newString deleteCharactersInRange:NSMakeRange(i, 1)];
@@ -303,9 +200,10 @@
     return newString;
 }
 
-- (NSInteger)_valuableCharCountIn:(NSString*)string {
-    NSInteger count = 0;
-    for(NSInteger i = 0; i< string.length; i++) {
+- (NSUInteger)_valuableCharCountIn:(NSString*)string {
+    NSUInteger count = 0;
+    NSUInteger length = string.length;
+    for(NSUInteger i = 0; i < length; i++) {
         unichar ch = [string characterAtIndex:i];
         if([self _isValuableChar:ch] == YES) {
             count++;
@@ -329,21 +227,21 @@
         NSDictionary* configDict = [self _configForSequence:formattedDigits];
         NSString* result = [self _applyFormat:configDict[@"format"] forFormattedString:formattedDigits];
         return @{
-            @"userInfo" : configDict[@"userInfo"],
-            @"text": result
-        };
+                 @"userInfo" : configDict[@"userInfo"],
+                 @"text": result
+                 };
     }
     return @{
-        @"userInfo" : _formats[@"default"][@"userInfo"],
-        @"text" : _prefix
-    };
+             @"userInfo" : _formats[@"default"][@"userInfo"],
+             @"text" : _prefix
+             };
 }
 
 - (NSString*)_stringWithoutFormat:(NSString*)string {
     NSDictionary* dict = [self _configForSequence:string];
     NSArray* removeRanges = @[];
     NSString* format = dict[@"format"];
-    for(NSInteger i = 0; i < MIN(format.length, string.length); i++) {
+    for(NSUInteger i = 0; i < MIN(format.length, string.length); i++) {
         unichar formatCh = [format characterAtIndex:i];
         if(formatCh != [string characterAtIndex:i]) {
             break;
@@ -352,7 +250,7 @@
             removeRanges = [removeRanges arrayByAddingObject:[NSValue valueWithRange:NSMakeRange(i, 1)]];
         }
     }
-    for(NSInteger i = removeRanges.count - 1; i >= 0; i--) {
+    for(NSUInteger i = removeRanges.count - 1; i != NSUIntegerMax; i--) {
         NSValue* value = removeRanges[i];
         string = [string stringByReplacingCharactersInRange:value.rangeValue withString:@""];
     }
@@ -375,9 +273,9 @@
 }
 
 - (NSString*)_applyFormat:(NSString*)format forFormattedString:(NSString*)formattedDigits {
-    NSInteger charIndex = 0;
+    NSUInteger charIndex = 0;
     NSMutableString* result = [NSMutableString string];
-    for(NSInteger i = 0; (i < format.length) && (charIndex < formattedDigits.length); i++) {
+    for(NSUInteger i = 0; (i < format.length) && (charIndex < formattedDigits.length); i++) {
         unichar ch = [format characterAtIndex:i];
         if([self _isRequireSubstitute:ch] == YES) {
             unichar sp = [formattedDigits characterAtIndex:charIndex++];
@@ -395,7 +293,7 @@
 
 #pragma mark - NSFormatter
 
-- (BOOL)getObjectValue:(id*)object forString:(NSString*)string errorDescription:(NSString**)error {
+- (BOOL)getObjectValue:(id __autoreleasing *)object forString:(NSString*)string errorDescription:(NSString* __autoreleasing *)error {
     *object = [self _digitOnlyString:string];
     return YES;
 }
@@ -427,6 +325,82 @@
         return NO;
     }
     return result;
+}
+
+@end
+
+/*--------------------------------------------------*/
+
+@implementation GLBPhoneField
+
+#pragma mark - Init / Free
+
+- (void)setup {
+    [super setup];
+    
+    self.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.keyboardType = UIKeyboardTypeNumberPad;
+    
+    _formatter = [GLBPhoneFieldFormatter new];
+    _formatter.field = self;
+    [super setDelegate:_formatter];
+}
+
+#pragma mark - Property
+
+- (void)setDelegate:(id< UITextFieldDelegate >)delegate {
+    _formatter.delegate = delegate;
+}
+
+- (id< UITextFieldDelegate >)delegate {
+    return _formatter.delegate;
+}
+
+- (void)setPrefix:(NSString*)prefix {
+    _formatter.prefix = prefix;
+}
+
+- (NSString*)prefix {
+    return _formatter.prefix;
+}
+
+#pragma mark - Public
+
+- (void)setFormattedText:(NSString*)text {
+    [_formatter _applyFormat:self forText:text];
+}
+
+- (NSString*)phoneNumberWithoutPrefix {
+    return [_formatter _digitOnlyString:[self.text stringByReplacingOccurrencesOfString:_formatter.prefix withString:@""]];
+}
+
+- (NSString*)phoneNumber {
+    return [_formatter _digitOnlyString:self.text];
+}
+
+- (void)resetFormats {
+    [_formatter _resetFormats];
+}
+
+- (void)resetDefaultFormat {
+    [_formatter _resetDefaultFormat];
+}
+
+- (void)setDefaultOutputPattern:(NSString*)pattern {
+    [_formatter _setDefaultOutputPattern:pattern userInfo:nil];
+}
+
+- (void)setDefaultOutputPattern:(NSString*)pattern userInfo:(id)userInfo {
+    [_formatter _setDefaultOutputPattern:pattern userInfo:userInfo];
+}
+
+- (void)addOutputPattern:(NSString*)pattern forRegExp:(NSString*)regexp {
+    [_formatter _addOutputPattern:pattern forRegExp:regexp userInfo:nil];
+}
+
+- (void)addOutputPattern:(NSString*)pattern forRegExp:(NSString*)regexp userInfo:(id)userInfo {
+    [_formatter _addOutputPattern:pattern forRegExp:regexp userInfo:userInfo];
 }
 
 @end

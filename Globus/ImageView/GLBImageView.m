@@ -132,7 +132,7 @@
 - (void)_updateCorners {
     if(_roundCorners == YES) {
         CGRect bounds = self.bounds;
-        self.layer.cornerRadius = ceilf(MIN(bounds.size.width - 1.0f, bounds.size.height - 1.0f) * 0.5f);
+        self.layer.cornerRadius = GLB_CEIL(MIN(bounds.size.width - 1, bounds.size.height - 1) * (CGFloat)(0.5));
     }
 }
 

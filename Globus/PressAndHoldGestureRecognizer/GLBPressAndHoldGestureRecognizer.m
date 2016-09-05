@@ -6,10 +6,15 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import <UIKit/UIGestureRecognizerSubclass.h>
-#import "GLBAction.h"
 #import "NSArray+GLBNS.h"
-#import "GLBCG.h"
+
+/*--------------------------------------------------*/
+
+#import "GLBAction.h"
+
+/*--------------------------------------------------*/
+
+#import <UIKit/UIGestureRecognizerSubclass.h>
 
 /*--------------------------------------------------*/
 
@@ -39,8 +44,8 @@
         if((target != nil) && (action != NULL)) {
             [_actions addObject:[GLBAction actionWithTarget:target action:action]];
         }
-        _reportInterval = 0.5f;
-        _allowableMovementWhenRecognized = 3.0f;
+        _reportInterval = 0.5;
+        _allowableMovementWhenRecognized = 3.0;
     }
     return self;
 }

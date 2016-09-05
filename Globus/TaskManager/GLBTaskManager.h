@@ -22,7 +22,7 @@ typedef void (^GLBTaskManagerEnumBlock)(id task, BOOL* stop);
 
 @interface GLBTaskManager : NSObject
 
-@property(nonatomic) NSUInteger maxConcurrentTask;
+@property(nonatomic) NSInteger maxConcurrentTask;
 
 - (void)setup NS_REQUIRES_SUPER;
 

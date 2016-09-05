@@ -73,13 +73,13 @@
 
 #pragma mark - Public
 
-- (void)setMaxConcurrentTask:(NSUInteger)maxConcurrentTask {
+- (void)setMaxConcurrentTask:(NSInteger)maxConcurrentTask {
     [self updating];
     _queueManager.maxConcurrentOperationCount = maxConcurrentTask;
     [self updated];
 }
 
-- (NSUInteger)maxConcurrentTask {
+- (NSInteger)maxConcurrentTask {
     return [_queueManager maxConcurrentOperationCount];
 }
 

@@ -4,10 +4,6 @@
 
 /*--------------------------------------------------*/
 
-@class GLBAction;
-
-/*--------------------------------------------------*/
-
 @interface GLBTimer : NSObject
 
 @property(nonatomic, readonly, assign, getter=isDelaying) BOOL delaying;

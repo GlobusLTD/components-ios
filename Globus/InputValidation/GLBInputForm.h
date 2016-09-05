@@ -1,10 +1,14 @@
 /*--------------------------------------------------*/
 
-#include "GLBTargetConditionals.h"
+#import "NSArray+GLBNS.h"
+#import "NSString+GLBNS.h"
 
 /*--------------------------------------------------*/
 
-@class GLBAction;
+#import "GLBAction.h"
+
+/*--------------------------------------------------*/
+
 @protocol GLBInputField;
 @protocol GLBInputValidator;
 

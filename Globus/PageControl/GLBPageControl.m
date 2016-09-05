@@ -77,9 +77,9 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
 }
 
 - (void)setup {
-    _indicatorDiameter = 7.0f;
-    _indicatorMargin = 14.0f;
-    _minHeight = 36.0f;
+    _indicatorDiameter = 7.0;
+    _indicatorMargin = 14.0;
+    _minHeight = 36.0;
     _alignment = GLBPageControlAlignmentCenter;
     _verticalAlignment = GLBPageControlVerticalAlignmentMiddle;
     _pageIndicatorTintColor = [UIColor colorWithWhite:0.8f alpha:0.5f];
@@ -225,7 +225,7 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
 
 - (CGSize)intrinsicContentSize {
     if((_numberOfPages < 1) || ((_numberOfPages < 2) && (_hidesForSinglePage == YES))) {
-        return CGSizeMake(UIViewNoIntrinsicMetric, 0.0f);
+        return CGSizeMake(UIViewNoIntrinsicMetric, 0.0);
     }
     return CGSizeMake(UIViewNoIntrinsicMetric, MAX(_measuredIndicatorHeight, _minHeight));
 }
@@ -236,7 +236,7 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
     if((_hidesForSinglePage == NO) && (_numberOfPages >= 2)) {
         CGFloat left = [self _leftOffset];
         CGFloat xOffset = left;
-        CGFloat yOffset = 0.0f;
+        CGFloat yOffset = 0.0;
         UIColor *fillColor = nil;
         UIImage *image = nil;
         CGImageRef maskingImage = nil;
@@ -269,17 +269,17 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
             CGRect indicatorRect;
             if(image != nil) {
                 yOffset = [self _topOffsetForHeight:image.size.height rect:rect];
-                CGFloat centeredXOffset = xOffset + floorf((_measuredIndicatorWidth - image.size.width) / 2.0f);
+                CGFloat centeredXOffset = xOffset + GLB_FLOOR((_measuredIndicatorWidth - image.size.width) / 2);
                 [image drawAtPoint:CGPointMake(centeredXOffset, yOffset)];
                 indicatorRect = CGRectMake(centeredXOffset, yOffset, image.size.width, image.size.height);
             } else if(maskingImage != nil) {
                 yOffset = [self _topOffsetForHeight:maskSize.height rect:rect];
-                CGFloat centeredXOffset = xOffset + floorf((_measuredIndicatorWidth - maskSize.width) / 2.0f);
+                CGFloat centeredXOffset = xOffset + GLB_FLOOR((_measuredIndicatorWidth - maskSize.width) / 2);
                 indicatorRect = CGRectMake(centeredXOffset, yOffset, maskSize.width, maskSize.height);
                 CGContextDrawImage(context, indicatorRect, maskingImage);
             } else {
                 yOffset = [self _topOffsetForHeight:_indicatorDiameter rect:rect];
-                CGFloat centeredXOffset = xOffset + floorf((_measuredIndicatorWidth - _indicatorDiameter) / 2.0f);
+                CGFloat centeredXOffset = xOffset + GLB_FLOOR((_measuredIndicatorWidth - _indicatorDiameter) / 2);
                 indicatorRect = CGRectMake(centeredXOffset, yOffset, _indicatorDiameter, _indicatorDiameter);
                 CGContextFillEllipseInRect(context, indicatorRect);
             }
@@ -310,7 +310,7 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
     }
     CGSize size = [self sizeForNumberOfPages:_numberOfPages];
     CGFloat left = [self _leftOffset];
-    CGFloat middle = left + (size.width / 2.0f);
+    CGFloat middle = left + (size.width / 2);
     if(point.x < middle) {
         [self _setCurrentPage:_currentPage - 1 sendAction:YES canDefer:YES];
     } else {
@@ -339,9 +339,9 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
 - (CGFloat)_leftOffset {
 	CGRect rect = self.bounds;
 	CGSize size = [self sizeForNumberOfPages:_numberOfPages];
-	CGFloat left = 0.0f;
+	CGFloat left = 0.0;
 	switch(_alignment) {
-		case GLBPageControlAlignmentCenter: left = ceilf(CGRectGetMidX(rect) - (size.width / 2.0f)); break;
+		case GLBPageControlAlignmentCenter: left = GLB_CEIL(CGRectGetMidX(rect) - (size.width / 2)); break;
 		case GLBPageControlAlignmentRight: left = CGRectGetMaxX(rect) - size.width; break;
 		default: break;
 	}
@@ -349,9 +349,9 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
 }
 
 - (CGFloat)_topOffsetForHeight:(CGFloat)height rect:(CGRect)rect {
-	CGFloat top = 0.0f;
+	CGFloat top = 0.0;
 	switch(_verticalAlignment) {
-		case GLBPageControlVerticalAlignmentMiddle: top = CGRectGetMidY(rect) - (height / 2.0f); break;
+		case GLBPageControlVerticalAlignmentMiddle: top = CGRectGetMidY(rect) - (height / 2); break;
 		case GLBPageControlVerticalAlignmentBottom: top = CGRectGetMaxY(rect) - height; break;
 		default: break;
 	}
@@ -397,7 +397,7 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
     CGContextRef context = CGBitmapContextCreate(NULL, pixelsWide, pixelsHigh, CGImageGetBitsPerComponent(image.CGImage), bitmapBytesPerRow, NULL, (CGBitmapInfo)kCGImageAlphaOnly);
     if(context != nil) {
         CGContextTranslateCTM(context, 0.f, pixelsHigh);
-        CGContextScaleCTM(context, 1.0f, -1.0f);
+        CGContextScaleCTM(context, 1.0, -1.0);
         CGContextDrawImage(context, CGRectMake(0, 0, pixelsWide, pixelsHigh), image.CGImage);
         maskImage = CGBitmapContextCreateImage(context);
         CGContextRelease(context);
@@ -499,8 +499,8 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
 
 - (void)updatePageNumberForScrollView:(UIScrollView*)scrollView {
     CGSize boundsSize = scrollView.bounds.size;
-    self.numberOfPages = (NSUInteger)floorf(scrollView.contentSize.width / boundsSize.width);
-    NSUInteger currentPage = (NSUInteger)floorf(scrollView.contentOffset.x / boundsSize.width);
+    self.numberOfPages = (NSUInteger)GLB_FLOOR(scrollView.contentSize.width / boundsSize.width);
+    NSUInteger currentPage = (NSUInteger)GLB_FLOOR(scrollView.contentOffset.x / boundsSize.width);
     [self _setCurrentPage:currentPage sendAction:YES canDefer:NO];
 }
 

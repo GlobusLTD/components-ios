@@ -1,8 +1,6 @@
 /*--------------------------------------------------*/
 
 #import "GLBAudioPlayer.h"
-#import "GLBAudioSession.h"
-#import "GLBAction.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
@@ -69,7 +67,7 @@
 }
 
 - (void)setVolume:(CGFloat)volume {
-    _player.volume = volume;
+    _player.volume = (float)volume;
 }
 
 - (CGFloat)volume {
@@ -77,7 +75,7 @@
 }
 
 - (void)setPan:(CGFloat)pan {
-    _player.pan = pan;
+    _player.pan = (float)pan;
 }
 
 - (CGFloat)pan {
@@ -93,7 +91,7 @@
 }
 
 - (void)setRate:(CGFloat)rate {
-    _player.rate = rate;
+    _player.rate = (float)rate;
 }
 
 - (CGFloat)rate {
@@ -117,7 +115,7 @@
 }
 
 - (CGFloat)peakPower {
-    CGFloat result = 0.0f;
+    CGFloat result = 0.0;
     if(_prepared == YES) {
         NSUInteger numberOfChannels = _player.numberOfChannels;
         for(NSUInteger channel = 0; channel < numberOfChannels; channel++) {
@@ -129,7 +127,7 @@
 }
 
 - (CGFloat)averagePower {
-    CGFloat result = 0.0f;
+    CGFloat result = 0.0;
     if(_prepared == YES) {
         NSUInteger numberOfChannels = _player.numberOfChannels;
         for(NSUInteger channel = 0; channel < numberOfChannels; channel++) {
@@ -248,7 +246,7 @@
     if((_prepared == YES) && (_playing == YES)) {
         _playing = NO;
         _paused = NO;
-        _player.currentTime = 0.0f;
+        _player.currentTime = 0.0;
         [_player stop];
         if(_actionStoped != nil) {
             [_actionStoped performWithArguments:@[ self ]];
@@ -284,7 +282,7 @@
 }
 
 - (CGFloat)peakPowerForChannel:(NSUInteger)channelNumber {
-    CGFloat result = 0.0f;
+    CGFloat result = 0.0;
     if(_prepared == YES) {
         result = [_player peakPowerForChannel:channelNumber];
     }
@@ -292,7 +290,7 @@
 }
 
 - (CGFloat)averagePowerForChannel:(NSUInteger)channelNumber {
-    CGFloat result = 0.0f;
+    CGFloat result = 0.0;
     if(_prepared == YES) {
         result = [_player averagePowerForChannel:channelNumber];
     }

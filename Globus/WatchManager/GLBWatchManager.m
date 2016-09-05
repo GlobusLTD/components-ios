@@ -4,16 +4,6 @@
 
 /*--------------------------------------------------*/
 
-#import "NSFileManager+GLBNS.h"
-#import "NSArray+GLBNS.h"
-#import "NSDictionary+GLBNS.h"
-
-/*--------------------------------------------------*/
-
-#import "UIDevice+GLBUI.h"
-
-/*--------------------------------------------------*/
-
 @interface GLBWatchManager () < WCSessionDelegate > {
     NSMutableArray< NSValue* >* _observers;
     NSMutableArray< GLBWatchProvider* >* _providers;

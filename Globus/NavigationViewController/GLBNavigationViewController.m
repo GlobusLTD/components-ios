@@ -6,16 +6,19 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "GLBTransitionController.h"
+#if __has_include("GLBSlideViewController.h")
 #import "GLBSlideViewController.h"
+#endif
 
 /*--------------------------------------------------*/
 
-#import "UIDevice+GLBUI.h"
+@interface GLBNavigationViewController () <
+    UIViewControllerTransitioningDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate
+#if __has_include("GLBSlideViewController.h")
+    ,GLBSlideViewControllerDelegate
+#endif
+>
 
-/*--------------------------------------------------*/
-
-@interface GLBNavigationViewController () < UIViewControllerTransitioningDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, GLBSlideViewControllerDelegate >
 @end
 
 /*--------------------------------------------------*/
@@ -101,9 +104,14 @@
     return self.topViewController.supportedInterfaceOrientations;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {
     return [self.topViewController shouldAutorotateToInterfaceOrientation:orientation];
 }
+
+#pragma clang diagnostic pop
 
 - (BOOL)prefersStatusBarHidden {
     return self.topViewController.prefersStatusBarHidden;
@@ -123,11 +131,16 @@
     self.view.clipsToBounds = YES;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (void)viewDidUnload {
     [self setNeedUpdate];
     
     [super viewDidUnload];
 }
+
+#pragma clang diagnostic pop
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -278,6 +291,8 @@
     }
     return YES;
 }
+
+#if __has_include("GLBSlideViewController.h")
 
 #pragma mark - GLBSlideViewControllerDelegate
 
@@ -493,6 +508,8 @@
         [controller didEndedSwipeInSlideViewController:slideViewController];
     }
 }
+
+#endif
 
 #pragma mark - GLBViewController
 

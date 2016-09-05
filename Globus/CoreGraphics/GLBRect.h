@@ -1,6 +1,6 @@
 /*--------------------------------------------------*/
-#ifndef GLB_RECT
-#define GLB_RECT
+#ifndef GLB_RECT_H
+#define GLB_RECT_H
 /*--------------------------------------------------*/
 
 #include "GLBCG.h"

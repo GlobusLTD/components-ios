@@ -105,7 +105,7 @@
 
 #pragma mark - UIPopoverControllerDelegate
 
-- (void)popoverController:(UIPopoverController*)popoverController willRepositionPopoverToRect:(inout CGRect*)rect inView:(inout UIView**)view {
+- (void)popoverController:(UIPopoverController*)popoverController willRepositionPopoverToRect:(inout CGRect*)rect inView:(inout UIView* __autoreleasing *)view {
     *rect = [_arrowTargetView convertRect:_arrowTargetView.bounds toView:*view];
 }
 
@@ -114,12 +114,6 @@
 }
 
 @end
-
-/*--------------------------------------------------*/
-#pragma mark -
-/*--------------------------------------------------*/
-
-#import <objc/runtime.h>
 
 /*--------------------------------------------------*/
 #pragma mark -

@@ -76,14 +76,14 @@
 - (void)_updateCorners {
     if(_roundCorners == YES) {
         CGRect bounds = self.bounds;
-        self.glb_cornerRadius = ceilf(MIN(bounds.size.width - 1.0f, bounds.size.height - 1.0f) * 0.5f);
+        self.glb_cornerRadius = GLB_CEIL(MIN(bounds.size.width - 1, bounds.size.height - 1) / 2);
     }
 }
 
 - (void)_updateShadow {
     if(_automaticShadowPath == YES) {
         CGRect bounds = self.bounds;
-        if((bounds.size.width > 0.0f) && (bounds.size.height > 0.0f)) {
+        if((bounds.size.width > 0) && (bounds.size.height > 0)) {
             self.glb_shadowPath = [UIBezierPath bezierPathWithRoundedRect:bounds cornerRadius:self.glb_cornerRadius];
         }
     }

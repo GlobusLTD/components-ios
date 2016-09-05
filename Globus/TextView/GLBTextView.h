@@ -1,13 +1,16 @@
 /*--------------------------------------------------*/
 
+#import "UIResponder+GLBUI.h"
+#import "UIView+GLBUI.h"
+
+/*--------------------------------------------------*/
+
+#import "GLBInputForm.h"
 #import "GLBInputField.h"
+#import "GLBInputValidator.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
-/*--------------------------------------------------*/
-
-#import <UIKit/UIKit.h>
-
 /*--------------------------------------------------*/
 
 @interface GLBTextView : UITextView< GLBInputField >

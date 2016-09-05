@@ -1,6 +1,5 @@
 /*--------------------------------------------------*/
 
-#import "GLBBlurView.h"
 #import "GLBTextField.h"
 #import "GLBButton.h"
 
@@ -12,7 +11,7 @@
 
 /*--------------------------------------------------*/
 
-@interface GLBSearchBar : GLBBlurView
+@interface GLBSearchBar : UIView
 
 @property(nonatomic, weak) IBOutlet id< GLBSearchBarDelegate > delegate;
 @property(nonatomic, getter=isSearching) IBInspectable BOOL searching;
@@ -26,6 +25,15 @@
 @property(nonatomic, readonly, weak) IBOutlet GLBTextField* searchField;
 @property(nonatomic) BOOL showCancelButton;
 @property(nonatomic, readonly, weak) IBOutlet GLBButton* cancelButton;
+
+@property(nonatomic, getter = isBlurEnabled) IBInspectable BOOL blurEnabled GLB_DEPRECATED;
+@property(nonatomic) IBInspectable CGFloat blurRadius GLB_DEPRECATED;
+@property(nonatomic) IBInspectable NSUInteger blurIterations GLB_DEPRECATED;
+@property(nonatomic, getter = isDynamic) IBInspectable BOOL dynamic GLB_DEPRECATED;
+@property(nonatomic) IBInspectable NSTimeInterval updateInterval GLB_DEPRECATED;
+@property(nonatomic, weak) IBOutlet UIView* underlyingView GLB_DEPRECATED;
+
+- (void)setup NS_REQUIRES_SUPER;
 
 - (void)setSearching:(BOOL)searching animated:(BOOL)animated complete:(GLBSimpleBlock)complete;
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated complete:(GLBSimpleBlock)complete;

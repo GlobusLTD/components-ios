@@ -1,21 +1,23 @@
 /*--------------------------------------------------*/
 
 #import "GLBSplitViewController.h"
-#import "GLBTransitionController.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+#if __has_include("GLBSlideViewController.h")
 #import "GLBSlideViewController.h"
+#endif
 
 /*--------------------------------------------------*/
 
-#import "UIDevice+GLBUI.h"
-
-/*--------------------------------------------------*/
-
-@interface GLBSplitViewController () < UIViewControllerTransitioningDelegate, UISplitViewControllerDelegate, GLBSlideViewControllerDelegate >
+@interface GLBSplitViewController () <
+    UIViewControllerTransitioningDelegate, UISplitViewControllerDelegate
+#if __has_include("GLBSlideViewController.h")
+    , GLBSlideViewControllerDelegate
+#endif
+>
 
 - (void)_updateViewControllers;
 
@@ -105,10 +107,15 @@
     return controller.supportedInterfaceOrientations;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {
     UIViewController* controller = (self.collapsed == YES) ? _detailViewController : _masterViewController;
     return [controller shouldAutorotateToInterfaceOrientation:orientation];
 }
+
+#pragma clang diagnostic pop
 
 - (BOOL)prefersStatusBarHidden {
     UIViewController* controller = (self.collapsed == YES) ? _detailViewController : _masterViewController;
@@ -125,15 +132,19 @@
     return controller.preferredStatusBarUpdateAnimation;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (void)viewDidUnload {
     [self setNeedUpdate];
     
     [super viewDidUnload];
 }
 
+#pragma clang diagnostic pop
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.view layoutIfNeeded];
     
     if(_appeared == NO) {
         _appeared = YES;
@@ -177,9 +188,11 @@
     return _transitionModal;
 }
 
+#if __has_include("GLBSlideViewController.h")
+
 #pragma mark - UISplitViewControllerDelegate
 
-
+#endif
 
 #pragma mark - Private
 

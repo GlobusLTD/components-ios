@@ -1,6 +1,8 @@
 /*--------------------------------------------------*/
 
+#import "UIApplication+GLBUI.h"
 #import "UIViewController+GLBUI.h"
+#import "UIWindow+GLBUI.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)

@@ -6,15 +6,11 @@
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
-/*--------------------------------------------------*/
-
-#import "UIResponder+GLBUI.h"
-#import "UIView+GLBUI.h"
 
 /*--------------------------------------------------*/
 
 static const CGFloat GLBTextField_Duration = 0.2f;
-static const CGFloat GLBTextField_ToolbarHeight = 44.0f;
+static const CGFloat GLBTextField_ToolbarHeight = 44;
 
 /*--------------------------------------------------*/
 
@@ -110,7 +106,7 @@ static const CGFloat GLBTextField_ToolbarHeight = 44.0f;
             [attributes addEntriesFromDictionary:self.typingAttributes];
         } else {
             attributes[NSFontAttributeName] = (self.placeholderFont != nil) ? self.placeholderFont : self.font;
-            attributes[NSForegroundColorAttributeName] = (self.placeholderColor != nil) ? self.placeholderColor : [UIColor colorWithRed:170.0f/255 green:170.0f/255 blue:170.0f/255 alpha:1.0f];
+            attributes[NSForegroundColorAttributeName] = (self.placeholderColor != nil) ? self.placeholderColor : [UIColor colorWithRed:(CGFloat)(170.0 / 255.0) green:(CGFloat)(170.0 / 255.0) blue:(CGFloat)(170.0 / 255.0) alpha:(CGFloat)(1.0)];
             if(self.textAlignment != NSTextAlignmentLeft) {
                 NSMutableParagraphStyle* paragraph = [[NSMutableParagraphStyle alloc] init];
                 paragraph.alignment = self.textAlignment;
@@ -202,7 +198,7 @@ static const CGFloat GLBTextField_ToolbarHeight = 44.0f;
         _hiddenToolbar = hiddenToolbar;
         
         if(self.isEditing == YES) {
-            CGFloat toolbarHeight = (self.hiddenToolbar == NO) ? GLBTextField_ToolbarHeight : 0.0f;
+            CGFloat toolbarHeight = (self.hiddenToolbar == NO) ? GLBTextField_ToolbarHeight : 0;
             if(animated == YES) {
                 [UIView animateWithDuration:GLBTextField_Duration
                                  animations:^{
@@ -237,7 +233,7 @@ static const CGFloat GLBTextField_ToolbarHeight = 44.0f;
         }
         self.prevButton.enabled = (self.prevInputResponder != nil);
         self.nextButton.enabled = (self.nextInputResponder != nil);
-        self.toolbar.glb_frameHeight = (self.hiddenToolbar == NO) ? GLBTextField_ToolbarHeight : 0.0f;
+        self.toolbar.glb_frameHeight = (self.hiddenToolbar == NO) ? GLBTextField_ToolbarHeight : 0;
         self.inputAccessoryView = self.toolbar;
         [self reloadInputViews];
     }
@@ -259,12 +255,12 @@ static const CGFloat GLBTextField_ToolbarHeight = 44.0f;
         rect = UIEdgeInsetsInsetRect(rect, self.textContainerInset);
         CGFloat padding = self.textContainer.lineFragmentPadding;
         rect.origin.x += padding;
-        rect.size.width -= padding * 2.0f;
+        rect.size.width -= padding * 2;
     } else {
-        if(self.contentInset.left == 0.0f) {
-            rect.origin.x += 8.0f;
+        if(self.contentInset.left == 0) {
+            rect.origin.x += 8;
         }
-        rect.origin.y += 8.0f;
+        rect.origin.y += 8;
     }
     return rect;
 }

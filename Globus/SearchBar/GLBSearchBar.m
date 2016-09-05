@@ -56,17 +56,33 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
 
 #pragma mark - Init / Free
 
+- (instancetype)initWithCoder:(NSCoder*)coder {
+    self = [super initWithCoder:coder];
+    if(self != nil) {
+        [self setup];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if(self != nil) {
+        [self setup];
+    }
+    return self;
+}
+
 - (void)setup {
-    [super setup];
-    
-    self.blurEnabled = NO;
     if(self.backgroundColor == nil) {
-        self.backgroundColor = [UIColor colorWithRed:201.0f/255.0f green:201.0f/255.0f blue:206.0f/255.0f alpha:1.0f];
+        self.backgroundColor = [UIColor colorWithRed:(CGFloat)(201.0 / 255.0)
+                                               green:(CGFloat)(201.0 / 255.0)
+                                                blue:(CGFloat)(206.0 / 255.0)
+                                               alpha:1];
     }
 
-    _minimalHeight = 28.0f;
-    _margin = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
-    _spacing = 6.0f;
+    _minimalHeight = 28;
+    _margin = UIEdgeInsetsMake(8, 8, 8, 8);
+    _spacing = 6;
     _alwaysShowCancelButton = NO;
     _showCancelButton = YES;
     _contentConstraints = NSMutableArray.array;
@@ -145,7 +161,10 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
 - (UIView*)separatorView {
     if(_separatorView == nil) {
         UIView* separatorView = [[UIView alloc] initWithFrame:CGRectZero];
-        separatorView.backgroundColor = [UIColor colorWithRed:199.0f/255.0f green:199.0f/255.0f blue:199.0f/255.0f alpha:1.0f];
+        separatorView.backgroundColor = [UIColor colorWithRed:(CGFloat)(199.0 / 255.0)
+                                                        green:(CGFloat)(199.0 / 255.0)
+                                                         blue:(CGFloat)(199.0 / 255.0)
+                                                        alpha:1];
         self.separatorView = separatorView;
     }
     return _separatorView;
@@ -178,9 +197,9 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
         textField.backgroundColor = [UIColor whiteColor];
         textField.textColor = [UIColor darkGrayColor];
         textField.tintColor = [UIColor blackColor];
-        textField.glb_cornerRadius = 4.0f;
+        textField.glb_cornerRadius = 4;
         textField.hiddenToolbar = YES;
-        textField.font = [UIFont fontWithName:@"HelveticaNeue" size:13.0f];
+        textField.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
         UIImage* image = [UIImage imageNamed:@"icon_searchbar.png"];
         if(image != nil) {
             textField.leftView = [[UIImageView alloc] initWithImage:image];
@@ -219,10 +238,54 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
         GLBButton* button = [[GLBButton alloc] initWithFrame:CGRectZero];
         button.glb_normalTitle = NSLocalizedStringFromTable(@"Cancel", @"GLBSearchBar", @"Cancel title");
         button.glb_normalTitleColor = [UIColor darkGrayColor];
-        button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15.0f];
+        button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
         self.cancelButton = button;
     }
     return _cancelButton;
+}
+
+#pragma mark - Property depricated
+
+- (void)setBlurEnabled:(BOOL)blurEnabled {
+}
+
+- (BOOL)isBlurEnabled {
+    return NO;
+}
+
+- (void)setBlurRadius:(CGFloat)blurRadius {
+}
+
+- (CGFloat)blurRadius {
+    return 0;
+}
+
+- (void)setBlurIterations:(NSUInteger)blurIterations {
+}
+
+- (NSUInteger)blurIterations {
+    return 0;
+}
+
+- (void)setDynamic:(BOOL)dynamic {
+}
+
+- (BOOL)isDynamic {
+    return NO;
+}
+
+- (void)setUpdateInterval:(NSTimeInterval)updateInterval {
+}
+
+- (NSTimeInterval)updateInterval {
+    return 0;
+}
+
+- (void)setUnderlyingView:(UIView*)underlyingView {
+}
+
+- (UIView*)underlyingView {
+    return nil;
 }
 
 #pragma mark - Public override

@@ -1,19 +1,14 @@
 /*--------------------------------------------------*/
 
+#import "UIResponder+GLBUI.h"
+#import "UIApplication+GLBUI.h"
 #import "UIWindow+GLBUI.h"
-#import "GLBActivityView.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-
-@protocol GLBWindowExtension < NSObject >
-
-@required
-@property(nonatomic, readonly, assign) BOOL hideKeyboardIfTouched;
-
-@end
+@class GLBActivityView;
 
 /*--------------------------------------------------*/
 
@@ -21,10 +16,18 @@
 
 @property(nonatomic) BOOL hideKeyboardIfTouched;
 
-@property(nonatomic, readonly, strong) GLBActivityView* activity;
-@property(nonatomic) GLBActivityViewStyle activityStyle;
+@property(nonatomic, strong) GLBActivityView* activityView;
 
 - (void)setup NS_REQUIRES_SUPER;
+
+@end
+
+/*--------------------------------------------------*/
+
+@protocol GLBWindowExtension < NSObject >
+
+@required
+@property(nonatomic, readonly, assign) BOOL hideKeyboardIfTouched;
 
 @end
 

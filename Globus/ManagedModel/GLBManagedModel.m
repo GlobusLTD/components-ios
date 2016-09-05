@@ -3,20 +3,6 @@
 #import "GLBManagedModel+Private.h"
 
 /*--------------------------------------------------*/
-
-#import "NSObject+GLBNS.h"
-#import "NSString+GLBNS.h"
-#import "NSArray+GLBNS.h"
-#import "NSDictionary+GLBNS.h"
-#import "NSPointerArray+GLBNS.h"
-#import "NSFileManager+GLBNS.h"
-#import "NSBundle+GLBNS.h"
-
-/*--------------------------------------------------*/
-
-#include <objc/runtime.h>
-
-/*--------------------------------------------------*/
 #pragma mark -
 /*--------------------------------------------------*/
 
@@ -879,15 +865,15 @@ static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistSto
     return [self.currentContext objectWithID:objectID];
 }
 
-- (NSManagedObject*)existingObjectWithID:(NSManagedObjectID*)objectID error:(NSError**)error {
+- (NSManagedObject*)existingObjectWithID:(NSManagedObjectID*)objectID error:(NSError* __autoreleasing *)error {
     return [self.currentContext existingObjectWithID:objectID error:error];
 }
 
-- (NSArray*)executeFetchRequest:(NSFetchRequest*)request error:(NSError**)error {
+- (NSArray*)executeFetchRequest:(NSFetchRequest*)request error:(NSError* __autoreleasing *)error {
     return [self.currentContext executeFetchRequest:request error:error];
 }
 
-- (NSUInteger)countForFetchRequest:(NSFetchRequest*)request error: (NSError**)error {
+- (NSUInteger)countForFetchRequest:(NSFetchRequest*)request error: (NSError* __autoreleasing *)error {
     return [self.currentContext countForFetchRequest:request error:error];
 }
 
@@ -903,7 +889,7 @@ static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistSto
     return [self.model fetchRequestFromTemplateWithName:name substitutionVariables:variables];
 }
 
-- (NSArray*)executeTemplateFetchRequestForName:(NSString*)name error:(NSError**)error {
+- (NSArray*)executeTemplateFetchRequestForName:(NSString*)name error:(NSError* __autoreleasing *)error {
     NSFetchRequest* request = [self.model fetchRequestTemplateForName:name];
     if(request != nil) {
         return [self.currentContext executeFetchRequest:request error:error];
@@ -911,7 +897,7 @@ static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistSto
     return nil;
 }
 
-- (NSArray*)executeTemplateFetchRequestForName:(NSString*)name variables:(NSDictionary< NSString*, id >*)variables error:(NSError**)error {
+- (NSArray*)executeTemplateFetchRequestForName:(NSString*)name variables:(NSDictionary< NSString*, id >*)variables error:(NSError* __autoreleasing *)error {
     NSFetchRequest* request = [self.model fetchRequestFromTemplateWithName:name substitutionVariables:variables];
     if(request != nil) {
         return [self.currentContext executeFetchRequest:request error:error];
@@ -967,7 +953,7 @@ static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistSto
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
-- (BOOL)_migrateURL:(NSURL*)sourceStoreURL options:(NSDictionary*)options type:(NSString*)type model:(NSManagedObjectModel*)model error:(NSError**)error {
+- (BOOL)_migrateURL:(NSURL*)sourceStoreURL options:(NSDictionary*)options type:(NSString*)type model:(NSManagedObjectModel*)model error:(NSError* __autoreleasing *)error {
     NSDictionary* sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:type URL:sourceStoreURL error:error];
     if(sourceMetadata == nil) {
         return YES;
@@ -1002,11 +988,11 @@ static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistSto
     return [NSManagedObjectModel mergedModelFromBundles:@[ NSBundle.mainBundle ] forStoreMetadata:sourceMetadata];
 }
 
-- (BOOL)_destinationModel:(NSManagedObjectModel**)destinationModel
-             mappingModel:(NSMappingModel**)mappingModel
-                modelName:(NSString**)modelName
+- (BOOL)_destinationModel:(NSManagedObjectModel* __autoreleasing *)destinationModel
+             mappingModel:(NSMappingModel* __autoreleasing *)mappingModel
+                modelName:(NSString* __autoreleasing *)modelName
            forSourceModel:(NSManagedObjectModel*)sourceModel
-                    error:(NSError**)error {
+                    error:(NSError* __autoreleasing *)error {
     NSArray* modelPaths = [self _allModelPaths];
     if(modelPaths.count < 1) {
         if(error != NULL) {
@@ -1061,7 +1047,7 @@ static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistSto
     return [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@.%@.%@", storePath, modelName, storeExtension]];
 }
 
-- (BOOL)_backupSourceStoreAtURL:(NSURL*)sourceStoreURL destinationStoreAtURL:(NSURL*)destinationStoreURL error:(NSError**)error {
+- (BOOL)_backupSourceStoreAtURL:(NSURL*)sourceStoreURL destinationStoreAtURL:(NSURL*)destinationStoreURL error:(NSError* __autoreleasing *)error {
     NSString* guid = [[NSProcessInfo processInfo] globallyUniqueString];
     NSString* backupPath = [NSTemporaryDirectory() stringByAppendingPathComponent:guid];
     NSFileManager* fileManager = [NSFileManager defaultManager];

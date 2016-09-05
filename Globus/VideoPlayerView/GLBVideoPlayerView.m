@@ -1,15 +1,9 @@
 /*--------------------------------------------------*/
 
 #import "GLBVideoPlayerView.h"
-#import "GLBAction.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
-/*--------------------------------------------------*/
-
-#import <AVFoundation/AVFoundation.h>
-#import <math.h>
-
 /*--------------------------------------------------*/
 
 static NSString* GLBVideoPlayerViewItemStatusKeyPath = @"status";
@@ -161,7 +155,7 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
 }
 
 - (void)setVolume:(CGFloat)volume {
-    self.player.volume = volume;
+    self.player.volume = (float)volume;
 }
 
 - (CGFloat)volume {
@@ -185,8 +179,8 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
         _prepared = NO;
         _playing = NO;
         _paused = NO;
-        _buffer = 0.0f;
-        _rate = 0.0f;
+        _buffer = 0.0;
+        _rate = 0.0;
         self.playerItem = nil;
         if(_actionCleaned != nil) {
             [_actionCleaned performWithArguments:@[ self ]];
@@ -207,7 +201,7 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
 - (void)seek:(CGFloat)to {
     if((_prepared == YES) && (_playing == YES) && (_paused == NO)) {
         Float64 seconds = CMTimeGetSeconds(self.playerItem.asset.duration);
-        [self.player seekToTime:CMTimeMake((int64_t)ceil(seconds * to), 1)];
+        [self.player seekToTime:CMTimeMake((int64_t)GLB_CEIL(seconds * to), 1)];
     }
 }
 
@@ -264,8 +258,8 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
 }
 
 - (void)_notificationDidPlayToEndTime {
-    _rate = 1.0f;
-    _buffer = 1.0f;
+    _rate = 1.0;
+    _buffer = 1.0;
     if(_actionFinished != nil) {
         [_actionFinished performWithArguments:@[ self ]];
     }

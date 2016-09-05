@@ -1,9 +1,6 @@
 /*--------------------------------------------------*/
 
 #import "GLBAudioRecorder.h"
-#import "GLBAudioSession.h"
-#import "GLBAction.h"
-#import "NSFileManager+GLBNS.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
@@ -44,9 +41,9 @@
     
     _format = kAudioFormatAppleIMA4;
     _quality = AVAudioQualityMin;
-    _sampleRate = 44100.0f;
+    _sampleRate = 44100.0;
     _numberOfChannels = 1;
-    _bitRate = 12800.0f;
+    _bitRate = 12800.0;
 }
 
 #pragma mark Property
@@ -75,7 +72,7 @@
 }
 
 - (CGFloat)peakPower {
-    CGFloat result = 0.0f;
+    CGFloat result = 0.0;
     if(_prepared == YES) {
         for(NSUInteger channel = 0; channel < _numberOfChannels; channel++) {
             result += [_recorder peakPowerForChannel:channel];
@@ -86,7 +83,7 @@
 }
 
 - (CGFloat)averagePower {
-    CGFloat result = 0.0f;
+    CGFloat result = 0.0;
     if(_prepared == YES) {
         for(NSUInteger channel = 0; channel < _numberOfChannels; channel++) {
             result += [_recorder averagePowerForChannel:channel];
@@ -207,7 +204,7 @@
 }
 
 - (CGFloat)peakPowerForChannel:(NSUInteger)channelNumber {
-    CGFloat result = 0.0f;
+    CGFloat result = 0.0;
     if(_prepared == YES) {
         result = [_recorder peakPowerForChannel:channelNumber];
     }
@@ -215,7 +212,7 @@
 }
 
 - (CGFloat)averagePowerForChannel:(NSUInteger)channelNumber {
-    CGFloat result = 0.0f;
+    CGFloat result = 0.0;
     if(_prepared == YES) {
         result = [_recorder averagePowerForChannel:channelNumber];
     }
