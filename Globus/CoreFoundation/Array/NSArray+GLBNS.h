@@ -249,7 +249,7 @@
  * @code
  * [array glb_each:^(ObjectType* object){
  *     if ("it is right object") {
- *         //do what you whant
+ *         //do what you want
  *     }
  * }];
  * @endcode
@@ -264,7 +264,7 @@
  * @code
  * [array glb_each:^(ObjectType* object){
  *     if ("it is right object") {
- *         //do what you whant
+ *         //do what you want
  *     } range:NSMakeRange(0,10)];
  * @endcode
  */
@@ -277,7 +277,7 @@
  * @code
  * [array glb_each:^(ObjectType* object, NSUInteger index){
  *     if ("it is right object") {
- *         //do what you whant
+ *         //do what you want
  *     }];
  * @endcode
  */
@@ -291,7 +291,7 @@
  * @code
  * [array glb_each:^(ObjectType* object, NSUInteger index){
  *     if ("it is right object") {
- *         //do what you whant
+ *         //do what you want
  *     }     range:NSMakeRange(0,10)];
  * @endcode
  */
@@ -305,7 +305,7 @@
  * @code
  * [array glb_each:^(ObjectType* object, NSUInteger index){
  *     if ("it is right object") {
- *         //do what you whant
+ *         //do what you want
  *     }   options:NSEnumerationConcurrent];
  * @endcode
  */
@@ -320,7 +320,7 @@
  * @code
  * [array glb_each:^(ObjectType* object, NSUInteger index){
  *     if ("it is right object") {
- *         //do what you whant
+ *         //do what you want
  *     }     range:NSMakeRange(0,10) 
  *         options:NSEnumerationConcurrent];
  * @endcode
@@ -336,7 +336,7 @@
  * @code
  * [array glb_eachWithIndex:^(ObjectType* object, NSUInteger index){
  *     if ("it is right object") {
- *         //do what you whant
+ *         //do what you want
  *     } options:NSEnumerationConcurrent];
  * @endcode
  */
@@ -351,7 +351,7 @@
  * @code
  * [array glb_eachWithIndex:^(ObjectType* object, NSUInteger index){
  *     if ("it is right object") {
- *         //do what you whant
+ *         //do what you want
  *     }              range:NSMakeRange(0,10) options:NSEnumerationConcurrent];
  * @endcode
  */
