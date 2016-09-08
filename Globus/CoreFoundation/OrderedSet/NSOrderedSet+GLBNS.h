@@ -478,7 +478,7 @@
 
 /**
  * @file NSOrderedSet+GLBNS.h
- * @header NSMutableOrderedSet+GLBNS.h
+ * @header NSOrderedSet+GLBNS.h
  * @class NSMutableOrderedSet+GLBNS
  * @classdesign It is a category.
  * @helps NSMutableOrderedSet
