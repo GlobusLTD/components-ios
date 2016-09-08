@@ -327,7 +327,6 @@
  */
 - (void)glb_each:(void(^ _Nonnull)(_Nonnull ObjectType object))block range:(NSRange)range options:(NSEnumerationOptions)options;
 
-
 /**
  * @brief Iterate every elements of an original array with options.
  * @discussion You will get every element of an original array in the block in forward or revers direction.
