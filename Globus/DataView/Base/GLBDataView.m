@@ -61,9 +61,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 @synthesize editingItems = _editingItems;
 @synthesize movingItem = _movingItem;
 @synthesize movingItemLastOffset = _movingItemLastOffset;
-@synthesize registersViews = _registersViews;
 @synthesize registersActions = _registersActions;
-@synthesize queueCells = _queueCells;
 @synthesize queueBatch = _queueBatch;
 @synthesize reloadedBeforeItems = _reloadedBeforeItems;
 @synthesize reloadedAfterItems = _reloadedAfterItems;
@@ -169,9 +167,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     _selectedItems = NSMutableArray.array;
     _highlightedItems = NSMutableArray.array;
     _editingItems = NSMutableArray.array;
-    _registersViews = NSMutableDictionary.dictionary;
     _registersActions = [GLBActions new];
-    _queueCells = NSMutableDictionary.dictionary;
     _queueBatch = NSMutableArray.array;
     _reloadedBeforeItems = NSMutableArray.array;
     _reloadedAfterItems = NSMutableArray.array;
@@ -193,18 +189,9 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     self.longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(_handlerLongPressGestureRecognizer:)];
     
     [self glb_registerAdjustmentResponder];
-    
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(_receiveMemoryWarning)
-                                               name:UIApplicationDidReceiveMemoryWarningNotification
-                                             object:nil];
 }
 
 - (void)dealloc {
-    [NSNotificationCenter.defaultCenter removeObserver:self
-                                                  name:UIApplicationDidReceiveMemoryWarningNotification
-                                                object:nil];
-    
     [self glb_unregisterAdjustmentResponder];
 }
 
@@ -332,6 +319,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
         CGFloat width = (contentSize.width > FLT_EPSILON) ? contentSize.width : self.frame.size.width;
         CGFloat height = (contentSize.height > FLT_EPSILON) ? contentSize.height : self.frame.size.height;
         _contentView = [[GLBDataContentView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+        _contentView.view = self;
         [self addSubview:_contentView];
     }
     return _contentView;
@@ -347,7 +335,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             [self endedMoveItemAnimated:NO];
             if(_visibleItems.count > 0) {
                 [_visibleItems glb_each:^(GLBDataViewItem* item) {
-                    [self enqueueCellWithItem:item];
+                    [self _disappearItem:item];
                     item.parent = nil;
                 }];
                 [_visibleItems removeAllObjects];
@@ -1014,27 +1002,15 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 #pragma mark - Public
 
 - (void)registerIdentifier:(NSString*)identifier withViewClass:(Class)viewClass {
-#if defined(GLB_DEBUG) && ((GLB_DEBUG_LEVEL & GLB_DEBUG_LEVEL_ERROR) != 0)
-    if(_registersViews[identifier] != nil) {
-        NSLog(@"ERROR: [%@:%@] %@ - %@", self.class, NSStringFromSelector(_cmd), identifier, viewClass);
-        return;
-    }
-#endif
-    _registersViews[identifier] = viewClass;
+    [self.contentView registerIdentifier:identifier withViewClass:viewClass];
 }
 
 - (void)unregisterIdentifier:(NSString*)identifier {
-#if defined(GLB_DEBUG) && ((GLB_DEBUG_LEVEL & GLB_DEBUG_LEVEL_ERROR) != 0)
-    if(_registersViews[identifier] == nil) {
-        NSLog(@"ERROR: [%@:%@] %@", self.class, NSStringFromSelector(_cmd), identifier);
-        return;
-    }
-#endif
-    [_registersViews removeObjectForKey:identifier];
+    [self.contentView unregisterIdentifier:identifier];
 }
 
 - (void)unregisterAllIdentifiers {
-    [_registersViews removeAllObjects];
+    [self.contentView unregisterAllIdentifiers];
 }
 
 - (void)registerActionWithTarget:(id)target action:(SEL)action forKey:(id)key {
@@ -1078,20 +1054,16 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 }
 
 - (Class)cellClassWithItem:(GLBDataViewItem*)item {
-    return _registersViews[item.identifier];
+    return [self.contentView cellClassWithItem:item];
 }
 
-- (void)dequeueCellWithItem:(GLBDataViewItem*)item {
-    if(item.cell == nil) {
-        item.cell = [self _dequeueCellWithItem:item];
-    }
+- (GLBDataViewCell*)dequeueCellWithItem:(GLBDataViewItem*)item {
+    return [self.contentView dequeueCellWithItem:item];
 }
 
-- (void)enqueueCellWithItem:(GLBDataViewItem*)item {
-    GLBDataViewCell* cell = item.cell;
-    if(cell != nil) {
-        [self _enqueueCell:cell forIdentifier:item.identifier];
-        item.cell = nil;
+- (void)enqueueCell:(GLBDataViewCell*)cell {
+    if(cell.item != nil) {
+        [self.contentView enqueueCell:cell item:cell.item];
     }
 }
 
@@ -1279,135 +1251,22 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     if(update != nil) {
         update();
     }
-    [self validateLayoutIfNeed];
-    [self _layoutForVisible];
-    [_container _updateAnimated:_animating];
-    if(_reloadedBeforeItems.count > 0) {
-        if([self containsActionForKey:GLBDataViewAnimateReplaceOut] == YES) {
-            [self performActionForKey:GLBDataViewAnimateReplaceOut withArguments:@[ self, _reloadedBeforeItems ]];
-        } else {
-            for(GLBDataViewItem* item in _reloadedBeforeItems) {
-                GLBDataViewCell* cell = item.cell;
-                if(cell != nil) {
-                    [UIView performWithoutAnimation:^{
-                        cell.glb_ZPosition = -1;
-                        cell.alpha = 1;
-                    }];
-                    cell.alpha = 0;
-                }
-            }
-        }
-    }
-    if(_reloadedAfterItems.count > 0) {
-        if([self containsActionForKey:GLBDataViewAnimateReplaceIn] == YES) {
-            [self performActionForKey:GLBDataViewAnimateReplaceOut withArguments:@[ self, _reloadedAfterItems ]];
-        } else {
-            for(GLBDataViewItem* item in _reloadedAfterItems) {
-                GLBDataViewCell* cell = item.cell;
-                if(cell != nil) {
-                    [UIView performWithoutAnimation:^{
-                        cell.glb_ZPosition = -1;
-                        cell.alpha = 0;
-                    }];
-                    cell.alpha = 1;
-                }
-            }
-        }
-    }
-    if(_insertedItems.count > 0) {
-        if([self containsActionForKey:GLBDataViewAnimateInsert] == YES) {
-            [self performActionForKey:GLBDataViewAnimateInsert withArguments:@[ self, _insertedItems ]];
-        } else {
-            for(GLBDataViewItem* item in _insertedItems) {
-                GLBDataViewCell* cell = item.cell;
-                if(cell != nil) {
-                    [UIView performWithoutAnimation:^{
-                        cell.glb_ZPosition = -1.0f;
-                        cell.alpha = 0.0f;
-                    }];
-                    cell.alpha = 1.0f;
-                }
-            }
-        }
-    }
-    if(_deletedItems.count > 0) {
-        if([self containsActionForKey:GLBDataViewAnimateDelete] == YES) {
-            [self performActionForKey:GLBDataViewAnimateDelete withArguments:@[ self, _deletedItems ]];
-        } else {
-            for(GLBDataViewItem* item in _deletedItems) {
-                GLBDataViewCell* cell = item.cell;
-                if(cell != nil) {
-                    [UIView performWithoutAnimation:^{
-                        cell.glb_ZPosition = -1.0f;
-                        cell.alpha = 1.0f;
-                    }];
-                    cell.alpha = 0.0f;
-                }
-            }
-        }
+    if(_animating == YES) {
+        [self validateLayoutIfNeed];
+        [self _layoutForVisible];
+        [_container _updateAnimated:_animating];
+        [self _beginAnimateUpdatedItems];
+    } else {
+        [self _endAnimateUpdatedItems];
+        [self validateLayoutIfNeed];
+        [self _layoutForVisible];
+        [_container _updateAnimated:_animating];
     }
 }
 
 - (void)endUpdate {
-    if(_reloadedBeforeItems.count > 0) {
-        if([self containsActionForKey:GLBDataViewAnimateRestore] == YES) {
-            [self performActionForKey:GLBDataViewAnimateRestore withArguments:@[ self, _reloadedBeforeItems ]];
-            for(GLBDataViewItem* item in _reloadedBeforeItems) {
-                [self _disappearItem:item];
-                item.parent = nil;
-            }
-        } else {
-            for(GLBDataViewItem* item in _reloadedBeforeItems) {
-                GLBDataViewCell* cell = item.cell;
-                if(cell != nil) {
-                    cell.glb_ZPosition = 0.0f;
-                    cell.alpha = 1.0f;
-                }
-                [self _disappearItem:item];
-                item.parent = nil;
-            }
-        }
-        [_reloadedBeforeItems removeAllObjects];
-    }
-    if(_reloadedAfterItems.count > 0) {
-        for(GLBDataViewItem* item in _reloadedAfterItems) {
-            GLBDataViewCell* cell = item.cell;
-            if(cell != nil) {
-                cell.glb_ZPosition = 0.0f;
-                cell.alpha = 1.0f;
-            }
-        }
-        [_reloadedAfterItems removeAllObjects];
-    }
-    if(_insertedItems.count > 0) {
-        for(GLBDataViewItem* item in _insertedItems) {
-            GLBDataViewCell* cell = item.cell;
-            if(cell != nil) {
-                cell.glb_ZPosition = 0.0f;
-                cell.alpha = 1.0f;
-            }
-        }
-        [_insertedItems removeAllObjects];
-    }
-    if(_deletedItems.count > 0) {
-        if([self containsActionForKey:GLBDataViewAnimateRestore] == YES) {
-            [self performActionForKey:GLBDataViewAnimateRestore withArguments:@[ self, _deletedItems ]];
-            for(GLBDataViewItem* item in _deletedItems) {
-                [self _disappearItem:item];
-                item.parent = nil;
-            }
-        } else {
-            for(GLBDataViewItem* item in _deletedItems) {
-                GLBDataViewCell* cell = item.cell;
-                if(cell != nil) {
-                    cell.glb_ZPosition = 0.0f;
-                    cell.alpha = 1.0f;
-                }
-                [self _disappearItem:item];
-                item.parent = nil;
-            }
-        }
-        [_deletedItems removeAllObjects];
+    if(_animating == YES) {
+        [self _endAnimateUpdatedItems];
     }
     [_container _endUpdateAnimated:_animating];
     _animating = NO;
@@ -1659,56 +1518,6 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     }
 }
 
-- (void)_receiveMemoryWarning {
-    [_queueCells glb_each:^(NSString* identifier, NSArray* cells) {
-        for(GLBDataViewCell* cell in cells) {
-            [cell removeFromSuperview];
-            cell.view = nil;
-        }
-    }];
-    [_queueCells removeAllObjects];
-}
-
-- (GLBDataViewCell*)_dequeueCellWithItem:(GLBDataViewItem*)item {
-    NSString* identifier = item.identifier;
-    NSMutableArray* queue = _queueCells[identifier];
-    GLBDataViewCell* cell = [queue lastObject];
-    if(cell == nil) {
-        cell = [[_registersViews[identifier] alloc] initWithIdentifier:identifier];
-        if(cell != nil) {
-            cell.view = self;
-            __block NSUInteger viewIndex = NSNotFound;
-            [self.contentView.subviews enumerateObjectsUsingBlock:^(UIView* view, NSUInteger index, BOOL* stop) {
-                if([view isKindOfClass:GLBDataViewCell.class] == YES) {
-                    GLBDataViewCell* existCell = (GLBDataViewCell*)view;
-                    if(item.order > existCell.item.order) {
-                        viewIndex = index;
-                    } else if(item.order <= existCell.item.order) {
-                        *stop = YES;
-                    }
-                }
-            }];
-            if(viewIndex != NSNotFound) {
-                [self.contentView insertSubview:cell atIndex:(NSInteger)(viewIndex + 1)];
-            } else {
-                [self.contentView insertSubview:cell atIndex:0];
-            }
-        }
-    } else {
-        [queue removeLastObject];
-    }
-    return cell;
-}
-
-- (void)_enqueueCell:(GLBDataViewCell*)cell forIdentifier:(NSString*)identifier {
-    NSMutableArray* queue = _queueCells[identifier];
-    if(queue == nil) {
-        _queueCells[identifier] = [NSMutableArray arrayWithObject:cell];
-    } else {
-        [queue addObject:cell];
-    }
-}
-
 - (void)_pressedItem:(GLBDataViewItem*)item animated:(BOOL)animated {
     if(_allowsOnceSelection == YES) {
         [self _selectItem:item user:YES animated:animated];
@@ -1790,13 +1599,22 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 }
 
 - (void)_appearItem:(GLBDataViewItem*)item {
+    if(item.cell == nil) {
+        GLBDataViewCell* cell = [self.contentView dequeueCellWithItem:item];
+        if(cell != nil) {
+            item.cell = cell;
+        }
+    }
     [_visibleItems addObject:item];
-    [self dequeueCellWithItem:item];
 }
 
 - (void)_disappearItem:(GLBDataViewItem*)item {
+    GLBDataViewCell* cell = item.cell;
+    if(cell != nil) {
+        [self.contentView enqueueCell:cell item:item];
+        item.cell = nil;
+    }
     [_visibleItems removeObject:item];
-    [self enqueueCellWithItem:item];
 }
 
 - (void)_didInsertItems:(NSArray*)items {
@@ -1830,6 +1648,136 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     [_reloadedBeforeItems addObjectsFromArray:originItems];
     [_reloadedAfterItems addObjectsFromArray:items];
     [self setNeedValidateLayout];
+}
+
+- (void)_beginAnimateUpdatedItems {
+    if(_reloadedBeforeItems.count > 0) {
+        if([self containsActionForKey:GLBDataViewAnimateReplaceOut] == YES) {
+            [self performActionForKey:GLBDataViewAnimateReplaceOut withArguments:@[ self, _reloadedBeforeItems ]];
+        } else {
+            for(GLBDataViewItem* item in _reloadedBeforeItems) {
+                GLBDataViewCell* cell = item.cell;
+                if(cell != nil) {
+                    [UIView performWithoutAnimation:^{
+                        cell.glb_ZPosition = -1;
+                        cell.alpha = 1;
+                    }];
+                    cell.alpha = 0;
+                }
+            }
+        }
+    }
+    if(_reloadedAfterItems.count > 0) {
+        if([self containsActionForKey:GLBDataViewAnimateReplaceIn] == YES) {
+            [self performActionForKey:GLBDataViewAnimateReplaceOut withArguments:@[ self, _reloadedAfterItems ]];
+        } else {
+            for(GLBDataViewItem* item in _reloadedAfterItems) {
+                GLBDataViewCell* cell = item.cell;
+                if(cell != nil) {
+                    [UIView performWithoutAnimation:^{
+                        cell.glb_ZPosition = -1;
+                        cell.alpha = 0;
+                    }];
+                    cell.alpha = 1;
+                }
+            }
+        }
+    }
+    if(_insertedItems.count > 0) {
+        if([self containsActionForKey:GLBDataViewAnimateInsert] == YES) {
+            [self performActionForKey:GLBDataViewAnimateInsert withArguments:@[ self, _insertedItems ]];
+        } else {
+            for(GLBDataViewItem* item in _insertedItems) {
+                GLBDataViewCell* cell = item.cell;
+                if(cell != nil) {
+                    [UIView performWithoutAnimation:^{
+                        cell.glb_ZPosition = -1.0f;
+                        cell.alpha = 0.0f;
+                    }];
+                    cell.alpha = 1.0f;
+                }
+            }
+        }
+    }
+    if(_deletedItems.count > 0) {
+        if([self containsActionForKey:GLBDataViewAnimateDelete] == YES) {
+            [self performActionForKey:GLBDataViewAnimateDelete withArguments:@[ self, _deletedItems ]];
+        } else {
+            for(GLBDataViewItem* item in _deletedItems) {
+                GLBDataViewCell* cell = item.cell;
+                if(cell != nil) {
+                    [UIView performWithoutAnimation:^{
+                        cell.glb_ZPosition = -1.0f;
+                        cell.alpha = 1.0f;
+                    }];
+                    cell.alpha = 0.0f;
+                }
+            }
+        }
+    }
+}
+
+- (void)_endAnimateUpdatedItems {
+    if(_reloadedBeforeItems.count > 0) {
+        if([self containsActionForKey:GLBDataViewAnimateRestore] == YES) {
+            [self performActionForKey:GLBDataViewAnimateRestore withArguments:@[ self, _reloadedBeforeItems ]];
+            for(GLBDataViewItem* item in _reloadedBeforeItems) {
+                [self _disappearItem:item];
+                item.parent = nil;
+            }
+        } else {
+            for(GLBDataViewItem* item in _reloadedBeforeItems) {
+                GLBDataViewCell* cell = item.cell;
+                if(cell != nil) {
+                    cell.glb_ZPosition = 0.0f;
+                    cell.alpha = 1.0f;
+                }
+                [self _disappearItem:item];
+                item.parent = nil;
+            }
+        }
+        [_reloadedBeforeItems removeAllObjects];
+    }
+    if(_reloadedAfterItems.count > 0) {
+        for(GLBDataViewItem* item in _reloadedAfterItems) {
+            GLBDataViewCell* cell = item.cell;
+            if(cell != nil) {
+                cell.glb_ZPosition = 0.0f;
+                cell.alpha = 1.0f;
+            }
+        }
+        [_reloadedAfterItems removeAllObjects];
+    }
+    if(_insertedItems.count > 0) {
+        for(GLBDataViewItem* item in _insertedItems) {
+            GLBDataViewCell* cell = item.cell;
+            if(cell != nil) {
+                cell.glb_ZPosition = 0.0f;
+                cell.alpha = 1.0f;
+            }
+        }
+        [_insertedItems removeAllObjects];
+    }
+    if(_deletedItems.count > 0) {
+        if([self containsActionForKey:GLBDataViewAnimateRestore] == YES) {
+            [self performActionForKey:GLBDataViewAnimateRestore withArguments:@[ self, _deletedItems ]];
+            for(GLBDataViewItem* item in _deletedItems) {
+                [self _disappearItem:item];
+                item.parent = nil;
+            }
+        } else {
+            for(GLBDataViewItem* item in _deletedItems) {
+                GLBDataViewCell* cell = item.cell;
+                if(cell != nil) {
+                    cell.glb_ZPosition = 0.0f;
+                    cell.alpha = 1.0f;
+                }
+                [self _disappearItem:item];
+                item.parent = nil;
+            }
+        }
+        [_deletedItems removeAllObjects];
+    }
 }
 
 - (void)_validateLayout {
@@ -2931,40 +2879,6 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     double t = GLBDataViewRootOfCubic(-a[0] + 3 * b[0] - 3 * c[0] + d[0], 3 * a[0] - 6 * b[0] + 3 * c[0], -3 * a[0] + 3 * b[0], a[0] - x, x);
     return GLBDataViewCubicFunctionValue(-a[1] + 3 * b[1] - 3 * c[1] + d[1], 3 * a[1] - 6 * b[1] + 3 * c[1], -3 * a[1] + 3 * b[1], a[1], t);
 }
-
-/*--------------------------------------------------*/
-#pragma mark -
-/*--------------------------------------------------*/
-
-@implementation GLBDataContentView
-
-#pragma mark - NSKeyValueCoding
-
-#pragma mark - Init / Free
-
-- (instancetype)initWithCoder:(NSCoder*)coder {
-    self = [super initWithCoder:coder];
-    if(self != nil) {
-        [self setup];
-    }
-    return self;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if(self != nil) {
-        [self setup];
-    }
-    return self;
-}
-
-- (void)setup {
-    self.autoresizingMask = UIViewAutoresizingNone;
-    self.translatesAutoresizingMaskIntoConstraints = YES;
-    self.clipsToBounds = YES;
-}
-
-@end
 
 /*--------------------------------------------------*/
 #pragma mark -

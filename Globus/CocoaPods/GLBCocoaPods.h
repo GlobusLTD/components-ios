@@ -529,6 +529,18 @@
 #import "GLBDataView.h"
 #endif
 
+#if __has_include("GLBDataView+Private.h")
+#import "GLBDataView+Private.h"
+#endif
+
+#if __has_include("GLBDataContentView.h")
+#import "GLBDataContentView.h"
+#endif
+
+#if __has_include("GLBDataContentView+Private.h")
+#import "GLBDataContentView+Private.h"
+#endif
+
 #if __has_include("GLBDataViewItem.h")
 #import "GLBDataViewItem.h"
 #endif

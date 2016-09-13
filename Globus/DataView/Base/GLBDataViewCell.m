@@ -10,7 +10,6 @@
 
 #pragma mark - Synthesize
 
-@synthesize identifier = _identifier;
 @synthesize view = _view;
 @synthesize item = _item;
 @synthesize selected = _selected;
@@ -33,7 +32,7 @@
     GLBDataViewCell* cell = item.cell;
     GLBDataViewCell* dequeueCell = nil;
     if(cell == nil) {
-        dequeueCell = [item.view _dequeueCellWithItem:item];
+        dequeueCell = [item.view dequeueCellWithItem:item];
     }
     CGSize result = CGSizeZero;
     if(dequeueCell != nil) {
@@ -42,7 +41,7 @@
             dequeueCell.item = item;
         }];
         result = [dequeueCell sizeForAvailableSize:size];
-        [item.view _enqueueCell:dequeueCell forIdentifier:item.identifier];
+        [item.view enqueueCell:dequeueCell];
         dequeueCell.item = nil;
     } else if(cell != nil) {
         result = [cell sizeForAvailableSize:size];
@@ -81,14 +80,13 @@
 
 #pragma mark - Init / Free
 
-- (instancetype)initWithIdentifier:(NSString*)identifier {
-    return [self initWithIdentifier:identifier nib:[UINib glb_nibWithClass:self.class bundle:nil]];
+- (instancetype)init {
+    return [self initWithNib:[UINib glb_nibWithClass:self.class bundle:nil]];
 }
 
-- (instancetype)initWithIdentifier:(NSString*)identifier nib:(UINib*)nib {
+- (instancetype)initWithNib:(UINib*)nib {
     self = [super init];
     if(self != nil) {
-        _identifier = identifier;
         if(nib != nil) {
             [nib instantiateWithOwner:self options:nil];
         }
@@ -109,55 +107,6 @@
 
 - (void)dealloc {
     [NSNotificationCenter.defaultCenter removeObserver:self];
-}
-
-#pragma mark - UIView
-
-- (void)updateConstraints {
-    if(_rootView != nil) {
-        if(_constraintRootViewCenterX == nil) {
-            self.constraintRootViewCenterX = [NSLayoutConstraint constraintWithItem:_rootView
-                                                                          attribute:NSLayoutAttributeCenterX
-                                                                          relatedBy:NSLayoutRelationEqual
-                                                                             toItem:self
-                                                                          attribute:NSLayoutAttributeCenterX
-                                                                         multiplier:1.0f
-                                                                           constant:_rootViewOffset.horizontal];
-        }
-        if(_constraintRootViewCenterY == nil) {
-            self.constraintRootViewCenterY = [NSLayoutConstraint constraintWithItem:_rootView
-                                                                          attribute:NSLayoutAttributeCenterY
-                                                                          relatedBy:NSLayoutRelationEqual
-                                                                             toItem:self
-                                                                          attribute:NSLayoutAttributeCenterY
-                                                                         multiplier:1.0f
-                                                                           constant:_rootViewOffset.vertical];
-        }
-        if(_constraintRootViewWidth == nil) {
-            self.constraintRootViewWidth = [NSLayoutConstraint constraintWithItem:_rootView
-                                                                        attribute:NSLayoutAttributeWidth
-                                                                        relatedBy:NSLayoutRelationEqual
-                                                                           toItem:self
-                                                                        attribute:NSLayoutAttributeWidth
-                                                                       multiplier:1.0f
-                                                                         constant:_rootViewSize.width];
-        }
-        if(_constraintRootViewHeight == nil) {
-            self.constraintRootViewHeight = [NSLayoutConstraint constraintWithItem:_rootView
-                                                                         attribute:NSLayoutAttributeHeight
-                                                                         relatedBy:NSLayoutRelationEqual
-                                                                            toItem:self
-                                                                         attribute:NSLayoutAttributeHeight
-                                                                        multiplier:1.0f
-                                                                          constant:_rootViewSize.height];
-        }
-    } else {
-        self.constraintRootViewCenterX = nil;
-        self.constraintRootViewCenterY = nil;
-        self.constraintRootViewWidth = nil;
-        self.constraintRootViewHeight = nil;
-    }
-    [super updateConstraints];
 }
 
 #pragma mark - Property
@@ -234,7 +183,7 @@
             _rootView.translatesAutoresizingMaskIntoConstraints = NO;
         }
         [self glb_setSubviews:self.orderedSubviews];
-        [self setNeedsUpdateConstraints];
+        [self _refreshConstraints];
     }
 }
 
@@ -337,7 +286,9 @@
 }
 
 - (void)performActionForKey:(id)key withArguments:(NSArray*)arguments {
-    [_view performActionForIdentifier:_identifier forKey:key withArguments:[@[ self ] glb_unionWithArray:arguments]];
+    if(_item != nil) {
+        [_view performActionForIdentifier:_item.identifier forKey:key withArguments:[@[ self ] glb_unionWithArray:arguments]];
+    }
 }
 
 - (void)selectedAnimated:(BOOL)animated {
@@ -392,6 +343,52 @@
 }
 
 #pragma mark - Private
+
+- (void)_refreshConstraints {
+    if(_rootView != nil) {
+        if(_constraintRootViewCenterX == nil) {
+            self.constraintRootViewCenterX = [NSLayoutConstraint constraintWithItem:_rootView
+                                                                          attribute:NSLayoutAttributeCenterX
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:self
+                                                                          attribute:NSLayoutAttributeCenterX
+                                                                         multiplier:1.0f
+                                                                           constant:_rootViewOffset.horizontal];
+        }
+        if(_constraintRootViewCenterY == nil) {
+            self.constraintRootViewCenterY = [NSLayoutConstraint constraintWithItem:_rootView
+                                                                          attribute:NSLayoutAttributeCenterY
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:self
+                                                                          attribute:NSLayoutAttributeCenterY
+                                                                         multiplier:1.0f
+                                                                           constant:_rootViewOffset.vertical];
+        }
+        if(_constraintRootViewWidth == nil) {
+            self.constraintRootViewWidth = [NSLayoutConstraint constraintWithItem:_rootView
+                                                                        attribute:NSLayoutAttributeWidth
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:self
+                                                                        attribute:NSLayoutAttributeWidth
+                                                                       multiplier:1.0f
+                                                                         constant:_rootViewSize.width];
+        }
+        if(_constraintRootViewHeight == nil) {
+            self.constraintRootViewHeight = [NSLayoutConstraint constraintWithItem:_rootView
+                                                                         attribute:NSLayoutAttributeHeight
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:self
+                                                                         attribute:NSLayoutAttributeHeight
+                                                                        multiplier:1.0f
+                                                                          constant:_rootViewSize.height];
+        }
+    } else {
+        self.constraintRootViewCenterX = nil;
+        self.constraintRootViewCenterY = nil;
+        self.constraintRootViewWidth = nil;
+        self.constraintRootViewHeight = nil;
+    }
+}
 
 - (void)_willBeginDragging {
     [UIGestureRecognizer glb_cancelInView:_rootView recursive:YES];

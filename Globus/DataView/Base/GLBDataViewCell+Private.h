@@ -10,7 +10,6 @@
 
 @interface GLBDataViewCell () {
 @protected
-    NSString* _identifier;
     __weak GLBDataView* _view;
     __weak GLBDataViewItem* _item;
     BOOL _selected;
@@ -37,6 +36,8 @@
 @property(nonatomic, strong) NSLayoutConstraint* constraintRootViewCenterY;
 @property(nonatomic, strong) NSLayoutConstraint* constraintRootViewWidth;
 @property(nonatomic, strong) NSLayoutConstraint* constraintRootViewHeight;
+
+- (void)_refreshConstraints;
 
 - (void)_willBeginDragging;
 

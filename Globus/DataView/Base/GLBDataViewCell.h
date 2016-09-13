@@ -15,7 +15,6 @@
 
 @interface GLBDataViewCell : UIView< UIGestureRecognizerDelegate, GLBSearchBarDelegate, GLBWindowExtension >
 
-@property(nonatomic, readonly, strong) NSString* identifier;
 @property(nonatomic, readonly, weak) __kindof GLBDataView* view;
 @property(nonatomic, readonly, weak) __kindof GLBDataViewItem* item;
 @property(nonatomic) BOOL hideKeyboardIfTouched;
@@ -40,8 +39,7 @@
 - (UILayoutPriority)fittingHorizontalPriority;
 - (UILayoutPriority)fittingVerticalPriority;
 
-- (instancetype)initWithIdentifier:(NSString*)identifier;
-- (instancetype)initWithIdentifier:(NSString*)identifier nib:(UINib*)nib;
+- (instancetype)initWithNib:(UINib*)nib;
 
 - (void)setup NS_REQUIRES_SUPER;
 

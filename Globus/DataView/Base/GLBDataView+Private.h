@@ -1,6 +1,7 @@
 /*--------------------------------------------------*/
 
 #import "GLBDataView.h"
+#import "GLBDataContentView.h"
 #import "GLBDataViewContainer+Private.h"
 #import "GLBDataViewItem+Private.h"
 #import "GLBDataViewCell+Private.h"
@@ -19,7 +20,6 @@ typedef NS_ENUM(NSUInteger, GLBDataViewDirection) {
 /*--------------------------------------------------*/
 
 @class GLBDataViewDelegateProxy;
-@class GLBDataContentView;
 
 /*--------------------------------------------------*/
 
@@ -52,9 +52,7 @@ typedef NS_ENUM(NSUInteger, GLBDataViewDirection) {
     NSMutableArray* _editingItems;
     GLBDataViewItem* _movingItem;
     CGPoint _movingItemLastOffset;
-    NSMutableDictionary* _registersViews;
     GLBActions* _registersActions;
-    NSMutableDictionary* _queueCells;
     NSMutableArray* _queueBatch;
     NSMutableArray* _reloadedBeforeItems;
     NSMutableArray* _reloadedAfterItems;
@@ -125,9 +123,7 @@ typedef NS_ENUM(NSUInteger, GLBDataViewDirection) {
 
 @property(nonatomic) CGPoint movingItemLastOffset;
 
-@property(nonatomic, strong) NSMutableDictionary* registersViews;
 @property(nonatomic, strong) GLBActions* registersActions;
-@property(nonatomic, strong) NSMutableDictionary* queueCells;
 @property(nonatomic, strong) NSMutableArray* queueBatch;
 @property(nonatomic, strong) NSMutableArray* reloadedBeforeItems;
 @property(nonatomic, strong) NSMutableArray* reloadedAfterItems;
@@ -181,11 +177,6 @@ typedef NS_ENUM(NSUInteger, GLBDataViewDirection) {
 - (void)_setSearchBarInset:(CGFloat)searchBarInset force:(BOOL)force;
 - (void)_setRefreshViewInset:(UIEdgeInsets)refreshViewInset force:(BOOL)force;
 - (void)_setContainerInset:(UIEdgeInsets)containerInset force:(BOOL)force;
-
-- (void)_receiveMemoryWarning;
-
-- (GLBDataViewCell*)_dequeueCellWithItem:(GLBDataViewItem*)item;
-- (void)_enqueueCell:(GLBDataViewCell*)cell forIdentifier:(NSString*)identifier;
 
 - (void)_pressedItem:(GLBDataViewItem*)item animated:(BOOL)animated;
 

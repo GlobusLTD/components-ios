@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		400074D51D88981D007C5633 /* GLBDataContentView.h in Headers */ = {isa = PBXBuildFile; fileRef = 400074D31D88981D007C5633 /* GLBDataContentView.h */; };
+		400074D61D88981D007C5633 /* GLBDataContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 400074D41D88981D007C5633 /* GLBDataContentView.m */; };
 		403AEED71D6AEED4006C3DF1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 405B77C31C50E99B00DA763D /* WebKit.framework */; };
 		403AEED81D6AEED9006C3DF1 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403D4CC01CF4789E0078DB66 /* WatchConnectivity.framework */; };
 		403AEEE01D6AEF1A006C3DF1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEED91D6AEF1A006C3DF1 /* AVFoundation.framework */; };
@@ -157,6 +159,9 @@
 		406D7E2A1D6DE411001D321D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 406D7E281D6DE411001D321D /* Main.storyboard */; };
 		406D7E2C1D6DE411001D321D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 406D7E2B1D6DE411001D321D /* Assets.xcassets */; };
 		406D7E2F1D6DE411001D321D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 406D7E2D1D6DE411001D321D /* LaunchScreen.storyboard */; };
+		40A016631D87E74F00140EB5 /* GLBDataViewCellCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 40A016611D87E74F00140EB5 /* GLBDataViewCellCache.h */; };
+		40A016641D87E74F00140EB5 /* GLBDataViewCellCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A016621D87E74F00140EB5 /* GLBDataViewCellCache.m */; };
+		40ABBF531D88A90A00AECED3 /* GLBDataContentView+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 40ABBF521D88A90A00AECED3 /* GLBDataContentView+Private.h */; };
 		40AEB9981D70ABC10050A6DE /* libGlobus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BB8CD11BF3EE2A00D2E180 /* libGlobus.a */; };
 		40AEB9C71D70AC310050A6DE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEED91D6AEF1A006C3DF1 /* AVFoundation.framework */; };
 		40AEB9C81D70AC310050A6DE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEEDA1D6AEF1A006C3DF1 /* CoreData.framework */; };
@@ -424,6 +429,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		400074D31D88981D007C5633 /* GLBDataContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBDataContentView.h; sourceTree = "<group>"; };
+		400074D41D88981D007C5633 /* GLBDataContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataContentView.m; sourceTree = "<group>"; };
 		4034B08F1CE1E1210019FBCC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		403AEED91D6AEF1A006C3DF1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		403AEEDA1D6AEF1A006C3DF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -586,6 +593,9 @@
 		406D7E2E1D6DE411001D321D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		406D7E301D6DE411001D321D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		40804A9F1BF8D1000059B277 /* Globus.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Globus.podspec; sourceTree = "<group>"; };
+		40A016611D87E74F00140EB5 /* GLBDataViewCellCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBDataViewCellCache.h; sourceTree = "<group>"; };
+		40A016621D87E74F00140EB5 /* GLBDataViewCellCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataViewCellCache.m; sourceTree = "<group>"; };
+		40ABBF521D88A90A00AECED3 /* GLBDataContentView+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataContentView+Private.h"; sourceTree = "<group>"; };
 		40BB8CD11BF3EE2A00D2E180 /* libGlobus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGlobus.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		40E88DCA1D76274100275E43 /* GLBAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBAction.h; sourceTree = "<group>"; };
 		40E88DCB1D76274100275E43 /* GLBAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBAction.m; sourceTree = "<group>"; };
@@ -1915,6 +1925,9 @@
 				40E88E531D76274100275E43 /* GLBDataView.h */,
 				40E88E521D76274100275E43 /* GLBDataView+Private.h */,
 				40E88E541D76274100275E43 /* GLBDataView.m */,
+				400074D31D88981D007C5633 /* GLBDataContentView.h */,
+				40ABBF521D88A90A00AECED3 /* GLBDataContentView+Private.h */,
+				400074D41D88981D007C5633 /* GLBDataContentView.m */,
 				40E88E4D1D76274100275E43 /* GLBDataViewItem.h */,
 				40E88E4C1D76274100275E43 /* GLBDataViewItem+Private.h */,
 				40E88E4E1D76274100275E43 /* GLBDataViewItem.m */,
@@ -1933,6 +1946,8 @@
 				40E88E501D76274100275E43 /* GLBDataRefreshView.h */,
 				40E88E4F1D76274100275E43 /* GLBDataRefreshView+Private.h */,
 				40E88E511D76274100275E43 /* GLBDataRefreshView.m */,
+				40A016611D87E74F00140EB5 /* GLBDataViewCellCache.h */,
+				40A016621D87E74F00140EB5 /* GLBDataViewCellCache.m */,
 				40E88E551D76274100275E43 /* GLBDataViewTypes.h */,
 			);
 			path = Base;
@@ -2653,6 +2668,7 @@
 				40E890481D76274100275E43 /* GLBTouchView.h in Headers */,
 				40E890241D76274100275E43 /* GLBFadingCircleSpinnerView.h in Headers */,
 				4043CB371D7856CE00EE76F1 /* GLBSpinnerViewFadingCircle.h in Headers */,
+				40A016631D87E74F00140EB5 /* GLBDataViewCellCache.h in Headers */,
 				4043CACF1D78211200EE76F1 /* NSObject+GLBNS.h in Headers */,
 				40E88FDC1D76274100275E43 /* GLBImageDownloadRequest.h in Headers */,
 				4057F4831D762DCA00D48E49 /* GLBDataViewItemsFlowContainer.h in Headers */,
@@ -2721,6 +2737,7 @@
 				40E8901C1D76274100275E43 /* GLBBounceSpinnerView.h in Headers */,
 				40E88FEE1D76274100275E43 /* GLBListField.h in Headers */,
 				40E88FB91D76274100275E43 /* GLBDataRefreshView.h in Headers */,
+				400074D51D88981D007C5633 /* GLBDataContentView.h in Headers */,
 				4043CB7A1D785BAA00EE76F1 /* GLBDataContainer+Private.h in Headers */,
 				40E8908B1D7627AC00275E43 /* GLBDataViewItemsContainer+Private.h in Headers */,
 				40E88FA01D76274100275E43 /* NSURL+GLBNS.h in Headers */,
@@ -2734,6 +2751,7 @@
 				40E890221D76274100275E43 /* GLBCircleFlipSpinnerView.h in Headers */,
 				4057F4DE1D763BFB00D48E49 /* NSString+GLBUI.h in Headers */,
 				40E88F7B1D76274100275E43 /* NSArray+GLBNS.h in Headers */,
+				40ABBF531D88A90A00AECED3 /* GLBDataContentView+Private.h in Headers */,
 				40E88F851D76274100275E43 /* NSDateFormatter+GLBNS.h in Headers */,
 				40E88FAB1D76274100275E43 /* GLBDataSource.h in Headers */,
 				4057F4EE1D763BFB00D48E49 /* UINavigationController+GLBUI.h in Headers */,
@@ -2918,6 +2936,7 @@
 				4057F4DF1D763BFB00D48E49 /* NSString+GLBUI.m in Sources */,
 				40E88FAC1D76274100275E43 /* GLBDataSource.m in Sources */,
 				4043CB6A1D7858EB00EE76F1 /* GLBTransitionControllerCrossFade.m in Sources */,
+				400074D61D88981D007C5633 /* GLBDataContentView.m in Sources */,
 				4043CB001D7852F300EE76F1 /* GLBDataCellSwipe.m in Sources */,
 				4043CB601D78587100EE76F1 /* GLBSpinnerViewWordPress.m in Sources */,
 				40E88F9F1D76274100275E43 /* NSString+GLBNS.m in Sources */,
@@ -3027,6 +3046,7 @@
 				40E8900D1D76274100275E43 /* GLBPressAndHoldGestureRecognizer.m in Sources */,
 				40E88FB41D76274100275E43 /* GLBDataViewSectionsContainer.m in Sources */,
 				40E88F9B1D76274100275E43 /* NSSet+GLBNS.m in Sources */,
+				40A016641D87E74F00140EB5 /* GLBDataViewCellCache.m in Sources */,
 				40E88F911D76274100275E43 /* NSNull+GLBNS.m in Sources */,
 				4057F48A1D762DCA00D48E49 /* GLBDataViewSectionsListContainer.m in Sources */,
 				40E88FD91D76274100275E43 /* GLBGrid.m in Sources */,

@@ -80,106 +80,6 @@
 - (void)dealloc {
 }
 
-#pragma mark - UIView
-
-- (void)updateConstraints {
-    if(_leftSwipeView != nil) {
-        if(_leftSwipeSize >= FLT_EPSILON) {
-            if(_constraintLeftSwipeViewWidth == nil) {
-                self.constraintLeftSwipeViewWidth = [NSLayoutConstraint constraintWithItem:_leftSwipeView
-                                                                                 attribute:NSLayoutAttributeWidth
-                                                                                 relatedBy:NSLayoutRelationEqual
-                                                                                    toItem:nil
-                                                                                 attribute:NSLayoutAttributeNotAnAttribute
-                                                                                multiplier:1.0f
-                                                                                  constant:_leftSwipeSize];
-            }
-        } else {
-            self.constraintLeftSwipeViewWidth = nil;
-        }
-        if(_constraintLeftSwipeViewOffsetX == nil) {
-            self.constraintLeftSwipeViewOffsetX = [NSLayoutConstraint constraintWithItem:_leftSwipeView
-                                                                               attribute:NSLayoutAttributeLeft
-                                                                               relatedBy:NSLayoutRelationEqual
-                                                                                  toItem:self
-                                                                               attribute:NSLayoutAttributeLeft
-                                                                              multiplier:1.0f
-                                                                                constant:_leftSwipeOffset];
-        }
-        if(_constraintLeftSwipeViewCenterY == nil) {
-            self.constraintLeftSwipeViewCenterY = [NSLayoutConstraint constraintWithItem:_leftSwipeView
-                                                                               attribute:NSLayoutAttributeCenterY
-                                                                               relatedBy:NSLayoutRelationEqual
-                                                                                  toItem:self
-                                                                               attribute:NSLayoutAttributeCenterY
-                                                                              multiplier:1.0f
-                                                                                constant:0.0f];
-        }
-        if(_constraintLeftSwipeViewHeight == nil) {
-            self.constraintLeftSwipeViewHeight = [NSLayoutConstraint constraintWithItem:_leftSwipeView
-                                                                              attribute:NSLayoutAttributeHeight
-                                                                              relatedBy:NSLayoutRelationEqual
-                                                                                 toItem:self
-                                                                              attribute:NSLayoutAttributeHeight
-                                                                             multiplier:1.0f
-                                                                               constant:0.0f];
-        }
-    } else {
-        self.constraintLeftSwipeViewOffsetX = nil;
-        self.constraintLeftSwipeViewCenterY = nil;
-        self.constraintLeftSwipeViewWidth = nil;
-        self.constraintLeftSwipeViewHeight = nil;
-    }
-    if(_rightSwipeView != nil) {
-        if(_rightSwipeSize >= FLT_EPSILON) {
-            if(_constraintRightSwipeViewWidth == nil) {
-                self.constraintRightSwipeViewWidth = [NSLayoutConstraint constraintWithItem:_rightSwipeView
-                                                                                  attribute:NSLayoutAttributeWidth
-                                                                                  relatedBy:NSLayoutRelationEqual
-                                                                                     toItem:nil
-                                                                                  attribute:NSLayoutAttributeNotAnAttribute
-                                                                                 multiplier:1.0f
-                                                                                   constant:_rightSwipeSize];
-            }
-        } else {
-            self.constraintRightSwipeViewWidth = nil;
-        }
-        if(_constraintRightSwipeViewOffsetX == nil) {
-            self.constraintRightSwipeViewOffsetX = [NSLayoutConstraint constraintWithItem:_rightSwipeView
-                                                                                attribute:NSLayoutAttributeRight
-                                                                                relatedBy:NSLayoutRelationEqual
-                                                                                   toItem:self
-                                                                                attribute:NSLayoutAttributeRight
-                                                                               multiplier:1.0f
-                                                                                 constant:_rightSwipeOffset];
-        }
-        if(_constraintRightSwipeViewCenterY == nil) {
-            self.constraintRightSwipeViewCenterY = [NSLayoutConstraint constraintWithItem:_rightSwipeView
-                                                                                attribute:NSLayoutAttributeCenterY
-                                                                                relatedBy:NSLayoutRelationEqual
-                                                                                   toItem:self
-                                                                                attribute:NSLayoutAttributeCenterY
-                                                                               multiplier:1.0f
-                                                                                 constant:0.0f];
-        }
-        if(_constraintRightSwipeViewHeight == nil) {
-            self.constraintRightSwipeViewHeight = [NSLayoutConstraint constraintWithItem:_rightSwipeView
-                                                                               attribute:NSLayoutAttributeHeight
-                                                                               relatedBy:NSLayoutRelationEqual
-                                                                                  toItem:self
-                                                                               attribute:NSLayoutAttributeHeight
-                                                                              multiplier:1.0f
-                                                                                constant:0.0f];
-        }
-    } else {
-        self.constraintRightSwipeViewOffsetX = nil;
-        self.constraintRightSwipeViewCenterY = nil;
-        self.constraintRightSwipeViewWidth = nil;
-        self.constraintRightSwipeViewHeight = nil;
-    }
-    [super updateConstraints];
-}
-
 #pragma mark - Property
 
 - (NSArray*)orderedSubviews {
@@ -267,7 +167,7 @@
         self.rootViewOffset = [self _rootViewOffsetBySwipeProgress:0.0f];
         self.leftSwipeOffset = [self _leftViewOffsetBySwipeProgress:0.0f];
         self.rightSwipeOffset = [self _rightViewOffsetBySwipeProgress:0.0f];
-        [self setNeedsUpdateConstraints];
+        [self _refreshConstraints];
     }
 }
 
@@ -286,7 +186,7 @@
             [self glb_setSubviews:self.orderedSubviews];
         }
         self.leftSwipeOffset = [self _leftViewOffsetBySwipeProgress:0.0f];
-        [self setNeedsUpdateConstraints];
+        [self _refreshConstraints];
     }
 }
 
@@ -351,7 +251,7 @@
     if(_leftSwipeSize != leftSwipeSize) {
         _leftSwipeSize = leftSwipeSize;
         if(_leftSwipeSize < 0.0f) {
-            [self setNeedsUpdateConstraints];
+            [self _refreshConstraints];
         } else if(_constraintLeftSwipeViewWidth != nil) {
             _constraintLeftSwipeViewWidth.constant = _leftSwipeSize;
         }
@@ -373,7 +273,7 @@
             [self glb_setSubviews:self.orderedSubviews];
         }
         self.rightSwipeOffset = [self _rightViewOffsetBySwipeProgress:0.0f];
-        [self setNeedsUpdateConstraints];
+        [self _refreshConstraints];
     }
 }
 
@@ -438,7 +338,7 @@
     if(_rightSwipeSize != rightSwipeSize) {
         _rightSwipeSize = rightSwipeSize;
         if(_rightSwipeSize < 0.0f) {
-            [self setNeedsUpdateConstraints];
+            [self _refreshConstraints];
         } else if(_constraintRightSwipeViewWidth != nil) {
             _constraintRightSwipeViewWidth.constant = _rightSwipeSize;
         }
@@ -543,6 +443,104 @@
 }
 
 #pragma mark - Private override
+
+- (void)_refreshConstraints {
+    if(_leftSwipeView != nil) {
+        if(_leftSwipeSize >= FLT_EPSILON) {
+            if(_constraintLeftSwipeViewWidth == nil) {
+                self.constraintLeftSwipeViewWidth = [NSLayoutConstraint constraintWithItem:_leftSwipeView
+                                                                                 attribute:NSLayoutAttributeWidth
+                                                                                 relatedBy:NSLayoutRelationEqual
+                                                                                    toItem:nil
+                                                                                 attribute:NSLayoutAttributeNotAnAttribute
+                                                                                multiplier:1.0f
+                                                                                  constant:_leftSwipeSize];
+            }
+        } else {
+            self.constraintLeftSwipeViewWidth = nil;
+        }
+        if(_constraintLeftSwipeViewOffsetX == nil) {
+            self.constraintLeftSwipeViewOffsetX = [NSLayoutConstraint constraintWithItem:_leftSwipeView
+                                                                               attribute:NSLayoutAttributeLeft
+                                                                               relatedBy:NSLayoutRelationEqual
+                                                                                  toItem:self
+                                                                               attribute:NSLayoutAttributeLeft
+                                                                              multiplier:1.0f
+                                                                                constant:_leftSwipeOffset];
+        }
+        if(_constraintLeftSwipeViewCenterY == nil) {
+            self.constraintLeftSwipeViewCenterY = [NSLayoutConstraint constraintWithItem:_leftSwipeView
+                                                                               attribute:NSLayoutAttributeCenterY
+                                                                               relatedBy:NSLayoutRelationEqual
+                                                                                  toItem:self
+                                                                               attribute:NSLayoutAttributeCenterY
+                                                                              multiplier:1.0f
+                                                                                constant:0.0f];
+        }
+        if(_constraintLeftSwipeViewHeight == nil) {
+            self.constraintLeftSwipeViewHeight = [NSLayoutConstraint constraintWithItem:_leftSwipeView
+                                                                              attribute:NSLayoutAttributeHeight
+                                                                              relatedBy:NSLayoutRelationEqual
+                                                                                 toItem:self
+                                                                              attribute:NSLayoutAttributeHeight
+                                                                             multiplier:1.0f
+                                                                               constant:0.0f];
+        }
+    } else {
+        self.constraintLeftSwipeViewOffsetX = nil;
+        self.constraintLeftSwipeViewCenterY = nil;
+        self.constraintLeftSwipeViewWidth = nil;
+        self.constraintLeftSwipeViewHeight = nil;
+    }
+    if(_rightSwipeView != nil) {
+        if(_rightSwipeSize >= FLT_EPSILON) {
+            if(_constraintRightSwipeViewWidth == nil) {
+                self.constraintRightSwipeViewWidth = [NSLayoutConstraint constraintWithItem:_rightSwipeView
+                                                                                  attribute:NSLayoutAttributeWidth
+                                                                                  relatedBy:NSLayoutRelationEqual
+                                                                                     toItem:nil
+                                                                                  attribute:NSLayoutAttributeNotAnAttribute
+                                                                                 multiplier:1.0f
+                                                                                   constant:_rightSwipeSize];
+            }
+        } else {
+            self.constraintRightSwipeViewWidth = nil;
+        }
+        if(_constraintRightSwipeViewOffsetX == nil) {
+            self.constraintRightSwipeViewOffsetX = [NSLayoutConstraint constraintWithItem:_rightSwipeView
+                                                                                attribute:NSLayoutAttributeRight
+                                                                                relatedBy:NSLayoutRelationEqual
+                                                                                   toItem:self
+                                                                                attribute:NSLayoutAttributeRight
+                                                                               multiplier:1.0f
+                                                                                 constant:_rightSwipeOffset];
+        }
+        if(_constraintRightSwipeViewCenterY == nil) {
+            self.constraintRightSwipeViewCenterY = [NSLayoutConstraint constraintWithItem:_rightSwipeView
+                                                                                attribute:NSLayoutAttributeCenterY
+                                                                                relatedBy:NSLayoutRelationEqual
+                                                                                   toItem:self
+                                                                                attribute:NSLayoutAttributeCenterY
+                                                                               multiplier:1.0f
+                                                                                 constant:0.0f];
+        }
+        if(_constraintRightSwipeViewHeight == nil) {
+            self.constraintRightSwipeViewHeight = [NSLayoutConstraint constraintWithItem:_rightSwipeView
+                                                                               attribute:NSLayoutAttributeHeight
+                                                                               relatedBy:NSLayoutRelationEqual
+                                                                                  toItem:self
+                                                                               attribute:NSLayoutAttributeHeight
+                                                                              multiplier:1.0f
+                                                                                constant:0.0f];
+        }
+    } else {
+        self.constraintRightSwipeViewOffsetX = nil;
+        self.constraintRightSwipeViewCenterY = nil;
+        self.constraintRightSwipeViewWidth = nil;
+        self.constraintRightSwipeViewHeight = nil;
+    }
+    [super _refreshConstraints];
+}
 
 - (void)_pressed {
     if(_showedLeftSwipeView == YES) {
@@ -660,7 +658,7 @@
         self.leftSwipeSize = [self _leftViewSizeBySwipeProgress:_panSwipeProgress];
         self.rightSwipeOffset = [self _rightViewOffsetBySwipeProgress:_panSwipeProgress];
         self.rightSwipeSize = [self _rightViewSizeBySwipeProgress:_panSwipeProgress];
-        [self setNeedsUpdateConstraints];
+        [self _refreshConstraints];
         
         if(endedSwipe == YES) {
             [self willEndedSwipe:_panSwipeProgress];
