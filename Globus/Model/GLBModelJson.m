@@ -449,7 +449,7 @@
     if([json isKindOfClass:NSString.class] == YES) {
         result = [NSURL URLWithString:json];
         if(result == nil) {
-            result = [NSURL URLWithString:[json glb_stringByEncodingURLFormat]];
+            result = [NSURL URLWithString:[json stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
         }
     }
     if(result != nil) {
