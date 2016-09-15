@@ -227,14 +227,14 @@
         NSDictionary* configDict = [self _configForSequence:formattedDigits];
         NSString* result = [self _applyFormat:configDict[@"format"] forFormattedString:formattedDigits];
         return @{
-                 @"userInfo" : configDict[@"userInfo"],
-                 @"text": result
-                 };
+            @"userInfo" : configDict[@"userInfo"],
+            @"text": result
+        };
     }
     return @{
-             @"userInfo" : _formats[@"default"][@"userInfo"],
-             @"text" : _prefix
-             };
+        @"userInfo" : _formats[@"default"][@"userInfo"],
+        @"text" : _prefix
+    };
 }
 
 - (NSString*)_stringWithoutFormat:(NSString*)string {

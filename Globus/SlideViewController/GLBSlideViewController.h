@@ -37,6 +37,9 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerStyle) {
 @property(nonatomic) IBInspectable CGFloat swipeDamping;
 @property(nonatomic) IBInspectable BOOL swipeUseSpring;
 
+@property(nonatomic) IBInspectable CGFloat leftEdgeOffset;
+@property(nonatomic) IBInspectable CGFloat rightEdgeOffset;
+
 @property(nonatomic, readonly, strong) UIView* backgroundView;
 @property(nonatomic, strong) IBOutlet __kindof UIViewController* backgroundViewController;
 

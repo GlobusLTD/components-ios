@@ -80,6 +80,9 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)setup {
     [super setup];
     
+    _leftEdgeOffset = 20.0f;
+    _rightEdgeOffset = 20.0f;
+    
     if(UIDevice.glb_isIPhone == YES) {
         _swipeVelocity = 1050.0;
         _leftViewControllerWidth = 280.0;
@@ -1706,20 +1709,24 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         if((_swipeDragging == NO) && (_swipeDecelerating == NO)) {
             BOOL allowPan = NO;
             if((_leftViewController != nil) && (_showedLeftViewController == NO) && (_leftViewControllerIteractionShowEnabled == YES)) {
-                id< GLBSlideViewControllerDelegate > centerViewController = ([_centerViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_centerViewController : nil;
-                if([centerViewController respondsToSelector:@selector(canShowLeftViewControllerInSlideViewController:)] == YES) {
-                    if([centerViewController canShowLeftViewControllerInSlideViewController:self] == YES) {
-                        id< GLBSlideViewControllerDelegate > leftViewController = ([_leftViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_leftViewController : nil;
-                        if([leftViewController respondsToSelector:@selector(canShowControllerInSlideViewController:)] == YES) {
-                            allowPan = [leftViewController canShowControllerInSlideViewController:self];
+                CGRect bounds = UIEdgeInsetsInsetRect(self.view.bounds, UIEdgeInsetsMake(0.0f, _leftEdgeOffset, 0.0f, 0.0f));
+                CGPoint location = [_leftEdgeGesture locationInView:self.view];
+                if(CGRectContainsPoint(bounds, location) == NO) {
+                    id< GLBSlideViewControllerDelegate > centerViewController = ([_centerViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_centerViewController : nil;
+                    if([centerViewController respondsToSelector:@selector(canShowLeftViewControllerInSlideViewController:)] == YES) {
+                        if([centerViewController canShowLeftViewControllerInSlideViewController:self] == YES) {
+                            id< GLBSlideViewControllerDelegate > leftViewController = ([_leftViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_leftViewController : nil;
+                            if([leftViewController respondsToSelector:@selector(canShowControllerInSlideViewController:)] == YES) {
+                                allowPan = [leftViewController canShowControllerInSlideViewController:self];
+                            } else {
+                                allowPan = YES;
+                            }
                         } else {
-                            allowPan = YES;
+                            allowPan = NO;
                         }
                     } else {
-                        allowPan = NO;
+                        allowPan = YES;
                     }
-                } else {
-                    allowPan = YES;
                 }
             }
             return allowPan;
@@ -1728,20 +1735,24 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         if((_swipeDragging == NO) && (_swipeDecelerating == NO)) {
             BOOL allowPan = NO;
             if((_rightViewController != nil) && (_showedRightViewController == NO) && (_rightViewControllerIteractionShowEnabled == YES)) {
-                id< GLBSlideViewControllerDelegate > centerViewController = ([_centerViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_centerViewController : nil;
-                if([centerViewController respondsToSelector:@selector(canShowRightViewControllerInSlideViewController:)] == YES) {
-                    if([centerViewController canShowRightViewControllerInSlideViewController:self] == YES) {
-                        id< GLBSlideViewControllerDelegate > rightViewController = ([_rightViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_rightViewController : nil;
-                        if([rightViewController respondsToSelector:@selector(canShowControllerInSlideViewController:)] == YES) {
-                            allowPan = [rightViewController canShowControllerInSlideViewController:self];
+                CGRect bounds = UIEdgeInsetsInsetRect(self.view.bounds, UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, _rightEdgeOffset));
+                CGPoint location = [_rightEdgeGesture locationInView:self.view];
+                if(CGRectContainsPoint(bounds, location) == NO) {
+                    id< GLBSlideViewControllerDelegate > centerViewController = ([_centerViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_centerViewController : nil;
+                    if([centerViewController respondsToSelector:@selector(canShowRightViewControllerInSlideViewController:)] == YES) {
+                        if([centerViewController canShowRightViewControllerInSlideViewController:self] == YES) {
+                            id< GLBSlideViewControllerDelegate > rightViewController = ([_rightViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_rightViewController : nil;
+                            if([rightViewController respondsToSelector:@selector(canShowControllerInSlideViewController:)] == YES) {
+                                allowPan = [rightViewController canShowControllerInSlideViewController:self];
+                            } else {
+                                allowPan = YES;
+                            }
                         } else {
-                            allowPan = YES;
+                            allowPan = NO;
                         }
                     } else {
-                        allowPan = NO;
+                        allowPan = YES;
                     }
-                } else {
-                    allowPan = YES;
                 }
             }
             return allowPan;
