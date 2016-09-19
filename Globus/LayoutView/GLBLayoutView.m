@@ -7,20 +7,29 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@interface GLBLayoutView () {
-    NSMutableArray* _hiddenObservers;
-    NSMutableArray* _topConstraints;
-    NSMutableArray* _bottomConstraints;
-    NSMutableArray* _leftConstraints;
-    NSMutableArray* _rightConstraints;
-    NSMutableArray* _spacingConstraints;
-}
- 
+@interface GLBLayoutView ()
+
+@property(nonatomic, readonly, strong) NSMutableArray* hiddenObservers;
+@property(nonatomic, readonly, strong) NSMutableArray* topConstraints;
+@property(nonatomic, readonly, strong) NSMutableArray* bottomConstraints;
+@property(nonatomic, readonly, strong) NSMutableArray* leftConstraints;
+@property(nonatomic, readonly, strong) NSMutableArray* rightConstraints;
+@property(nonatomic, readonly, strong) NSMutableArray* spacingConstraints;
+
 @end
 
 /*--------------------------------------------------*/
 
 @implementation GLBLayoutView
+
+#pragma mark - Init
+
+@synthesize hiddenObservers = _hiddenObservers;
+@synthesize topConstraints = _topConstraints;
+@synthesize bottomConstraints = _bottomConstraints;
+@synthesize leftConstraints = _leftConstraints;
+@synthesize rightConstraints = _rightConstraints;
+@synthesize spacingConstraints = _spacingConstraints;
 
 #pragma mark - Init / Free
 
@@ -41,12 +50,6 @@
 }
 
 - (void)setup {
-    _hiddenObservers = [NSMutableArray array];
-    _topConstraints = [NSMutableArray array];
-    _bottomConstraints = [NSMutableArray array];
-    _leftConstraints = [NSMutableArray array];
-    _rightConstraints = [NSMutableArray array];
-    _spacingConstraints = [NSMutableArray array];
 }
 
 #pragma mark - Property
@@ -68,22 +71,22 @@
 - (void)setMargins:(UIEdgeInsets)margins{
     if(UIEdgeInsetsEqualToEdgeInsets(_margins, margins) == NO) {
         if(_margins.top != margins.top) {
-            [_topConstraints glb_each:^(NSLayoutConstraint* constraint) {
+            [self.topConstraints glb_each:^(NSLayoutConstraint* constraint) {
                 constraint.constant = margins.top;
             }];
         }
         if(_margins.bottom != margins.bottom) {
-            [_bottomConstraints glb_each:^(NSLayoutConstraint* constraint) {
+            [self.bottomConstraints glb_each:^(NSLayoutConstraint* constraint) {
                 constraint.constant = margins.bottom;
             }];
         }
         if(_margins.left != margins.left) {
-            [_leftConstraints glb_each:^(NSLayoutConstraint* constraint) {
+            [self.leftConstraints glb_each:^(NSLayoutConstraint* constraint) {
                 constraint.constant = margins.left;
             }];
         }
         if(_margins.right != margins.right) {
-            [_rightConstraints glb_each:^(NSLayoutConstraint* constraint) {
+            [self.rightConstraints glb_each:^(NSLayoutConstraint* constraint) {
                 constraint.constant = margins.right;
             }];
         }
@@ -94,17 +97,59 @@
 - (void)setSpacing:(CGFloat)spacing {
     if(_spacing != spacing) {
         _spacing = spacing;
-        [_spacingConstraints glb_each:^(NSLayoutConstraint* constraint) {
+        [self.spacingConstraints glb_each:^(NSLayoutConstraint* constraint) {
             constraint.constant = _spacing;
         }];
     }
+}
+
+- (NSMutableArray*)hiddenObservers {
+    if(_hiddenObservers == nil) {
+        _hiddenObservers = [NSMutableArray array];
+    }
+    return _hiddenObservers;
+}
+
+- (NSMutableArray*)topConstraints {
+    if(_topConstraints == nil) {
+        _topConstraints = [NSMutableArray array];
+    }
+    return _topConstraints;
+}
+
+- (NSMutableArray*)bottomConstraints {
+    if(_bottomConstraints == nil) {
+        _bottomConstraints = [NSMutableArray array];
+    }
+    return _bottomConstraints;
+}
+
+- (NSMutableArray*)leftConstraints {
+    if(_leftConstraints == nil) {
+        _leftConstraints = [NSMutableArray array];
+    }
+    return _leftConstraints;
+}
+
+- (NSMutableArray*)rightConstraints {
+    if(_rightConstraints == nil) {
+        _rightConstraints = [NSMutableArray array];
+    }
+    return _rightConstraints;
+}
+
+- (NSMutableArray*)spacingConstraints {
+    if(_spacingConstraints == nil) {
+        _spacingConstraints = [NSMutableArray array];
+    }
+    return _spacingConstraints;
 }
 
 #pragma mark - Public override
 
 - (void)didAddSubview:(UIView*)subview {
     subview.translatesAutoresizingMaskIntoConstraints = NO;
-    [_hiddenObservers addObject:[subview glb_observeKeyPath:@"hidden" withBlock:^(GLBKVO* kvo, id oldValue, id newValue) {
+    [self.hiddenObservers addObject:[subview glb_observeKeyPath:@"hidden" withBlock:^(GLBKVO* kvo, id oldValue, id newValue) {
         [self setNeedsUpdateConstraints];
     }]];
     [super didAddSubview:subview];
@@ -112,10 +157,10 @@
 }
 
 - (void)willRemoveSubview:(UIView*)subview {
-    [_hiddenObservers glb_each:^(GLBKVO* kvo) {
+    [self.hiddenObservers glb_each:^(GLBKVO* kvo) {
         if(kvo.subject == subview) {
             [kvo stopObservation];
-            [_hiddenObservers removeObject:kvo];
+            [self.hiddenObservers removeObject:kvo];
         }
     }];
     [super willRemoveSubview:subview];
@@ -123,21 +168,21 @@
 }
 
 - (void)updateConstraints {
-    if(_topConstraints.count > 0) {
-        [self removeConstraints:_topConstraints];
-        [_topConstraints removeAllObjects];
+    if(self.topConstraints.count > 0) {
+        [self removeConstraints:self.topConstraints];
+        [self.topConstraints removeAllObjects];
     }
-    if(_bottomConstraints.count > 0) {
-        [self removeConstraints:_bottomConstraints];
-        [_bottomConstraints removeAllObjects];
+    if(self.bottomConstraints.count > 0) {
+        [self removeConstraints:self.bottomConstraints];
+        [self.bottomConstraints removeAllObjects];
     }
-    if(_rightConstraints.count > 0) {
-        [self removeConstraints:_rightConstraints];
-        [_rightConstraints removeAllObjects];
+    if(self.rightConstraints.count > 0) {
+        [self removeConstraints:self.rightConstraints];
+        [self.rightConstraints removeAllObjects];
     }
-    if(_leftConstraints.count > 0) {
-        [self removeConstraints:_leftConstraints];
-        [_leftConstraints removeAllObjects];
+    if(self.leftConstraints.count > 0) {
+        [self removeConstraints:self.leftConstraints];
+        [self.leftConstraints removeAllObjects];
     }
     
     __block UIView* prevSubview = nil;
@@ -145,53 +190,53 @@
         switch(_axis) {
             case UILayoutConstraintAxisHorizontal:
                 if(prevSubview == nil) {
-                    [_leftConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeLeft relation:NSLayoutRelationEqual attribute:NSLayoutAttributeLeft constant:_margins.left]];
+                    [self.leftConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeLeft relation:NSLayoutRelationEqual attribute:NSLayoutAttributeLeft constant:_margins.left]];
                 } else {
-                    [_spacingConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeLeft relation:NSLayoutRelationEqual view:prevSubview attribute:NSLayoutAttributeRight constant:_spacing]];
+                    [self.spacingConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeLeft relation:NSLayoutRelationEqual view:prevSubview attribute:NSLayoutAttributeRight constant:_spacing]];
                 }
                 switch(_alignment) {
                     case GLBLayoutViewAlignmentFill:
-                        [_topConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeTop relation:NSLayoutRelationEqual attribute:NSLayoutAttributeTop constant:_margins.top]];
-                        [_bottomConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeBottom relation:NSLayoutRelationEqual attribute:NSLayoutAttributeBottom constant:_margins.bottom]];
+                        [self.topConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeTop relation:NSLayoutRelationEqual attribute:NSLayoutAttributeTop constant:_margins.top]];
+                        [self.bottomConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeBottom relation:NSLayoutRelationEqual attribute:NSLayoutAttributeBottom constant:_margins.bottom]];
                         break;
                     case GLBLayoutViewAlignmentLeading:
-                        [_topConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeTop relation:NSLayoutRelationEqual attribute:NSLayoutAttributeTop constant:_margins.top]];
-                        [_bottomConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeBottom relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeBottom constant:_margins.bottom]];
+                        [self.topConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeTop relation:NSLayoutRelationEqual attribute:NSLayoutAttributeTop constant:_margins.top]];
+                        [self.bottomConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeBottom relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeBottom constant:_margins.bottom]];
                         break;
                     case GLBLayoutViewAlignmentCenter:
                         [subview glb_addConstraintAttribute:NSLayoutAttributeCenterY relation:NSLayoutRelationEqual attribute:NSLayoutAttributeCenterY constant:0.0];
-                        [_topConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeTop relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeTop constant:_margins.top]];
-                        [_bottomConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeBottom relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeBottom constant:_margins.bottom]];
+                        [self.topConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeTop relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeTop constant:_margins.top]];
+                        [self.bottomConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeBottom relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeBottom constant:_margins.bottom]];
                         break;
                     case GLBLayoutViewAlignmentTrailing:
-                        [_topConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeTop relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeTop constant:_margins.top]];
-                        [_bottomConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeBottom relation:NSLayoutRelationEqual attribute:NSLayoutAttributeBottom constant:_margins.bottom]];
+                        [self.topConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeTop relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeTop constant:_margins.top]];
+                        [self.bottomConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeBottom relation:NSLayoutRelationEqual attribute:NSLayoutAttributeBottom constant:_margins.bottom]];
                         break;
                 }
                 break;
             case UILayoutConstraintAxisVertical:
                 if(prevSubview == nil) {
-                    [_topConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeTop relation:NSLayoutRelationEqual attribute:NSLayoutAttributeTop constant:_margins.top]];
+                    [self.topConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeTop relation:NSLayoutRelationEqual attribute:NSLayoutAttributeTop constant:_margins.top]];
                 } else {
-                    [_spacingConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeTop relation:NSLayoutRelationEqual view:prevSubview attribute:NSLayoutAttributeBottom constant:_spacing]];
+                    [self.spacingConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeTop relation:NSLayoutRelationEqual view:prevSubview attribute:NSLayoutAttributeBottom constant:_spacing]];
                 }
                 switch(_alignment) {
                     case GLBLayoutViewAlignmentFill:
-                        [_leftConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeLeft relation:NSLayoutRelationEqual attribute:NSLayoutAttributeLeft constant:_margins.left]];
-                        [_rightConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeRight relation:NSLayoutRelationEqual attribute:NSLayoutAttributeRight constant:_margins.right]];
+                        [self.leftConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeLeft relation:NSLayoutRelationEqual attribute:NSLayoutAttributeLeft constant:_margins.left]];
+                        [self.rightConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeRight relation:NSLayoutRelationEqual attribute:NSLayoutAttributeRight constant:_margins.right]];
                         break;
                     case GLBLayoutViewAlignmentLeading:
-                        [_leftConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeLeft relation:NSLayoutRelationEqual attribute:NSLayoutAttributeLeft constant:_margins.left]];
-                        [_rightConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeRight relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeRight constant:_margins.right]];
+                        [self.leftConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeLeft relation:NSLayoutRelationEqual attribute:NSLayoutAttributeLeft constant:_margins.left]];
+                        [self.rightConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeRight relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeRight constant:_margins.right]];
                         break;
                     case GLBLayoutViewAlignmentCenter:
                         [subview glb_addConstraintAttribute:NSLayoutAttributeCenterX relation:NSLayoutRelationEqual attribute:NSLayoutAttributeCenterX constant:0.0];
-                        [_leftConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeLeft relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeLeft constant:_margins.left]];
-                        [_rightConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeRight relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeRight constant:_margins.right]];
+                        [self.leftConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeLeft relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeLeft constant:_margins.left]];
+                        [self.rightConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeRight relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeRight constant:_margins.right]];
                         break;
                     case GLBLayoutViewAlignmentTrailing:
-                        [_leftConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeLeft relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeLeft constant:_margins.left]];
-                        [_rightConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeRight relation:NSLayoutRelationEqual attribute:NSLayoutAttributeRight constant:_margins.right]];
+                        [self.leftConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeLeft relation:NSLayoutRelationGreaterThanOrEqual attribute:NSLayoutAttributeLeft constant:_margins.left]];
+                        [self.rightConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeRight relation:NSLayoutRelationEqual attribute:NSLayoutAttributeRight constant:_margins.right]];
                         break;
                 }
                 break;
@@ -203,10 +248,10 @@
     if(prevSubview != nil) {
         switch(_axis) {
             case UILayoutConstraintAxisHorizontal:
-                [_rightConstraints addObject:[prevSubview glb_addConstraintAttribute:NSLayoutAttributeRight relation:NSLayoutRelationEqual attribute:NSLayoutAttributeRight constant:_margins.right]];
+                [self.rightConstraints addObject:[prevSubview glb_addConstraintAttribute:NSLayoutAttributeRight relation:NSLayoutRelationEqual attribute:NSLayoutAttributeRight constant:_margins.right]];
                 break;
             case UILayoutConstraintAxisVertical:
-                [_bottomConstraints addObject:[prevSubview glb_addConstraintAttribute:NSLayoutAttributeBottom relation:NSLayoutRelationEqual attribute:NSLayoutAttributeBottom constant:_margins.bottom]];
+                [self.bottomConstraints addObject:[prevSubview glb_addConstraintAttribute:NSLayoutAttributeBottom relation:NSLayoutRelationEqual attribute:NSLayoutAttributeBottom constant:_margins.bottom]];
                 break;
         }
     }
