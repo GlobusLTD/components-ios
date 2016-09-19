@@ -1,23 +1,21 @@
 /*--------------------------------------------------*/
 
 #import "GLBButton.h"
+#if __has_include("GLBBadgeView.h")
 #import "GLBBadgeView.h"
-#import "GLBCG.h"
+#endif
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import "UIView+GLBUI.h"
-#import "UIColor+GLBUI.h"
-
-/*--------------------------------------------------*/
-
 @interface GLBButton ()
 
+#if __has_include("GLBBadgeView.h")
 @property(nonatomic, strong) GLBBadgeView* badgeView;
 @property(nonatomic, strong) NSLayoutConstraint* constraintBadgeCenterX;
 @property(nonatomic, strong) NSLayoutConstraint* constraintBadgeCenterY;
+#endif
 
 - (void)_updateCurrentState;
 
@@ -29,7 +27,9 @@
 
 #pragma mark - Synthesize
 
+#if __has_include("GLBBadgeView.h")
 @synthesize badgeView = _badgeView;
+#endif
 
 #pragma mark - Init / Free
 
@@ -50,9 +50,11 @@
 }
 
 - (void)setup {
+#if __has_include("GLBBadgeView.h")
     _badgeAlias = GLBButtonBadgeAliasTitle;
     _badgeHorizontalAlignment = GLBButtonBadgeHorizontalAlignmentRight;
     _badgeVerticalAlignment = GLBButtonBadgeVerticalAlignmentTop;
+#endif
 }
 
 #pragma mark - Property
@@ -83,31 +85,27 @@
 }
 
 - (void)setEnabled:(BOOL)enabled {
-    super.enabled = enabled;
-    [self _updateCurrentState];
-    [self setNeedsLayout];
+    if(self.enabled != enabled) {
+        super.enabled = enabled;
+        [self _updateCurrentState];
+        [self setNeedsLayout];
+    }
 }
 
 - (void)setSelected:(BOOL)selected {
-    super.selected = selected;
-    [self _updateCurrentState];
-    [self setNeedsLayout];
+    if(self.selected != selected) {
+        super.selected = selected;
+        [self _updateCurrentState];
+        [self setNeedsLayout];
+    }
 }
 
 - (void)setHighlighted:(BOOL)highlighted {
-    super.highlighted = highlighted;
-    [self _updateCurrentState];
-    [self setNeedsLayout];
-}
-
-- (void)setContentHorizontalAlignment:(UIControlContentHorizontalAlignment)contentHorizontalAlignment {
-    super.contentHorizontalAlignment = contentHorizontalAlignment;
-    [self setNeedsLayout];
-}
-
-- (void)setContentVerticalAlignment:(UIControlContentVerticalAlignment)contentVerticalAlignment {
-    super.contentVerticalAlignment = contentVerticalAlignment;
-    [self setNeedsLayout];
+    if(self.highlighted != highlighted) {
+        super.highlighted = highlighted;
+        [self _updateCurrentState];
+        [self setNeedsLayout];
+    }
 }
 
 - (void)setImageAlignment:(GLBButtonImageAlignment)imageAlignment {
@@ -274,7 +272,7 @@
     if(_normalBorderWidth > FLT_EPSILON) {
         return _normalBorderWidth;
     }
-    return 0.0f;
+    return 0.0;
 }
 
 - (void)setNormalCornerRadius:(CGFloat)normalCornerRadius {
@@ -322,9 +320,10 @@
     if(_normalCornerRadius > FLT_EPSILON) {
         return _normalCornerRadius;
     }
-    return 0.0f;
+    return 0.0;
 }
 
+#if __has_include("GLBBadgeView.h")
 - (void)setBadgeView:(GLBBadgeView*)badgeView {
     if(_badgeView != badgeView) {
         if(_badgeView != nil) {
@@ -333,10 +332,10 @@
         _badgeView = badgeView;
         if(_badgeView != nil) {
             _badgeView.translatesAutoresizingMaskIntoConstraints = YES;
-            _badgeView.autoresizingMask = UIViewAutoresizingNone;
+            _badgeView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
             [self addSubview:_badgeView];
         }
-        [self setNeedsLayout];
+        [self setNeedsUpdateConstraints];
     }
 }
 
@@ -367,6 +366,7 @@
         [self setNeedsUpdateConstraints];
     }
 }
+#endif
 
 #pragma mark - Public override
 
@@ -388,6 +388,12 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    if(((self.currentTitle.length > 0) || (self.currentAttributedTitle.length > 0)) && (self.currentImage != nil)) {
+        CGRect contentRect = [self contentRectForBounds:self.bounds];
+        self.titleLabel.frame = [self titleRectForContentRect:contentRect];
+        self.imageView.frame = [self imageRectForContentRect:contentRect];
+    }
+#if __has_include("GLBBadgeView.h")
     if(_badgeView != nil) {
         UIView* view = nil;
         switch(_badgeAlias) {
@@ -409,6 +415,7 @@
         [_badgeView sizeToFit];
         _badgeView.glb_frameCenter = [view convertPoint:anchor toView:self];
     }
+#endif
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
@@ -424,7 +431,7 @@
         UIEdgeInsets contentEdgeInsets = self.contentEdgeInsets;
         UIEdgeInsets titleEdgeInsets = self.titleEdgeInsets;
         UIEdgeInsets imageEdgeInsets = self.imageEdgeInsets;
-        CGRect contentRect = [super contentRectForBounds:CGRectMake(0.0f, 0.0f, boundsSize.width, boundsSize.height)];
+        CGRect contentRect = [super contentRectForBounds:CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height)];
         CGRect titleRect = [super titleRectForContentRect:contentRect];
         CGRect imageRect = [super imageRectForContentRect:contentRect];
         CGSize fullTitleSize = CGSizeMake(titleEdgeInsets.left + titleRect.size.width + titleEdgeInsets.right, titleEdgeInsets.top + titleRect.size.height + titleEdgeInsets.bottom);
@@ -449,8 +456,8 @@
 
 - (CGRect)titleRectForContentRect:(CGRect)contentRect {
     if(((self.currentTitle.length > 0) || (self.currentAttributedTitle.length > 0)) && (self.currentImage != nil)) {
-        CGRect titleRect = [super titleRectForContentRect:contentRect];
-        CGRect imageRect = [super imageRectForContentRect:contentRect];
+        CGRect titleRect = [super titleRectForContentRect:CGRectMake(0.0, 0.0, FLT_MAX, FLT_MAX)];
+        CGRect imageRect = [super imageRectForContentRect:CGRectMake(0.0, 0.0, FLT_MAX, FLT_MAX)];
         [self _layoutContentRect:contentRect imageRect:&imageRect imageEdgeInsets:self.imageEdgeInsets imageSize:self.currentImage.size titleRect:&titleRect titleEdgeInsets:self.titleEdgeInsets];
         return titleRect;
     }
@@ -459,8 +466,8 @@
 
 - (CGRect)imageRectForContentRect:(CGRect)contentRect {
     if(((self.currentTitle.length > 0) || (self.currentAttributedTitle.length > 0)) && (self.currentImage != nil)) {
-        CGRect titleRect = [super titleRectForContentRect:contentRect];
-        CGRect imageRect = [super imageRectForContentRect:contentRect];
+        CGRect titleRect = [super titleRectForContentRect:CGRectMake(0.0, 0.0, FLT_MAX, FLT_MAX)];
+        CGRect imageRect = [super imageRectForContentRect:CGRectMake(0.0, 0.0, FLT_MAX, FLT_MAX)];
         [self _layoutContentRect:contentRect imageRect:&imageRect imageEdgeInsets:self.imageEdgeInsets imageSize:self.currentImage.size titleRect:&titleRect titleEdgeInsets:self.titleEdgeInsets];
         return imageRect;
     }
