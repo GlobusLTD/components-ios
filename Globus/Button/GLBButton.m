@@ -59,6 +59,40 @@
 
 #pragma mark - Property
 
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    [self setNeedsLayout];
+}
+
+- (void)setBounds:(CGRect)bounds {
+    [super setBounds:bounds];
+    [self setNeedsLayout];
+}
+
+- (UILabel*)titleLabel {
+    UILabel* titleLabel = super.titleLabel;
+    titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    titleLabel.autoresizingMask = UIViewAutoresizingNone;
+    return titleLabel;
+}
+
+- (UIImageView*)imageView {
+    UIImageView* imageView = super.imageView;
+    imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    imageView.autoresizingMask = UIViewAutoresizingNone;
+    return imageView;
+}
+
+- (void)setContentHorizontalAlignment:(UIControlContentHorizontalAlignment)contentHorizontalAlignment {
+    [super setContentHorizontalAlignment:contentHorizontalAlignment];
+    [self setNeedsLayout];
+}
+
+- (void)setContentVerticalAlignment:(UIControlContentVerticalAlignment)contentVerticalAlignment {
+    [super setContentVerticalAlignment:contentVerticalAlignment];
+    [self setNeedsLayout];
+}
+
 - (void)setTitle:(NSString*)title forState:(UIControlState)state {
     [super setTitle:title forState:state];
     [self setNeedsLayout];
@@ -389,7 +423,8 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     if(((self.currentTitle.length > 0) || (self.currentAttributedTitle.length > 0)) && (self.currentImage != nil)) {
-        CGRect contentRect = [self contentRectForBounds:self.bounds];
+        CGSize size = self.frame.size;
+        CGRect contentRect = [self contentRectForBounds:CGRectMake(0.0f, 0.0f, size.width, size.height)];
         self.titleLabel.frame = [self titleRectForContentRect:contentRect];
         self.imageView.frame = [self imageRectForContentRect:contentRect];
     }
@@ -424,14 +459,11 @@
 
 - (CGSize)intrinsicContentSize {
     if(((self.currentTitle.length > 0) || (self.currentAttributedTitle.length > 0)) && (self.currentImage != nil)) {
-        CGSize boundsSize = CGSizeMake(FLT_MAX, FLT_MAX);
-        if(self.superview != nil) {
-            boundsSize = self.superview.frame.size;
-        }
+        CGSize size = self.superview.frame.size;
         UIEdgeInsets contentEdgeInsets = self.contentEdgeInsets;
         UIEdgeInsets titleEdgeInsets = self.titleEdgeInsets;
         UIEdgeInsets imageEdgeInsets = self.imageEdgeInsets;
-        CGRect contentRect = [super contentRectForBounds:CGRectMake(0.0, 0.0, boundsSize.width, boundsSize.height)];
+        CGRect contentRect = [super contentRectForBounds:CGRectMake(0.0, 0.0, size.width, size.height)];
         CGRect titleRect = [super titleRectForContentRect:contentRect];
         CGRect imageRect = [super imageRectForContentRect:contentRect];
         CGSize fullTitleSize = CGSizeMake(titleEdgeInsets.left + titleRect.size.width + titleEdgeInsets.right, titleEdgeInsets.top + titleRect.size.height + titleEdgeInsets.bottom);
