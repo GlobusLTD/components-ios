@@ -109,11 +109,11 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerStyle) {
 - (void)didHideRightViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController;
 
 @optional
-- (BOOL)canShowControllerInSlideViewController:(GLBSlideViewController*)slideViewController;
-- (void)willShowControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration;
-- (void)didShowControllerInSlideViewController:(GLBSlideViewController*)slideViewController;
-- (void)willHideControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration;
-- (void)didHideControllerInSlideViewController:(GLBSlideViewController*)slideViewController;
+- (BOOL)canShowViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController;
+- (void)willShowViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration;
+- (void)didShowViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController;
+- (void)willHideViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration;
+- (void)didHideViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController;
 
 @optional
 - (void)willBeganLeftSwipeInSlideViewController:(GLBSlideViewController*)slideViewController;

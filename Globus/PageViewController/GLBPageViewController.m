@@ -975,39 +975,39 @@
     }
 }
 
-- (BOOL)canShowControllerInSlideViewController:(GLBSlideViewController*)slideViewController {
+- (BOOL)canShowViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController {
     UIViewController< GLBSlideViewControllerDelegate >* viewController = (id)_viewController;
-    if([viewController respondsToSelector:@selector(canShowControllerInSlideViewController:)] == YES) {
-        return [viewController canShowControllerInSlideViewController:slideViewController];
+    if([viewController respondsToSelector:@selector(canShowViewControllerInSlideViewController:)] == YES) {
+        return [viewController canShowViewControllerInSlideViewController:slideViewController];
     }
     return YES;
 }
 
-- (void)willShowControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration {
+- (void)willShowViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration {
     UIViewController< GLBSlideViewControllerDelegate >* viewController = (id)_viewController;
-    if([viewController respondsToSelector:@selector(willShowControllerInSlideViewController:duration:)] == YES) {
-        [viewController willShowControllerInSlideViewController:slideViewController duration:duration];
+    if([viewController respondsToSelector:@selector(willShowViewControllerInSlideViewController:duration:)] == YES) {
+        [viewController willShowViewControllerInSlideViewController:slideViewController duration:duration];
     }
 }
 
-- (void)didShowControllerInSlideViewController:(GLBSlideViewController*)slideViewController {
+- (void)didShowViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController {
     UIViewController< GLBSlideViewControllerDelegate >* viewController = (id)_viewController;
-    if([viewController respondsToSelector:@selector(didShowControllerInSlideViewController:)] == YES) {
-        [viewController didShowControllerInSlideViewController:slideViewController];
+    if([viewController respondsToSelector:@selector(didShowViewControllerInSlideViewController:)] == YES) {
+        [viewController didShowViewControllerInSlideViewController:slideViewController];
     }
 }
 
-- (void)willHideControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration {
+- (void)willHideViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration {
     UIViewController< GLBSlideViewControllerDelegate >* viewController = (id)_viewController;
-    if([viewController respondsToSelector:@selector(willHideControllerInSlideViewController:duration:)] == YES) {
-        [viewController willHideControllerInSlideViewController:slideViewController duration:duration];
+    if([viewController respondsToSelector:@selector(willHideViewControllerInSlideViewController:duration:)] == YES) {
+        [viewController willHideViewControllerInSlideViewController:slideViewController duration:duration];
     }
 }
 
-- (void)didHideControllerInSlideViewController:(GLBSlideViewController*)slideViewController {
+- (void)didHideViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController {
     UIViewController< GLBSlideViewControllerDelegate >* viewController = (id)_viewController;
-    if([viewController respondsToSelector:@selector(didHideControllerInSlideViewController:)] == YES) {
-        [viewController didHideControllerInSlideViewController:slideViewController];
+    if([viewController respondsToSelector:@selector(didHideViewControllerInSlideViewController:)] == YES) {
+        [viewController didHideViewControllerInSlideViewController:slideViewController];
     }
 }
 
