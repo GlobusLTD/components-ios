@@ -497,7 +497,7 @@
 }
 
 - (BOOL)glb_isEarlierOrSame:(NSDate*)anotherDate {
-    return ([self compare:anotherDate] != NSOrderedSame);
+    return ([self compare:anotherDate] != NSOrderedDescending);
 }
 
 - (BOOL)glb_isSame:(NSDate*)anotherDate {
