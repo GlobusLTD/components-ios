@@ -866,9 +866,7 @@
                     break;
                 }
             }
-            if(value != nil) {
-                value = [converter fromJson:value sheme:sheme];
-            }
+            value = [converter fromJson:value sheme:sheme];
         }
         if(value == nil) {
             value = defaultsMap[field];
