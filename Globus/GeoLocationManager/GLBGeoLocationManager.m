@@ -319,7 +319,6 @@
 
 - (void)_processRequests {
     CLLocation* currentLocation = self.currentLocation;
-    NSLog(@"%@", currentLocation);
     [_requests enumerateObjectsUsingBlock:^(GLBGeoLocationRequest* request, NSUInteger index, BOOL* stop) {
         if(request.hasTimedOut == YES) {
             [request _stop];
