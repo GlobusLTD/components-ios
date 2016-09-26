@@ -319,6 +319,7 @@
 
 - (void)_processRequests {
     CLLocation* currentLocation = self.currentLocation;
+    NSLog(@"%@", currentLocation);
     [_requests enumerateObjectsUsingBlock:^(GLBGeoLocationRequest* request, NSUInteger index, BOOL* stop) {
         if(request.hasTimedOut == YES) {
             [request _stop];
@@ -329,9 +330,16 @@
                 [request.actionFailure performWithArguments:@[ request ]];
             }
         } else if(currentLocation != nil) {
+            BOOL finish = NO;
             CLLocationAccuracy desiredAccuracy = MAX(currentLocation.horizontalAccuracy, currentLocation.verticalAccuracy);
             NSTimeInterval timeSinceUpdate = ABS(currentLocation.timestamp.timeIntervalSinceNow);
-            if((desiredAccuracy > request.desiredAccuracy) || (timeSinceUpdate > request.updateInterval)) {
+            if((request.desiredAccuracy > FLT_EPSILON) && (desiredAccuracy <= request.desiredAccuracy)) {
+                finish = YES;
+            }
+            if((request.updateInterval > FLT_EPSILON) && (timeSinceUpdate >= request.updateInterval)) {
+                finish = YES;
+            }
+            if(finish == YES) {
                 if(request.isSubscription == NO) {
                     [request _stop];
                     [self _removeRequest:request];
