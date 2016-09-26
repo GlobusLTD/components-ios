@@ -61,13 +61,30 @@
                    withHorizontalFittingPriority:fittingHorizontalPriority
                          verticalFittingPriority:fittingVerticalPriority];
     }
-    CGSize fittingSize = size;
+    NSLayoutConstraint* constraint = nil;
     if(fittingHorizontalPriority > fittingVerticalPriority) {
-        fittingSize.width = UILayoutFittingCompressedSize.width;
+        constraint = [NSLayoutConstraint constraintWithItem:self.rootView
+                                                  attribute:NSLayoutAttributeWidth
+                                                  relatedBy:NSLayoutRelationEqual
+                                                     toItem:nil
+                                                  attribute:NSLayoutAttributeNotAnAttribute
+                                                 multiplier:1
+                                                   constant:size.width];
+        size.height = UILayoutFittingCompressedSize.height;
     } else {
-        fittingSize.height = UILayoutFittingCompressedSize.width;
+        constraint = [NSLayoutConstraint constraintWithItem:self.rootView
+                                                  attribute:NSLayoutAttributeHeight
+                                                  relatedBy:NSLayoutRelationEqual
+                                                     toItem:nil
+                                                  attribute:NSLayoutAttributeNotAnAttribute
+                                                 multiplier:1
+                                                   constant:size.height];
+        size.width = UILayoutFittingCompressedSize.width;
     }
-    return [self systemLayoutSizeFittingSize:fittingSize];
+    [self.rootView addConstraint:constraint];
+    CGSize result = [self systemLayoutSizeFittingSize:size];
+    [self.rootView removeConstraint:constraint];
+    return result;
 }
 
 - (UILayoutPriority)fittingHorizontalPriority {
