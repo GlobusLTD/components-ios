@@ -56,8 +56,6 @@
 - (void)_stop;
 - (void)_cancel;
 
-- (void)_triggeredTimeoutTimer;
-
 @end
 
 /*--------------------------------------------------*/
@@ -309,6 +307,11 @@
     [self.class _perform:^{
         [self _startUpdatingIfNeeded];
     }];
+    if(_updatingLocation == YES) {
+        for(GLBGeoLocationRequest* request in _requests) {
+            [request _start];
+        }
+    }
     return request;
 }
 
@@ -323,11 +326,8 @@
         if(request.hasTimedOut == YES) {
             [request _stop];
             [self _removeRequest:request];
-            if(_lastError != nil) {
-                [request.actionFailure performWithArguments:@[ request, _lastError ]];
-            } else {
-                [request.actionFailure performWithArguments:@[ request ]];
-            }
+            _lastError = [NSError errorWithDomain:kCLErrorDomain code:kCLErrorLocationUnknown userInfo:nil];
+            [request.actionFailure performWithArguments:@[ request, _lastError ]];
         } else if(currentLocation != nil) {
             BOOL finish = NO;
             CLLocationAccuracy desiredAccuracy = MAX(currentLocation.horizontalAccuracy, currentLocation.verticalAccuracy);
@@ -446,19 +446,14 @@ NSString* GLBGeoLocationManagerUserDenied = @"GLBGeoLocationManagerUserDenied";
 }
 
 - (void)dealloc {
-    if(_timer != nil) {
-        [_timer invalidate];
-    }
+    [self _stop];
 }
 
 #pragma mark - Public
 
 - (BOOL)hasTimedOut {
     if(_timeoutInterval > FLT_EPSILON) {
-        NSTimeInterval aliveInterval = FLT_EPSILON;
-        if(_requestStartTime != nil) {
-            aliveInterval = ABS(_requestStartTime.timeIntervalSinceNow);
-        }
+        NSTimeInterval aliveInterval = ABS(_requestStartTime.timeIntervalSinceNow);
         if(aliveInterval >= _timeoutInterval) {
             return YES;
         }
@@ -479,8 +474,8 @@ NSString* GLBGeoLocationManagerUserDenied = @"GLBGeoLocationManagerUserDenied";
         if(_timer == nil) {
             _requestStartTime = [NSDate date];
             _timer = [NSTimer scheduledTimerWithTimeInterval:_timeoutInterval
-                                                      target:self
-                                                    selector:@selector(_triggeredTimeoutTimer)
+                                                      target:GLBGeoLocationManager.shared
+                                                    selector:@selector(_processRequests)
                                                     userInfo:nil
                                                      repeats:NO];
         }
@@ -492,20 +487,11 @@ NSString* GLBGeoLocationManagerUserDenied = @"GLBGeoLocationManagerUserDenied";
         [_timer invalidate];
         _timer = nil;
     }
-    _requestStartTime = nil;
 }
 
 - (void)_cancel {
     [self _stop];
     _canceled = YES;
-}
-
-- (void)_triggeredTimeoutTimer {
-    if(_timer != nil) {
-        [_timer invalidate];
-        _timer = nil;
-    }
-    [GLBGeoLocationManager.shared _processRequests];
 }
 
 @end
