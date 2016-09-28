@@ -342,12 +342,14 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
         id value = nil;
         if(converter.subPaths.count > 0) {
             for(NSString* path in converter.subPaths) {
-                value = [json valueForKeyPath:path];
-                if(value != nil) {
-                    break;
+                id rawValue = [json valueForKeyPath:path];
+                if(rawValue != nil) {
+                    value = [converter fromJson:rawValue sheme:sheme];
+                    if(rawValue != nil) {
+                        break;
+                    }
                 }
             }
-            value = [converter fromJson:value sheme:sheme];
         }
         if(value != nil) {
             @try {
