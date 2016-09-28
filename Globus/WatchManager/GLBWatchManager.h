@@ -32,10 +32,10 @@ typedef void(^GLBWatchReachableReplyBlock)(NSDictionary< NSString*, id >* _Nulla
 @property(nonatomic, readonly, nullable, strong) WCSession* session;
 @property(nonatomic, readonly, getter=isSupported) BOOL supported;
 @property(nonatomic, readonly, getter=isActivate) BOOL activate;
+@property(nonatomic, readonly, getter=isReachable) BOOL reachable;
 @property(nonatomic, readonly, getter=isPaired) BOOL paired __WATCHOS_UNAVAILABLE;
 @property(nonatomic, readonly, getter=isWatchAppInstalled) BOOL watchAppInstalled __WATCHOS_UNAVAILABLE;
 @property(nonatomic, readonly, getter=isComplicationEnabled) BOOL complicationEnabled __WATCHOS_UNAVAILABLE;
-@property(nonatomic, readonly, getter=isReachable) BOOL reachable __WATCHOS_UNAVAILABLE;
 
 + (_Nullable instancetype)shared;
 
@@ -66,13 +66,13 @@ typedef void(^GLBWatchReachableReplyBlock)(NSDictionary< NSString*, id >* _Nulla
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)sendReachableInfo:(NSDictionary< NSString*, id >* _Nonnull)reachableInfo;
-- (void)sendReachableInfo:(NSDictionary< NSString*, id >* _Nonnull)reachableInfo block:(_Nullable GLBWatchReachableSendBlock)block;
+- (BOOL)sendReachableInfo:(NSDictionary< NSString*, id >* _Nonnull)reachableInfo;
+- (BOOL)sendReachableInfo:(NSDictionary< NSString*, id >* _Nonnull)reachableInfo block:(_Nullable GLBWatchReachableSendBlock)block;
 
-- (void)sendInfo:(NSDictionary< NSString*, id >* _Nonnull)info;
-- (void)sendInfo:(NSDictionary< NSString*, id >* _Nonnull)info complication:(BOOL)complication __WATCHOS_UNAVAILABLE;
-- (void)sendInfo:(NSDictionary< NSString*, id >* _Nonnull)info data:(NSData* _Nullable)data;
-- (void)sendInfo:(NSDictionary< NSString*, id >* _Nonnull)info data:(NSData* _Nullable)data complication:(BOOL)complication __WATCHOS_UNAVAILABLE;
+- (BOOL)sendInfo:(NSDictionary< NSString*, id >* _Nonnull)info;
+- (BOOL)sendInfo:(NSDictionary< NSString*, id >* _Nonnull)info complication:(BOOL)complication __WATCHOS_UNAVAILABLE;
+- (BOOL)sendInfo:(NSDictionary< NSString*, id >* _Nonnull)info data:(NSData* _Nullable)data;
+- (BOOL)sendInfo:(NSDictionary< NSString*, id >* _Nonnull)info data:(NSData* _Nullable)data complication:(BOOL)complication __WATCHOS_UNAVAILABLE;
 
 @end
 
