@@ -126,6 +126,7 @@ static NSString* GLBWatchProviderFileName = @"file";
     if([UIDevice glb_compareSystemVersion:@"9.0"] != NSOrderedAscending) {
         return _session.isReachable;
     }
+    return NO;
 #else
     return _session.isReachable;
 #endif
