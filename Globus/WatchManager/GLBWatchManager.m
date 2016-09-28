@@ -49,8 +49,6 @@
 - (_Nullable instancetype)initWithFileTransfer:(WCSessionFileTransfer* _Nonnull)fileTransfer;
 - (_Nullable instancetype)initWithFile:(WCSessionFile* _Nonnull)file;
 
-- (void)cleanup;
-
 @end
 
 /*--------------------------------------------------*/
@@ -328,10 +326,11 @@ static NSString* GLBWatchProviderFileName = @"file";
 
 #pragma mark - Init / Free
 
-- (instancetype)initWithIdentifier:(NSString*)identifier {
+- (instancetype)initWithIdentifier:(NSString*)identifier delegate:(id< GLBWatchProviderDelegate >)delegate {
     self = [super init];
     if(self != nil) {
         _identifier = identifier;
+        _delegate = delegate;
         [self setup];
     }
     return self;
@@ -369,10 +368,26 @@ static NSString* GLBWatchProviderFileName = @"file";
     }
 }
 
+- (void)sendInfo:(NSDictionary< NSString*, id >*)info {
+    [self sendInfo:info data:nil];
+}
+
+#if defined(GLB_TARGET_IOS)
+
+- (void)sendInfo:(NSDictionary< NSString*, id >*)info complication:(BOOL)complication {
+    [self sendInfo:info data:nil complication:complication];
+}
+
+#endif
+
 - (void)sendInfo:(NSDictionary< NSString*, id >*)info data:(NSData*)data {
     GLBWatchProviderCommand* command = [[GLBWatchProviderCommand alloc] initWithProfider:self info:info data:data complication:NO];
     if(command != nil) {
-        [GLBWatchManager.shared.session transferFile:command.fileURL metadata:command.metadata];
+        if(command.fileURL != nil) {
+            [GLBWatchManager.shared.session transferFile:command.fileURL metadata:command.metadata];
+        } else {
+            [GLBWatchManager.shared.session transferUserInfo:command.metadata];
+        }
     }
 }
 
@@ -381,7 +396,11 @@ static NSString* GLBWatchProviderFileName = @"file";
 - (void)sendInfo:(NSDictionary< NSString*, id >*)info data:(NSData*)data complication:(BOOL)complication {
     GLBWatchProviderCommand* command = [[GLBWatchProviderCommand alloc] initWithProfider:self info:info data:data complication:complication];
     if(command != nil) {
-        [GLBWatchManager.shared.session transferFile:command.fileURL metadata:command.metadata];
+        if(command.fileURL != nil) {
+            [GLBWatchManager.shared.session transferFile:command.fileURL metadata:command.metadata];
+        } else {
+            [GLBWatchManager.shared.session transferUserInfo:command.metadata];
+        }
     }
 }
 
@@ -407,7 +426,6 @@ static NSString* GLBWatchProviderFileName = @"file";
     GLBWatchProviderCommand* command = [[GLBWatchProviderCommand alloc] initWithUserInfoTransfer:userInfoTransfer];
     if(command != nil) {
         [_delegate watchProvider:self sendInfo:command.info data:command.data error:error];
-        [command cleanup];
     }
 }
 
@@ -415,7 +433,6 @@ static NSString* GLBWatchProviderFileName = @"file";
     GLBWatchProviderCommand* command = [[GLBWatchProviderCommand alloc] initWithUserInfo:userInfo];
     if(command != nil) {
         [_delegate watchProvider:self receiveInfo:command.info data:command.data];
-        [command cleanup];
     }
 }
 
@@ -427,11 +444,9 @@ static NSString* GLBWatchProviderFileName = @"file";
             [GLBWatchManager.shared.session transferCurrentComplicationUserInfo:fileTransfer.file.metadata];
         } else {
             [_delegate watchProvider:self sendInfo:command.info data:command.data error:error];
-            [command cleanup];
         }
 #elif defined(GLB_TARGET_WATCHOS)
         [_delegate watchProvider:self sendInfo:command.info data:command.data error:error];
-        [command cleanup];
 #endif
     }
 }
@@ -442,11 +457,9 @@ static NSString* GLBWatchProviderFileName = @"file";
 #if defined(GLB_TARGET_IOS)
         if(command.isComplication == NO) {
             [_delegate watchProvider:self receiveInfo:command.info data:command.data];
-            [command cleanup];
         }
 #elif defined(GLB_TARGET_WATCHOS)
         [_delegate watchProvider:self receiveInfo:command.info data:command.data];
-        [command cleanup];
 #endif
     }
 }
@@ -479,21 +492,21 @@ static NSString* GLBWatchProviderFileName = @"file";
 - (instancetype)initWithProfider:(GLBWatchProvider*)profider info:(NSDictionary< NSString*, id >*)info data:(NSData*)data complication:(BOOL)complication  {
     self = [super init];
     if(self != nil) {
-        NSString* uuid = NSUUID.UUID.UUIDString;
-        NSURL* url = [NSURL fileURLWithPath:[NSFileManager.glb_cachesDirectory stringByAppendingPathComponent:uuid]];
-        if([data writeToURL:url atomically:YES] == YES) {
-            NSMutableDictionary* metadata = [NSMutableDictionary dictionary];
-            metadata[GLBWatchProviderIdentifier] = profider.identifier;
-            metadata[GLBWatchProviderInfo] = info;
-            if(complication == YES) {
-                metadata[GLBWatchProviderComplication] = @(complication);
-            }
-            metadata[GLBWatchProviderFileName] = uuid;
-            _metadata = metadata.copy;
-            _fileURL = url;
-        } else {
-            self = nil;
+        NSMutableDictionary* metadata = [NSMutableDictionary dictionary];
+        metadata[GLBWatchProviderIdentifier] = profider.identifier;
+        metadata[GLBWatchProviderInfo] = info;
+        if(complication == YES) {
+            metadata[GLBWatchProviderComplication] = @(complication);
         }
+        if(data != nil) {
+            NSString* uuid = NSUUID.UUID.UUIDString;
+            NSURL* url = [NSURL fileURLWithPath:[NSFileManager.glb_cachesDirectory stringByAppendingPathComponent:uuid]];
+            if([data writeToURL:url atomically:YES] == YES) {
+                metadata[GLBWatchProviderFileName] = uuid;
+                _fileURL = url;
+            }
+        }
+        _metadata = metadata.copy;
     }
     return self;
 }
@@ -510,7 +523,11 @@ static NSString* GLBWatchProviderFileName = @"file";
     self = [super init];
     if(self != nil) {
         _metadata = [NSDictionary dictionaryWithDictionary:userInfoTransfer.userInfo];
-        _fileURL = [NSURL fileURLWithPath:[NSFileManager.glb_cachesDirectory stringByAppendingPathComponent:self.fileName]];
+        
+        NSString* filePath = [NSFileManager.glb_cachesDirectory stringByAppendingPathComponent:self.fileName];
+        if([NSFileManager.defaultManager fileExistsAtPath:filePath] == YES) {
+            _fileURL = [NSURL fileURLWithPath:filePath];
+        }
     }
     return self;
 }
@@ -564,17 +581,6 @@ static NSString* GLBWatchProviderFileName = @"file";
 
 - (NSString*)fileName {
     return [_metadata glb_stringForKey:GLBWatchProviderFileName orDefault:nil];
-}
-
-#pragma mark - Public
-
-- (void)cleanup {
-    if(_fileURL != nil) {
-        NSError* error = nil;
-        if([NSFileManager.defaultManager removeItemAtURL:_fileURL error:&error] == NO) {
-            NSLog(@"Failure cleanup command:(%@)", _metadata);
-        }
-    }
 }
 
 @end
