@@ -28,7 +28,7 @@
 
 - (GLBDataContentLayerView* _Nullable)layerWithItem:(GLBDataViewItem* _Nonnull)item;
 
-- (__kindof GLBDataViewCell* _Nonnull)dequeueCellWithItem:(GLBDataViewItem* _Nonnull)item;
+- (__kindof GLBDataViewCell* _Nullable)dequeueCellWithItem:(GLBDataViewItem* _Nonnull)item;
 - (void)enqueueCell:(GLBDataViewCell* _Nonnull)cell item:(GLBDataViewItem* _Nonnull)item;
 
 @end
@@ -44,7 +44,7 @@
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (__kindof GLBDataViewCell* _Nonnull)dequeueCellWithIdentifier:(NSString* _Nonnull)identifier;
+- (__kindof GLBDataViewCell* _Nullable)dequeueCellWithIdentifier:(NSString* _Nonnull)identifier;
 - (void)enqueueCell:(GLBDataViewCell* _Nonnull)cell identifier:(NSString* _Nonnull)identifier;
 
 @end

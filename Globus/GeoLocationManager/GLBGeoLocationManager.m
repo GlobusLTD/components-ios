@@ -276,6 +276,7 @@
     }
     if((_requests.count > 0) && (_updatingLocation == NO)) {
         _updatingLocation = YES;
+        _locationManager.delegate = self;
         [_locationManager requestLocation];
     }
 #endif
@@ -290,42 +291,46 @@
 }
 
 - (GLBGeoLocationRequest*)_addRequest:(GLBGeoLocationRequest*)request {
-    switch(self.class.servicesState) {
-        case GLBGeoLocationServicesStateDisabled:
-        case GLBGeoLocationServicesStateDenied:
-        case GLBGeoLocationServicesStateRestricted: {
-            if(_lastError == nil) {
-                _lastError = [NSError errorWithDomain:kCLErrorDomain code:kCLErrorDenied userInfo:nil];
-            }
-            [request.actionFailure performWithArguments:@[ request, _lastError ]];
-            return nil;
-        }
-        default:
-            break;
-    }
-    [_requests addObject:request];
+    __block GLBGeoLocationRequest* result = request;
     [self.class _perform:^{
-        [self _startUpdatingIfNeeded];
-    }];
-    if(_updatingLocation == YES) {
-        for(GLBGeoLocationRequest* request in _requests) {
-            [request _start];
+        switch(self.class.servicesState) {
+            case GLBGeoLocationServicesStateDisabled:
+            case GLBGeoLocationServicesStateDenied:
+            case GLBGeoLocationServicesStateRestricted: {
+                if(_lastError == nil) {
+                    _lastError = [NSError errorWithDomain:kCLErrorDomain code:kCLErrorDenied userInfo:nil];
+                }
+                [result.actionFailure performWithArguments:@[ result, _lastError ]];
+                result = nil;
+                break;
+            }
+            default:
+                break;
         }
-    }
-    return request;
+        if(result != nil) {
+            [_requests addObject:result];
+            [self _startUpdatingIfNeeded];
+            if(_updatingLocation == YES) {
+                [result _start];
+            }
+        }
+    }];
+    return result;
 }
 
 - (void)_removeRequest:(GLBGeoLocationRequest*)request {
-    [_requests removeObject:request];
-    [self _stopUpdatingIfPossible];
+    [self.class _perform:^{
+        [_requests removeObject:request];
+        [self _stopUpdatingIfPossible];
+    }];
 }
 
 - (void)_processRequests {
     CLLocation* currentLocation = self.currentLocation;
-    [_requests enumerateObjectsUsingBlock:^(GLBGeoLocationRequest* request, NSUInteger index, BOOL* stop) {
+    NSMutableArray* removedRequest = [NSMutableArray array];
+    for(GLBGeoLocationRequest* request in _requests) {
         if(request.hasTimedOut == YES) {
-            [request _stop];
-            [self _removeRequest:request];
+            [removedRequest addObject:request];
             _lastError = [NSError errorWithDomain:kCLErrorDomain code:kCLErrorLocationUnknown userInfo:nil];
             [request.actionFailure performWithArguments:@[ request, _lastError ]];
         } else if(currentLocation != nil) {
@@ -340,13 +345,16 @@
             }
             if(finish == YES) {
                 if(request.isSubscription == NO) {
-                    [request _stop];
-                    [self _removeRequest:request];
+                    [removedRequest addObject:request];
                 }
                 [request.actionSuccess performWithArguments:@[ request, currentLocation ]];
             }
         }
-    }];
+    }
+    for(GLBGeoLocationRequest* request in removedRequest) {
+        [request _stop];
+        [self _removeRequest:request];
+    }
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -470,15 +478,15 @@ NSString* GLBGeoLocationManagerUserDenied = @"GLBGeoLocationManagerUserDenied";
 #pragma mark - Private
 
 - (void)_start {
-    if(_timeoutInterval > FLT_EPSILON) {
-        if(_timer == nil) {
-            _requestStartTime = [NSDate date];
-            _timer = [NSTimer scheduledTimerWithTimeInterval:_timeoutInterval
-                                                      target:GLBGeoLocationManager.shared
-                                                    selector:@selector(_processRequests)
-                                                    userInfo:nil
-                                                     repeats:NO];
-        }
+    if(_requestStartTime == nil) {
+        _requestStartTime = [NSDate date];
+    }
+    if((_timeoutInterval > FLT_EPSILON) && (_timer == nil)) {
+        _timer = [NSTimer scheduledTimerWithTimeInterval:_timeoutInterval
+                                                  target:GLBGeoLocationManager.shared
+                                                selector:@selector(_processRequests)
+                                                userInfo:nil
+                                                 repeats:NO];
     }
 }
 

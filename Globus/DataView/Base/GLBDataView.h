@@ -71,8 +71,8 @@ typedef NS_ENUM(NSUInteger, GLBDataViewSearchBarStyle) {
 @property(nonatomic, readonly, strong, nonnull) NSArray< __kindof GLBDataViewCell* >* highlightedCells;
 @property(nonatomic, readonly, strong, nonnull) NSArray< __kindof GLBDataViewItem* >* editingItems;
 @property(nonatomic, readonly, strong, nonnull) NSArray< __kindof GLBDataViewCell* >* editingCells;
-@property(nonatomic, readonly, strong, nonnull) __kindof GLBDataViewItem* movingItem;
-@property(nonatomic, readonly, strong, nonnull) __kindof GLBDataViewCell* movingCell;
+@property(nonatomic, readonly, strong, nullable) __kindof GLBDataViewItem* movingItem;
+@property(nonatomic, readonly, strong, nullable) __kindof GLBDataViewCell* movingCell;
 @property(nonatomic, readonly, assign, getter=isAnimating) BOOL animating;
 @property(nonatomic, readonly, assign, getter=isUpdating) BOOL updating;
 @property(nonatomic, readonly, assign, getter=isTransiting) BOOL transiting;

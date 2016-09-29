@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.2.21'
+  s.version = '0.2.22'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -188,6 +188,17 @@ Pod::Spec.new do |s|
     ss.subspec 'Window' do |sss|
       sss.source_files = 'Globus/UIKit/Window/**/*.{h,m}'
       sss.dependency 'Globus/UIKit/ViewController'
+    end
+  end
+  s.subspec 'WatchKit' do |ss|
+    ss.subspec 'Base' do |sss|
+      sss.source_files = 'Globus/WatchKit/Base/**/*.{h,m}'
+      sss.watchos.frameworks = 'WatchKit'
+      sss.dependency 'Globus/CoreFoundation/Base'
+    end
+    ss.subspec 'Device' do |sss|
+      sss.source_files = 'Globus/WatchKit/Device/**/*.{h,m}'
+      sss.dependency 'Globus/WatchKit/Base'
     end
   end
   s.subspec 'Grid' do |ss|
@@ -620,5 +631,7 @@ Pod::Spec.new do |s|
     ss.dependency 'Globus/CoreFoundation/Array'
     ss.dependency 'Globus/CoreFoundation/FileManager'
     ss.dependency 'Globus/UIKit/Device'
+    ss.dependency 'Globus/WatchKit/Device'
+    ss.dependency 'Globus/Observer'
   end
 end

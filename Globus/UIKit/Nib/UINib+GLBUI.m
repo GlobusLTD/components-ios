@@ -44,6 +44,14 @@ static NSMutableDictionary< NSString*, UINib* >* GLBNibCache = nil;
         } else if(UIDevice.glb_isIPad) {
             NSString* modelBaseName = [NSString stringWithFormat:@"%@%@", name, @"-iPad"];
             switch(UIDevice.glb_model) {
+                case GLBDeviceModelPadPro129:
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-Pro129"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-Pro"]];
+                    break;
+                case GLBDeviceModelPadPro97:
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-Pro97"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-Pro"]];
+                    break;
                 case GLBDeviceModelPadAir2:
                     [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-Air2"]];
                 case GLBDeviceModelPadAir1:

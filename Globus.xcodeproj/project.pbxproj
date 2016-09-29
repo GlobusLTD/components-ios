@@ -161,6 +161,10 @@
 		406D7E2F1D6DE411001D321D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 406D7E2D1D6DE411001D321D /* LaunchScreen.storyboard */; };
 		40A016631D87E74F00140EB5 /* GLBDataViewCellCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 40A016611D87E74F00140EB5 /* GLBDataViewCellCache.h */; };
 		40A016641D87E74F00140EB5 /* GLBDataViewCellCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A016621D87E74F00140EB5 /* GLBDataViewCellCache.m */; };
+		40AAD4111D9CF0FE005EE7CB /* WKInterfaceDevice+GLBWK.h in Headers */ = {isa = PBXBuildFile; fileRef = 40AAD40F1D9CF0FE005EE7CB /* WKInterfaceDevice+GLBWK.h */; };
+		40AAD4121D9CF0FE005EE7CB /* WKInterfaceDevice+GLBWK.m in Sources */ = {isa = PBXBuildFile; fileRef = 40AAD4101D9CF0FE005EE7CB /* WKInterfaceDevice+GLBWK.m */; };
+		40AAD4161D9CF131005EE7CB /* GLBWK.h in Headers */ = {isa = PBXBuildFile; fileRef = 40AAD4141D9CF131005EE7CB /* GLBWK.h */; };
+		40AAD4171D9CF131005EE7CB /* GLBWK.m in Sources */ = {isa = PBXBuildFile; fileRef = 40AAD4151D9CF131005EE7CB /* GLBWK.m */; };
 		40ABBF531D88A90A00AECED3 /* GLBDataContentView+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 40ABBF521D88A90A00AECED3 /* GLBDataContentView+Private.h */; };
 		40AEB9981D70ABC10050A6DE /* libGlobus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40BB8CD11BF3EE2A00D2E180 /* libGlobus.a */; };
 		40AEB9C71D70AC310050A6DE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEED91D6AEF1A006C3DF1 /* AVFoundation.framework */; };
@@ -595,6 +599,10 @@
 		40804A9F1BF8D1000059B277 /* Globus.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Globus.podspec; sourceTree = "<group>"; };
 		40A016611D87E74F00140EB5 /* GLBDataViewCellCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBDataViewCellCache.h; sourceTree = "<group>"; };
 		40A016621D87E74F00140EB5 /* GLBDataViewCellCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBDataViewCellCache.m; sourceTree = "<group>"; };
+		40AAD40F1D9CF0FE005EE7CB /* WKInterfaceDevice+GLBWK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKInterfaceDevice+GLBWK.h"; sourceTree = "<group>"; };
+		40AAD4101D9CF0FE005EE7CB /* WKInterfaceDevice+GLBWK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKInterfaceDevice+GLBWK.m"; sourceTree = "<group>"; };
+		40AAD4141D9CF131005EE7CB /* GLBWK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBWK.h; sourceTree = "<group>"; };
+		40AAD4151D9CF131005EE7CB /* GLBWK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBWK.m; sourceTree = "<group>"; };
 		40ABBF521D88A90A00AECED3 /* GLBDataContentView+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataContentView+Private.h"; sourceTree = "<group>"; };
 		40BB8CD11BF3EE2A00D2E180 /* libGlobus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGlobus.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		40E88DCA1D76274100275E43 /* GLBAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBAction.h; sourceTree = "<group>"; };
@@ -1478,6 +1486,33 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		40AAD40D1D9CF0FE005EE7CB /* WatchKit */ = {
+			isa = PBXGroup;
+			children = (
+				40AAD4131D9CF131005EE7CB /* Base */,
+				40AAD40E1D9CF0FE005EE7CB /* Device */,
+			);
+			path = WatchKit;
+			sourceTree = "<group>";
+		};
+		40AAD40E1D9CF0FE005EE7CB /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				40AAD40F1D9CF0FE005EE7CB /* WKInterfaceDevice+GLBWK.h */,
+				40AAD4101D9CF0FE005EE7CB /* WKInterfaceDevice+GLBWK.m */,
+			);
+			path = Device;
+			sourceTree = "<group>";
+		};
+		40AAD4131D9CF131005EE7CB /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				40AAD4141D9CF131005EE7CB /* GLBWK.h */,
+				40AAD4151D9CF131005EE7CB /* GLBWK.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		40BB8CB81BF3EDBE00D2E180 = {
 			isa = PBXGroup;
 			children = (
@@ -1562,6 +1597,7 @@
 				40E88F251D76274100275E43 /* UIKit */,
 				40E88F481D76274100275E43 /* VideoPlayerView */,
 				40E88F4B1D76274100275E43 /* ViewController */,
+				40AAD40D1D9CF0FE005EE7CB /* WatchKit */,
 				40E88F4E1D76274100275E43 /* WatchManager */,
 				40E88F511D76274100275E43 /* WebViewController */,
 				40E88F551D76274100275E43 /* Window */,
@@ -2656,6 +2692,7 @@
 				40E8903A1D76274100275E43 /* GLBStyle.h in Headers */,
 				4043CAF41D78519500EE76F1 /* GLBDataContainerSections.h in Headers */,
 				40E8903E1D76274100275E43 /* GLBTaskManager.h in Headers */,
+				40AAD4161D9CF131005EE7CB /* GLBWK.h in Headers */,
 				40E88FE51D76274100275E43 /* GLBInputField.h in Headers */,
 				40E88FE61D76274100275E43 /* GLBInputForm.h in Headers */,
 				40E88F9A1D76274100275E43 /* NSSet+GLBNS.h in Headers */,
@@ -2686,6 +2723,7 @@
 				40E88F901D76274100275E43 /* NSNull+GLBNS.h in Headers */,
 				4057F49B1D76328F00D48E49 /* GLBTransitionController+Private.h in Headers */,
 				4043CB731D78595100EE76F1 /* GLBTransitionControllerSlide.h in Headers */,
+				40AAD4111D9CF0FE005EE7CB /* WKInterfaceDevice+GLBWK.h in Headers */,
 				4043CB5F1D78587100EE76F1 /* GLBSpinnerViewWordPress.h in Headers */,
 				40E890141D76274100275E43 /* GLBSearchBar.h in Headers */,
 				40E88FD11D76274100275E43 /* GLBDateField.h in Headers */,
@@ -3025,6 +3063,7 @@
 				40E88FA71D76274100275E43 /* GLBRect.m in Sources */,
 				4043CB291D78562800EE76F1 /* GLBSpinnerViewChasingDots.m in Sources */,
 				4043CAD01D78211200EE76F1 /* NSObject+GLBNS.m in Sources */,
+				40AAD4171D9CF131005EE7CB /* GLBWK.m in Sources */,
 				40E88F591D76274100275E43 /* GLBAction.m in Sources */,
 				40E88FDB1D76274100275E43 /* GLBBlurImageView.m in Sources */,
 				4043CB511D7857EF00EE76F1 /* GLBSpinnerViewThreeBounce.m in Sources */,
@@ -3036,6 +3075,7 @@
 				40E890251D76274100275E43 /* GLBFadingCircleSpinnerView.m in Sources */,
 				4043CB791D785BAA00EE76F1 /* GLBDataContainer.m in Sources */,
 				4043CB741D78595100EE76F1 /* GLBTransitionControllerSlide.m in Sources */,
+				40AAD4121D9CF0FE005EE7CB /* WKInterfaceDevice+GLBWK.m in Sources */,
 				40E8902D1D76274100275E43 /* GLBPlaneSpinnerView.m in Sources */,
 				40E88FAF1D76274100275E43 /* GLBDataViewCell.m in Sources */,
 				40E890761D76274100275E43 /* GLBViewController.m in Sources */,

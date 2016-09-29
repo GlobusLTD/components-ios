@@ -7,6 +7,11 @@
 /*--------------------------------------------------*/
 
 #import "UIDevice+GLBUI.h"
+#import "WKInterfaceDevice+GLBWK.h"
+
+/*--------------------------------------------------*/
+
+#import "GLBObserver.h"
 
 /*--------------------------------------------------*/
 
@@ -32,12 +37,15 @@ typedef void(^GLBWatchReachableReplyBlock)(NSDictionary< NSString*, id >* _Nulla
 @property(nonatomic, readonly, nullable, strong) WCSession* session;
 @property(nonatomic, readonly, getter=isSupported) BOOL supported;
 @property(nonatomic, readonly, getter=isActivate) BOOL activate;
+@property(nonatomic, readonly, getter=isPerformedActivate) BOOL performedActivate;
 @property(nonatomic, readonly, getter=isReachable) BOOL reachable;
 @property(nonatomic, readonly, getter=isPaired) BOOL paired __WATCHOS_UNAVAILABLE;
 @property(nonatomic, readonly, getter=isWatchAppInstalled) BOOL watchAppInstalled __WATCHOS_UNAVAILABLE;
 @property(nonatomic, readonly, getter=isComplicationEnabled) BOOL complicationEnabled __WATCHOS_UNAVAILABLE;
 
 + (_Nullable instancetype)shared;
+
++ (BOOL)isSupported;
 
 - (void)setup NS_REQUIRES_SUPER;
 
@@ -78,10 +86,10 @@ typedef void(^GLBWatchReachableReplyBlock)(NSDictionary< NSString*, id >* _Nulla
 
 /*--------------------------------------------------*/
 
-@protocol GLBWatchManagerObserver < NSObject >
+@protocol GLBWatchManagerObserver < GLBObserverProtocol >
 
 @optional
-- (void)watchManager:(GLBWatchManager* _Nonnull)watchManager activate:(BOOL)activate;
+- (void)watchManager:(GLBWatchManager* _Nonnull)watchManager activate:(BOOL)activate error:(NSError* _Nullable)error;
 
 @optional
 - (void)watchManager:(GLBWatchManager* _Nonnull)watchManager reachability:(BOOL)reachability;

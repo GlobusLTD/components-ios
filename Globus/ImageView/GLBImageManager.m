@@ -415,7 +415,7 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
                 if(self.isCancelled == YES) {
                     return;
                 }
-                [_target imageManager:_manager cacheImage:image];
+                [_target imageManager:_manager cacheImage:processingImage];
             });
         } else {
             dispatch_sync(dispatch_get_main_queue(), ^{
@@ -503,7 +503,7 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
                     if(self.isCancelled == YES) {
                         return;
                     }
-                    [_target imageManager:_manager downloadImage:image];
+                    [_target imageManager:_manager downloadImage:processingImage];
                     [_target finishDownloadInImageManager:_manager];
                 });
             } else {

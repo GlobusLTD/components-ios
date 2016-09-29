@@ -10,29 +10,22 @@
 
 /*--------------------------------------------------*/
 
-static NSNumber* GLB_SystemVersion = nil;
-static NSString* GLB_SystemVersionString = nil;
-static NSString* GLB_DeviceTypeString = nil;
-static NSString* GLB_DeviceVersionString = nil;
-static GLBDeviceFamily GLB_DeviceFamily = GLBDeviceFamilyUnknown;
-static GLBDeviceModel GLB_DeviceModel = GLBDeviceModelUnknown;
-
-/*--------------------------------------------------*/
-
 @implementation UIDevice (GLB_UI)
 
 + (CGFloat)glb_systemVersion {
-    if(GLB_SystemVersion == nil) {
-        GLB_SystemVersion = @(self.currentDevice.systemVersion.floatValue);
+    static NSNumber* systemVersion = nil;
+    if(systemVersion == nil) {
+        systemVersion = @(self.currentDevice.systemVersion.floatValue);
     }
-    return GLB_SystemVersion.floatValue;
+    return systemVersion.floatValue;
 }
 
 + (NSString*)glb_systemVersionString {
-    if(GLB_SystemVersionString == nil) {
-        GLB_SystemVersionString = self.currentDevice.systemVersion;
+    static NSString* systemVersion = nil;
+    if(systemVersion == nil) {
+        systemVersion = self.currentDevice.systemVersion;
     }
-    return GLB_SystemVersionString;
+    return systemVersion;
 }
 
 + (NSComparisonResult)glb_compareSystemVersion:(NSString*)requiredVersion {
@@ -60,30 +53,33 @@ static GLBDeviceModel GLB_DeviceModel = GLBDeviceModelUnknown;
 }
 
 + (NSString*)glb_deviceTypeString {
-    if(GLB_DeviceTypeString == nil) {
+    static NSString* deviceType = nil;
+    if(deviceType == nil) {
         struct utsname systemInfo;
         uname(&systemInfo);
-        GLB_DeviceTypeString = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+        deviceType = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
     }
-    return GLB_DeviceTypeString;
+    return deviceType;
 }
 
 + (NSString*)glb_deviceVersionString {
-    if(GLB_DeviceVersionString == nil) {
+    static NSString* deviceVersion = nil;
+    if(deviceVersion == nil) {
         NSString* deviceType = self.glb_deviceTypeString;
         NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"[0-9]{1,},[0-9]{1,}" options:0 error:nil];
         NSRange rangeOfVersion = [regex rangeOfFirstMatchInString:deviceType options:0 range:NSMakeRange(0, deviceType.length)];
         if((rangeOfVersion.location != NSNotFound) && (rangeOfVersion.length > 0)) {
-            GLB_DeviceVersionString = [deviceType substringWithRange:rangeOfVersion];
+            deviceVersion = [deviceType substringWithRange:rangeOfVersion];
         }
     }
-    return GLB_DeviceVersionString;
+    return deviceVersion;
 }
 
 + (GLBDeviceFamily)glb_family {
-    if(GLB_DeviceFamily == GLBDeviceFamilyUnknown) {
+    static GLBDeviceFamily family = GLBDeviceFamilyUnknown;
+    if(family == GLBDeviceFamilyUnknown) {
 #ifdef GLB_SIMULATOR
-        GLB_DeviceFamily = GLBDeviceFamilySimulator;
+        family = GLBDeviceFamilySimulator;
 #else
         NSDictionary* modelManifest = @{
             @"iPhone": @(GLBDeviceFamilyPhone),
@@ -92,30 +88,31 @@ static GLBDeviceModel GLB_DeviceModel = GLBDeviceModelUnknown;
         };
         NSString* deviceType = self.glb_deviceTypeString;
         [modelManifest enumerateKeysAndObjectsUsingBlock:^(NSString* string, NSNumber* number, BOOL* stop) {
-            if([deviceType hasPrefix:string]) {
-                GLB_DeviceFamily = (GLBDeviceFamily)number.unsignedIntegerValue;
+            if([deviceType hasPrefix:string] == YES) {
+                family = (GLBDeviceFamily)(number.unsignedIntegerValue);
                 *stop = YES;
             }
         }];
 #endif
     }
-    return GLB_DeviceFamily;
+    return family;
 }
 
 + (GLBDeviceModel)glb_model {
-    if(GLB_DeviceModel == GLBDeviceModelUnknown) {
+    static GLBDeviceModel model = GLBDeviceModelUnknown;
+    if(model == GLBDeviceModelUnknown) {
 #ifdef GLB_SIMULATOR
         switch(UI_USER_INTERFACE_IDIOM()) {
             case UIUserInterfaceIdiomPhone:
                 switch(self.glb_display) {
-                    case GLBDeviceDisplayPhone35Inch: GLB_DeviceModel = GLBDeviceModelPhone4S; break;
-                    case GLBDeviceDisplayPhone4Inch: GLB_DeviceModel = GLBDeviceModelPhone5S; break;
-                    case GLBDeviceDisplayPhone47Inch: GLB_DeviceModel = GLBDeviceModelPhone6; break;
-                    case GLBDeviceDisplayPhone55Inch: GLB_DeviceModel = GLBDeviceModelPhone6Plus; break;
-                    default: GLB_DeviceModel = GLBDeviceModelSimulatorPhone; break;
+                    case GLBDeviceDisplayPhone35Inch: model = GLBDeviceModelPhone4S; break;
+                    case GLBDeviceDisplayPhone4Inch: model = GLBDeviceModelPhone5S; break;
+                    case GLBDeviceDisplayPhone47Inch: model = GLBDeviceModelPhone6; break;
+                    case GLBDeviceDisplayPhone55Inch: model = GLBDeviceModelPhone6Plus; break;
+                    default: model = GLBDeviceModelSimulatorPhone; break;
                 }
                 break;
-            case UIUserInterfaceIdiomPad: GLB_DeviceModel = GLBDeviceModelSimulatorPad; break;
+            case UIUserInterfaceIdiomPad: model = GLBDeviceModelSimulatorPad; break;
             default: break;
         }
 #else
@@ -180,12 +177,12 @@ static GLBDeviceModel GLB_DeviceModel = GLBDeviceModelUnknown;
         if(modelManifest != nil) {
             NSNumber* modelType = modelManifest[self.glb_deviceVersionString];
             if(modelType != nil) {
-                GLB_DeviceModel = (GLBDeviceModel)modelType.unsignedIntegerValue;
+                model = (GLBDeviceModel)modelType.unsignedIntegerValue;
             }
         }
 #endif
     }
-    return GLB_DeviceModel;
+    return model;
 }
 
 + (GLBDeviceDisplay)glb_display {

@@ -199,7 +199,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
 
 - (void)fromJsonData:(NSData*)data sheme:(NSString*)sheme {
     id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    if(json != nil) {\
+    if(json != nil) {
         [self fromJson:json sheme:sheme];
     }
 }
@@ -342,12 +342,15 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
         id value = nil;
         if(converter.subPaths.count > 0) {
             for(NSString* path in converter.subPaths) {
-                id rawValue = [json valueForKeyPath:path];
-                if(rawValue != nil) {
-                    value = [converter fromJson:rawValue sheme:sheme];
-                    if(rawValue != nil) {
-                        break;
-                    }
+                id rawValue = nil;
+                @try {
+                    rawValue = [json valueForKeyPath:path];
+                }
+                @catch(NSException *exception) {
+                }
+                value = [converter fromJson:rawValue sheme:sheme];
+                if(value != nil) {
+                    break;
                 }
             }
         }
