@@ -340,19 +340,19 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
 - (void)_fromJson:(id)json sheme:(NSString*)sheme jsonMap:(NSDictionary< NSString*, GLBModelJson* >*)jsonMap {
     [jsonMap enumerateKeysAndObjectsUsingBlock:^(NSString* field, GLBModelJson* converter, BOOL* stop __unused) {
         id value = nil;
-        if(converter.subPaths.count > 0) {
+        if(converter != nil) {
+            id rawValue = nil;
             for(NSString* path in converter.subPaths) {
-                id rawValue = nil;
                 @try {
                     rawValue = [json valueForKeyPath:path];
                 }
                 @catch(NSException *exception) {
                 }
-                value = [converter fromJson:rawValue sheme:sheme];
-                if(value != nil) {
+                if(rawValue != nil) {
                     break;
                 }
             }
+            value = [converter fromJson:rawValue sheme:sheme];
         }
         if(value != nil) {
             @try {

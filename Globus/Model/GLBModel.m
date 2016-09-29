@@ -860,18 +860,18 @@
         id value = nil;
         GLBModelJson* converter = jsonMap[field];
         if(converter != nil) {
+            id rawValue = nil;
             for(NSString* path in converter.subPaths) {
-                id rawValue = nil;
                 @try {
                     rawValue = [json valueForKeyPath:path];
                 }
                 @catch(NSException *exception) {
                 }
-                value = [converter fromJson:rawValue sheme:sheme];
-                if(value != nil) {
+                if(rawValue != nil) {
                     break;
                 }
             }
+            value = [converter fromJson:rawValue sheme:sheme];
         }
         if(value == nil) {
             value = defaultsMap[field];

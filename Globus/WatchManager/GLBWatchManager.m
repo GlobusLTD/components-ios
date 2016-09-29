@@ -493,7 +493,7 @@ static NSString* GLBWatchProviderFileName = @"file";
         NSDictionary* info = command.info;
         NSData* data = command.data;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [_delegate watchProvider:self sendInfo:info data:data];
+            [_delegate watchProvider:self sendInfo:info data:data error:error];
         });
 #endif
         [command cleanupTemp];
