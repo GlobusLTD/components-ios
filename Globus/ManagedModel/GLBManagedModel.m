@@ -265,14 +265,15 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
 
 - (void)unpack:(NSDictionary< NSString*, id >*)data {
     [self.packMap enumerateKeysAndObjectsUsingBlock:^(NSString* field, GLBModelPack* converter, BOOL* stop __unused) {
+        id value = nil;
         id packValue = data[field];
         if(packValue != nil) {
-            id value = [converter unpack:packValue];
-            @try {
-                [self setValue:value forKey:field];
-            }
-            @catch(NSException *exception) {
-            }
+            value = [converter unpack:packValue];
+        }
+        @try {
+            [self setValue:value forKey:field];
+        }
+        @catch(NSException *exception) {
         }
     }];
 }
@@ -354,12 +355,10 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
             }
             value = [converter fromJson:rawValue sheme:sheme];
         }
-        if(value != nil) {
-            @try {
-                [self setValue:value forKey:field];
-            }
-            @catch(NSException *exception) {
-            }
+        @try {
+            [self setValue:value forKey:field];
+        }
+        @catch(NSException *exception) {
         }
     }];
 }

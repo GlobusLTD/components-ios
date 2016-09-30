@@ -176,7 +176,7 @@ static NSString* GLBWatchProviderFileName = @"file";
             [self _observeActivate:_activate error:nil];
         }
 #elif defined(GLB_TARGET_WATCHOS)
-        if([WKInterfaceDevice glb_compareSystemVersion:@"2.2"] != NSOrderedAscending) {
+        if([WKInterfaceDevice glb_compareSystemVersion:@"2.2"] == NSOrderedAscending) {
             _activate = YES;
             _performedActivate = NO;
             [self _observeActivate:_activate error:nil];

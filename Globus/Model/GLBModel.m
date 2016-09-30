@@ -73,13 +73,10 @@
             if(value == nil) {
                 value = defaultsMap[propertyName];
             }
-            if(value != nil) {
-                @try {
-                    [self setValue:value forKey:propertyName];
-                }
-                @catch(NSException* exception) {
-                    NSLog(@"GLBModel::initWithCoder:%@ Field=%@ Exception = %@", _storeName, field, exception);
-                }
+            @try {
+                [self setValue:value forKey:propertyName];
+            }
+            @catch(NSException* exception) {
             }
         }];
         [self setup];
@@ -513,13 +510,10 @@
             if(value == nil) {
                 value = defaultsMap[field];
             }
-            if(value != nil) {
-                @try {
-                    [self setValue:value forKey:field];
-                }
-                @catch(NSException* exception) {
-                    NSLog(@"GLBModel::unpack:%@ Field=%@ Exception = %@", _storeName, field, exception);
-                }
+            @try {
+                [self setValue:value forKey:field];
+            }
+            @catch(NSException* exception) {
             }
         }
     }
@@ -575,13 +569,10 @@
     NSDictionary< NSString*, id >* serializeMap = self.serializeMap;
     for(NSString* field in serializeMap.allKeys) {
         id value = defaultsMap[field];
-        if(value != nil) {
-            @try {
-                [self setValue:value forKey:field];
-            }
-            @catch(NSException* exception) {
-                NSLog(@"GLBModel::clear:%@ Field=%@ Exception = %@", _storeName, field, exception);
-            }
+        @try {
+            [self setValue:value forKey:field];
+        }
+        @catch(NSException* exception) {
         }
     }
 }
@@ -697,13 +688,10 @@
                         value = nil;
                     }
                 }
-                if(value != nil) {
-                    @try {
-                        [self setValue:value forKey:propertyName];
-                    }
-                    @catch(NSException* exception) {
-                        NSLog(@"GLBModel::load:%@ Field=%@ Exception = %@", _storeName, field, exception);
-                    }
+                @try {
+                    [self setValue:value forKey:propertyName];
+                }
+                @catch(NSException* exception) {
                 }
             }];
         }
@@ -876,13 +864,10 @@
         if(value == nil) {
             value = defaultsMap[field];
         }
-        if(value != nil) {
-            @try {
-                [self setValue:value forKey:field];
-            }
-            @catch(NSException* exception) {
-                NSLog(@"GLBModel::fromJson:%@ Field=%@ Exception = %@", _storeName, field, exception);
-            }
+        @try {
+            [self setValue:value forKey:field];
+        }
+        @catch(NSException* exception) {
         }
     }
 }
