@@ -157,6 +157,7 @@
             }
             [self setNeedsLayout];
             [self willShow];
+            [self layoutIfNeeded];
         }
     }
 }

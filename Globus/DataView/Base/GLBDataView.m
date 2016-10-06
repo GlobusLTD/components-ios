@@ -1292,7 +1292,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 }
 
 - (void)batchDuration:(NSTimeInterval)duration update:(GLBSimpleBlock)update complete:(GLBSimpleBlock)complete {
-    if((_updating == NO) && (_transiting == NO)) {
+    if(_updating == NO) {
         if(duration > FLT_EPSILON) {
             [self beginUpdateAnimated:YES];
             [UIView animateWithDuration:duration
@@ -1338,12 +1338,6 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
         
         [self validateLayoutIfNeed];
         [self _layoutForVisible];
-
-        if(_queueBatch.count > 0) {
-            GLBDataBatch* batch = _queueBatch.firstObject;
-            [_queueBatch removeObjectAtIndex:0];
-            [self batchDuration:batch.duration update:batch.update complete:batch.complete];
-        }
     }
 }
 
@@ -1606,9 +1600,15 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
         }
     }
     [_visibleItems addObject:item];
+    if(_transiting == YES) {
+        [item beginTransition];
+    }
 }
 
 - (void)_disappearItem:(GLBDataViewItem*)item {
+    if(_transiting == YES) {
+        [item endTransition];
+    }
     GLBDataViewCell* cell = item.cell;
     if(cell != nil) {
         [self.contentView enqueueCell:cell item:item];
@@ -1618,7 +1618,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 }
 
 - (void)_didInsertItems:(NSArray*)items {
-    if((_updating == NO) && (_transiting == NO)) {
+    if(_updating == NO) {
         @throw [NSException exceptionWithName:self.glb_className reason:@"Need invoke on batchUpdate" userInfo:nil];
     }
     [_insertedItems addObjectsFromArray:items];
@@ -1626,7 +1626,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 }
 
 - (void)_didDeleteItems:(NSArray*)items {
-    if((_updating == NO) && (_transiting == NO)) {
+    if(_updating == NO) {
         @throw [NSException exceptionWithName:self.glb_className reason:@"Need invoke on batchUpdate" userInfo:nil];
     }
     [_visibleItems removeObjectsInArray:items];
@@ -1638,7 +1638,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 }
 
 - (void)_didReplaceOriginItems:(NSArray*)originItems withItems:(NSArray*)items {
-    if((_updating == NO) && (_transiting == NO)) {
+    if(_updating == NO) {
         @throw [NSException exceptionWithName:self.glb_className reason:@"Need invoke on batchUpdate" userInfo:nil];
     }
     [_visibleItems removeObjectsInArray:originItems];
