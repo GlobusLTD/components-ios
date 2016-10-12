@@ -289,7 +289,11 @@
 - (void)willShow {
 }
 
+- (void)update {
+}
+
 - (void)reload {
+    [self update];
 }
 
 - (void)didHide {

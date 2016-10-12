@@ -448,9 +448,6 @@
     id result = nil;
     if([json isKindOfClass:NSString.class] == YES) {
         result = [NSURL URLWithString:json];
-        if(result == nil) {
-            result = [NSURL URLWithString:[json stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
-        }
     }
     if(result != nil) {
         return result;

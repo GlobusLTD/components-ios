@@ -74,7 +74,8 @@
 - (void)setNeedResize;
 - (CGSize)sizeForAvailableSize:(CGSize)size;
 
-- (void)setNeedReload;
+- (void)setNeedUpdate;
+- (void)setNeedReload GLB_DEPRECATED;
 
 - (void)appear;
 - (void)disappear;

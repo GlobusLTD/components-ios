@@ -120,9 +120,9 @@
     }
 }
 
-- (void)setNeedReload {
+- (void)setNeedUpdate {
     for(GLBDataViewItem* section in _sections) {
-        [section setNeedReload];
+        [section setNeedUpdate];
     }
 }
 

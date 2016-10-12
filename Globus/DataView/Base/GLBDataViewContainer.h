@@ -51,7 +51,8 @@ typedef void(^GLBDataViewContainerConfigureItemBlock)(__kindof GLBDataViewItem* 
 - (void)setup NS_REQUIRES_SUPER;
 
 - (void)setNeedResize;
-- (void)setNeedReload;
+- (void)setNeedUpdate;
+- (void)setNeedReload GLB_DEPRECATED;
 
 - (NSArray*)allItems;
 

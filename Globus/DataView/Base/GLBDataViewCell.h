@@ -44,7 +44,8 @@
 - (void)setup NS_REQUIRES_SUPER;
 
 - (void)willShow;
-- (void)reload;
+- (void)update;
+- (void)reload GLB_DEPRECATED;
 - (void)didHide;
 
 - (BOOL)containsActionForKey:(id)key;

@@ -200,7 +200,11 @@
 - (void)setNeedResize {
 }
 
+- (void)setNeedUpdate {
+}
+
 - (void)setNeedReload {
+    [self setNeedUpdate];
 }
 
 - (GLBDataViewItem*)itemForPoint:(CGPoint __unused)point {

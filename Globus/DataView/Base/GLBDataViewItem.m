@@ -369,18 +369,28 @@
     return _size;
 }
 
-- (void)setNeedReload {
+- (void)setNeedUpdate {
     if(_cell != nil) {
         if(_view.isUpdating == YES) {
             _cell.frame = self.frame;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
             [_cell reload];
+#pragma clang diagnostic pop
         } else {
             [UIView performWithoutAnimation:^{
                 _cell.frame = self.frame;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
                 [_cell reload];
+#pragma clang diagnostic pop
             }];
         }
     }
+}
+
+- (void)setNeedReload {
+    [self setNeedUpdate];
 }
 
 - (void)appear {

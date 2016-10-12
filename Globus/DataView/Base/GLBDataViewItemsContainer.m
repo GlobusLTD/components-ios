@@ -78,9 +78,9 @@
     }
 }
 
-- (void)setNeedReload {
+- (void)setNeedUpdate {
     for(GLBDataViewItem* entry in _entries) {
-        [entry setNeedReload];
+        [entry setNeedUpdate];
     }
 }
 
