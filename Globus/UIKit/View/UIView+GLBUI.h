@@ -44,8 +44,8 @@
 
 @property(nonatomic) IBInspectable UILayoutPriority glb_horizontalContentHuggingPriority;
 @property(nonatomic) IBInspectable UILayoutPriority glb_verticalContentHuggingPriority;
-@property(nonatomic) IBInspectable UILayoutPriority glb_horizontalCompressionResistancePriority;
-@property(nonatomic) IBInspectable UILayoutPriority glb_verticalCompressionResistancePriority;
+@property(nonatomic) IBInspectable UILayoutPriority glb_horizontalContentCompressionResistancePriority;
+@property(nonatomic) IBInspectable UILayoutPriority glb_verticalContentCompressionResistancePriority;
 
 - (NSArray*)glb_responders;
 
