@@ -45,15 +45,17 @@ typedef NS_ENUM(NSInteger, GLBGeoLocationStatus) {
 
 @interface GLBGeoLocationManager : NSObject
 
-@property(nonatomic, copy) CLLocation* defaultLocation;
 #if defined(GLB_TARGET_IOS)
 @property(nonatomic, assign) BOOL allowsBackgroundUpdates;
 #endif
-@property(nonatomic, readonly, copy) CLLocation* currentLocation;
+@property(nonatomic, assign) BOOL useMonitoringSignificantChanges;
+@property(nonatomic, assign) BOOL useUpdatingLocation;
+@property(nonatomic, assign) NSTimeInterval timeAccuracy;
 @property(nonatomic, readonly, copy) NSArray* requests;
 @property(nonatomic, readonly, assign, getter=isUpdatingLocation) BOOL updatingLocation;
 
 + (GLBGeoLocationServicesState)servicesState;
++ (BOOL)availableSignificantMonitoringChanges;
 
 + (instancetype)shared;
 
@@ -94,8 +96,6 @@ extern NSString* GLBGeoLocationManagerUserDenied;
 @interface GLBGeoLocationRequest : NSObject
 
 @property(nonatomic, strong) NSDictionary* userInfo;
-@property(nonatomic, readonly, strong) GLBAction* actionSuccess;
-@property(nonatomic, readonly, strong) GLBAction* actionFailure;
 @property(nonatomic, readonly, assign) CLLocationAccuracy desiredAccuracy;
 @property(nonatomic, readonly, assign) NSTimeInterval timeoutInterval;
 @property(nonatomic, readonly, assign) NSTimeInterval updateInterval;

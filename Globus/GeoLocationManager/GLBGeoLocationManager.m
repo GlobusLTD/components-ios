@@ -8,10 +8,10 @@
 
 @interface GLBGeoLocationManager () < CLLocationManagerDelegate > {
     CLLocationManager* _locationManager;
-    CLLocation* _defaultLocation;
-    CLLocation* _currentLocation;
     NSMutableArray* _requests;
     BOOL _updatingLocation;
+    BOOL _startedMonitoringSignificantLocationChanges;
+    BOOL _startedUpdatingLocation;
     CLAuthorizationStatus _authorizationStatus;
     NSError* _lastError;
 }
@@ -22,7 +22,7 @@
 - (void)_stopUpdatingIfPossible;
 - (GLBGeoLocationRequest*)_addRequest:(GLBGeoLocationRequest*)request;
 - (void)_removeRequest:(GLBGeoLocationRequest*)request;
-- (void)_processRequests;
+- (void)_processRequests:(CLLocation*)location;
 
 @end
 
@@ -31,10 +31,7 @@
 /*--------------------------------------------------*/
 
 @interface GLBGeoLocationRequest () {
-    __weak id< GLBGeoLocationRequestDelegate > _delegate;
-    CLLocationAccuracy _desiredAccuracy;
-    NSTimeInterval _timeoutInterval;
-    NSTimeInterval _updateInterval;
+    __weak GLBGeoLocationManager* _geoLocationManager;
     BOOL _subscription;
     BOOL _canceled;
     
@@ -42,15 +39,20 @@
     NSTimer* _timer;
 }
 
-- (instancetype)initWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
-                        timeoutInterval:(NSTimeInterval)timeoutInterval
-                                success:(GLBAction*)success
-                                failure:(GLBAction*)failure;
+@property(nonatomic, readonly, strong) GLBAction* actionSuccess;
+@property(nonatomic, readonly, strong) GLBAction* actionFailure;
 
-- (instancetype)initWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
-                         updateInterval:(NSTimeInterval)updateInterval
-                                success:(GLBAction*)success
-                                failure:(GLBAction*)failure;
+- (instancetype)initWithGeoLocationManager:(GLBGeoLocationManager*)geoLocationManager
+                           desiredAccuracy:(CLLocationAccuracy)desiredAccuracy
+                           timeoutInterval:(NSTimeInterval)timeoutInterval
+                                   success:(GLBAction*)success
+                                   failure:(GLBAction*)failure;
+
+- (instancetype)initWithGeoLocationManager:(GLBGeoLocationManager*)geoLocationManager
+                           desiredAccuracy:(CLLocationAccuracy)desiredAccuracy
+                            updateInterval:(NSTimeInterval)updateInterval
+                                   success:(GLBAction*)success
+                                   failure:(GLBAction*)failure;
 
 - (void)_start;
 - (void)_stop;
@@ -66,8 +68,6 @@
 
 #pragma mark - Synthesize
 
-@synthesize defaultLocation = _defaultLocation;
-@synthesize currentLocation = _currentLocation;
 @synthesize requests = _requests;
 @synthesize updatingLocation = _updatingLocation;
 
@@ -82,6 +82,9 @@
 }
 
 - (void)setup {
+    _timeAccuracy = 60.0f;
+    _useMonitoringSignificantChanges = YES;
+    _useUpdatingLocation = YES;
     _locationManager = [CLLocationManager new];
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     _requests = [NSMutableArray array];
@@ -101,6 +104,10 @@
         return GLBGeoLocationServicesStateRestricted;
     }
     return GLBGeoLocationServicesStateAvailable;
+}
+
++ (BOOL)availableSignificantMonitoringChanges {
+    return CLLocationManager.significantLocationChangeMonitoringAvailable;
 }
 
 + (instancetype)shared {
@@ -131,11 +138,32 @@
 
 #endif
 
-- (CLLocation*)currentLocation {
-    if(_currentLocation == nil) {
-        return _defaultLocation;
+- (void)setUseMonitoringSignificantChanges:(BOOL)useMonitoringSignificantChanges {
+    if(_useMonitoringSignificantChanges != useMonitoringSignificantChanges) {
+        if((_useMonitoringSignificantChanges == YES) && (_startedMonitoringSignificantLocationChanges == YES)) {
+            _startedMonitoringSignificantLocationChanges = NO;
+            [_locationManager stopMonitoringSignificantLocationChanges];
+        }
+        _useMonitoringSignificantChanges = useMonitoringSignificantChanges;
+        if((_useMonitoringSignificantChanges == YES) && (_updatingLocation == YES)) {
+            _startedMonitoringSignificantLocationChanges = YES;
+            [_locationManager startMonitoringSignificantLocationChanges];
+        }
     }
-    return _currentLocation;
+}
+
+- (void)setUseUpdatingLocation:(BOOL)useUpdatingLocation {
+    if(_useUpdatingLocation != useUpdatingLocation) {
+        if((_useUpdatingLocation == YES) && (_startedUpdatingLocation == YES)) {
+            _startedUpdatingLocation = NO;
+            [_locationManager stopUpdatingLocation];
+        }
+        _useUpdatingLocation = useUpdatingLocation;
+        if((_useUpdatingLocation == YES) && (_updatingLocation == YES)) {
+            _startedUpdatingLocation = YES;
+            [_locationManager startUpdatingLocation];
+        }
+    }
 }
 
 #pragma mark - Public
@@ -153,10 +181,11 @@
                                      timeoutInterval:(NSTimeInterval)timeoutInterval
                                              success:(GLBAction*)success
                                              failure:(GLBAction*)failure {
-    GLBGeoLocationRequest* request = [[GLBGeoLocationRequest alloc] initWithDesiredAccuracy:desiredAccuracy
-                                                                            timeoutInterval:timeoutInterval
-                                                                                    success:success
-                                                                                    failure:failure];
+    GLBGeoLocationRequest* request = [[GLBGeoLocationRequest alloc] initWithGeoLocationManager:self
+                                                                               desiredAccuracy:desiredAccuracy
+                                                                               timeoutInterval:timeoutInterval
+                                                                                       success:success
+                                                                                       failure:failure];
     return [self _addRequest:request];
 }
 
@@ -173,10 +202,11 @@
                                         updateInterval:(NSTimeInterval)updateInterval
                                                success:(GLBAction*)success
                                                failure:(GLBAction*)failure {
-    GLBGeoLocationRequest* request = [[GLBGeoLocationRequest alloc] initWithDesiredAccuracy:desiredAccuracy
-                                                                             updateInterval:updateInterval
-                                                                                    success:success
-                                                                                    failure:failure];
+    GLBGeoLocationRequest* request = [[GLBGeoLocationRequest alloc] initWithGeoLocationManager:self
+                                                                               desiredAccuracy:desiredAccuracy
+                                                                                updateInterval:updateInterval
+                                                                                       success:success
+                                                                                       failure:failure];
     return [self _addRequest:request];
 }
 
@@ -234,8 +264,12 @@
 
 - (void)_startUpdatingIfNeeded {
 #if defined(GLB_TARGET_IOS)
-#if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0)
-    if([UIDevice glb_compareSystemVersion:@"8.0"] != NSOrderedAscending) {
+    BOOL needRequest = ([UIDevice glb_compareSystemVersion:@"8.0"] != NSOrderedAscending);
+#elif defined(GLB_TARGET_WATCHOS)
+    BOOL needRequest = YES;
+#endif
+    BOOL requestAccess = NO;
+    if(needRequest == YES) {
         switch(CLLocationManager.authorizationStatus) {
             case kCLAuthorizationStatusNotDetermined: {
                 BOOL hasAlwaysKey = ([NSBundle.mainBundle objectForInfoDictionaryKey:@"NSLocationAlwaysUsageDescription"] != nil);
@@ -247,46 +281,52 @@
                 } else {
                     NSAssert((hasAlwaysKey == YES) || (hasWhenInUseKey == YES), @"To use location services in iOS 8+, your Info.plist must provide a value for either NSLocationWhenInUseUsageDescription or NSLocationAlwaysUsageDescription.");
                 }
+                requestAccess = YES;
                 break;
             }
             default: break;
         }
     }
-#endif
     if((_requests.count > 0) && (_updatingLocation == NO)) {
-        _updatingLocation = YES;
-        _locationManager.delegate = self;
-        [_locationManager startUpdatingLocation];
-    }
-#elif defined(GLB_TARGET_WATCHOS)
-    switch(CLLocationManager.authorizationStatus) {
-        case kCLAuthorizationStatusNotDetermined: {
-            BOOL hasAlwaysKey = ([NSBundle.mainBundle objectForInfoDictionaryKey:@"NSLocationAlwaysUsageDescription"] != nil);
-            BOOL hasWhenInUseKey = ([NSBundle.mainBundle objectForInfoDictionaryKey:@"NSLocationWhenInUseUsageDescription"] != nil);
-            if(hasAlwaysKey == YES) {
-                [_locationManager requestAlwaysAuthorization];
-            } else if(hasWhenInUseKey == YES) {
-                [_locationManager requestWhenInUseAuthorization];
-            } else {
-                NSAssert((hasAlwaysKey == YES) || (hasWhenInUseKey == YES), @"To use location services in iOS 8+, your Info.plist must provide a value for either NSLocationWhenInUseUsageDescription or NSLocationAlwaysUsageDescription.");
+        if(requestAccess == NO) {
+            CLLocation* location = _locationManager.location;
+            if(location != nil) {
+                __weak typeof(self) weakSelf = self;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf _processRequests:location];
+                });
             }
-            break;
         }
-        default: break;
+        if(_requests.count > 0) {
+            if(requestAccess == NO) {
+                _updatingLocation = YES;
+            }
+            _locationManager.delegate = self;
+            if(_useMonitoringSignificantChanges == YES) {
+                _startedMonitoringSignificantLocationChanges = YES;
+                [_locationManager startMonitoringSignificantLocationChanges];
+            }
+            if(_useUpdatingLocation == YES) {
+                _startedUpdatingLocation = YES;
+                [_locationManager startUpdatingLocation];
+            }
+        }
     }
-    if((_requests.count > 0) && (_updatingLocation == NO)) {
-        _updatingLocation = YES;
-        _locationManager.delegate = self;
-        [_locationManager requestLocation];
-    }
-#endif
 }
 
 - (void)_stopUpdatingIfPossible {
     if((_requests.count < 1) && (_updatingLocation == YES)) {
-        [_locationManager stopUpdatingLocation];
-        _locationManager.delegate = nil;
         _updatingLocation = NO;
+        
+        if(_startedMonitoringSignificantLocationChanges == YES) {
+            _startedMonitoringSignificantLocationChanges = NO;
+            [_locationManager stopMonitoringSignificantLocationChanges];
+        }
+        if(_startedUpdatingLocation == YES) {
+            _startedUpdatingLocation = NO;
+            [_locationManager stopUpdatingLocation];
+        }
+        _locationManager.delegate = nil;
     }
 }
 
@@ -325,18 +365,23 @@
     }];
 }
 
-- (void)_processRequests {
-    CLLocation* currentLocation = self.currentLocation;
+- (void)_processRequests:(CLLocation*)location {
+    if(location != nil) {
+        NSTimeInterval delta = location.timestamp.timeIntervalSinceNow;
+        if(ABS(delta) > _timeAccuracy) {
+            location = nil;
+        }
+    }
     NSMutableArray* removedRequest = [NSMutableArray array];
     for(GLBGeoLocationRequest* request in _requests) {
         if(request.hasTimedOut == YES) {
             [removedRequest addObject:request];
             _lastError = [NSError errorWithDomain:kCLErrorDomain code:kCLErrorLocationUnknown userInfo:nil];
             [request.actionFailure performWithArguments:@[ request, _lastError ]];
-        } else if(currentLocation != nil) {
+        } else if(location != nil) {
             BOOL finish = NO;
-            CLLocationAccuracy desiredAccuracy = MAX(currentLocation.horizontalAccuracy, currentLocation.verticalAccuracy);
-            NSTimeInterval timeSinceUpdate = ABS(currentLocation.timestamp.timeIntervalSinceNow);
+            CLLocationAccuracy desiredAccuracy = MAX(location.horizontalAccuracy, location.verticalAccuracy);
+            NSTimeInterval timeSinceUpdate = ABS(location.timestamp.timeIntervalSinceNow);
             if((request.desiredAccuracy > FLT_EPSILON) && (desiredAccuracy <= request.desiredAccuracy)) {
                 finish = YES;
             }
@@ -347,7 +392,7 @@
                 if(request.isSubscription == NO) {
                     [removedRequest addObject:request];
                 }
-                [request.actionSuccess performWithArguments:@[ request, currentLocation ]];
+                [request.actionSuccess performWithArguments:@[ request, location ]];
             }
         }
     }
@@ -361,8 +406,7 @@
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray*)locations {
     [self.class _perform:^{
-        _currentLocation = [locations lastObject];
-        [self _processRequests];
+        [self _processRequests:locations.lastObject];
     }];
 }
 
@@ -373,7 +417,7 @@
     }];
 }
 
-- (void)locationManager:(CLLocationManager*)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+- (void)locationManager:(CLLocationManager*)locationManager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     [self.class _perform:^{
         switch(status) {
             case kCLAuthorizationStatusDenied:
@@ -390,6 +434,10 @@
             case kCLAuthorizationStatusAuthorizedWhenInUse: {
                 for(GLBGeoLocationRequest* request in _requests) {
                     [request _start];
+                }
+                CLLocation* location = _locationManager.location;
+                if(location != nil) {
+                    [self _processRequests:location];
                 }
                 break;
             }
@@ -413,8 +461,6 @@ NSString* GLBGeoLocationManagerUserDenied = @"GLBGeoLocationManagerUserDenied";
 
 #pragma mark - Synthesize
 
-@synthesize actionSuccess = _actionSuccess;
-@synthesize actionFailure = _actionFailure;
 @synthesize desiredAccuracy = _desiredAccuracy;
 @synthesize timeoutInterval = _timeoutInterval;
 @synthesize updateInterval = _updateInterval;
@@ -423,32 +469,36 @@ NSString* GLBGeoLocationManagerUserDenied = @"GLBGeoLocationManagerUserDenied";
 
 #pragma mark - Init / Free
 
-- (instancetype)initWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
-                        timeoutInterval:(NSTimeInterval)timeoutInterval
-                                success:(GLBAction*)success
-                                failure:(GLBAction*)failure {
+- (instancetype)initWithGeoLocationManager:(GLBGeoLocationManager*)geoLocationManager
+                           desiredAccuracy:(CLLocationAccuracy)desiredAccuracy
+                           timeoutInterval:(NSTimeInterval)timeoutInterval
+                                   success:(GLBAction*)success
+                                   failure:(GLBAction*)failure {
     self = [super init];
     if(self != nil) {
-        _actionSuccess = success;
-        _actionFailure = failure;
+        _geoLocationManager = geoLocationManager;
         _desiredAccuracy = desiredAccuracy;
         _timeoutInterval = timeoutInterval;
         _subscription = NO;
+        _actionSuccess = success;
+        _actionFailure = failure;
     }
     return self;
 }
 
-- (instancetype)initWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
-                         updateInterval:(NSTimeInterval)updateInterval
-                                success:(GLBAction*)success
-                                failure:(GLBAction*)failure {
+- (instancetype)initWithGeoLocationManager:(GLBGeoLocationManager*)geoLocationManager
+                           desiredAccuracy:(CLLocationAccuracy)desiredAccuracy
+                            updateInterval:(NSTimeInterval)updateInterval
+                                   success:(GLBAction*)success
+                                   failure:(GLBAction*)failure {
     self = [super init];
     if(self != nil) {
-        _actionSuccess = success;
-        _actionFailure = failure;
+        _geoLocationManager = geoLocationManager;
         _desiredAccuracy = desiredAccuracy;
         _updateInterval = updateInterval;
         _subscription = YES;
+        _actionSuccess = success;
+        _actionFailure = failure;
     }
     return self;
 }
@@ -472,7 +522,7 @@ NSString* GLBGeoLocationManagerUserDenied = @"GLBGeoLocationManagerUserDenied";
 #pragma mark - Public
     
 - (void)cancel {
-    [GLBGeoLocationManager.shared cancelRequest:self];
+    [_geoLocationManager cancelRequest:self];
 }
 
 #pragma mark - Private
@@ -483,8 +533,8 @@ NSString* GLBGeoLocationManagerUserDenied = @"GLBGeoLocationManagerUserDenied";
     }
     if((_timeoutInterval > FLT_EPSILON) && (_timer == nil)) {
         _timer = [NSTimer scheduledTimerWithTimeInterval:_timeoutInterval
-                                                  target:GLBGeoLocationManager.shared
-                                                selector:@selector(_processRequests)
+                                                  target:self
+                                                selector:@selector(_timeout)
                                                 userInfo:nil
                                                  repeats:NO];
     }
@@ -500,6 +550,12 @@ NSString* GLBGeoLocationManagerUserDenied = @"GLBGeoLocationManagerUserDenied";
 - (void)_cancel {
     [self _stop];
     _canceled = YES;
+}
+
+#pragma mark - Timer
+
+- (void)_timeout {
+    [_geoLocationManager _processRequests:nil];
 }
 
 @end
