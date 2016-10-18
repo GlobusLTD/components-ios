@@ -10,7 +10,9 @@
     CLLocationManager* _locationManager;
     NSMutableArray* _requests;
     BOOL _updatingLocation;
+#if defined(GLB_TARGET_IOS)
     BOOL _startedMonitoringSignificantLocationChanges;
+#endif
     BOOL _startedUpdatingLocation;
     CLAuthorizationStatus _authorizationStatus;
     NSError* _lastError;
@@ -83,7 +85,9 @@
 
 - (void)setup {
     _timeAccuracy = 60.0f;
+#if defined(GLB_TARGET_IOS)
     _useMonitoringSignificantChanges = YES;
+#endif
     _useUpdatingLocation = YES;
     _locationManager = [CLLocationManager new];
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -106,9 +110,13 @@
     return GLBGeoLocationServicesStateAvailable;
 }
 
+#if defined(GLB_TARGET_IOS)
+
 + (BOOL)availableSignificantMonitoringChanges {
     return CLLocationManager.significantLocationChangeMonitoringAvailable;
 }
+
+#endif
 
 + (instancetype)shared {
     static id shared = nil;
@@ -138,6 +146,8 @@
 
 #endif
 
+#if defined(GLB_TARGET_IOS)
+
 - (void)setUseMonitoringSignificantChanges:(BOOL)useMonitoringSignificantChanges {
     if(_useMonitoringSignificantChanges != useMonitoringSignificantChanges) {
         if((_useMonitoringSignificantChanges == YES) && (_startedMonitoringSignificantLocationChanges == YES)) {
@@ -151,6 +161,8 @@
         }
     }
 }
+
+#endif
 
 - (void)setUseUpdatingLocation:(BOOL)useUpdatingLocation {
     if(_useUpdatingLocation != useUpdatingLocation) {
@@ -302,10 +314,12 @@
                 _updatingLocation = YES;
             }
             _locationManager.delegate = self;
+#if defined(GLB_TARGET_IOS)
             if(_useMonitoringSignificantChanges == YES) {
                 _startedMonitoringSignificantLocationChanges = YES;
                 [_locationManager startMonitoringSignificantLocationChanges];
             }
+#endif
             if(_useUpdatingLocation == YES) {
                 _startedUpdatingLocation = YES;
                 [_locationManager startUpdatingLocation];
@@ -318,10 +332,12 @@
     if((_requests.count < 1) && (_updatingLocation == YES)) {
         _updatingLocation = NO;
         
+#if defined(GLB_TARGET_IOS)
         if(_startedMonitoringSignificantLocationChanges == YES) {
             _startedMonitoringSignificantLocationChanges = NO;
             [_locationManager stopMonitoringSignificantLocationChanges];
         }
+#endif
         if(_startedUpdatingLocation == YES) {
             _startedUpdatingLocation = NO;
             [_locationManager stopUpdatingLocation];

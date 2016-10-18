@@ -48,14 +48,14 @@ typedef NS_ENUM(NSInteger, GLBGeoLocationStatus) {
 #if defined(GLB_TARGET_IOS)
 @property(nonatomic, assign) BOOL allowsBackgroundUpdates;
 #endif
-@property(nonatomic, assign) BOOL useMonitoringSignificantChanges;
+@property(nonatomic, assign) BOOL useMonitoringSignificantChanges __WATCHOS_UNAVAILABLE;
 @property(nonatomic, assign) BOOL useUpdatingLocation;
 @property(nonatomic, assign) NSTimeInterval timeAccuracy;
 @property(nonatomic, readonly, copy) NSArray* requests;
 @property(nonatomic, readonly, assign, getter=isUpdatingLocation) BOOL updatingLocation;
 
 + (GLBGeoLocationServicesState)servicesState;
-+ (BOOL)availableSignificantMonitoringChanges;
++ (BOOL)availableSignificantMonitoringChanges __WATCHOS_UNAVAILABLE;
 
 + (instancetype)shared;
 
