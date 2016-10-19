@@ -333,11 +333,17 @@
 }
 
 + (instancetype)modelWithJson:(id)json {
-    return [[self alloc] initWithJson:json];
+    if([json isKindOfClass:NSDictionary.class] == YES) {
+        return [[self alloc] initWithJson:json];
+    }
+    return nil;
 }
 
 + (instancetype)modelWithJson:(id)json sheme:(NSString*)sheme {
-    return [[self alloc] initWithJson:json sheme:sheme];
+    if([json isKindOfClass:NSDictionary.class] == YES) {
+        return [[self alloc] initWithJson:json sheme:sheme];
+    }
+    return nil;
 }
 
 + (instancetype)modelWithJsonData:(NSData*)data {
