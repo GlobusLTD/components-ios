@@ -10,7 +10,7 @@
 
 @interface GLBTextStyle ()
 
-@property(nonatomic, strong) NSMutableParagraphStyle* mutParagraphStyle;
+@property(nonatomic, strong, nullable) NSMutableParagraphStyle* mutParagraphStyle;
 
 @end
 
@@ -20,7 +20,9 @@
 
 #pragma mark - Synthesize
 
+#if defined(GLB_TARGET_IOS)
 @synthesize shadow = _shadow;
+#endif
 @synthesize mutParagraphStyle = _mutParagraphStyle;
 
 #pragma mark - Init / Free
@@ -41,6 +43,8 @@
 }
 
 #pragma mark - Property
+
+#if defined(GLB_TARGET_IOS)
 
 - (void)setShadow:(NSShadow*)shadow {
     if(_shadow != shadow) {
@@ -78,6 +82,8 @@
 - (UIColor*)shadowColor {
     return self.shadow.shadowColor;
 }
+
+#endif
 
 - (void)setParagraphStyle:(NSParagraphStyle*)paragraphStyle{
     if(_mutParagraphStyle != paragraphStyle) {
@@ -219,13 +225,15 @@
     self.strikeWidth = [[attributes glb_numberForKey:NSStrokeWidthAttributeName orDefault:nil] floatValue];
     self.strikeThrough = [[attributes glb_numberForKey:NSStrikethroughStyleAttributeName orDefault:nil] integerValue];
     self.underlineColor = [attributes glb_objectForKey:NSUnderlineColorAttributeName orDefault:nil];
+#if defined(GLB_TARGET_IOS)
     self.shadow = [attributes glb_objectForKey:NSShadowAttributeName orDefault:nil];
+#endif
     self.ligature = [[attributes glb_numberForKey:NSLigatureAttributeName orDefault:@(1)] integerValue];
     self.kerning = [[attributes glb_numberForKey:NSKernAttributeName orDefault:nil] floatValue];
     self.baselineOffset = [[attributes glb_numberForKey:NSBaselineOffsetAttributeName orDefault:nil] floatValue];
     self.obliqueness = [[attributes glb_numberForKey:NSObliquenessAttributeName orDefault:nil] floatValue];
     self.expansion = [[attributes glb_numberForKey:NSExpansionAttributeName orDefault:nil] floatValue];
-    self.paragraphStyle = [attributes glb_numberForKey:NSParagraphStyleAttributeName orDefault:nil];
+    self.paragraphStyle = [attributes glb_objectForKey:NSParagraphStyleAttributeName orDefault:nil];
 }
 
 - (NSDictionary< NSString*, id >*)attributes {
@@ -254,9 +262,11 @@
     if(_underlineStyle != NSUnderlineStyleNone) {
         attributes[NSUnderlineStyleAttributeName] = @(_underlineStyle);
     }
+#if defined(GLB_TARGET_IOS)
     if(_shadow != nil) {
         attributes[NSShadowAttributeName] = _shadow;
     }
+#endif
     if(ABS(_ligature) > 1) {
         attributes[NSLigatureAttributeName] = @(_ligature);
     }

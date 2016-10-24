@@ -90,7 +90,7 @@
 - (void)setNumberOfLines:(NSInteger)numberOfLines {
     [super setNumberOfLines:numberOfLines];
     if(_textContainer != nil) {
-        _textContainer.maximumNumberOfLines = numberOfLines;
+        _textContainer.maximumNumberOfLines = (NSUInteger)numberOfLines;
     }
 }
 
@@ -133,7 +133,7 @@
         _textContainer = [[NSTextContainer alloc] initWithSize:self.bounds.size];
         _textContainer.lineFragmentPadding = 0.0;
         _textContainer.lineBreakMode = self.lineBreakMode;
-        _textContainer.maximumNumberOfLines = self.numberOfLines;
+        _textContainer.maximumNumberOfLines = (NSUInteger)self.numberOfLines;
     }
     return _textContainer;
 }
@@ -184,7 +184,6 @@
             return NO;
         }];
         if(indexSet.count > 0) {
-            NSArray< GLBLabelLink* >* links = [_links objectsAtIndexes:indexSet];
             if(_hightlightedLinks != nil) {
                 NSArray< GLBLabelLink* >* links = [_links objectsAtIndexes:indexSet];
                 [_hightlightedLinks removeObjectsInArray:links];
@@ -234,9 +233,10 @@
     CGPoint tapLocation = [_pressGesture locationInView:self];
     CGSize boundsSize = self.bounds.size;
     CGRect textBounds = [self.layoutManager usedRectForTextContainer:self.textContainer];
-    CGPoint textOffset = CGPointMake((boundsSize.width - textBounds.size.width) * 0.5 - textBounds.origin.x, (boundsSize.height - textBounds.size.height) * 0.5 - textBounds.origin.y);
+    CGPoint textOffset = CGPointMake((boundsSize.width - textBounds.size.width) * 0.5f - textBounds.origin.x,
+                                     (boundsSize.height - textBounds.size.height) * 0.5f - textBounds.origin.y);
     CGPoint location = CGPointMake(tapLocation.x - textOffset.x, tapLocation.y - textOffset.y);
-    NSInteger pressedIndex = [self.layoutManager characterIndexForPoint:location inTextContainer:self.textContainer fractionOfDistanceBetweenInsertionPoints:nil];
+    NSUInteger pressedIndex = [self.layoutManager characterIndexForPoint:location inTextContainer:self.textContainer fractionOfDistanceBetweenInsertionPoints:nil];
     
     if(_hightlightedLinks == nil) {
         _hightlightedLinks = [NSMutableArray array];

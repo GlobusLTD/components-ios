@@ -4,6 +4,10 @@
 #import "GLBUI.h"
 
 /*--------------------------------------------------*/
+#if defined(GLB_UNAVAILABLE_WATCHOS)
+@class NSShadow;
+#endif
+/*--------------------------------------------------*/
 
 @interface GLBTextStyle : NSObject
 
@@ -15,10 +19,10 @@
 @property(nonatomic) NSInteger strikeThrough;
 @property(nonatomic, strong, nullable) UIColor* underlineColor;
 @property(nonatomic) NSUnderlineStyle underlineStyle;
-@property(nonatomic, strong, nullable) NSShadow* shadow;
-@property(nonatomic, assign) CGSize shadowOffset;
-@property(nonatomic, assign) CGFloat shadowBlurRadius;
-@property(nonatomic, strong, nullable) UIColor* shadowColor;
+@property(nonatomic, strong, nullable) NSShadow* shadow GLB_UNAVAILABLE_WATCHOS;
+@property(nonatomic, assign) CGSize shadowOffset GLB_UNAVAILABLE_WATCHOS;
+@property(nonatomic, assign) CGFloat shadowBlurRadius GLB_UNAVAILABLE_WATCHOS;
+@property(nonatomic, strong, nullable) UIColor* shadowColor GLB_UNAVAILABLE_WATCHOS;
 @property(nonatomic) NSInteger ligature;
 @property(nonatomic) CGFloat kerning;
 @property(nonatomic) CGFloat baselineOffset;

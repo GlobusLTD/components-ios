@@ -81,13 +81,13 @@
 #   define GLB_UNAVAILABLE_IOS
 #endif
 
-#if defined(GLB_TARGET_IOS)
+#if defined(GLB_TARGET_IOS_SIMULATOR)
 #   define GLB_UNAVAILABLE_IOS_SIMULATOR            __attribute__((unavailable("Unavailable for iOS Simulator")))
 #else
 #   define GLB_UNAVAILABLE_IOS_SIMULATOR
 #endif
 
-#if defined(GLB_TARGET_IOS)
+#if defined(GLB_TARGET_WATCHOS)
 #   define GLB_UNAVAILABLE_WATCHOS                  __attribute__((unavailable("Unavailable for watchOS")))
 #else
 #   define GLB_UNAVAILABLE_WATCHOS
