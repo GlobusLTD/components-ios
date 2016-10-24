@@ -73,6 +73,25 @@
 /*--------------------------------------------------*/
 
 #define GLB_DEPRECATED                              __attribute__((deprecated))
+#define GLB_DEPRECATED_MSG(MSG)                     __attribute__((deprecated(MSG)))
+
+#if defined(GLB_TARGET_IOS)
+#   define GLB_UNAVAILABLE_IOS                      __attribute__((unavailable("Unavailable for iOS")))
+#else
+#   define GLB_UNAVAILABLE_IOS
+#endif
+
+#if defined(GLB_TARGET_IOS)
+#   define GLB_UNAVAILABLE_IOS_SIMULATOR            __attribute__((unavailable("Unavailable for iOS Simulator")))
+#else
+#   define GLB_UNAVAILABLE_IOS_SIMULATOR
+#endif
+
+#if defined(GLB_TARGET_IOS)
+#   define GLB_UNAVAILABLE_WATCHOS                  __attribute__((unavailable("Unavailable for watchOS")))
+#else
+#   define GLB_UNAVAILABLE_WATCHOS
+#endif
 
 /*--------------------------------------------------*/
 

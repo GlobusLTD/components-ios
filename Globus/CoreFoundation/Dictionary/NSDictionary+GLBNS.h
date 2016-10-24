@@ -30,6 +30,7 @@
 - (NSDictionary* _Nullable)glb_dictionaryForKey:(_Nonnull KeyType)key orDefault:(NSDictionary* _Nullable)defaultValue;
 - (NSDate* _Nullable)glb_dateForKey:(_Nonnull KeyType)key orDefault:(NSDate* _Nullable)defaultValue;
 - (NSData* _Nullable)glb_dataForKey:(_Nonnull KeyType)key orDefault:(NSData* _Nullable)defaultValue;
+- (_Nullable ObjectType)glb_objectForKey:(_Nonnull KeyType)key orDefault:(_Nullable ObjectType)defaultValue;
 
 - (NSString* _Nullable)glb_stringFromQueryComponents;
 

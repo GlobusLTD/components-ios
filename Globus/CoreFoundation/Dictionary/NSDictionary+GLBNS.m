@@ -98,6 +98,14 @@
     return defaultValue;
 }
 
+- (id)glb_objectForKey:(id)key orDefault:(id)defaultValue {
+    id value = self[key];
+    if(value != nil) {
+        return value;
+    }
+    return defaultValue;
+}
+
 - (NSString*)glb_stringFromQueryComponents {
     NSString* result = nil;
     for(NSString* dictKey in self.allKeys) {

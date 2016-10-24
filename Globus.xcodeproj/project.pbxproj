@@ -153,6 +153,8 @@
 		4057F5021D763F2200D48E49 /* GLBSpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4057F5001D763F2200D48E49 /* GLBSpinnerView.m */; };
 		4057F5061D764BCD00D48E49 /* NSStream+GLBNS.h in Headers */ = {isa = PBXBuildFile; fileRef = 4057F5041D764BCD00D48E49 /* NSStream+GLBNS.h */; };
 		4057F5071D764BCD00D48E49 /* NSStream+GLBNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 4057F5051D764BCD00D48E49 /* NSStream+GLBNS.m */; };
+		40594F5F1DB82C8900694F2E /* GLBLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 40594F5D1DB82C8900694F2E /* GLBLabel.h */; };
+		40594F601DB82C8900694F2E /* GLBLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 40594F5E1DB82C8900694F2E /* GLBLabel.m */; };
 		406D7E211D6DE411001D321D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 406D7E201D6DE411001D321D /* main.m */; };
 		406D7E241D6DE411001D321D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 406D7E231D6DE411001D321D /* AppDelegate.m */; };
 		406D7E271D6DE411001D321D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 406D7E261D6DE411001D321D /* ViewController.m */; };
@@ -176,6 +178,7 @@
 		40AEB9CD1D70AC310050A6DE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEEDF1D6AEF1A006C3DF1 /* UIKit.framework */; };
 		40AEB9CE1D70AC310050A6DE /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403D4CC01CF4789E0078DB66 /* WatchConnectivity.framework */; };
 		40AEB9CF1D70AC310050A6DE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 405B77C31C50E99B00DA763D /* WebKit.framework */; };
+		40DE67961DBD13380008D7E8 /* GLBTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DE67941DBCE9AD0008D7E8 /* GLBTextStyle.m */; };
 		40E88F581D76274100275E43 /* GLBAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 40E88DCA1D76274100275E43 /* GLBAction.h */; };
 		40E88F591D76274100275E43 /* GLBAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E88DCB1D76274100275E43 /* GLBAction.m */; };
 		40E88F5A1D76274100275E43 /* GLBActivityView.h in Headers */ = {isa = PBXBuildFile; fileRef = 40E88DCD1D76274100275E43 /* GLBActivityView.h */; };
@@ -585,6 +588,8 @@
 		4057F5001D763F2200D48E49 /* GLBSpinnerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBSpinnerView.m; sourceTree = "<group>"; };
 		4057F5041D764BCD00D48E49 /* NSStream+GLBNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSStream+GLBNS.h"; sourceTree = "<group>"; };
 		4057F5051D764BCD00D48E49 /* NSStream+GLBNS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSStream+GLBNS.m"; sourceTree = "<group>"; };
+		40594F5D1DB82C8900694F2E /* GLBLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBLabel.h; sourceTree = "<group>"; };
+		40594F5E1DB82C8900694F2E /* GLBLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBLabel.m; sourceTree = "<group>"; };
 		405B77C31C50E99B00DA763D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		406D7E1D1D6DE411001D321D /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		406D7E201D6DE411001D321D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -605,6 +610,8 @@
 		40AAD4151D9CF131005EE7CB /* GLBWK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBWK.m; sourceTree = "<group>"; };
 		40ABBF521D88A90A00AECED3 /* GLBDataContentView+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataContentView+Private.h"; sourceTree = "<group>"; };
 		40BB8CD11BF3EE2A00D2E180 /* libGlobus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGlobus.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		40DE67931DBCE9AD0008D7E8 /* GLBTextStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBTextStyle.h; sourceTree = "<group>"; };
+		40DE67941DBCE9AD0008D7E8 /* GLBTextStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBTextStyle.m; sourceTree = "<group>"; };
 		40E88DCA1D76274100275E43 /* GLBAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBAction.h; sourceTree = "<group>"; };
 		40E88DCB1D76274100275E43 /* GLBAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBAction.m; sourceTree = "<group>"; };
 		40E88DCD1D76274100275E43 /* GLBActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBActivityView.h; sourceTree = "<group>"; };
@@ -1462,6 +1469,15 @@
 			path = Stream;
 			sourceTree = "<group>";
 		};
+		40594F5C1DB82C8900694F2E /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				40594F5D1DB82C8900694F2E /* GLBLabel.h */,
+				40594F5E1DB82C8900694F2E /* GLBLabel.m */,
+			);
+			path = Label;
+			sourceTree = "<group>";
+		};
 		406D7E1E1D6DE411001D321D /* Demo */ = {
 			isa = PBXGroup;
 			children = (
@@ -1536,6 +1552,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		40DE67921DBCE9AD0008D7E8 /* TextStyle */ = {
+			isa = PBXGroup;
+			children = (
+				40DE67931DBCE9AD0008D7E8 /* GLBTextStyle.h */,
+				40DE67941DBCE9AD0008D7E8 /* GLBTextStyle.m */,
+			);
+			path = TextStyle;
+			sourceTree = "<group>";
+		};
 		40E88DC81D76274100275E43 /* Globus */ = {
 			isa = PBXGroup;
 			children = (
@@ -1564,6 +1589,7 @@
 				40E88E7D1D76274100275E43 /* ImageView */,
 				40E88E891D76274100275E43 /* InputValidation */,
 				40E88E8F1D76274100275E43 /* KVO */,
+				40594F5C1DB82C8900694F2E /* Label */,
 				40E88E921D76274100275E43 /* LayoutView */,
 				40E88E951D76274100275E43 /* ListField */,
 				40E88E981D76274100275E43 /* LoadedView */,
@@ -1589,6 +1615,7 @@
 				40E88F081D76274100275E43 /* TabBarViewController */,
 				40E88F0B1D76274100275E43 /* TaskManager */,
 				40E88F0E1D76274100275E43 /* TextField */,
+				40DE67921DBCE9AD0008D7E8 /* TextStyle */,
 				40E88F111D76274100275E43 /* TextView */,
 				40E88F141D76274100275E43 /* Timeout */,
 				40E88F171D76274100275E43 /* Timer */,
@@ -2727,6 +2754,7 @@
 				4043CB5F1D78587100EE76F1 /* GLBSpinnerViewWordPress.h in Headers */,
 				40E890141D76274100275E43 /* GLBSearchBar.h in Headers */,
 				40E88FD11D76274100275E43 /* GLBDateField.h in Headers */,
+				40594F5F1DB82C8900694F2E /* GLBLabel.h in Headers */,
 				40E88FF51D76274100275E43 /* GLBModel+Private.h in Headers */,
 				4043CB231D7855F200EE76F1 /* GLBSpinnerViewBounce.h in Headers */,
 				40E88FE31D76274100275E43 /* GLBImageView.h in Headers */,
@@ -2889,6 +2917,7 @@
 					};
 					406D7E1C1D6DE411001D321D = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = YFADDH8BLW;
 					};
 					40BB8CD01BF3EE2A00D2E180 = {
 						CreatedOnToolsVersion = 7.1;
@@ -3050,6 +3079,7 @@
 				4043CB651D7858AB00EE76F1 /* GLBTransitionControllerCards.m in Sources */,
 				40E8900F1D76274100275E43 /* GLBRegExpParser.m in Sources */,
 				40E88FE41D76274100275E43 /* GLBImageView.m in Sources */,
+				40DE67961DBD13380008D7E8 /* GLBTextStyle.m in Sources */,
 				40E88F711D76274100275E43 /* GLBBaseViewController.m in Sources */,
 				40E890131D76274100275E43 /* GLBScrollView.m in Sources */,
 				40E88F971D76274100275E43 /* NSOrderedSet+GLBNS.m in Sources */,
@@ -3115,6 +3145,7 @@
 				40E88F671D76274100275E43 /* GLBAppGroupNotificationCenter.m in Sources */,
 				4043CB381D7856CE00EE76F1 /* GLBSpinnerViewFadingCircle.m in Sources */,
 				40E88FF11D76274100275E43 /* GLBLoadedView.m in Sources */,
+				40594F601DB82C8900694F2E /* GLBLabel.m in Sources */,
 				40E88FE91D76274100275E43 /* GLBInputValidator.m in Sources */,
 				40E890311D76274100275E43 /* GLBThreeBounceSpinnerView.m in Sources */,
 				4043CB5B1D78584500EE76F1 /* GLBSpinnerViewWave.m in Sources */,
@@ -3189,6 +3220,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = YFADDH8BLW;
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.globus-ltd.Demo";
@@ -3201,6 +3233,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = YFADDH8BLW;
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.globus-ltd.Demo";

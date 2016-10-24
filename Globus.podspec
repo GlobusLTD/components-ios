@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.2.32'
+  s.version = '0.2.33'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -401,6 +401,12 @@ Pod::Spec.new do |s|
     ss.dependency 'Globus/UIKit/Button'
     ss.dependency 'Globus/UIKit/Color'
   end
+  s.subspec 'Label' do |ss|
+    ss.source_files = 'Globus/Label/**/*.{h,m}'
+    ss.dependency 'Globus/TextStyle'
+    ss.dependency 'Globus/UIKit/Responder'
+    ss.dependency 'Globus/UIKit/View'
+  end
   s.subspec 'LayoutView' do |ss|
     ss.source_files = 'Globus/LayoutView/**/*.{h,m}'
     ss.dependency 'Globus/CoreFoundation/Array'
@@ -579,6 +585,12 @@ Pod::Spec.new do |s|
   end
   s.subspec 'Style' do |ss|
     ss.source_files = 'Globus/Style/**/*.{h,m}'
+    ss.dependency 'Globus/UIKit/Base'
+  end
+  s.subspec 'TextStyle' do |ss|
+    ss.source_files = 'Globus/TextStyle/**/*.{h,m}'
+    ss.dependency 'Globus/CoreFoundation/AttributedString'
+    ss.dependency 'Globus/CoreFoundation/Dictionary'
     ss.dependency 'Globus/UIKit/Base'
   end
   s.subspec 'AppGroupNotificationCenter' do |ss|
