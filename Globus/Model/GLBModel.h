@@ -33,24 +33,24 @@ typedef void (^GLBModelBlock)();
 
 @required
 + (_Nullable instancetype)modelWithJson:(id _Nonnull)json;
-+ (_Nullable instancetype)modelWithJson:(id _Nonnull)json sheme:(NSString* _Nonnull)sheme;
++ (_Nullable instancetype)modelWithJson:(id _Nonnull)json sheme:(NSString* _Nullable)sheme;
 + (_Nullable instancetype)modelWithJsonData:(NSData* _Nonnull)data;
-+ (_Nullable instancetype)modelWithJsonData:(NSData* _Nonnull)data sheme:(NSString* _Nonnull)sheme;
++ (_Nullable instancetype)modelWithJsonData:(NSData* _Nonnull)data sheme:(NSString* _Nullable)sheme;
 + (_Nullable instancetype)modelWithPack:(NSDictionary< NSString*, id >* _Nonnull)data;
 + (_Nullable instancetype)modelWithPackData:(NSData* _Nonnull)data;
 
 - (_Nullable instancetype)initWithJson:(_Nullable id)json;
-- (_Nullable instancetype)initWithJson:(_Nullable id)json sheme:(NSString* _Nonnull)sheme;
+- (_Nullable instancetype)initWithJson:(_Nullable id)json sheme:(NSString* _Nullable)sheme;
 - (_Nullable instancetype)initWithPack:(NSDictionary< NSString*, id >* _Nonnull)data;
 
 - (void)fromJson:(_Nonnull id)json;
-- (void)fromJson:(_Nonnull id)json sheme:(NSString* _Nonnull)sheme;
+- (void)fromJson:(_Nonnull id)json sheme:(NSString* _Nullable)sheme;
 - (void)fromJsonData:(NSData* _Nonnull)data;
-- (void)fromJsonData:(NSData* _Nonnull)data sheme:(NSString* _Nonnull)sheme;
+- (void)fromJsonData:(NSData* _Nonnull)data sheme:(NSString* _Nullable)sheme;
 - (NSDictionary* _Nullable)toJson;
-- (NSDictionary* _Nullable)toJson:(NSString* _Nonnull)sheme;
+- (NSDictionary* _Nullable)toJson:(NSString* _Nullable)sheme;
 - (NSData* _Nullable)toJsonData;
-- (NSData* _Nullable)toJsonData:(NSString* _Nonnull)sheme;
+- (NSData* _Nullable)toJsonData:(NSString* _Nullable)sheme;
 
 - (NSDictionary< NSString*, id >* _Nullable)pack;
 - (NSData* _Nullable)packData;

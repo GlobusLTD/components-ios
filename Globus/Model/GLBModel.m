@@ -247,64 +247,50 @@
 }
 
 - (NSDictionary< NSString*, GLBModelJson* >*)jsonMap {
-    @synchronized(self) {
-        if(_jsonMap == nil) {
-            _jsonMap = [self.class _buildJsonMap];
-        }
+    if(_jsonMap == nil) {
+        _jsonMap = [self.class _buildJsonMap];
     }
     return _jsonMap;
 }
 
 - (NSDictionary< NSString*, NSDictionary< NSString*, GLBModelJson* >* >*)jsonShemeMap {
-    @synchronized(self) {
-        if(_jsonShemeMap == nil) {
-            _jsonShemeMap = [self.class _buildJsonShemeMap];
-        }
+    if(_jsonShemeMap == nil) {
+        _jsonShemeMap = [self.class _buildJsonShemeMap];
     }
     return _jsonShemeMap;
 }
 
 - (NSDictionary< NSString*, GLBModelPack* >*)packMap {
-    @synchronized(self) {
-        if(_packMap == nil) {
-            _packMap = [self.class _buildPackMap];
-        }
+    if(_packMap == nil) {
+        _packMap = [self.class _buildPackMap];
     }
     return _packMap;
 }
 
 - (NSDictionary< NSString*, id >*)defaultsMap {
-    @synchronized(self) {
-        if(_defaultsMap == nil) {
-            _defaultsMap = [self.class _buildDefaultsMap];
-        }
+    if(_defaultsMap == nil) {
+        _defaultsMap = [self.class _buildDefaultsMap];
     }
     return _defaultsMap;
 }
 
 - (NSDictionary< NSString*, id >*)serializeMap {
-    @synchronized(self) {
-        if(_serializeMap == nil) {
-            _serializeMap = [self.class _buildSerializeMap];
-        }
+    if(_serializeMap == nil) {
+        _serializeMap = [self.class _buildSerializeMap];
     }
     return _serializeMap;
 }
 
 - (NSArray< NSString* >*)propertyMap {
-    @synchronized(self) {
-        if(_propertyMap == nil) {
-            _propertyMap = [self.class _buildPropertyMap];
-        }
+    if(_propertyMap == nil) {
+        _propertyMap = [self.class _buildPropertyMap];
     }
     return _propertyMap;
 }
 
 - (NSArray< NSString* >*)compareMap {
-    @synchronized(self) {
-        if(_compareMap == nil) {
-            _compareMap = [self.class _buildCompareMap];
-        }
+    if(_compareMap == nil) {
+        _compareMap = [self.class _buildCompareMap];
     }
     return _compareMap;
 }
@@ -375,12 +361,7 @@
 }
 
 - (instancetype)initWithJson:(id)json {
-    self = [super init];
-    if(self != nil) {
-        [self fromJson:json];
-        [self setup];
-    }
-    return self;
+    return [self initWithJson:json sheme:nil];
 }
 
 - (instancetype)initWithJson:(id)json sheme:(NSString*)sheme {
@@ -402,11 +383,7 @@
 }
 
 - (void)fromJson:(id)json {
-    NSDictionary< NSString*, GLBModelJson* >* jsonMap = self.jsonMap;
-    if(jsonMap == nil) {
-        return;
-    }
-    [self _fromJson:json sheme:nil jsonMap:jsonMap];
+    [self fromJson:json sheme:nil];
 }
 
 - (void)fromJson:(id)json sheme:(NSString*)sheme {
@@ -416,17 +393,13 @@
     } else {
         jsonMap = self.jsonMap;
     }
-    if(jsonMap == nil) {
-        return;
+    if(jsonMap != nil) {
+        [self _fromJson:json sheme:sheme jsonMap:jsonMap];
     }
-    [self _fromJson:json sheme:sheme jsonMap:jsonMap];
 }
 
 - (void)fromJsonData:(NSData*)data {
-    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    if(json != nil) {
-        [self fromJson:json];
-    }
+    [self fromJsonData:data sheme:nil];
 }
 
 - (void)fromJsonData:(NSData*)data sheme:(NSString*)sheme {
@@ -437,11 +410,7 @@
 }
 
 - (NSDictionary*)toJson {
-    NSDictionary< NSString*, GLBModelJson* >* jsonMap = self.jsonMap;
-    if(jsonMap == nil) {
-        return nil;
-    }
-    return [self _toJson:nil jsonMap:self.jsonMap];
+    return [self toJson:nil];
 }
 
 - (NSDictionary*)toJson:(NSString*)sheme {
@@ -451,18 +420,14 @@
     } else {
         jsonMap = self.jsonMap;
     }
-    if(jsonMap == nil) {
-        return nil;
+    if(jsonMap != nil) {
+        return [self _toJson:nil jsonMap:jsonMap];
     }
-    return [self _toJson:nil jsonMap:jsonMap];
+    return nil;
 }
 
 - (NSData*)toJsonData {
-    NSDictionary* json = [self toJson];
-    if(json != nil) {
-        return [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
-    }
-    return nil;
+    return [self toJsonData:nil];
 }
 
 - (NSData*)toJsonData:(NSString*)sheme {

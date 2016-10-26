@@ -110,10 +110,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
 }
 
 + (instancetype)modelWithJson:(id)json {
-    if([json isKindOfClass:NSDictionary.class] == YES) {
-        return [[self alloc] initWithJson:json];
-    }
-    return nil;
+    return [self modelWithJson:json sheme:nil];
 }
 
 + (instancetype)modelWithJson:(id)json sheme:(NSString*)sheme {
@@ -124,11 +121,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
 }
 
 + (instancetype)modelWithJsonData:(NSData*)data {
-    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    if(json != nil) {
-        return [[self alloc] initWithJson:json];
-    }
-    return nil;
+    return [self modelWithJsonData:data sheme:nil];
 }
 
 + (instancetype)modelWithJsonData:(NSData*)data sheme:(NSString*)sheme {
@@ -152,11 +145,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
 }
 
 - (instancetype)initWithJson:(id)json {
-    self = [self initWithDefaultContext];
-    if(self != nil) {
-        [self fromJson:json];
-    }
-    return self;
+    return [self initWithJson:json sheme:nil];
 }
 
 - (instancetype)initWithJson:(id)json sheme:(NSString*)sheme {
@@ -176,11 +165,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
 }
 
 - (void)fromJson:(id)json {
-    NSDictionary< NSString*, GLBModelJson* >* jsonMap = self.jsonMap;
-    if(jsonMap == nil) {
-        return;
-    }
-    [self _fromJson:json sheme:nil jsonMap:jsonMap];
+    [self fromJson:json sheme:nil];
 }
 
 - (void)fromJson:(id)json sheme:(NSString*)sheme {
@@ -190,17 +175,13 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
     } else {
         jsonMap = self.jsonMap;
     }
-    if(jsonMap == nil) {
-        return;
+    if(jsonMap != nil) {
+        [self _fromJson:json sheme:sheme jsonMap:jsonMap];
     }
-    [self _fromJson:json sheme:sheme jsonMap:jsonMap];
 }
 
 - (void)fromJsonData:(NSData*)data {
-    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    if(json != nil) {
-        [self fromJson:json];
-    }
+    [self fromJsonData:data sheme:nil];
 }
 
 - (void)fromJsonData:(NSData*)data sheme:(NSString*)sheme {
@@ -211,11 +192,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
 }
 
 - (NSDictionary*)toJson {
-    NSDictionary< NSString*, GLBModelJson* >* jsonMap = self.jsonMap;
-    if(jsonMap == nil) {
-        return nil;
-    }
-    return [self _toJson:nil jsonMap:self.jsonMap];
+    return [self toJson:nil];
 }
 
 - (NSDictionary*)toJson:(NSString*)sheme {
@@ -225,18 +202,14 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
     } else {
         jsonMap = self.jsonMap;
     }
-    if(jsonMap == nil) {
-        return nil;
+    if(jsonMap != nil) {
+        return [self _toJson:nil jsonMap:jsonMap];
     }
-    return [self _toJson:nil jsonMap:jsonMap];
+    return nil;
 }
 
 - (NSData*)toJsonData {
-    NSDictionary* json = [self toJson];
-    if(json != nil) {
-        return [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
-    }
-    return nil;
+    return [self toJsonData:nil];
 }
 
 - (NSData*)toJsonData:(NSString*)sheme {
