@@ -4,7 +4,7 @@
 
 /*--------------------------------------------------*/
 
-#import "PersonModel.h"
+#import "PersonModel+Private.h"
 
 /*--------------------------------------------------*/
 
@@ -118,6 +118,36 @@
     XCTAssertTrue([packModel.uid isEqualToString:originModel.uid], @"Pack::uid");
     XCTAssertTrue([packModel.firstName isEqualToString:originModel.firstName], @"Pack::firstName");
     XCTAssertTrue([packModel.lastName isEqualToString:originModel.lastName], @"Pack::lastName");
+}
+
+- (void)testSave {
+    PersonModel* model = [PersonModel new];
+    XCTAssertNotNil(model, @"Failure create PersonModel instanse");
+    model.storeName = PersonModel.glb_className;
+    
+    if([model save] == YES) {
+        dispatch_group_t group = dispatch_group_create();
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+        for(NSUInteger i = 0; i < 10000; i++) {
+            [self save:model uid:[NSString stringWithFormat:@"%d", (int)i] group:group queue:queue];
+        }
+        dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+    } else {
+        XCTFail(@"Save");
+    }
+}
+
+- (void)save:(PersonModel*)model uid:(NSString*)uid group:(dispatch_group_t)group queue:(dispatch_queue_t)queue {
+    dispatch_group_enter(group);
+    dispatch_async(queue, ^{
+        model.uid = uid;
+        [model saveQueue:queue success:^{
+            dispatch_group_leave(group);
+        } failure:^{
+            XCTFail(@"Save::%@", uid);
+            dispatch_group_leave(group);
+        }];
+    });
 }
 
 @end

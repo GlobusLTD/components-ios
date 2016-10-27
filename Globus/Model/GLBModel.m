@@ -1,6 +1,7 @@
 /*--------------------------------------------------*/
 
 #import "GLBModel+Private.h"
+#import "GLBModelContext.h"
 
 /*--------------------------------------------------*/
 #pragma mark -
@@ -89,7 +90,7 @@
     if(self != nil) {
         _storeName = storeName;
         _userDefaults = userDefaults;
-        [self load];
+        [self _load];
         [self setup];
     }
     return self;
@@ -100,7 +101,7 @@
     if(self != nil) {
         _storeName = storeName;
         _appGroupIdentifier = appGroupIdentifier;
-        [self load];
+        [self _load];
         [self setup];
     }
     return self;
@@ -536,180 +537,100 @@
 }
 
 - (void)clear {
-    NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
-    NSDictionary< NSString*, id >* serializeMap = self.serializeMap;
-    for(NSString* field in serializeMap.allKeys) {
-        id value = defaultsMap[field];
-        @try {
-            [self setValue:value forKey:field];
-        }
-        @catch(NSException* exception) {
-        }
-    }
+    __weak typeof(self) weakSelf = self;
+    [GLBModelContext.shared sync:^{
+        [weakSelf _clear];
+    }];
 }
 
 - (void)clearComplete:(GLBModelBlock)complete {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        [self clear];
+    [self clearQueue:dispatch_get_main_queue() complete:complete];
+}
+
+- (void)clearQueue:(dispatch_queue_t)queue complete:(GLBModelBlock)complete {
+    __weak typeof(self) weakSelf = self;
+    [GLBModelContext.shared asyncQueue:queue work:^{
+        [weakSelf _clear];
+    } complete:^{
         if(complete != nil) {
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                complete();
-            });
+            complete();
         }
-    });
+    }];
 }
 
 - (BOOL)save {
-    BOOL result = NO;
-    @try {
-        NSMutableDictionary* dict = NSMutableDictionary.dictionary;
-        if(dict != nil) {
-            for(NSString* field in self.serializeMap) {
-                @try {
-                    id value = [self valueForKey:field];
-                    if(value != nil) {
-                        NSData* archive = [NSKeyedArchiver archivedDataWithRootObject:value];
-                        if(archive != nil) {
-                            dict[field] = archive;
-                        }
-                    }
-                }
-                @catch (NSException* exception) {
-                    NSLog(@"GLBModel::save:%@ Field=%@ Exception = %@", _storeName, field, exception);
-                }
-            }
-            if(_userDefaults != nil) {
-                [_userDefaults setObject:dict forKey:_storeName];
-#if defined(GLB_TARGET_IOS)
-                if([UIDevice glb_compareSystemVersion:@"10.0"] == NSOrderedAscending) {
-                    result = [_userDefaults synchronize];
-                } else {
-                    result = YES;
-                }
-#else
-                result = [_userDefaults synchronize];
-#endif
-            } else {
-                NSString* filePath = [self _filePath];
-                if(filePath != nil) {
-                    result = [NSKeyedArchiver archiveRootObject:dict toFile:self._filePath];
-                }
-            }
-        }
-    }
-    @catch(NSException* exception) {
-        NSLog(@"GLBModel::save:%@ Exception = %@", _storeName, exception);
-    }
-    return result;
+    __block BOOL status = NO;
+    __weak typeof(self) weakSelf = self;
+    [GLBModelContext.shared sync:^{
+        status = [weakSelf _save];
+    }];
+    return status;
 }
 
 - (void)saveSuccess:(GLBModelBlock)success failure:(GLBModelBlock)failure {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        if([self save] == YES) {
+    [self saveQueue:dispatch_get_main_queue() success:success failure:failure];
+}
+
+- (void)saveQueue:(dispatch_queue_t)queue success:(GLBModelBlock)success failure:(GLBModelBlock)failure {
+    __block BOOL status = NO;
+    __weak typeof(self) weakSelf = self;
+    [GLBModelContext.shared asyncQueue:queue work:^{
+        status = [weakSelf _save];
+    } complete:^{
+        if(status == YES) {
             if(success != nil) {
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    success();
-                });
+                success();
             }
         } else {
             if(failure != nil) {
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    failure();
-                });
+                failure();
             }
         }
-    });
+    }];
 }
 
 - (void)load {
-    @try {
-        NSDictionary* dict = nil;
-        if(_userDefaults != nil) {
-            dict = [_userDefaults objectForKey:_storeName];
-        } else {
-            NSString* filePath = [self _filePath];
-            if(filePath != nil) {
-                dict = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
-            }
-        }
-        if(dict != nil) {
-            NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
-            NSDictionary< NSString*, id >* serializeMap = self.serializeMap;
-            [serializeMap enumerateKeysAndObjectsUsingBlock:^(NSString* propertyName, id field, BOOL* stop) {
-                id value = dict[propertyName];
-                if(value == nil) {
-                    if([field isKindOfClass:NSArray.class] == YES) {
-                        for(NSString* subField in field) {
-                            value = dict[subField];
-                            if(value != nil) {
-                                break;
-                            }
-                        }
-                    } else {
-                        value = dict[field];
-                    }
-                }
-                if(value == nil) {
-                    value = defaultsMap[propertyName];
-                } else if([value isKindOfClass:NSData.class] == YES) {
-                    @try {
-                        value = [NSKeyedUnarchiver unarchiveObjectWithData:value];
-                    }
-                    @catch(NSException* exception) {
-                        value = nil;
-                    }
-                }
-                @try {
-                    [self setValue:value forKey:propertyName];
-                }
-                @catch(NSException* exception) {
-                }
-            }];
-        }
-    }
-    @catch(NSException* exception) {
-        NSLog(@"GLBModel::load:%@ Exception = %@", _storeName, exception);
-    }
+    __weak typeof(self) weakSelf = self;
+    [GLBModelContext.shared sync:^{
+        [weakSelf _load];
+    }];
 }
 
 - (void)loadComplete:(GLBModelBlock)complete {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        [self load];
+    [self loadQueue:dispatch_get_main_queue() complete:complete];
+}
+
+- (void)loadQueue:(dispatch_queue_t)queue complete:(GLBModelBlock)complete {
+    __weak typeof(self) weakSelf = self;
+    [GLBModelContext.shared asyncQueue:queue work:^{
+        [weakSelf _load];
+    } complete:^{
         if(complete != nil) {
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                complete();
-            });
+            complete();
         }
-    });
+    }];
 }
 
 - (void)erase {
-    if(_userDefaults != nil) {
-        [_userDefaults removeObjectForKey:_storeName];
-#if defined(GLB_TARGET_IOS)
-        if([UIDevice glb_compareSystemVersion:@"10.0"] == NSOrderedAscending) {
-            [_userDefaults synchronize];
-        }
-#else
-        [_userDefaults synchronize];
-#endif
-    } else {
-        NSString* filePath = [self _filePath];
-        if(filePath != nil) {
-            [NSFileManager.defaultManager removeItemAtPath:filePath error:nil];
-        }
-    }
+    __weak typeof(self) weakSelf = self;
+    [GLBModelContext.shared sync:^{
+        [weakSelf _erase];
+    }];
 }
 
 - (void)eraseComplete:(GLBModelBlock)complete {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        [self erase];
+    [self eraseQueue:dispatch_get_main_queue() complete:complete];
+}
+
+- (void)eraseQueue:(dispatch_queue_t)queue complete:(GLBModelBlock)complete {
+    __weak typeof(self) weakSelf = self;
+    [GLBModelContext.shared asyncQueue:queue work:^{
+        [weakSelf _erase];
+    } complete:^{
         if(complete != nil) {
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                complete();
-            });
+            complete();
         }
-    });
+    }];
 }
 
 #pragma mark - Private
@@ -872,6 +793,133 @@
     }];
     return result.copy;
 }
+
+- (void)_clear {
+    NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
+    NSDictionary< NSString*, id >* serializeMap = self.serializeMap;
+    for(NSString* field in serializeMap.allKeys) {
+        id value = defaultsMap[field];
+        @try {
+            [self setValue:value forKey:field];
+        }
+        @catch(NSException* exception) {
+        }
+    }
+}
+
+- (BOOL)_save {
+    BOOL result = NO;
+    @try {
+        NSMutableDictionary* dict = NSMutableDictionary.dictionary;
+        if(dict != nil) {
+            for(NSString* field in self.serializeMap) {
+                @try {
+                    id value = [self valueForKey:field];
+                    if(value != nil) {
+                        NSData* archive = [NSKeyedArchiver archivedDataWithRootObject:value];
+                        if(archive != nil) {
+                            dict[field] = archive;
+                        }
+                    }
+                }
+                @catch (NSException* exception) {
+                    NSLog(@"GLBModel::save:%@ Field=%@ Exception = %@", _storeName, field, exception);
+                }
+            }
+            if(_userDefaults != nil) {
+                [_userDefaults setObject:dict forKey:_storeName];
+#if defined(GLB_TARGET_IOS)
+                if([UIDevice glb_compareSystemVersion:@"10.0"] == NSOrderedAscending) {
+                    result = [_userDefaults synchronize];
+                } else {
+                    result = YES;
+                }
+#else
+                result = [_userDefaults synchronize];
+#endif
+            } else {
+                NSString* filePath = [self _filePath];
+                if(filePath != nil) {
+                    result = [NSKeyedArchiver archiveRootObject:dict toFile:self._filePath];
+                }
+            }
+        }
+    }
+    @catch(NSException* exception) {
+        NSLog(@"GLBModel::save:%@ Exception = %@", _storeName, exception);
+    }
+    return result;
+}
+
+- (void)_load {
+    @try {
+        NSDictionary* dict = nil;
+        if(_userDefaults != nil) {
+            dict = [_userDefaults objectForKey:_storeName];
+        } else {
+            NSString* filePath = [self _filePath];
+            if(filePath != nil) {
+                dict = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+            }
+        }
+        if(dict != nil) {
+            NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
+            NSDictionary< NSString*, id >* serializeMap = self.serializeMap;
+            [serializeMap enumerateKeysAndObjectsUsingBlock:^(NSString* propertyName, id field, BOOL* stop) {
+                id value = dict[propertyName];
+                if(value == nil) {
+                    if([field isKindOfClass:NSArray.class] == YES) {
+                        for(NSString* subField in field) {
+                            value = dict[subField];
+                            if(value != nil) {
+                                break;
+                            }
+                        }
+                    } else {
+                        value = dict[field];
+                    }
+                }
+                if(value == nil) {
+                    value = defaultsMap[propertyName];
+                } else if([value isKindOfClass:NSData.class] == YES) {
+                    @try {
+                        value = [NSKeyedUnarchiver unarchiveObjectWithData:value];
+                    }
+                    @catch(NSException* exception) {
+                        value = nil;
+                    }
+                }
+                @try {
+                    [self setValue:value forKey:propertyName];
+                }
+                @catch(NSException* exception) {
+                }
+            }];
+        }
+    }
+    @catch(NSException* exception) {
+        NSLog(@"GLBModel::load:%@ Exception = %@", _storeName, exception);
+    }
+}
+
+- (void)_erase {
+    if(_userDefaults != nil) {
+        [_userDefaults removeObjectForKey:_storeName];
+#if defined(GLB_TARGET_IOS)
+        if([UIDevice glb_compareSystemVersion:@"10.0"] == NSOrderedAscending) {
+            [_userDefaults synchronize];
+        }
+#else
+        [_userDefaults synchronize];
+#endif
+    } else {
+        NSString* filePath = [self _filePath];
+        if(filePath != nil) {
+            [NSFileManager.defaultManager removeItemAtPath:filePath error:nil];
+        }
+    }
+}
+
 
 #pragma mark - GLBObjectDebugProtocol
 

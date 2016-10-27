@@ -13,7 +13,7 @@
 
 @interface BaseModel ()
 
-@property(nonatomic, strong) NSString* uid;
+@property(atomic, strong) NSString* uid;
 
 @end
 

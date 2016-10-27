@@ -155,6 +155,8 @@
 		4057F5071D764BCD00D48E49 /* NSStream+GLBNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 4057F5051D764BCD00D48E49 /* NSStream+GLBNS.m */; };
 		40594F5F1DB82C8900694F2E /* GLBLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 40594F5D1DB82C8900694F2E /* GLBLabel.h */; };
 		40594F601DB82C8900694F2E /* GLBLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 40594F5E1DB82C8900694F2E /* GLBLabel.m */; };
+		4060EA691DC16DF9002C55A6 /* GLBModelContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 4060EA671DC16DF9002C55A6 /* GLBModelContext.h */; };
+		4060EA6A1DC16DF9002C55A6 /* GLBModelContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 4060EA681DC16DF9002C55A6 /* GLBModelContext.m */; };
 		406D7E211D6DE411001D321D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 406D7E201D6DE411001D321D /* main.m */; };
 		406D7E241D6DE411001D321D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 406D7E231D6DE411001D321D /* AppDelegate.m */; };
 		406D7E271D6DE411001D321D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 406D7E261D6DE411001D321D /* ViewController.m */; };
@@ -591,6 +593,8 @@
 		40594F5D1DB82C8900694F2E /* GLBLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBLabel.h; sourceTree = "<group>"; };
 		40594F5E1DB82C8900694F2E /* GLBLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBLabel.m; sourceTree = "<group>"; };
 		405B77C31C50E99B00DA763D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		4060EA671DC16DF9002C55A6 /* GLBModelContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBModelContext.h; sourceTree = "<group>"; };
+		4060EA681DC16DF9002C55A6 /* GLBModelContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBModelContext.m; sourceTree = "<group>"; };
 		406D7E1D1D6DE411001D321D /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		406D7E201D6DE411001D321D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		406D7E221D6DE411001D321D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -2164,6 +2168,8 @@
 				40E88EA01D76274100275E43 /* GLBModel+Private.h */,
 				40E88EA11D76274100275E43 /* GLBModel.h */,
 				40E88EA21D76274100275E43 /* GLBModel.m */,
+				4060EA671DC16DF9002C55A6 /* GLBModelContext.h */,
+				4060EA681DC16DF9002C55A6 /* GLBModelContext.m */,
 				40E88EA31D76274100275E43 /* GLBModelJson.h */,
 				40E88EA41D76274100275E43 /* GLBModelJson.m */,
 				40E88EA51D76274100275E43 /* GLBModelPack.h */,
@@ -2765,6 +2771,7 @@
 				4043CAFF1D7852F300EE76F1 /* GLBDataCellSwipe.h in Headers */,
 				40E88FBE1D76274100275E43 /* GLBDataViewTypes.h in Headers */,
 				40E88F921D76274100275E43 /* NSNumber+GLBNS.h in Headers */,
+				4060EA691DC16DF9002C55A6 /* GLBModelContext.h in Headers */,
 				4043CAF11D78519500EE76F1 /* GLBDataContainerItems.h in Headers */,
 				4057F4881D762DCA00D48E49 /* GLBDataViewSectionsListContainer+Private.h in Headers */,
 				4043CAF31D78519500EE76F1 /* GLBDataContainerItems+Private.h in Headers */,
@@ -3024,6 +3031,7 @@
 				40E88F8F1D76274100275E43 /* NSHTTPCookieStorage+GLBNS.m in Sources */,
 				4057F4F71D763BFB00D48E49 /* UITabBar+GLBUI.m in Sources */,
 				40E88F731D76274100275E43 /* GLBBlurView.m in Sources */,
+				4060EA6A1DC16DF9002C55A6 /* GLBModelContext.m in Sources */,
 				40E88FDD1D76274100275E43 /* GLBImageDownloadRequest.m in Sources */,
 				4043CB1F1D7855AC00EE76F1 /* GLBSpinnerViewArcAlt.m in Sources */,
 				40E88F651D76274100275E43 /* GLBApiResponse.m in Sources */,

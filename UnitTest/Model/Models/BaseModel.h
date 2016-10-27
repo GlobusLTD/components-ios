@@ -20,7 +20,7 @@ extern NSString* ModelCustomSheme;
 
 @interface BaseModel : GLBModel
 
-@property(nonatomic, readonly, strong) NSString* uid;
+@property(atomic, readonly, strong) NSString* uid;
 
 @end
 

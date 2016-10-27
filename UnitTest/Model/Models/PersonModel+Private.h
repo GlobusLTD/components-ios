@@ -9,8 +9,8 @@
 
 @interface PersonModel ()
 
-@property(nonatomic, strong) NSString* firstName;
-@property(nonatomic, strong) NSString* lastName;
+@property(atomic, strong) NSString* firstName;
+@property(atomic, strong) NSString* lastName;
 
 @end
 

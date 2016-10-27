@@ -85,15 +85,19 @@ typedef void (^GLBModelBlock)();
 
 - (void)clear;
 - (void)clearComplete:(_Nullable GLBModelBlock)complete;
+- (void)clearQueue:(_Nonnull dispatch_queue_t)queue complete:(_Nullable GLBModelBlock)complete;
 
 - (BOOL)save;
 - (void)saveSuccess:(_Nullable GLBModelBlock)success failure:(_Nullable GLBModelBlock)failure;
+- (void)saveQueue:(_Nonnull dispatch_queue_t)queue success:(_Nullable GLBModelBlock)success failure:(_Nullable GLBModelBlock)failure;
 
 - (void)load;
 - (void)loadComplete:(_Nullable GLBModelBlock)complete;
+- (void)loadQueue:(_Nonnull dispatch_queue_t)queue complete:(_Nullable GLBModelBlock)complete;
 
 - (void)erase;
 - (void)eraseComplete:(_Nullable GLBModelBlock)complete;
+- (void)eraseQueue:(_Nonnull dispatch_queue_t)queue complete:(_Nullable GLBModelBlock)complete;
 
 @end
 

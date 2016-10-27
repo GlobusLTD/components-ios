@@ -20,8 +20,8 @@
 
 @interface PersonModel : BaseModel
 
-@property(nonatomic, readonly, strong) NSString* firstName;
-@property(nonatomic, readonly, strong) NSString* lastName;
+@property(atomic, readonly, strong) NSString* firstName;
+@property(atomic, readonly, strong) NSString* lastName;
 
 @end
 
