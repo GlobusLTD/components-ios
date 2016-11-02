@@ -764,17 +764,15 @@
                 }
                 break;
             }
-            case UIGestureRecognizerStateEnded:
-            case UIGestureRecognizerStateCancelled: {
+            default: {
                 CGFloat swipeProgress = [self endedSwipeProgress:_panSwipeProgress - (_panSwipeLastVelocity / _swipeVelocity)];
                 if(_panSwipeDirection == GLBDataCellSwipeDirectionLeft) {
                     [self _updateSwipeProgress:swipeProgress speed:_panSwipeLeftWidth * ABS(swipeProgress - _panSwipeProgress) endedSwipe:YES];
                 } else if(_panSwipeDirection == GLBDataCellSwipeDirectionRight) {
                     [self _updateSwipeProgress:swipeProgress speed:_panSwipeRightWidth * ABS(swipeProgress - _panSwipeProgress) endedSwipe:YES];
+                } else {
+                    [self _updateSwipeProgress:swipeProgress speed:0.0f endedSwipe:YES];
                 }
-                break;
-            }
-            default: {
                 break;
             }
         }
