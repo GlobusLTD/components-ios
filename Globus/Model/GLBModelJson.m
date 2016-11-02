@@ -608,6 +608,13 @@
                 break;
             }
         }
+        if(result == nil) {
+            NSNumber* ts = [json glb_number];
+            if(ts != nil) {
+                NSTimeZone* timeZone = (_timeZone != nil) ? _timeZone : NSTimeZone.localTimeZone;
+                result = [NSDate glb_dateWithUnixTimestamp:[ts unsignedLongValue] timeZone:timeZone];
+            }
+        }
     } else if([json isKindOfClass:NSNumber.class] == YES) {
         NSTimeZone* timeZone = (_timeZone != nil) ? _timeZone : NSTimeZone.localTimeZone;
         result = [NSDate glb_dateWithUnixTimestamp:[json unsignedLongValue] timeZone:timeZone];
