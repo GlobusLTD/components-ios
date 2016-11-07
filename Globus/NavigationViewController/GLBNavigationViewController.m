@@ -304,6 +304,14 @@
     return (self.viewControllers.count == 1);
 }
 
+- (BOOL)canShowLeftViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController touch:(CGPoint)touch bounds:(CGRect)bounds {
+    UIViewController< GLBSlideViewControllerDelegate >* viewController = (id)self.topViewController;
+    if([viewController respondsToSelector:@selector(canShowLeftViewControllerInSlideViewController:touch:bounds:)] == YES) {
+        return [viewController canShowLeftViewControllerInSlideViewController:slideViewController touch:touch bounds:bounds];
+    }
+    return CGRectContainsPoint(bounds, touch);
+}
+
 - (void)willShowLeftViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration {
     UIViewController< GLBSlideViewControllerDelegate >* controller = (id)self.topViewController;
     if([controller respondsToSelector:@selector(willShowLeftViewControllerInSlideViewController:duration:)] == YES) {
@@ -337,7 +345,15 @@
     if([controller respondsToSelector:@selector(canShowRightViewControllerInSlideViewController:)] == YES) {
         return [controller canShowRightViewControllerInSlideViewController:slideViewController];
     }
-    return (self.viewControllers.count == 1);
+    return YES;
+}
+
+- (BOOL)canShowRightViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController touch:(CGPoint)touch bounds:(CGRect)bounds {
+    UIViewController< GLBSlideViewControllerDelegate >* viewController = (id)self.topViewController;
+    if([viewController respondsToSelector:@selector(canShowRightViewControllerInSlideViewController:touch:bounds:)] == YES) {
+        return [viewController canShowRightViewControllerInSlideViewController:slideViewController touch:touch bounds:bounds];
+    }
+    return CGRectContainsPoint(bounds, touch);
 }
 
 - (void)willShowRightViewControllerInSlideViewController:(GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration {

@@ -665,8 +665,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)showLeftViewControllerAnimated:(BOOL)animated complete:(GLBSimpleBlock)complete {
     if((_leftViewController != nil) && (_showedLeftViewController == NO)) {
         BOOL allow = YES;
-        id< GLBSlideViewControllerDelegate > centerViewController = ([_centerViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_centerViewController : nil;
-        id< GLBSlideViewControllerDelegate > leftViewController = ([_leftViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_leftViewController : nil;
+        id< GLBSlideViewControllerDelegate > centerViewController = (id< GLBSlideViewControllerDelegate >)_centerViewController;
+        id< GLBSlideViewControllerDelegate > leftViewController = (id< GLBSlideViewControllerDelegate >)_leftViewController;
         if([centerViewController respondsToSelector:@selector(canShowLeftViewControllerInSlideViewController:)] == YES) {
             if([centerViewController canShowLeftViewControllerInSlideViewController:self] == YES) {
                 if([leftViewController respondsToSelector:@selector(canShowViewControllerInSlideViewController:)] == YES) {
@@ -784,8 +784,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 
 - (void)hideLeftViewControllerAnimated:(BOOL)animated complete:(GLBSimpleBlock)complete {
     if(_showedLeftViewController == YES) {
-        id< GLBSlideViewControllerDelegate > centerViewController = ([_centerViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_centerViewController : nil;
-        id< GLBSlideViewControllerDelegate > leftViewController = ([_leftViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_leftViewController : nil;
+        id< GLBSlideViewControllerDelegate > centerViewController = (id< GLBSlideViewControllerDelegate >)_centerViewController;
+        id< GLBSlideViewControllerDelegate > leftViewController = (id< GLBSlideViewControllerDelegate >)_leftViewController;
         if(self.isViewLoaded == NO) {
             animated = NO;
         }
@@ -896,8 +896,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)showRightViewControllerAnimated:(BOOL)animated complete:(GLBSimpleBlock)complete {
     if((_rightViewController != nil) && (_showedRightViewController == NO)) {
         BOOL allow = YES;
-        id< GLBSlideViewControllerDelegate > centerViewController = ([_centerViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_centerViewController : nil;
-        id< GLBSlideViewControllerDelegate > rightViewController = ([_rightViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_rightViewController : nil;
+        id< GLBSlideViewControllerDelegate > centerViewController = (id< GLBSlideViewControllerDelegate >)_centerViewController;
+        id< GLBSlideViewControllerDelegate > rightViewController = (id< GLBSlideViewControllerDelegate >)_rightViewController;
         if([centerViewController respondsToSelector:@selector(canShowRightViewControllerInSlideViewController:)] == YES) {
             if([centerViewController canShowRightViewControllerInSlideViewController:self] == YES) {
                 if([rightViewController respondsToSelector:@selector(canShowViewControllerInSlideViewController:)] == YES) {
@@ -1016,8 +1016,8 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 
 - (void)hideRightViewControllerAnimated:(BOOL)animated complete:(GLBSimpleBlock)complete {
     if(_showedRightViewController == YES) {
-        id< GLBSlideViewControllerDelegate > centerViewController = ([_centerViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_centerViewController : nil;
-        id< GLBSlideViewControllerDelegate > rightViewController = ([_rightViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_rightViewController : nil;
+        id< GLBSlideViewControllerDelegate > centerViewController = (id< GLBSlideViewControllerDelegate >)_centerViewController;
+        id< GLBSlideViewControllerDelegate > rightViewController = (id< GLBSlideViewControllerDelegate >)_rightViewController;
         if(self.isViewLoaded == NO) {
             animated = NO;
         }
@@ -1467,7 +1467,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
     if((_canUseScreenshot == YES) && (_showedLeftViewController == NO) && (_showedRightViewController == NO)) {
         [self _takeScreenshotView];
     }
-    id< GLBSlideViewControllerDelegate > centerViewController = ([_centerViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_centerViewController : nil;
+    id< GLBSlideViewControllerDelegate > centerViewController = (id< GLBSlideViewControllerDelegate >)_centerViewController;
     if(_swipeDirection == GLBSlideViewControllerSwipeCellDirectionLeft) {
         if([centerViewController respondsToSelector:@selector(willBeganLeftSwipeInSlideViewController:)] == YES) {
             [centerViewController willBeganLeftSwipeInSlideViewController:self];
@@ -1477,7 +1477,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         }
         _leftView.hidden = NO;
         _rightView.hidden = YES;
-        id< GLBSlideViewControllerDelegate > leftViewController = ([_leftViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_leftViewController : nil;
+        id< GLBSlideViewControllerDelegate > leftViewController = (id< GLBSlideViewControllerDelegate >)_leftViewController;
         if([leftViewController respondsToSelector:@selector(willBeganSwipeInSlideViewController:)] == YES) {
             [leftViewController willBeganSwipeInSlideViewController:self];
         }
@@ -1493,7 +1493,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         }
         _leftView.hidden = YES;
         _rightView.hidden = NO;
-        id< GLBSlideViewControllerDelegate > rightViewController = ([_rightViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_rightViewController : nil;
+        id< GLBSlideViewControllerDelegate > rightViewController = (id< GLBSlideViewControllerDelegate >)_rightViewController;
         if([rightViewController respondsToSelector:@selector(willBeganSwipeInSlideViewController:)] == YES) {
             [rightViewController willBeganSwipeInSlideViewController:self];
         }
@@ -1504,12 +1504,12 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 }
 
 - (void)_movingSwipe:(CGFloat)progress {
-    id< GLBSlideViewControllerDelegate > centerViewController = ([_centerViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_centerViewController : nil;
+    id< GLBSlideViewControllerDelegate > centerViewController = (id< GLBSlideViewControllerDelegate >)_centerViewController;
     if(_swipeDirection == GLBSlideViewControllerSwipeCellDirectionLeft) {
         if([centerViewController respondsToSelector:@selector(movingLeftSwipeInSlideViewController:progress:)] == YES) {
             [centerViewController movingLeftSwipeInSlideViewController:self progress:progress];
         }
-        id< GLBSlideViewControllerDelegate > leftViewController = ([_leftViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_leftViewController : nil;
+        id< GLBSlideViewControllerDelegate > leftViewController = (id< GLBSlideViewControllerDelegate >)_leftViewController;
         if([leftViewController respondsToSelector:@selector(movingSwipeInSlideViewController:progress:)] == YES) {
             [leftViewController movingSwipeInSlideViewController:self progress:progress];
         }
@@ -1517,7 +1517,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         if([centerViewController respondsToSelector:@selector(movingRightSwipeInSlideViewController:progress:)] == YES) {
             [centerViewController movingRightSwipeInSlideViewController:self progress:progress];
         }
-        id< GLBSlideViewControllerDelegate > rightViewController = ([_rightViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_rightViewController : nil;
+        id< GLBSlideViewControllerDelegate > rightViewController = (id< GLBSlideViewControllerDelegate >)_rightViewController;
         if([rightViewController respondsToSelector:@selector(movingSwipeInSlideViewController:progress:)] == YES) {
             [rightViewController movingSwipeInSlideViewController:self progress:progress];
         }
@@ -1527,12 +1527,12 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 - (void)_willEndedSwipe {
     _swipeDragging = NO;
     _swipeDecelerating = YES;
-    id< GLBSlideViewControllerDelegate > centerViewController = ([_centerViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_centerViewController : nil;
+    id< GLBSlideViewControllerDelegate > centerViewController = (id< GLBSlideViewControllerDelegate >)_centerViewController;
     if(_swipeDirection == GLBSlideViewControllerSwipeCellDirectionLeft) {
         if([centerViewController respondsToSelector:@selector(willEndedLeftSwipeInSlideViewController:)] == YES) {
             [centerViewController willEndedLeftSwipeInSlideViewController:self];
         }
-        id< GLBSlideViewControllerDelegate > leftViewController = ([_leftViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_leftViewController : nil;
+        id< GLBSlideViewControllerDelegate > leftViewController = (id< GLBSlideViewControllerDelegate >)_leftViewController;
         if([leftViewController respondsToSelector:@selector(willEndedSwipeInSlideViewController:)] == YES) {
             [leftViewController willEndedSwipeInSlideViewController:self];
         }
@@ -1540,7 +1540,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         if([centerViewController respondsToSelector:@selector(willEndedRightSwipeInSlideViewController:)] == YES) {
             [centerViewController willEndedRightSwipeInSlideViewController:self];
         }
-        id< GLBSlideViewControllerDelegate > rightViewController = ([_rightViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_rightViewController : nil;
+        id< GLBSlideViewControllerDelegate > rightViewController = (id< GLBSlideViewControllerDelegate >)_rightViewController;
         if([rightViewController respondsToSelector:@selector(willEndedSwipeInSlideViewController:)] == YES) {
             [rightViewController willEndedSwipeInSlideViewController:self];
         }
@@ -1559,12 +1559,12 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         }
     }
     _swipeDecelerating = NO;
-    id< GLBSlideViewControllerDelegate > centerViewController = ([_centerViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_centerViewController : nil;
+    id< GLBSlideViewControllerDelegate > centerViewController = (id< GLBSlideViewControllerDelegate >)_centerViewController;
     if(_swipeDirection == GLBSlideViewControllerSwipeCellDirectionLeft) {
         if([centerViewController respondsToSelector:@selector(didEndedLeftSwipeInSlideViewController:)] == YES) {
             [centerViewController didEndedLeftSwipeInSlideViewController:self];
         }
-        id< GLBSlideViewControllerDelegate > leftViewController = ([_leftViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_leftViewController : nil;
+        id< GLBSlideViewControllerDelegate > leftViewController = (id< GLBSlideViewControllerDelegate >)_leftViewController;
         if([leftViewController respondsToSelector:@selector(didEndedSwipeInSlideViewController:)] == YES) {
             [leftViewController didEndedSwipeInSlideViewController:self];
         }
@@ -1572,7 +1572,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         if([centerViewController respondsToSelector:@selector(didEndedRightSwipeInSlideViewController:)] == YES) {
             [centerViewController didEndedRightSwipeInSlideViewController:self];
         }
-        id< GLBSlideViewControllerDelegate > rightViewController = ([_rightViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_rightViewController : nil;
+        id< GLBSlideViewControllerDelegate > rightViewController = (id< GLBSlideViewControllerDelegate >)_rightViewController;
         if([rightViewController respondsToSelector:@selector(didEndedSwipeInSlideViewController:)] == YES) {
             [rightViewController didEndedSwipeInSlideViewController:self];
         }
@@ -1707,55 +1707,57 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         }
     } else if(gestureRecognizer == _leftEdgeGesture) {
         if((_swipeDragging == NO) && (_swipeDecelerating == NO)) {
-            BOOL allowPan = NO;
-            if((_leftViewController != nil) && (_showedLeftViewController == NO) && (_leftViewControllerIteractionShowEnabled == YES)) {
-                CGRect bounds = UIEdgeInsetsInsetRect(self.view.bounds, UIEdgeInsetsMake(0.0f, _leftEdgeOffset, 0.0f, 0.0f));
-                CGPoint location = [_leftEdgeGesture locationInView:self.view];
-                if(CGRectContainsPoint(bounds, location) == NO) {
-                    id< GLBSlideViewControllerDelegate > centerViewController = ([_centerViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_centerViewController : nil;
-                    if([centerViewController respondsToSelector:@selector(canShowLeftViewControllerInSlideViewController:)] == YES) {
-                        if([centerViewController canShowLeftViewControllerInSlideViewController:self] == YES) {
-                            id< GLBSlideViewControllerDelegate > leftViewController = ([_leftViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_leftViewController : nil;
-                            if([leftViewController respondsToSelector:@selector(canShowViewControllerInSlideViewController:)] == YES) {
-                                allowPan = [leftViewController canShowViewControllerInSlideViewController:self];
-                            } else {
-                                allowPan = YES;
-                            }
-                        } else {
-                            allowPan = NO;
-                        }
-                    } else {
-                        allowPan = YES;
-                    }
+            if((_leftViewController == nil) || (_showedLeftViewController == YES) || (_leftViewControllerIteractionShowEnabled == NO)) {
+                return NO;
+            }
+            id< GLBSlideViewControllerDelegate > centerViewController = (id< GLBSlideViewControllerDelegate >)_centerViewController;
+            if([centerViewController respondsToSelector:@selector(canShowLeftViewControllerInSlideViewController:)] == YES) {
+                if([centerViewController canShowLeftViewControllerInSlideViewController:self] == NO) {
+                    return NO;
                 }
             }
-            return allowPan;
+            CGRect sliceBounds, remainderBounds;
+            CGRectDivide(self.view.bounds, &sliceBounds, &remainderBounds, _leftEdgeOffset, CGRectMinXEdge);
+            CGPoint location = [_rightEdgeGesture locationInView:self.view];
+            if([centerViewController respondsToSelector:@selector(canShowLeftViewControllerInSlideViewController:touch:bounds:)] == YES) {
+                if([centerViewController canShowLeftViewControllerInSlideViewController:self touch:location bounds:sliceBounds] == NO) {
+                    return NO;
+                }
+            }
+            id< GLBSlideViewControllerDelegate > leftViewController = (id< GLBSlideViewControllerDelegate >)_leftViewController;
+            if([leftViewController respondsToSelector:@selector(canShowViewControllerInSlideViewController:)] == YES) {
+                if([leftViewController canShowViewControllerInSlideViewController:self] == NO) {
+                    return NO;
+                }
+            }
+            return YES;
         }
     } else if(gestureRecognizer == _rightEdgeGesture) {
         if((_swipeDragging == NO) && (_swipeDecelerating == NO)) {
-            BOOL allowPan = NO;
-            if((_rightViewController != nil) && (_showedRightViewController == NO) && (_rightViewControllerIteractionShowEnabled == YES)) {
-                CGRect bounds = UIEdgeInsetsInsetRect(self.view.bounds, UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, _rightEdgeOffset));
-                CGPoint location = [_rightEdgeGesture locationInView:self.view];
-                if(CGRectContainsPoint(bounds, location) == NO) {
-                    id< GLBSlideViewControllerDelegate > centerViewController = ([_centerViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_centerViewController : nil;
-                    if([centerViewController respondsToSelector:@selector(canShowRightViewControllerInSlideViewController:)] == YES) {
-                        if([centerViewController canShowRightViewControllerInSlideViewController:self] == YES) {
-                            id< GLBSlideViewControllerDelegate > rightViewController = ([_rightViewController conformsToProtocol:@protocol(GLBSlideViewControllerDelegate)] == YES) ? (id< GLBSlideViewControllerDelegate >)_rightViewController : nil;
-                            if([rightViewController respondsToSelector:@selector(canShowViewControllerInSlideViewController:)] == YES) {
-                                allowPan = [rightViewController canShowViewControllerInSlideViewController:self];
-                            } else {
-                                allowPan = YES;
-                            }
-                        } else {
-                            allowPan = NO;
-                        }
-                    } else {
-                        allowPan = YES;
-                    }
+            if((_rightViewController == nil) || (_showedRightViewController == YES) || (_rightViewControllerIteractionShowEnabled == NO)) {
+                return NO;
+            }
+            id< GLBSlideViewControllerDelegate > centerViewController = (id< GLBSlideViewControllerDelegate >)_centerViewController;
+            if([centerViewController respondsToSelector:@selector(canShowRightViewControllerInSlideViewController:)] == YES) {
+                if([centerViewController canShowRightViewControllerInSlideViewController:self] == NO) {
+                    return NO;
                 }
             }
-            return allowPan;
+            CGRect sliceBounds, remainderBounds;
+            CGRectDivide(self.view.bounds, &sliceBounds, &remainderBounds, _rightEdgeOffset, CGRectMaxXEdge);
+            CGPoint location = [_rightEdgeGesture locationInView:self.view];
+            if([centerViewController respondsToSelector:@selector(canShowRightViewControllerInSlideViewController:touch:bounds:)] == YES) {
+                if([centerViewController canShowRightViewControllerInSlideViewController:self touch:location bounds:sliceBounds] == NO) {
+                    return NO;
+                }
+            }
+            id< GLBSlideViewControllerDelegate > rightViewController = (id< GLBSlideViewControllerDelegate >)_rightViewController;
+            if([rightViewController respondsToSelector:@selector(canShowViewControllerInSlideViewController:)] == YES) {
+                if([rightViewController canShowViewControllerInSlideViewController:self] == NO) {
+                    return NO;
+                }
+            }
+            return YES;
         }
     } else if(gestureRecognizer == _panGesture) {
         if(_showedLeftViewController == YES) {
