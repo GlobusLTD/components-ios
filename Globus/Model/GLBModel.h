@@ -24,7 +24,7 @@ typedef void (^GLBModelBlock)();
 
 /*--------------------------------------------------*/
 
-@protocol GLBModel < NSObject >
+@protocol GLBModelProtocol < NSObject >
 
 @required
 + (NSDictionary< NSString*, GLBModelJson* >* _Nullable)jsonMap;
@@ -62,7 +62,7 @@ typedef void (^GLBModelBlock)();
 
 /*--------------------------------------------------*/
 
-@interface GLBModel : NSObject < GLBModel, NSCoding, NSCopying, GLBObjectDebugProtocol >
+@interface GLBModel : NSObject < GLBModelProtocol, NSCoding, NSCopying, GLBObjectDebugProtocol >
 
 @property(nonatomic, nullable, strong) NSString* storeName;
 @property(nonatomic, nullable, strong) NSUserDefaults* userDefaults;
