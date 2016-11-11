@@ -305,7 +305,7 @@
     return _copyMap;
 }
 
-#pragma mark - GLBModel
+#pragma mark - GLBModelProtocol
 
 + (NSDictionary< NSString*, GLBModelJson* >*)jsonMap {
     return nil;
@@ -993,7 +993,7 @@
     if(classMap != nil) {
         return classMap;
     }
-    if([class conformsToProtocol:@protocol(GLBModel)] != YES) {
+    if([class conformsToProtocol:@protocol(GLBModelProtocol)] != YES) {
         return @{};
     }
     NSDictionary* map = nil;
@@ -1044,7 +1044,7 @@
     if(classMap != nil) {
         return classMap;
     }
-    if([class conformsToProtocol:@protocol(GLBModel)] != YES) {
+    if([class conformsToProtocol:@protocol(GLBModelProtocol)] != YES) {
         return @{};
     }
     NSMutableDictionary* mutMap = [NSMutableDictionary dictionary];
@@ -1079,7 +1079,7 @@
     if(classMap != nil) {
         return classMap;
     }
-    if([class conformsToProtocol:@protocol(GLBModel)] != YES) {
+    if([class conformsToProtocol:@protocol(GLBModelProtocol)] != YES) {
         return @[];
     }
     NSMutableArray* mutMap = [NSMutableArray array];

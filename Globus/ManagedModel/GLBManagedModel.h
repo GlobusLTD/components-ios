@@ -8,7 +8,7 @@
 
 /*--------------------------------------------------*/
 
-@interface GLBManagedModel : NSManagedObject < GLBModel, NSCoding, GLBObjectDebugProtocol >
+@interface GLBManagedModel : NSManagedObject < GLBModelProtocol, NSCoding, GLBObjectDebugProtocol >
 
 - (_Nullable instancetype)initWithDefaultContext;
 

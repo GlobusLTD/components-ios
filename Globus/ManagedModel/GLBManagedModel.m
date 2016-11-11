@@ -95,7 +95,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
     return _propertyMap;
 }
 
-#pragma mark - GLBModel
+#pragma mark - GLBModelProtocol
 
 + (NSDictionary< NSString*, GLBModelJson* >*)jsonMap {
     return nil;
