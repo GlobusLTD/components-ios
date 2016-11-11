@@ -1256,6 +1256,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
         [self _layoutForVisible];
         [_container _updateAnimated:_animating];
         [self _beginAnimateUpdatedItems];
+        [self.contentView layoutIfNeeded];
     } else {
         [self _endAnimateUpdatedItems];
         [self validateLayoutIfNeed];
