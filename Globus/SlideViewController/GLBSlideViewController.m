@@ -172,16 +172,19 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
     _leftView = [[UIView alloc] initWithFrame:[self _leftViewFrameByPercent:0.0]];
     if(_leftView != nil) {
         _leftView.alpha = [self _leftViewAlphaByPercent:0.0];
-        _leftView.hidden = NO;
+        _leftView.hidden = YES;
+        _leftView.accessibilityElementsHidden = YES;
     }
     _rightView = [[UIView alloc] initWithFrame:[self _rightViewFrameByPercent:0.0]];
     if(_rightView != nil) {
         _rightView.alpha = [self _rightViewAlphaByPercent:0.0];
         _rightView.hidden = YES;
+        _rightView.accessibilityElementsHidden = YES;
     }
     _centerView = [[UIView alloc] initWithFrame:[self _centerViewFrameByPercent:0.0]];
     if(_centerView != nil) {
         _centerView.alpha = [self _centerViewAlphaByPercent:0.0];
+        _centerView.accessibilityElementsHidden = NO;
     }
     [self.view glb_setSubviews:[self _orderedSubviews]];
 }
@@ -687,7 +690,9 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             }
             _swipeProgress = -1.0;
             _leftView.hidden = NO;
+            _leftView.accessibilityElementsHidden = NO;
             _rightView.hidden = YES;
+            _rightView.accessibilityElementsHidden = YES;
             CGRect leftFrame = [self _leftViewFrameByPercent:_swipeProgress];
             CGFloat leftAlpha = [self _leftViewAlphaByPercent:_swipeProgress];
             CGRect centerFrame = [self _centerViewFrameByPercent:_swipeProgress];
@@ -816,7 +821,9 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                 } completion:^(BOOL finished) {
                     _leftView.hidden = YES;
                     _leftView.userInteractionEnabled = NO;
+                    _leftView.accessibilityElementsHidden = YES;
                     _centerView.userInteractionEnabled = YES;
+                    _centerView.accessibilityElementsHidden = NO;
                     _showedLeftViewController = NO;
                     self.screenshotView = nil;
                     if([centerViewController respondsToSelector:@selector(didHideLeftViewControllerInSlideViewController:)] == YES) {
@@ -843,7 +850,9 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                 } completion:^(BOOL finished) {
                     _leftView.hidden = YES;
                     _leftView.userInteractionEnabled = NO;
+                    _leftView.accessibilityElementsHidden = YES;
                     _centerView.userInteractionEnabled = YES;
+                    _centerView.accessibilityElementsHidden = NO;
                     _showedLeftViewController = NO;
                     self.screenshotView = nil;
                     if([centerViewController respondsToSelector:@selector(didHideLeftViewControllerInSlideViewController:)] == YES) {
@@ -868,11 +877,13 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             }
             _leftView.frame = leftFrame;
             _leftView.alpha = leftAlpha;
-            _leftView.userInteractionEnabled = NO;
             _leftView.hidden = YES;
+            _leftView.userInteractionEnabled = NO;
+            _leftView.accessibilityElementsHidden = YES;
             _centerView.frame = centerFrame;
             _centerView.alpha = centerAlpha;
             _centerView.userInteractionEnabled = YES;
+            _centerView.accessibilityElementsHidden = NO;
             if(_draggingStatusBar == YES) {
                 [self _updateStatusBarFrame];
             }
@@ -918,7 +929,9 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             }
             _swipeProgress = 1.0;
             _leftView.hidden = YES;
+            _leftView.accessibilityElementsHidden = YES;
             _rightView.hidden = NO;
+            _rightView.accessibilityElementsHidden = NO;
             CGRect rightFrame = [self _rightViewFrameByPercent:_swipeProgress];
             CGFloat rightAlpha = [self _rightViewAlphaByPercent:_swipeProgress];
             CGRect centerFrame = [self _centerViewFrameByPercent:_swipeProgress];
@@ -1048,7 +1061,9 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                 } completion:^(BOOL finished) {
                     _rightView.hidden = YES;
                     _rightView.userInteractionEnabled = NO;
+                    _rightView.accessibilityElementsHidden = YES;
                     _centerView.userInteractionEnabled = YES;
+                    _centerView.accessibilityElementsHidden = NO;
                     _showedRightViewController = NO;
                     self.screenshotView = nil;
                     if([centerViewController respondsToSelector:@selector(didHideRightViewControllerInSlideViewController:)] == YES) {
@@ -1075,7 +1090,9 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
                 } completion:^(BOOL finished) {
                     _rightView.hidden = YES;
                     _rightView.userInteractionEnabled = NO;
+                    _rightView.accessibilityElementsHidden = YES;
                     _centerView.userInteractionEnabled = YES;
+                    _centerView.accessibilityElementsHidden = NO;
                     _showedRightViewController = NO;
                     self.screenshotView = nil;
                     if([centerViewController respondsToSelector:@selector(didHideRightViewControllerInSlideViewController:)] == YES) {
@@ -1101,10 +1118,12 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             _rightView.frame = rightFrame;
             _rightView.alpha = rightAlpha;
             _rightView.userInteractionEnabled = NO;
+            _rightView.accessibilityElementsHidden = YES;
             _rightView.hidden = YES;
             _centerView.frame = centerFrame;
             _centerView.alpha = centerAlpha;
             _centerView.userInteractionEnabled = YES;
+            _centerView.accessibilityElementsHidden = NO;
             if(_draggingStatusBar == YES) {
                 [self _updateStatusBarFrame];
             }
@@ -1476,7 +1495,9 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             [centerViewController didBeganLeftSwipeInSlideViewController:self];
         }
         _leftView.hidden = NO;
+        _leftView.accessibilityElementsHidden = NO;
         _rightView.hidden = YES;
+        _rightView.accessibilityElementsHidden = YES;
         id< GLBSlideViewControllerDelegate > leftViewController = (id< GLBSlideViewControllerDelegate >)_leftViewController;
         if([leftViewController respondsToSelector:@selector(willBeganSwipeInSlideViewController:)] == YES) {
             [leftViewController willBeganSwipeInSlideViewController:self];
@@ -1492,7 +1513,9 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             [centerViewController didBeganRightSwipeInSlideViewController:self];
         }
         _leftView.hidden = YES;
+        _leftView.accessibilityElementsHidden = YES;
         _rightView.hidden = NO;
+        _rightView.accessibilityElementsHidden = NO;
         id< GLBSlideViewControllerDelegate > rightViewController = (id< GLBSlideViewControllerDelegate >)_rightViewController;
         if([rightViewController respondsToSelector:@selector(willBeganSwipeInSlideViewController:)] == YES) {
             [rightViewController willBeganSwipeInSlideViewController:self];
@@ -1552,7 +1575,9 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
         _showedLeftViewController = (_swipeProgress < 0.0) ? YES : NO;
         _showedRightViewController = (_swipeProgress > 0.0) ? YES : NO;
         _leftView.hidden = (_showedLeftViewController == NO);
+        _leftView.accessibilityElementsHidden = _leftView.hidden;
         _rightView.hidden = (_showedRightViewController == NO);
+        _rightView.accessibilityElementsHidden = _rightView.hidden;
         [self _updateIteraction];
         if((_showedLeftViewController == NO) && (_showedRightViewController == NO)) {
             self.screenshotView = nil;
