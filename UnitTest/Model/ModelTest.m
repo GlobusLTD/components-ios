@@ -28,6 +28,36 @@
     [super tearDown];
 }
 
+- (void)testDefaults {
+    PersonModel* emptyModel = [PersonModel new];
+    XCTAssertTrue([emptyModel.uid isEqualToString:@"Unknown"], @"Failure default PersonModel.uid");
+    XCTAssertTrue([emptyModel.firstName isEqualToString:@"Alex"], @"Failure default PersonModel.firstName");
+    XCTAssertNil(emptyModel.lastName, @"Failure default PersonModel.lastName");
+    
+    PersonModel* copyModel = [emptyModel copy];
+    XCTAssertTrue([copyModel.uid isEqualToString:@"Unknown"], @"Failure default PersonModel.uid");
+    XCTAssertTrue([copyModel.firstName isEqualToString:@"Alex"], @"Failure default PersonModel.firstName");
+    XCTAssertNil(copyModel.lastName, @"Failure default PersonModel.lastName");
+    
+    PersonModel* jsonModel = [[PersonModel alloc] initWithJson:nil];
+    XCTAssertTrue([jsonModel.uid isEqualToString:@"Unknown"], @"Failure default PersonModel.uid");
+    XCTAssertTrue([jsonModel.firstName isEqualToString:@"Alex"], @"Failure default PersonModel.firstName");
+    XCTAssertNil(jsonModel.lastName, @"Failure default PersonModel.lastName");
+    
+    PersonModel* loadModel = [[PersonModel alloc] initWithStoreName:@"Test" userDefaults:nil];
+    XCTAssertTrue([loadModel.uid isEqualToString:@"Unknown"], @"Failure default PersonModel.uid");
+    XCTAssertTrue([loadModel.firstName isEqualToString:@"Alex"], @"Failure default PersonModel.firstName");
+    XCTAssertNil(loadModel.lastName, @"Failure default PersonModel.lastName");
+    
+    NSData* archivedData = [NSKeyedArchiver archivedDataWithRootObject:jsonModel];
+    XCTAssertTrue(archivedData.length > 0, @"Serialize::Data");
+    
+    PersonModel* unarchivedModel = [NSKeyedUnarchiver unarchiveObjectWithData:archivedData];
+    XCTAssertTrue([unarchivedModel.uid isEqualToString:@"Unknown"], @"Failure default PersonModel.uid");
+    XCTAssertTrue([unarchivedModel.firstName isEqualToString:@"Alex"], @"Failure default PersonModel.firstName");
+    XCTAssertNil(unarchivedModel.lastName, @"Failure default PersonModel.lastName");
+}
+
 - (void)testFromJsonDefaultSheme {
     NSURL* jsonUrl = [_bundle URLForResource:@"PersonModel-DefaultSheme" withExtension:@"json"];
     NSData* jsonData = [NSData dataWithContentsOfURL:jsonUrl];

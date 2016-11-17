@@ -47,6 +47,14 @@
 - (instancetype)init {
     self = [super init];
     if(self != nil) {
+        NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
+        [defaultsMap enumerateKeysAndObjectsUsingBlock:^(NSString* propertyName, id value, BOOL* stop) {
+            @try {
+                [self setValue:value forKey:propertyName];
+            }
+            @catch(NSException* exception) {
+            }
+        }];
         [self setup];
     }
     return self;
@@ -862,8 +870,8 @@
                 dict = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
             }
         }
+        NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
         if(dict != nil) {
-            NSDictionary< NSString*, id >* defaultsMap = self.defaultsMap;
             NSDictionary< NSString*, id >* serializeMap = self.serializeMap;
             [serializeMap enumerateKeysAndObjectsUsingBlock:^(NSString* propertyName, id field, BOOL* stop) {
                 id value = dict[propertyName];
@@ -889,6 +897,14 @@
                         value = nil;
                     }
                 }
+                @try {
+                    [self setValue:value forKey:propertyName];
+                }
+                @catch(NSException* exception) {
+                }
+            }];
+        } else {
+            [defaultsMap enumerateKeysAndObjectsUsingBlock:^(NSString* propertyName, id value, BOOL* stop) {
                 @try {
                     [self setValue:value forKey:propertyName];
                 }

@@ -38,6 +38,12 @@
     };
 }
 
++ (NSDictionary< NSString*, id >*)defaultsMap {
+    return @{
+        @"firstName" : @"Alex"
+    };
+}
+
 #pragma mark - Init / Free
 
 - (void)setup {

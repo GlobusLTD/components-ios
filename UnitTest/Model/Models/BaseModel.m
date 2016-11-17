@@ -38,6 +38,12 @@ NSString* ModelCustomSheme = @"Custom";
     };
 }
 
++ (NSDictionary< NSString*, id >*)defaultsMap {
+    return @{
+        @"uid" : @"Unknown"
+    };
+}
+
 #pragma mark - Init / Free
 
 - (void)setup {
