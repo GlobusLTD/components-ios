@@ -134,6 +134,7 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
 
 - (void)setNumberOfPages:(NSUInteger)numberOfPages {
     if(_numberOfPages != numberOfPages) {
+        _numberOfPages = numberOfPages;
         _accessibilityPageControl.numberOfPages = (NSInteger)_numberOfPages;
         if([self respondsToSelector:@selector(invalidateIntrinsicContentSize)] == YES) {
             [self invalidateIntrinsicContentSize];
