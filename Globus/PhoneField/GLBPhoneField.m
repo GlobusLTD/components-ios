@@ -222,7 +222,7 @@
     if([string hasPrefix:_prefix] == YES) {
         nonPrefix = [string substringFromIndex:_prefix.length];
     }
-    if(string.length > _prefix.length) {
+    if(nonPrefix.length > 0) {
         NSString* formattedDigits = [self _stringWithoutFormat:nonPrefix];
         NSDictionary* configDict = [self _configForSequence:formattedDigits];
         NSString* result = [self _applyFormat:configDict[@"format"] forFormattedString:formattedDigits];
