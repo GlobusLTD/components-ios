@@ -7,7 +7,7 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@interface GLBLoadedView : UIView
+@interface GLBLoadedView : UIView < GLBNibExtension >
 
 @property(nonatomic, strong) IBOutlet UIView* rootView;
 @property(nonatomic) UIEdgeInsets rootEdgeInsets;

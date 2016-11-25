@@ -14,7 +14,7 @@
 
 /*--------------------------------------------------*/
 
-@interface GLBViewController : GLBBaseViewController
+@interface GLBViewController : GLBBaseViewController < GLBNibExtension >
 
 @property(nonatomic, getter=isAutomaticallyHideKeyboard) BOOL automaticallyHideKeyboard;
 @property(nonatomic) UIInterfaceOrientationMask supportedOrientationMask;

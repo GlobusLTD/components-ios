@@ -15,7 +15,6 @@
 
 @property(nonatomic, readonly, strong) UILongPressGestureRecognizer* pressGesture;
 
-@property(nonatomic, copy) NSString* plainText;
 @property(nonatomic, copy) GLBTextStyle* textStyle;
 
 - (void)setup NS_REQUIRES_SUPER;

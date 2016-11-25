@@ -528,6 +528,16 @@
 - (void)searchBarPressedCancel:(GLBSearchBar*)searchBar {
 }
 
+#pragma mark - GLBNibExtension
+
++ (NSString*)nibName {
+    return self.glb_className;
+}
+
++ (NSBundle*)nibBundle {
+    return nil;
+}
+
 @end
 
 /*--------------------------------------------------*/

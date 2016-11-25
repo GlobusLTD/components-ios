@@ -100,7 +100,17 @@ static NSMutableDictionary< NSString*, UINib* >* GLBNibCache = nil;
 }
 
 + (UINib*)glb_nibWithClass:(Class)aClass bundle:(NSBundle*)bundle {
-    UINib* nib = [self glb_nibWithName:NSStringFromClass(aClass) bundle:bundle];
+    NSString* name = nil;
+    if([aClass conformsToProtocol:@protocol(GLBNibExtension)] == YES) {
+        name = [aClass nibName];
+        if(bundle == nil) {
+            bundle = [aClass nibBundle];
+        }
+    }
+    if(name == nil) {
+        name = NSStringFromClass(aClass);
+    }
+    UINib* nib = [self glb_nibWithName:name bundle:bundle];
     if((nib == nil) && (aClass.superclass != nil)) {
         nib = [self glb_nibWithClass:aClass.superclass bundle:bundle];
     }
@@ -119,7 +129,14 @@ static NSMutableDictionary< NSString*, UINib* >* GLBNibCache = nil;
 }
 
 + (UINib*)glb_cacheNibForClass:(Class)aClass {
-    return [self glb_cacheNibForName:NSStringFromClass(aClass)];
+    NSString* name = nil;
+    if([aClass conformsToProtocol:@protocol(GLBNibExtension)] == YES) {
+        name = [aClass nibName];
+    }
+    if(name == nil) {
+        name = NSStringFromClass(aClass);
+    }
+    return [self glb_cacheNibForName:name];
 }
 
 + (void)glb_removeCacheForName:(NSString*)name {

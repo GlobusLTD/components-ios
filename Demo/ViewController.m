@@ -22,7 +22,7 @@
     textStyle.font = [UIFont systemFontOfSize:14.0f];
     _label.textStyle = textStyle;
     
-    _label.plainText = @"This is normal text.\nThis is highlight text.\nThis is pressed text.";
+    _label.text = @"This is normal text.\nThis is highlight text.\nThis is pressed text.";
     _label.textAlignment = NSTextAlignmentCenter;
     _label.lineBreakMode = NSLineBreakByWordWrapping;
     _label.numberOfLines = 0;

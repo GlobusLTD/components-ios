@@ -20,6 +20,7 @@
 /*--------------------------------------------------*/
 
 @interface GLBLabel () {
+    NSMutableAttributedString* _attributedText;
     NSMutableArray< GLBLabelLink* >* _links;
     NSMutableArray< GLBLabelLink* >* _hightlightedLinks;
 }
@@ -60,8 +61,9 @@
 }
 
 - (void)setup {
-    self.userInteractionEnabled = YES;
+    _attributedText = [NSMutableAttributedString new];
     
+    self.userInteractionEnabled = YES;
     [self addGestureRecognizer:self.pressGesture];
 }
 
@@ -105,9 +107,16 @@
     return _pressGesture;
 }
 
-- (void)setPlainText:(NSString*)plainText {
-    if([_plainText isEqualToString:plainText] == NO) {
-        _plainText = plainText;
+- (void)setText:(NSString*)text {
+    if([_attributedText.string isEqualToString:text] == NO) {
+        [_attributedText setAttributedString:[[NSAttributedString alloc] initWithString:text]];
+        [self __update];
+    }
+}
+
+- (void)setAttributedText:(NSAttributedString*)attributedText {
+    if([_attributedText isEqualToAttributedString:attributedText] == NO) {
+        [_attributedText setAttributedString:attributedText];
         [self __update];
     }
 }
@@ -152,7 +161,7 @@
 }
 
 - (NSRange)addLink:(NSString*)link normalStyle:(GLBTextStyle*)normalStyle highlightStyle:(GLBTextStyle*)highlightStyle pressed:(GLBSimpleBlock)pressed {
-    NSRange range = [_plainText rangeOfString:link];
+    NSRange range = [_attributedText.string rangeOfString:link];
     if((range.location != NSNotFound) && (range.length > 0)) {
         [self addLinkRange:range normalStyle:normalStyle highlightStyle:highlightStyle pressed:pressed];
     }
@@ -206,22 +215,18 @@
 #pragma mark - Private
 
 - (void)__update {
-    NSMutableAttributedString* attributedString = [NSMutableAttributedString new];
-    if(_plainText.length > 0) {
-        [attributedString.mutableString setString:_plainText];
-        
-        if(_textStyle != nil) {
-            [attributedString setAttributes:_textStyle.attributes range:NSMakeRange(0, _plainText.length)];
-        }
-        for(GLBLabelLink* link in _links) {
-            if([_hightlightedLinks containsObject:link] == YES) {
-                [attributedString addAttributes:link.highlightStyle.attributes range:link.range];
-            } else {
-                [attributedString addAttributes:link.normalStyle.attributes range:link.range];
-            }
+    NSMutableAttributedString* attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:_attributedText];
+    if(_textStyle != nil) {
+        [attributedString setAttributes:_textStyle.attributes range:NSMakeRange(0, _attributedText.string.length)];
+    }
+    for(GLBLabelLink* link in _links) {
+        if([_hightlightedLinks containsObject:link] == YES) {
+            [attributedString addAttributes:link.highlightStyle.attributes range:link.range];
+        } else {
+            [attributedString addAttributes:link.normalStyle.attributes range:link.range];
         }
     }
-    [self setAttributedText:attributedString];
+    [super setAttributedText:attributedString];
     if(_textStorage != nil) {
         [_textStorage setAttributedString:attributedString];
     }

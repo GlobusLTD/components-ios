@@ -13,7 +13,7 @@
 
 /*--------------------------------------------------*/
 
-@interface GLBDataViewCell : UIView< UIGestureRecognizerDelegate, GLBSearchBarDelegate, GLBWindowExtension >
+@interface GLBDataViewCell : UIView< UIGestureRecognizerDelegate, GLBSearchBarDelegate, GLBWindowExtension, GLBNibExtension >
 
 @property(nonatomic, readonly, weak) __kindof GLBDataView* view;
 @property(nonatomic, readonly, weak) __kindof GLBDataViewItem* item;
