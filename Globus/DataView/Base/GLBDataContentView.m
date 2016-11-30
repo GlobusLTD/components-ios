@@ -88,25 +88,38 @@
 
 - (GLBDataContentLayerView*)layerWithItem:(GLBDataViewItem*)item {
     NSUInteger order = item.order;
-    NSUInteger insertIndex = 0;
-    NSUInteger layerIndex = 0;
-    for(GLBDataContentLayerView* existLayer in _layers) {
-        if(existLayer.order == order) {
-            return existLayer;
-        } else if(existLayer.order < order) {
-            insertIndex = layerIndex;
+    NSUInteger index = 0;
+    GLBDataContentLayerView* layer = nil;
+    if(_layers.count > 0) {
+        for(GLBDataContentLayerView* existLayer in _layers) {
+            if(existLayer.order == order) {
+                layer = existLayer;
+                break;
+            }
         }
-        layerIndex++;
+        if(layer == nil) {
+            GLBDataContentLayerView* firstLayer = _layers.firstObject;
+            GLBDataContentLayerView* lastObject = _layers.lastObject;
+            if((firstLayer != nil) && (order < firstLayer.order)) {
+                index = 0;
+            } else if((lastObject != nil) && (order > lastObject.order)) {
+                index = _layers.count;
+            } else if(firstLayer != lastObject) {
+                for(GLBDataContentLayerView* existLayer in _layers) {
+                    if(existLayer.order > order) {
+                        break;
+                    }
+                    index++;
+                }
+            }
+        }
     }
-    GLBDataContentLayerView* layer = [[GLBDataContentLayerView alloc] initWithContentView:self order:order];
-    if(layer != nil) {
-        if(_layers.count > 0) {
-            insertIndex = MIN(insertIndex + 1, _layers.count);
-        } else {
-            insertIndex = 0;
+    if(layer == nil) {
+        layer = [[GLBDataContentLayerView alloc] initWithContentView:self order:order];
+        if(layer != nil) {
+            [self insertSubview:layer atIndex:(NSInteger)index];
+            [_layers insertObject:layer atIndex:index];
         }
-        [self insertSubview:layer atIndex:(NSInteger)insertIndex];
-        [_layers insertObject:layer atIndex:insertIndex];
     }
     return layer;
 }
