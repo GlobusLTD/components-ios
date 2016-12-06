@@ -40,12 +40,12 @@ typedef _Nullable id(^GLBModelHelperConvertBlock)(_Nullable id value);
 
 @interface GLBModelHelper : NSObject
 
-+ (NSDictionary< id, NSDictionary* >* _Nonnull)multiDictionaryMap:(NSMutableDictionary* _Nonnull)cache class:(_Nonnull Class)class selector:(_Nonnull SEL)selector;
-+ (NSDictionary< id, NSDictionary* >* _Nonnull)multiDictionaryMap:(NSMutableDictionary* _Nonnull)cache class:(_Nonnull Class)class selector:(_Nonnull SEL)selector convert:(_Nullable GLBModelHelperConvertBlock)convert;
-+ (NSDictionary* _Nonnull)dictionaryMap:(NSMutableDictionary* _Nonnull)cache class:(_Nonnull Class)class selector:(_Nonnull SEL)selector;
-+ (NSDictionary* _Nonnull)dictionaryMap:(NSMutableDictionary* _Nonnull)cache class:(_Nonnull Class)class selector:(_Nonnull SEL)selector convert:(_Nullable GLBModelHelperConvertBlock)convert;
-+ (NSArray* _Nonnull)arrayMap:(NSMutableDictionary* _Nonnull)cache class:(_Nonnull Class)class selector:(_Nonnull SEL)selector;
-+ (NSArray* _Nonnull)arrayMap:(NSMutableDictionary* _Nonnull)cache class:(_Nonnull Class)class selector:(_Nonnull SEL)selector convert:(_Nullable GLBModelHelperConvertBlock)convert;
++ (NSDictionary< id, NSDictionary* >* _Nonnull)multiDictionaryMap:(NSMutableDictionary* _Nonnull)cache withClass:(_Nonnull Class)aClass selector:(_Nonnull SEL)selector;
++ (NSDictionary< id, NSDictionary* >* _Nonnull)multiDictionaryMap:(NSMutableDictionary* _Nonnull)cache withClass:(_Nonnull Class)aClass selector:(_Nonnull SEL)selector convert:(_Nullable GLBModelHelperConvertBlock)convert;
++ (NSDictionary* _Nonnull)dictionaryMap:(NSMutableDictionary* _Nonnull)cache withClass:(_Nonnull Class)aClass selector:(_Nonnull SEL)selector;
++ (NSDictionary* _Nonnull)dictionaryMap:(NSMutableDictionary* _Nonnull)cache withClass:(_Nonnull Class)aClass selector:(_Nonnull SEL)selector convert:(_Nullable GLBModelHelperConvertBlock)convert;
++ (NSArray* _Nonnull)arrayMap:(NSMutableDictionary* _Nonnull)cache withClass:(_Nonnull Class)aClass selector:(_Nonnull SEL)selector;
++ (NSArray* _Nonnull)arrayMap:(NSMutableDictionary* _Nonnull)cache withClass:(_Nonnull Class)aClass selector:(_Nonnull SEL)selector convert:(_Nullable GLBModelHelperConvertBlock)convert;
 
 @end
 

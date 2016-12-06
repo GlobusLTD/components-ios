@@ -290,7 +290,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;
     }
-    return [GLBModelHelper dictionaryMap:cache class:self.class selector:@selector(jsonMap)];
+    return [GLBModelHelper dictionaryMap:cache withClass:self.class selector:@selector(jsonMap)];
 }
 
 + (NSDictionary*)_buildJsonShemeMap {
@@ -298,7 +298,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;
     }
-    return [GLBModelHelper multiDictionaryMap:cache class:self.class selector:@selector(jsonShemeMap)];
+    return [GLBModelHelper multiDictionaryMap:cache withClass:self.class selector:@selector(jsonShemeMap)];
 }
 
 + (NSDictionary*)_buildPackMap {
@@ -306,7 +306,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;
     }
-    return [GLBModelHelper dictionaryMap:cache class:self.class selector:@selector(packMap)];
+    return [GLBModelHelper dictionaryMap:cache withClass:self.class selector:@selector(packMap)];
 }
 
 + (NSArray< NSString* >* _Nonnull)_buildPropertyMap {
@@ -314,7 +314,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;
     }
-    return [GLBModelHelper arrayMap:cache class:self.class selector:@selector(propertyMap)];
+    return [GLBModelHelper arrayMap:cache withClass:self.class selector:@selector(propertyMap)];
 }
 
 - (void)_fromJson:(id)json sheme:(NSString*)sheme jsonMap:(NSDictionary< NSString*, GLBModelJson* >*)jsonMap {

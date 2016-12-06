@@ -662,7 +662,7 @@
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;
     }
-    return [GLBModelHelper dictionaryMap:cache class:self.class selector:@selector(jsonMap)];
+    return [GLBModelHelper dictionaryMap:cache withClass:self.class selector:@selector(jsonMap)];
 }
 
 + (NSDictionary< NSString*, NSDictionary< NSString*, GLBModelJson* >* >*)_buildJsonShemeMap {
@@ -670,7 +670,7 @@
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;
     }
-    return [GLBModelHelper multiDictionaryMap:cache class:self.class selector:@selector(jsonShemeMap)];
+    return [GLBModelHelper multiDictionaryMap:cache withClass:self.class selector:@selector(jsonShemeMap)];
 }
 
 + (NSDictionary< NSString*, GLBModelPack* >*)_buildPackMap {
@@ -678,7 +678,7 @@
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;
     }
-    return [GLBModelHelper dictionaryMap:cache class:self.class selector:@selector(packMap)];
+    return [GLBModelHelper dictionaryMap:cache withClass:self.class selector:@selector(packMap)];
 }
 
 + (NSDictionary< NSString*, id >*)_buildDefaultsMap {
@@ -686,7 +686,7 @@
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;
     }
-    return [GLBModelHelper dictionaryMap:cache class:self.class selector:@selector(defaultsMap)];
+    return [GLBModelHelper dictionaryMap:cache withClass:self.class selector:@selector(defaultsMap)];
 }
 
 + (NSDictionary< NSString*, id >*)_buildSerializeMap {
@@ -694,7 +694,7 @@
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;
     }
-    return [GLBModelHelper dictionaryMap:cache class:self.class selector:@selector(serializeMap) convert:^id(id value) {
+    return [GLBModelHelper dictionaryMap:cache withClass:self.class selector:@selector(serializeMap) convert:^id(id value) {
         if([value isKindOfClass:NSArray.class] == YES) {
             NSArray* sourceArray = value;
             NSMutableDictionary* result = [NSMutableDictionary dictionaryWithCapacity:sourceArray.count];
@@ -712,7 +712,7 @@
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;
     }
-    return [GLBModelHelper arrayMap:cache class:self.class selector:@selector(propertyMap)];
+    return [GLBModelHelper arrayMap:cache withClass:self.class selector:@selector(propertyMap)];
 }
 
 + (NSArray< NSString* >*)_buildCompareMap {
@@ -720,7 +720,7 @@
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;
     }
-    return [GLBModelHelper arrayMap:cache class:self.class selector:@selector(compareMap)];
+    return [GLBModelHelper arrayMap:cache withClass:self.class selector:@selector(compareMap)];
 }
 
 + (NSArray< NSString* >*)_buildCopyMap {
@@ -728,7 +728,7 @@
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;
     }
-    return [GLBModelHelper arrayMap:cache class:self.class selector:@selector(copyMap)];
+    return [GLBModelHelper arrayMap:cache withClass:self.class selector:@selector(copyMap)];
 }
 
 - (NSString*)_filePath {
@@ -999,26 +999,26 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
-+ (NSDictionary< id, NSDictionary* >*)multiDictionaryMap:(NSMutableDictionary*)cache class:(Class)class selector:(SEL)selector {
-    return [self multiDictionaryMap:cache class:class selector:selector convert:nil];
++ (NSDictionary< id, NSDictionary* >*)multiDictionaryMap:(NSMutableDictionary*)cache withClass:(Class)aClass selector:(SEL)selector {
+    return [self multiDictionaryMap:cache withClass:aClass selector:selector convert:nil];
 }
 
-+ (NSDictionary< id, NSDictionary* >*)multiDictionaryMap:(NSMutableDictionary*)cache class:(Class)class selector:(SEL)selector convert:(GLBModelHelperConvertBlock)convert {
-    NSString* className = NSStringFromClass(class);
++ (NSDictionary< id, NSDictionary* >*)multiDictionaryMap:(NSMutableDictionary*)cache withClass:(Class)aClass selector:(SEL)selector convert:(GLBModelHelperConvertBlock)convert {
+    NSString* className = NSStringFromClass(aClass);
     NSDictionary* classMap = cache[className];
     if(classMap != nil) {
         return classMap;
     }
-    if([class conformsToProtocol:@protocol(GLBModelProtocol)] != YES) {
+    if([aClass conformsToProtocol:@protocol(GLBModelProtocol)] != YES) {
         return @{};
     }
     NSDictionary* map = nil;
     NSDictionary< id, NSDictionary* >* superMap = nil;
-    Class superClass = [class superclass];
+    Class superClass = [aClass superclass];
     if(superClass != nil) {
-        superMap = [self dictionaryMap:cache class:superClass selector:selector convert:convert];
+        superMap = [self dictionaryMap:cache withClass:superClass selector:selector convert:convert];
     }
-    NSDictionary< id, NSDictionary* >* partMap = [class performSelector:selector];
+    NSDictionary< id, NSDictionary* >* partMap = [aClass performSelector:selector];
     if([partMap isKindOfClass:NSDictionary.class] == NO) {
         if(convert != nil) {
             partMap = convert(partMap);
@@ -1050,28 +1050,28 @@
     return map;
 }
 
-+ (NSDictionary*)dictionaryMap:(NSMutableDictionary*)cache class:(Class)class selector:(SEL)selector {
-    return [self dictionaryMap:cache class:class selector:selector convert:nil];
++ (NSDictionary*)dictionaryMap:(NSMutableDictionary*)cache withClass:(Class)aClass selector:(SEL)selector {
+    return [self dictionaryMap:cache withClass:aClass selector:selector convert:nil];
 }
 
-+ (NSDictionary*)dictionaryMap:(NSMutableDictionary*)cache class:(Class)class selector:(SEL)selector convert:(GLBModelHelperConvertBlock)convert {
-    NSString* className = NSStringFromClass(class);
++ (NSDictionary*)dictionaryMap:(NSMutableDictionary*)cache withClass:(Class)aClass selector:(SEL)selector convert:(GLBModelHelperConvertBlock)convert {
+    NSString* className = NSStringFromClass(aClass);
     NSDictionary* classMap = cache[className];
     if(classMap != nil) {
         return classMap;
     }
-    if([class conformsToProtocol:@protocol(GLBModelProtocol)] != YES) {
+    if([aClass conformsToProtocol:@protocol(GLBModelProtocol)] != YES) {
         return @{};
     }
     NSMutableDictionary* mutMap = [NSMutableDictionary dictionary];
-    Class superClass = [class superclass];
+    Class superClass = [aClass superclass];
     if(superClass != nil) {
-        NSDictionary* superMap = [self dictionaryMap:cache class:superClass selector:selector convert:convert];
+        NSDictionary* superMap = [self dictionaryMap:cache withClass:superClass selector:selector convert:convert];
         if(superMap != nil) {
             [mutMap addEntriesFromDictionary:superMap];
         }
     }
-    id partMap = [class performSelector:selector];
+    id partMap = [aClass performSelector:selector];
     if([partMap isKindOfClass:NSDictionary.class] == NO) {
         if(convert != nil) {
             partMap = convert(partMap);
@@ -1085,28 +1085,28 @@
     return map;
 }
 
-+ (NSArray*)arrayMap:(NSMutableDictionary*)cache class:(Class)class selector:(SEL)selector {
-    return [self arrayMap:cache class:class selector:selector convert:nil];
++ (NSArray*)arrayMap:(NSMutableDictionary*)cache withClass:(Class)aClass selector:(SEL)selector {
+    return [self arrayMap:cache withClass:aClass selector:selector convert:nil];
 }
 
-+ (NSArray*)arrayMap:(NSMutableDictionary*)cache class:(Class)class selector:(SEL)selector convert:(GLBModelHelperConvertBlock)convert {
-    NSString* className = NSStringFromClass(class);
++ (NSArray*)arrayMap:(NSMutableDictionary*)cache withClass:(Class)aClass selector:(SEL)selector convert:(GLBModelHelperConvertBlock)convert {
+    NSString* className = NSStringFromClass(aClass);
     NSArray* classMap = cache[className];
     if(classMap != nil) {
         return classMap;
     }
-    if([class conformsToProtocol:@protocol(GLBModelProtocol)] != YES) {
+    if([aClass conformsToProtocol:@protocol(GLBModelProtocol)] != YES) {
         return @[];
     }
     NSMutableArray* mutMap = [NSMutableArray array];
-    Class superClass = [class superclass];
+    Class superClass = [aClass superclass];
     if(superClass != nil) {
-        NSArray* superMap = [self arrayMap:cache class:superClass selector:selector convert:convert];
+        NSArray* superMap = [self arrayMap:cache withClass:superClass selector:selector convert:convert];
         if(superMap != nil) {
             [mutMap addObjectsFromArray:superMap];
         }
     }
-    id partMap = [class performSelector:selector];
+    id partMap = [aClass performSelector:selector];
     if([partMap isKindOfClass:NSArray.class] == NO) {
         if(convert != nil) {
             partMap = convert(partMap);
