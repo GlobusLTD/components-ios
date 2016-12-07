@@ -68,8 +68,8 @@ typedef void (^GLBModelBlock)();
 @property(nonatomic, nullable, strong) NSUserDefaults* userDefaults;
 @property(nonatomic, nullable, strong) NSString* appGroupIdentifier;
 
-+ (_Nullable instancetype)modelWithStoreName:(NSString* _Nullable)storeName userDefaults:(NSUserDefaults* _Nullable)userDefaults;
-+ (_Nullable instancetype)modelWithStoreName:(NSString* _Nullable)storeName appGroupIdentifier:(NSString* _Nullable)appGroupIdentifier;
++ (_Nullable instancetype)modelWithStoreName:(NSString* _Nullable)storeName userDefaults:(NSUserDefaults* _Nullable)userDefaults NS_SWIFT_NAME(model(storeName:userDefaults:));
++ (_Nullable instancetype)modelWithStoreName:(NSString* _Nullable)storeName appGroupIdentifier:(NSString* _Nullable)appGroupIdentifier NS_SWIFT_NAME(model(storeName:appGroupIdentifier:));
 
 - (_Nullable instancetype)initWithStoreName:(NSString* _Nullable)storeName userDefaults:(NSUserDefaults* _Nullable)userDefaults;
 - (_Nullable instancetype)initWithStoreName:(NSString* _Nullable)storeName appGroupIdentifier:(NSString* _Nullable)appGroupIdentifier;
