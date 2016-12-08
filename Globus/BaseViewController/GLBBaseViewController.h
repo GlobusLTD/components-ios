@@ -20,6 +20,7 @@
 
 @property(nonatomic, readonly, assign, getter=isAppeared) BOOL appeared;
 @property(nonatomic, assign) BOOL clearWhenDisapper;
+@property(nonatomic, assign) BOOL unloadWhenMemoryWarning;
 
 @property(nonatomic, getter=isStatusBarHidden) BOOL statusBarHidden;
 @property(nonatomic) UIStatusBarStyle statusBarStyle;

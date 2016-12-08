@@ -293,9 +293,10 @@
 }
 
 - (void)didReceiveMemoryWarning {
+    if(_unloadWhenMemoryWarning == YES) {
+        [self glb_unloadViewIfPossible];
+    }
     [super didReceiveMemoryWarning];
-    
-    [self glb_unloadViewIfPossible];
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate
