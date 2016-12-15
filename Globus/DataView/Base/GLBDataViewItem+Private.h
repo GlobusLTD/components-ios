@@ -27,6 +27,7 @@
     __weak GLBDataViewContainer* _parent;
     NSString* _identifier;
     NSUInteger _order;
+    NSUInteger _accessibilityOrder;
     id _data;
     CGSize _size;
     BOOL _needResize;
@@ -53,9 +54,6 @@
 
 @property(nonatomic, weak) GLBDataView* view;
 @property(nonatomic, weak) GLBDataViewContainer* parent;
-@property(nonatomic, strong) NSString* identifier;
-@property(nonatomic) BOOL needResize;
-@property(nonatomic, getter=isMoving) BOOL moving;
 @property(nonatomic, strong) GLBDataViewCell* cell;
 
 @end

@@ -20,12 +20,14 @@
 @property(nonatomic, readonly, weak) __kindof GLBDataViewContainer* parent;
 @property(nonatomic, readonly, strong) NSString* identifier;
 @property(nonatomic, readonly, assign) NSUInteger order;
+@property(nonatomic, readonly, assign) NSUInteger accessibilityOrder;
 @property(nonatomic, strong) id data;
 @property(nonatomic, readonly, assign) CGSize size;
 @property(nonatomic) CGRect originFrame;
 @property(nonatomic) CGRect updateFrame;
 @property(nonatomic) CGRect displayFrame;
 @property(nonatomic, readonly, assign) CGRect frame;
+@property(nonatomic, readonly) BOOL needResize;
 @property(nonatomic, getter=isHidden) BOOL hidden;
 @property(nonatomic, readonly, assign, getter=isHiddenInHierarchy) BOOL hiddenInHierarchy;
 @property(nonatomic) BOOL allowsAlign;
@@ -43,10 +45,14 @@
 @property(nonatomic, readonly, strong) __kindof GLBDataViewCell* cell;
 @property(nonatomic, readonly, strong) GLBDataViewItemAccessibilityElement* accessibilityElement;
 
-+ (instancetype)itemWithIdentifier:(NSString*)identifier order:(NSUInteger)order data:(id)data;
 + (NSArray< __kindof GLBDataViewItem* >*)itemsWithIdentifier:(NSString*)identifier order:(NSUInteger)order dataArray:(NSArray*)dataArray;
++ (NSArray< __kindof GLBDataViewItem* >*)itemsWithIdentifier:(NSString*)identifier order:(NSUInteger)order accessibilityOrder:(NSUInteger)accessibilityOrder dataArray:(NSArray*)dataArray;
+
++ (instancetype)itemWithIdentifier:(NSString*)identifier order:(NSUInteger)order data:(id)data;
++ (instancetype)itemWithIdentifier:(NSString*)identifier order:(NSUInteger)order accessibilityOrder:(NSUInteger)accessibilityOrder data:(id)data;
 
 - (instancetype)initWithIdentifier:(NSString*)identifier order:(NSUInteger)order data:(id)data;
+- (instancetype)initWithIdentifier:(NSString*)identifier order:(NSUInteger)order accessibilityOrder:(NSUInteger)accessibilityOrder data:(id)data;
 
 - (void)setup NS_REQUIRES_SUPER;
 

@@ -38,6 +38,9 @@
 - (void)_willEntriesLayoutForBounds:(CGRect)bounds;
 - (void)_didEntriesLayoutForBounds:(CGRect)bounds;
 
+
+- (NSArray*)_updateAccessibilityEntries;
+
 @end
 
 /*--------------------------------------------------*/

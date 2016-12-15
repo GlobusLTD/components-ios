@@ -20,6 +20,7 @@
 @synthesize updateFrame = _updateFrame;
 @synthesize displayFrame = _displayFrame;
 @synthesize order = _order;
+@synthesize accessibilityOrder = _accessibilityOrder;
 @synthesize hidden = _hidden;
 @synthesize allowsAlign = _allowsAlign;
 @synthesize allowsPressed = _allowsPressed;
@@ -38,11 +39,11 @@
 
 #pragma mark - Init / Free
 
-+ (instancetype)itemWithIdentifier:(NSString*)identifier order:(NSUInteger)order data:(id)data {
-    return [[self alloc] initWithIdentifier:identifier order:order data:data];
++ (NSArray*)itemsWithIdentifier:(NSString*)identifier order:(NSUInteger)order dataArray:(NSArray*)dataArray {
+    return [self itemsWithIdentifier:identifier order:order accessibilityOrder:order dataArray:dataArray];
 }
 
-+ (NSArray*)itemsWithIdentifier:(NSString*)identifier order:(NSUInteger)order dataArray:(NSArray*)dataArray {
++ (NSArray*)itemsWithIdentifier:(NSString*)identifier order:(NSUInteger)order accessibilityOrder:(NSUInteger)accessibilityOrder dataArray:(NSArray*)dataArray {
     NSMutableArray* items = [NSMutableArray arrayWithCapacity:dataArray.count];
     for(id data in dataArray) {
         [items addObject:[self itemWithIdentifier:identifier order:order data:data]];
@@ -50,11 +51,24 @@
     return items;
 }
 
++ (instancetype)itemWithIdentifier:(NSString*)identifier order:(NSUInteger)order data:(id)data {
+    return [[self alloc] initWithIdentifier:identifier order:order accessibilityOrder:order data:data];
+}
+
++ (instancetype)itemWithIdentifier:(NSString*)identifier order:(NSUInteger)order accessibilityOrder:(NSUInteger)accessibilityOrder data:(id)data {
+    return [[self alloc] initWithIdentifier:identifier order:order accessibilityOrder:accessibilityOrder data:data];
+}
+
 - (instancetype)initWithIdentifier:(NSString*)identifier order:(NSUInteger)order data:(id)data {
+    return [self initWithIdentifier:identifier order:order accessibilityOrder:order data:data];
+}
+
+- (instancetype)initWithIdentifier:(NSString*)identifier order:(NSUInteger)order accessibilityOrder:(NSUInteger)accessibilityOrder data:(id)data {
     self = [super init];
     if(self != nil) {
         _identifier = identifier;
         _order = order;
+        _accessibilityOrder = accessibilityOrder;
         _data = data;
         _size = CGSizeZero;
         _needResize = YES;
@@ -74,6 +88,7 @@
 }
 
 - (void)setup {
+    self.isAccessibilityElement = YES;
 }
 
 - (void)dealloc {
@@ -89,9 +104,16 @@
     NSMutableArray* lines = [NSMutableArray array];
     [lines addObject:[NSString stringWithFormat:@"- %@ <%x>", _identifier, (unsigned int)self]];
     [lines addObject:[NSString stringWithFormat:@"-- Order: %d", (int)_order]];
+    if(_order != _accessibilityOrder) {
+        [lines addObject:[NSString stringWithFormat:@"-- AccessibilityOrder: %d", (int)_accessibilityOrder]];
+    }
     [lines addObject:[NSString stringWithFormat:@"-- OriginFrame: %@", NSStringFromCGRect(_originFrame)]];
-    [lines addObject:[NSString stringWithFormat:@"-- UpdateFrame: %@", NSStringFromCGRect(_updateFrame)]];
-    [lines addObject:[NSString stringWithFormat:@"-- DisplayFrame: %@", NSStringFromCGRect(_displayFrame)]];
+    if(CGRectEqualToRect(_originFrame, _updateFrame) == NO) {
+        [lines addObject:[NSString stringWithFormat:@"-- UpdateFrame: %@", NSStringFromCGRect(_updateFrame)]];
+    }
+    if(CGRectIsNull(_displayFrame) == NO) {
+        [lines addObject:[NSString stringWithFormat:@"-- DisplayFrame: %@", NSStringFromCGRect(_displayFrame)]];
+    }
     if(_hidden == YES) {
         [lines addObject:[NSString stringWithFormat:@"-- Hidden"]];
     }

@@ -344,6 +344,31 @@
     }
 }
 
+- (NSArray*)_updateAccessibilityEntries {
+    NSArray< GLBDataViewItem* >* visibleEntries = [_entries filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(GLBDataViewItem* entry, NSDictionary* bindings) {
+        return (entry.isHidden == NO);
+    }]];
+    return [visibleEntries sortedArrayUsingComparator:^NSComparisonResult(GLBDataViewItem* entry1, GLBDataViewItem* entry2) {
+        if(entry1.accessibilityOrder < entry2.accessibilityOrder) {
+            return NSOrderedAscending;
+        } else if(entry1.accessibilityOrder > entry2.accessibilityOrder) {
+            return NSOrderedDescending;
+        }
+        CGRect entryFrame1 = entry1.frame;
+        CGRect entryFrame2 = entry2.frame;
+        if(entryFrame1.origin.y < entryFrame2.origin.y) {
+            return NSOrderedAscending;
+        } else if(entryFrame1.origin.x < entryFrame2.origin.x) {
+            return NSOrderedAscending;
+        } else if(entryFrame1.origin.y > entryFrame2.origin.y) {
+            return NSOrderedDescending;
+        } else if(entryFrame1.origin.x > entryFrame2.origin.x) {
+            return NSOrderedDescending;
+        }
+        return NSOrderedSame;
+    }];
+}
+
 #pragma mark - GLBSearchBarDelegate
 
 - (void)searchBarBeginSearch:(GLBSearchBar*)searchBar {
@@ -398,23 +423,7 @@
 
 - (NSArray*)accessibilityElements {
     if(_accessibilityEntries == nil) {
-        NSArray< GLBDataViewItem* >* visibleEntries = [_entries filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(GLBDataViewItem* entry, NSDictionary* bindings) {
-            return (entry.isHidden == NO);
-        }]];
-        _accessibilityEntries = [visibleEntries sortedArrayUsingComparator:^NSComparisonResult(GLBDataViewItem* entry1, GLBDataViewItem* entry2) {
-            CGRect entryFrame1 = entry1.frame;
-            CGRect entryFrame2 = entry2.frame;
-            if(entryFrame1.origin.y < entryFrame2.origin.y) {
-                return NSOrderedAscending;
-            } else if(entryFrame1.origin.x < entryFrame2.origin.x) {
-                return NSOrderedAscending;
-            } else if(entryFrame1.origin.y > entryFrame2.origin.y) {
-                return NSOrderedDescending;
-            } else if(entryFrame1.origin.x > entryFrame2.origin.x) {
-                return NSOrderedDescending;
-            }
-            return NSOrderedSame;
-        }];
+        _accessibilityEntries = [self _updateAccessibilityEntries];
     }
     NSMutableArray* result = [NSMutableArray array];
     for(GLBDataViewItem* entry in _accessibilityEntries) {
