@@ -9,6 +9,18 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+@interface GLBDataViewItemAccessibilityElement ()
+
+@property(nonatomic, weak) __kindof GLBDataView* dataView;
+
++ (instancetype)accessibilityElementWithDataView:(GLBDataView*)dataView item:(GLBDataViewItem*)item;
+
+- (instancetype)initWithDataView:(GLBDataView*)dataView item:(GLBDataViewItem*)item;
+
+@end
+
+/*--------------------------------------------------*/
+
 @interface GLBDataViewItem () {
 @protected
     __weak GLBDataView* _view;
@@ -35,6 +47,8 @@
     BOOL _highlighted;
     BOOL _editing;
     GLBDataViewCell* _cell;
+    
+    GLBDataViewItemAccessibilityElement* _accessibilityElement;
 }
 
 @property(nonatomic, weak) GLBDataView* view;

@@ -275,6 +275,12 @@
 - (void)searchBarPressedCancel:(GLBSearchBar*)searchBar {
 }
 
+#pragma mark - UIAccessibility
+
+- (BOOL)isAccessibilityElement {
+    return NO;
+}
+
 @end
 
 /*--------------------------------------------------*/

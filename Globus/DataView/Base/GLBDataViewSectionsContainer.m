@@ -347,6 +347,19 @@
     }
 }
 
+#pragma mark - UIAccessibilityContainer
+
+- (NSArray*)accessibilityElements {
+    NSMutableArray* result = [NSMutableArray array];
+    for(GLBDataViewContainer* section in _sections) {
+        NSArray* accessibilityElements = section.accessibilityElements;
+        if(accessibilityElements != nil) {
+            [result addObjectsFromArray:accessibilityElements];
+        }
+    }
+    return result;
+}
+
 @end
 
 /*--------------------------------------------------*/

@@ -34,12 +34,9 @@
 @synthesize editing = _editing;
 @synthesize moving = _moving;
 @synthesize cell = _cell;
+@synthesize accessibilityElement = _accessibilityElement;
 
 #pragma mark - Init / Free
-
-+ (instancetype)itemWithDataItem:(GLBDataViewItem*)dataItem {
-    return [[self alloc] initWithDataItem:dataItem];
-}
 
 + (instancetype)itemWithIdentifier:(NSString*)identifier order:(NSUInteger)order data:(id)data {
     return [[self alloc] initWithIdentifier:identifier order:order data:data];
@@ -51,33 +48,6 @@
         [items addObject:[self itemWithIdentifier:identifier order:order data:data]];
     }
     return items;
-}
-
-- (instancetype)initWithDataItem:(GLBDataViewItem*)dataItem {
-    self = [super init];
-    if(self != nil) {
-        _identifier = dataItem.identifier;
-        _order = dataItem.order;
-        _data = dataItem.data;
-        _size = dataItem.size;
-        _needResize = dataItem.needResize;
-        _originFrame = dataItem.originFrame;
-        _updateFrame = dataItem.updateFrame;
-        _displayFrame = dataItem.displayFrame;
-        _hidden = dataItem.hidden;
-        _allowsAlign = dataItem.allowsAlign;
-        _allowsPressed = dataItem.allowsPressed;
-        _allowsLongPressed = dataItem.allowsLongPressed;
-        _allowsSelection = dataItem.allowsSelection;
-        _allowsHighlighting = dataItem.allowsHighlighting;
-        _allowsEditing = dataItem.allowsEditing;
-        _allowsMoving = dataItem.allowsMoving;
-        _persistent = dataItem.persistent;
-        _needResize = YES;
-        
-        [self setup];
-    }
-    return self;
 }
 
 - (instancetype)initWithIdentifier:(NSString*)identifier order:(NSUInteger)order data:(id)data {
@@ -109,16 +79,6 @@
 - (void)dealloc {
 }
 
-#pragma mark - NSCopying
-
-- (id)copy {
-    return [self copyWithZone:NSDefaultMallocZone()];
-}
-
-- (id)copyWithZone:(NSZone*)zone {
-    return [[self.class allocWithZone:zone] initWithDataItem:self];
-}
-
 #pragma mark - Debug
 
 - (NSString*)description {
@@ -142,6 +102,21 @@
 }
 
 #pragma mark - Property
+
+- (void)setView:(GLBDataView*)view {
+    if(_view != view) {
+        _view = view;
+        if(_view != nil) {
+            if(_accessibilityElement == nil) {
+                _accessibilityElement = [GLBDataViewItemAccessibilityElement accessibilityElementWithDataView:_view item:self];
+            } else {
+                _accessibilityElement.dataView = _view;
+            }
+        } else {
+            _accessibilityElement = nil;
+        }
+    }
+}
 
 - (void)setParent:(GLBDataViewContainer*)parent {
     if(_parent != parent) {
@@ -186,8 +161,10 @@
         if(CGRectIsNull(_originFrame) == YES) {
             _originFrame = _updateFrame;
         }
-        if((_cell != nil) && ((CGRectIsNull(_updateFrame) == NO) && (CGRectIsNull(_displayFrame) == YES))) {
-            _cell.frame = _updateFrame;
+        if((CGRectIsNull(_updateFrame) == NO) && (CGRectIsNull(_displayFrame) == YES)) {
+            if(_cell != nil) {
+                _cell.frame = _updateFrame;
+            }
         }
     }
 }
@@ -200,8 +177,10 @@
 - (void)setDisplayFrame:(CGRect)displayFrame {
     if(CGRectEqualToRect(_displayFrame, displayFrame) == NO) {
         _displayFrame = displayFrame;
-        if((_cell != nil) && (CGRectIsNull(_displayFrame) == NO)) {
-            _cell.frame = _displayFrame;
+        if(CGRectIsNull(_displayFrame) == NO) {
+            if(_cell != nil) {
+                _cell.frame = _displayFrame;
+            }
         }
     }
 }
@@ -449,6 +428,16 @@
     }
 }
 
+#pragma mark - Private
+
+- (NSArray*)_cellAccessibilityElements {
+    if(_cell.isAccessibilityElement == YES) {
+        return @[ _cell ];
+    } else {
+        return _cell.accessibilityElements;
+    }
+}
+
 #pragma mark - GLBSearchBarDelegate
 
 - (void)searchBarBeginSearch:(GLBSearchBar*)searchBar {
@@ -481,6 +470,122 @@
 
 - (void)searchBarPressedCancel:(GLBSearchBar*)searchBar {
     [_cell searchBarPressedCancel:searchBar];
+}
+
+#pragma mark - UIAccessibilityContainer
+
+- (NSInteger)accessibilityElementCount {
+    return self.accessibilityElements.count;
+}
+
+- (id)accessibilityElementAtIndex:(NSInteger)index {
+    return [self.accessibilityElements objectAtIndex:index];
+}
+
+- (NSInteger)indexOfAccessibilityElement:(id)element {
+    return [self.accessibilityElements indexOfObject:element];
+}
+
+- (NSArray*)accessibilityElements {
+    if(_accessibilityElement != nil) {
+        if(_accessibilityElement.isAccessibilityElement == YES) {
+            if(_cell != nil) {
+                return [self _cellAccessibilityElements];
+            } else {
+                return @[ _accessibilityElement ];
+            }
+        }
+    }
+    return nil;
+}
+
+@end
+
+/*--------------------------------------------------*/
+#pragma mark -
+/*--------------------------------------------------*/
+
+@implementation GLBDataViewItemAccessibilityElement
+
++ (instancetype)accessibilityElementWithDataView:(GLBDataView*)dataView item:(GLBDataViewItem*)item {
+    return [[self alloc] initWithDataView:dataView item:item];
+}
+
+- (instancetype)initWithDataView:(GLBDataView*)dataView item:(GLBDataViewItem*)item {
+    self = [super initWithAccessibilityContainer:dataView];
+    if(self != nil) {
+        _dataView = dataView;
+        _item = item;
+    }
+    return self;
+}
+
+#pragma mark - Property
+
+- (void)setDataView:(GLBDataView*)dataView {
+    _dataView = dataView;
+    self.accessibilityContainer = dataView;
+}
+
+#pragma mark - UIAccessibilityElement
+
+- (void)setIsAccessibilityElement:(BOOL)isAccessibilityElement {
+    _item.isAccessibilityElement = isAccessibilityElement;
+}
+
+- (BOOL)isAccessibilityElement {
+    return _item.isAccessibilityElement;
+}
+
+- (void)setAccessibilitLabel:(NSString*)accessibilityLabel {
+    _item.accessibilityLabel = accessibilityLabel;
+}
+
+- (NSString*)accessibilityLabel {
+    return _item.accessibilityLabel;
+}
+
+- (void)setAccessibilityHint:(NSString*)accessibilityHint {
+    _item.accessibilityHint = accessibilityHint;
+}
+
+- (NSString*)accessibilityHint {
+    return _item.accessibilityHint;
+}
+
+- (void)setAccessibilityValue:(NSString*)accessibilityValue {
+    _item.accessibilityValue = accessibilityValue;
+}
+
+- (NSString*)accessibilityValue {
+    return _item.accessibilityValue;
+}
+
+- (CGRect)accessibilityFrame {
+    return [_dataView convertRect:_item.frame toView:nil];
+}
+
+- (void)setAccessibilityTraits:(UIAccessibilityTraits)accessibilityTraits {
+    _item.accessibilityTraits = accessibilityTraits;
+}
+
+- (UIAccessibilityTraits)accessibilityTraits {
+    return _item.accessibilityTraits;
+}
+
+#pragma mark - Property
+
+- (void)accessibilityElementDidBecomeFocused {
+    id notificationArg = nil;
+    if(_item.cell != nil) {
+        NSArray* cellAccessibilityElements = [_item _cellAccessibilityElements];
+        if(cellAccessibilityElements != nil) {
+            notificationArg = cellAccessibilityElements.firstObject;
+        }
+    } else {
+        notificationArg = self;
+    }
+    UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, notificationArg);
 }
 
 @end

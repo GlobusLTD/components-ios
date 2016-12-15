@@ -114,6 +114,7 @@
 
 - (void)_prependEntry:(GLBDataViewItem*)entry {
     [_entries insertObject:entry atIndex:0];
+    _accessibilityEntries = nil;
     entry.parent = self;
     if(_view != nil) {
         [_view _didInsertItems:@[ entry ]];
@@ -122,6 +123,7 @@
 
 - (void)_prependEntries:(NSArray*)entries {
     [_entries insertObjects:entries atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, entries.count)]];
+    _accessibilityEntries = nil;
     for(GLBDataViewItem* entry in entries) {
         entry.parent = self;
     }
@@ -132,6 +134,7 @@
 
 - (void)_appendEntry:(GLBDataViewItem*)entry {
     [_entries addObject:entry];
+    _accessibilityEntries = nil;
     entry.parent = self;
     if(_view != nil) {
         [_view _didInsertItems:@[ entry ]];
@@ -140,6 +143,7 @@
 
 - (void)_appendEntries:(NSArray*)entries {
     [_entries addObjectsFromArray:entries];
+    _accessibilityEntries = nil;
     for(GLBDataViewItem* entry in entries) {
         entry.parent = self;
     }
@@ -151,6 +155,7 @@
 - (void)_insertEntry:(GLBDataViewItem*)entry atIndex:(NSUInteger)index {
     if(index != NSNotFound) {
         [_entries insertObject:entry atIndex:index];
+        _accessibilityEntries = nil;
         entry.parent = self;
         if(_view != nil) {
             [_view _didInsertItems:@[ entry ]];
@@ -161,6 +166,7 @@
 - (void)_insertEntries:(NSArray*)entries atIndex:(NSUInteger)index {
     if(index != NSNotFound) {
         [_entries insertObjects:entries atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, entries.count)]];
+        _accessibilityEntries = nil;
         for(GLBDataViewItem* entry in entries) {
             entry.parent = self;
         }
@@ -207,6 +213,7 @@
     if(index != NSNotFound) {
         entry.parent = self;
         _entries[index] = entry;
+        _accessibilityEntries = nil;
         if(_view != nil) {
             [_view _didReplaceOriginItems:@[ originEntry ] withItems:@[ entry ]];
         }
@@ -222,6 +229,7 @@
             entry.parent = self;
         }
         [_entries replaceObjectsAtIndexes:indexSet withObjects:entries];
+        _accessibilityEntries = nil;
         if(_view != nil) {
             [_view _didReplaceOriginItems:originEntries withItems:entries];
         }
@@ -230,6 +238,7 @@
 
 - (void)_deleteEntry:(GLBDataViewItem*)entry {
     [_entries removeObject:entry];
+    _accessibilityEntries = nil;
     if(_view != nil) {
         [_view _didDeleteItems:@[ entry ]];
     }
@@ -237,6 +246,7 @@
 
 - (void)_deleteEntries:(NSArray*)entries {
     [_entries removeObjectsInArray:entries];
+    _accessibilityEntries = nil;
     if(_view != nil) {
         [_view _didDeleteItems:entries];
     }
@@ -382,6 +392,38 @@
     for(GLBDataViewItem* entry in _entries) {
         [entry searchBarPressedCancel:searchBar];
     }
+}
+
+#pragma mark - UIAccessibilityContainer
+
+- (NSArray*)accessibilityElements {
+    if(_accessibilityEntries == nil) {
+        NSArray< GLBDataViewItem* >* visibleEntries = [_entries filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(GLBDataViewItem* entry, NSDictionary* bindings) {
+            return (entry.isHidden == NO);
+        }]];
+        _accessibilityEntries = [visibleEntries sortedArrayUsingComparator:^NSComparisonResult(GLBDataViewItem* entry1, GLBDataViewItem* entry2) {
+            CGRect entryFrame1 = entry1.frame;
+            CGRect entryFrame2 = entry2.frame;
+            if(entryFrame1.origin.y < entryFrame2.origin.y) {
+                return NSOrderedAscending;
+            } else if(entryFrame1.origin.x < entryFrame2.origin.x) {
+                return NSOrderedAscending;
+            } else if(entryFrame1.origin.y > entryFrame2.origin.y) {
+                return NSOrderedDescending;
+            } else if(entryFrame1.origin.x > entryFrame2.origin.x) {
+                return NSOrderedDescending;
+            }
+            return NSOrderedSame;
+        }];
+    }
+    NSMutableArray* result = [NSMutableArray array];
+    for(GLBDataViewItem* entry in _accessibilityEntries) {
+        NSArray* accessibilityElements = entry.accessibilityElements;
+        if(accessibilityElements != nil) {
+            [result addObjectsFromArray:accessibilityElements];
+        }
+    }
+    return result;
 }
 
 @end

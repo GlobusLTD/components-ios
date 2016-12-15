@@ -10,10 +10,11 @@
 @class GLBDataView;
 @class GLBDataViewContainer;
 @class GLBDataViewCell;
+@class GLBDataViewItemAccessibilityElement;
 
 /*--------------------------------------------------*/
 
-@interface GLBDataViewItem : NSObject< NSCopying, GLBSearchBarDelegate >
+@interface GLBDataViewItem : NSObject< GLBSearchBarDelegate >
 
 @property(nonatomic, readonly, weak) __kindof GLBDataView* view;
 @property(nonatomic, readonly, weak) __kindof GLBDataViewContainer* parent;
@@ -40,12 +41,11 @@
 @property(nonatomic, readonly, assign, getter=isEditing) BOOL editing;
 @property(nonatomic, readonly, assign, getter=isMoving) BOOL moving;
 @property(nonatomic, readonly, strong) __kindof GLBDataViewCell* cell;
+@property(nonatomic, readonly, strong) GLBDataViewItemAccessibilityElement* accessibilityElement;
 
-+ (instancetype)itemWithDataItem:(GLBDataViewItem*)dataItem;
 + (instancetype)itemWithIdentifier:(NSString*)identifier order:(NSUInteger)order data:(id)data;
 + (NSArray< __kindof GLBDataViewItem* >*)itemsWithIdentifier:(NSString*)identifier order:(NSUInteger)order dataArray:(NSArray*)dataArray;
 
-- (instancetype)initWithDataItem:(GLBDataViewItem*)dataItem;
 - (instancetype)initWithIdentifier:(NSString*)identifier order:(NSUInteger)order data:(id)data;
 
 - (void)setup NS_REQUIRES_SUPER;
@@ -85,6 +85,19 @@
 - (void)beginTransition;
 - (void)transitionResize;
 - (void)endTransition;
+
+@end
+
+/*--------------------------------------------------*/
+
+@interface GLBDataViewItemAccessibilityElement : UIAccessibilityElement
+
+@property(nonatomic, readonly, weak) __kindof GLBDataView* dataView;
+@property(nonatomic, readonly, weak) __kindof GLBDataViewItem* item;
+
++ (instancetype)accessibilityElementWithDataView:(GLBDataView*)dataView item:(GLBDataViewItem*)item;
+
+- (instancetype)initWithDataView:(GLBDataView*)dataView item:(GLBDataViewItem*)item;
 
 @end
 

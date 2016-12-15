@@ -538,6 +538,12 @@
     return nil;
 }
 
+#pragma mark - UIAccessibilityContainer
+
+- (NSArray*)accessibilityElements {
+    return self.subviews;
+}
+
 @end
 
 /*--------------------------------------------------*/

@@ -256,6 +256,9 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
         if(_transiting == YES) {
             [_container _transitionResize];
         }
+        if(UIAccessibilityIsVoiceOverRunning() == YES) {
+            UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, nil);
+        }
     }
 }
 
@@ -268,6 +271,9 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
         }
         if(_transiting == YES) {
             [_container _transitionResize];
+        }
+        if(UIAccessibilityIsVoiceOverRunning() == YES) {
+            UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, nil);
         }
     }
 }
@@ -348,6 +354,10 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             [self setNeedValidateLayout];
         }
         [self validateLayoutIfNeed];
+        
+        if(UIAccessibilityIsVoiceOverRunning() == YES) {
+            UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, nil);
+        }
     }
 }
 
@@ -1272,6 +1282,10 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     [_container _endUpdateAnimated:_animating];
     _animating = NO;
     _updating = NO;
+    
+    if(UIAccessibilityIsVoiceOverRunning() == YES) {
+        UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, nil);
+    }
 
     if(_queueBatch.count > 0) {
         GLBDataBatch* batch = _queueBatch.firstObject;
@@ -2833,6 +2847,12 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 - (void)searchBarPressedCancel:(GLBSearchBar*)searchBar {
     [self performActionForKey:GLBDataViewSearchPressedCancel withArguments:@[ searchBar ]];
     [_container searchBarPressedCancel:searchBar];
+}
+
+#pragma mark - UIAccessibilityContainer
+
+- (NSArray*)accessibilityElements {
+    return [_container accessibilityElements];
 }
 
 #pragma mark - UIGestureRecognizerDelegate

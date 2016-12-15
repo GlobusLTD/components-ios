@@ -11,6 +11,7 @@
 @interface GLBDataViewItemsContainer () {
 @protected
     NSMutableArray< __kindof GLBDataViewItem* >* _entries;
+    NSArray* _accessibilityEntries;
 }
 
 - (void)_prependEntry:(GLBDataViewItem*)entry;
