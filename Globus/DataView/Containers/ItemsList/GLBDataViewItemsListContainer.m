@@ -429,14 +429,14 @@
                 case GLBDataViewItemsListContainerModeBegin:
                     break;
                 case GLBDataViewItemsListContainerModeCenter:
-                    offset.y += (restriction.height * 0.5f) - (cumulative.height * 0.5f);
                     if(restriction.height > cumulative.height) {
+                        offset.y += (restriction.height * 0.5f) - (cumulative.height * 0.5f);
                         cumulative.height = restriction.height;
                     }
                     break;
                 case GLBDataViewItemsListContainerModeEnd:
-                    offset.y += cumulative.height - restriction.height;
                     if(restriction.height > cumulative.height) {
+                        offset.y += cumulative.height - restriction.height;
                         cumulative.height = restriction.height;
                     }
                     break;
@@ -472,14 +472,14 @@
                 case GLBDataViewItemsListContainerModeBegin:
                     break;
                 case GLBDataViewItemsListContainerModeCenter:
-                    offset.x += (restriction.width * 0.5f) - (cumulative.width * 0.5f);
                     if(restriction.width > cumulative.width) {
+                        offset.x += (restriction.width * 0.5f) - (cumulative.width * 0.5f);
                         cumulative.width = restriction.width;
                     }
                     break;
                 case GLBDataViewItemsListContainerModeEnd:
-                    offset.x += cumulative.width - restriction.width;
                     if(restriction.width > cumulative.width) {
+                        offset.x += cumulative.width - restriction.width;
                         cumulative.width = restriction.width;
                     }
                     break;
