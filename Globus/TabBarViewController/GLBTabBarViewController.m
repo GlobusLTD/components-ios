@@ -175,14 +175,23 @@
 #pragma clang diagnostic pop
 
 - (BOOL)prefersStatusBarHidden {
+    if(self.presentedViewController != nil) {
+        return self.presentedViewController.prefersStatusBarHidden;
+    }
     return self.selectedViewController.prefersStatusBarHidden;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
+    if(self.presentedViewController != nil) {
+        return self.presentedViewController.preferredStatusBarStyle;
+    }
     return self.selectedViewController.preferredStatusBarStyle;
 }
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    if(self.presentedViewController != nil) {
+        return self.presentedViewController.preferredStatusBarUpdateAnimation;
+    }
     return self.selectedViewController.preferredStatusBarUpdateAnimation;
 }
 

@@ -230,14 +230,23 @@
 #pragma mark - UIViewController
 
 - (BOOL)prefersStatusBarHidden {
+    if(self.presentedViewController != nil) {
+        return self.presentedViewController.prefersStatusBarHidden;
+    }
     return _statusBarHidden;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
+    if(self.presentedViewController != nil) {
+        return self.presentedViewController.preferredStatusBarStyle;
+    }
     return _statusBarStyle;
 }
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    if(self.presentedViewController != nil) {
+        return self.presentedViewController.preferredStatusBarUpdateAnimation;
+    }
     return _statusBarAnimation;
 }
 

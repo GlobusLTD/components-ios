@@ -118,16 +118,25 @@
 #pragma clang diagnostic pop
 
 - (BOOL)prefersStatusBarHidden {
+    if(self.presentedViewController != nil) {
+        return self.presentedViewController.prefersStatusBarHidden;
+    }
     UIViewController* controller = (self.collapsed == YES) ? _detailViewController : _masterViewController;
     return controller.prefersStatusBarHidden;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
+    if(self.presentedViewController != nil) {
+        return self.presentedViewController.preferredStatusBarStyle;
+    }
     UIViewController* controller = (self.collapsed == YES) ? _detailViewController : _masterViewController;
     return controller.preferredStatusBarStyle;
 }
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    if(self.presentedViewController != nil) {
+        return self.presentedViewController.preferredStatusBarUpdateAnimation;
+    }
     UIViewController* controller = (self.collapsed == YES) ? _detailViewController : _masterViewController;
     return controller.preferredStatusBarUpdateAnimation;
 }

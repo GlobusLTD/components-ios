@@ -350,6 +350,9 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0;
 #pragma mark - UIViewController
 
 - (BOOL)prefersStatusBarHidden {
+    if(self.presentedViewController != nil) {
+        return self.presentedViewController.prefersStatusBarHidden;
+    }
     if(_ownerViewController != nil) {
         return [_ownerViewController prefersStatusBarHidden];
     }
@@ -357,6 +360,9 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
+    if(self.presentedViewController != nil) {
+        return self.presentedViewController.preferredStatusBarStyle;
+    }
     if(_ownerViewController != nil) {
         return [_ownerViewController preferredStatusBarStyle];
     }
@@ -364,6 +370,9 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0;
 }
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    if(self.presentedViewController != nil) {
+        return self.presentedViewController.preferredStatusBarUpdateAnimation;
+    }
     if(_ownerViewController != nil) {
         return [_ownerViewController preferredStatusBarUpdateAnimation];
     }

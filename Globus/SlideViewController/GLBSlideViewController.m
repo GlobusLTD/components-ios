@@ -141,6 +141,9 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 #pragma clang diagnostic pop
 
 - (BOOL)prefersStatusBarHidden {
+    if(self.presentedViewController != nil) {
+        return self.presentedViewController.prefersStatusBarHidden;
+    }
     if((_canUseScreenshot == YES) && (_screenshotView != nil)) {
         return YES;
     }
@@ -148,10 +151,16 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
+    if(self.presentedViewController != nil) {
+        return self.presentedViewController.preferredStatusBarStyle;
+    }
     return _centerViewController.preferredStatusBarStyle;
 }
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    if(self.presentedViewController != nil) {
+        return self.presentedViewController.preferredStatusBarUpdateAnimation;
+    }
     if((_canUseScreenshot == YES) && (_screenshotView != nil)) {
         return UIStatusBarAnimationNone;
     }
