@@ -221,6 +221,8 @@
     NSString* nonPrefix = string;
     if([string hasPrefix:_prefix] == YES) {
         nonPrefix = [string substringFromIndex:_prefix.length];
+    } else if([_prefix hasPrefix:string] == YES) {
+        nonPrefix = @"";
     }
     if(nonPrefix.length > 0) {
         NSString* formattedDigits = [self _stringWithoutFormat:nonPrefix];
