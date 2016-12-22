@@ -138,7 +138,7 @@
                     if(uploadData != nil) {
                         NSString* tempName = (_encodeBodyParams == YES) ? uploadItem.name.glb_stringByEncodingURLFormat : uploadItem.name;
                         NSString* tempFilename = (_encodeBodyParams == YES) ? uploadItem.filename.glb_stringByEncodingURLFormat : uploadItem.filename;
-                        NSString* tempMimetype = (_encodeBodyParams == YES) ? uploadItem.mimetype.glb_stringByEncodingURLFormat : uploadItem.mimetype;
+                        NSString* tempMimetype = uploadItem.mimetype;
                         [bodyData appendData:[[NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\nContent-Type: %@\r\n\r\n", bodyBoundary, tempName, tempFilename, tempMimetype] dataUsingEncoding:NSUTF8StringEncoding]];
                         [bodyData appendData:uploadData];
                         [bodyData appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];

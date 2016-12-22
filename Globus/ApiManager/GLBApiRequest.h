@@ -31,7 +31,7 @@
 @property(nonatomic, nullable, copy) NSDictionary* bodyParams;
 @property(nonatomic, nullable, copy) NSString* bodyBoundary;
 @property(nonatomic) BOOL encodeBodyParams;
-@property(nonatomic, nullable, copy) NSArray* uploadItems;
+@property(nonatomic, nullable, copy) NSArray< GLBApiRequestUploadItem* >* uploadItems;
 @property(nonatomic) NSTimeInterval timeout;
 @property(nonatomic) NSTimeInterval retries;
 @property(nonatomic) NSTimeInterval delay;

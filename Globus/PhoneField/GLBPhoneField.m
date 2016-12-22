@@ -212,10 +212,27 @@
     return count;
 }
 
+- (NSString *)_nonFormattedString:(NSString*)string {
+    BOOL hasPrefix = [string hasPrefix:_prefix];
+    NSString *nonFormattedString = hasPrefix ? [self _digitOnlyString:string] : [self _plusWithDigitsString:string];
+    return nonFormattedString;
+}
+
 - (NSString*)_digitOnlyString:(NSString*)string {
     NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"\\D" options:NSRegularExpressionCaseInsensitive error:nil];
     return [regex stringByReplacingMatchesInString:string options:0 range:NSMakeRange(0, string.length) withTemplate:@""];
 }
+
+- (NSString *)_plusWithDigitsString:(NSString *)string {
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: @"(\\+)?([0-9])*" options:NSRegularExpressionCaseInsensitive error:nil];
+    NSRange rangeOfFirstMatch = [regex rangeOfFirstMatchInString:string options:0 range:NSMakeRange(0, [string length])];
+    NSString *substringForFirstMatch = @"";
+    if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))) {
+        substringForFirstMatch = [string substringWithRange:rangeOfFirstMatch];
+    }
+    return substringForFirstMatch;
+}
+
 
 - (NSDictionary*)_valuesForString:(NSString*)string {
     NSString* nonPrefix = string;
@@ -256,7 +273,7 @@
         NSValue* value = removeRanges[i];
         string = [string stringByReplacingCharactersInRange:value.rangeValue withString:@""];
     }
-    return [self _digitOnlyString:string];
+    return [self _nonFormattedString:string];
 }
 
 - (NSDictionary*)_configForSequence:(NSString*)string {
@@ -296,7 +313,7 @@
 #pragma mark - NSFormatter
 
 - (BOOL)getObjectValue:(id __autoreleasing *)object forString:(NSString*)string errorDescription:(NSString* __autoreleasing *)error {
-    *object = [self _digitOnlyString:string];
+    *object = [self _nonFormattedString:string];
     return YES;
 }
 
@@ -378,7 +395,7 @@
 }
 
 - (NSString*)phoneNumber {
-    return [_formatter _digitOnlyString:self.text];
+    return [_formatter _nonFormattedString:self.text];
 }
 
 - (void)resetFormats {

@@ -13,9 +13,9 @@ typedef void(^GLBStyleBlock)(id target);
 @property(nonatomic, readonly, strong) NSString* name;
 @property(nonatomic, readonly, strong) GLBStyle* parent;
 
-+ (instancetype)styleWithName:(NSString*)name;
-+ (instancetype)styleWithName:(NSString*)name block:(GLBStyleBlock)block;
-+ (instancetype)styleWithName:(NSString*)name parent:(GLBStyle*)parent block:(GLBStyleBlock)block;
++ (instancetype)styleWithName:(NSString*)name NS_SWIFT_NAME(style(name:));
++ (instancetype)styleWithName:(NSString*)name block:(GLBStyleBlock)block NS_SWIFT_NAME(style(name:block:));
++ (instancetype)styleWithName:(NSString*)name parent:(GLBStyle*)parent block:(GLBStyleBlock)block NS_SWIFT_NAME(style(name:parent:block:));
 
 - (instancetype)initWithName:(NSString*)name block:(GLBStyleBlock)block;
 - (instancetype)initWithName:(NSString*)name parent:(GLBStyle*)parent block:(GLBStyleBlock)block;

@@ -32,12 +32,12 @@ typedef void (^GLBModelBlock)();
 + (NSDictionary< NSString*, GLBModelPack* >* _Nullable)packMap;
 
 @required
-+ (_Nullable instancetype)modelWithJson:(id _Nonnull)json;
-+ (_Nullable instancetype)modelWithJson:(id _Nonnull)json sheme:(NSString* _Nullable)sheme;
-+ (_Nullable instancetype)modelWithJsonData:(NSData* _Nonnull)data;
-+ (_Nullable instancetype)modelWithJsonData:(NSData* _Nonnull)data sheme:(NSString* _Nullable)sheme;
-+ (_Nullable instancetype)modelWithPack:(NSDictionary< NSString*, id >* _Nonnull)data;
-+ (_Nullable instancetype)modelWithPackData:(NSData* _Nonnull)data;
++ (_Nullable instancetype)modelWithJson:(id _Nonnull)json NS_SWIFT_NAME(model(json:));
++ (_Nullable instancetype)modelWithJson:(id _Nonnull)json sheme:(NSString* _Nullable)sheme NS_SWIFT_NAME(model(json:sheme:));
++ (_Nullable instancetype)modelWithJsonData:(NSData* _Nonnull)data NS_SWIFT_NAME(model(jsonData:));
++ (_Nullable instancetype)modelWithJsonData:(NSData* _Nonnull)data sheme:(NSString* _Nullable)sheme NS_SWIFT_NAME(model(jsonData:sheme:));
++ (_Nullable instancetype)modelWithPack:(NSDictionary< NSString*, id >* _Nonnull)data NS_SWIFT_NAME(model(pack:));
++ (_Nullable instancetype)modelWithPackData:(NSData* _Nonnull)data NS_SWIFT_NAME(model(packData:));
 
 - (_Nullable instancetype)initWithJson:(_Nullable id)json;
 - (_Nullable instancetype)initWithJson:(_Nullable id)json sheme:(NSString* _Nullable)sheme;

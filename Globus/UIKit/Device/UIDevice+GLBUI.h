@@ -29,6 +29,11 @@ typedef NS_ENUM(NSInteger, GLBDeviceModel) {
     GLBDeviceModelPhone5S,
     GLBDeviceModelPhone6,
     GLBDeviceModelPhone6Plus,
+    GLBDeviceModelPhone6S,
+    GLBDeviceModelPhone6SPlus,
+    GLBDeviceModelPhoneSE,
+    GLBDeviceModelPhone7,
+    GLBDeviceModelPhone7Plus,
     GLBDeviceModelPad1,
     GLBDeviceModelPad2,
     GLBDeviceModelPad3,
@@ -36,6 +41,7 @@ typedef NS_ENUM(NSInteger, GLBDeviceModel) {
     GLBDeviceModelPadMini1,
     GLBDeviceModelPadMini2,
     GLBDeviceModelPadMini3,
+    GLBDeviceModelPadMini4,
     GLBDeviceModelPadAir1,
     GLBDeviceModelPadAir2,
     GLBDeviceModelPadPro129,
@@ -45,6 +51,7 @@ typedef NS_ENUM(NSInteger, GLBDeviceModel) {
     GLBDeviceModelPod3,
     GLBDeviceModelPod4,
     GLBDeviceModelPod5,
+    GLBDeviceModelPod6,
 };
 
 typedef NS_ENUM(NSInteger, GLBDeviceDisplay) {

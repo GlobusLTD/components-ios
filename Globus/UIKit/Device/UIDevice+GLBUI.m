@@ -33,7 +33,7 @@
 }
 
 + (BOOL)glb_isSimulator {
-#ifdef GLB_SIMULATOR
+#ifdef GLB_TARGET_IOS_SIMULATOR
     return YES;
 #else
     return NO;
@@ -78,7 +78,7 @@
 + (GLBDeviceFamily)glb_family {
     static GLBDeviceFamily family = GLBDeviceFamilyUnknown;
     if(family == GLBDeviceFamilyUnknown) {
-#ifdef GLB_SIMULATOR
+#ifdef GLB_TARGET_IOS_SIMULATOR
         family = GLBDeviceFamilySimulator;
 #else
         NSDictionary* modelManifest = @{
@@ -101,7 +101,7 @@
 + (GLBDeviceModel)glb_model {
     static GLBDeviceModel model = GLBDeviceModelUnknown;
     if(model == GLBDeviceModelUnknown) {
-#ifdef GLB_SIMULATOR
+#ifdef GLB_TARGET_IOS_SIMULATOR
         switch(UI_USER_INTERFACE_IDIOM()) {
             case UIUserInterfaceIdiomPhone:
                 switch(self.glb_display) {
@@ -133,6 +133,13 @@
                 @"6,2": @(GLBDeviceModelPhone5S),
                 @"7,1": @(GLBDeviceModelPhone6Plus),
                 @"7,2": @(GLBDeviceModelPhone6),
+                @"8,1": @(GLBDeviceModelPhone6S),
+                @"8,2": @(GLBDeviceModelPhone6SPlus),
+                @"8,4": @(GLBDeviceModelPhoneSE),
+                @"9,1": @(GLBDeviceModelPhone7),
+                @"9,2": @(GLBDeviceModelPhone7Plus),
+                @"9,3": @(GLBDeviceModelPhone7),
+                @"9,4": @(GLBDeviceModelPhone7Plus),
             },
             @(GLBDeviceFamilyPad): @{
                 @"1,1": @(GLBDeviceModelPad1),
@@ -158,6 +165,8 @@
                 @"4,7": @(GLBDeviceModelPadMini3),
                 @"4,8": @(GLBDeviceModelPadMini3),
                 @"4,9": @(GLBDeviceModelPadMini3),
+                @"5,1": @(GLBDeviceModelPadMini4),
+                @"5,2": @(GLBDeviceModelPadMini4),
                 @"5,3": @(GLBDeviceModelPadAir2),
                 @"5,4": @(GLBDeviceModelPadAir2),
                 @"6,3": @(GLBDeviceModelPadPro97),
@@ -171,6 +180,7 @@
                 @"3,1": @(GLBDeviceModelPod3),
                 @"4,1": @(GLBDeviceModelPod4),
                 @"5,1": @(GLBDeviceModelPod5),
+                @"7,1": @(GLBDeviceModelPod6),
             },
         };
         NSDictionary* modelManifest = familyModelManifest[@(self.glb_family)];

@@ -180,6 +180,8 @@
 		40AEB9CD1D70AC310050A6DE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403AEEDF1D6AEF1A006C3DF1 /* UIKit.framework */; };
 		40AEB9CE1D70AC310050A6DE /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403D4CC01CF4789E0078DB66 /* WatchConnectivity.framework */; };
 		40AEB9CF1D70AC310050A6DE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 405B77C31C50E99B00DA763D /* WebKit.framework */; };
+		40B4C78A1E0C9D97008876BE /* GLBGrayscaleImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 40B4C7881E0C9D97008876BE /* GLBGrayscaleImageView.h */; };
+		40B4C78B1E0C9D97008876BE /* GLBGrayscaleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40B4C7891E0C9D97008876BE /* GLBGrayscaleImageView.m */; };
 		40DE67961DBD13380008D7E8 /* GLBTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DE67941DBCE9AD0008D7E8 /* GLBTextStyle.m */; };
 		40E88F581D76274100275E43 /* GLBAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 40E88DCA1D76274100275E43 /* GLBAction.h */; };
 		40E88F591D76274100275E43 /* GLBAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E88DCB1D76274100275E43 /* GLBAction.m */; };
@@ -613,6 +615,8 @@
 		40AAD4141D9CF131005EE7CB /* GLBWK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBWK.h; sourceTree = "<group>"; };
 		40AAD4151D9CF131005EE7CB /* GLBWK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBWK.m; sourceTree = "<group>"; };
 		40ABBF521D88A90A00AECED3 /* GLBDataContentView+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLBDataContentView+Private.h"; sourceTree = "<group>"; };
+		40B4C7881E0C9D97008876BE /* GLBGrayscaleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBGrayscaleImageView.h; sourceTree = "<group>"; };
+		40B4C7891E0C9D97008876BE /* GLBGrayscaleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBGrayscaleImageView.m; sourceTree = "<group>"; };
 		40BB8CD11BF3EE2A00D2E180 /* libGlobus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGlobus.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		40DE67931DBCE9AD0008D7E8 /* GLBTextStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBTextStyle.h; sourceTree = "<group>"; };
 		40DE67941DBCE9AD0008D7E8 /* GLBTextStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBTextStyle.m; sourceTree = "<group>"; };
@@ -2091,6 +2095,8 @@
 			children = (
 				40E88E7E1D76274100275E43 /* GLBBlurImageView.h */,
 				40E88E7F1D76274100275E43 /* GLBBlurImageView.m */,
+				40B4C7881E0C9D97008876BE /* GLBGrayscaleImageView.h */,
+				40B4C7891E0C9D97008876BE /* GLBGrayscaleImageView.m */,
 				40E88E801D76274100275E43 /* GLBImageDownloadRequest.h */,
 				40E88E811D76274100275E43 /* GLBImageDownloadRequest.m */,
 				40E88E821D76274100275E43 /* GLBImageDownloadResponse.h */,
@@ -2696,6 +2702,7 @@
 				40E88FBC1D76274100275E43 /* GLBDataView.h in Headers */,
 				40E890791D76274100275E43 /* GLBWebViewController.h in Headers */,
 				40E8902C1D76274100275E43 /* GLBPlaneSpinnerView.h in Headers */,
+				40B4C78A1E0C9D97008876BE /* GLBGrayscaleImageView.h in Headers */,
 				4057F4851D762DCA00D48E49 /* GLBDataViewItemsListContainer+Private.h in Headers */,
 				4057F4821D762DCA00D48E49 /* GLBDataViewItemsFlowContainer+Private.h in Headers */,
 				4043CB411D78575600EE76F1 /* GLBSpinnerViewNineCubeGrid.h in Headers */,
@@ -3014,6 +3021,7 @@
 				4043CB001D7852F300EE76F1 /* GLBDataCellSwipe.m in Sources */,
 				4043CB601D78587100EE76F1 /* GLBSpinnerViewWordPress.m in Sources */,
 				40E88F9F1D76274100275E43 /* NSString+GLBNS.m in Sources */,
+				40B4C78B1E0C9D97008876BE /* GLBGrayscaleImageView.m in Sources */,
 				4057F4E51D763BFB00D48E49 /* UIColor+GLBUI.m in Sources */,
 				4057F4DB1D763BFB00D48E49 /* UIApplication+GLBUI.m in Sources */,
 				40E88FC11D76274100275E43 /* GLBDataViewSwipeCell.m in Sources */,

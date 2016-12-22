@@ -65,7 +65,7 @@
         if(_blurTintColor != nil) {
             [key appendFormat:@"tint=%@", [_blurTintColor glb_stringValue]];
         }
-        return key.copy;
+        return key;
     }
     return nil;
 }
