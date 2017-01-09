@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'GlobusSwifty'
-  s.version = '0.3.2'
+  s.version = '0.3.3'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -31,6 +31,7 @@ Pod::Spec.new do |s|
   end
   s.subspec 'Model' do |ss|
     ss.source_files = 'GlobusSwifty/Model/**/*.{swift}'
+    ss.dependency 'Globus/CoreFoundation/FileManager'
     ss.dependency 'GlobusSwifty/Json'
     ss.dependency 'GlobusSwifty/Pack'
   end

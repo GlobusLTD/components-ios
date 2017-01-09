@@ -373,11 +373,11 @@ public func <<< < Key: GLBPackValueProrocol & Hashable, Value: GLBPackValueProro
 // MARK: RawRepresentable
 /*--------------------------------------------------*/
 
-public func >>> < EnumType: RawRepresentable where EnumType.RawValue: GLBPackValueProrocol >(left: EnumType, right: (GLBPack, String)) {
+public func >>> < EnumType: RawRepresentable >(left: EnumType, right: (GLBPack, String)) where EnumType.RawValue: GLBPackValueProrocol {
     left.rawValue >>> right
 }
 
-public func >>> < EnumType: RawRepresentable where EnumType.RawValue: GLBPackValueProrocol >(left: EnumType?, right: (GLBPack, String)) {
+public func >>> < EnumType: RawRepresentable >(left: EnumType?, right: (GLBPack, String)) where EnumType.RawValue: GLBPackValueProrocol {
     if let safeLeft = left {
         safeLeft >>> right
     } else {
@@ -385,7 +385,7 @@ public func >>> < EnumType: RawRepresentable where EnumType.RawValue: GLBPackVal
     }
 }
 
-public func <<< < EnumType: RawRepresentable where EnumType.RawValue: GLBPackValueProrocol >(left: inout EnumType, right: (GLBPack, String, EnumType)) {
+public func <<< < EnumType: RawRepresentable >(left: inout EnumType, right: (GLBPack, String, EnumType)) where EnumType.RawValue: GLBPackValueProrocol {
     var raw: EnumType.RawValue? = nil
     raw <<< (right.0, right.1, right.2.rawValue)
     if let safeRaw = raw {
@@ -395,7 +395,7 @@ public func <<< < EnumType: RawRepresentable where EnumType.RawValue: GLBPackVal
     }
 }
 
-public func <<< < EnumType: RawRepresentable where EnumType.RawValue: GLBPackValueProrocol >(left: inout EnumType?, right: (GLBPack, String, EnumType?)) {
+public func <<< < EnumType: RawRepresentable >(left: inout EnumType?, right: (GLBPack, String, EnumType?)) where EnumType.RawValue: GLBPackValueProrocol {
     var raw: EnumType.RawValue? = nil
     if let safeOr = right.2 {
         raw <<< (right.0, right.1, safeOr.rawValue)

@@ -6,27 +6,27 @@ import Globus
 
 public protocol GLBSwiftyModelProtocol {
     
-    static func model(jsonObject: Any) -> Self?
+    static func model(jsonObject: Any?) -> Self?
     static func model(jsonData: Data) -> Self?
     static func model(jsonString: String) -> Self?
     static func model(jsonString: String, encoding: UInt) -> Self?
     static func model(json: GLBJson) -> Self?
     
-    static func model(packObject: Any) -> Self?
+    static func model(packObject: Any?) -> Self?
     static func model(packData: Data) -> Self?
     static func model(pack: GLBPack) -> Self?
     
     init()
     
-    mutating func fromJson(object: Any)
-    mutating func fromJson(data: Data)
-    mutating func fromJson(string: String)
-    mutating func fromJson(string: String, encoding: UInt)
-    mutating func fromJson(json: GLBJson)
+    func fromJson(object: Any?)
+    func fromJson(data: Data)
+    func fromJson(string: String)
+    func fromJson(string: String, encoding: UInt)
+    func fromJson(json: GLBJson)
     
-    mutating func unpack(object: Any)
-    mutating func unpack(data: Data)
-    mutating func unpack(pack: GLBPack)
+    func unpack(object: Any?)
+    func unpack(data: Data)
+    func unpack(pack: GLBPack)
     
     func toJsonObject() -> Any?
     func toJsonData() -> Data?
@@ -64,13 +64,13 @@ open class GLBSwiftyModel: GLBSwiftyModelProtocol {
     
     private class func fileUrl(fileName: String) -> URL? {
         var url = URL(fileURLWithPath: FileManager.glb_cachesDirectory())
-        url.appendingPathComponent(self.name(fileName))
+        url.appendPathExtension(self.name(fileName))
         return url
     }
     
     private class func fileUrl(fileName: String, inAppGroup: String) -> URL? {
         if var url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: inAppGroup) {
-            url.appendingPathComponent(self.name(fileName))
+            url.appendPathComponent(self.name(fileName))
             return url
         }
         return nil
@@ -106,7 +106,7 @@ open class GLBSwiftyModel: GLBSwiftyModelProtocol {
     
     open class func model(name: String, defaults: UserDefaults) -> Self? {
         if let data = defaults.data(forKey: self.name(name)) {
-            var model = self.init()
+            let model = self.init()
             model.storeName = name
             model.storeDefaults = defaults
             model.unpack(data: data)
@@ -132,7 +132,7 @@ open class GLBSwiftyModel: GLBSwiftyModelProtocol {
     open class func model(fileName: String, fileUrl: URL) -> Self? {
         if FileManager.default.fileExists(atPath: fileUrl.path) {
             if let data = FileManager.default.contents(atPath: fileUrl.path) {
-                var model = self.init()
+                let model = self.init()
                 model.storeName = fileName
                 model.storeFileUrl = fileUrl
                 model.unpack(data: data)
@@ -192,7 +192,7 @@ open class GLBSwiftyModel: GLBSwiftyModelProtocol {
     
     // MARK: GLBSwiftyModelProtocol
     
-    open class func model(jsonObject: Any) -> Self? {
+    open class func model(jsonObject: Any?) -> Self? {
         return self.model(json: GLBJson.init(rootObject: jsonObject))
     }
     
@@ -209,12 +209,12 @@ open class GLBSwiftyModel: GLBSwiftyModelProtocol {
     }
     
     open class func model(json: GLBJson) -> Self? {
-        var model = self.init()
+        let model = self.init()
         model.fromJson(json: json)
         return model
     }
     
-    open class func model(packObject: Any) -> Self? {
+    open class func model(packObject: Any?) -> Self? {
         return self.model(pack: GLBPack.init(rootObject: packObject))
     }
     
@@ -223,12 +223,12 @@ open class GLBSwiftyModel: GLBSwiftyModelProtocol {
     }
     
     open class func model(pack: GLBPack) -> Self? {
-        var model = self.init()
+        let model = self.init()
         model.unpack(pack: pack)
         return model
     }
     
-    open func fromJson(object: Any) {
+    open func fromJson(object: Any?) {
         self.fromJson(json: GLBJson.init(rootObject: object))
     }
     
@@ -247,7 +247,7 @@ open class GLBSwiftyModel: GLBSwiftyModelProtocol {
     open func fromJson(json: GLBJson) {
     }
     
-    open func unpack(object: Any) {
+    open func unpack(object: Any?) {
         self.unpack(pack: GLBPack.init(rootObject: object))
     }
     

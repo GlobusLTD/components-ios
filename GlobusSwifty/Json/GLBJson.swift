@@ -373,11 +373,11 @@ public func <<< < Key: GLBJsonValueProrocol & Hashable, Value: GLBJsonValueProro
 // MARK: RawRepresentable
 /*--------------------------------------------------*/
 
-public func >>> < EnumType: RawRepresentable where EnumType.RawValue: GLBJsonValueProrocol >(left: EnumType, right: (GLBJson, String)) {
+public func >>> < EnumType: RawRepresentable >(left: EnumType, right: (GLBJson, String)) where EnumType.RawValue: GLBJsonValueProrocol {
     left.rawValue >>> right
 }
 
-public func >>> < EnumType: RawRepresentable where EnumType.RawValue: GLBJsonValueProrocol >(left: EnumType?, right: (GLBJson, String)) {
+public func >>> < EnumType: RawRepresentable >(left: EnumType?, right: (GLBJson, String)) where EnumType.RawValue: GLBJsonValueProrocol {
     if let safeLeft = left {
         safeLeft >>> right
     } else {
@@ -385,7 +385,7 @@ public func >>> < EnumType: RawRepresentable where EnumType.RawValue: GLBJsonVal
     }
 }
 
-public func <<< < EnumType: RawRepresentable where EnumType.RawValue: GLBJsonValueProrocol >(left: inout EnumType, right: (GLBJson, String, EnumType)) {
+public func <<< < EnumType: RawRepresentable >(left: inout EnumType, right: (GLBJson, String, EnumType)) where EnumType.RawValue: GLBJsonValueProrocol {
     var raw: EnumType.RawValue? = nil
     raw <<< (right.0, right.1, right.2.rawValue)
     if let safeRaw = raw {
@@ -395,7 +395,7 @@ public func <<< < EnumType: RawRepresentable where EnumType.RawValue: GLBJsonVal
     }
 }
 
-public func <<< < EnumType: RawRepresentable where EnumType.RawValue: GLBJsonValueProrocol >(left: inout EnumType?, right: (GLBJson, String, EnumType?)) {
+public func <<< < EnumType: RawRepresentable >(left: inout EnumType?, right: (GLBJson, String, EnumType?)) where EnumType.RawValue: GLBJsonValueProrocol {
     var raw: EnumType.RawValue? = nil
     if let safeOr = right.2 {
         raw <<< (right.0, right.1, safeOr.rawValue)
