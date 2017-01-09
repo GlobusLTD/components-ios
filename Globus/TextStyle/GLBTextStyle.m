@@ -10,7 +10,7 @@
 
 @interface GLBTextStyle ()
 
-@property(nonatomic, strong, nullable) NSMutableParagraphStyle* mutParagraphStyle;
+@property(nonatomic, nullable, strong) NSMutableParagraphStyle* mutParagraphStyle;
 
 @end
 
@@ -210,7 +210,7 @@
 }
 
 - (void)setHyphenationFactor:(CGFloat)hyphenationFactor {
-    self.mutParagraphStyle.hyphenationFactor = hyphenationFactor;
+    self.mutParagraphStyle.hyphenationFactor = (float)(hyphenationFactor);
 }
 
 - (CGFloat)hyphenationFactor {

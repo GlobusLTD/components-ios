@@ -7,23 +7,15 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-#import <AVFoundation/AVFoundation.h>
-
-/*--------------------------------------------------*/
-
-@class GLBAction;
-
-/*--------------------------------------------------*/
-
 @interface GLBAudioPlayer : NSObject
 
 @property(nonatomic) AVAudioSessionSetActiveOptions sessionActiveOptions;
-@property(nonatomic, strong) NSString* sessionCategory;
+@property(nonatomic, nonnull, strong) NSString* sessionCategory;
 @property(nonatomic) AVAudioSessionCategoryOptions sessionCategoryOptions;
-@property(nonatomic, strong) NSString* sessionMode;
+@property(nonatomic, nonnull, strong) NSString* sessionMode;
 
-@property(nonatomic, readonly, strong) NSURL* url;
-@property(nonatomic, readonly, strong) NSError* error;
+@property(nonatomic, nullable, readonly, strong) NSURL* url;
+@property(nonatomic, nullable, readonly, strong) NSError* error;
 
 @property(nonatomic, readonly, assign) NSUInteger numberOfChannels;
 @property(nonatomic) NSTimeInterval currentTime;
@@ -41,21 +33,21 @@
 @property(nonatomic, readonly, assign, getter=isPlaying) BOOL playing;
 @property(nonatomic, readonly, assign, getter=isPaused) BOOL paused;
 
-@property(nonatomic, strong) GLBAction* actionPrepared;
-@property(nonatomic, strong) GLBAction* actionCleaned;
-@property(nonatomic, strong) GLBAction* actionPlaying;
-@property(nonatomic, strong) GLBAction* actionStoped;
-@property(nonatomic, strong) GLBAction* actionFinished;
-@property(nonatomic, strong) GLBAction* actionResumed;
-@property(nonatomic, strong) GLBAction* actionPaused;
-@property(nonatomic, strong) GLBAction* actionError;
+@property(nonatomic, nullable, strong) GLBAction* actionPrepared;
+@property(nonatomic, nullable, strong) GLBAction* actionCleaned;
+@property(nonatomic, nullable, strong) GLBAction* actionPlaying;
+@property(nonatomic, nullable, strong) GLBAction* actionStoped;
+@property(nonatomic, nullable, strong) GLBAction* actionFinished;
+@property(nonatomic, nullable, strong) GLBAction* actionResumed;
+@property(nonatomic, nullable, strong) GLBAction* actionPaused;
+@property(nonatomic, nullable, strong) GLBAction* actionError;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (BOOL)prepareWithData:(NSData*)data;
-- (BOOL)prepareWithName:(NSString*)name;
-- (BOOL)prepareWithPath:(NSString*)path name:(NSString*)name;
-- (BOOL)prepareWithURL:(NSURL*)url;
+- (BOOL)prepareWithData:(NSData* _Nonnull)data;
+- (BOOL)prepareWithName:(NSString* _Nonnull)name;
+- (BOOL)prepareWithPath:(NSString* _Nonnull)path name:(NSString* _Nonnull)name;
+- (BOOL)prepareWithURL:(NSURL* _Nonnull)url;
 - (void)clean;
 
 - (BOOL)play;

@@ -1,0 +1,16 @@
+platform :ios, '7.0'
+
+target 'Globus-ObjC' do
+	platform :ios, '7.0'
+
+	pod 'Globus', :path => '../'
+end
+
+target 'Globus-Swift' do
+	platform :ios, '8.0'
+	
+	use_frameworks!
+
+	pod 'Globus', :path => '../'
+	pod 'GlobusSwifty', :path => '../'
+end

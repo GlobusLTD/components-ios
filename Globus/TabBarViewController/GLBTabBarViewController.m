@@ -29,6 +29,14 @@
 
 #pragma mark - Init / Free
 
++ (instancetype)viewControllerWithViewControllers:(NSArray< UIViewController* >*)viewControllers {
+    GLBTabBarViewController* vc = [self new];
+    if(viewControllers != nil) {
+        vc.viewControllers = viewControllers;
+    }
+    return vc;
+}
+
 - (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super initWithCoder:coder];
     if(self != nil) {

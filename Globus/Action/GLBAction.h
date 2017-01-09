@@ -9,17 +9,18 @@
 
 @interface GLBAction : NSObject < GLBObjectDebugProtocol >
 
-@property(nonatomic, readonly, nullable, weak) id target;
-@property(nonatomic, readonly, nonnull, assign) SEL action;
-@property(nonatomic, readonly, nullable, weak) NSThread* thread;
+@property(nonatomic, nullable, readonly, weak) id target;
+@property(nonatomic, nonnull, readonly, assign) SEL action;
+@property(nonatomic, nullable, readonly, weak) NSThread* thread;
 
-+ (_Nullable instancetype)actionWithTarget:(_Nonnull id)target action:(_Nonnull SEL)action;
-+ (_Nullable instancetype)actionWithTarget:(_Nonnull id)target action:(_Nonnull SEL)action inThread:(NSThread* _Nullable)thread;
-- (_Nullable instancetype)initWithTarget:(_Nonnull id)target action:(_Nonnull SEL)action inThread:(NSThread* _Nullable)thread;
++ (instancetype _Nullable)actionWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action NS_SWIFT_NAME(action(target:action:));
++ (instancetype _Nullable)actionWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action inThread:(NSThread* _Nullable)thread NS_SWIFT_NAME(action(target:action:thread:));
+
+- (instancetype _Nullable)initWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action inThread:(NSThread* _Nullable)thread;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (_Nullable id)performWithArguments:(NSArray* _Nullable)arguments;
+- (id _Nullable)performWithArguments:(NSArray* _Nullable)arguments;
 
 @end
 
@@ -31,26 +32,26 @@
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)addActionWithTarget:(_Nonnull id)target action:(nonnull SEL)action forKey:(_Nonnull id)key;
-- (void)addActionWithTarget:(_Nonnull id)target action:(nonnull SEL)action inGroup:(_Nonnull id)group forKey:(_Nonnull id)key;
+- (void)addActionWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action forKey:(id _Nonnull)key;
+- (void)addActionWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action inGroup:(id _Nonnull)group forKey:(id _Nonnull)key;
 - (void)addAction:(GLBAction* _Nonnull)action forKey:(id _Nonnull)key;
 - (void)addAction:(GLBAction* _Nonnull)action inGroup:(id _Nonnull)group forKey:(id _Nonnull)key;
 
 - (void)removeAction:(GLBAction* _Nonnull)action;
 
-- (void)removeAllActionsByTarget:(_Nonnull id)target;
-- (void)removeAllActionsByTarget:(_Nonnull id)target forKey:(_Nonnull id)key;
-- (void)removeAllActionsByTarget:(_Nonnull id)target inGroup:(_Nonnull id)group forKey:(_Nonnull id)key;
-- (void)removeAllActionsInGroup:(_Nonnull id)group;
-- (void)removeAllActionsForKey:(_Nonnull id)key;
-- (void)removeAllActionsInGroup:(_Nonnull id)group forKey:(_Nonnull id)key;
+- (void)removeAllActionsByTarget:(id _Nonnull)target;
+- (void)removeAllActionsByTarget:(id _Nonnull)target forKey:(id _Nonnull)key;
+- (void)removeAllActionsByTarget:(id _Nonnull)target inGroup:(id _Nonnull)group forKey:(id _Nonnull)key;
+- (void)removeAllActionsInGroup:(id _Nonnull)group;
+- (void)removeAllActionsForKey:(id _Nonnull)key;
+- (void)removeAllActionsInGroup:(id _Nonnull)group forKey:(id _Nonnull)key;
 - (void)removeAllActions;
 
-- (BOOL)containsActionForKey:(_Nonnull id)key;
-- (BOOL)containsActionInGroup:(_Nonnull id)group forKey:(_Nonnull id)key;
+- (BOOL)containsActionForKey:(id _Nonnull)key;
+- (BOOL)containsActionInGroup:(id _Nonnull)group forKey:(id _Nonnull)key;
 
-- (void)performForKey:(_Nonnull id)key withArguments:(NSArray* _Nullable)arguments;
-- (void)performInGroup:(_Nonnull id)group forKey:(_Nonnull id)key withArguments:(NSArray* _Nullable)arguments;
+- (void)performForKey:(id _Nonnull)key withArguments:(NSArray* _Nullable)arguments;
+- (void)performInGroup:(id _Nonnull)group forKey:(id _Nonnull)key withArguments:(NSArray* _Nullable)arguments;
 
 @end
 

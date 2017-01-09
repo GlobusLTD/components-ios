@@ -56,7 +56,17 @@ typedef NS_ENUM(NSUInteger, GLBDataViewSwipeCellStyle) {
 - (void)willEndedSwipe:(CGFloat)progress NS_REQUIRES_SUPER;
 - (void)didEndedSwipe:(CGFloat)progress NS_REQUIRES_SUPER;
 
+- (UIOffset)rootViewOffsetBySwipeProgress:(CGFloat)swipeProgress;
+- (CGFloat)leftViewOffsetBySwipeProgress:(CGFloat)swipeProgress;
+- (CGFloat)leftViewSizeBySwipeProgress:(CGFloat)swipeProgress;
+- (CGFloat)rightViewOffsetBySwipeProgress:(CGFloat)swipeProgress;
+- (CGFloat)rightViewSizeBySwipeProgress:(CGFloat)swipeProgress;
+
 - (CGFloat)endedSwipeProgress:(CGFloat)progress;
+
+- (void)updateSwipeProgress:(CGFloat)swipeProgress speed:(CGFloat)speed endedSwipe:(BOOL)endedSwipe;
+
+- (void)handlerPanGestureRecognizer:(UIPanGestureRecognizer*)gestureRecognizer;
 
 @end
 

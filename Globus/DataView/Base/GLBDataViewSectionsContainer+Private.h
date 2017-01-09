@@ -13,14 +13,6 @@
     NSMutableArray< __kindof GLBDataViewContainer* >* _sections;
 }
 
-- (CGRect)_validateSectionsForAvailableFrame:(CGRect)frame GLB_DEPRECATED;
-
-- (CGRect)_frameSectionsForAvailableFrame:(CGRect)frame;
-- (void)_layoutSectionsForFrame:(CGRect)frame;
-
-- (void)_willSectionsLayoutForBounds:(CGRect)bounds;
-- (void)_didSectionsLayoutForBounds:(CGRect)bounds;
-
 @end
 
 /*--------------------------------------------------*/

@@ -51,8 +51,8 @@
 - (void)setOrientation:(GLBDataViewContainerOrientation)orientation {
     if(_orientation != orientation) {
         _orientation = orientation;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -60,8 +60,8 @@
 - (void)setMargin:(UIEdgeInsets)margin {
     if(UIEdgeInsetsEqualToEdgeInsets(_margin, margin) == NO) {
         _margin = margin;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -69,8 +69,8 @@
 - (void)setSpacing:(UIOffset)spacing {
     if(UIOffsetEqualToOffset(_spacing, spacing) == NO) {
         _spacing = spacing;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -136,10 +136,8 @@
     [super deleteAllSections];
 }
 
-#pragma mark - Private override
-
-- (void)_didEndDraggingWillDecelerate:(BOOL __unused)decelerate {
-    [super _didEndDraggingWillDecelerate:decelerate];
+- (void)didEndDraggingWillDecelerate:(BOOL __unused)decelerate {
+    [super didEndDraggingWillDecelerate:decelerate];
     
     if((_pagingEnabled == YES) && (decelerate == NO)) {
         CGPoint alignPoint = [self alignPoint];
@@ -156,8 +154,8 @@
     }
 }
 
-- (void)_didEndDecelerating {
-    [super _didEndDecelerating];
+- (void)didEndDecelerating {
+    [super didEndDecelerating];
     
     if(_pagingEnabled == YES) {
         CGPoint alignPoint = [self alignPoint];
@@ -174,15 +172,15 @@
     }
 }
 
-- (void)_endUpdateAnimated:(BOOL)animated {
-    [super _endUpdateAnimated:animated];
+- (void)endUpdateAnimated:(BOOL)animated {
+    [super endUpdateAnimated:animated];
     
     if((_pagingEnabled == YES) && (_currentSection != nil)) {
         [self scrollToSection:_currentSection scrollPosition:(GLBDataViewPosition)_alignPosition animated:animated];
     }
 }
 
-- (CGRect)_validateLayoutForAvailableFrame:(CGRect)frame {
+- (CGRect)validateLayoutForAvailableFrame:(CGRect)frame {
     CGPoint offset = CGPointMake(frame.origin.x + _margin.left, frame.origin.y + _margin.top);
     CGSize restriction = CGSizeMake(frame.size.width - (_margin.left + _margin.right), frame.size.height - (_margin.left + _margin.right));
     CGSize cumulative = CGSizeZero;
@@ -192,7 +190,7 @@
                 if(container.hidden == YES) {
                     continue;
                 }
-                [container _validateLayoutForAvailableFrame:CGRectMake(offset.x, offset.y, restriction.width, restriction.height)];
+                [container validateLayoutForAvailableFrame:CGRectMake(offset.x, offset.y, restriction.width, restriction.height)];
                 CGRect containerFrame = container.frame;
                 cumulative.height += containerFrame.size.height + _spacing.vertical;
                 cumulative.width = MAX(cumulative.width, containerFrame.size.width);
@@ -205,7 +203,7 @@
                 if(container.hidden == YES) {
                     continue;
                 }
-                [container _validateLayoutForAvailableFrame:CGRectMake(offset.x, offset.y, restriction.width, restriction.height)];
+                [container validateLayoutForAvailableFrame:CGRectMake(offset.x, offset.y, restriction.width, restriction.height)];
                 CGRect containerFrame = container.frame;
                 cumulative.width += containerFrame.size.width + _spacing.horizontal;
                 cumulative.height = MAX(cumulative.height, containerFrame.size.height);
@@ -218,7 +216,7 @@
     return _frame;
 }
 
-- (CGRect)_frameSectionsForAvailableFrame:(CGRect)frame {
+- (CGRect)frameSectionsForAvailableFrame:(CGRect)frame {
     CGPoint offset = CGPointMake(frame.origin.x + _margin.left, frame.origin.y + _margin.top);
     CGSize restriction = CGSizeMake(frame.size.width - (_margin.left + _margin.right), frame.size.height - (_margin.left + _margin.right));
     CGSize cumulative = CGSizeZero;
@@ -228,7 +226,7 @@
                 if(container.hidden == YES) {
                     continue;
                 }
-                CGRect containerFrame = [container _frameForAvailableFrame:CGRectMake(offset.x, offset.y, restriction.width, restriction.height)];
+                CGRect containerFrame = [container frameForAvailableFrame:CGRectMake(offset.x, offset.y, restriction.width, restriction.height)];
                 cumulative.height += containerFrame.size.height + _spacing.vertical;
                 cumulative.width = MAX(cumulative.width, containerFrame.size.width);
                 offset.y = (containerFrame.origin.y + containerFrame.size.height) + _spacing.vertical;
@@ -241,7 +239,7 @@
                 if(container.hidden == YES) {
                     continue;
                 }
-                CGRect containerFrame = [container _frameForAvailableFrame:CGRectMake(offset.x, offset.y, restriction.width, restriction.height)];
+                CGRect containerFrame = [container frameForAvailableFrame:CGRectMake(offset.x, offset.y, restriction.width, restriction.height)];
                 cumulative.width += containerFrame.size.width + _spacing.horizontal;
                 cumulative.height = MAX(cumulative.height, containerFrame.size.height);
                 offset.x = (containerFrame.origin.x + containerFrame.size.width) + _spacing.horizontal;
@@ -264,7 +262,7 @@
                     continue;
                 }
                 CGRect containerFrame = CGRectMake(offset.x, offset.y, restriction.width, restriction.height);
-                [container _layoutForAvailableFrame:containerFrame];
+                [container layoutForAvailableFrame:containerFrame];
                 cumulative.height += containerFrame.size.height + _spacing.vertical;
                 cumulative.width = MAX(cumulative.width, containerFrame.size.width);
                 offset.y = (containerFrame.origin.y + containerFrame.size.height) + _spacing.vertical;
@@ -277,8 +275,8 @@
                 if(container.hidden == YES) {
                     continue;
                 }
-                CGRect containerFrame = [container _frameForAvailableFrame:CGRectMake(offset.x, offset.y, restriction.width, restriction.height)];
-                [container _layoutForAvailableFrame:containerFrame];
+                CGRect containerFrame = [container frameForAvailableFrame:CGRectMake(offset.x, offset.y, restriction.width, restriction.height)];
+                [container layoutForAvailableFrame:containerFrame];
                 cumulative.width += containerFrame.size.width + _spacing.horizontal;
                 cumulative.height = MAX(cumulative.height, containerFrame.size.height);
                 offset.x = (containerFrame.origin.x + containerFrame.size.width) + _spacing.horizontal;

@@ -20,6 +20,10 @@
 
 @implementation GLBStyle
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+
 #pragma mark - Synthesize
 
 @synthesize name = _name;

@@ -10,7 +10,7 @@
 
 #pragma mark - Synthesize
 
-@synthesize view = _view;
+@synthesize dataView = _dataView;
 @synthesize item = _item;
 @synthesize selected = _selected;
 @synthesize highlighted = _highlighted;
@@ -32,7 +32,7 @@
     GLBDataViewCell* cell = item.cell;
     GLBDataViewCell* dequeueCell = nil;
     if(cell == nil) {
-        dequeueCell = [item.view dequeueCellWithItem:item];
+        dequeueCell = [item.dataView dequeueCellWithItem:item];
     }
     CGSize result = CGSizeZero;
     if(dequeueCell != nil) {
@@ -41,7 +41,7 @@
             dequeueCell.item = item;
         }];
         result = [dequeueCell sizeForAvailableSize:size];
-        [item.view enqueueCell:dequeueCell];
+        [item.dataView enqueueCell:dequeueCell];
         dequeueCell.item = nil;
     } else if(cell != nil) {
         result = [cell sizeForAvailableSize:size];
@@ -98,7 +98,7 @@
 #pragma mark - Init / Free
 
 - (instancetype)init {
-    return [self initWithNib:[UINib glb_nibWithClass:self.class bundle:nil]];
+    return [self initWithNib:self.class.glb_nib];
 }
 
 - (instancetype)initWithNib:(UINib*)nib {
@@ -201,7 +201,7 @@
             _rootView.translatesAutoresizingMaskIntoConstraints = NO;
         }
         [self glb_setSubviews:self.orderedSubviews];
-        [self _refreshConstraints];
+        [self refreshConstraints];
     }
 }
 
@@ -299,74 +299,9 @@
 - (void)didHide {
 }
 
-- (BOOL)containsActionForKey:(id)key {
-    return [_view containsActionForKey:key];
-}
 
-- (BOOL)containsActionForIdentifier:(id)identifier forKey:(id)key {
-    return [_view containsActionForIdentifier:identifier forKey:key];
-}
 
-- (void)performActionForKey:(id)key withArguments:(NSArray*)arguments {
-    if(_item != nil) {
-        [_view performActionForIdentifier:_item.identifier forKey:key withArguments:[@[ self ] glb_unionWithArray:arguments]];
-    }
-}
-
-- (void)selectedAnimated:(BOOL)animated {
-    _selected = YES;
-}
-
-- (void)deselectedAnimated:(BOOL)animated {
-    _selected = NO;
-}
-
-- (void)highlightedAnimated:(BOOL)animated {
-    _highlighted = YES;
-}
-
-- (void)unhighlightedAnimated:(BOOL)animated {
-    _highlighted = NO;
-}
-
-- (void)beginEditingAnimated:(BOOL)animated {
-    _editing = YES;
-}
-
-- (void)endEditingAnimated:(BOOL)animated {
-    _editing = NO;
-}
-
-- (void)beginMovingAnimated:(BOOL)animated {
-    _moving = YES;
-    _pressGestureRecognizer.enabled = NO;
-    _longPressGestureRecognizer.enabled = NO;
-}
-
-- (void)endMovingAnimated:(BOOL)animated {
-    _moving = NO;
-    _pressGestureRecognizer.enabled = YES;
-    _longPressGestureRecognizer.enabled = YES;
-}
-
-- (void)validateLayoutForBounds:(CGRect __unused)bounds {
-}
-
-- (void)invalidateLayoutForBounds:(CGRect __unused)bounds {
-}
-
-- (void)beginTransition {
-}
-
-- (void)transitionResize {
-}
-
-- (void)endTransition {
-}
-
-#pragma mark - Private
-
-- (void)_refreshConstraints {
+- (void)refreshConstraints {
     if(_rootView != nil) {
         if(_constraintRootViewCenterX == nil) {
             self.constraintRootViewCenterX = [NSLayoutConstraint constraintWithItem:_rootView
@@ -412,17 +347,82 @@
     }
 }
 
-- (void)_willBeginDragging {
-    [UIGestureRecognizer glb_cancelInView:_rootView recursive:YES];
+- (BOOL)containsActionForKey:(id)key {
+    return [_dataView containsActionForKey:key];
 }
 
-- (void)_pressed {
-    [_view _pressedItem:_item animated:YES];
+- (BOOL)containsActionForIdentifier:(id)identifier forKey:(id)key {
+    return [_dataView containsActionForIdentifier:identifier forKey:key];
+}
+
+- (void)performActionForKey:(id)key withArguments:(NSArray*)arguments {
+    if(_item != nil) {
+        [_dataView performActionForIdentifier:_item.identifier forKey:key withArguments:[@[ self ] glb_unionWithArray:arguments]];
+    }
+}
+
+- (void)pressed {
+    [_dataView pressedItem:_item animated:YES];
     [self performActionForKey:GLBDataViewCellPressed withArguments:@[ _item ]];
 }
 
-- (void)_longPressed {
+- (void)longPressed {
     [self performActionForKey:GLBDataViewCellLongPressed withArguments:@[ _item ]];
+}
+
+- (void)selectedAnimated:(BOOL)animated {
+    _selected = YES;
+}
+
+- (void)deselectedAnimated:(BOOL)animated {
+    _selected = NO;
+}
+
+- (void)highlightedAnimated:(BOOL)animated {
+    _highlighted = YES;
+}
+
+- (void)unhighlightedAnimated:(BOOL)animated {
+    _highlighted = NO;
+}
+
+- (void)beginEditingAnimated:(BOOL)animated {
+    _editing = YES;
+}
+
+- (void)endEditingAnimated:(BOOL)animated {
+    _editing = NO;
+}
+
+- (void)beginMovingAnimated:(BOOL)animated {
+    _moving = YES;
+    _pressGestureRecognizer.enabled = NO;
+    _longPressGestureRecognizer.enabled = NO;
+}
+
+- (void)endMovingAnimated:(BOOL)animated {
+    _moving = NO;
+    _pressGestureRecognizer.enabled = YES;
+    _longPressGestureRecognizer.enabled = YES;
+}
+
+- (void)validateLayoutForBounds:(CGRect __unused)bounds {
+}
+
+- (void)invalidateLayoutForBounds:(CGRect __unused)bounds {
+}
+
+- (void)willBeginDragging {
+    [UIGestureRecognizer glb_cancelInView:_rootView recursive:YES];
+}
+
+- (void)beginTransition {
+}
+
+- (void)transitionResize {
+}
+
+- (void)endTransition {
 }
 
 - (void)_handlerPressGestureRecognizer {
@@ -453,7 +453,7 @@
             if(_item.allowsPressed == YES) {
                 CGPoint location = [_pressGestureRecognizer locationInView:_rootView];
                 if(CGRectContainsPoint(_rootView.bounds, location) == YES) {
-                    [self _pressed];
+                    [self pressed];
                 }
             }
             break;
@@ -468,7 +468,7 @@
 - (void)_handlerLongPressGestureRecognizer {
     if(_longPressGestureRecognizer.state == UIGestureRecognizerStateBegan) {
         [_longPressGestureRecognizer requireGestureRecognizerToFail:_pressGestureRecognizer];
-        [self _longPressed];
+        [self longPressed];
     }
 }
 
@@ -481,7 +481,7 @@
     if((gestureRecognizer == _longPressGestureRecognizer) && (_item.allowsLongPressed == NO)) {
         return NO;
     }
-    if((_view.isDragging == YES) || (_view.isDecelerating == YES)) {
+    if((_dataView.isDragging == YES) || (_dataView.isDecelerating == YES)) {
         return NO;
     }
     return YES;

@@ -31,6 +31,11 @@
 
 #pragma mark - Init / Free
 
++ (instancetype)viewControllerWithMasterViewController:(__kindof UIViewController*)masterViewController
+                                  detailViewController:(__kindof UIViewController*)detailViewController {
+    return [[self alloc] initWithMasterViewController:masterViewController detailViewController:detailViewController];
+}
+
 - (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super initWithCoder:coder];
     if(self != nil) {
@@ -47,8 +52,8 @@
     return self;
 }
 
-- (instancetype)initWithMasterViewController:(UIViewController*)masterViewController
-                        detailViewController:(UIViewController*)detailViewController {
+- (instancetype)initWithMasterViewController:(__kindof UIViewController*)masterViewController
+                        detailViewController:(__kindof UIViewController*)detailViewController {
     self = [super initWithNibName:nil bundle:nil];
     if(self != nil) {
         _masterViewController = masterViewController;

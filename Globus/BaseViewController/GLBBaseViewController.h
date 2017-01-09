@@ -32,7 +32,7 @@
 @property(nonatomic) BOOL hidesBarsWhenVerticallyCompact;
 @property(nonatomic) BOOL hidesBarsOnTap;
 @property(nonatomic) BOOL hideKeyboardIfTouched;
-@property(nonatomic, strong) GLBTransitionController* transitionModal;
+@property(nonatomic, nullable, strong) GLBTransitionController* transitionModal;
 
 - (void)setup NS_REQUIRES_SUPER;
 

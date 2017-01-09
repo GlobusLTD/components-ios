@@ -10,7 +10,7 @@
 
 @interface GLBDataViewCell () {
 @protected
-    __weak GLBDataView* _view;
+    __weak GLBDataView* _dataView;
     __weak GLBDataViewItem* _item;
     BOOL _selected;
     BOOL _highlighted;
@@ -27,7 +27,7 @@
     NSLayoutConstraint* _constraintRootViewHeight;
 }
 
-@property(nonatomic, weak) GLBDataView* view;
+@property(nonatomic, weak) GLBDataView* dataView;
 @property(nonatomic, weak) GLBDataViewItem* item;
 @property(nonatomic, getter=isMoving) BOOL moving;
 @property(nonatomic, strong) UILongPressGestureRecognizer* pressGestureRecognizer;
@@ -37,29 +37,8 @@
 @property(nonatomic, strong) NSLayoutConstraint* constraintRootViewWidth;
 @property(nonatomic, strong) NSLayoutConstraint* constraintRootViewHeight;
 
-- (void)_refreshConstraints;
-
-- (void)_willBeginDragging;
-
-- (void)_pressed;
-- (void)_longPressed;
-
 @end
 
 /*--------------------------------------------------*/
 #endif
-/*--------------------------------------------------*/
-
-#if __has_include("GLBDataCell+Private.h")
-#import "GLBDataCell+Private.h"
-#endif
-
-#if __has_include("GLBDataViewSwipeCell+Private.h")
-#import "GLBDataViewSwipeCell+Private.h"
-#endif
-
-#if __has_include("GLBDataCellSwipe+Private.h")
-#import "GLBDataCellSwipe+Private.h"
-#endif
-
 /*--------------------------------------------------*/

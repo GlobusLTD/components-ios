@@ -254,7 +254,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             [_container setNeedResize];
         }
         if(_transiting == YES) {
-            [_container _transitionResize];
+            [_container transitionResize];
         }
         if(UIAccessibilityIsVoiceOverRunning() == YES) {
             UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, nil);
@@ -270,7 +270,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             [_container setNeedResize];
         }
         if(_transiting == YES) {
-            [_container _transitionResize];
+            [_container transitionResize];
         }
         if(UIAccessibilityIsVoiceOverRunning() == YES) {
             UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, nil);
@@ -325,7 +325,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
         CGFloat width = (contentSize.width > FLT_EPSILON) ? contentSize.width : self.frame.size.width;
         CGFloat height = (contentSize.height > FLT_EPSILON) ? contentSize.height : self.frame.size.height;
         _contentView = [[GLBDataContentView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
-        _contentView.view = self;
+        _contentView.dataView = self;
         [self addSubview:_contentView];
     }
     return _contentView;
@@ -341,16 +341,16 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             [self endedMoveItemAnimated:NO];
             if(_visibleItems.count > 0) {
                 [_visibleItems glb_each:^(GLBDataViewItem* item) {
-                    [self _disappearItem:item];
-                    item.parent = nil;
+                    [self disappearItem:item];
+                    item.container = nil;
                 }];
                 [_visibleItems removeAllObjects];
             }
-            _container.view = nil;
+            _container.dataView = nil;
         }
         _container = container;
         if(_container != nil) {
-            _container.view = self;
+            _container.dataView = self;
             [self setNeedValidateLayout];
         }
         [self validateLayoutIfNeed];
@@ -362,7 +362,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 }
 
 - (void)setEdgeInset:(UIEdgeInsets)edgeInsets {
-    [self _setEdgeInset:edgeInsets force:(self.tracking == NO)];
+    [self setEdgeInset:edgeInsets force:(self.tracking == NO)];
 }
 
 - (void)setEdgeInsetTop:(CGFloat)edgeInsetTop {
@@ -398,7 +398,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 }
 
 - (void)setContainerInset:(UIEdgeInsets)containerInset {
-    [self _setContainerInset:containerInset force:(self.tracking == NO)];
+    [self setContainerInset:containerInset force:(self.tracking == NO)];
 }
 
 - (void)setContainerInsetTop:(CGFloat)containerInsetTop {
@@ -448,7 +448,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 - (NSArray*)visibleCells {
     NSMutableArray* result = NSMutableArray.array;
     for(GLBDataViewItem* item in self.visibleItems) {
-        [result addObject:item.view];
+        [result addObject:item.cell];
     }
     return [NSArray arrayWithArray:result];
 }
@@ -610,7 +610,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 }
 
 - (void)setSearchBarInset:(CGFloat)searchBarInset {
-    [self _setSearchBarInset:searchBarInset force:(self.tracking == NO)];
+    [self setSearchBarInset:searchBarInset force:(self.tracking == NO)];
 }
 
 - (void)setTopRefreshBelowDataView:(BOOL)topRefreshBelowDataView {
@@ -1006,7 +1006,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 }
 
 - (void)setRefreshViewInset:(UIEdgeInsets)refreshViewInset {
-    [self _setRefreshViewInset:refreshViewInset force:(self.tracking == NO)];
+    [self setRefreshViewInset:refreshViewInset force:(self.tracking == NO)];
 }
 
 #pragma mark - Public
@@ -1254,7 +1254,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 - (void)beginUpdateAnimated:(BOOL)animated {
     _updating = YES;
     _animating = animated;
-    [_container _beginUpdateAnimated:animated];
+    [_container beginUpdateAnimated:animated];
 }
 
 - (void)update:(GLBSimpleBlock)update {
@@ -1264,14 +1264,14 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     if(_animating == YES) {
         [self validateLayoutIfNeed];
         [self _layoutForVisible];
-        [_container _updateAnimated:_animating];
+        [_container updateAnimated:_animating];
         [self _beginAnimateUpdatedItems];
         [self.contentView layoutIfNeeded];
     } else {
         [self _endAnimateUpdatedItems];
         [self validateLayoutIfNeed];
         [self _layoutForVisible];
-        [_container _updateAnimated:_animating];
+        [_container updateAnimated:_animating];
     }
 }
 
@@ -1279,7 +1279,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     if(_animating == YES) {
         [self _endAnimateUpdatedItems];
     }
-    [_container _endUpdateAnimated:_animating];
+    [_container endUpdateAnimated:_animating];
     _animating = NO;
     _updating = NO;
     
@@ -1342,14 +1342,14 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 - (void)beginTransition {
     if(_transiting == NO) {
         _transiting = YES;
-        [_container _beginTransition];
+        [_container beginTransition];
     }
 }
 
 - (void)endTransition {
     if(_transiting == YES) {
         _transiting = NO;
-        [_container _endTransition];
+        [_container endTransition];
         
         [self validateLayoutIfNeed];
         [self _layoutForVisible];
@@ -1497,37 +1497,37 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     [self _hideRightRefreshAnimated:animated velocity:_velocity complete:complete];
 }
 
-#pragma mark - Private
+#pragma mark - Internal
 
-- (void)_setEdgeInset:(UIEdgeInsets)edgeInsets force:(BOOL)force {
+- (void)setEdgeInset:(UIEdgeInsets)edgeInsets force:(BOOL)force {
     if(UIEdgeInsetsEqualToEdgeInsets(_edgeInset, edgeInsets) == NO) {
         _edgeInset = edgeInsets;
         [self _updateInsets:force];
     }
 }
 
-- (void)_setSearchBarInset:(CGFloat)searchBarInset force:(BOOL)force {
-    if(_searchBarInset != searchBarInset) {
-        _searchBarInset = searchBarInset;
-        [self _updateInsets:force];
-    }
-}
-
-- (void)_setRefreshViewInset:(UIEdgeInsets)refreshViewInset force:(BOOL)force {
-    if(UIEdgeInsetsEqualToEdgeInsets(_refreshViewInset, refreshViewInset) == NO) {
-        _refreshViewInset = refreshViewInset;
-        [self _updateInsets:force];
-    }
-}
-
-- (void)_setContainerInset:(UIEdgeInsets)containerInset force:(BOOL)force {
+- (void)setContainerInset:(UIEdgeInsets)containerInset force:(BOOL)force {
     if(UIEdgeInsetsEqualToEdgeInsets(_containerInset, containerInset) == NO) {
         _containerInset = containerInset;
         [self _updateInsets:force];
     }
 }
 
-- (void)_pressedItem:(GLBDataViewItem*)item animated:(BOOL)animated {
+- (void)setSearchBarInset:(CGFloat)searchBarInset force:(BOOL)force {
+    if(_searchBarInset != searchBarInset) {
+        _searchBarInset = searchBarInset;
+        [self _updateInsets:force];
+    }
+}
+
+- (void)setRefreshViewInset:(UIEdgeInsets)refreshViewInset force:(BOOL)force {
+    if(UIEdgeInsetsEqualToEdgeInsets(_refreshViewInset, refreshViewInset) == NO) {
+        _refreshViewInset = refreshViewInset;
+        [self _updateInsets:force];
+    }
+}
+
+- (void)pressedItem:(GLBDataViewItem*)item animated:(BOOL)animated {
     if(_allowsOnceSelection == YES) {
         [self _selectItem:item user:YES animated:animated];
     } else {
@@ -1539,6 +1539,66 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     }
     [self endedEditItem:item animated:animated];
 }
+
+- (void)appearItem:(GLBDataViewItem*)item {
+    if(item.cell == nil) {
+        GLBDataViewCell* cell = [self.contentView dequeueCellWithItem:item];
+        if(cell != nil) {
+            item.cell = cell;
+        }
+    }
+    [_visibleItems addObject:item];
+    if(_transiting == YES) {
+        [item beginTransition];
+    }
+}
+
+- (void)disappearItem:(GLBDataViewItem*)item {
+    if(_transiting == YES) {
+        [item endTransition];
+    }
+    GLBDataViewCell* cell = item.cell;
+    if(cell != nil) {
+        [self.contentView enqueueCell:cell item:item];
+        item.cell = nil;
+    }
+    [_visibleItems removeObject:item];
+}
+
+- (void)didInsertItems:(NSArray< GLBDataViewCell* >*)items {
+    if(_updating == NO) {
+        @throw [NSException exceptionWithName:self.glb_className reason:@"Need invoke on batchUpdate" userInfo:nil];
+    }
+    [_insertedItems addObjectsFromArray:items];
+    [self setNeedValidateLayout];
+}
+
+- (void)didDeleteItems:(NSArray< GLBDataViewCell* >*)items {
+    if(_updating == NO) {
+        @throw [NSException exceptionWithName:self.glb_className reason:@"Need invoke on batchUpdate" userInfo:nil];
+    }
+    [_visibleItems removeObjectsInArray:items];
+    [_selectedItems removeObjectsInArray:items];
+    [_highlightedItems removeObjectsInArray:items];
+    [_editingItems removeObjectsInArray:items];
+    [_deletedItems addObjectsFromArray:items];
+    [self setNeedValidateLayout];
+}
+
+- (void)didReplaceOriginItems:(NSArray< GLBDataViewCell* >*)originItems withItems:(NSArray< GLBDataViewCell* >*)items {
+    if(_updating == NO) {
+        @throw [NSException exceptionWithName:self.glb_className reason:@"Need invoke on batchUpdate" userInfo:nil];
+    }
+    [_visibleItems removeObjectsInArray:originItems];
+    [_selectedItems removeObjectsInArray:originItems];
+    [_highlightedItems removeObjectsInArray:originItems];
+    [_editingItems removeObjectsInArray:originItems];
+    [_reloadedBeforeItems addObjectsFromArray:originItems];
+    [_reloadedAfterItems addObjectsFromArray:items];
+    [self setNeedValidateLayout];
+}
+
+#pragma mark - Private
 
 - (BOOL)_shouldSelectItem:(GLBDataViewItem*)item user:(BOOL)user {
     if((_allowsSelection == YES) || (user == NO)) {
@@ -1607,63 +1667,6 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     }
 }
 
-- (void)_appearItem:(GLBDataViewItem*)item {
-    if(item.cell == nil) {
-        GLBDataViewCell* cell = [self.contentView dequeueCellWithItem:item];
-        if(cell != nil) {
-            item.cell = cell;
-        }
-    }
-    [_visibleItems addObject:item];
-    if(_transiting == YES) {
-        [item beginTransition];
-    }
-}
-
-- (void)_disappearItem:(GLBDataViewItem*)item {
-    if(_transiting == YES) {
-        [item endTransition];
-    }
-    GLBDataViewCell* cell = item.cell;
-    if(cell != nil) {
-        [self.contentView enqueueCell:cell item:item];
-        item.cell = nil;
-    }
-    [_visibleItems removeObject:item];
-}
-
-- (void)_didInsertItems:(NSArray*)items {
-    if(_updating == NO) {
-        @throw [NSException exceptionWithName:self.glb_className reason:@"Need invoke on batchUpdate" userInfo:nil];
-    }
-    [_insertedItems addObjectsFromArray:items];
-    [self setNeedValidateLayout];
-}
-
-- (void)_didDeleteItems:(NSArray*)items {
-    if(_updating == NO) {
-        @throw [NSException exceptionWithName:self.glb_className reason:@"Need invoke on batchUpdate" userInfo:nil];
-    }
-    [_visibleItems removeObjectsInArray:items];
-    [_selectedItems removeObjectsInArray:items];
-    [_highlightedItems removeObjectsInArray:items];
-    [_editingItems removeObjectsInArray:items];
-    [_deletedItems addObjectsFromArray:items];
-    [self setNeedValidateLayout];
-}
-
-- (void)_didReplaceOriginItems:(NSArray*)originItems withItems:(NSArray*)items {
-    if(_updating == NO) {
-        @throw [NSException exceptionWithName:self.glb_className reason:@"Need invoke on batchUpdate" userInfo:nil];
-    }
-    [_visibleItems removeObjectsInArray:originItems];
-    [_selectedItems removeObjectsInArray:originItems];
-    [_highlightedItems removeObjectsInArray:originItems];
-    [_editingItems removeObjectsInArray:originItems];
-    [_reloadedBeforeItems addObjectsFromArray:originItems];
-    [_reloadedAfterItems addObjectsFromArray:items];
-    [self setNeedValidateLayout];
-}
 
 - (void)_beginAnimateUpdatedItems {
     if(_reloadedBeforeItems.count > 0) {
@@ -1737,8 +1740,8 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
         if([self containsActionForKey:GLBDataViewAnimateRestore] == YES) {
             [self performActionForKey:GLBDataViewAnimateRestore withArguments:@[ self, _reloadedBeforeItems ]];
             for(GLBDataViewItem* item in _reloadedBeforeItems) {
-                [self _disappearItem:item];
-                item.parent = nil;
+                [self disappearItem:item];
+                item.container = nil;
             }
         } else {
             for(GLBDataViewItem* item in _reloadedBeforeItems) {
@@ -1747,8 +1750,8 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                     cell.glb_ZPosition = 0.0f;
                     cell.alpha = 1.0f;
                 }
-                [self _disappearItem:item];
-                item.parent = nil;
+                [self disappearItem:item];
+                item.container = nil;
             }
         }
         [_reloadedBeforeItems removeAllObjects];
@@ -1777,8 +1780,8 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
         if([self containsActionForKey:GLBDataViewAnimateRestore] == YES) {
             [self performActionForKey:GLBDataViewAnimateRestore withArguments:@[ self, _deletedItems ]];
             for(GLBDataViewItem* item in _deletedItems) {
-                [self _disappearItem:item];
-                item.parent = nil;
+                [self disappearItem:item];
+                item.container = nil;
             }
         } else {
             for(GLBDataViewItem* item in _deletedItems) {
@@ -1787,8 +1790,8 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                     cell.glb_ZPosition = 0.0f;
                     cell.alpha = 1.0f;
                 }
-                [self _disappearItem:item];
-                item.parent = nil;
+                [self disappearItem:item];
+                item.container = nil;
             }
         }
         [_deletedItems removeAllObjects];
@@ -1798,7 +1801,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 - (void)_validateLayout {
     CGSize containerSize = CGSizeZero;
     if(_container != nil) {
-        [_container _validateLayoutForAvailableFrame:GLBRectMakeOriginAndSize(CGPointZero, self.frame.size)];
+        [_container validateLayoutForAvailableFrame:GLBRectMakeOriginAndSize(CGPointZero, self.frame.size)];
         containerSize = _container.frame.size;
     }
     self.contentSize = containerSize;
@@ -1809,13 +1812,13 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 
 - (void)_layoutForVisible {
     CGRect bounds = self.bounds;
-    [_container _willLayoutForBounds:bounds];
+    [_container willLayoutForBounds:bounds];
     if((_animating == NO) && (_transiting == NO)) {
         [_visibleItems glb_each:^(GLBDataViewItem* item) {
             [item invalidateLayoutForBounds:bounds];
         }];
     }
-    [_container _didLayoutForBounds:bounds];
+    [_container didLayoutForBounds:bounds];
 }
 
 - (void)_updateSuperviewConstraints {
@@ -2088,7 +2091,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 - (void)_willBeginDragging {
     [_visibleItems glb_each:^(GLBDataViewItem* item) {
         if(item.cell != nil) {
-            [item.cell _willBeginDragging];
+            [item.cell willBeginDragging];
         }
     }];
     _contentView.userInteractionEnabled = NO;
@@ -2150,7 +2153,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             }
         }
     }
-    [_container _willBeginDragging];
+    [_container willBeginDragging];
 }
 
 - (void)_didScrollDragging:(BOOL)dragging decelerating:(BOOL)decelerating {
@@ -2417,7 +2420,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             [self _updateInsets:(dragging == NO)];
         }
     }
-    [_container _didScrollDragging:dragging decelerating:decelerating];
+    [_container didScrollDragging:dragging decelerating:decelerating];
 }
 
 - (void)_willEndDraggingWithVelocity:(CGPoint)velocity contentOffset:(inout CGPoint*)contentOffset contentSize:(CGSize)contentSize visibleSize:(CGSize)visibleSize {
@@ -2559,7 +2562,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             }
         }
     }
-    [_container _willEndDraggingWithVelocity:velocity contentOffset:contentOffset contentSize:contentSize visibleSize:visibleSize];
+    [_container willEndDraggingWithVelocity:velocity contentOffset:contentOffset contentSize:contentSize visibleSize:visibleSize];
 }
 
 - (void)_didEndDraggingWillDecelerate:(BOOL)decelerate {
@@ -2568,25 +2571,25 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
         [_pageControl updatePageNumberForScrollView:self];
 #endif
     }
-    [_container _didEndDraggingWillDecelerate:decelerate];
+    [_container didEndDraggingWillDecelerate:decelerate];
 }
 
 - (void)_willBeginDecelerating {
-    [_container _willBeginDecelerating];
+    [_container willBeginDecelerating];
 }
 
 - (void)_didEndDecelerating {
 #if __has_include("GLBPageControl.h")
     [_pageControl updatePageNumberForScrollView:self];
 #endif
-    [_container _didEndDecelerating];
+    [_container didEndDecelerating];
 }
 
 - (void)_didEndScrollingAnimation {
 #if __has_include("GLBPageControl.h")
         [_pageControl updatePageNumberForScrollView:self];
 #endif
-    [_container _didEndScrollingAnimation];
+    [_container didEndScrollingAnimation];
 }
 
 - (void)_showSearchBarAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete {
@@ -2601,7 +2604,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                               delay:0.01f
                             options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut)
                          animations:^{
-                             [self _setSearchBarInset:to force:YES];
+                             [self setSearchBarInset:to force:YES];
                              [self.superview layoutIfNeeded];
                          } completion:^(BOOL finished) {
                              if(complete != nil) {
@@ -2609,7 +2612,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                              }
                          }];
     } else {
-        [self _setSearchBarInset:to force:YES];
+        [self setSearchBarInset:to force:YES];
         if(complete != nil) {
             complete();
         }
@@ -2628,7 +2631,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                               delay:0.01f
                             options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut)
                          animations:^{
-                             [self _setSearchBarInset:to force:YES];
+                             [self setSearchBarInset:to force:YES];
                              [self.superview layoutIfNeeded];
                          } completion:^(BOOL finished) {
                              if(complete != nil) {
@@ -2636,7 +2639,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                              }
                          }];
     } else {
-        [self _setSearchBarInset:to force:YES];
+        [self setSearchBarInset:to force:YES];
         if(complete != nil) {
             complete();
         }
@@ -2644,35 +2647,35 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 }
 
 - (void)_showTopRefreshAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete {
-    [_topRefreshView _showAnimated:animated velocity:velocity complete:complete];
+    [_topRefreshView showAnimated:animated velocity:velocity complete:complete];
 }
 
 - (void)_hideTopRefreshAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete {
-    [_topRefreshView _hideAnimated:animated velocity:velocity complete:complete];
+    [_topRefreshView hideAnimated:animated velocity:velocity complete:complete];
 }
 
 - (void)_showBottomRefreshAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete {
-    [_bottomRefreshView _showAnimated:animated velocity:velocity complete:complete];
+    [_bottomRefreshView showAnimated:animated velocity:velocity complete:complete];
 }
 
 - (void)_hideBottomRefreshAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete {
-    [_bottomRefreshView _hideAnimated:animated velocity:velocity complete:complete];
+    [_bottomRefreshView hideAnimated:animated velocity:velocity complete:complete];
 }
 
 - (void)_showLeftRefreshAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete {
-    [_leftRefreshView _showAnimated:animated velocity:velocity complete:complete];
+    [_leftRefreshView showAnimated:animated velocity:velocity complete:complete];
 }
 
 - (void)_hideLeftRefreshAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete {
-    [_leftRefreshView _hideAnimated:animated velocity:velocity complete:complete];
+    [_leftRefreshView hideAnimated:animated velocity:velocity complete:complete];
 }
 
 - (void)_showRightRefreshAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete {
-    [_rightRefreshView _showAnimated:animated velocity:velocity complete:complete];
+    [_rightRefreshView showAnimated:animated velocity:velocity complete:complete];
 }
 
 - (void)_hideRightRefreshAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete {
-    [_rightRefreshView _hideAnimated:animated velocity:velocity complete:complete];
+    [_rightRefreshView hideAnimated:animated velocity:velocity complete:complete];
 }
 
 - (void)_changedPageControl {
@@ -2723,7 +2726,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             GLBDataViewItem* item = [self itemForPoint:location];
             [self batchDuration:GLBDataViewMovingDuration update:^{
                 [self beganMoveItem:item animated:YES];
-                [_container _beginMovingItem:_movingItem location:location];
+                [_container beginMovingItem:_movingItem location:location];
                 [self performActionForKey:GLBDataViewMovingBegin withArguments:@[ item ]];
             }];
             _movingItemLastOffset = location;
@@ -2768,12 +2771,12 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                     CGPoint newContentOffset = CGPointMake(contentOffset.x + moveContentOffset.x, contentOffset.y + moveContentOffset.y);
                     [UIView animateWithDuration:GLBDataViewMovingDuration animations:^{
                         [self setContentOffset:newContentOffset animated:NO];
-                        [_container _movingItem:_movingItem location:location delta:delta allowsSorting:allowsSorting];
+                        [_container movingItem:_movingItem location:location delta:delta allowsSorting:allowsSorting];
                     } completion:^(BOOL finished) {
                         [self _handlerLongPressGestureRecognizer:gestureRecognizer];
                     }];
                 } else {
-                    [_container _movingItem:_movingItem location:location delta:delta allowsSorting:allowsSorting];
+                    [_container movingItem:_movingItem location:location delta:delta allowsSorting:allowsSorting];
                 }
                 _movingItemLastOffset = location;
             }
@@ -2783,7 +2786,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
             GLBDataViewItem* item = _movingItem;
             if(item != nil) {
                 [self batchDuration:GLBDataViewMovingDuration update:^{
-                    [_container _endMovingItem:_movingItem location:location];
+                    [_container endMovingItem:_movingItem location:location];
                     [self endedMoveItemAnimated:YES];
                     [self performActionForKey:GLBDataViewMovingEnd withArguments:@[ item ]];
                 }];

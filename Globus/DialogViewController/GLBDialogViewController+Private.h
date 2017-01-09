@@ -12,25 +12,25 @@
 
 @interface GLBDialogViewController () < UIGestureRecognizerDelegate >
 
-@property(nonatomic, strong) UIWindow* dialogWindow;
-@property(nonatomic, weak) UIWindow* ownerWindow;
-@property(nonatomic, strong) UIViewController* ownerViewController;
+@property(nonatomic, nullable, strong) UIWindow* dialogWindow;
+@property(nonatomic, nullable, weak) UIWindow* ownerWindow;
+@property(nonatomic, nullable, strong) UIViewController* ownerViewController;
 
-@property(nonatomic, readonly, strong) UITapGestureRecognizer* tapGesture;
-@property(nonatomic, readonly, strong) GLBBlurView* backgroundView;
-@property(nonatomic, readonly, strong) UIViewController* contentViewController;
-@property(nonatomic, readonly, strong) NSLayoutConstraint* constraintContentViewHorizontalAlignment;
-@property(nonatomic, readonly, strong) NSLayoutConstraint* constraintContentViewVerticalAlignment;
-@property(nonatomic, readonly, strong) NSLayoutConstraint* constraintContentViewWidth;
-@property(nonatomic, readonly, strong) NSLayoutConstraint* constraintContentViewHeight;
-@property(nonatomic, readonly, strong) NSLayoutConstraint* constraintContentViewMinWidth;
-@property(nonatomic, readonly, strong) NSLayoutConstraint* constraintContentViewMinHeight;
-@property(nonatomic, readonly, strong) NSLayoutConstraint* constraintContentViewMaxWidth;
-@property(nonatomic, readonly, strong) NSLayoutConstraint* constraintContentViewMaxHeight;
-@property(nonatomic, readonly, strong) NSLayoutConstraint* constraintContentViewTop;
-@property(nonatomic, readonly, strong) NSLayoutConstraint* constraintContentViewBottom;
-@property(nonatomic, readonly, strong) NSLayoutConstraint* constraintContentViewLeft;
-@property(nonatomic, readonly, strong) NSLayoutConstraint* constraintContentViewRight;
+@property(nonatomic, nullable, readonly, strong) UITapGestureRecognizer* tapGesture;
+@property(nonatomic, nullable, readonly, strong) GLBBlurView* backgroundView;
+@property(nonatomic, nullable, readonly, strong) UIViewController* contentViewController;
+@property(nonatomic, nullable, readonly, strong) NSLayoutConstraint* constraintContentViewHorizontalAlignment;
+@property(nonatomic, nullable, readonly, strong) NSLayoutConstraint* constraintContentViewVerticalAlignment;
+@property(nonatomic, nullable, readonly, strong) NSLayoutConstraint* constraintContentViewWidth;
+@property(nonatomic, nullable, readonly, strong) NSLayoutConstraint* constraintContentViewHeight;
+@property(nonatomic, nullable, readonly, strong) NSLayoutConstraint* constraintContentViewMinWidth;
+@property(nonatomic, nullable, readonly, strong) NSLayoutConstraint* constraintContentViewMinHeight;
+@property(nonatomic, nullable, readonly, strong) NSLayoutConstraint* constraintContentViewMaxWidth;
+@property(nonatomic, nullable, readonly, strong) NSLayoutConstraint* constraintContentViewMaxHeight;
+@property(nonatomic, nullable, readonly, strong) NSLayoutConstraint* constraintContentViewTop;
+@property(nonatomic, nullable, readonly, strong) NSLayoutConstraint* constraintContentViewBottom;
+@property(nonatomic, nullable, readonly, strong) NSLayoutConstraint* constraintContentViewLeft;
+@property(nonatomic, nullable, readonly, strong) NSLayoutConstraint* constraintContentViewRight;
 @property(nonatomic) BOOL autoUpdateConstraintContentView;
 @property(nonatomic) BOOL needClearConstraintContentView;
 

@@ -52,8 +52,8 @@
     GLBDataViewItemAccessibilityElement* _accessibilityElement;
 }
 
-@property(nonatomic, weak) GLBDataView* view;
-@property(nonatomic, weak) GLBDataViewContainer* parent;
+@property(nonatomic, weak) __kindof GLBDataView* dataView;
+@property(nonatomic, weak) __kindof GLBDataViewContainer* container;
 @property(nonatomic, strong) GLBDataViewCell* cell;
 
 @end

@@ -11,7 +11,7 @@
     NSRange range = [string rangeOfString:@"#"];
     if((range.location != NSNotFound) && (range.length > 0)) {
         CGFloat red = 1, blue = 1, green = 1, alpha = 1;
-        NSString* colorString = [[string stringByReplacingOccurrencesOfString:@"#" withString:@""] uppercaseString];
+        NSString* colorString = [[string stringByReplacingCharactersInRange:range withString:@""] uppercaseString];
         switch (colorString.length) {
             case 2: // #GG
                 red = green = blue = [self glb_colorComponentFromString:colorString start:0 length:2];

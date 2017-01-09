@@ -93,6 +93,17 @@
 #   define GLB_UNAVAILABLE_WATCHOS
 #endif
 
+#define GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(NAME) \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wobjc-designated-initializers\"") \
+- (instancetype)NAME \
+    { do { \
+        NSAssert2(NO, @"%@ is not the designated initializer for instances of %@.", NSStringFromSelector(_cmd), NSStringFromClass([self class])); \
+        return nil; \
+    } while (0); \
+} \
+_Pragma("clang diagnostic pop")
+
 /*--------------------------------------------------*/
 
 #define GLB_XSTR(STR)                               #STR

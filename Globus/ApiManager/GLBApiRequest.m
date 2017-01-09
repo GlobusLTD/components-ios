@@ -23,6 +23,9 @@
 - (instancetype)init {
     self = [super init];
     if(self != nil) {
+        _urlParams = [NSMutableDictionary dictionary];
+        _headers = [NSMutableDictionary dictionary];
+        _bodyParams = [NSMutableDictionary dictionary];
         _includeArraySymbolsUrlParams = YES;
         _encodeUrlParams = YES;
         _encodeBodyParams = YES;
@@ -35,6 +38,36 @@
 }
 
 #pragma mark - Property
+
+- (void)setUrlParams:(NSDictionary*)urlParams {
+    if([_urlParams isEqualToDictionary:urlParams] == NO) {
+        [_urlParams setDictionary:urlParams];
+    }
+}
+
+- (NSDictionary*)urlParams {
+    return _urlParams.copy;
+}
+
+- (void)setHeaders:(NSDictionary*)headers {
+    if([_headers isEqualToDictionary:headers] == NO) {
+        [_headers setDictionary:headers];
+    }
+}
+
+- (NSDictionary*)headers {
+    return _headers.copy;
+}
+
+- (void)setBodyParams:(NSDictionary*)bodyParams {
+    if([_bodyParams isEqualToDictionary:bodyParams] == NO) {
+        [_bodyParams setDictionary:bodyParams];
+    }
+}
+
+- (NSDictionary*)bodyParams {
+    return _bodyParams.copy;
+}
 
 - (NSProgress*)uploadProgress {
     if(_uploadProgress == nil) {
@@ -122,7 +155,12 @@
             NSMutableString* bodyString = NSMutableString.string;
             NSDictionary* formData = [self _formDataFromDictionary:bodyParams];
             if(_uploadItems.count > 0) {
-                NSString* bodyBoundary = _bodyBoundary.glb_stringByEncodingURLFormat;
+                NSString* bodyBoundary = nil;
+                if(_bodyBoundary != nil) {
+                    bodyBoundary = _bodyBoundary.glb_stringByEncodingURLFormat;
+                } else {
+                    bodyBoundary = NSUUID.UUID.UUIDString;
+                }
                 [formData glb_each:^(NSString* key, id< NSObject > value) {
                     NSString* tempKey = (_encodeBodyParams == YES) ? key.glb_stringByEncodingURLFormat : key;
                     NSString* tempValue = (_encodeBodyParams == YES) ? value.description.glb_stringByEncodingURLFormat : value.description;
@@ -184,8 +222,28 @@
 
 #pragma mark - Public
 
-+ (Class)responseClass {
-    return GLBApiResponse.class;
+- (void)setUrlParam:(NSString*)urlParam value:(NSString*)value {
+    if(value != nil) {
+        _urlParams[urlParam] = value;
+    } else {
+        [_urlParams removeObjectForKey:urlParam];
+    }
+}
+
+- (void)setHeader:(NSString*)header value:(NSString*)value {
+    if(value != nil) {
+        _headers[header] = value;
+    } else {
+        [_headers removeObjectForKey:header];
+    }
+}
+
+- (void)setBodyParam:(NSString*)bodyParam value:(NSString*)value {
+    if(value != nil) {
+        _bodyParams[bodyParam] = value;
+    } else {
+        [_bodyParams removeObjectForKey:bodyParam];
+    }
 }
 
 - (void)resume {
@@ -204,6 +262,10 @@
     if(_task != nil) {
         [_task cancel];
     }
+}
+
++ (Class)responseClass {
+    return GLBApiResponse.class;
 }
 
 #pragma mark - Private

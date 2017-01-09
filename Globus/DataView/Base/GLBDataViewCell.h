@@ -15,7 +15,7 @@
 
 @interface GLBDataViewCell : UIView< UIGestureRecognizerDelegate, GLBSearchBarDelegate, GLBWindowExtension, GLBNibExtension >
 
-@property(nonatomic, readonly, weak) __kindof GLBDataView* view;
+@property(nonatomic, readonly, weak) __kindof GLBDataView* dataView;
 @property(nonatomic, readonly, weak) __kindof GLBDataViewItem* item;
 @property(nonatomic) BOOL hideKeyboardIfTouched;
 @property(nonatomic, readonly, assign, getter=isSelected) BOOL selected;
@@ -48,10 +48,15 @@
 - (void)reload GLB_DEPRECATED;
 - (void)didHide;
 
+- (void)refreshConstraints;
+
 - (BOOL)containsActionForKey:(id)key;
 - (BOOL)containsActionForIdentifier:(id)identifier forKey:(id)key;
 
 - (void)performActionForKey:(id)key withArguments:(NSArray*)arguments;
+
+- (void)pressed NS_REQUIRES_SUPER;
+- (void)longPressed NS_REQUIRES_SUPER;
 
 - (void)selectedAnimated:(BOOL)animated NS_REQUIRES_SUPER;
 - (void)deselectedAnimated:(BOOL)animated NS_REQUIRES_SUPER;
@@ -67,6 +72,8 @@
 
 - (void)validateLayoutForBounds:(CGRect)bounds;
 - (void)invalidateLayoutForBounds:(CGRect)bounds;
+
+- (void)willBeginDragging;
 
 - (void)beginTransition;
 - (void)transitionResize;

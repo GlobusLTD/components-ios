@@ -34,16 +34,16 @@ typedef void(^GLBWatchReachableReplyBlock)(NSDictionary< NSString*, id >* _Nulla
 
 @interface GLBWatchManager : NSObject
 
-@property(nonatomic, readonly, nullable, strong) WCSession* session;
+@property(nonatomic, nullable, readonly, strong) WCSession* session;
 @property(nonatomic, readonly, getter=isSupported) BOOL supported;
 @property(nonatomic, readonly, getter=isActivate) BOOL activate;
 @property(nonatomic, readonly, getter=isPerformedActivate) BOOL performedActivate;
 @property(nonatomic, readonly, getter=isReachable) BOOL reachable;
-@property(nonatomic, readonly, getter=isPaired) BOOL paired __WATCHOS_UNAVAILABLE;
-@property(nonatomic, readonly, getter=isWatchAppInstalled) BOOL watchAppInstalled __WATCHOS_UNAVAILABLE;
-@property(nonatomic, readonly, getter=isComplicationEnabled) BOOL complicationEnabled __WATCHOS_UNAVAILABLE;
+@property(nonatomic, readonly, getter=isPaired) BOOL paired GLB_UNAVAILABLE_WATCHOS;
+@property(nonatomic, readonly, getter=isWatchAppInstalled) BOOL watchAppInstalled GLB_UNAVAILABLE_WATCHOS;
+@property(nonatomic, readonly, getter=isComplicationEnabled) BOOL complicationEnabled GLB_UNAVAILABLE_WATCHOS;
 
-+ (_Nullable instancetype)shared;
++ (instancetype _Nullable)shared;
 
 + (BOOL)isSupported;
 
@@ -51,8 +51,8 @@ typedef void(^GLBWatchReachableReplyBlock)(NSDictionary< NSString*, id >* _Nulla
 
 - (void)activate;
 
-- (void)addObserver:(_Nonnull id< GLBWatchManagerObserver >)observer;
-- (void)removeObserver:(_Nonnull id< GLBWatchManagerObserver >)observer;
+- (void)addObserver:(id< GLBWatchManagerObserver > _Nonnull)observer;
+- (void)removeObserver:(id< GLBWatchManagerObserver > _Nonnull)observer;
 
 - (void)addProvider:(GLBWatchProvider* _Nonnull)provider;
 - (void)removeProvider:(GLBWatchProvider* _Nonnull)provider;
@@ -67,20 +67,23 @@ typedef void(^GLBWatchReachableReplyBlock)(NSDictionary< NSString*, id >* _Nulla
 
 @interface GLBWatchProvider : NSObject
 
-@property(nonatomic, readonly, nonnull, strong) NSString* identifier;
+@property(nonatomic, nonnull, readonly, strong) NSString* identifier;
 @property(nonatomic, nullable, weak) id< GLBWatchProviderDelegate > delegate;
 
-- (_Nullable instancetype)initWithIdentifier:(NSString* _Nonnull)identifier delegate:(_Nullable id< GLBWatchProviderDelegate >)delegate;
++ (instancetype _Nonnull)watchProviderWithIdentifier:(NSString* _Nonnull)identifier delegate:(id< GLBWatchProviderDelegate > _Nullable)delegate NS_SWIFT_NAME(watchProvider(identifier:delegate:));
+
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithIdentifier:(NSString* _Nonnull)identifier delegate:(id< GLBWatchProviderDelegate > _Nullable)delegate NS_DESIGNATED_INITIALIZER;
 
 - (void)setup NS_REQUIRES_SUPER;
 
 - (BOOL)sendReachableInfo:(NSDictionary< NSString*, id >* _Nonnull)reachableInfo;
-- (BOOL)sendReachableInfo:(NSDictionary< NSString*, id >* _Nonnull)reachableInfo block:(_Nullable GLBWatchReachableSendBlock)block;
+- (BOOL)sendReachableInfo:(NSDictionary< NSString*, id >* _Nonnull)reachableInfo block:(GLBWatchReachableSendBlock _Nullable)block;
 
 - (BOOL)sendInfo:(NSDictionary< NSString*, id >* _Nonnull)info;
-- (BOOL)sendInfo:(NSDictionary< NSString*, id >* _Nonnull)info complication:(BOOL)complication __WATCHOS_UNAVAILABLE;
+- (BOOL)sendInfo:(NSDictionary< NSString*, id >* _Nonnull)info complication:(BOOL)complication GLB_UNAVAILABLE_WATCHOS;
 - (BOOL)sendInfo:(NSDictionary< NSString*, id >* _Nonnull)info data:(NSData* _Nullable)data;
-- (BOOL)sendInfo:(NSDictionary< NSString*, id >* _Nonnull)info data:(NSData* _Nullable)data complication:(BOOL)complication __WATCHOS_UNAVAILABLE;
+- (BOOL)sendInfo:(NSDictionary< NSString*, id >* _Nonnull)info data:(NSData* _Nullable)data complication:(BOOL)complication GLB_UNAVAILABLE_WATCHOS;
 
 @end
 
@@ -101,7 +104,7 @@ typedef void(^GLBWatchReachableReplyBlock)(NSDictionary< NSString*, id >* _Nulla
 @protocol GLBWatchProviderDelegate < NSObject >
 
 @optional
-- (void)watchProvider:(GLBWatchProvider* _Nonnull)watchProvider receiveReachableInfo:(NSDictionary< NSString*, id >* _Nullable)reachableInfo reply:(_Nullable GLBWatchReachableReplyBlock)reply;
+- (void)watchProvider:(GLBWatchProvider* _Nonnull)watchProvider receiveReachableInfo:(NSDictionary< NSString*, id >* _Nullable)reachableInfo reply:(GLBWatchReachableReplyBlock _Nullable)reply;
 
 @optional
 - (void)watchProvider:(GLBWatchProvider* _Nonnull)watchProvider sendInfo:(NSDictionary< NSString*, id >* _Nullable)info data:(NSData* _Nullable)data error:(NSError* _Nullable)error;

@@ -27,7 +27,7 @@ typedef NS_ENUM(NSInteger, GLBVideoPlayerViewDisplayMode) {
 @property(nonatomic, getter=isMuted) BOOL muted;
 @property(nonatomic) CGFloat volume;
 
-@property(nonatomic, readonly, copy) NSURL* url;
+@property(nonatomic, nullable, readonly, copy) NSURL* url;
 @property(nonatomic, readonly, assign) CGFloat buffer;
 @property(nonatomic, readonly, assign) CGFloat rate;
 @property(nonatomic, readonly, assign) CGFloat duration;
@@ -36,20 +36,20 @@ typedef NS_ENUM(NSInteger, GLBVideoPlayerViewDisplayMode) {
 @property(nonatomic, readonly, assign, getter=isPlaying) BOOL playing;
 @property(nonatomic, readonly, assign, getter=isPaused) BOOL paused;
 
-@property(nonatomic, strong) GLBAction* actionPrepared;
-@property(nonatomic, strong) GLBAction* actionCleaned;
-@property(nonatomic, strong) GLBAction* actionPlaying;
-@property(nonatomic, strong) GLBAction* actionStoped;
-@property(nonatomic, strong) GLBAction* actionFinished;
-@property(nonatomic, strong) GLBAction* actionResumed;
-@property(nonatomic, strong) GLBAction* actionPaused;
-@property(nonatomic, strong) GLBAction* actionError;
-@property(nonatomic, strong) GLBAction* actionUpdateBuffer;
-@property(nonatomic, strong) GLBAction* actionUpdateRate;
+@property(nonatomic, nullable, strong) GLBAction* actionPrepared;
+@property(nonatomic, nullable, strong) GLBAction* actionCleaned;
+@property(nonatomic, nullable, strong) GLBAction* actionPlaying;
+@property(nonatomic, nullable, strong) GLBAction* actionStoped;
+@property(nonatomic, nullable, strong) GLBAction* actionFinished;
+@property(nonatomic, nullable, strong) GLBAction* actionResumed;
+@property(nonatomic, nullable, strong) GLBAction* actionPaused;
+@property(nonatomic, nullable, strong) GLBAction* actionError;
+@property(nonatomic, nullable, strong) GLBAction* actionUpdateBuffer;
+@property(nonatomic, nullable, strong) GLBAction* actionUpdateRate;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)prepareWithURL:(NSURL*)url;
+- (void)prepareWithURL:(NSURL* _Nonnull)url;
 - (void)clean;
 
 - (void)play;

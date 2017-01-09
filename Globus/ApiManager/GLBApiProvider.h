@@ -24,7 +24,7 @@ typedef void (^GLBApiProviderCompleteBlock)(_Nonnull id request, _Nonnull id res
 
 @property(nonatomic, nullable, weak) GLBApiManager* manager;
 
-@property(nonatomic, readonly, nonnull, copy) NSString* name;
+@property(nonatomic, nonnull, readonly, copy) NSString* name;
 @property(nonatomic, nullable, copy) NSURL* url;
 @property(nonatomic, nullable, copy) NSDictionary* urlParams;
 @property(nonatomic, nullable, copy) NSDictionary* headers;
@@ -41,16 +41,17 @@ typedef void (^GLBApiProviderCompleteBlock)(_Nonnull id request, _Nonnull id res
 @property(nonatomic) NSHTTPCookieAcceptPolicy cookieAcceptPolicy;
 @property(nonatomic) NSInteger maximumConnectionsPerHost;
 @property(nonatomic) NSURLRequestCachePolicy cachePolicy;
-@property(nonatomic, nullable) NSURLCache* cache;
+@property(nonatomic, nullable, strong) NSURLCache* cache;
 
 @property(nonatomic, nullable, copy) NSString* certificateFilename;
 @property(nonatomic) BOOL allowInvalidCertificates;
 
 @property(nonatomic) BOOL logging;
 
-- (instancetype _Nullable)initWithName:(NSString* _Nonnull)name;
-- (instancetype _Nullable)initWithName:(NSString* _Nonnull)name url:(NSURL* _Nullable)url;
-- (instancetype _Nullable)initWithName:(NSString* _Nonnull)name url:(NSURL* _Nullable)url headers:(NSDictionary< NSString*, NSString* >* _Nullable)headers;
+- (instancetype _Nonnull)init NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithName:(NSString* _Nonnull)name;
+- (instancetype _Nonnull)initWithName:(NSString* _Nonnull)name url:(NSURL* _Nullable)url;
+- (instancetype _Nonnull)initWithName:(NSString* _Nonnull)name url:(NSURL* _Nullable)url headers:(NSDictionary< NSString*, NSString* >* _Nullable)headers NS_DESIGNATED_INITIALIZER;
 
 - (void)setup NS_REQUIRES_SUPER;
 
@@ -59,21 +60,21 @@ typedef void (^GLBApiProviderCompleteBlock)(_Nonnull id request, _Nonnull id res
 - (void)setBodyParam:(NSString* _Nonnull)bodyParam value:(NSString* _Nullable)value;
 
 - (void)sendRequest:(GLBApiRequest* _Nonnull)request
-           byTarget:(_Nonnull id)target
-      completeBlock:(_Nullable GLBApiProviderCompleteBlock)completeBlock;
+           byTarget:(id _Nonnull)target
+      completeBlock:(GLBApiProviderCompleteBlock _Nullable)completeBlock;
 
 - (void)sendRequest:(GLBApiRequest* _Nonnull)request
-           byTarget:(_Nonnull id)target
-      downloadBlock:(_Nullable GLBApiProviderProgressBlock)downloadBlock
-      completeBlock:(_Nullable GLBApiProviderCompleteBlock)completeBlock;
+           byTarget:(id _Nonnull)target
+      downloadBlock:(GLBApiProviderProgressBlock _Nullable)downloadBlock
+      completeBlock:(GLBApiProviderCompleteBlock _Nullable)completeBlock;
 
 - (void)sendRequest:(GLBApiRequest* _Nonnull)request
-           byTarget:(_Nonnull id)target
-        uploadBlock:(_Nullable GLBApiProviderProgressBlock)uploadBlock
-      completeBlock:(_Nullable GLBApiProviderCompleteBlock)completeBlock;
+           byTarget:(id _Nonnull)target
+        uploadBlock:(GLBApiProviderProgressBlock _Nullable)uploadBlock
+      completeBlock:(GLBApiProviderCompleteBlock _Nullable)completeBlock;
 
 - (void)cancelRequest:(GLBApiRequest* _Nonnull)request;
-- (void)cancelAllRequestsByTarget:(_Nonnull id)target;
+- (void)cancelAllRequestsByTarget:(id _Nonnull)target;
 - (void)cancelAllRequests;
 
 @end

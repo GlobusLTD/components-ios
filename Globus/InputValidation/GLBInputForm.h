@@ -16,7 +16,7 @@
 
 @interface GLBInputForm : NSObject
 
-@property(nonatomic, strong) IBOutletCollection(NSObject) NSArray* fields;
+@property(nonatomic, strong) IBOutletCollection(NSObject) NSArray< id< GLBInputField > >* fields;
 @property(nonatomic, strong) GLBAction* actionChangeState;
 @property(nonatomic, readonly, assign, getter=isValid) BOOL valid;
 

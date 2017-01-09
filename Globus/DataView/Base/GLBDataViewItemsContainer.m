@@ -20,57 +20,56 @@
     _entries = NSMutableArray.array;
 }
 
-#pragma mark - Private property private
+#pragma mark - Public override
 
 - (void)_willChangeView {
 }
 
 - (void)_didChangeView {
     for(GLBDataViewItem* entry in _entries) {
-        entry.view = _view;
+        entry.dataView = _dataView;
     }
 }
 
-#pragma mark - Private override
-
-- (void)_beginUpdateAnimated:(BOOL)animated {
-    [super _beginUpdateAnimated:animated];
+- (void)beginUpdateAnimated:(BOOL)animated {
+    [super beginUpdateAnimated:animated];
+    
     for(GLBDataViewItem* entry in _entries) {
         [entry beginUpdateAnimated:animated];
     }
 }
 
-- (void)_updateAnimated:(BOOL)animated {
-    [super _updateAnimated:animated];
+- (void)updateAnimated:(BOOL)animated {
+    [super updateAnimated:animated];
+    
     for(GLBDataViewItem* entry in _entries) {
         [entry updateAnimated:animated];
     }
 }
 
-- (void)_endUpdateAnimated:(BOOL)animated {
+- (void)endUpdateAnimated:(BOOL)animated {
     for(GLBDataViewItem* entry in _entries) {
         [entry endUpdateAnimated:animated];
     }
-    [super _endUpdateAnimated:animated];
+    
+    [super endUpdateAnimated:animated];
 }
 
-- (CGRect)_frameForAvailableFrame:(CGRect)frame {
-    return [self _frameEntriesForAvailableFrame:frame];
+- (CGRect)frameForAvailableFrame:(CGRect)frame {
+    return [self frameEntriesForAvailableFrame:frame];
 }
 
-- (void)_layoutForAvailableFrame:(CGRect)frame {
-    [self _layoutEntriesForFrame:frame];
+- (void)layoutForAvailableFrame:(CGRect)frame {
+    [self layoutEntriesForFrame:frame];
 }
 
-- (void)_willLayoutForBounds:(CGRect)bounds {
-    [self _willEntriesLayoutForBounds:CGRectIntersection(bounds, _frame)];
+- (void)willLayoutForBounds:(CGRect)bounds {
+    [self willEntriesLayoutForBounds:CGRectIntersection(bounds, _frame)];
 }
 
-- (void)_didLayoutForBounds:(CGRect)bounds {
-    [self _didEntriesLayoutForBounds:CGRectIntersection(bounds, _frame)];
+- (void)didLayoutForBounds:(CGRect)bounds {
+    [self didEntriesLayoutForBounds:CGRectIntersection(bounds, _frame)];
 }
-
-#pragma mark - Public override
 
 - (void)setNeedResize {
     for(GLBDataViewItem* entry in _entries) {
@@ -110,155 +109,155 @@
     return nil;
 }
 
-#pragma mark - Private
+#pragma mark - Public
 
-- (void)_prependEntry:(GLBDataViewItem*)entry {
+- (void)prependEntry:(GLBDataViewItem*)entry {
     [_entries insertObject:entry atIndex:0];
     _accessibilityEntries = nil;
-    entry.parent = self;
-    if(_view != nil) {
-        [_view _didInsertItems:@[ entry ]];
+    entry.container = self;
+    if(_dataView != nil) {
+        [_dataView didInsertItems:@[ entry ]];
     }
 }
 
-- (void)_prependEntries:(NSArray*)entries {
+- (void)prependEntries:(NSArray*)entries {
     [_entries insertObjects:entries atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, entries.count)]];
     _accessibilityEntries = nil;
     for(GLBDataViewItem* entry in entries) {
-        entry.parent = self;
+        entry.container = self;
     }
-    if(_view != nil) {
-        [_view _didInsertItems:entries];
+    if(_dataView != nil) {
+        [_dataView didInsertItems:entries];
     }
 }
 
-- (void)_appendEntry:(GLBDataViewItem*)entry {
+- (void)appendEntry:(GLBDataViewItem*)entry {
     [_entries addObject:entry];
     _accessibilityEntries = nil;
-    entry.parent = self;
-    if(_view != nil) {
-        [_view _didInsertItems:@[ entry ]];
+    entry.container = self;
+    if(_dataView != nil) {
+        [_dataView didInsertItems:@[ entry ]];
     }
 }
 
-- (void)_appendEntries:(NSArray*)entries {
+- (void)appendEntries:(NSArray*)entries {
     [_entries addObjectsFromArray:entries];
     _accessibilityEntries = nil;
     for(GLBDataViewItem* entry in entries) {
-        entry.parent = self;
+        entry.container = self;
     }
-    if(_view != nil) {
-        [_view _didInsertItems:entries];
+    if(_dataView != nil) {
+        [_dataView didInsertItems:entries];
     }
 }
 
-- (void)_insertEntry:(GLBDataViewItem*)entry atIndex:(NSUInteger)index {
+- (void)insertEntry:(GLBDataViewItem*)entry atIndex:(NSUInteger)index {
     if(index != NSNotFound) {
         [_entries insertObject:entry atIndex:index];
         _accessibilityEntries = nil;
-        entry.parent = self;
-        if(_view != nil) {
-            [_view _didInsertItems:@[ entry ]];
+        entry.container = self;
+        if(_dataView != nil) {
+            [_dataView didInsertItems:@[ entry ]];
         }
     }
 }
 
-- (void)_insertEntries:(NSArray*)entries atIndex:(NSUInteger)index {
+- (void)insertEntries:(NSArray*)entries atIndex:(NSUInteger)index {
     if(index != NSNotFound) {
         [_entries insertObjects:entries atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, entries.count)]];
         _accessibilityEntries = nil;
         for(GLBDataViewItem* entry in entries) {
-            entry.parent = self;
+            entry.container = self;
         }
-        if(_view != nil) {
-            [_view _didInsertItems:entries];
+        if(_dataView != nil) {
+            [_dataView didInsertItems:entries];
         }
     }
 }
 
-- (void)_insertEntry:(GLBDataViewItem*)entry aboveEntry:(GLBDataViewItem*)aboveEntry {
+- (void)insertEntry:(GLBDataViewItem*)entry aboveEntry:(GLBDataViewItem*)aboveEntry {
     NSUInteger index = [_entries indexOfObject:aboveEntry];
     if(index == NSNotFound) {
         index = 0;
     }
-    [self _insertEntry:entry atIndex:index];
+    [self insertEntry:entry atIndex:index];
 }
 
-- (void)_insertEntries:(NSArray*)entries aboveEntry:(GLBDataViewItem*)aboveEntry {
+- (void)insertEntries:(NSArray*)entries aboveEntry:(GLBDataViewItem*)aboveEntry {
     NSUInteger index = [_entries indexOfObject:aboveEntry];
     if(index == NSNotFound) {
         index = 0;
     }
-    [self _insertEntries:entries atIndex:index];
+    [self insertEntries:entries atIndex:index];
 }
 
-- (void)_insertEntry:(GLBDataViewItem*)entry belowEntry:(GLBDataViewItem*)belowEntry {
+- (void)insertEntry:(GLBDataViewItem*)entry belowEntry:(GLBDataViewItem*)belowEntry {
     NSUInteger index = [_entries indexOfObject:belowEntry];
     if(index == NSNotFound) {
         index = (_entries.count > 0) ? _entries.count - 1 : 0;
     }
-    [self _insertEntry:entry atIndex:index + 1];
+    [self insertEntry:entry atIndex:index + 1];
 }
 
-- (void)_insertEntries:(NSArray*)entries belowEntry:(GLBDataViewItem*)belowEntry {
+- (void)insertEntries:(NSArray*)entries belowEntry:(GLBDataViewItem*)belowEntry {
     NSUInteger index = [_entries indexOfObject:belowEntry];
     if(index == NSNotFound) {
         index = (_entries.count > 0) ? _entries.count - 1 : 0;
     }
-    [self _insertEntries:entries atIndex:index + 1];
+    [self insertEntries:entries atIndex:index + 1];
 }
 
-- (void)_replaceOriginEntry:(GLBDataViewItem*)originEntry withEntry:(GLBDataViewItem*)entry {
+- (void)replaceOriginEntry:(GLBDataViewItem*)originEntry withEntry:(GLBDataViewItem*)entry {
     NSUInteger index = [_entries indexOfObject:originEntry];
     if(index != NSNotFound) {
-        entry.parent = self;
+        entry.container = self;
         _entries[index] = entry;
         _accessibilityEntries = nil;
-        if(_view != nil) {
-            [_view _didReplaceOriginItems:@[ originEntry ] withItems:@[ entry ]];
+        if(_dataView != nil) {
+            [_dataView didReplaceOriginItems:@[ originEntry ] withItems:@[ entry ]];
         }
     }
 }
 
-- (void)_replaceOriginEntries:(NSArray*)originEntries withEntries:(NSArray*)entries {
+- (void)replaceOriginEntries:(NSArray*)originEntries withEntries:(NSArray*)entries {
     NSIndexSet* indexSet = [_entries indexesOfObjectsPassingTest:^BOOL(GLBDataViewItem* originEntry, NSUInteger index __unused, BOOL* stop __unused) {
         return [originEntries containsObject:originEntry];
     }];
     if(indexSet.count > 0) {
         for(GLBDataViewItem* entry in entries) {
-            entry.parent = self;
+            entry.container = self;
         }
         [_entries replaceObjectsAtIndexes:indexSet withObjects:entries];
         _accessibilityEntries = nil;
-        if(_view != nil) {
-            [_view _didReplaceOriginItems:originEntries withItems:entries];
+        if(_dataView != nil) {
+            [_dataView didReplaceOriginItems:originEntries withItems:entries];
         }
     }
 }
 
-- (void)_deleteEntry:(GLBDataViewItem*)entry {
+- (void)deleteEntry:(GLBDataViewItem*)entry {
     [_entries removeObject:entry];
     _accessibilityEntries = nil;
-    if(_view != nil) {
-        [_view _didDeleteItems:@[ entry ]];
+    if(_dataView != nil) {
+        [_dataView didDeleteItems:@[ entry ]];
     }
 }
 
-- (void)_deleteEntries:(NSArray*)entries {
+- (void)deleteEntries:(NSArray*)entries {
     [_entries removeObjectsInArray:entries];
     _accessibilityEntries = nil;
-    if(_view != nil) {
-        [_view _didDeleteItems:entries];
+    if(_dataView != nil) {
+        [_dataView didDeleteItems:entries];
     }
 }
 
-- (void)_deleteAllEntries {
-    [self _deleteEntries:[_entries copy]];
+- (void)deleteAllEntries {
+    [self deleteEntries:[_entries copy]];
 }
 
-- (CGPoint)_alignWithVelocity:(CGPoint __unused)velocity contentOffset:(CGPoint)contentOffset contentSize:(CGSize)contentSize visibleSize:(CGSize)visibleSize {
+- (CGPoint)alignWithVelocity:(CGPoint __unused)velocity contentOffset:(CGPoint)contentOffset contentSize:(CGSize)contentSize visibleSize:(CGSize)visibleSize {
     if((_allowAutoAlign == YES) && (_hidden == NO)) {
-        CGPoint alingPoint = [self _alignPointWithContentOffset:contentOffset contentSize:contentSize visibleSize:visibleSize];
+        CGPoint alingPoint = [self alignPointWithContentOffset:contentOffset contentSize:contentSize visibleSize:visibleSize];
         if(CGRectContainsPoint(_frame, alingPoint) == YES) {
             for(GLBDataViewItem* item in _entries) {
                 if(item.hidden == YES) {
@@ -303,39 +302,35 @@
     return contentOffset;
 }
 
-- (void)_beginTransition {
+- (void)beginTransition {
     for(GLBDataViewItem* item in _entries) {
         [item beginTransition];
     }
 }
 
-- (void)_transitionResize {
+- (void)transitionResize {
     for(GLBDataViewItem* item in _entries) {
         [item transitionResize];
     }
 }
 
-- (void)_endTransition {
+- (void)endTransition {
     for(GLBDataViewItem* item in _entries) {
         [item endTransition];
     }
 }
 
-- (CGRect)_validateEntriesForAvailableFrame:(CGRect __unused)frame {
+- (CGRect)frameEntriesForAvailableFrame:(CGRect)frame {
     return CGRectNull;
 }
 
-- (CGRect)_frameEntriesForAvailableFrame:(CGRect __unused)frame {
-    return CGRectNull;
+- (void)layoutEntriesForFrame:(CGRect)frame {
 }
 
-- (void)_layoutEntriesForFrame:(CGRect __unused)frame {
+- (void)willEntriesLayoutForBounds:(CGRect)bounds {
 }
 
-- (void)_willEntriesLayoutForBounds:(CGRect __unused)bounds {
-}
-
-- (void)_didEntriesLayoutForBounds:(CGRect)bounds {
+- (void)didEntriesLayoutForBounds:(CGRect)bounds {
     for(GLBDataViewItem* entry in _entries) {
         if(entry.hidden == YES) {
             continue;
@@ -344,7 +339,7 @@
     }
 }
 
-- (NSArray*)_updateAccessibilityEntries {
+- (NSArray*)updateAccessibilityEntries {
     NSArray< GLBDataViewItem* >* visibleEntries = [_entries filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(GLBDataViewItem* entry, NSDictionary* bindings) {
         return (entry.isHidden == NO);
     }]];
@@ -423,7 +418,7 @@
 
 - (NSArray*)accessibilityElements {
     if(_accessibilityEntries == nil) {
-        _accessibilityEntries = [self _updateAccessibilityEntries];
+        _accessibilityEntries = [self updateAccessibilityEntries];
     }
     NSMutableArray* result = [NSMutableArray array];
     for(GLBDataViewItem* entry in _accessibilityEntries) {

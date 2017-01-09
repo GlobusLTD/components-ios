@@ -8,9 +8,9 @@
 
 @interface UIApplication (GLB_UI)
 
-@property(nonatomic, readonly, nullable, copy) NSArray* glb_windows;
-@property(nonatomic, readonly, nullable, strong) UIWindow* glb_statusBarWindow;
-@property(nonatomic, readonly, nullable, strong) UIWindow* glb_visibledWindow;
+@property(nonatomic, nullable, readonly, copy) NSArray* glb_windows;
+@property(nonatomic, nullable, readonly, strong) UIWindow* glb_statusBarWindow;
+@property(nonatomic, nullable, readonly, strong) UIWindow* glb_visibledWindow;
 
 @end
 

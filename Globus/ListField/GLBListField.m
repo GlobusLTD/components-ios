@@ -23,7 +23,7 @@
 - (void)didBeginEditing {
     [super didBeginEditing];
     
-    if(self.items.count > 0) {
+    if(_items.count > 0) {
         if(self.pickerView == nil) {
             self.pickerView = [UIPickerView new];
             self.pickerView.delegate = self;
@@ -31,7 +31,7 @@
         }
         [self.pickerView reloadAllComponents];
         if(self.selectedItem != nil) {
-            NSUInteger index = [self.items indexOfObject:self.selectedItem];
+            NSUInteger index = [_items indexOfObject:self.selectedItem];
             if(index != NSNotFound) {
                 [self.pickerView selectRow:(NSInteger)(index) inComponent:0 animated:NO];
             }
@@ -45,8 +45,8 @@
     [super didEndEditing];
     
     NSUInteger selectedItem = (NSUInteger)[self.pickerView selectedRowInComponent:0];
-    if(selectedItem < self.items.count) {
-        [self setSelectedItem:self.items[selectedItem] animated:YES emitted:YES];
+    if(selectedItem < _items.count) {
+        [self setSelectedItem:_items[selectedItem] animated:YES emitted:YES];
     }
 }
 
@@ -63,7 +63,7 @@
             self.selectedItem = items[0];
             self.text = self.selectedItem.title;
             if(self.isEditing == YES) {
-                NSUInteger index = [self.items indexOfObject:self.selectedItem];
+                NSUInteger index = [_items indexOfObject:self.selectedItem];
                 if(index != NSNotFound) {
                     [self.pickerView selectRow:(NSInteger)(index) inComponent:0 animated:NO];
                 }
@@ -94,7 +94,7 @@
             self.text = @"";
         }
         if(self.isEditing == YES) {
-            NSUInteger index = [self.items indexOfObject:self.selectedItem];
+            NSUInteger index = [_items indexOfObject:self.selectedItem];
             if(index != NSNotFound) {
                 [self.pickerView selectRow:(NSInteger)(index) inComponent:0 animated:NO];
             }
@@ -112,18 +112,18 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView*)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return (NSInteger)(self.items.count);
+    return (NSInteger)(_items.count);
 }
 
 #pragma mark - UIPickerViewDelegate
 
 - (NSString*)pickerView:(UIPickerView*)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    GLBListFieldItem* listItem = self.items[(NSUInteger)row];
+    GLBListFieldItem* listItem = _items[(NSUInteger)row];
     return listItem.title;
 }
 
 - (NSAttributedString*)pickerView:(UIPickerView*)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    GLBListFieldItem* listItem = self.items[(NSUInteger)row];
+    GLBListFieldItem* listItem = _items[(NSUInteger)row];
     return [[NSAttributedString alloc] initWithString:[listItem title] attributes:@{
         NSFontAttributeName : [listItem font],
         NSForegroundColorAttributeName: [listItem color]
@@ -131,7 +131,7 @@
 }
 
 - (void)pickerView:(UIPickerView*)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    [self setSelectedItem:self.items[(NSUInteger)row] animated:YES emitted:YES];
+    [self setSelectedItem:_items[(NSUInteger)row] animated:YES emitted:YES];
 }
 
 #pragma mark - GLBInputField
@@ -157,30 +157,18 @@
 
 @implementation GLBListFieldItem
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+
 #pragma mark - Init / Free
 
 - (instancetype)initWithTitle:(NSString*)title value:(id)value {
-    self = [super init];
-    if(self != nil) {
-        _title = title;
-        _font = [UIFont systemFontOfSize:UIFont.systemFontSize];
-        _color = UIColor.blackColor;
-        _value = value;
-        [self setup];
-    }
-    return self;
+    return [self initWithTitle:title font:[UIFont systemFontOfSize:UIFont.systemFontSize] color:UIColor.blackColor value:value];
 }
 
 - (instancetype)initWithTitle:(NSString*)title color:(UIColor*)color value:(id)value {
-    self = [super init];
-    if(self != nil) {
-        _title = title;
-        _font = [UIFont systemFontOfSize:UIFont.systemFontSize];
-        _color = color;
-        _value = value;
-        [self setup];
-    }
-    return self;
+    return [self initWithTitle:title font:[UIFont systemFontOfSize:UIFont.systemFontSize] color:color value:value];
 }
 
 - (instancetype)initWithTitle:(NSString*)title font:(UIFont*)font color:(UIColor*)color value:(id)value {

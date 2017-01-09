@@ -16,20 +16,21 @@
 @property(nonatomic, readonly, assign) NSTimeInterval elapsed;
 @property(nonatomic, readonly, assign) NSUInteger repeated;
 
-@property(nonatomic, strong) GLBAction* actionStarted;
-@property(nonatomic, strong) GLBAction* actionRepeat;
-@property(nonatomic, strong) GLBAction* actionFinished;
-@property(nonatomic, strong) GLBAction* actionStoped;
-@property(nonatomic, strong) GLBAction* actionPaused;
-@property(nonatomic, strong) GLBAction* actionResumed;
+@property(nonatomic, nullable, strong) GLBAction* actionStarted;
+@property(nonatomic, nullable, strong) GLBAction* actionRepeat;
+@property(nonatomic, nullable, strong) GLBAction* actionFinished;
+@property(nonatomic, nullable, strong) GLBAction* actionStoped;
+@property(nonatomic, nullable, strong) GLBAction* actionPaused;
+@property(nonatomic, nullable, strong) GLBAction* actionResumed;
 
-+ (instancetype)timerWithInterval:(NSTimeInterval)interval;
-+ (instancetype)timerWithInterval:(NSTimeInterval)interval repeat:(NSUInteger)repeat;
-+ (instancetype)timerWithInterval:(NSTimeInterval)interval delay:(NSTimeInterval)delay repeat:(NSUInteger)repeat;
++ (instancetype _Nonnull)timerWithInterval:(NSTimeInterval)interval NS_SWIFT_UNAVAILABLE("Use init(interval:)");
++ (instancetype _Nonnull)timerWithInterval:(NSTimeInterval)interval repeat:(NSUInteger)repeat NS_SWIFT_UNAVAILABLE("Use init(interval:repeat:)");
++ (instancetype _Nonnull)timerWithInterval:(NSTimeInterval)interval delay:(NSTimeInterval)delay repeat:(NSUInteger)repeat NS_SWIFT_UNAVAILABLE("Use init(interval:delay:repeat:)");
 
-- (instancetype)initWithInterval:(NSTimeInterval)interval;
-- (instancetype)initWithInterval:(NSTimeInterval)interval repeat:(NSUInteger)repeat;
-- (instancetype)initWithInterval:(NSTimeInterval)interval delay:(NSTimeInterval)delay repeat:(NSUInteger)repeat;
+- (instancetype _Nonnull)init NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithInterval:(NSTimeInterval)interval;
+- (instancetype _Nonnull)initWithInterval:(NSTimeInterval)interval repeat:(NSUInteger)repeat;
+- (instancetype _Nonnull)initWithInterval:(NSTimeInterval)interval delay:(NSTimeInterval)delay repeat:(NSUInteger)repeat NS_DESIGNATED_INITIALIZER;
 
 - (void)setup NS_REQUIRES_SUPER;
 

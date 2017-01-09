@@ -10,8 +10,8 @@
 
 #pragma mark - Synthesize
 
-@synthesize view = _view;
-@synthesize parent = _parent;
+@synthesize dataView = _dataView;
+@synthesize container = _container;
 @synthesize identifier = _identifier;
 @synthesize data = _data;
 @synthesize size = _size;
@@ -125,14 +125,14 @@
 
 #pragma mark - Property
 
-- (void)setView:(GLBDataView*)view {
-    if(_view != view) {
-        _view = view;
-        if(_view != nil) {
+- (void)setDataView:(GLBDataView*)dataView {
+    if(_dataView != dataView) {
+        _dataView = dataView;
+        if(_dataView != nil) {
             if(_accessibilityElement == nil) {
-                _accessibilityElement = [GLBDataViewItemAccessibilityElement accessibilityElementWithDataView:_view item:self];
+                _accessibilityElement = [GLBDataViewItemAccessibilityElement accessibilityElementWithDataView:_dataView item:self];
             } else {
-                _accessibilityElement.dataView = _view;
+                _accessibilityElement.dataView = _dataView;
             }
         } else {
             _accessibilityElement = nil;
@@ -140,13 +140,13 @@
     }
 }
 
-- (void)setParent:(GLBDataViewContainer*)parent {
-    if(_parent != parent) {
-        _parent = parent;
-        if(_parent != nil) {
-            self.view = parent.view;
+- (void)setContainer:(GLBDataViewContainer*)container {
+    if(_container != container) {
+        _container = container;
+        if(_container != nil) {
+            self.dataView = container.dataView;
         } else {
-            self.view = nil;
+            self.dataView = nil;
         }
     }
 }
@@ -173,7 +173,7 @@
 }
 
 - (CGRect)originFrame {
-    [_view validateLayoutIfNeed];
+    [_dataView validateLayoutIfNeed];
     return _originFrame;
 }
 
@@ -192,7 +192,7 @@
 }
 
 - (CGRect)updateFrame {
-    [_view validateLayoutIfNeed];
+    [_dataView validateLayoutIfNeed];
     return _updateFrame;
 }
 
@@ -208,7 +208,7 @@
 }
 
 - (CGRect)displayFrame {
-    [_view validateLayoutIfNeed];
+    [_dataView validateLayoutIfNeed];
     if(CGRectIsNull(_displayFrame) == YES) {
         return _updateFrame;
     }
@@ -216,7 +216,7 @@
 }
 
 - (CGRect)frame {
-    [_view validateLayoutIfNeed];
+    [_dataView validateLayoutIfNeed];
     if(CGRectIsNull(_displayFrame) == NO) {
         return _displayFrame;
     } else if(CGRectIsNull(_updateFrame) == NO) {
@@ -228,7 +228,7 @@
 - (void)setHidden:(BOOL)hidden {
     if(_hidden != hidden) {
         _hidden = hidden;
-        [_view setNeedValidateLayout];
+        [_dataView setNeedValidateLayout];
     }
 }
 
@@ -236,21 +236,21 @@
     if(_hidden == YES) {
         return YES;
     }
-    return _parent.hiddenInHierarchy;
+    return _container.hiddenInHierarchy;
 }
 
 #pragma mark - Public
 
 - (BOOL)containsActionForKey:(id)key {
-    return [_view containsActionForKey:key];
+    return [_dataView containsActionForKey:key];
 }
 
 - (BOOL)containsActionForIdentifier:(id)identifier forKey:(id)key {
-    return [_view containsActionForIdentifier:identifier forKey:key];
+    return [_dataView containsActionForIdentifier:identifier forKey:key];
 }
 
 - (void)performActionForKey:(id)key withArguments:(NSArray*)arguments {
-    [_view performActionForIdentifier:_identifier forKey:key withArguments:[@[ self ] glb_unionWithArray:arguments]];
+    [_dataView performActionForIdentifier:_identifier forKey:key withArguments:[@[ self ] glb_unionWithArray:arguments]];
 }
 
 - (void)beginUpdateAnimated:(BOOL __unused)animated {
@@ -270,7 +270,7 @@
     if(_selected == NO) {
         _selected = YES;
         if(_cell != nil) {
-            [_view selectItem:self animated:animated];
+            [_dataView selectItem:self animated:animated];
             [_cell selectedAnimated:animated];
         }
     }
@@ -280,7 +280,7 @@
     if(_selected == YES) {
         _selected = NO;
         if(_cell != nil) {
-            [_view deselectItem:self animated:animated];
+            [_dataView deselectItem:self animated:animated];
             [_cell deselectedAnimated:animated];
         }
     }
@@ -290,7 +290,7 @@
     if(_highlighted == NO) {
         _highlighted = YES;
         if(_cell != nil) {
-            [_view highlightItem:self animated:animated];
+            [_dataView highlightItem:self animated:animated];
             [_cell highlightedAnimated:animated];
         }
     }
@@ -300,7 +300,7 @@
     if(_highlighted == YES) {
         _highlighted = NO;
         if(_cell != nil) {
-            [_view unhighlightItem:self animated:animated];
+            [_dataView unhighlightItem:self animated:animated];
             [_cell unhighlightedAnimated:animated];
         }
     }
@@ -310,7 +310,7 @@
     if(_editing == NO) {
         _editing = YES;
         if(_cell != nil) {
-            [_view beganEditItem:self animated:animated];
+            [_dataView beganEditItem:self animated:animated];
             [_cell beginEditingAnimated:animated];
         }
     }
@@ -320,7 +320,7 @@
     if(_editing == YES) {
         _editing = NO;
         if(_cell != nil) {
-            [_view endedEditItem:self animated:animated];
+            [_dataView endedEditItem:self animated:animated];
             [_cell endEditingAnimated:animated];
         }
     }
@@ -330,7 +330,7 @@
     if(_moving == NO) {
         _moving = YES;
         if(_cell != nil) {
-            [_view beganMoveItem:self animated:animated];
+            [_dataView beganMoveItem:self animated:animated];
             [_cell beginMovingAnimated:animated];
         }
     }
@@ -340,7 +340,7 @@
     if(_moving == YES) {
         _moving = NO;
         if(_cell != nil) {
-            [_view endedMoveItemAnimated:animated];
+            [_dataView endedMoveItemAnimated:animated];
             [_cell endMovingAnimated:animated];
         }
     }
@@ -349,12 +349,12 @@
 - (void)setNeedResize {
     if(_needResize == NO) {
         _needResize = YES;
-        if((_view.isAnimating == NO) && (_view.isTransiting == NO)) {
+        if((_dataView.isAnimating == NO) && (_dataView.isTransiting == NO)) {
             _originFrame = CGRectNull;
             _updateFrame = CGRectNull;
             _displayFrame = CGRectNull;
         }
-        [_view setNeedValidateLayout];
+        [_dataView setNeedValidateLayout];
     }
 }
 
@@ -362,7 +362,7 @@
     if(_needResize == YES) {
         _needResize = NO;
         
-        Class cellClass = [_view cellClassWithItem:self];
+        Class cellClass = [_dataView cellClassWithItem:self];
         if(cellClass != nil) {
             _size = [cellClass sizeForItem:self availableSize:size];
         }
@@ -372,7 +372,7 @@
 
 - (void)setNeedUpdate {
     if(_cell != nil) {
-        if(_view.isUpdating == YES) {
+        if(_dataView.isUpdating == YES) {
             _cell.frame = self.frame;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -394,21 +394,13 @@
     [self setNeedUpdate];
 }
 
-- (void)appear {
-    [_view _appearItem:self];
-}
-
-- (void)disappear {
-    [_view _disappearItem:self];
-}
-
 - (void)validateLayoutForBounds:(CGRect)bounds {
     if(_cell == nil) {
         if(_persistent == YES) {
-            [self appear];
+            [_dataView appearItem:self];
             [_cell validateLayoutForBounds:bounds];
         } else if((CGRectIntersectsRect(bounds, CGRectUnion(_originFrame, self.frame)) == YES)) {
-            [self appear];
+            [_dataView appearItem:self];
             [_cell validateLayoutForBounds:bounds];
         }
     } else {
@@ -421,9 +413,9 @@
         if(_persistent == YES) {
             [_cell invalidateLayoutForBounds:bounds];
         } else if(self.hiddenInHierarchy == YES) {
-            [self disappear];
+            [_dataView disappearItem:self];
         } else if(CGRectIntersectsRect(bounds, self.frame) == NO) {
-            [self disappear];
+            [_dataView disappearItem:self];
         } else {
             [_cell invalidateLayoutForBounds:bounds];
         }
@@ -497,15 +489,15 @@
 #pragma mark - UIAccessibilityContainer
 
 - (NSInteger)accessibilityElementCount {
-    return self.accessibilityElements.count;
+    return (NSInteger)(self.accessibilityElements.count);
 }
 
 - (id)accessibilityElementAtIndex:(NSInteger)index {
-    return [self.accessibilityElements objectAtIndex:index];
+    return [self.accessibilityElements objectAtIndex:(NSUInteger)(index)];
 }
 
 - (NSInteger)indexOfAccessibilityElement:(id)element {
-    return [self.accessibilityElements indexOfObject:element];
+    return (NSInteger)([self.accessibilityElements indexOfObject:element]);
 }
 
 - (NSArray*)accessibilityElements {

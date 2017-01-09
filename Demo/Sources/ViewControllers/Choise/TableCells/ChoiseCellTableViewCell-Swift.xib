@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="7cC-qM-cfM" customClass="ChoiseCellTableViewCell" customModule="Globus_Swift">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7cC-qM-cfM" id="mQL-od-sny">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ISx-t3-b9e">
+                        <rect key="frame" x="16" y="16" width="343" height="11.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ISx-t3-b9e" firstAttribute="leading" secondItem="mQL-od-sny" secondAttribute="leadingMargin" constant="8" id="Txo-sO-meT"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="ISx-t3-b9e" secondAttribute="bottom" constant="8" id="f1O-mO-d7V"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="ISx-t3-b9e" secondAttribute="trailing" constant="8" id="jMX-eL-mdS"/>
+                    <constraint firstItem="ISx-t3-b9e" firstAttribute="top" secondItem="mQL-od-sny" secondAttribute="topMargin" constant="8" id="yEP-fP-Hso"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="displayLabel" destination="ISx-t3-b9e" id="ACY-MN-Ou3"/>
+            </connections>
+            <point key="canvasLocation" x="-92" y="24"/>
+        </tableViewCell>
+    </objects>
+</document>

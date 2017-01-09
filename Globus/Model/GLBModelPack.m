@@ -13,6 +13,12 @@
 
 @implementation GLBModelPack
 
+#pragma mark - Init / Free
+
++ (instancetype)pack {
+    return [[self alloc] init];
+}
+
 #pragma mark - Public
 
 - (id)pack:(id)packValue {
@@ -31,10 +37,22 @@
 
 @implementation GLBModelPackSet
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+
 #pragma mark - Init / Free
 
-- (instancetype)initWithModelClass:(Class)modelClass {
-    return [self initWithConverter:[[GLBModelPackModel alloc] initWithModelClass:modelClass]];
++ (instancetype)packWithModel:(Class)model {
+    return [[self alloc] initWithModel:model];
+}
+
++ (instancetype)packWithConverter:(GLBModelPack*)converter {
+    return [[self alloc] initWithConverter:converter];
+}
+
+- (instancetype)initWithModel:(Class)model {
+    return [self initWithConverter:[GLBModelPackModel packWithModel:model]];
 }
 
 - (instancetype)initWithConverter:(GLBModelPack*)converter {
@@ -87,10 +105,22 @@
 
 @implementation GLBModelPackOrderedSet
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+
 #pragma mark - Init / Free
 
-- (instancetype)initWithModelClass:(Class)modelClass {
-    return [self initWithConverter:[[GLBModelPackModel alloc] initWithModelClass:modelClass]];
++ (instancetype)packWithModel:(Class)model {
+    return [[self alloc] initWithModel:model];
+}
+
++ (instancetype)packWithConverter:(GLBModelPack*)converter {
+    return [[self alloc] initWithConverter:converter];
+}
+
+- (instancetype)initWithModel:(Class)model {
+    return [self initWithConverter:[GLBModelPackModel packWithModel:model]];
 }
 
 - (instancetype)initWithConverter:(GLBModelPack*)converter {
@@ -143,10 +173,22 @@
 
 @implementation GLBModelPackArray
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+
 #pragma mark - Init / Free
 
-- (instancetype)initWithModelClass:(Class)modelClass {
-    return [self initWithConverter:[[GLBModelPackModel alloc] initWithModelClass:modelClass]];
++ (instancetype)packWithModel:(Class)model {
+    return [[self alloc] initWithModel:model];
+}
+
++ (instancetype)packWithConverter:(GLBModelPack*)converter {
+    return [[self alloc] initWithConverter:converter];
+}
+
+- (instancetype)initWithModel:(Class)model {
+    return [self initWithConverter:[GLBModelPackModel packWithModel:model]];
 }
 
 - (instancetype)initWithConverter:(GLBModelPack*)converter {
@@ -199,21 +241,23 @@
 
 @implementation GLBModelPackDictionary
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+
 #pragma mark - Init / Free
 
-- (instancetype)initWithValueModelClass:(Class)valueModelClass {
-    return [self initWithKeyConverter:nil
-                       valueConverter:[[GLBModelPackModel alloc] initWithModelClass:valueModelClass]];
++ (instancetype)packWithKeyModel:(Class)keyModel valueModel:(Class)valueModel {
+    return [[self alloc] initWithKeyModel:keyModel valueModel:valueModel];
 }
 
-- (instancetype)initWithValueConverter:(GLBModelPack*)valueConverter {
-    return [self initWithKeyConverter:nil
-                       valueConverter:valueConverter];
++ (instancetype)packWithKeyConverter:(GLBModelPack*)keyConverter valueConverter:(GLBModelPack*)valueConverter {
+    return [[self alloc] initWithKeyConverter:keyConverter valueConverter:valueConverter];
 }
 
-- (instancetype)initWithKeyModelClass:(Class)keyModelClass valueModelClass:(Class)valueModelClass {
-    return [self initWithKeyConverter:[[GLBModelPackModel alloc] initWithModelClass:keyModelClass]
-                       valueConverter:[[GLBModelPackModel alloc] initWithModelClass:valueModelClass]];
+- (instancetype)initWithKeyModel:(Class)keyModel valueModel:(Class)valueModel {
+    return [self initWithKeyConverter:[GLBModelPackModel packWithModel:keyModel]
+                       valueConverter:[GLBModelPackModel packWithModel:valueModel]];
 }
 
 - (instancetype)initWithKeyConverter:(GLBModelPack*)keyConverter valueConverter:(GLBModelPack*)valueConverter {
@@ -275,6 +319,14 @@
 
 #pragma mark - Init / Free
 
++ (instancetype)packWithDefaultValue:(BOOL)defaultValue {
+    return [(GLBModelPackBool*)[self alloc] initWithDefaultValue:defaultValue];
+}
+
+- (instancetype)init {
+    return [super init];
+}
+
 - (instancetype)initWithDefaultValue:(BOOL)defaultValue {
     self = [super init];
     if(self != nil) {
@@ -310,6 +362,14 @@
 @implementation GLBModelPackString
 
 #pragma mark - Init / Free
+
++ (instancetype)packWithDefaultValue:(NSString*)defaultValue {
+    return [(GLBModelPackString*)[self alloc] initWithDefaultValue:defaultValue];
+}
+
+- (instancetype)init {
+    return [super init];
+}
 
 - (instancetype)initWithDefaultValue:(NSString*)defaultValue {
     self = [super init];
@@ -347,6 +407,14 @@
 
 #pragma mark - Init / Free
 
++ (instancetype)packWithDefaultValue:(NSURL*)defaultValue {
+    return [(GLBModelPackUrl*)[self alloc] initWithDefaultValue:defaultValue];
+}
+
+- (instancetype)init {
+    return [super init];
+}
+
 - (instancetype)initWithDefaultValue:(NSURL*)defaultValue {
     self = [super init];
     if(self != nil) {
@@ -382,6 +450,14 @@
 @implementation GLBModelPackNumber
 
 #pragma mark - Init / Free
+
++ (instancetype)packWithDefaultValue:(NSNumber*)defaultValue {
+    return [(GLBModelPackNumber*)[self alloc] initWithDefaultValue:defaultValue];
+}
+
+- (instancetype)init {
+    return [super init];
+}
 
 - (instancetype)initWithDefaultValue:(NSNumber*)defaultValue {
     self = [super init];
@@ -419,6 +495,14 @@
 
 #pragma mark - Init / Free
 
++ (instancetype)packWithDefaultValue:(NSDate*)defaultValue {
+    return [(GLBModelPackDate*)[self alloc] initWithDefaultValue:defaultValue];
+}
+
+- (instancetype)init {
+    return [super init];
+}
+
 - (instancetype)initWithDefaultValue:(NSDate*)defaultValue {
     self = [super init];
     if(self != nil) {
@@ -454,6 +538,14 @@
 @implementation GLBModelPackLocation
 
 #pragma mark - Init / Free
+
++ (instancetype)packWithDefaultValue:(CLLocation*)defaultValue {
+    return [(GLBModelPackLocation*)[self alloc] initWithDefaultValue:defaultValue];
+}
+
+- (instancetype)init {
+    return [super init];
+}
 
 - (instancetype)initWithDefaultValue:(CLLocation*)defaultValue {
     self = [super init];
@@ -521,6 +613,14 @@
 
 #pragma mark - Init / Free
 
++ (instancetype)packWithDefaultValue:(UIColor*)defaultValue {
+    return [(GLBModelPackColor*)[self alloc] initWithDefaultValue:defaultValue];
+}
+
+- (instancetype)init {
+    return [super init];
+}
+
 - (instancetype)initWithDefaultValue:(UIColor*)defaultValue {
     self = [super init];
     if(self != nil) {
@@ -555,16 +655,20 @@
 
 @implementation GLBModelPackModel
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+
 #pragma mark - Init / Free
 
-- (instancetype)initWithModelClass:(Class)modelClass {
-    return [self initWithKey:nil modelClass:modelClass];
++ (instancetype)packWithModel:(Class)model {
+    return [[self alloc] initWithModel:model];
 }
 
-- (instancetype)initWithKey:(NSString*)key modelClass:(Class)modelClass {
+- (instancetype)initWithModel:(Class)model {
     self = [super init];
     if(self != nil) {
-        _modelClass = modelClass;
+        _model = model;
     }
     return self;
 }
@@ -572,7 +676,7 @@
 #pragma mark - GLBModelPack
 
 - (id)pack:(id)packValue {
-    if([packValue isKindOfClass:_modelClass] == YES) {
+    if([packValue isKindOfClass:_model] == YES) {
         NSDictionary* pack = [packValue pack];
         if(pack.count > 0) {
             return pack;
@@ -583,7 +687,7 @@
 
 - (id)unpack:(id)packValue {
     if([packValue isKindOfClass:NSDictionary.class] == YES) {
-        return [_modelClass modelWithPack:packValue];
+        return [_model modelWithPack:packValue];
     }
     return nil;
 }

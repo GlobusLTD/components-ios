@@ -14,8 +14,3 @@
 #endif
 /*--------------------------------------------------*/
 
-#if __has_include("GLBTransitionControllerCrossFade.h")
-#import "GLBTransitionControllerCrossFade.h"
-#endif
-
-/*--------------------------------------------------*/

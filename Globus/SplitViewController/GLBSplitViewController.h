@@ -14,12 +14,12 @@
 @interface GLBSplitViewController : UISplitViewController< GLBViewController >
 
 @property(nonatomic, readonly, assign, getter=isAppeared) BOOL appeared;
-@property(nonatomic, strong) GLBTransitionController* transitionModal;
-@property(nonatomic, strong) UIViewController* masterViewController;
-@property(nonatomic, strong) UIViewController* detailViewController;
+@property(nonatomic, nullable, strong) __kindof GLBTransitionController* transitionModal;
+@property(nonatomic, nullable, strong) __kindof UIViewController* masterViewController;
+@property(nonatomic, nullable, strong) __kindof UIViewController* detailViewController;
 
-- (instancetype)initWithMasterViewController:(UIViewController*)masterViewController
-                        detailViewController:(UIViewController*)detailViewController;
++ (instancetype _Nonnull)viewControllerWithMasterViewController:(__kindof UIViewController* _Nullable)masterViewController detailViewController:(__kindof UIViewController* _Nullable)detailViewController NS_SWIFT_NAME(viewController(masterViewController:detailViewController:));
+- (instancetype _Nonnull)initWithMasterViewController:(__kindof UIViewController* _Nullable)masterViewController detailViewController:(__kindof UIViewController* _Nullable)detailViewController;
 
 - (void)setup NS_REQUIRES_SUPER;
 

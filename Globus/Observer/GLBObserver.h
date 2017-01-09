@@ -16,19 +16,22 @@ typedef void(^GLBObserverPerformBlock)(_Nonnull id< GLBObserverProtocol > observ
 
 @interface GLBObserver : NSObject < GLBObjectDebugProtocol >
 
-@property(nonatomic, assign, nonnull) Protocol* protocol;
+@property(nonatomic, nonnull, assign) Protocol* protocol;
 @property(nonatomic, readonly, assign) NSUInteger count;
 
-- (_Nullable instancetype)initWithProtocol:(Protocol* _Nonnull)protocol;
++ (instancetype _Nonnull)observerWithProtocol:(Protocol* _Nonnull)protocol NS_SWIFT_UNAVAILABLE("Use init(protocol:)");
+
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithProtocol:(Protocol* _Nonnull)protocol NS_DESIGNATED_INITIALIZER;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (BOOL)containsObserver:(_Nonnull id< GLBObserverProtocol >)observer;
+- (BOOL)containsObserver:(id< GLBObserverProtocol > _Nonnull)observer;
 
-- (void)addObserver:(_Nonnull id< GLBObserverProtocol >)observer;
-- (void)removeObserver:(_Nonnull id< GLBObserverProtocol >)observer;
+- (void)addObserver:(id< GLBObserverProtocol > _Nonnull)observer;
+- (void)removeObserver:(id< GLBObserverProtocol > _Nonnull)observer;
 
-- (void)performSelector:(_Nonnull SEL)selector block:(_Nonnull GLBObserverPerformBlock)block;
+- (void)performSelector:(SEL _Nonnull)selector block:(GLBObserverPerformBlock _Nonnull)block;
 
 @end
 

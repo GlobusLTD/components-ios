@@ -20,95 +20,96 @@
     _sections = NSMutableArray.array;
 }
 
-#pragma mark - Private propert private
+#pragma mark - Public override
 
-- (void)_willChangeView {
+- (void)willChangeView {
 }
 
-- (void)_didChangeView {
+- (void)didChangeView {
     for(GLBDataViewContainer* section in _sections) {
-        section.view = _view;
+        section.dataView = _dataView;
     }
 }
 
-#pragma mark - Private override
-
-- (void)_beginUpdateAnimated:(BOOL)animated {
-    [super _beginUpdateAnimated:animated];
+- (void)beginUpdateAnimated:(BOOL)animated {
+    [super beginUpdateAnimated:animated];
+    
     for(GLBDataViewContainer* section in _sections) {
-        [section _beginUpdateAnimated:animated];
+        [section beginUpdateAnimated:animated];
     }
 }
 
 - (void)_updateAnimated:(BOOL)animated {
-    [super _updateAnimated:animated];
+    [super updateAnimated:animated];
+    
     for(GLBDataViewContainer* section in _sections) {
-        [section _updateAnimated:animated];
+        [section updateAnimated:animated];
     }
 }
 
-- (void)_endUpdateAnimated:(BOOL)animated {
+- (void)endUpdateAnimated:(BOOL)animated {
     for(GLBDataViewContainer* section in _sections) {
-        [section _endUpdateAnimated:animated];
+        [section endUpdateAnimated:animated];
     }
-    [super _endUpdateAnimated:animated];
+    
+    [super endUpdateAnimated:animated];
 }
 
-- (CGRect)_frameForAvailableFrame:(CGRect)frame {
-    return [self _frameSectionsForAvailableFrame:frame];
+- (CGRect)frameForAvailableFrame:(CGRect)frame {
+    return [self frameSectionsForAvailableFrame:frame];
 }
 
-- (void)_layoutForAvailableFrame:(CGRect)frame {
-    [self _layoutSectionsForFrame:frame];
+- (void)layoutForAvailableFrame:(CGRect)frame {
+    [self layoutSectionsForFrame:frame];
 }
 
-- (void)_willLayoutForBounds:(CGRect)bounds {
+- (void)willLayoutForBounds:(CGRect)bounds {
     CGRect intersect = CGRectIntersection(bounds, _frame);
     if(CGRectIsEmpty(intersect) == NO) {
-        [self _willSectionsLayoutForBounds:intersect];
+        [self willSectionsLayoutForBounds:intersect];
     }
 }
 
-- (void)_didLayoutForBounds:(CGRect)bounds {
+- (void)didLayoutForBounds:(CGRect)bounds {
     CGRect intersect = CGRectIntersection(bounds, _frame);
     if(CGRectIsEmpty(intersect) == NO) {
-        [self _didSectionsLayoutForBounds:intersect];
+        [self didSectionsLayoutForBounds:intersect];
     }
 }
 
-- (void)_beginMovingItem:(GLBDataViewItem*)item location:(CGPoint)location {
+- (void)beginMovingItem:(GLBDataViewItem*)item location:(CGPoint)location {
     for(GLBDataViewContainer* section in _sections) {
-        [section _beginMovingItem:item location:location];
+        [section beginMovingItem:item location:location];
     }
 }
 
-- (void)_movingItem:(GLBDataViewItem*)item location:(CGPoint)location delta:(CGPoint)delta allowsSorting:(BOOL)allowsSorting {
+- (void)movingItem:(GLBDataViewItem*)item location:(CGPoint)location delta:(CGPoint)delta allowsSorting:(BOOL)allowsSorting {
     for(GLBDataViewContainer* section in _sections) {
-        [section _movingItem:item location:location delta:delta allowsSorting:allowsSorting];
+        [section movingItem:item location:location delta:delta allowsSorting:allowsSorting];
     }
 }
 
-- (void)_endMovingItem:(GLBDataViewItem*)item location:(CGPoint)location {
+- (void)endMovingItem:(GLBDataViewItem*)item location:(CGPoint)location {
     for(GLBDataViewContainer* section in _sections) {
-        [section _endMovingItem:item location:location];
+        [section endMovingItem:item location:location];
     }
 }
 
-- (void)_beginTransition {
+- (void)beginTransition {
     for(GLBDataViewContainer* section in _sections) {
-        [section _beginTransition];
+        [section beginTransition];
     }
 }
 
-- (void)_transitionResize {
+- (void)transitionResize {
     for(GLBDataViewContainer* section in _sections) {
-        [section _transitionResize];
+        [section transitionResize];
     }
 }
 
-- (void)_endTransition {
+- (void)endTransition {
     for(GLBDataViewContainer* section in _sections) {
-        [section _endTransition];
+        [section endTransition];
     }
 }
 
@@ -154,71 +155,9 @@
     return nil;
 }
 
-#pragma mark - Public
-
-- (void)prependSection:(GLBDataViewContainer*)section {
-    section.parent = self;
-    [_sections insertObject:section atIndex:0];
-    if(_view != nil) {
-        [_view _didInsertItems:section.allItems];
-    }
-}
-
-- (void)appendSection:(GLBDataViewContainer*)section {
-    section.parent = self;
-    [_sections addObject:section];
-    if(_view != nil) {
-        [_view _didInsertItems:section.allItems];
-    }
-}
-
-- (void)insertSection:(GLBDataViewContainer*)section atIndex:(NSUInteger)index {
-    if(index != NSNotFound) {
-        section.parent = self;
-        [_sections insertObject:section atIndex:index];
-        if(_view != nil) {
-            [_view _didInsertItems:section.allItems];
-        }
-    }
-}
-
-- (void)replaceOriginSection:(GLBDataViewContainer*)originSection withSection:(GLBDataViewContainer*)section {
-    NSUInteger index = [_sections indexOfObject:originSection];
-    if(index != NSNotFound) {
-        section.parent = self;
-        _sections[index] = section;
-        if(_view != nil) {
-            [_view _didReplaceOriginItems:originSection.allItems withItems:section.allItems];
-        }
-    }
-}
-
-- (void)deleteSection:(GLBDataViewContainer*)section {
-    [_sections removeObject:section];
-    if(_view != nil) {
-        [_view _didDeleteItems:section.allItems];
-    }
-}
-
-- (void)deleteAllSections {
-    if(_view != nil) {
-        NSArray* allItems = self.allItems;
-        [_sections removeAllObjects];
-        [_view _didDeleteItems:allItems];
-    } else {
-        [_sections removeAllObjects];
-    }
-}
-
-- (void)scrollToSection:(GLBDataViewContainer*)section scrollPosition:(GLBDataViewPosition)scrollPosition animated:(BOOL)animated {
-    [_view scrollToRect:section.frame scrollPosition:scrollPosition animated:animated];
-}
-
-#pragma mark - Private override
-
-- (CGPoint)_alignWithVelocity:(CGPoint)velocity contentOffset:(CGPoint)contentOffset contentSize:(CGSize)contentSize visibleSize:(CGSize)visibleSize {
+- (CGPoint)alignWithVelocity:(CGPoint)velocity contentOffset:(CGPoint)contentOffset contentSize:(CGSize)contentSize visibleSize:(CGSize)visibleSize {
     if((_allowAutoAlign == YES) && (_hidden == NO)) {
-        CGPoint alingPoint = [self _alignPointWithContentOffset:contentOffset contentSize:contentSize visibleSize:visibleSize];
+        CGPoint alingPoint = [self alignPointWithContentOffset:contentOffset contentSize:contentSize visibleSize:visibleSize];
         if(CGRectContainsPoint(_frame, alingPoint) == YES) {
             for(GLBDataViewContainer* section in _sections) {
                 if(section.allowAutoAlign == YES) {
@@ -262,38 +201,94 @@
             if(section.hidden == YES) {
                 continue;
             }
-            contentOffset = [section _alignWithVelocity:velocity contentOffset:contentOffset contentSize:contentSize visibleSize:visibleSize];
+            contentOffset = [section alignWithVelocity:velocity contentOffset:contentOffset contentSize:contentSize visibleSize:visibleSize];
         }
     }
     return contentOffset;
 }
 
-- (CGRect)_validateSectionsForAvailableFrame:(CGRect __unused)frame {
-    return CGRectNull;
-}
+#pragma mark - Public
 
-- (CGRect)_frameSectionsForAvailableFrame:(CGRect __unused)frame {
-    return CGRectNull;
-}
-
-- (void)_layoutSectionsForFrame:(CGRect)frame {
-}
-
-- (void)_willSectionsLayoutForBounds:(CGRect)bounds {
-    for(GLBDataViewContainer* section in _sections) {
-        if(section.hidden == YES) {
-            continue;
-        }
-        [section _willLayoutForBounds:bounds];
+- (void)prependSection:(GLBDataViewContainer*)section {
+    section.container = self;
+    [_sections insertObject:section atIndex:0];
+    if(_dataView != nil) {
+        [_dataView didInsertItems:section.allItems];
     }
 }
 
-- (void)_didSectionsLayoutForBounds:(CGRect)bounds {
+- (void)appendSection:(GLBDataViewContainer*)section {
+    section.container = self;
+    [_sections addObject:section];
+    if(_dataView != nil) {
+        [_dataView didInsertItems:section.allItems];
+    }
+}
+
+- (void)insertSection:(GLBDataViewContainer*)section atIndex:(NSUInteger)index {
+    if(index != NSNotFound) {
+        section.container = self;
+        [_sections insertObject:section atIndex:index];
+        if(_dataView != nil) {
+            [_dataView didInsertItems:section.allItems];
+        }
+    }
+}
+
+- (void)replaceOriginSection:(GLBDataViewContainer*)originSection withSection:(GLBDataViewContainer*)section {
+    NSUInteger index = [_sections indexOfObject:originSection];
+    if(index != NSNotFound) {
+        section.container = self;
+        _sections[index] = section;
+        if(_dataView != nil) {
+            [_dataView didReplaceOriginItems:originSection.allItems withItems:section.allItems];
+        }
+    }
+}
+
+- (void)deleteSection:(GLBDataViewContainer*)section {
+    [_sections removeObject:section];
+    if(_dataView != nil) {
+        [_dataView didDeleteItems:section.allItems];
+    }
+}
+
+- (void)deleteAllSections {
+    if(_dataView != nil) {
+        NSArray* allItems = self.allItems;
+        [_sections removeAllObjects];
+        [_dataView didDeleteItems:allItems];
+    } else {
+        [_sections removeAllObjects];
+    }
+}
+
+- (void)scrollToSection:(GLBDataViewContainer*)section scrollPosition:(GLBDataViewPosition)scrollPosition animated:(BOOL)animated {
+    [_dataView scrollToRect:section.frame scrollPosition:scrollPosition animated:animated];
+}
+
+- (CGRect)frameSectionsForAvailableFrame:(CGRect __unused)frame {
+    return CGRectNull;
+}
+
+- (void)layoutSectionsForFrame:(CGRect)frame {
+}
+
+- (void)willSectionsLayoutForBounds:(CGRect)bounds {
     for(GLBDataViewContainer* section in _sections) {
         if(section.hidden == YES) {
             continue;
         }
-        [section _didLayoutForBounds:bounds];
+        [section willLayoutForBounds:bounds];
+    }
+}
+
+- (void)didSectionsLayoutForBounds:(CGRect)bounds {
+    for(GLBDataViewContainer* section in _sections) {
+        if(section.hidden == YES) {
+            continue;
+        }
+        [section didLayoutForBounds:bounds];
     }
 }
 

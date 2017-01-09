@@ -7,20 +7,21 @@
 
 @interface GLBAppGroupNotificationCenter : NSObject
 
-@property(nonatomic, readonly, copy) NSString* identifier;
-@property(nonatomic, readonly, copy) NSString* directory;
+@property(nonatomic, nonnull, readonly, copy) NSString* identifier;
+@property(nonatomic, nonnull, readonly, copy) NSString* directory;
 
 + (BOOL)isSupported;
 
-- (instancetype)initWithIdentifier:(NSString*)identifier directory:(NSString*)directory;
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithIdentifier:(NSString* _Nonnull)identifier directory:(NSString* _Nonnull)directory NS_DESIGNATED_INITIALIZER;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)postNotificationName:(NSString*)name object:(id< NSCoding >)object;
+- (void)postNotificationName:(NSString* _Nonnull)name object:(id< NSCoding > _Nullable)object;
 
-- (void)addObserver:(id)observer selector:(SEL)selector name:(NSString*)name;
-- (void)removeObserver:(id)observer name:(NSString*)name;
-- (void)removeObserver:(id)observer;
+- (void)addObserver:(id _Nonnull)observer selector:(SEL _Nonnull)selector name:(NSString* _Nonnull)name;
+- (void)removeObserver:(id _Nonnull)observer name:(NSString* _Nonnull)name;
+- (void)removeObserver:(id _Nonnull)observer;
 
 @end
 

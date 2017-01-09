@@ -19,6 +19,12 @@
 
 - (void)scrollToSection:(GLBDataViewContainer*)section scrollPosition:(GLBDataViewPosition)scrollPosition animated:(BOOL)animated;
 
+- (CGRect)frameSectionsForAvailableFrame:(CGRect)frame;
+- (void)layoutSectionsForFrame:(CGRect)frame;
+
+- (void)willSectionsLayoutForBounds:(CGRect)bounds;
+- (void)didSectionsLayoutForBounds:(CGRect)bounds;
+
 @end
 
 /*--------------------------------------------------*/

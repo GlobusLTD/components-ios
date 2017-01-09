@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QUc-6K-tV9">
+    <device id="retina3_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Label View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="LabelViewController" customModule="Globus_ObjC" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s0l-nF-IEH" customClass="GLBLabel">
+                                <rect key="frame" x="139" y="198" width="42" height="20.5"/>
+                                <color key="backgroundColor" red="0.34842969867061691" green="1" blue="0.69671007890419667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="s0l-nF-IEH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NlN-iY-Xuj"/>
+                            <constraint firstItem="s0l-nF-IEH" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="wsq-ph-XLG"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <connections>
+                        <outlet property="label" destination="s0l-nF-IEH" id="SMz-Ex-bPo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="599" y="-191"/>
+        </scene>
+        <!--Navigation View Controller-->
+        <scene sceneID="CJy-Cm-0lJ">
+            <objects>
+                <navigationController id="QUc-6K-tV9" customClass="GLBNavigationViewController" customModule="Pods_Globus_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DKU-NO-wbe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="9qF-6c-cuI" kind="relationship" relationship="rootViewController" id="nsu-oa-lUy"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gGj-2S-chT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1174" y="-191"/>
+        </scene>
+        <!--Demo-->
+        <scene sceneID="Npc-mE-Ith">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="9qF-6c-cuI" customClass="ChoiseViewController" customModule="Globus_ObjC" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2VI-f6-Fid"/>
+                        <viewControllerLayoutGuide type="bottom" id="O30-pv-Zaz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rp0-at-S4l">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IJL-sl-d0J">
+                                <rect key="frame" x="16" y="0.0" width="288" height="416"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChoiseCellTableViewCell" id="SRx-M0-Zac" customClass="ChoiseCellTableViewCell" customModule="Globus_ObjC" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="288" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SRx-M0-Zac" id="ING-eP-j3e">
+                                            <rect key="frame" x="0.0" y="0.0" width="288" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBE-U3-yKq">
+                                                    <rect key="frame" x="16" y="16" width="256" height="12"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="UBE-U3-yKq" secondAttribute="trailing" constant="8" id="GzY-el-1Dc"/>
+                                                <constraint firstItem="UBE-U3-yKq" firstAttribute="top" secondItem="ING-eP-j3e" secondAttribute="topMargin" constant="8" id="hK0-JZ-8SE"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="UBE-U3-yKq" secondAttribute="bottom" constant="8" id="sEi-G2-Lk6"/>
+                                                <constraint firstItem="UBE-U3-yKq" firstAttribute="leading" secondItem="ING-eP-j3e" secondAttribute="leadingMargin" constant="8" id="wU7-yW-DbS"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="displayLabel" destination="UBE-U3-yKq" id="fkd-tW-xO5"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="9qF-6c-cuI" id="fq7-Rc-YRH"/>
+                                    <outlet property="delegate" destination="9qF-6c-cuI" id="NBS-T4-ZzB"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="O30-pv-Zaz" firstAttribute="top" secondItem="IJL-sl-d0J" secondAttribute="bottom" id="VVW-Ro-vbA"/>
+                            <constraint firstItem="IJL-sl-d0J" firstAttribute="leading" secondItem="rp0-at-S4l" secondAttribute="leadingMargin" id="WRz-uJ-2cc"/>
+                            <constraint firstItem="IJL-sl-d0J" firstAttribute="top" secondItem="2VI-f6-Fid" secondAttribute="bottom" id="gbe-cY-qVK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="IJL-sl-d0J" secondAttribute="trailing" id="hel-7o-JYf"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" title="Demo" id="KQK-54-cQe"/>
+                    <connections>
+                        <outlet property="tableView" destination="IJL-sl-d0J" id="EVa-SG-tje"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="ShowLabelViewController" id="PhJ-kA-Z2i"/>
+                        <segue destination="7JH-hw-i2e" kind="show" identifier="ShowButtonViewController" id="vXs-ug-8yb"/>
+                        <segue destination="qTo-V9-1Tq" kind="show" identifier="ShowImageViewViewController" id="Cij-aQ-qvb"/>
+                        <segue destination="Ab0-Ql-BdL" kind="show" identifier="ShowButtonBadgeViewController" id="DCb-xW-rQ3"/>
+                        <segue destination="eML-TS-qFm" kind="show" identifier="ShowButtonImageViewController" id="eU5-ab-Zgo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zku-1x-fwz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-255" y="-191"/>
+        </scene>
+        <!--Button View Controller-->
+        <scene sceneID="1In-09-5qm">
+            <objects>
+                <viewController id="7JH-hw-i2e" customClass="ButtonViewController" customModule="Globus_ObjC" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JQN-q2-OWK"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vfi-5e-T41"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="AkF-uT-dE0">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0zJ-gX-WVd" customClass="GLBButton">
+                                <rect key="frame" x="24" y="8" width="140" height="34"/>
+                                <color key="backgroundColor" red="0.64705882349999999" green="0.82745098039999998" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Flat fill">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="normalBackgroundColor">
+                                        <color key="value" red="0.64705882349999999" green="0.82745098039999998" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="normalCornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="highlightedBackgroundColor">
+                                        <color key="value" red="0.51136363640000004" green="0.65454545450000001" blue="0.75" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="highlightedCornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Te5-0J-ept" customClass="GLBButton">
+                                <rect key="frame" x="172" y="8" width="140" height="34"/>
+                                <state key="normal" title="Flat stroke">
+                                    <color key="titleColor" red="0.64705882349999999" green="0.82745098039999998" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="0.51136363640000004" green="0.65454545450000001" blue="0.75" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="normalCornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="highlightedCornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="normalBorderWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="highlightedBorderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="normalBorderColor">
+                                        <color key="value" red="0.64705882349999999" green="0.82745098039999998" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="highlightedBorderColor">
+                                        <color key="value" red="0.51136363640000004" green="0.65454545450000001" blue="0.75" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Te5-0J-ept" firstAttribute="leading" secondItem="0zJ-gX-WVd" secondAttribute="trailing" constant="8" id="5iW-ye-fWM"/>
+                            <constraint firstItem="0zJ-gX-WVd" firstAttribute="top" secondItem="JQN-q2-OWK" secondAttribute="bottom" constant="8" id="EaW-G3-E3V"/>
+                            <constraint firstItem="0zJ-gX-WVd" firstAttribute="leading" secondItem="AkF-uT-dE0" secondAttribute="leadingMargin" constant="8" id="FNa-2m-EOq"/>
+                            <constraint firstItem="Te5-0J-ept" firstAttribute="width" secondItem="0zJ-gX-WVd" secondAttribute="width" id="Yzc-RK-LYB"/>
+                            <constraint firstItem="Te5-0J-ept" firstAttribute="trailing" secondItem="AkF-uT-dE0" secondAttribute="trailingMargin" constant="8" id="nYL-m8-PWM"/>
+                            <constraint firstItem="Te5-0J-ept" firstAttribute="top" secondItem="JQN-q2-OWK" secondAttribute="bottom" constant="8" id="uG1-QV-x6m"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CV4-mW-8Lm" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="596.25" y="633.75"/>
+        </scene>
+        <!--Button Image View Controller-->
+        <scene sceneID="OJN-dH-juW">
+            <objects>
+                <viewController id="eML-TS-qFm" customClass="ButtonImageViewController" customModule="Globus_ObjC" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="feH-LF-yN3"/>
+                        <viewControllerLayoutGuide type="bottom" id="WdU-2L-4Wq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kqr-aJ-dGA">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CdI-kk-yMn" customClass="GLBButton">
+                                <rect key="frame" x="52" y="193" width="216" height="30"/>
+                                <inset key="imageEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                <state key="normal" title="Change image position" image="ButtonIcon">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressed:" destination="eML-TS-qFm" eventType="touchUpInside" id="grK-p3-7Jq"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="CdI-kk-yMn" firstAttribute="centerY" secondItem="kqr-aJ-dGA" secondAttribute="centerY" id="c5e-k5-t9A"/>
+                            <constraint firstItem="CdI-kk-yMn" firstAttribute="centerX" secondItem="kqr-aJ-dGA" secondAttribute="centerX" id="ekg-U5-GqC"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <connections>
+                        <outlet property="button" destination="CdI-kk-yMn" id="RIF-ba-8CM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yEQ-I6-WSg" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1262" y="634"/>
+        </scene>
+        <!--Image View View Controller-->
+        <scene sceneID="5y0-cJ-h8f">
+            <objects>
+                <viewController id="qTo-V9-1Tq" customClass="ImageViewViewController" customModule="Globus_ObjC" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tDE-iv-e1k"/>
+                        <viewControllerLayoutGuide type="bottom" id="Bhr-kN-gDj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aDk-ar-Asa">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JgD-zg-ITK" customClass="GLBImageView">
+                                <rect key="frame" x="8" y="8" width="304" height="120"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="o6H-kZ-HZ4"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="glb_cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2Zs-P9-uXx" customClass="GLBTextView">
+                                <rect key="frame" x="8" y="136" width="304" height="272"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="qTo-V9-1Tq" id="LOF-Zc-mnZ"/>
+                                </connections>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Bhr-kN-gDj" firstAttribute="top" secondItem="2Zs-P9-uXx" secondAttribute="bottom" constant="8" id="3aT-xb-RRu"/>
+                            <constraint firstItem="2Zs-P9-uXx" firstAttribute="top" secondItem="JgD-zg-ITK" secondAttribute="bottom" constant="8" id="75w-Zi-CB3"/>
+                            <constraint firstItem="JgD-zg-ITK" firstAttribute="leading" secondItem="aDk-ar-Asa" secondAttribute="leading" constant="8" id="aZa-05-0Vl"/>
+                            <constraint firstAttribute="trailing" secondItem="2Zs-P9-uXx" secondAttribute="trailing" constant="8" id="h5f-bG-qZD"/>
+                            <constraint firstAttribute="trailing" secondItem="JgD-zg-ITK" secondAttribute="trailing" constant="8" id="k7U-fx-fzK"/>
+                            <constraint firstItem="JgD-zg-ITK" firstAttribute="top" secondItem="tDE-iv-e1k" secondAttribute="bottom" constant="8" id="oPr-Lc-j4T"/>
+                            <constraint firstItem="2Zs-P9-uXx" firstAttribute="leading" secondItem="aDk-ar-Asa" secondAttribute="leading" constant="8" id="yqe-7b-aZq"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <connections>
+                        <outlet property="imageView" destination="JgD-zg-ITK" id="Dau-Uj-M84"/>
+                        <outlet property="urlField" destination="2Zs-P9-uXx" id="QnB-zq-hWf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UO9-gG-lxk" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="596.25" y="1391.25"/>
+        </scene>
+        <!--Button Badge View Controller-->
+        <scene sceneID="ZWW-ow-TjO">
+            <objects>
+                <viewController id="Ab0-Ql-BdL" customClass="ButtonBadgeViewController" customModule="Globus_ObjC" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pOY-1t-Y20"/>
+                        <viewControllerLayoutGuide type="bottom" id="qeQ-bb-mWP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bie-7V-uAX">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X5E-Fl-joU" customClass="GLBButton">
+                                <rect key="frame" x="44" y="185" width="232" height="46"/>
+                                <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                <inset key="titleEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                <inset key="imageEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                <state key="normal" title="Change image position" image="ButtonIcon">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressed:" destination="Ab0-Ql-BdL" eventType="touchUpInside" id="WVy-k8-3dN"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="X5E-Fl-joU" firstAttribute="centerY" secondItem="bie-7V-uAX" secondAttribute="centerY" id="A5N-gO-PjN"/>
+                            <constraint firstItem="X5E-Fl-joU" firstAttribute="centerX" secondItem="bie-7V-uAX" secondAttribute="centerX" id="aIQ-zb-wix"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <connections>
+                        <outlet property="button" destination="X5E-Fl-joU" id="IoU-LY-Gjg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5in-HO-Sbx" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1928" y="634"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ButtonIcon" width="30" height="30"/>
+    </resources>
+</document>

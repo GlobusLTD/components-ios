@@ -55,7 +55,7 @@
 - (void)setup {
     [super setup];
     
-    self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_handlerPanGestureRecognizer:)];
+    self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlerPanGestureRecognizer:)];
     
     _swipeEnabled = YES;
     _swipeStyle = GLBDataViewSwipeCellStyleLeaves;
@@ -72,9 +72,9 @@
     _rightSwipeStretchSize = 128.0f;
     _rightSwipeStretchMinThreshold = 0.2f;
     _rightSwipeStretchMaxThreshold = 0.6f;
-    _rootViewOffset = [self _rootViewOffsetBySwipeProgress:0.0f];
-    _leftSwipeOffset = [self _leftViewOffsetBySwipeProgress:0.0f];
-    _rightSwipeOffset = [self _rightViewOffsetBySwipeProgress:0.0f];
+    _rootViewOffset = [self rootViewOffsetBySwipeProgress:0.0f];
+    _leftSwipeOffset = [self leftViewOffsetBySwipeProgress:0.0f];
+    _rightSwipeOffset = [self rightViewOffsetBySwipeProgress:0.0f];
 }
 
 - (void)dealloc {
@@ -134,7 +134,7 @@
 - (void)setRootView:(UIView*)rootView {
     super.rootView = rootView;
     
-    self.rootViewOffset = [self _rootViewOffsetBySwipeProgress:0.0f];
+    self.rootViewOffset = [self rootViewOffsetBySwipeProgress:0.0f];
 }
 
 - (void)setPanGestureRecognizer:(UIPanGestureRecognizer*)panGestureRecognizer {
@@ -164,10 +164,10 @@
         self.constraintRightSwipeViewHeight = nil;
         _swipeStyle = swipeStyle;
         [self glb_setSubviews:self.orderedSubviews];
-        self.rootViewOffset = [self _rootViewOffsetBySwipeProgress:0.0f];
-        self.leftSwipeOffset = [self _leftViewOffsetBySwipeProgress:0.0f];
-        self.rightSwipeOffset = [self _rightViewOffsetBySwipeProgress:0.0f];
-        [self _refreshConstraints];
+        self.rootViewOffset = [self rootViewOffsetBySwipeProgress:0.0f];
+        self.leftSwipeOffset = [self leftViewOffsetBySwipeProgress:0.0f];
+        self.rightSwipeOffset = [self rightViewOffsetBySwipeProgress:0.0f];
+        [self refreshConstraints];
     }
 }
 
@@ -185,8 +185,8 @@
             _leftSwipeView.translatesAutoresizingMaskIntoConstraints = NO;
             [self glb_setSubviews:self.orderedSubviews];
         }
-        self.leftSwipeOffset = [self _leftViewOffsetBySwipeProgress:0.0f];
-        [self _refreshConstraints];
+        self.leftSwipeOffset = [self leftViewOffsetBySwipeProgress:0.0f];
+        [self refreshConstraints];
     }
 }
 
@@ -251,7 +251,7 @@
     if(_leftSwipeSize != leftSwipeSize) {
         _leftSwipeSize = leftSwipeSize;
         if(_leftSwipeSize < 0.0f) {
-            [self _refreshConstraints];
+            [self refreshConstraints];
         } else if(_constraintLeftSwipeViewWidth != nil) {
             _constraintLeftSwipeViewWidth.constant = _leftSwipeSize;
         }
@@ -272,8 +272,8 @@
             _rightSwipeView.translatesAutoresizingMaskIntoConstraints = NO;
             [self glb_setSubviews:self.orderedSubviews];
         }
-        self.rightSwipeOffset = [self _rightViewOffsetBySwipeProgress:0.0f];
-        [self _refreshConstraints];
+        self.rightSwipeOffset = [self rightViewOffsetBySwipeProgress:0.0f];
+        [self refreshConstraints];
     }
 }
 
@@ -338,7 +338,7 @@
     if(_rightSwipeSize != rightSwipeSize) {
         _rightSwipeSize = rightSwipeSize;
         if(_rightSwipeSize < 0.0f) {
-            [self _refreshConstraints];
+            [self refreshConstraints];
         } else if(_constraintRightSwipeViewWidth != nil) {
             _constraintRightSwipeViewWidth.constant = _rightSwipeSize;
         }
@@ -353,7 +353,7 @@
         _showedRightSwipeView = NO;
         
         CGFloat needSwipeProgress = (showedLeftSwipeView == YES) ? -1.0f : 0.0f;
-        [self _updateSwipeProgress:needSwipeProgress
+        [self updateSwipeProgress:needSwipeProgress
                              speed:(animated == YES) ? _leftSwipeView.glb_frameWidth * ABS(needSwipeProgress - _panSwipeProgress) : FLT_EPSILON
                         endedSwipe:NO];
     }
@@ -365,7 +365,7 @@
         _showedLeftSwipeView = NO;
         
         CGFloat needSwipeProgress = (_showedRightSwipeView == YES) ? 1.0f : 0.0f;
-        [self _updateSwipeProgress:needSwipeProgress
+        [self updateSwipeProgress:needSwipeProgress
                              speed:(animated == YES) ? _rightSwipeView.glb_frameWidth * ABS(needSwipeProgress - _panSwipeProgress) : FLT_EPSILON
                         endedSwipe:NO];
     }
@@ -407,6 +407,89 @@
     _longPressGestureRecognizer.enabled = YES;
 }
 
+- (UIOffset)rootViewOffsetBySwipeProgress:(CGFloat)swipeProgress {
+    switch(_swipeStyle) {
+        case GLBDataViewSwipeCellStyleStands:
+        case GLBDataViewSwipeCellStyleLeaves:
+            if(swipeProgress < 0.0f) {
+                return UIOffsetMake(_leftSwipeView.glb_frameWidth * -swipeProgress, _rootViewOffset.vertical);
+            } else if(swipeProgress > 0.0f) {
+                return UIOffsetMake(-_rightSwipeView.glb_frameWidth * swipeProgress, _rootViewOffset.vertical);
+            }
+            break;
+        case GLBDataViewSwipeCellStyleStretch:
+            if(swipeProgress < 0.0f) {
+                return UIOffsetMake(_rootView.glb_frameWidth * -swipeProgress, _rootViewOffset.vertical);
+            } else if(swipeProgress > 0.0f) {
+                return UIOffsetMake(-_rootView.glb_frameWidth * swipeProgress, _rootViewOffset.vertical);
+            }
+            break;
+        case GLBDataViewSwipeCellStylePushes:
+            break;
+    }
+    return UIOffsetMake(0.0f, _rootViewOffset.vertical);
+}
+
+- (CGFloat)leftViewOffsetBySwipeProgress:(CGFloat)swipeProgress {
+    CGFloat leftWidth = _leftSwipeView.glb_frameWidth;
+    switch(_swipeStyle) {
+        case GLBDataViewSwipeCellStyleStands:
+            return 0.0f;
+        case GLBDataViewSwipeCellStyleLeaves:
+        case GLBDataViewSwipeCellStylePushes:
+            if(swipeProgress < 0.0f) {
+                return -leftWidth + (leftWidth * (-swipeProgress));
+            }
+            break;
+        case GLBDataViewSwipeCellStyleStretch:
+            return 0.0f;
+    }
+    return -leftWidth;
+}
+
+- (CGFloat)leftViewSizeBySwipeProgress:(CGFloat)swipeProgress {
+    switch(_swipeStyle) {
+        case GLBDataViewSwipeCellStyleStretch:
+            if(swipeProgress < 0.0f) {
+                return _rootView.glb_frameWidth * -swipeProgress;
+            }
+            return 0.0f;
+        default:
+            break;
+    }
+    return -1.0f;
+}
+
+- (CGFloat)rightViewOffsetBySwipeProgress:(CGFloat)swipeProgress {
+    CGFloat rigthWidth = _rightSwipeView.glb_frameWidth;
+    switch(_swipeStyle) {
+        case GLBDataViewSwipeCellStyleStands:
+            return 0.0f;
+        case GLBDataViewSwipeCellStyleLeaves:
+        case GLBDataViewSwipeCellStylePushes:
+            if(swipeProgress > 0.0f) {
+                return rigthWidth * (1.0f - swipeProgress);
+            }
+            break;
+        case GLBDataViewSwipeCellStyleStretch:
+            return 0.0f;
+    }
+    return rigthWidth;
+}
+
+- (CGFloat)rightViewSizeBySwipeProgress:(CGFloat)swipeProgress {
+    switch(_swipeStyle) {
+        case GLBDataViewSwipeCellStyleStretch:
+            if(swipeProgress > 0.0f) {
+                return _rootView.glb_frameWidth * swipeProgress;
+            }
+            return 0.0f;
+        default:
+            break;
+    }
+    return -1.0f;
+}
+
 - (CGFloat)endedSwipeProgress:(CGFloat)progress {
     CGFloat minProgress = (_panSwipeDirection == GLBDataCellSwipeDirectionLeft) ? -1.0f : 0.0f;
     CGFloat maxProgress = (_panSwipeDirection == GLBDataCellSwipeDirectionRight) ? 1.0f : 0.0f;
@@ -442,9 +525,9 @@
     return MIN(MAX(minProgress, progress), maxProgress);
 }
 
-#pragma mark - Private override
+#pragma mark - Public override
 
-- (void)_refreshConstraints {
+- (void)refreshConstraints {
     if(_leftSwipeView != nil) {
         if(_leftSwipeSize >= FLT_EPSILON) {
             if(_constraintLeftSwipeViewWidth == nil) {
@@ -539,126 +622,41 @@
         self.constraintRightSwipeViewWidth = nil;
         self.constraintRightSwipeViewHeight = nil;
     }
-    [super _refreshConstraints];
+    [super refreshConstraints];
 }
 
-- (void)_pressed {
+- (void)pressed {
     if(_showedLeftSwipeView == YES) {
         [self setShowedLeftSwipeView:NO animated:YES];
     } else if(_showedRightSwipeView == YES) {
         [self setShowedRightSwipeView:NO animated:YES];
     } else {
-        [super _pressed];
+        [super pressed];
     }
 }
 
-- (void)_longPressed {
+- (void)longPressed {
     if(_showedLeftSwipeView == YES) {
         [self setShowedLeftSwipeView:NO animated:YES];
     } else if(_showedRightSwipeView == YES) {
         [self setShowedRightSwipeView:NO animated:YES];
     } else {
-        [super _longPressed];
+        [super longPressed];
     }
 }
 
-#pragma mark - Private
-
-- (UIOffset)_rootViewOffsetBySwipeProgress:(CGFloat)swipeProgress {
-    switch(_swipeStyle) {
-        case GLBDataViewSwipeCellStyleStands:
-        case GLBDataViewSwipeCellStyleLeaves:
-            if(swipeProgress < 0.0f) {
-                return UIOffsetMake(_leftSwipeView.glb_frameWidth * -swipeProgress, _rootViewOffset.vertical);
-            } else if(swipeProgress > 0.0f) {
-                return UIOffsetMake(-_rightSwipeView.glb_frameWidth * swipeProgress, _rootViewOffset.vertical);
-            }
-            break;
-        case GLBDataViewSwipeCellStyleStretch:
-            if(swipeProgress < 0.0f) {
-                return UIOffsetMake(_rootView.glb_frameWidth * -swipeProgress, _rootViewOffset.vertical);
-            } else if(swipeProgress > 0.0f) {
-                return UIOffsetMake(-_rootView.glb_frameWidth * swipeProgress, _rootViewOffset.vertical);
-            }
-            break;
-        case GLBDataViewSwipeCellStylePushes:
-            break;
-    }
-    return UIOffsetMake(0.0f, _rootViewOffset.vertical);
-}
-
-- (CGFloat)_leftViewOffsetBySwipeProgress:(CGFloat)swipeProgress {
-    CGFloat leftWidth = _leftSwipeView.glb_frameWidth;
-    switch(_swipeStyle) {
-        case GLBDataViewSwipeCellStyleStands:
-            return 0.0f;
-        case GLBDataViewSwipeCellStyleLeaves:
-        case GLBDataViewSwipeCellStylePushes:
-            if(swipeProgress < 0.0f) {
-                return -leftWidth + (leftWidth * (-swipeProgress));
-            }
-            break;
-        case GLBDataViewSwipeCellStyleStretch:
-            return 0.0f;
-    }
-    return -leftWidth;
-}
-
-- (CGFloat)_leftViewSizeBySwipeProgress:(CGFloat)swipeProgress {
-    switch(_swipeStyle) {
-        case GLBDataViewSwipeCellStyleStretch:
-            if(swipeProgress < 0.0f) {
-                return _rootView.glb_frameWidth * -swipeProgress;
-            }
-            return 0.0f;
-        default:
-            break;
-    }
-    return -1.0f;
-}
-
-- (CGFloat)_rightViewOffsetBySwipeProgress:(CGFloat)swipeProgress {
-    CGFloat rigthWidth = _rightSwipeView.glb_frameWidth;
-    switch(_swipeStyle) {
-        case GLBDataViewSwipeCellStyleStands:
-            return 0.0f;
-        case GLBDataViewSwipeCellStyleLeaves:
-        case GLBDataViewSwipeCellStylePushes:
-            if(swipeProgress > 0.0f) {
-                return rigthWidth * (1.0f - swipeProgress);
-            }
-            break;
-        case GLBDataViewSwipeCellStyleStretch:
-            return 0.0f;
-    }
-    return rigthWidth;
-}
-
-- (CGFloat)_rightViewSizeBySwipeProgress:(CGFloat)swipeProgress {
-    switch(_swipeStyle) {
-        case GLBDataViewSwipeCellStyleStretch:
-            if(swipeProgress > 0.0f) {
-                return _rootView.glb_frameWidth * swipeProgress;
-            }
-            return 0.0f;
-        default:
-            break;
-    }
-    return -1.0f;
-}
-
-- (void)_updateSwipeProgress:(CGFloat)swipeProgress speed:(CGFloat)speed endedSwipe:(BOOL)endedSwipe {
+- (void)updateSwipeProgress:(CGFloat)swipeProgress speed:(CGFloat)speed endedSwipe:(BOOL)endedSwipe {
     CGFloat minSwipeProgress = (_panSwipeDirection == GLBDataCellSwipeDirectionLeft) ? -1.0f : 0.0f;
     CGFloat maxSwipeProgress = (_panSwipeDirection == GLBDataCellSwipeDirectionRight) ? 1.0f : 0.0f;
     CGFloat normalizedSwipeProgress = MIN(MAX(minSwipeProgress, swipeProgress), maxSwipeProgress);
     if(_panSwipeProgress != normalizedSwipeProgress) {
         _panSwipeProgress = normalizedSwipeProgress;
-        self.rootViewOffset = [self _rootViewOffsetBySwipeProgress:_panSwipeProgress];
-        self.leftSwipeOffset = [self _leftViewOffsetBySwipeProgress:_panSwipeProgress];
-        self.leftSwipeSize = [self _leftViewSizeBySwipeProgress:_panSwipeProgress];
-        self.rightSwipeOffset = [self _rightViewOffsetBySwipeProgress:_panSwipeProgress];
-        self.rightSwipeSize = [self _rightViewSizeBySwipeProgress:_panSwipeProgress];
-        [self _refreshConstraints];
+        self.rootViewOffset = [self rootViewOffsetBySwipeProgress:_panSwipeProgress];
+        self.leftSwipeOffset = [self leftViewOffsetBySwipeProgress:_panSwipeProgress];
+        self.leftSwipeSize = [self leftViewSizeBySwipeProgress:_panSwipeProgress];
+        self.rightSwipeOffset = [self rightViewOffsetBySwipeProgress:_panSwipeProgress];
+        self.rightSwipeSize = [self rightViewSizeBySwipeProgress:_panSwipeProgress];
+        [self refreshConstraints];
         
         if(endedSwipe == YES) {
             [self willEndedSwipe:_panSwipeProgress];
@@ -693,7 +691,7 @@
     }
 }
 
-- (void)_handlerPanGestureRecognizer:(UIPanGestureRecognizer*)gestureRecognizer {
+- (void)handlerPanGestureRecognizer:(UIPanGestureRecognizer*)gestureRecognizer {
     if(_swipeDecelerating == NO) {
         CGPoint translation = [gestureRecognizer translationInView:self];
         CGPoint velocity = [gestureRecognizer velocityInView:self];
@@ -752,11 +750,11 @@
                 if(_panSwipeDirection != GLBDataCellSwipeDirectionUnknown) {
                     if(_panSwipeDirection == GLBDataCellSwipeDirectionLeft) {
                         CGFloat localDelta = MIN(MAX(_panSwipeLeftWidth, delta), -_panSwipeLeftWidth);
-                        [self _updateSwipeProgress:_panSwipeProgress - (localDelta / _panSwipeLeftWidth) speed:localDelta endedSwipe:NO];
+                        [self updateSwipeProgress:_panSwipeProgress - (localDelta / _panSwipeLeftWidth) speed:localDelta endedSwipe:NO];
                         [self movingSwipe:_panSwipeProgress];
                     } else if(_panSwipeDirection == GLBDataCellSwipeDirectionRight) {
                         CGFloat localDelta = MIN(MAX(-_panSwipeRightWidth, delta), _panSwipeRightWidth);
-                        [self _updateSwipeProgress:_panSwipeProgress + (localDelta / _panSwipeRightWidth) speed:localDelta endedSwipe:NO];
+                        [self updateSwipeProgress:_panSwipeProgress + (localDelta / _panSwipeRightWidth) speed:localDelta endedSwipe:NO];
                         [self movingSwipe:_panSwipeProgress];
                     }
                     _panSwipeLastOffset = translation.x;
@@ -767,11 +765,11 @@
             default: {
                 CGFloat swipeProgress = [self endedSwipeProgress:_panSwipeProgress - (_panSwipeLastVelocity / _swipeVelocity)];
                 if(_panSwipeDirection == GLBDataCellSwipeDirectionLeft) {
-                    [self _updateSwipeProgress:swipeProgress speed:_panSwipeLeftWidth * ABS(swipeProgress - _panSwipeProgress) endedSwipe:YES];
+                    [self updateSwipeProgress:swipeProgress speed:_panSwipeLeftWidth * ABS(swipeProgress - _panSwipeProgress) endedSwipe:YES];
                 } else if(_panSwipeDirection == GLBDataCellSwipeDirectionRight) {
-                    [self _updateSwipeProgress:swipeProgress speed:_panSwipeRightWidth * ABS(swipeProgress - _panSwipeProgress) endedSwipe:YES];
+                    [self updateSwipeProgress:swipeProgress speed:_panSwipeRightWidth * ABS(swipeProgress - _panSwipeProgress) endedSwipe:YES];
                 } else {
-                    [self _updateSwipeProgress:swipeProgress speed:0.0f endedSwipe:YES];
+                    [self updateSwipeProgress:swipeProgress speed:0.0f endedSwipe:YES];
                 }
                 break;
             }
@@ -786,7 +784,7 @@
     if(result == YES) {
         if(gestureRecognizer == _panGestureRecognizer) {
             if((_swipeEnabled == YES) && (_swipeDragging == NO) && (_swipeDecelerating == NO)) {
-                if([_item.view shouldBeganEditItem:_item] == YES) {
+                if([_item.dataView shouldBeganEditItem:_item] == YES) {
                     CGPoint translation = [_panGestureRecognizer translationInView:self];
                     CGFloat absX = ABS(translation.x);
                     CGFloat absY = ABS(translation.y);

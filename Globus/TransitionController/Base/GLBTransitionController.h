@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUInteger, GLBTransitionOperation) {
 
 @interface GLBTransitionController : NSObject < UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning >
 
-@property(nonatomic, readonly, weak) id< UIViewControllerContextTransitioning > transitionContext;
+@property(nonatomic, nullable, readonly, weak) id< UIViewControllerContextTransitioning > transitionContext;
 @property(nonatomic) GLBTransitionOperation operation;
 @property(nonatomic) NSTimeInterval duration;
 @property(nonatomic, readonly, assign) CGFloat percentComplete;
@@ -44,22 +44,4 @@ typedef NS_ENUM(NSUInteger, GLBTransitionOperation) {
 
 /*--------------------------------------------------*/
 #endif
-/*--------------------------------------------------*/
-
-#if __has_include("GLBCardsTransitionController.h")
-#import "GLBCardsTransitionController.h"
-#endif
-
-#if __has_include("GLBCrossFadeTransitionController.h")
-#import "GLBCrossFadeTransitionController.h"
-#endif
-
-#if __has_include("GLBMaterialTransitionController.h")
-#import "GLBMaterialTransitionController.h"
-#endif
-
-#if __has_include("GLBSlideTransitionController.h")
-#import "GLBSlideTransitionController.h"
-#endif
-
 /*--------------------------------------------------*/

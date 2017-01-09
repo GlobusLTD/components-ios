@@ -12,9 +12,3 @@
 /*--------------------------------------------------*/
 #endif
 /*--------------------------------------------------*/
-
-#if __has_include("GLBTransitionControllerCards.h")
-#import "GLBTransitionControllerCards.h"
-#endif
-
-/*--------------------------------------------------*/

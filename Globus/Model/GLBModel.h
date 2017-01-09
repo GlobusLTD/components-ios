@@ -20,10 +20,6 @@
 
 /*--------------------------------------------------*/
 
-typedef void (^GLBModelBlock)();
-
-/*--------------------------------------------------*/
-
 @protocol GLBModelProtocol < NSObject >
 
 @required
@@ -32,19 +28,19 @@ typedef void (^GLBModelBlock)();
 + (NSDictionary< NSString*, GLBModelPack* >* _Nullable)packMap;
 
 @required
-+ (_Nullable instancetype)modelWithJson:(id _Nonnull)json NS_SWIFT_NAME(model(json:));
-+ (_Nullable instancetype)modelWithJson:(id _Nonnull)json sheme:(NSString* _Nullable)sheme NS_SWIFT_NAME(model(json:sheme:));
-+ (_Nullable instancetype)modelWithJsonData:(NSData* _Nonnull)data NS_SWIFT_NAME(model(jsonData:));
-+ (_Nullable instancetype)modelWithJsonData:(NSData* _Nonnull)data sheme:(NSString* _Nullable)sheme NS_SWIFT_NAME(model(jsonData:sheme:));
-+ (_Nullable instancetype)modelWithPack:(NSDictionary< NSString*, id >* _Nonnull)data NS_SWIFT_NAME(model(pack:));
-+ (_Nullable instancetype)modelWithPackData:(NSData* _Nonnull)data NS_SWIFT_NAME(model(packData:));
++ (instancetype _Nullable)modelWithJson:(id _Nonnull)json NS_SWIFT_NAME(model(json:));
++ (instancetype _Nullable)modelWithJson:(id _Nonnull)json sheme:(NSString* _Nullable)sheme NS_SWIFT_NAME(model(json:sheme:));
++ (instancetype _Nullable)modelWithJsonData:(NSData* _Nonnull)data NS_SWIFT_NAME(model(jsonData:));
++ (instancetype _Nullable)modelWithJsonData:(NSData* _Nonnull)data sheme:(NSString* _Nullable)sheme NS_SWIFT_NAME(model(jsonData:sheme:));
++ (instancetype _Nullable)modelWithPack:(NSDictionary< NSString*, id >* _Nonnull)data NS_SWIFT_NAME(model(pack:));
++ (instancetype _Nullable)modelWithPackData:(NSData* _Nonnull)data NS_SWIFT_NAME(model(packData:));
 
-- (_Nullable instancetype)initWithJson:(_Nullable id)json;
-- (_Nullable instancetype)initWithJson:(_Nullable id)json sheme:(NSString* _Nullable)sheme;
-- (_Nullable instancetype)initWithPack:(NSDictionary< NSString*, id >* _Nonnull)data;
+- (instancetype _Nonnull)initWithJson:(id _Nullable)json;
+- (instancetype _Nonnull)initWithJson:(id _Nullable)json sheme:(NSString* _Nullable)sheme;
+- (instancetype _Nonnull)initWithPack:(NSDictionary< NSString*, id >* _Nonnull)data;
 
-- (void)fromJson:(_Nonnull id)json;
-- (void)fromJson:(_Nonnull id)json sheme:(NSString* _Nullable)sheme;
+- (void)fromJson:(id _Nonnull)json;
+- (void)fromJson:(id _Nonnull)json sheme:(NSString* _Nullable)sheme;
 - (void)fromJsonData:(NSData* _Nonnull)data;
 - (void)fromJsonData:(NSData* _Nonnull)data sheme:(NSString* _Nullable)sheme;
 - (NSDictionary* _Nullable)toJson;
@@ -68,11 +64,11 @@ typedef void (^GLBModelBlock)();
 @property(nonatomic, nullable, strong) NSUserDefaults* userDefaults;
 @property(nonatomic, nullable, strong) NSString* appGroupIdentifier;
 
-+ (_Nullable instancetype)modelWithStoreName:(NSString* _Nullable)storeName userDefaults:(NSUserDefaults* _Nullable)userDefaults NS_SWIFT_NAME(model(storeName:userDefaults:));
-+ (_Nullable instancetype)modelWithStoreName:(NSString* _Nullable)storeName appGroupIdentifier:(NSString* _Nullable)appGroupIdentifier NS_SWIFT_NAME(model(storeName:appGroupIdentifier:));
++ (instancetype _Nullable)modelWithStoreName:(NSString* _Nullable)storeName userDefaults:(NSUserDefaults* _Nullable)userDefaults NS_SWIFT_NAME(model(storeName:userDefaults:));
++ (instancetype _Nullable)modelWithStoreName:(NSString* _Nullable)storeName appGroupIdentifier:(NSString* _Nullable)appGroupIdentifier NS_SWIFT_NAME(model(storeName:appGroupIdentifier:));
 
-- (_Nullable instancetype)initWithStoreName:(NSString* _Nullable)storeName userDefaults:(NSUserDefaults* _Nullable)userDefaults;
-- (_Nullable instancetype)initWithStoreName:(NSString* _Nullable)storeName appGroupIdentifier:(NSString* _Nullable)appGroupIdentifier;
+- (instancetype _Nonnull)initWithStoreName:(NSString* _Nullable)storeName userDefaults:(NSUserDefaults* _Nullable)userDefaults;
+- (instancetype _Nonnull)initWithStoreName:(NSString* _Nullable)storeName appGroupIdentifier:(NSString* _Nullable)appGroupIdentifier;
 
 - (void)setup NS_REQUIRES_SUPER;
 
@@ -84,20 +80,20 @@ typedef void (^GLBModelBlock)();
 + (NSArray< NSString* >* _Nullable)copyMap;
 
 - (void)clear;
-- (void)clearComplete:(_Nullable GLBModelBlock)complete;
-- (void)clearQueue:(_Nonnull dispatch_queue_t)queue complete:(_Nullable GLBModelBlock)complete;
+- (void)clearComplete:(GLBSimpleBlock _Nullable)complete;
+- (void)clearQueue:(dispatch_queue_t _Nonnull)queue complete:(GLBSimpleBlock _Nullable)complete;
 
 - (BOOL)save;
-- (void)saveSuccess:(_Nullable GLBModelBlock)success failure:(_Nullable GLBModelBlock)failure;
-- (void)saveQueue:(_Nonnull dispatch_queue_t)queue success:(_Nullable GLBModelBlock)success failure:(_Nullable GLBModelBlock)failure;
+- (void)saveSuccess:(GLBSimpleBlock _Nullable)success failure:(GLBSimpleBlock _Nullable)failure;
+- (void)saveQueue:(dispatch_queue_t _Nonnull)queue success:(GLBSimpleBlock _Nullable)success failure:(GLBSimpleBlock _Nullable)failure;
 
 - (void)load;
-- (void)loadComplete:(_Nullable GLBModelBlock)complete;
-- (void)loadQueue:(_Nonnull dispatch_queue_t)queue complete:(_Nullable GLBModelBlock)complete;
+- (void)loadComplete:(GLBSimpleBlock _Nullable)complete;
+- (void)loadQueue:(dispatch_queue_t _Nonnull)queue complete:(GLBSimpleBlock _Nullable)complete;
 
 - (void)erase;
-- (void)eraseComplete:(_Nullable GLBModelBlock)complete;
-- (void)eraseQueue:(_Nonnull dispatch_queue_t)queue complete:(_Nullable GLBModelBlock)complete;
+- (void)eraseComplete:(GLBSimpleBlock _Nullable)complete;
+- (void)eraseQueue:(dispatch_queue_t _Nonnull)queue complete:(GLBSimpleBlock _Nullable)complete;
 
 @end
 

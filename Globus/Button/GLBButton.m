@@ -205,6 +205,62 @@
     return nil;
 }
 
+- (void)setNormalTintColor:(UIColor*)normalTintColor {
+    if([_normalTintColor isEqual:normalTintColor] == NO) {
+        _normalTintColor = normalTintColor;
+        [self _updateCurrentState];
+    }
+}
+
+- (void)setSelectedTintColor:(UIColor*)selectedTintColor {
+    if([_selectedTintColor isEqual:selectedTintColor] == NO) {
+        _selectedTintColor = selectedTintColor;
+        [self _updateCurrentState];
+    }
+}
+
+- (void)setHighlightedTintColor:(UIColor*)highlightedTintColor {
+    if([_highlightedTintColor isEqual:highlightedTintColor] == NO) {
+        _highlightedTintColor = highlightedTintColor;
+        [self _updateCurrentState];
+    }
+}
+
+- (void)setDisabledTintColor:(UIColor*)disabledTintColor {
+    if([_disabledTintColor isEqual:disabledTintColor] == NO) {
+        _disabledTintColor = disabledTintColor;
+        [self _updateCurrentState];
+    }
+}
+
+- (UIColor*)currentTintColor {
+    if(self.isEnabled == NO) {
+        if(_disabledTintColor != nil) {
+            return _disabledTintColor;
+        }
+        if(_normalTintColor != nil) {
+            return [_normalTintColor glb_multiplyBrightness:0.85f];
+        }
+    } else if(self.isHighlighted == YES) {
+        if(_highlightedTintColor != nil) {
+            return _highlightedTintColor;
+        }
+        if(_normalTintColor != nil) {
+            return [_normalTintColor glb_multiplyBrightness:1.35f];
+        }
+    } else if(self.isSelected == YES) {
+        if(_selectedTintColor != nil) {
+            return _selectedTintColor;
+        }
+        if(_normalTintColor != nil) {
+            return [_normalTintColor glb_multiplyBrightness:1.10f];
+        }
+    } else if(_normalTintColor != nil) {
+        return _normalTintColor;
+    }
+    return nil;
+}
+
 - (void)setNormalBorderColor:(UIColor*)normalBorderColor {
     if([_normalBorderColor isEqual:normalBorderColor] == NO) {
         _normalBorderColor = normalBorderColor;
@@ -675,6 +731,11 @@
     self.glb_borderColor = [self currentBorderColor];
     self.glb_borderWidth = [self currentBorderWidth];
     self.glb_cornerRadius = [self currentCornerRadius];
+    
+    UIColor* tintColor = [self currentTintColor];
+    self.tintColor = tintColor;
+    self.titleLabel.tintColor = tintColor;
+    self.imageView.tintColor = tintColor;
 }
 
 @end

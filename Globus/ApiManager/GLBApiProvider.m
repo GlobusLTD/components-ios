@@ -86,6 +86,10 @@
 
 #pragma mark - Init / Free
 
+- (instancetype)init {
+    return [super init];
+}
+
 - (instancetype)initWithName:(NSString*)name {
     return [self initWithName:name url:nil headers:nil];
 }

@@ -317,21 +317,25 @@
                             }
                         }
                         free(tempBuffer);
-                        CGContextRef context = CGBitmapContextCreate(buffer1.data, buffer1.width, buffer1.height, 8, buffer1.rowBytes, CGImageGetColorSpace(imageRef), CGImageGetBitmapInfo(imageRef));
-                        if(context != NULL) {
-                            if(tintColor != nil) {
-                                if(CGColorGetAlpha(tintColor.CGColor) > 0) {
-                                    CGContextSetFillColorWithColor(context, [[tintColor colorWithAlphaComponent:0.25] CGColor]);
-                                    CGContextSetBlendMode(context, kCGBlendModePlusDarker);
-                                    CGContextFillRect(context, CGRectMake(0, 0, buffer1.width, buffer1.height));
+                        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+                        if(colorSpace != nil) {
+                            CGContextRef context = CGBitmapContextCreate(buffer1.data, buffer1.width, buffer1.height, 8, buffer1.rowBytes, colorSpace, kCGImageAlphaPremultipliedLast);
+                            if(context != NULL) {
+                                if(tintColor != nil) {
+                                    if(CGColorGetAlpha(tintColor.CGColor) > 0) {
+                                        CGContextSetFillColorWithColor(context, [[tintColor colorWithAlphaComponent:0.25] CGColor]);
+                                        CGContextSetBlendMode(context, kCGBlendModePlusDarker);
+                                        CGContextFillRect(context, CGRectMake(0, 0, buffer1.width, buffer1.height));
+                                    }
                                 }
+                                imageRef = CGBitmapContextCreateImage(context);
+                                if(imageRef != nil) {
+                                    image = [UIImage imageWithCGImage:imageRef scale:scale orientation:self.imageOrientation];
+                                    CGImageRelease(imageRef);
+                                }
+                                CGContextRelease(context);
                             }
-                            imageRef = CGBitmapContextCreateImage(context);
-                            if(imageRef != nil) {
-                                image = [UIImage imageWithCGImage:imageRef scale:scale orientation:self.imageOrientation];
-                                CGImageRelease(imageRef);
-                            }
-                            CGContextRelease(context);
+                            CGColorSpaceRelease(colorSpace);
                         }
                     }
                 }

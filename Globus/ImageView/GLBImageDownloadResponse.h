@@ -16,9 +16,9 @@
 
 @interface GLBImageDownloadResponse : GLBApiResponse
 
-@property(nonatomic, readonly, strong) UIImage* image;
+@property(nonatomic, nullable, readonly, strong) UIImage* image;
 
-- (UIImage*)imageWithData:(NSData*)data mimetype:(NSString*)mimetype;
+- (UIImage* _Nullable)imageWithData:(NSData* _Nonnull)data mimetype:(NSString* _Nonnull)mimetype;
 
 @end
 

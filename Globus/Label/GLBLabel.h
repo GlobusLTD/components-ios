@@ -13,16 +13,16 @@
 
 @interface GLBLabel : UILabel
 
-@property(nonatomic, readonly, strong) UILongPressGestureRecognizer* pressGesture;
+@property(nonatomic, nullable, readonly, strong) UILongPressGestureRecognizer* pressGesture;
 
-@property(nonatomic, copy) GLBTextStyle* textStyle;
+@property(nonatomic, nullable, copy) GLBTextStyle* textStyle;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (NSRange)addLink:(NSString*)link normalStyle:(GLBTextStyle*)normalStyle pressed:(GLBSimpleBlock)pressed;
-- (NSRange)addLink:(NSString*)link normalStyle:(GLBTextStyle*)normalStyle highlightStyle:(GLBTextStyle*)highlightStyle pressed:(GLBSimpleBlock)pressed;
-- (void)addLinkRange:(NSRange)range normalStyle:(GLBTextStyle*)normalStyle pressed:(GLBSimpleBlock)pressed;
-- (void)addLinkRange:(NSRange)range normalStyle:(GLBTextStyle*)normalStyle highlightStyle:(GLBTextStyle*)highlightStyle pressed:(GLBSimpleBlock)pressed;
+- (NSRange)addLink:(NSString* _Nonnull)link normalStyle:(GLBTextStyle* _Nonnull)normalStyle pressed:(GLBSimpleBlock _Nullable)pressed NS_SWIFT_NAME(addLink(string:normal:pressed:));
+- (NSRange)addLink:(NSString* _Nonnull)link normalStyle:(GLBTextStyle* _Nonnull)normalStyle highlightStyle:(GLBTextStyle* _Nullable)highlightStyle pressed:(GLBSimpleBlock _Nullable)pressed NS_SWIFT_NAME(addLink(string:normal:highlight:pressed:));
+- (void)addLinkRange:(NSRange)range normalStyle:(GLBTextStyle* _Nonnull)normalStyle pressed:(GLBSimpleBlock _Nullable)pressed NS_SWIFT_NAME(addLink(range:normal:pressed:));
+- (void)addLinkRange:(NSRange)range normalStyle:(GLBTextStyle* _Nonnull)normalStyle highlightStyle:(GLBTextStyle* _Nullable)highlightStyle pressed:(GLBSimpleBlock _Nullable)pressed NS_SWIFT_NAME(addLink(range:normal:highlight:pressed:));
 - (void)removeLinkRange:(NSRange)range;
 - (void)removeLinkAllRanges;
 

@@ -1,9 +1,6 @@
 /*--------------------------------------------------*/
 
 #import "NSArray+GLBNS.h"
-
-/*--------------------------------------------------*/
-
 #import "GLBObserver.h"
 
 /*--------------------------------------------------*/
@@ -20,7 +17,7 @@
 
 /*--------------------------------------------------*/
 
-typedef void (^GLBAudioSessionActivateBlock)(NSError* error);
+typedef void (^GLBAudioSessionActivateBlock)(NSError* _Nullable error);
 typedef void (^GLBAudioSessionPermissionBlock)();
 
 /*--------------------------------------------------*/
@@ -29,18 +26,18 @@ typedef void (^GLBAudioSessionPermissionBlock)();
 
 @property(nonatomic) CGFloat volume;
 
-+ (instancetype)shared;
++ (instancetype _Nullable)shared;
 
-- (void)addObserver:(id< GLBAudioSessionObserver >)observer;
-- (void)removeObserver:(id< GLBAudioSessionObserver >)observer;
+- (void)addObserver:(id< GLBAudioSessionObserver > _Nonnull)observer;
+- (void)removeObserver:(id< GLBAudioSessionObserver > _Nonnull)observer;
 
 + (void)activateWithOptions:(AVAudioSessionSetActiveOptions)activeOptions
-                   category:(NSString*)category
+                   category:(NSString* _Nonnull)category
             categoryOptions:(AVAudioSessionCategoryOptions)categoryOptions
-                       mode:(NSString*)mode
-                      block:(GLBAudioSessionActivateBlock)block;
+                       mode:(NSString* _Nonnull)mode
+                      block:(GLBAudioSessionActivateBlock _Nonnull)block;
 
-+ (void)recordPermission:(GLBAudioSessionPermissionBlock)block;
++ (void)recordPermission:(GLBAudioSessionPermissionBlock _Nonnull)block;
 
 @end
 

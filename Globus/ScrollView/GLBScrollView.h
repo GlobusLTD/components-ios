@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, GLBScrollViewDirection) {
 @interface GLBScrollView : UIScrollView
 
 @property(nonatomic) IBInspectable GLBScrollViewDirection direction;
-@property(nonatomic, strong) IBOutlet UIView* rootView;
+@property(nonatomic, nullable, strong) IBOutlet UIView* rootView;
 
 - (void)setup NS_REQUIRES_SUPER;
 

@@ -74,56 +74,39 @@
 #pragma mark - Public
 
 - (void)showAnimated:(BOOL)animated complete:(GLBSimpleBlock)complete {
-    [self _showAnimated:animated velocity:_view.velocity complete:complete];
+    [self showAnimated:animated velocity:_view.velocity complete:complete];
 }
 
 - (void)hideAnimated:(BOOL)animated complete:(GLBSimpleBlock)complete {
-    [self _hideAnimated:animated velocity:_view.velocity complete:complete];
+    [self hideAnimated:animated velocity:_view.velocity complete:complete];
 }
 
-- (void)didProgress:(CGFloat)progress {
-}
-
-- (void)didIdle {
-}
-
-- (void)didPull {
-}
-
-- (void)didRelease {
-}
-
-- (void)didLoading {
-}
-
-#pragma mark - Private
-
-- (void)_showAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete {
+- (void)showAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete {
     if(_state != GLBDataRefreshViewStateLoading) {
         self.state = GLBDataRefreshViewStateLoading;
         
         UIEdgeInsets refreshViewInset = _view.refreshViewInset;
         CGPoint contentOffset = _view.contentOffset;
         switch(_type) {
-            case GLBDataRefreshViewTypeTop:
+                case GLBDataRefreshViewTypeTop:
                 refreshViewInset.top = _size;
                 if(_view.isTracking == NO) {
                     contentOffset.y -= _size;
                 }
                 break;
-            case GLBDataRefreshViewTypeBottom:
+                case GLBDataRefreshViewTypeBottom:
                 refreshViewInset.bottom = _size;
                 if(_view.isTracking == NO) {
                     contentOffset.y += _size;
                 }
                 break;
-            case GLBDataRefreshViewTypeLeft:
+                case GLBDataRefreshViewTypeLeft:
                 refreshViewInset.left = _size;
                 if(_view.isTracking == NO) {
                     contentOffset.x -= _size;
                 }
                 break;
-            case GLBDataRefreshViewTypeRight:
+                case GLBDataRefreshViewTypeRight:
                 refreshViewInset.right = _size;
                 if(_view.isTracking == NO) {
                     contentOffset.x += _size;
@@ -139,7 +122,7 @@
                                   delay:0.01f
                                 options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut)
                              animations:^{
-                                 [_view _setRefreshViewInset:refreshViewInset force:YES];
+                                 [_view setRefreshViewInset:refreshViewInset force:YES];
                                  _view.contentOffset = contentOffset;
                                  [rootView layoutIfNeeded];
                              }
@@ -149,7 +132,7 @@
                                  }
                              }];
         } else {
-            [_view _setRefreshViewInset:refreshViewInset force:YES];
+            [_view setRefreshViewInset:refreshViewInset force:YES];
             _view.contentOffset = contentOffset;
             if(complete != nil) {
                 complete();
@@ -162,22 +145,22 @@
     }
 }
 
-- (void)_hideAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete {
+- (void)hideAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete {
     if(_state != GLBDataRefreshViewStateIdle) {
         self.state = GLBDataRefreshViewStateIdle;
         
         UIEdgeInsets refreshViewInset = _view.refreshViewInset;
         switch(_type) {
-            case GLBDataRefreshViewTypeTop:
+                case GLBDataRefreshViewTypeTop:
                 refreshViewInset.top = 0.0f;
                 break;
-            case GLBDataRefreshViewTypeBottom:
+                case GLBDataRefreshViewTypeBottom:
                 refreshViewInset.bottom = 0.0f;
                 break;
-            case GLBDataRefreshViewTypeLeft:
+                case GLBDataRefreshViewTypeLeft:
                 refreshViewInset.left = 0.0f;
                 break;
-            case GLBDataRefreshViewTypeRight:
+                case GLBDataRefreshViewTypeRight:
                 refreshViewInset.right = 0.0f;
                 break;
         }
@@ -190,7 +173,7 @@
                                   delay:0.00f
                                 options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut)
                              animations:^{
-                                 [_view _setRefreshViewInset:refreshViewInset force:YES];
+                                 [_view setRefreshViewInset:refreshViewInset force:YES];
                                  [rootView layoutIfNeeded];
                              }
                              completion:^(BOOL finished) {
@@ -199,7 +182,7 @@
                                  }
                              }];
         } else {
-            [_view _setRefreshViewInset:refreshViewInset force:YES];
+            [_view setRefreshViewInset:refreshViewInset force:YES];
             if(complete != nil) {
                 complete();
             }
@@ -209,6 +192,21 @@
             complete();
         }
     }
+}
+
+- (void)didProgress:(CGFloat)progress {
+}
+
+- (void)didIdle {
+}
+
+- (void)didPull {
+}
+
+- (void)didRelease {
+}
+
+- (void)didLoading {
 }
 
 @end

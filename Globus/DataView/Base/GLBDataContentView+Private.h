@@ -14,8 +14,6 @@
     NSMutableArray< GLBDataContentLayerView* >* _layers;
 }
 
-- (void)_receiveMemoryWarning;
-
 @end
 
 /*--------------------------------------------------*/
@@ -24,8 +22,6 @@
 @protected
     NSMutableDictionary< NSString*, NSMutableArray< GLBDataViewCell* >* >* _cache;
 }
-
-- (void)_receiveMemoryWarning;
 
 @end
 

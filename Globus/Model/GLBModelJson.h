@@ -13,16 +13,20 @@
 
 @interface GLBModelJson : NSObject
 
-@property(nonatomic, readonly, nullable, strong) NSString* path;
-@property(nonatomic, readonly, nullable, strong) NSArray< NSString* >* subPaths;
-@property(nonatomic, readonly, nullable, strong) NSArray< NSArray< NSString* >* >* subPathParts;
+@property(nonatomic, nullable, readonly, strong) NSString* path;
+@property(nonatomic, nullable, readonly, strong) NSArray< NSString* >* subPaths;
+@property(nonatomic, nullable, readonly, strong) NSArray< NSArray< NSString* >* >* subPathParts;
 
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path;
++ (instancetype _Nonnull)json NS_SWIFT_UNAVAILABLE("Use init()");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path NS_SWIFT_UNAVAILABLE("Use init(path:)");
+
+- (instancetype _Nonnull)init NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path NS_DESIGNATED_INITIALIZER;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (_Nullable id)fromJson:(_Nullable id)json sheme:(NSString* _Nonnull)sheme;
-- (_Nullable id)toJson:(_Nullable id)json sheme:(NSString* _Nonnull)sheme;
+- (id _Nullable)fromJson:(id _Nullable)json sheme:(NSString* _Nullable)sheme;
+- (id _Nullable)toJson:(id _Nullable)json sheme:(NSString* _Nullable)sheme;
 
 @end
 
@@ -30,12 +34,24 @@
 
 @interface GLBModelJsonSet : GLBModelJson
 
-@property(nonatomic, readonly, nullable, strong) GLBModelJson* jsonConverter;
+@property(nonatomic, nonnull, readonly, strong) GLBModelJson* jsonConverter GLB_DEPRECATED;
+@property(nonatomic, nonnull, readonly, strong) GLBModelJson* converter;
 
-- (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass;
-- (_Nullable instancetype)initWithJsonConverter:(GLBModelJson* _Nullable)jsonConverter;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path modelClass:(_Nullable Class)modelClass;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path jsonConverter:(GLBModelJson* _Nullable)jsonConverter;
++ (instancetype _Nonnull)json NS_UNAVAILABLE;
++ (instancetype _Nonnull)jsonWithModel:(Class _Nonnull)model NS_SWIFT_UNAVAILABLE("use init(model:)");
++ (instancetype _Nonnull)jsonWithConverter:(GLBModelJson* _Nonnull)converter NS_SWIFT_UNAVAILABLE("use init(converter:)");
+
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path NS_UNAVAILABLE;
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path model:(Class _Nonnull)model NS_SWIFT_UNAVAILABLE("use init(path:model:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path converter:(GLBModelJson* _Nonnull)converter NS_SWIFT_UNAVAILABLE("use init(path:converter:)");
+
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithModel:(Class _Nonnull)model;
+- (instancetype _Nonnull)initWithConverter:(GLBModelJson* _Nonnull)converter NS_DESIGNATED_INITIALIZER;
+
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path model:(Class _Nonnull)model;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path converter:(GLBModelJson* _Nonnull)converter NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -43,12 +59,24 @@
 
 @interface GLBModelJsonOrderedSet : GLBModelJson
 
-@property(nonatomic, readonly, nullable, strong) GLBModelJson* jsonConverter;
+@property(nonatomic, nonnull, readonly, strong) GLBModelJson* jsonConverter GLB_DEPRECATED;
+@property(nonatomic, nonnull, readonly, strong) GLBModelJson* converter;
 
-- (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass;
-- (_Nullable instancetype)initWithJsonConverter:(GLBModelJson* _Nullable)jsonConverter;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path modelClass:(_Nullable Class)modelClass;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path jsonConverter:(GLBModelJson* _Nullable)jsonConverter;
++ (instancetype _Nonnull)json NS_UNAVAILABLE;
++ (instancetype _Nonnull)jsonWithModel:(Class _Nonnull)model NS_SWIFT_UNAVAILABLE("use init(model:)");
++ (instancetype _Nonnull)jsonWithConverter:(GLBModelJson* _Nonnull)converter NS_SWIFT_UNAVAILABLE("use init(converter:)");
+
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path NS_UNAVAILABLE;
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path model:(Class _Nonnull)model NS_SWIFT_UNAVAILABLE("use init(path:model:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path converter:(GLBModelJson* _Nonnull)converter NS_SWIFT_UNAVAILABLE("use init(path:converter:)");
+
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithModel:(Class _Nonnull)model;
+- (instancetype _Nonnull)initWithConverter:(GLBModelJson* _Nonnull)converter NS_DESIGNATED_INITIALIZER;
+
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path model:(Class _Nonnull)model;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path converter:(GLBModelJson* _Nonnull)converter NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -56,12 +84,24 @@
 
 @interface GLBModelJsonArray : GLBModelJson
 
-@property(nonatomic, readonly, nullable, strong) GLBModelJson* jsonConverter;
+@property(nonatomic, nonnull, readonly, strong) GLBModelJson* jsonConverter GLB_DEPRECATED;
+@property(nonatomic, nonnull, readonly, strong) GLBModelJson* converter;
 
-- (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass;
-- (_Nullable instancetype)initWithJsonConverter:(GLBModelJson* _Nullable)jsonConverter;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path modelClass:(_Nullable Class)modelClass;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path jsonConverter:(GLBModelJson* _Nullable)jsonConverter;
++ (instancetype _Nonnull)json NS_UNAVAILABLE;
++ (instancetype _Nonnull)jsonWithModel:(Class _Nonnull)model NS_SWIFT_UNAVAILABLE("use init(model:)");
++ (instancetype _Nonnull)jsonWithConverter:(GLBModelJson* _Nonnull)converter NS_SWIFT_UNAVAILABLE("use init(converter:)");
+
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path NS_UNAVAILABLE;
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path model:(Class _Nonnull)model NS_SWIFT_UNAVAILABLE("use init(path:model:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path converter:(GLBModelJson* _Nonnull)converter NS_SWIFT_UNAVAILABLE("use init(path:converter:)");
+
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithModel:(Class _Nonnull)model;
+- (instancetype _Nonnull)initWithConverter:(GLBModelJson* _Nonnull)converter NS_DESIGNATED_INITIALIZER;
+
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path model:(Class _Nonnull)model;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path converter:(GLBModelJson* _Nonnull)converter NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -69,17 +109,33 @@
 
 @interface GLBModelJsonDictionary : GLBModelJson
 
-@property(nonatomic, readonly, nullable, strong) GLBModelJson* keyJsonConverter;
-@property(nonatomic, readonly, nullable, strong) GLBModelJson* valueJsonConverter;
+@property(nonatomic, nullable, readonly, strong) GLBModelJson* keyJsonConverter GLB_DEPRECATED;
+@property(nonatomic, nonnull, readonly, strong) GLBModelJson* valueJsonConverter GLB_DEPRECATED;
+@property(nonatomic, nullable, readonly, strong) GLBModelJson* keyConverter;
+@property(nonatomic, nonnull, readonly, strong) GLBModelJson* valueConverter;
 
-- (_Nullable instancetype)initWithValueModelClass:(_Nullable Class)valueModelClass;
-- (_Nullable instancetype)initWithValueJsonConverter:(GLBModelJson* _Nullable)valueJsonConverter;
-- (_Nullable instancetype)initWithKeyModelClass:(_Nullable Class)keyModelClass valueModelClass:(_Nullable Class)valueModelClass;
-- (_Nullable instancetype)initWithKeyJsonConverter:(GLBModelJson* _Nullable)keyJsonConverter valueJsonConverter:(GLBModelJson* _Nullable)valueJsonConverter;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path valueModelClass:(_Nullable Class)valueModelClass;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path valueJsonConverter:(GLBModelJson* _Nullable)valueJsonConverter;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path keyModelClass:(_Nullable Class)keyModelClass valueModelClass:(_Nullable Class)valueModelClass;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path keyJsonConverter:(GLBModelJson* _Nullable)keyJsonConverter valueJsonConverter:(GLBModelJson* _Nullable)valueJsonConverter;
++ (instancetype _Nonnull)json NS_UNAVAILABLE;
++ (instancetype _Nonnull)jsonWithValueModel:(Class _Nonnull)valueModel NS_SWIFT_UNAVAILABLE("Use init(valueModel:)");
++ (instancetype _Nonnull)jsonWithValueConverter:(GLBModelJson* _Nonnull)valueConverter NS_SWIFT_UNAVAILABLE("Use init(valueConverter:)");
++ (instancetype _Nonnull)jsonWithKeyModel:(Class _Nonnull)keyModel valueModel:(Class _Nonnull)valueModel NS_SWIFT_UNAVAILABLE("Use init(keyModel:valueModel:)");
++ (instancetype _Nonnull)jsonWithKeyConverter:(GLBModelJson* _Nonnull)keyConverter valueConverter:(GLBModelJson* _Nonnull)valueConverter NS_SWIFT_UNAVAILABLE("Use init(keyConverter:valueConverter:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path NS_UNAVAILABLE;
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path valueModel:(Class _Nonnull)valueModel NS_SWIFT_UNAVAILABLE("Use init(path:valueModel:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path valueConverter:(GLBModelJson* _Nonnull)valueConverter NS_SWIFT_UNAVAILABLE("Use init(path:valueConverter:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path keyModel:(Class _Nonnull)keyModel valueModel:(Class _Nonnull)valueModel NS_SWIFT_UNAVAILABLE("Use init(path:keyModel:valueModel:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path keyConverter:(GLBModelJson* _Nonnull)keyConverter valueConverter:(GLBModelJson* _Nonnull)valueConverter NS_SWIFT_UNAVAILABLE("Use init(path:keyConverter:valueConverter:)");
+
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithValueModel:(Class _Nonnull)valueModel;
+- (instancetype _Nonnull)initWithValueConverter:(GLBModelJson* _Nonnull)valueConverter NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithKeyModel:(Class _Nonnull)keyModel valueModel:(Class _Nonnull)valueModel;
+- (instancetype _Nonnull)initWithKeyConverter:(GLBModelJson* _Nonnull)keyConverter valueConverter:(GLBModelJson* _Nonnull)valueConverter NS_DESIGNATED_INITIALIZER;
+
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path valueModel:(Class _Nonnull)valueModel;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path valueConverter:(GLBModelJson* _Nonnull)valueConverter NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path keyModel:(Class _Nonnull)keyModel valueModel:(Class _Nonnull)valueModel;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path keyConverter:(GLBModelJson* _Nonnull)keyConverter valueConverter:(GLBModelJson* _Nonnull)valueConverter NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -89,7 +145,13 @@
 
 @property(nonatomic, readonly, assign) BOOL defaultValue;
 
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path defaultValue:(BOOL)defaultValue;
++ (instancetype _Nonnull)jsonWithDefaultValue:(BOOL)defaultValue NS_SWIFT_UNAVAILABLE("Use init(defaultValue:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path defaultValue:(BOOL)defaultValue NS_SWIFT_UNAVAILABLE("Use init(path:defaultValue:)");
+
+- (instancetype _Nonnull)init NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithDefaultValue:(BOOL)defaultValue NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path defaultValue:(BOOL)defaultValue NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -97,9 +159,15 @@
 
 @interface GLBModelJsonString : GLBModelJson
 
-@property(nonatomic, readonly, nullable, strong) NSString* defaultValue;
+@property(nonatomic, nullable, readonly, strong) NSString* defaultValue;
 
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path defaultValue:(NSString* _Nullable)defaultValue;
++ (instancetype _Nonnull)jsonWithDefaultValue:(NSString* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(defaultValue:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path defaultValue:(NSString* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(path:defaultValue:)");
+
+- (instancetype _Nonnull)init NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithDefaultValue:(NSString* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path defaultValue:(NSString* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -107,9 +175,15 @@
 
 @interface GLBModelJsonUrl : GLBModelJson
 
-@property(nonatomic, readonly, nullable, strong) NSURL* defaultValue;
+@property(nonatomic, nullable, readonly, strong) NSURL* defaultValue;
 
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path defaultValue:(NSURL* _Nullable)defaultValue;
++ (instancetype _Nonnull)jsonWithDefaultValue:(NSURL* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(defaultValue:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path defaultValue:(NSURL* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(path:defaultValue:)");
+
+- (instancetype _Nonnull)init NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithDefaultValue:(NSURL* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path defaultValue:(NSURL* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -117,9 +191,15 @@
 
 @interface GLBModelJsonNumber : GLBModelJson
 
-@property(nonatomic, readonly, nullable, strong) NSNumber* defaultValue;
+@property(nonatomic, nullable, readonly, strong) NSNumber* defaultValue;
 
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path defaultValue:(NSNumber* _Nullable)defaultValue;
++ (instancetype _Nonnull)jsonWithDefaultValue:(NSNumber* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(defaultValue:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path defaultValue:(NSNumber* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(path:defaultValue:)");
+
+- (instancetype _Nonnull)init NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithDefaultValue:(NSNumber* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path defaultValue:(NSNumber* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -127,28 +207,41 @@
 
 @interface GLBModelJsonDate : GLBModelJson
 
-@property(nonatomic, readonly, nullable, strong) NSDate* defaultValue;
-@property(nonatomic, readonly, nullable, strong) NSArray< NSString* >* formats;
-@property(nonatomic, readonly, nullable, strong) NSTimeZone* timeZone;
+@property(nonatomic, nullable, readonly, strong) NSDate* defaultValue;
+@property(nonatomic, nullable, readonly, strong) NSArray< NSString* >* formats;
+@property(nonatomic, nullable, readonly, strong) NSTimeZone* timeZone;
 
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path defaultValue:(NSDate* _Nullable)defaultValue;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path timeZone:(NSTimeZone* _Nullable)timeZone defaultValue:(NSDate* _Nullable)defaultValue;
-- (_Nullable instancetype)initWithFormat:(NSString* _Nullable)format;
-- (_Nullable instancetype)initWithFormat:(NSString* _Nullable)format timeZone:(NSTimeZone* _Nullable)timeZone;
-- (_Nullable instancetype)initWithFormat:(NSString* _Nullable)format defaultValue:(NSDate* _Nullable)defaultValue;
-- (_Nullable instancetype)initWithFormat:(NSString* _Nullable)format timeZone:(NSTimeZone* _Nullable)timeZone defaultValue:(NSDate* _Nullable)defaultValue;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path format:(NSString* _Nullable)format;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path format:(NSString* _Nullable)format timeZone:(NSTimeZone* _Nullable)timeZone;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path format:(NSString* _Nullable)format defaultValue:(NSDate* _Nullable)defaultValue;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path format:(NSString* _Nullable)format timeZone:(NSTimeZone* _Nullable)timeZone defaultValue:(NSDate* _Nullable)defaultValue;
-- (_Nullable instancetype)initWithFormats:(NSArray< NSString* >* _Nullable)formats;
-- (_Nullable instancetype)initWithFormats:(NSArray< NSString* >* _Nullable)formats timeZone:(NSTimeZone* _Nullable)timeZone;
-- (_Nullable instancetype)initWithFormats:(NSArray< NSString* >* _Nullable)formats defaultValue:(NSDate* _Nullable)defaultValue;
-- (_Nullable instancetype)initWithFormats:(NSArray< NSString* >* _Nullable)formats timeZone:(NSTimeZone* _Nullable)timeZone defaultValue:(NSDate* _Nullable)defaultValue;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path formats:(NSArray< NSString* >* _Nullable)formats;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path formats:(NSArray< NSString* >* _Nullable)formats timeZone:(NSTimeZone* _Nullable)timeZone;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path formats:(NSArray< NSString* >* _Nullable)formats defaultValue:(NSDate* _Nullable)defaultValue;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path formats:(NSArray< NSString* >* _Nullable)formats timeZone:(NSTimeZone* _Nullable)timeZone defaultValue:(NSDate* _Nullable)defaultValue;
++ (instancetype _Nonnull)jsonWithFormat:(NSString* _Nonnull)format NS_SWIFT_UNAVAILABLE("Use init(format:)");
++ (instancetype _Nonnull)jsonWithFormat:(NSString* _Nonnull)format defaultValue:(NSDate* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(format:defaultValue:)");
++ (instancetype _Nonnull)jsonWithFormat:(NSString* _Nonnull)format timeZone:(NSTimeZone* _Nullable)timeZone defaultValue:(NSDate* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(format:timeZone:defaultValue:)");
++ (instancetype _Nonnull)jsonWithFormats:(NSArray< NSString* >* _Nonnull)formats NS_SWIFT_UNAVAILABLE("Use init(formats:timeZone:defaultValue:)");
++ (instancetype _Nonnull)jsonWithFormats:(NSArray< NSString* >* _Nonnull)formats defaultValue:(NSDate* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(formats:defaultValue:)");
++ (instancetype _Nonnull)jsonWithFormats:(NSArray< NSString* >* _Nonnull)formats timeZone:(NSTimeZone* _Nullable)timeZone defaultValue:(NSDate* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(formats:timeZone:defaultValue:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path defaultValue:(NSDate* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(path:defaultValue:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path timeZone:(NSTimeZone* _Nullable)timeZone defaultValue:(NSDate* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(path:timeZone:defaultValue:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path format:(NSString* _Nonnull)format NS_SWIFT_UNAVAILABLE("Use init(path:format:defaultValue:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path format:(NSString* _Nonnull)format defaultValue:(NSDate* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(path:format:defaultValue:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path format:(NSString* _Nonnull)format timeZone:(NSTimeZone* _Nullable)timeZone defaultValue:(NSDate* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(path:format:timeZone:defaultValue:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path formats:(NSArray< NSString* >* _Nonnull)formats NS_SWIFT_UNAVAILABLE("Use init(path:formats:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path formats:(NSArray< NSString* >* _Nonnull)formats defaultValue:(NSDate* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(path:formats:defaultValue:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path formats:(NSArray< NSString* >* _Nonnull)formats timeZone:(NSTimeZone* _Nullable)timeZone defaultValue:(NSDate* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(path:formats:timeZone:defaultValue:)");
+
+- (instancetype _Nonnull)init NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithFormat:(NSString* _Nonnull)format NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithFormat:(NSString* _Nonnull)format defaultValue:(NSDate* _Nonnull)defaultValue;
+- (instancetype _Nonnull)initWithFormat:(NSString* _Nonnull)format timeZone:(NSTimeZone* _Nullable)timeZone defaultValue:(NSDate* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithFormats:(NSArray< NSString* >* _Nonnull)formats NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithFormats:(NSArray< NSString* >* _Nonnull)formats defaultValue:(NSDate* _Nonnull)defaultValue;
+- (instancetype _Nonnull)initWithFormats:(NSArray< NSString* >* _Nonnull)formats timeZone:(NSTimeZone* _Nullable)timeZone defaultValue:(NSDate* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path defaultValue:(NSDate* _Nonnull)defaultValue;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path timeZone:(NSTimeZone* _Nullable)timeZone defaultValue:(NSDate* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path format:(NSString* _Nonnull)format NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path format:(NSString* _Nonnull)format defaultValue:(NSDate* _Nonnull)defaultValue;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path format:(NSString* _Nonnull)format timeZone:(NSTimeZone* _Nullable)timeZone defaultValue:(NSDate* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path formats:(NSArray< NSString* >* _Nonnull)formats NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path formats:(NSArray< NSString* >* _Nonnull)formats defaultValue:(NSDate* _Nonnull)defaultValue;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path formats:(NSArray< NSString* >* _Nonnull)formats timeZone:(NSTimeZone* _Nullable)timeZone defaultValue:(NSDate* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -156,13 +249,22 @@
 
 @interface GLBModelJsonEnum : GLBModelJson
 
-@property(nonatomic, readonly, nullable, strong) NSNumber* defaultValue;
-@property(nonatomic, readonly, nullable, strong) NSDictionary* enums;
+@property(nonatomic, nullable, readonly, strong) NSNumber* defaultValue;
+@property(nonatomic, nullable, readonly, strong) NSDictionary* enums;
 
-- (_Nullable instancetype)initWithEnums:(NSDictionary* _Nullable)enums;
-- (_Nullable instancetype)initWithEnums:(NSDictionary* _Nullable)enums defaultValue:(NSNumber* _Nullable)defaultValue;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path enums:(NSDictionary* _Nullable)enums;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path enums:(NSDictionary* _Nullable)enums defaultValue:(NSNumber* _Nullable)defaultValue;
++ (instancetype _Nonnull)json NS_UNAVAILABLE;
++ (instancetype _Nonnull)jsonWithEnums:(NSDictionary* _Nonnull)enums NS_SWIFT_UNAVAILABLE("Use init(enums:)");
++ (instancetype _Nonnull)jsonWithEnums:(NSDictionary* _Nonnull)enums defaultValue:(NSNumber* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(enums:defaultValue:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path NS_UNAVAILABLE;
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path enums:(NSDictionary* _Nonnull)enums NS_SWIFT_UNAVAILABLE("Use init(path:enums:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path enums:(NSDictionary* _Nonnull)enums defaultValue:(NSNumber* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(path:enums:defaultValue:)");
+
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithEnums:(NSDictionary* _Nonnull)enums NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithEnums:(NSDictionary* _Nonnull)enums defaultValue:(NSNumber* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path enums:(NSDictionary* _Nonnull)enums NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path enums:(NSDictionary* _Nonnull)enums defaultValue:(NSNumber* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -174,9 +276,15 @@
 
 @interface GLBModelJsonColor : GLBModelJson
 
-@property(nonatomic, readonly, nullable, strong) UIColor* defaultValue;
+@property(nonatomic, nullable, readonly, strong) UIColor* defaultValue;
 
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path defaultValue:(UIColor* _Nullable)defaultValue;
++ (instancetype _Nonnull)jsonWithDefaultValue:(UIColor* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(defaultValue:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path defaultValue:(UIColor* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(path:defaultValue:)");
+
+- (instancetype _Nonnull)init NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithDefaultValue:(UIColor* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path defaultValue:(UIColor* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -184,27 +292,41 @@
 
 @interface GLBModelJsonModel : GLBModelJson
 
-@property(nonatomic, readonly, nullable, assign) Class modelClass;
+@property(nonatomic, nonnull, readonly, strong) Class modelClass GLB_DEPRECATED;
+@property(nonatomic, nonnull, readonly, assign) Class model;
 
-- (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path modelClass:(_Nullable Class)modelClass;
++ (instancetype _Nonnull)json NS_UNAVAILABLE;
++ (instancetype _Nonnull)jsonWithModel:(Class _Nonnull)model NS_SWIFT_UNAVAILABLE("Use init(model:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path NS_UNAVAILABLE;
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path model:(Class _Nonnull)model NS_SWIFT_UNAVAILABLE("Use init(path:model:)");
+
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithModel:(Class _Nonnull)model NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path model:(Class _Nonnull)model NS_DESIGNATED_INITIALIZER;
 
 @end
 
 /*--------------------------------------------------*/
 
-typedef _Nullable id (^GLBModelJsonConvertBlock)(_Nullable id value, NSString* _Nullable sheme);
+typedef id _Nullable (^GLBModelJsonConvertBlock)(id _Nullable value, NSString* _Nullable sheme);
 
 /*--------------------------------------------------*/
 
 @interface GLBModelJsonBlock : GLBModelJson
 
-- (_Nullable instancetype)initWithFromBlock:(_Nullable GLBModelJsonConvertBlock)fromBlock;
-- (_Nullable instancetype)initWithToBlock:(_Nullable GLBModelJsonConvertBlock)toBlock;
-- (_Nullable instancetype)initWithFromBlock:(_Nullable GLBModelJsonConvertBlock)fromBlock toBlock:(_Nullable GLBModelJsonConvertBlock)toBlock;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path fromBlock:(_Nullable GLBModelJsonConvertBlock)fromBlock;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path toBlock:(_Nullable GLBModelJsonConvertBlock)toBlock;
-- (_Nullable instancetype)initWithPath:(NSString* _Nullable)path fromBlock:(_Nullable GLBModelJsonConvertBlock)fromBlock toBlock:(_Nullable GLBModelJsonConvertBlock)toBlock;
+@property(nonatomic, nonnull, readonly, copy) GLBModelJsonConvertBlock fromBlock;
+@property(nonatomic, nonnull, readonly, copy) GLBModelJsonConvertBlock toBlock;
+
++ (instancetype _Nonnull)json NS_UNAVAILABLE;
++ (instancetype _Nonnull)jsonWithFromBlock:(GLBModelJsonConvertBlock _Nonnull)fromBlock toBlock:(GLBModelJsonConvertBlock _Nonnull)toBlock NS_SWIFT_UNAVAILABLE("Use init(fromBlock:toBlock:)");
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path NS_UNAVAILABLE;
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path fromBlock:(GLBModelJsonConvertBlock _Nonnull)fromBlock toBlock:(GLBModelJsonConvertBlock _Nonnull)toBlock NS_SWIFT_UNAVAILABLE("Use init(path:fromBlock:toBlock:)");
+
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithFromBlock:(GLBModelJsonConvertBlock _Nonnull)fromBlock toBlock:(GLBModelJsonConvertBlock _Nonnull)toBlock NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithPath:(NSString* _Nonnull)path fromBlock:(GLBModelJsonConvertBlock _Nonnull)fromBlock toBlock:(GLBModelJsonConvertBlock _Nonnull)toBlock NS_DESIGNATED_INITIALIZER;
 
 @end
 

@@ -16,7 +16,7 @@
 
 @property(nonatomic) BOOL hideKeyboardIfTouched;
 
-@property(nonatomic, strong) GLBActivityView* activityView;
+@property(nonatomic, nullable, strong) GLBActivityView* activityView;
 
 - (void)setup NS_REQUIRES_SUPER;
 

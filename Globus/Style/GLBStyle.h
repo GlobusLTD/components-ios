@@ -4,25 +4,26 @@
 
 /*--------------------------------------------------*/
 
-typedef void(^GLBStyleBlock)(id target);
+typedef void(^GLBStyleBlock)(id _Nonnull target);
 
 /*--------------------------------------------------*/
 
 @interface GLBStyle : NSObject
 
-@property(nonatomic, readonly, strong) NSString* name;
-@property(nonatomic, readonly, strong) GLBStyle* parent;
+@property(nonatomic, nullable, readonly, strong) NSString* name;
+@property(nonatomic, nullable, readonly, strong) GLBStyle* parent;
 
-+ (instancetype)styleWithName:(NSString*)name NS_SWIFT_NAME(style(name:));
-+ (instancetype)styleWithName:(NSString*)name block:(GLBStyleBlock)block NS_SWIFT_NAME(style(name:block:));
-+ (instancetype)styleWithName:(NSString*)name parent:(GLBStyle*)parent block:(GLBStyleBlock)block NS_SWIFT_NAME(style(name:parent:block:));
++ (instancetype _Nonnull)styleWithName:(NSString* _Nonnull)name NS_SWIFT_NAME(style(name:));
++ (instancetype _Nonnull)styleWithName:(NSString* _Nonnull)name block:(GLBStyleBlock _Nonnull)block NS_SWIFT_UNAVAILABLE("Use init(name:block:)");
++ (instancetype _Nonnull)styleWithName:(NSString* _Nonnull)name parent:(GLBStyle* _Nullable)parent block:(GLBStyleBlock _Nonnull)block NS_SWIFT_UNAVAILABLE("Use init(name:parent:block:)");
 
-- (instancetype)initWithName:(NSString*)name block:(GLBStyleBlock)block;
-- (instancetype)initWithName:(NSString*)name parent:(GLBStyle*)parent block:(GLBStyleBlock)block;
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithName:(NSString* _Nonnull)name block:(GLBStyleBlock _Nonnull)block;
+- (instancetype _Nonnull)initWithName:(NSString* _Nonnull)name parent:(GLBStyle* _Nullable)parent block:(GLBStyleBlock _Nonnull)block NS_DESIGNATED_INITIALIZER;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-+ (void)unregisterStyleWithName:(NSString*)name;
++ (void)unregisterStyleWithName:(NSString* _Nonnull)name;
 
 @end
 
@@ -32,8 +33,8 @@ typedef void(^GLBStyleBlock)(id target);
 
 @interface UIResponder (GLBStyle)
 
-@property(nonatomic, strong) IBInspectable GLBStyle* glb_style;
-@property(nonatomic, strong) IBInspectable NSString* glb_styleName;
+@property(nonatomic, nullable, strong) IBInspectable GLBStyle* glb_style;
+@property(nonatomic, nullable, strong) IBInspectable NSString* glb_styleName;
 
 @end
 

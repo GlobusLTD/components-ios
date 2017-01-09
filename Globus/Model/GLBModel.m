@@ -551,11 +551,11 @@
     }];
 }
 
-- (void)clearComplete:(GLBModelBlock)complete {
+- (void)clearComplete:(GLBSimpleBlock)complete {
     [self clearQueue:dispatch_get_main_queue() complete:complete];
 }
 
-- (void)clearQueue:(dispatch_queue_t)queue complete:(GLBModelBlock)complete {
+- (void)clearQueue:(dispatch_queue_t)queue complete:(GLBSimpleBlock)complete {
     __weak typeof(self) weakSelf = self;
     [GLBModelContext.shared asyncQueue:queue work:^{
         [weakSelf _clear];
@@ -575,11 +575,11 @@
     return status;
 }
 
-- (void)saveSuccess:(GLBModelBlock)success failure:(GLBModelBlock)failure {
+- (void)saveSuccess:(GLBSimpleBlock)success failure:(GLBSimpleBlock)failure {
     [self saveQueue:dispatch_get_main_queue() success:success failure:failure];
 }
 
-- (void)saveQueue:(dispatch_queue_t)queue success:(GLBModelBlock)success failure:(GLBModelBlock)failure {
+- (void)saveQueue:(dispatch_queue_t)queue success:(GLBSimpleBlock)success failure:(GLBSimpleBlock)failure {
     __block BOOL status = NO;
     __weak typeof(self) weakSelf = self;
     [GLBModelContext.shared asyncQueue:queue work:^{
@@ -604,11 +604,11 @@
     }];
 }
 
-- (void)loadComplete:(GLBModelBlock)complete {
+- (void)loadComplete:(GLBSimpleBlock)complete {
     [self loadQueue:dispatch_get_main_queue() complete:complete];
 }
 
-- (void)loadQueue:(dispatch_queue_t)queue complete:(GLBModelBlock)complete {
+- (void)loadQueue:(dispatch_queue_t)queue complete:(GLBSimpleBlock)complete {
     __weak typeof(self) weakSelf = self;
     [GLBModelContext.shared asyncQueue:queue work:^{
         [weakSelf _load];
@@ -626,11 +626,11 @@
     }];
 }
 
-- (void)eraseComplete:(GLBModelBlock)complete {
+- (void)eraseComplete:(GLBSimpleBlock)complete {
     [self eraseQueue:dispatch_get_main_queue() complete:complete];
 }
 
-- (void)eraseQueue:(dispatch_queue_t)queue complete:(GLBModelBlock)complete {
+- (void)eraseQueue:(dispatch_queue_t)queue complete:(GLBSimpleBlock)complete {
     __weak typeof(self) weakSelf = self;
     [GLBModelContext.shared asyncQueue:queue work:^{
         [weakSelf _erase];

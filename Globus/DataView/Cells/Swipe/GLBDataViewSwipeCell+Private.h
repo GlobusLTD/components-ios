@@ -79,16 +79,6 @@ typedef NS_ENUM(NSUInteger, GLBDataCellSwipeDirection) {
 @property(nonatomic) CGFloat panSwipeRightWidth;
 @property(nonatomic) GLBDataCellSwipeDirection panSwipeDirection;
 
-- (UIOffset)_rootViewOffsetBySwipeProgress:(CGFloat)swipeProgress;
-- (CGFloat)_leftViewOffsetBySwipeProgress:(CGFloat)swipeProgress;
-- (CGFloat)_leftViewSizeBySwipeProgress:(CGFloat)swipeProgress;
-- (CGFloat)_rightViewOffsetBySwipeProgress:(CGFloat)swipeProgress;
-- (CGFloat)_rightViewSizeBySwipeProgress:(CGFloat)swipeProgress;
-
-- (void)_updateSwipeProgress:(CGFloat)swipeProgress speed:(CGFloat)speed endedSwipe:(BOOL)endedSwipe;
-
-- (void)_handlerPanGestureRecognizer:(UIPanGestureRecognizer*)gestureRecognizer;
-
 @end
 
 /*--------------------------------------------------*/

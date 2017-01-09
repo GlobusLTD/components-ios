@@ -4,16 +4,21 @@
 
 /*--------------------------------------------------*/
 
+@class GLBRegExpMatch;
+
+/*--------------------------------------------------*/
+
 @interface GLBRegExpParser : NSObject
 
-@property(nonatomic, strong) NSString* string;
-@property(nonatomic, strong) NSString* expression;
-@property(nonatomic, strong) NSString* pattern;
-@property(nonatomic, readonly, strong) NSArray* matches;
-@property(nonatomic, readonly, strong) NSString* result;
+@property(nonatomic, nullable, strong) NSString* string;
+@property(nonatomic, nonnull, strong) NSString* expression;
+@property(nonatomic, nonnull, strong) NSString* pattern;
+@property(nonatomic, nullable, readonly, strong) NSArray< GLBRegExpMatch* >* matches;
+@property(nonatomic, nullable, readonly, strong) NSString* result;
 
-- (instancetype)initWithExpression:(NSString*)expression pattern:(NSString*)pattern;
-- (instancetype)initWithSting:(NSString*)string expression:(NSString*)expression pattern:(NSString*)pattern;
+- (instancetype _Nullable)initWithExpression:(NSString* _Nonnull)expression pattern:(NSString* _Nonnull)pattern;
+
+- (instancetype _Nullable)initWithSting:(NSString* _Nonnull)string expression:(NSString* _Nonnull)expression pattern:(NSString* _Nonnull)pattern;
 
 - (void)setup NS_REQUIRES_SUPER;
 
@@ -23,11 +28,11 @@
 
 @interface GLBRegExpMatch : NSObject
 
-@property(nonatomic, readonly, strong) NSString* originalString;
-@property(nonatomic, readonly, strong) NSArray* originalSubStrings;
+@property(nonatomic, nullable, readonly, strong) NSString* originalString;
+@property(nonatomic, nullable, readonly, strong) NSArray* originalSubStrings;
 @property(nonatomic, readonly, assign) NSRange originalRange;
 
-@property(nonatomic, readonly, strong) NSString* resultString;
+@property(nonatomic, nullable, readonly, strong) NSString* resultString;
 @property(nonatomic, readonly, assign) NSRange resultRange;
 
 @end

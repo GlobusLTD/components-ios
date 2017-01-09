@@ -23,8 +23,3 @@
 #endif
 /*--------------------------------------------------*/
 
-#if __has_include("GLBTransitionControllerMaterial.h")
-#import "GLBTransitionControllerMaterial.h"
-#endif
-
-/*--------------------------------------------------*/

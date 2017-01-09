@@ -11,9 +11,9 @@
 
 @interface GLBApiManager : NSObject
 
-@property(nonatomic, readonly, nullable, copy) NSArray< GLBApiProvider* >* providers;
+@property(nonatomic, nonnull, readonly, copy) NSArray< GLBApiProvider* >* providers;
 
-+ (instancetype _Nullable)shared;
++ (instancetype _Nonnull)shared;
 
 - (void)setup NS_REQUIRES_SUPER;
 
@@ -21,7 +21,7 @@
 - (void)unregisterProvider:(GLBApiProvider* _Nonnull)provider;
 
 - (void)cancelRequest:(GLBApiRequest* _Nonnull)request;
-- (void)cancelAllRequestsByTarget:(_Nonnull id)target;
+- (void)cancelAllRequestsByTarget:(id _Nonnull)target;
 - (void)cancelAllRequests;
 
 @end

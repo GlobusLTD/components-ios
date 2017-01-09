@@ -12,8 +12,10 @@
 
 @interface GLBModelPack : NSObject
 
-- (_Nullable id)pack:(_Nullable id)packPalue;
-- (_Nullable id)unpack:(_Nullable id)packPalue;
++ (instancetype _Nonnull)pack NS_SWIFT_UNAVAILABLE("Use init()");
+
+- (id _Nullable)pack:(id _Nullable)packValue;
+- (id _Nullable)unpack:(id _Nullable)packValue;
 
 @end
 
@@ -21,10 +23,15 @@
 
 @interface GLBModelPackSet : GLBModelPack
 
-@property(nonatomic, readonly, nullable, strong) GLBModelPack* converter;
+@property(nonatomic, nonnull, readonly, strong) GLBModelPack* converter;
 
-- (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass;
-- (_Nullable instancetype)initWithConverter:(GLBModelPack* _Nullable)converter;
++ (instancetype _Nonnull)pack NS_UNAVAILABLE;
++ (instancetype _Nonnull)packWithModel:(Class _Nonnull)model NS_SWIFT_UNAVAILABLE("Use init(model:)");
++ (instancetype _Nonnull)packWithConverter:(GLBModelPack* _Nonnull)converter NS_SWIFT_UNAVAILABLE("Use init(converter:)");
+
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithModel:(Class _Nonnull)model;
+- (instancetype _Nonnull)initWithConverter:(GLBModelPack* _Nonnull)converter NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -32,10 +39,15 @@
 
 @interface GLBModelPackOrderedSet : GLBModelPack
 
-@property(nonatomic, readonly, nullable, strong) GLBModelPack* converter;
+@property(nonatomic, nonnull, readonly, strong) GLBModelPack* converter;
 
-- (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass;
-- (_Nullable instancetype)initWithConverter:(GLBModelPack* _Nullable)converter;
++ (instancetype _Nonnull)pack NS_UNAVAILABLE;
++ (instancetype _Nonnull)packWithModel:(Class _Nonnull)model NS_SWIFT_UNAVAILABLE("Use init(model:)");
++ (instancetype _Nonnull)packWithConverter:(GLBModelPack* _Nonnull)converter NS_SWIFT_UNAVAILABLE("Use init(converter:)");
+
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithModel:(Class _Nonnull)model;
+- (instancetype _Nonnull)initWithConverter:(GLBModelPack* _Nonnull)converter NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -43,10 +55,15 @@
 
 @interface GLBModelPackArray : GLBModelPack
 
-@property(nonatomic, readonly, nullable, strong) GLBModelPack* converter;
+@property(nonatomic, nonnull, readonly, strong) GLBModelPack* converter;
 
-- (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass;
-- (_Nullable instancetype)initWithConverter:(GLBModelPack* _Nullable)converter;
++ (instancetype _Nonnull)pack NS_UNAVAILABLE;
++ (instancetype _Nonnull)packWithModel:(Class _Nonnull)model NS_SWIFT_UNAVAILABLE("Use init(model:)");
++ (instancetype _Nonnull)packWithConverter:(GLBModelPack* _Nonnull)converter NS_SWIFT_UNAVAILABLE("Use init(converter:)");
+
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithModel:(Class _Nonnull)model;
+- (instancetype _Nonnull)initWithConverter:(GLBModelPack* _Nonnull)converter NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -54,13 +71,16 @@
 
 @interface GLBModelPackDictionary : GLBModelPack
 
-@property(nonatomic, readonly, nullable, strong) GLBModelPack* keyConverter;
-@property(nonatomic, readonly, nullable, strong) GLBModelPack* valueConverter;
+@property(nonatomic, nonnull, readonly, strong) GLBModelPack* keyConverter;
+@property(nonatomic, nonnull, readonly, strong) GLBModelPack* valueConverter;
 
-- (_Nullable instancetype)initWithValueModelClass:(_Nullable Class)valueModelClass;
-- (_Nullable instancetype)initWithValueConverter:(GLBModelPack* _Nullable)valueConverter;
-- (_Nullable instancetype)initWithKeyModelClass:(_Nullable Class)keyModelClass valueModelClass:(_Nullable Class)valueModelClass;
-- (_Nullable instancetype)initWithKeyConverter:(GLBModelPack* _Nullable)keyConverter valueConverter:(GLBModelPack* _Nullable)valueConverter;
++ (instancetype _Nonnull)pack NS_UNAVAILABLE;
++ (instancetype _Nonnull)packWithKeyModel:(Class _Nonnull)keyModel valueModel:(Class _Nonnull)valueModel NS_SWIFT_UNAVAILABLE("Use init(keyModel:valueModel:)");
++ (instancetype _Nonnull)packWithKeyConverter:(GLBModelPack* _Nonnull)keyConverter valueConverter:(GLBModelPack* _Nonnull)valueConverter NS_SWIFT_UNAVAILABLE("Use init(keyConverter:valueConverter:)");
+
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithKeyModel:(Class _Nonnull)keyModel valueModel:(Class _Nonnull)valueModel;
+- (instancetype _Nonnull)initWithKeyConverter:(GLBModelPack* _Nonnull)keyConverter valueConverter:(GLBModelPack* _Nonnull)valueConverter NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -70,7 +90,10 @@
 
 @property(nonatomic, readonly, assign) BOOL defaultValue;
 
-- (_Nullable instancetype)initWithDefaultValue:(BOOL)defaultValue;
++ (instancetype _Nonnull)packWithDefaultValue:(BOOL)defaultValue NS_SWIFT_UNAVAILABLE("Use init(defaultValue:)");
+
+- (instancetype _Nonnull)init NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithDefaultValue:(BOOL)defaultValue NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -78,9 +101,12 @@
 
 @interface GLBModelPackString : GLBModelPack
 
-@property(nonatomic, readonly, nullable, strong) NSString* defaultValue;
+@property(nonatomic, nullable, readonly, strong) NSString* defaultValue;
 
-- (_Nullable instancetype)initWithDefaultValue:(NSString* _Nullable)defaultValue;
++ (instancetype _Nonnull)packWithDefaultValue:(NSString* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(defaultValue:)");
+
+- (instancetype _Nonnull)init NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithDefaultValue:(NSString* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -88,9 +114,12 @@
 
 @interface GLBModelPackUrl : GLBModelPack
 
-@property(nonatomic, readonly, nullable, strong) NSURL* defaultValue;
+@property(nonatomic, nullable, readonly, strong) NSURL* defaultValue;
 
-- (_Nullable instancetype)initWithDefaultValue:(NSURL* _Nullable)defaultValue;
++ (instancetype _Nonnull)packWithDefaultValue:(NSURL* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(defaultValue:)");
+
+- (instancetype _Nonnull)init NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithDefaultValue:(NSURL* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -98,9 +127,12 @@
 
 @interface GLBModelPackNumber : GLBModelPack
 
-@property(nonatomic, readonly, nullable, strong) NSNumber* defaultValue;
+@property(nonatomic, nullable, readonly, strong) NSNumber* defaultValue;
 
-- (_Nullable instancetype)initWithDefaultValue:(NSNumber* _Nullable)defaultValue;
++ (instancetype _Nonnull)packWithDefaultValue:(NSNumber* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(defaultValue:)");
+
+- (instancetype _Nonnull)init NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithDefaultValue:(NSNumber* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -108,9 +140,12 @@
 
 @interface GLBModelPackDate : GLBModelPack
 
-@property(nonatomic, readonly, nullable, strong) NSDate* defaultValue;
+@property(nonatomic, nullable, readonly, strong) NSDate* defaultValue;
 
-- (_Nullable instancetype)initWithDefaultValue:(NSDate* _Nullable)defaultValue;
++ (instancetype _Nonnull)packWithDefaultValue:(NSDate* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(defaultValue:)");
+
+- (instancetype _Nonnull)init NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithDefaultValue:(NSDate* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -122,9 +157,12 @@
 
 @interface GLBModelPackLocation : GLBModelPack
 
-@property(nonatomic, readonly, nullable, strong) CLLocation* defaultValue;
+@property(nonatomic, nullable, readonly, strong) CLLocation* defaultValue;
 
-- (_Nullable instancetype)initWithDefaultValue:(CLLocation* _Nullable)defaultValue;
++ (instancetype _Nonnull)packWithDefaultValue:(CLLocation* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(defaultValue:)");
+
+- (instancetype _Nonnull)init NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithDefaultValue:(CLLocation* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -136,9 +174,12 @@
 
 @interface GLBModelPackColor : GLBModelPack
 
-@property(nonatomic, readonly, nullable, strong) UIColor* defaultValue;
+@property(nonatomic, nullable, readonly, strong) UIColor* defaultValue;
 
-- (_Nullable instancetype)initWithDefaultValue:(UIColor* _Nullable)defaultValue;
++ (instancetype _Nonnull)packWithDefaultValue:(UIColor* _Nonnull)defaultValue NS_SWIFT_UNAVAILABLE("Use init(defaultValue:)");
+
+- (instancetype _Nonnull)init NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithDefaultValue:(UIColor* _Nonnull)defaultValue NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -146,9 +187,13 @@
 
 @interface GLBModelPackModel : GLBModelPack
 
-@property(nonatomic, readonly, nullable, assign) Class modelClass;
+@property(nonatomic, nullable, readonly, assign) Class model;
 
-- (_Nullable instancetype)initWithModelClass:(_Nullable Class)modelClass;
++ (instancetype _Nonnull)pack NS_UNAVAILABLE;
++ (instancetype _Nonnull)packWithModel:(Class _Nonnull)model NS_SWIFT_UNAVAILABLE("Use init(model:)");
+
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithModel:(Class _Nonnull)model NS_DESIGNATED_INITIALIZER;
 
 @end
 

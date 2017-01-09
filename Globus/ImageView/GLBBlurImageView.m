@@ -22,7 +22,7 @@
     [super setup];
     
     _blurEnabled = YES;
-    _blurRadius = 20.0;
+    _blurRadius = 4.0;
     _blurIterations = 4;
     self.processingKey = [self _buildProcessingKey];
 }

@@ -1,0 +1,738 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		405133301E19C5E800641BF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40F2DF7F1E19C10400F85F49 /* Main.storyboard */; };
+		405133311E19C5EA00641BF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40F2DF7F1E19C10400F85F49 /* Main.storyboard */; };
+		405133321E19C5F000641BF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40F2DF7C1E19C10400F85F49 /* Assets.xcassets */; };
+		405133331E19C5F000641BF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40F2DF7C1E19C10400F85F49 /* Assets.xcassets */; };
+		4052DAA41E1A9565002FE296 /* ChoiseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4052DAA31E1A9565002FE296 /* ChoiseViewController.xib */; };
+		4052DAA81E1AA2FD002FE296 /* ChoiseViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4052DAA71E1AA2FD002FE296 /* ChoiseViewController-Swift.xib */; };
+		4052DAAB1E1AAF35002FE296 /* ChoiseCellTableViewCell-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4052DAA91E1AAF2E002FE296 /* ChoiseCellTableViewCell-Swift.xib */; };
+		4052DAAC1E1AAF37002FE296 /* ChoiseCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4052DAAA1E1AAF2E002FE296 /* ChoiseCellTableViewCell.xib */; };
+		4052DAAE1E1AD536002FE296 /* ButtonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4052DAAD1E1AD536002FE296 /* ButtonViewController.xib */; };
+		4052DAB01E1AD53C002FE296 /* ButtonBadgeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4052DAAF1E1AD53C002FE296 /* ButtonBadgeViewController.xib */; };
+		4052DAB21E1AD542002FE296 /* ButtonImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4052DAB11E1AD542002FE296 /* ButtonImageViewController.xib */; };
+		4052DAB41E1AD548002FE296 /* ImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4052DAB31E1AD548002FE296 /* ImageViewController.xib */; };
+		4052DAB61E1AD54F002FE296 /* LabelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4052DAB51E1AD54F002FE296 /* LabelViewController.xib */; };
+		4052DAB81E1AD556002FE296 /* LabelViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4052DAB71E1AD556002FE296 /* LabelViewController-Swift.xib */; };
+		4052DABA1E1AD55C002FE296 /* ImageViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4052DAB91E1AD55C002FE296 /* ImageViewController-Swift.xib */; };
+		4052DABC1E1AD561002FE296 /* ButtonImageViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4052DABB1E1AD561002FE296 /* ButtonImageViewController-Swift.xib */; };
+		4052DABE1E1AD566002FE296 /* ButtonBadgeViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4052DABD1E1AD566002FE296 /* ButtonBadgeViewController-Swift.xib */; };
+		4052DAC01E1AD56B002FE296 /* ButtonViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4052DABF1E1AD56B002FE296 /* ButtonViewController-Swift.xib */; };
+		40F2DF9E1E19C11600F85F49 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DF7A1E19C10400F85F49 /* AppDelegate.m */; };
+		40F2DF9F1E19C11900F85F49 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DF7B1E19C10400F85F49 /* AppDelegate.swift */; };
+		40F2DFA01E19C12400F85F49 /* ButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DF851E19C10400F85F49 /* ButtonViewController.m */; };
+		40F2DFA51E19C16400F85F49 /* ButtonBadgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DF881E19C10400F85F49 /* ButtonBadgeViewController.m */; };
+		40F2DFA61E19C16400F85F49 /* ButtonImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DF8B1E19C10400F85F49 /* ButtonImageViewController.m */; };
+		40F2DFA71E19C16400F85F49 /* ChoiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DF8E1E19C10400F85F49 /* ChoiseViewController.m */; };
+		40F2DFA81E19C16400F85F49 /* ChoiseCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DF921E19C10400F85F49 /* ChoiseCellTableViewCell.m */; };
+		40F2DFA91E19C16400F85F49 /* ChoiseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DF961E19C10400F85F49 /* ChoiseViewModel.m */; };
+		40F2DFAA1E19C16400F85F49 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DF9A1E19C10400F85F49 /* ImageViewController.m */; };
+		40F2DFAB1E19C16400F85F49 /* LabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DF9D1E19C10400F85F49 /* LabelViewController.m */; };
+		40F2DFBD1E19C18700F85F49 /* ButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DFA11E19C14E00F85F49 /* ButtonViewController.swift */; };
+		40F2DFBE1E19C18700F85F49 /* ButtonBadgeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DFA31E19C15400F85F49 /* ButtonBadgeViewController.swift */; };
+		40F2DFBF1E19C18700F85F49 /* ButtonImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DFAC1E19C16D00F85F49 /* ButtonImageViewController.swift */; };
+		40F2DFC01E19C18700F85F49 /* ChoiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DF8F1E19C10400F85F49 /* ChoiseViewController.swift */; };
+		40F2DFC11E19C18700F85F49 /* ChoiseCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DF931E19C10400F85F49 /* ChoiseCellTableViewCell.swift */; };
+		40F2DFC21E19C18700F85F49 /* ChoiseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DF971E19C10400F85F49 /* ChoiseViewModel.swift */; };
+		40F2DFC31E19C18700F85F49 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DFAE1E19C17500F85F49 /* ImageViewController.swift */; };
+		40F2DFC41E19C18700F85F49 /* LabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DFB01E19C17B00F85F49 /* LabelViewController.swift */; };
+		40F2DFC61E19C38700F85F49 /* Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DFC51E19C38700F85F49 /* Main.m */; };
+		5EF295C31B18EAAE17B2C2F1 /* libPods-Globus-ObjC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35A5B7F953D1DA768C5DB103 /* libPods-Globus-ObjC.a */; };
+		F71C902023B0E87AE7705CBE /* Pods_Globus_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19781EB4EA4EEABFDFB59F5D /* Pods_Globus_Swift.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		19781EB4EA4EEABFDFB59F5D /* Pods_Globus_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Globus_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2444B2A2D38343CD1705B5B1 /* libPods-Globus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Globus.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F84ACF56FF4045B45888466 /* Pods-Globus-ObjC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Globus-ObjC.release.xcconfig"; path = "Pods/Target Support Files/Pods-Globus-ObjC/Pods-Globus-ObjC.release.xcconfig"; sourceTree = "<group>"; };
+		35A5B7F953D1DA768C5DB103 /* libPods-Globus-ObjC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Globus-ObjC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4052DAA31E1A9565002FE296 /* ChoiseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChoiseViewController.xib; sourceTree = "<group>"; };
+		4052DAA71E1AA2FD002FE296 /* ChoiseViewController-Swift.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ChoiseViewController-Swift.xib"; sourceTree = "<group>"; };
+		4052DAA91E1AAF2E002FE296 /* ChoiseCellTableViewCell-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "ChoiseCellTableViewCell-Swift.xib"; sourceTree = "<group>"; };
+		4052DAAA1E1AAF2E002FE296 /* ChoiseCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChoiseCellTableViewCell.xib; sourceTree = "<group>"; };
+		4052DAAD1E1AD536002FE296 /* ButtonViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonViewController.xib; sourceTree = "<group>"; };
+		4052DAAF1E1AD53C002FE296 /* ButtonBadgeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonBadgeViewController.xib; sourceTree = "<group>"; };
+		4052DAB11E1AD542002FE296 /* ButtonImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonImageViewController.xib; sourceTree = "<group>"; };
+		4052DAB31E1AD548002FE296 /* ImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageViewController.xib; sourceTree = "<group>"; };
+		4052DAB51E1AD54F002FE296 /* LabelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LabelViewController.xib; sourceTree = "<group>"; };
+		4052DAB71E1AD556002FE296 /* LabelViewController-Swift.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "LabelViewController-Swift.xib"; sourceTree = "<group>"; };
+		4052DAB91E1AD55C002FE296 /* ImageViewController-Swift.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ImageViewController-Swift.xib"; sourceTree = "<group>"; };
+		4052DABB1E1AD561002FE296 /* ButtonImageViewController-Swift.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ButtonImageViewController-Swift.xib"; sourceTree = "<group>"; };
+		4052DABD1E1AD566002FE296 /* ButtonBadgeViewController-Swift.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ButtonBadgeViewController-Swift.xib"; sourceTree = "<group>"; };
+		4052DABF1E1AD56B002FE296 /* ButtonViewController-Swift.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ButtonViewController-Swift.xib"; sourceTree = "<group>"; };
+		40925B4A1E1B291D00C3FD61 /* Globus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Globus.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Globus-fxidihclcghidqccadrcdtlmvpyb/Build/Products/Debug-iphoneos/Globus-framework/Globus.framework"; sourceTree = "<group>"; };
+		40925B4B1E1B291D00C3FD61 /* GlobusSwifty.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GlobusSwifty.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Globus-fxidihclcghidqccadrcdtlmvpyb/Build/Products/Debug-iphoneos/GlobusSwifty/GlobusSwifty.framework"; sourceTree = "<group>"; };
+		40F2DF4B1E19BF7400F85F49 /* Globus-ObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Globus-ObjC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		40F2DF661E19C0DF00F85F49 /* Globus-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Globus-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		40F2DF791E19C10400F85F49 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		40F2DF7A1E19C10400F85F49 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		40F2DF7B1E19C10400F85F49 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		40F2DF7C1E19C10400F85F49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		40F2DF801E19C10400F85F49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		40F2DF811E19C10400F85F49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40F2DF841E19C10400F85F49 /* ButtonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ButtonViewController.h; sourceTree = "<group>"; };
+		40F2DF851E19C10400F85F49 /* ButtonViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ButtonViewController.m; sourceTree = "<group>"; };
+		40F2DF871E19C10400F85F49 /* ButtonBadgeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ButtonBadgeViewController.h; sourceTree = "<group>"; };
+		40F2DF881E19C10400F85F49 /* ButtonBadgeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ButtonBadgeViewController.m; sourceTree = "<group>"; };
+		40F2DF8A1E19C10400F85F49 /* ButtonImageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ButtonImageViewController.h; sourceTree = "<group>"; };
+		40F2DF8B1E19C10400F85F49 /* ButtonImageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ButtonImageViewController.m; sourceTree = "<group>"; };
+		40F2DF8D1E19C10400F85F49 /* ChoiseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChoiseViewController.h; sourceTree = "<group>"; };
+		40F2DF8E1E19C10400F85F49 /* ChoiseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChoiseViewController.m; sourceTree = "<group>"; };
+		40F2DF8F1E19C10400F85F49 /* ChoiseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiseViewController.swift; sourceTree = "<group>"; };
+		40F2DF911E19C10400F85F49 /* ChoiseCellTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChoiseCellTableViewCell.h; sourceTree = "<group>"; };
+		40F2DF921E19C10400F85F49 /* ChoiseCellTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChoiseCellTableViewCell.m; sourceTree = "<group>"; };
+		40F2DF931E19C10400F85F49 /* ChoiseCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiseCellTableViewCell.swift; sourceTree = "<group>"; };
+		40F2DF951E19C10400F85F49 /* ChoiseViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChoiseViewModel.h; sourceTree = "<group>"; };
+		40F2DF961E19C10400F85F49 /* ChoiseViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChoiseViewModel.m; sourceTree = "<group>"; };
+		40F2DF971E19C10400F85F49 /* ChoiseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiseViewModel.swift; sourceTree = "<group>"; };
+		40F2DF991E19C10400F85F49 /* ImageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
+		40F2DF9A1E19C10400F85F49 /* ImageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
+		40F2DF9C1E19C10400F85F49 /* LabelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelViewController.h; sourceTree = "<group>"; };
+		40F2DF9D1E19C10400F85F49 /* LabelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelViewController.m; sourceTree = "<group>"; };
+		40F2DFA11E19C14E00F85F49 /* ButtonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonViewController.swift; sourceTree = "<group>"; };
+		40F2DFA31E19C15400F85F49 /* ButtonBadgeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonBadgeViewController.swift; sourceTree = "<group>"; };
+		40F2DFAC1E19C16D00F85F49 /* ButtonImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonImageViewController.swift; sourceTree = "<group>"; };
+		40F2DFAE1E19C17500F85F49 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		40F2DFB01E19C17B00F85F49 /* LabelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelViewController.swift; sourceTree = "<group>"; };
+		40F2DFC51E19C38700F85F49 /* Main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Main.m; sourceTree = "<group>"; };
+		53F0CEFC75C4048325F1F349 /* Pods-Globus-ObjC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Globus-ObjC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Globus-ObjC/Pods-Globus-ObjC.debug.xcconfig"; sourceTree = "<group>"; };
+		7B281748BB7657B689EC6ADE /* Pods-Globus-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Globus-Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Globus-Swift/Pods-Globus-Swift.debug.xcconfig"; sourceTree = "<group>"; };
+		7B4063ACBEB007401527F860 /* Pods-Globus-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Globus-Swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-Globus-Swift/Pods-Globus-Swift.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		40F2DF481E19BF7400F85F49 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5EF295C31B18EAAE17B2C2F1 /* libPods-Globus-ObjC.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40F2DF631E19C0DF00F85F49 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F71C902023B0E87AE7705CBE /* Pods_Globus_Swift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		40E8ADFB1E197D86008D73E5 = {
+			isa = PBXGroup;
+			children = (
+				40F2DF781E19C10400F85F49 /* Sources */,
+				40E8AE051E197D86008D73E5 /* Products */,
+				8EE3AE9BA1D7BF616042DD38 /* Pods */,
+				9BE070F46F56BD216964F867 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		40E8AE051E197D86008D73E5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				40F2DF4B1E19BF7400F85F49 /* Globus-ObjC.app */,
+				40F2DF661E19C0DF00F85F49 /* Globus-Swift.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		40F2DF781E19C10400F85F49 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				40F2DF821E19C10400F85F49 /* ViewControllers */,
+				40F2DF791E19C10400F85F49 /* AppDelegate.h */,
+				40F2DF7A1E19C10400F85F49 /* AppDelegate.m */,
+				40F2DF7B1E19C10400F85F49 /* AppDelegate.swift */,
+				40F2DFC51E19C38700F85F49 /* Main.m */,
+				40F2DF7C1E19C10400F85F49 /* Assets.xcassets */,
+				40F2DF7F1E19C10400F85F49 /* Main.storyboard */,
+				40F2DF811E19C10400F85F49 /* Info.plist */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		40F2DF821E19C10400F85F49 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				40F2DF831E19C10400F85F49 /* Button */,
+				40F2DF861E19C10400F85F49 /* ButtonBadge */,
+				40F2DF891E19C10400F85F49 /* ButtonImage */,
+				40F2DF8C1E19C10400F85F49 /* Choise */,
+				40F2DF981E19C10400F85F49 /* ImageView */,
+				40F2DF9B1E19C10400F85F49 /* Label */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		40F2DF831E19C10400F85F49 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				40F2DF841E19C10400F85F49 /* ButtonViewController.h */,
+				40F2DF851E19C10400F85F49 /* ButtonViewController.m */,
+				40F2DFA11E19C14E00F85F49 /* ButtonViewController.swift */,
+				4052DAAD1E1AD536002FE296 /* ButtonViewController.xib */,
+				4052DABF1E1AD56B002FE296 /* ButtonViewController-Swift.xib */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
+		40F2DF861E19C10400F85F49 /* ButtonBadge */ = {
+			isa = PBXGroup;
+			children = (
+				40F2DF871E19C10400F85F49 /* ButtonBadgeViewController.h */,
+				40F2DF881E19C10400F85F49 /* ButtonBadgeViewController.m */,
+				40F2DFA31E19C15400F85F49 /* ButtonBadgeViewController.swift */,
+				4052DAAF1E1AD53C002FE296 /* ButtonBadgeViewController.xib */,
+				4052DABD1E1AD566002FE296 /* ButtonBadgeViewController-Swift.xib */,
+			);
+			path = ButtonBadge;
+			sourceTree = "<group>";
+		};
+		40F2DF891E19C10400F85F49 /* ButtonImage */ = {
+			isa = PBXGroup;
+			children = (
+				40F2DF8A1E19C10400F85F49 /* ButtonImageViewController.h */,
+				40F2DF8B1E19C10400F85F49 /* ButtonImageViewController.m */,
+				40F2DFAC1E19C16D00F85F49 /* ButtonImageViewController.swift */,
+				4052DAB11E1AD542002FE296 /* ButtonImageViewController.xib */,
+				4052DABB1E1AD561002FE296 /* ButtonImageViewController-Swift.xib */,
+			);
+			path = ButtonImage;
+			sourceTree = "<group>";
+		};
+		40F2DF8C1E19C10400F85F49 /* Choise */ = {
+			isa = PBXGroup;
+			children = (
+				40F2DF941E19C10400F85F49 /* ViewModels */,
+				40F2DF901E19C10400F85F49 /* TableCells */,
+				40F2DF8D1E19C10400F85F49 /* ChoiseViewController.h */,
+				40F2DF8E1E19C10400F85F49 /* ChoiseViewController.m */,
+				40F2DF8F1E19C10400F85F49 /* ChoiseViewController.swift */,
+				4052DAA31E1A9565002FE296 /* ChoiseViewController.xib */,
+				4052DAA71E1AA2FD002FE296 /* ChoiseViewController-Swift.xib */,
+			);
+			path = Choise;
+			sourceTree = "<group>";
+		};
+		40F2DF901E19C10400F85F49 /* TableCells */ = {
+			isa = PBXGroup;
+			children = (
+				40F2DF911E19C10400F85F49 /* ChoiseCellTableViewCell.h */,
+				40F2DF921E19C10400F85F49 /* ChoiseCellTableViewCell.m */,
+				40F2DF931E19C10400F85F49 /* ChoiseCellTableViewCell.swift */,
+				4052DAAA1E1AAF2E002FE296 /* ChoiseCellTableViewCell.xib */,
+				4052DAA91E1AAF2E002FE296 /* ChoiseCellTableViewCell-Swift.xib */,
+			);
+			path = TableCells;
+			sourceTree = "<group>";
+		};
+		40F2DF941E19C10400F85F49 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				40F2DF951E19C10400F85F49 /* ChoiseViewModel.h */,
+				40F2DF961E19C10400F85F49 /* ChoiseViewModel.m */,
+				40F2DF971E19C10400F85F49 /* ChoiseViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		40F2DF981E19C10400F85F49 /* ImageView */ = {
+			isa = PBXGroup;
+			children = (
+				40F2DF991E19C10400F85F49 /* ImageViewController.h */,
+				40F2DF9A1E19C10400F85F49 /* ImageViewController.m */,
+				40F2DFAE1E19C17500F85F49 /* ImageViewController.swift */,
+				4052DAB31E1AD548002FE296 /* ImageViewController.xib */,
+				4052DAB91E1AD55C002FE296 /* ImageViewController-Swift.xib */,
+			);
+			path = ImageView;
+			sourceTree = "<group>";
+		};
+		40F2DF9B1E19C10400F85F49 /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				40F2DF9C1E19C10400F85F49 /* LabelViewController.h */,
+				40F2DF9D1E19C10400F85F49 /* LabelViewController.m */,
+				40F2DFB01E19C17B00F85F49 /* LabelViewController.swift */,
+				4052DAB51E1AD54F002FE296 /* LabelViewController.xib */,
+				4052DAB71E1AD556002FE296 /* LabelViewController-Swift.xib */,
+			);
+			path = Label;
+			sourceTree = "<group>";
+		};
+		8EE3AE9BA1D7BF616042DD38 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				53F0CEFC75C4048325F1F349 /* Pods-Globus-ObjC.debug.xcconfig */,
+				2F84ACF56FF4045B45888466 /* Pods-Globus-ObjC.release.xcconfig */,
+				7B281748BB7657B689EC6ADE /* Pods-Globus-Swift.debug.xcconfig */,
+				7B4063ACBEB007401527F860 /* Pods-Globus-Swift.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		9BE070F46F56BD216964F867 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				40925B4A1E1B291D00C3FD61 /* Globus.framework */,
+				40925B4B1E1B291D00C3FD61 /* GlobusSwifty.framework */,
+				2444B2A2D38343CD1705B5B1 /* libPods-Globus.a */,
+				35A5B7F953D1DA768C5DB103 /* libPods-Globus-ObjC.a */,
+				19781EB4EA4EEABFDFB59F5D /* Pods_Globus_Swift.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		40F2DF4A1E19BF7400F85F49 /* Globus-ObjC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 40F2DF5F1E19BF7400F85F49 /* Build configuration list for PBXNativeTarget "Globus-ObjC" */;
+			buildPhases = (
+				059486392E09B1A294C9A04B /* [CP] Check Pods Manifest.lock */,
+				40F2DF471E19BF7400F85F49 /* Sources */,
+				40F2DF481E19BF7400F85F49 /* Frameworks */,
+				40F2DF491E19BF7400F85F49 /* Resources */,
+				7EDC7CE68EA5F65F712CFC8D /* [CP] Embed Pods Frameworks */,
+				53368F9A488974BB4B196359 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Globus-ObjC";
+			productName = "Globus-Demo";
+			productReference = 40F2DF4B1E19BF7400F85F49 /* Globus-ObjC.app */;
+			productType = "com.apple.product-type.application";
+		};
+		40F2DF651E19C0DF00F85F49 /* Globus-Swift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 40F2DF751E19C0DF00F85F49 /* Build configuration list for PBXNativeTarget "Globus-Swift" */;
+			buildPhases = (
+				BC699E0EDB7CA694702E7047 /* [CP] Check Pods Manifest.lock */,
+				40F2DF621E19C0DF00F85F49 /* Sources */,
+				40F2DF631E19C0DF00F85F49 /* Frameworks */,
+				40F2DF641E19C0DF00F85F49 /* Resources */,
+				68F02488A75BFCD1AEC2500C /* [CP] Embed Pods Frameworks */,
+				42B9ABC35434F0359D39DB7D /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Globus-Swift";
+			productName = "Globus-Demo";
+			productReference = 40F2DF661E19C0DF00F85F49 /* Globus-Swift.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		40E8ADFC1E197D86008D73E5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Globus-LTD";
+				TargetAttributes = {
+					40F2DF4A1E19BF7400F85F49 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = YFADDH8BLW;
+						ProvisioningStyle = Automatic;
+					};
+					40F2DF651E19C0DF00F85F49 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = YFADDH8BLW;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 40E8ADFF1E197D86008D73E5 /* Build configuration list for PBXProject "Globus" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 40E8ADFB1E197D86008D73E5;
+			productRefGroup = 40E8AE051E197D86008D73E5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				40F2DF4A1E19BF7400F85F49 /* Globus-ObjC */,
+				40F2DF651E19C0DF00F85F49 /* Globus-Swift */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		40F2DF491E19BF7400F85F49 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4052DAA41E1A9565002FE296 /* ChoiseViewController.xib in Resources */,
+				4052DAAE1E1AD536002FE296 /* ButtonViewController.xib in Resources */,
+				4052DAB61E1AD54F002FE296 /* LabelViewController.xib in Resources */,
+				4052DAB41E1AD548002FE296 /* ImageViewController.xib in Resources */,
+				4052DAB01E1AD53C002FE296 /* ButtonBadgeViewController.xib in Resources */,
+				405133321E19C5F000641BF4 /* Assets.xcassets in Resources */,
+				4052DAAC1E1AAF37002FE296 /* ChoiseCellTableViewCell.xib in Resources */,
+				4052DAB21E1AD542002FE296 /* ButtonImageViewController.xib in Resources */,
+				405133301E19C5E800641BF4 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40F2DF641E19C0DF00F85F49 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				405133331E19C5F000641BF4 /* Assets.xcassets in Resources */,
+				405133311E19C5EA00641BF4 /* Main.storyboard in Resources */,
+				4052DABA1E1AD55C002FE296 /* ImageViewController-Swift.xib in Resources */,
+				4052DAAB1E1AAF35002FE296 /* ChoiseCellTableViewCell-Swift.xib in Resources */,
+				4052DABE1E1AD566002FE296 /* ButtonBadgeViewController-Swift.xib in Resources */,
+				4052DAA81E1AA2FD002FE296 /* ChoiseViewController-Swift.xib in Resources */,
+				4052DABC1E1AD561002FE296 /* ButtonImageViewController-Swift.xib in Resources */,
+				4052DAC01E1AD56B002FE296 /* ButtonViewController-Swift.xib in Resources */,
+				4052DAB81E1AD556002FE296 /* LabelViewController-Swift.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		059486392E09B1A294C9A04B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		42B9ABC35434F0359D39DB7D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Globus-Swift/Pods-Globus-Swift-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		53368F9A488974BB4B196359 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Globus-ObjC/Pods-Globus-ObjC-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		68F02488A75BFCD1AEC2500C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Globus-Swift/Pods-Globus-Swift-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7EDC7CE68EA5F65F712CFC8D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Globus-ObjC/Pods-Globus-ObjC-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BC699E0EDB7CA694702E7047 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		40F2DF471E19BF7400F85F49 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40F2DFC61E19C38700F85F49 /* Main.m in Sources */,
+				40F2DFA61E19C16400F85F49 /* ButtonImageViewController.m in Sources */,
+				40F2DFAA1E19C16400F85F49 /* ImageViewController.m in Sources */,
+				40F2DFA01E19C12400F85F49 /* ButtonViewController.m in Sources */,
+				40F2DFA81E19C16400F85F49 /* ChoiseCellTableViewCell.m in Sources */,
+				40F2DFA71E19C16400F85F49 /* ChoiseViewController.m in Sources */,
+				40F2DFA51E19C16400F85F49 /* ButtonBadgeViewController.m in Sources */,
+				40F2DFA91E19C16400F85F49 /* ChoiseViewModel.m in Sources */,
+				40F2DF9E1E19C11600F85F49 /* AppDelegate.m in Sources */,
+				40F2DFAB1E19C16400F85F49 /* LabelViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40F2DF621E19C0DF00F85F49 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40F2DFBF1E19C18700F85F49 /* ButtonImageViewController.swift in Sources */,
+				40F2DFC01E19C18700F85F49 /* ChoiseViewController.swift in Sources */,
+				40F2DFC11E19C18700F85F49 /* ChoiseCellTableViewCell.swift in Sources */,
+				40F2DFBD1E19C18700F85F49 /* ButtonViewController.swift in Sources */,
+				40F2DF9F1E19C11900F85F49 /* AppDelegate.swift in Sources */,
+				40F2DFC41E19C18700F85F49 /* LabelViewController.swift in Sources */,
+				40F2DFC31E19C18700F85F49 /* ImageViewController.swift in Sources */,
+				40F2DFBE1E19C18700F85F49 /* ButtonBadgeViewController.swift in Sources */,
+				40F2DFC21E19C18700F85F49 /* ChoiseViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		40F2DF7F1E19C10400F85F49 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				40F2DF801E19C10400F85F49 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		40E8AE191E197D86008D73E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		40E8AE1A1E197D86008D73E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		40F2DF601E19BF7400F85F49 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 53F0CEFC75C4048325F1F349 /* Pods-Globus-ObjC.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = YFADDH8BLW;
+				INFOPLIST_FILE = Sources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.globus-ltd.components.objc";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		40F2DF611E19BF7400F85F49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2F84ACF56FF4045B45888466 /* Pods-Globus-ObjC.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = YFADDH8BLW;
+				INFOPLIST_FILE = Sources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.globus-ltd.components.objc";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		40F2DF761E19C0DF00F85F49 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B281748BB7657B689EC6ADE /* Pods-Globus-Swift.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = YFADDH8BLW;
+				INFOPLIST_FILE = Sources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.globus-ltd.components.swift";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		40F2DF771E19C0DF00F85F49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B4063ACBEB007401527F860 /* Pods-Globus-Swift.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = YFADDH8BLW;
+				INFOPLIST_FILE = Sources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.globus-ltd.components.swift";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		40E8ADFF1E197D86008D73E5 /* Build configuration list for PBXProject "Globus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40E8AE191E197D86008D73E5 /* Debug */,
+				40E8AE1A1E197D86008D73E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		40F2DF5F1E19BF7400F85F49 /* Build configuration list for PBXNativeTarget "Globus-ObjC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40F2DF601E19BF7400F85F49 /* Debug */,
+				40F2DF611E19BF7400F85F49 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		40F2DF751E19C0DF00F85F49 /* Build configuration list for PBXNativeTarget "Globus-Swift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40F2DF761E19C0DF00F85F49 /* Debug */,
+				40F2DF771E19C0DF00F85F49 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 40E8ADFC1E197D86008D73E5 /* Project object */;
+}

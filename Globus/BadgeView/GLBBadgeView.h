@@ -8,11 +8,11 @@
 
 @interface GLBBadgeView : UIView
 
-@property(nonatomic, copy) IBInspectable NSString* text;
+@property(nonatomic, nullable, copy) IBInspectable NSString* text;
 @property(nonatomic) IBInspectable UIEdgeInsets textInsets;
-@property(nonatomic, strong) IBInspectable UIColor* textColor;
-@property(nonatomic, strong) IBInspectable UIFont* textFont;
-@property(nonatomic, strong) IBInspectable UIColor* textShadowColor;
+@property(nonatomic, nullable, strong) IBInspectable UIColor* textColor;
+@property(nonatomic, nullable, strong) IBInspectable UIFont* textFont;
+@property(nonatomic, nullable, strong) IBInspectable UIColor* textShadowColor;
 @property(nonatomic) IBInspectable CGFloat textShadowRadius;
 @property(nonatomic) IBInspectable CGSize textShadowOffset;
 

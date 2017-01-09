@@ -18,6 +18,14 @@
 
 #pragma mark - Init / Free
 
++ (instancetype)json {
+    return [[self alloc] init];
+}
+
++ (instancetype)jsonWithPath:(NSString*)path {
+    return [[self alloc] initWithPath:path];
+}
+
 - (instancetype)init {
     self = [super init];
     if(self != nil) {
@@ -64,29 +72,57 @@
 
 @implementation GLBModelJsonSet
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(initPath:(NSString*)path)
+
 #pragma mark - Init / Free
 
-- (instancetype)initWithModelClass:(Class)modelClass {
-    return [self initWithPath:nil
-                jsonConverter:[[GLBModelJsonModel alloc] initWithModelClass:modelClass]];
++ (instancetype)jsonWithModel:(Class)model {
+    return [[self alloc] initWithModel:model];
 }
 
-- (instancetype)initWithJsonConverter:(GLBModelJson*)jsonConverter {
-    return [self initWithPath:nil
-                jsonConverter:jsonConverter];
++ (instancetype)jsonWithConverter:(GLBModelJson*)converter {
+    return [[self alloc] initWithConverter:converter];
 }
 
-- (instancetype)initWithPath:(NSString*)path modelClass:(Class)modelClass {
-    return [self initWithPath:path
-                jsonConverter:[[GLBModelJsonModel alloc] initWithModelClass:modelClass]];
++ (instancetype)jsonWithPath:(NSString*)path model:(Class)model {
+    return [[self alloc] initWithPath:path model:model];
 }
 
-- (instancetype)initWithPath:(NSString*)path jsonConverter:(GLBModelJson*)jsonConverter {
-    self = [super initWithPath:path];
++ (instancetype)jsonWithPath:(NSString*)path converter:(GLBModelJson*)converter {
+    return [[self alloc] initWithPath:path converter:converter];
+}
+
+- (instancetype)initWithModel:(Class)model {
+    return [self initWithConverter:[GLBModelJsonModel jsonWithModel:model]];
+}
+
+- (instancetype)initWithConverter:(GLBModelJson*)converter {
+    self = [super init];
     if(self != nil) {
-        _jsonConverter = jsonConverter;
+        _converter = converter;
     }
     return self;
+}
+
+- (instancetype)initWithPath:(NSString*)path model:(Class)model {
+    return [self initWithPath:path converter:[GLBModelJsonModel jsonWithModel:model]];
+}
+
+- (instancetype)initWithPath:(NSString*)path converter:(GLBModelJson*)converter {
+    self = [super initWithPath:path];
+    if(self != nil) {
+        _converter = converter;
+    }
+    return self;
+}
+
+#pragma mark - Property
+
+- (GLBModelJson*)jsonConverter {
+    return _converter;
 }
 
 #pragma mark - GLBModelJson
@@ -95,7 +131,7 @@
     if([json isKindOfClass:NSArray.class] == YES) {
         NSMutableSet* result = NSMutableSet.set;
         for(id object in json) {
-            id value = [_jsonConverter fromJson:object sheme:sheme];
+            id value = [_converter fromJson:object sheme:sheme];
             if(value != nil) {
                 [result addObject:value];
             }
@@ -109,7 +145,7 @@
     if([json isKindOfClass:NSSet.class] == YES) {
         NSMutableArray* result = NSMutableArray.array;
         for(id object in json) {
-            id value = [_jsonConverter toJson:object sheme:sheme];
+            id value = [_converter toJson:object sheme:sheme];
             if(value != nil) {
                 [result addObject:value];
             }
@@ -127,29 +163,57 @@
 
 @implementation GLBModelJsonOrderedSet
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(initPath:(NSString*)path)
+
 #pragma mark - Init / Free
 
-- (instancetype)initWithModelClass:(Class)modelClass {
-    return [self initWithPath:nil
-                jsonConverter:[[GLBModelJsonModel alloc] initWithModelClass:modelClass]];
++ (instancetype)jsonWithModel:(Class)model {
+    return [[self alloc] initWithModel:model];
 }
 
-- (instancetype)initWithJsonConverter:(GLBModelJson*)jsonConverter {
-    return [self initWithPath:nil
-                jsonConverter:jsonConverter];
++ (instancetype)jsonWithConverter:(GLBModelJson*)converter {
+    return [[self alloc] initWithConverter:converter];
 }
 
-- (instancetype)initWithPath:(NSString*)path modelClass:(Class)modelClass {
-    return [self initWithPath:path
-                jsonConverter:[[GLBModelJsonModel alloc] initWithModelClass:modelClass]];
++ (instancetype)jsonWithPath:(NSString*)path model:(Class)model {
+    return [[self alloc] initWithPath:path model:model];
 }
 
-- (instancetype)initWithPath:(NSString*)path jsonConverter:(GLBModelJson*)jsonConverter {
-    self = [super initWithPath:path];
++ (instancetype)jsonWithPath:(NSString*)path converter:(GLBModelJson*)converter {
+    return [[self alloc] initWithPath:path converter:converter];
+}
+
+- (instancetype)initWithModel:(Class)model {
+    return [self initWithConverter:[GLBModelJsonModel jsonWithModel:model]];
+}
+
+- (instancetype)initWithConverter:(GLBModelJson*)converter {
+    self = [super init];
     if(self != nil) {
-        _jsonConverter = jsonConverter;
+        _converter = converter;
     }
     return self;
+}
+
+- (instancetype)initWithPath:(NSString*)path model:(Class)model {
+    return [self initWithPath:path converter:[GLBModelJsonModel jsonWithModel:model]];
+}
+
+- (instancetype)initWithPath:(NSString*)path converter:(GLBModelJson*)converter {
+    self = [super initWithPath:path];
+    if(self != nil) {
+        _converter = converter;
+    }
+    return self;
+}
+
+#pragma mark - Property
+
+- (GLBModelJson*)jsonConverter {
+    return _converter;
 }
 
 #pragma mark - GLBModelJson
@@ -158,7 +222,7 @@
     if([json isKindOfClass:NSArray.class] == YES) {
         NSMutableOrderedSet* result = NSMutableOrderedSet.orderedSet;
         for(id object in json) {
-            id value = [_jsonConverter fromJson:object sheme:sheme];
+            id value = [_converter fromJson:object sheme:sheme];
             if(value != nil) {
                 [result addObject:value];
             }
@@ -172,7 +236,7 @@
     if([json isKindOfClass:NSOrderedSet.class] == YES) {
         NSMutableArray* result = NSMutableArray.array;
         for(id object in json) {
-            id value = [_jsonConverter toJson:object sheme:sheme];
+            id value = [_converter toJson:object sheme:sheme];
             if(value != nil) {
                 [result addObject:value];
             }
@@ -190,29 +254,57 @@
 
 @implementation GLBModelJsonArray
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(initPath:(NSString*)path)
+
 #pragma mark - Init / Free
 
-- (instancetype)initWithModelClass:(Class)modelClass {
-    return [self initWithPath:nil
-                jsonConverter:[[GLBModelJsonModel alloc] initWithModelClass:modelClass]];
++ (instancetype)jsonWithModel:(Class)model {
+    return [[self alloc] initWithModel:model];
 }
 
-- (instancetype)initWithJsonConverter:(GLBModelJson*)jsonConverter {
-    return [self initWithPath:nil
-                jsonConverter:jsonConverter];
++ (instancetype)jsonWithConverter:(GLBModelJson*)converter {
+    return [[self alloc] initWithConverter:converter];
 }
 
-- (instancetype)initWithPath:(NSString*)path modelClass:(Class)modelClass {
-    return [self initWithPath:path
-                jsonConverter:[[GLBModelJsonModel alloc] initWithModelClass:modelClass]];
++ (instancetype)jsonWithPath:(NSString*)path model:(Class)model {
+    return [[self alloc] initWithPath:path model:model];
 }
 
-- (instancetype)initWithPath:(NSString*)path jsonConverter:(GLBModelJson*)jsonConverter {
-    self = [super initWithPath:path];
++ (instancetype)jsonWithPath:(NSString*)path converter:(GLBModelJson*)converter {
+    return [[self alloc] initWithPath:path converter:converter];
+}
+
+- (instancetype)initWithModel:(Class)model {
+    return [self initWithConverter:[GLBModelJsonModel jsonWithModel:model]];
+}
+
+- (instancetype)initWithConverter:(GLBModelJson*)converter {
+    self = [super init];
     if(self != nil) {
-        _jsonConverter = jsonConverter;
+        _converter = converter;
     }
     return self;
+}
+
+- (instancetype)initWithPath:(NSString*)path model:(Class)model {
+    return [self initWithPath:path converter:[GLBModelJsonModel jsonWithModel:model]];
+}
+
+- (instancetype)initWithPath:(NSString*)path converter:(GLBModelJson*)converter {
+    self = [super initWithPath:path];
+    if(self != nil) {
+        _converter = converter;
+    }
+    return self;
+}
+
+#pragma mark - Property
+
+- (GLBModelJson*)jsonConverter {
+    return _converter;
 }
 
 #pragma mark - GLBModelJson
@@ -221,7 +313,7 @@
     if([json isKindOfClass:NSArray.class] == YES) {
         NSMutableArray* result = NSMutableArray.array;
         for(id object in json) {
-            id value = [_jsonConverter fromJson:object sheme:sheme];
+            id value = [_converter fromJson:object sheme:sheme];
             if(value != nil) {
                 [result addObject:value];
             }
@@ -235,7 +327,7 @@
     if([json isKindOfClass:NSArray.class] == YES) {
         NSMutableArray* result = NSMutableArray.array;
         for(id object in json) {
-            id value = [_jsonConverter toJson:object sheme:sheme];
+            id value = [_converter toJson:object sheme:sheme];
             if(value != nil) {
                 [result addObject:value];
             }
@@ -253,57 +345,103 @@
 
 @implementation GLBModelJsonDictionary
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(initPath:(NSString*)path)
+
 #pragma mark - Init / Free
 
-- (instancetype)initWithValueModelClass:(Class)valueModelClass {
-    return [self initWithPath:nil
-             keyJsonConverter:nil
-           valueJsonConverter:[[GLBModelJsonModel alloc] initWithModelClass:valueModelClass]];
++ (instancetype)jsonWithValueModel:(Class)valueModel {
+    return [(GLBModelJsonDictionary*)[self alloc] initWithValueModel:valueModel];
 }
 
-- (instancetype)initWithValueJsonConverter:(GLBModelJson*)valueJsonConverter {
-    return [self initWithPath:nil
-             keyJsonConverter:nil
-           valueJsonConverter:valueJsonConverter];
++ (instancetype)jsonWithValueConverter:(GLBModelJson*)valueConverter {
+    return [(GLBModelJsonDictionary*)[self alloc] initWithValueConverter:valueConverter];
 }
 
-- (instancetype)initWithKeyModelClass:(Class)keyModelClass valueModelClass:(Class)valueModelClass {
-    return [self initWithPath:nil
-             keyJsonConverter:[[GLBModelJsonModel alloc] initWithModelClass:keyModelClass]
-           valueJsonConverter:[[GLBModelJsonModel alloc] initWithModelClass:valueModelClass]];
++ (instancetype)jsonWithKeyModel:(Class)keyModel valueModel:(Class)valueModel {
+    return [(GLBModelJsonDictionary*)[self alloc] initWithKeyModel:keyModel valueModel:valueModel];
 }
 
-- (instancetype)initWithKeyJsonConverter:(GLBModelJson*)keyJsonConverter valueJsonConverter:(GLBModelJson*)valueJsonConverter {
-    return [self initWithPath:nil
-             keyJsonConverter:keyJsonConverter
-           valueJsonConverter:valueJsonConverter];
++ (instancetype)jsonWithKeyConverter:(GLBModelJson*)keyConverter valueConverter:(GLBModelJson*)valueConverter {
+    return [(GLBModelJsonDictionary*)[self alloc] initWithKeyConverter:keyConverter valueConverter:valueConverter];
 }
 
-- (instancetype)initWithPath:(NSString*)path valueModelClass:(Class)valueModelClass {
-    return [self initWithPath:path
-             keyJsonConverter:nil
-           valueJsonConverter:[[GLBModelJsonModel alloc] initWithModelClass:valueModelClass]];
++ (instancetype)jsonWithPath:(NSString*)path valueModel:(Class)valueModel {
+    return [(GLBModelJsonDictionary*)[self alloc] initWithPath:path valueModel:valueModel];
 }
 
-- (instancetype)initWithPath:(NSString*)path valueJsonConverter:(GLBModelJson*)valueJsonConverter {
-    return [self initWithPath:path
-             keyJsonConverter:nil
-           valueJsonConverter:valueJsonConverter];
++ (instancetype)jsonWithPath:(NSString*)path valueConverter:(GLBModelJson*)valueConverter {
+    return [(GLBModelJsonDictionary*)[self alloc] initWithPath:path valueConverter:valueConverter];
 }
 
-- (instancetype)initWithPath:(NSString*)path keyModelClass:(Class)keyModelClass valueModelClass:(Class)valueModelClass {
-    return [self initWithPath:path
-             keyJsonConverter:[[GLBModelJsonModel alloc] initWithModelClass:keyModelClass]
-           valueJsonConverter:[[GLBModelJsonModel alloc] initWithModelClass:valueModelClass]];
++ (instancetype)jsonWithPath:(NSString*)path keyModel:(Class)keyModel valueModel:(Class)valueModel {
+    return [(GLBModelJsonDictionary*)[self alloc] initWithPath:path keyModel:keyModel valueModel:valueModel];
 }
 
-- (instancetype)initWithPath:(NSString*)path keyJsonConverter:(GLBModelJson*)keyJsonConverter valueJsonConverter:(GLBModelJson*)valueJsonConverter {
-    self = [super initWithPath:path];
++ (instancetype)jsonWithPath:(NSString*)path keyConverter:(GLBModelJson*)keyConverter valueConverter:(GLBModelJson*)valueConverter {
+    return [(GLBModelJsonDictionary*)[self alloc] initWithPath:path keyConverter:keyConverter valueConverter:valueConverter];
+}
+
+- (instancetype)initWithValueModel:(Class)valueModel {
+    return [self initWithValueConverter:[GLBModelJsonModel jsonWithModel:valueModel]];
+}
+
+- (instancetype)initWithValueConverter:(GLBModelJson*)valueConverter {
+    self = [super init];
     if(self != nil) {
-        _keyJsonConverter = keyJsonConverter;
-        _valueJsonConverter = valueJsonConverter;
+        _valueConverter = valueConverter;
     }
     return self;
+}
+
+- (instancetype)initWithKeyModel:(Class)keyModel valueModel:(Class)valueModel {
+    return [self initWithKeyConverter:[GLBModelJsonModel jsonWithModel:keyModel] valueConverter:[GLBModelJsonModel jsonWithModel:valueModel]];
+}
+
+- (instancetype)initWithKeyConverter:(GLBModelJson*)keyConverter valueConverter:(GLBModelJson*)valueConverter {
+    self = [super init];
+    if(self != nil) {
+        _keyConverter = keyConverter;
+        _valueConverter = valueConverter;
+    }
+    return self;
+}
+
+- (instancetype)initWithPath:(NSString*)path valueModel:(Class)valueModel {
+    return [self initWithPath:path valueConverter:[GLBModelJsonModel jsonWithModel:valueModel]];
+}
+
+- (instancetype)initWithPath:(NSString*)path valueConverter:(GLBModelJson*)valueConverter {
+    self = [super initWithPath:path];
+    if(self != nil) {
+        _valueConverter = valueConverter;
+    }
+    return self;
+}
+
+- (instancetype)initWithPath:(NSString*)path keyModel:(Class)keyModel valueModel:(Class)valueModel {
+    return [self initWithPath:path keyConverter:[GLBModelJsonModel jsonWithModel:keyModel] valueConverter:[GLBModelJsonModel jsonWithModel:valueModel]];
+}
+
+- (instancetype)initWithPath:(NSString*)path keyConverter:(GLBModelJson*)keyConverter valueConverter:(GLBModelJson*)valueConverter {
+    self = [super initWithPath:path];
+    if(self != nil) {
+        _keyConverter = keyConverter;
+        _valueConverter = valueConverter;
+    }
+    return self;
+}
+
+#pragma mark - Property
+
+- (GLBModelJson*)jsonKeyConverter {
+    return _keyConverter;
+}
+
+- (GLBModelJson*)jsonValueConverter {
+    return _valueConverter;
 }
 
 #pragma mark - GLBModelJson
@@ -312,9 +450,9 @@
     if([json isKindOfClass:NSDictionary.class] == YES) {
         NSMutableDictionary* result = NSMutableDictionary.dictionary;
         [json enumerateKeysAndObjectsUsingBlock:^(id rawKey, id rawValue, BOOL* stop __unused) {
-            id key = (_keyJsonConverter != nil) ? [_keyJsonConverter fromJson:rawKey sheme:sheme] : rawKey;
+            id key = (_keyConverter != nil) ? [_keyConverter fromJson:rawKey sheme:sheme] : rawKey;
             if(key != nil) {
-                id value = [_valueJsonConverter fromJson:rawValue sheme:sheme];
+                id value = [_valueConverter fromJson:rawValue sheme:sheme];
                 if(value != nil) {
                     result[key] = value;
                 }
@@ -329,9 +467,9 @@
     if([json isKindOfClass:NSDictionary.class] == YES) {
         NSMutableDictionary* result = NSMutableDictionary.dictionary;
         [json enumerateKeysAndObjectsUsingBlock:^(id rawKey, id rawValue, BOOL* stop __unused) {
-            id key = (_keyJsonConverter != nil) ? [_keyJsonConverter toJson:rawKey sheme:sheme] : rawKey;
+            id key = (_keyConverter != nil) ? [_keyConverter toJson:rawKey sheme:sheme] : rawKey;
             if(key != nil) {
-                id value = [_valueJsonConverter toJson:rawValue sheme:sheme];
+                id value = [_valueConverter toJson:rawValue sheme:sheme];
                 if(value != nil) {
                     result[key] = value;
                 }
@@ -351,6 +489,30 @@
 @implementation GLBModelJsonBool
 
 #pragma mark - Init / Free
+
++ (instancetype)jsonWithDefaultValue:(BOOL)defaultValue {
+    return [(GLBModelJsonBool*)[self alloc] initWithDefaultValue:defaultValue];
+}
+
++ (instancetype)jsonWithPath:(NSString*)path defaultValue:(BOOL)defaultValue {
+    return [(GLBModelJsonBool*)[self alloc] initWithPath:path defaultValue:defaultValue];
+}
+
+- (instancetype)init {
+    return [super init];
+}
+
+- (instancetype)initWithDefaultValue:(BOOL)defaultValue {
+    self = [super init];
+    if(self != nil) {
+        _defaultValue = defaultValue;
+    }
+    return self;
+}
+
+- (instancetype)initWithPath:(NSString*)path {
+    return [super initWithPath:path];
+}
 
 - (instancetype)initWithPath:(NSString*)path defaultValue:(BOOL)defaultValue {
     self = [super initWithPath:path];
@@ -391,6 +553,30 @@
 @implementation GLBModelJsonString
 
 #pragma mark - Init / Free
+
++ (instancetype)jsonWithDefaultValue:(NSString*)defaultValue {
+    return [(GLBModelJsonString*)[self alloc] initWithDefaultValue:defaultValue];
+}
+
++ (instancetype)jsonWithPath:(NSString*)path defaultValue:(NSString*)defaultValue {
+    return [(GLBModelJsonString*)[self alloc] initWithPath:path defaultValue:defaultValue];
+}
+
+- (instancetype)init {
+    return [super init];
+}
+
+- (instancetype)initWithDefaultValue:(NSString*)defaultValue {
+    self = [super init];
+    if(self != nil) {
+        _defaultValue = defaultValue;
+    }
+    return self;
+}
+
+- (instancetype)initWithPath:(NSString*)path {
+    return [super initWithPath:path];
+}
 
 - (instancetype)initWithPath:(NSString*)path defaultValue:(NSString*)defaultValue {
     self = [super initWithPath:path];
@@ -434,6 +620,30 @@
 
 #pragma mark - Init / Free
 
++ (instancetype)jsonWithDefaultValue:(NSURL*)defaultValue {
+    return [(GLBModelJsonUrl*)[self alloc] initWithDefaultValue:defaultValue];
+}
+
++ (instancetype)jsonWithPath:(NSString*)path defaultValue:(NSURL*)defaultValue {
+    return [(GLBModelJsonUrl*)[self alloc] initWithPath:path defaultValue:defaultValue];
+}
+
+- (instancetype)init {
+    return [super init];
+}
+
+- (instancetype)initWithDefaultValue:(NSURL*)defaultValue {
+    self = [super init];
+    if(self != nil) {
+        _defaultValue = defaultValue;
+    }
+    return self;
+}
+
+- (instancetype)initWithPath:(NSString*)path {
+    return [super initWithPath:path];
+}
+
 - (instancetype)initWithPath:(NSString*)path defaultValue:(NSURL*)defaultValue {
     self = [super initWithPath:path];
     if(self != nil) {
@@ -473,6 +683,30 @@
 @implementation GLBModelJsonNumber
 
 #pragma mark - Init / Free
+
++ (instancetype)jsonWithDefaultValue:(NSNumber*)defaultValue {
+    return [(GLBModelJsonNumber*)[self alloc] initWithDefaultValue:defaultValue];
+}
+
++ (instancetype)jsonWithPath:(NSString*)path defaultValue:(NSNumber*)defaultValue {
+    return [(GLBModelJsonNumber*)[self alloc] initWithPath:path defaultValue:defaultValue];
+}
+
+- (instancetype)init {
+    return [super init];
+}
+
+- (instancetype)initWithDefaultValue:(NSNumber*)defaultValue {
+    self = [super init];
+    if(self != nil) {
+        _defaultValue = defaultValue;
+    }
+    return self;
+}
+
+- (instancetype)initWithPath:(NSString*)path {
+    return [super initWithPath:path];
+}
 
 - (instancetype)initWithPath:(NSString*)path defaultValue:(NSNumber*)defaultValue {
     self = [super initWithPath:path];
@@ -516,68 +750,155 @@
 
 #pragma mark - Init / Free
 
-- (instancetype)initWithPath:(NSString*)path defaultValue:(NSDate*)defaultValue {
-    return [self initWithPath:path formats:nil timeZone:nil defaultValue:defaultValue];
++ (instancetype)jsonWithFormat:(NSString*)format {
+    return [(GLBModelJsonDate*)[self alloc] initWithFormat:format];
 }
 
-- (instancetype)initWithPath:(NSString*)path timeZone:(NSTimeZone*)timeZone defaultValue:(NSDate*)defaultValue {
-    return [self initWithPath:path formats:nil timeZone:timeZone defaultValue:defaultValue];
++ (instancetype)jsonWithFormat:(NSString*)format defaultValue:(NSDate*)defaultValue {
+    return [(GLBModelJsonDate*)[self alloc] initWithFormat:format defaultValue:defaultValue];
+}
+
++ (instancetype)jsonWithFormat:(NSString*)format timeZone:(NSTimeZone*)timeZone defaultValue:(NSDate*)defaultValue {
+    return [(GLBModelJsonDate*)[self alloc] initWithFormat:format timeZone:timeZone defaultValue:defaultValue];
+}
+
++ (instancetype)jsonWithFormats:(NSArray< NSString* >*)formats {
+    return [(GLBModelJsonDate*)[self alloc] initWithFormats:formats];
+}
+
++ (instancetype)jsonWithFormats:(NSArray< NSString* >*)formats defaultValue:(NSDate*)defaultValue {
+    return [(GLBModelJsonDate*)[self alloc] initWithFormats:formats defaultValue:defaultValue];
+}
+
++ (instancetype)jsonWithFormats:(NSArray< NSString* >*)formats timeZone:(NSTimeZone*)timeZone defaultValue:(NSDate*)defaultValue {
+    return [(GLBModelJsonDate*)[self alloc] initWithFormats:formats timeZone:timeZone defaultValue:defaultValue];
+}
+
++ (instancetype)jsonWithPath:(NSString*)path defaultValue:(NSDate*)defaultValue {
+    return [(GLBModelJsonDate*)[self alloc] initWithPath:path defaultValue:defaultValue];
+}
+
++ (instancetype)jsonWithPath:(NSString*)path timeZone:(NSTimeZone*)timeZone defaultValue:(NSDate*)defaultValue {
+    return [(GLBModelJsonDate*)[self alloc] initWithPath:path timeZone:timeZone defaultValue:defaultValue];
+}
+
++ (instancetype)jsonWithPath:(NSString*)path format:(NSString*)format {
+    return [(GLBModelJsonDate*)[self alloc] initWithPath:path format:format];
+}
+
++ (instancetype)jsonWithPath:(NSString*)path format:(NSString*)format defaultValue:(NSDate*)defaultValue {
+    return [(GLBModelJsonDate*)[self alloc] initWithPath:path format:format defaultValue:defaultValue];
+}
+
++ (instancetype)jsonWithPath:(NSString*)path format:(NSString*)format timeZone:(NSTimeZone*)timeZone defaultValue:(NSDate*)defaultValue {
+    return [(GLBModelJsonDate*)[self alloc] initWithPath:path format:format timeZone:timeZone defaultValue:defaultValue];
+}
+
++ (instancetype)jsonWithPath:(NSString*)path formats:(NSArray< NSString* >*)formats {
+    return [(GLBModelJsonDate*)[self alloc] initWithPath:path formats:formats];
+}
+
++ (instancetype)jsonWithPath:(NSString*)path formats:(NSArray< NSString* >*)formats defaultValue:(NSDate*)defaultValue {
+    return [(GLBModelJsonDate*)[self alloc] initWithPath:path formats:formats defaultValue:defaultValue];
+}
+
++ (instancetype)jsonWithPath:(NSString*)path formats:(NSArray< NSString* >*)formats timeZone:(NSTimeZone*)timeZone defaultValue:(NSDate*)defaultValue {
+    return [(GLBModelJsonDate*)[self alloc] initWithPath:path formats:formats timeZone:timeZone defaultValue:defaultValue];
+}
+
+- (instancetype)init {
+    return [super init];
 }
 
 - (instancetype)initWithFormat:(NSString*)format {
-    return [self initWithPath:nil formats:@[ format ] timeZone:nil defaultValue:nil];
-}
-
-- (instancetype)initWithFormat:(NSString*)format timeZone:(NSTimeZone*)timeZone {
-    return [self initWithPath:nil formats:@[ format ] timeZone:timeZone defaultValue:nil];
+    self = [super init];
+    if(self != nil) {
+        _formats = @[ format ];
+    }
+    return self;
 }
 
 - (instancetype)initWithFormat:(NSString*)format defaultValue:(NSDate*)defaultValue {
-    return [self initWithPath:nil formats:@[ format ] timeZone:nil defaultValue:defaultValue];
+    return [self initWithFormat:format timeZone:nil defaultValue:defaultValue];
 }
 
 - (instancetype)initWithFormat:(NSString*)format timeZone:(NSTimeZone*)timeZone defaultValue:(NSDate*)defaultValue {
-    return [self initWithPath:nil formats:@[ format ] timeZone:timeZone defaultValue:defaultValue];
-}
-
-- (instancetype)initWithPath:(NSString*)path format:(NSString*)format {
-    return [self initWithPath:path formats:@[ format ] timeZone:nil defaultValue:nil];
-}
-
-- (instancetype)initWithPath:(NSString*)path format:(NSString*)format timeZone:(NSTimeZone*)timeZone {
-    return [self initWithPath:path formats:@[ format ] timeZone:timeZone defaultValue:nil];
-}
-
-- (instancetype)initWithPath:(NSString*)path format:(NSString*)format defaultValue:(NSDate*)defaultValue {
-    return [self initWithPath:path formats:@[ format ] timeZone:nil defaultValue:defaultValue];
-}
-
-- (instancetype)initWithPath:(NSString*)path format:(NSString*)format timeZone:(NSTimeZone*)timeZone defaultValue:(NSDate*)defaultValue {
-    return [self initWithPath:path formats:@[ format ] timeZone:timeZone defaultValue:defaultValue];
+    self = [super init];
+    if(self != nil) {
+        _formats = @[ format ];
+        _timeZone = timeZone;
+        _defaultValue = defaultValue;
+    }
+    return self;
 }
 
 - (instancetype)initWithFormats:(NSArray< NSString* >*)formats {
-    return [self initWithPath:nil formats:formats timeZone:nil defaultValue:nil];
-}
-
-- (instancetype)initWithFormats:(NSArray< NSString* >*)formats timeZone:(NSTimeZone*)timeZone {
-    return [self initWithPath:nil formats:formats timeZone:timeZone defaultValue:nil];
+    self = [super init];
+    if(self != nil) {
+        _formats = formats;
+    }
+    return self;
 }
 
 - (instancetype)initWithFormats:(NSArray< NSString* >*)formats defaultValue:(NSDate*)defaultValue {
-    return [self initWithPath:nil formats:formats timeZone:nil defaultValue:defaultValue];
+    return [self initWithFormats:formats timeZone:nil defaultValue:defaultValue];
 }
 
 - (instancetype)initWithFormats:(NSArray< NSString* >*)formats timeZone:(NSTimeZone*)timeZone defaultValue:(NSDate*)defaultValue {
-    return [self initWithPath:nil formats:formats timeZone:timeZone defaultValue:defaultValue];
+    self = [super init];
+    if(self != nil) {
+        _formats = formats;
+        _timeZone = timeZone;
+        _defaultValue = defaultValue;
+    }
+    return self;
+}
+
+- (instancetype)initWithPath:(NSString*)path {
+    return [super initWithPath:path];
+}
+
+- (instancetype)initWithPath:(NSString*)path defaultValue:(NSDate*)defaultValue {
+    return [self initWithPath:path timeZone:nil defaultValue:defaultValue];
+}
+
+- (instancetype)initWithPath:(NSString*)path timeZone:(NSTimeZone*)timeZone defaultValue:(NSDate*)defaultValue {
+    self = [super initWithPath:path];
+    if(self != nil) {
+        _timeZone = timeZone;
+        _defaultValue = defaultValue;
+    }
+    return self;
+}
+
+- (instancetype)initWithPath:(NSString*)path format:(NSString*)format {
+    self = [super initWithPath:path];
+    if(self != nil) {
+        _formats = @[ format ];
+    }
+    return self;
+}
+
+- (instancetype)initWithPath:(NSString*)path format:(NSString*)format defaultValue:(NSDate*)defaultValue {
+    return [self initWithPath:path format:format timeZone:nil defaultValue:defaultValue];
+}
+
+- (instancetype)initWithPath:(NSString*)path format:(NSString*)format timeZone:(NSTimeZone*)timeZone defaultValue:(NSDate*)defaultValue {
+    self = [super initWithPath:path];
+    if(self != nil) {
+        _formats = @[ format ];
+        _timeZone = timeZone;
+        _defaultValue = defaultValue;
+    }
+    return self;
 }
 
 - (instancetype)initWithPath:(NSString*)path formats:(NSArray< NSString* >*)formats {
-    return [self initWithPath:path formats:formats timeZone:nil defaultValue:nil];
-}
-
-- (instancetype)initWithPath:(NSString*)path formats:(NSArray< NSString* >*)formats timeZone:(NSTimeZone*)timeZone {
-    return [self initWithPath:path formats:formats timeZone:timeZone defaultValue:nil];
+    self = [super initWithPath:path];
+    if(self != nil) {
+        _formats = formats;
+    }
+    return self;
 }
 
 - (instancetype)initWithPath:(NSString*)path formats:(NSArray< NSString* >*)formats defaultValue:(NSDate*)defaultValue {
@@ -663,18 +984,52 @@
 
 @implementation GLBModelJsonEnum
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(initPath:(NSString*)path)
+
 #pragma mark - Init / Free
 
++ (instancetype _Nonnull)jsonWithEnums:(NSDictionary* _Nonnull)enums {
+    return [[self alloc] initWithEnums:enums];
+}
+
++ (instancetype _Nonnull)jsonWithEnums:(NSDictionary* _Nonnull)enums defaultValue:(NSNumber* _Nonnull)defaultValue {
+    return [[self alloc] initWithEnums:enums defaultValue:defaultValue];
+}
+
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path enums:(NSDictionary* _Nonnull)enums {
+    return [[self alloc] initWithPath:path enums:enums];
+}
+
++ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path enums:(NSDictionary* _Nonnull)enums defaultValue:(NSNumber* _Nonnull)defaultValue {
+    return [[self alloc] initWithPath:path enums:enums defaultValue:defaultValue];
+}
+
 - (instancetype)initWithEnums:(NSDictionary*)enums {
-    return [self initWithPath:nil enums:enums defaultValue:nil];
+    self = [super init];
+    if(self != nil) {
+        _enums = enums;
+    }
+    return self;
 }
 
 - (instancetype)initWithEnums:(NSDictionary*)enums defaultValue:(NSNumber*)defaultValue {
-    return [self initWithPath:nil enums:enums defaultValue:defaultValue];
+    self = [super init];
+    if(self != nil) {
+        _enums = enums;
+        _defaultValue = defaultValue;
+    }
+    return self;
 }
 
 - (instancetype)initWithPath:(NSString*)path enums:(NSDictionary*)enums {
-    return [self initWithPath:path enums:enums defaultValue:nil];
+    self = [super initWithPath:path];
+    if(self != nil) {
+        _enums = enums;
+    }
+    return self;
 }
 
 - (instancetype)initWithPath:(NSString*)path enums:(NSDictionary*)enums defaultValue:(NSNumber*)defaultValue {
@@ -718,6 +1073,30 @@
 
 #pragma mark - Init / Free
 
++ (instancetype)jsonWithDefaultValue:(UIColor*)defaultValue {
+    return [(GLBModelJsonColor*)[self alloc] initWithDefaultValue:defaultValue];
+}
+
++ (instancetype)jsonWithPath:(NSString*)path defaultValue:(UIColor*)defaultValue {
+    return [(GLBModelJsonColor*)[self alloc] initWithPath:path defaultValue:defaultValue];
+}
+
+- (instancetype)init {
+    return [super init];
+}
+
+- (instancetype)initWithDefaultValue:(UIColor*)defaultValue {
+    self = [super init];
+    if(self != nil) {
+        _defaultValue = defaultValue;
+    }
+    return self;
+}
+
+- (instancetype)initWithPath:(NSString*)path {
+    return [super initWithPath:path];
+}
+
 - (instancetype)initWithPath:(NSString*)path defaultValue:(UIColor*)defaultValue {
     self = [super initWithPath:path];
     if(self != nil) {
@@ -750,24 +1129,47 @@
 
 @implementation GLBModelJsonModel
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(initPath:(NSString*)path)
+
 #pragma mark - Init / Free
 
-- (instancetype)initWithModelClass:(Class)modelClass {
-    return [self initWithPath:nil modelClass:modelClass];
++ (instancetype)jsonWithModel:(Class)model {
+    return [[self alloc] initWithModel:model];
 }
 
-- (instancetype)initWithPath:(NSString*)path modelClass:(Class)modelClass {
-    self = [super initWithPath:path];
++ (instancetype)jsonWithPath:(NSString*)path model:(Class)model {
+    return [[self alloc] initWithPath:path model:model];
+}
+
+- (instancetype)initWithModel:(Class)modelClass {
+    self = [super init];
     if(self != nil) {
-        _modelClass = modelClass;
+        _model = modelClass;
     }
     return self;
+}
+
+- (instancetype)initWithPath:(NSString*)path model:(Class)model {
+    self = [super initWithPath:path];
+    if(self != nil) {
+        _model = model;
+    }
+    return self;
+}
+
+#pragma mark - Property
+
+- (Class)modelClass {
+    return _model;
 }
 
 #pragma mark - GLBModelJson
 
 - (id)fromJson:(id)json sheme:(NSString*)sheme {
-    id result = [_modelClass modelWithJson:json sheme:sheme];
+    id result = [_model modelWithJson:json sheme:sheme];
     if(result != nil) {
         return result;
     }
@@ -787,39 +1189,30 @@
 #pragma mark -
 /*--------------------------------------------------*/
 
-@interface GLBModelJsonBlock ()
-
-@property(nonatomic, readonly, copy) GLBModelJsonConvertBlock fromBlock;
-@property(nonatomic, readonly, copy) GLBModelJsonConvertBlock toBlock;
-
-@end
-
-/*--------------------------------------------------*/
-#pragma mark -
-/*--------------------------------------------------*/
-
 @implementation GLBModelJsonBlock
+
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(initPath:(NSString*)path)
 
 #pragma mark - Init / Free
 
-- (instancetype)initWithFromBlock:(GLBModelJsonConvertBlock)fromBlock {
-    return [self initWithPath:nil fromBlock:fromBlock toBlock:nil];
++ (instancetype)jsonWithFromBlock:(GLBModelJsonConvertBlock)fromBlock toBlock:(GLBModelJsonConvertBlock)toBlock {
+    return [[self alloc] initWithFromBlock:fromBlock toBlock:toBlock];
 }
 
-- (instancetype)initWithToBlock:(GLBModelJsonConvertBlock)toBlock {
-    return [self initWithPath:nil fromBlock:nil toBlock:toBlock];
++ (instancetype)jsonWithPath:(NSString*)path fromBlock:(GLBModelJsonConvertBlock)fromBlock toBlock:(GLBModelJsonConvertBlock)toBlock {
+    return [[self alloc] initWithPath:path fromBlock:fromBlock toBlock:toBlock];
 }
 
 - (instancetype)initWithFromBlock:(GLBModelJsonConvertBlock)fromBlock toBlock:(GLBModelJsonConvertBlock)toBlock {
-    return [self initWithPath:nil fromBlock:fromBlock toBlock:toBlock];
-}
-
-- (instancetype)initWithPath:(NSString*)path fromBlock:(GLBModelJsonConvertBlock)fromBlock {
-    return [self initWithPath:path fromBlock:fromBlock toBlock:nil];
-}
-
-- (instancetype)initWithPath:(NSString*)path toBlock:(GLBModelJsonConvertBlock)toBlock {
-    return [self initWithPath:path fromBlock:nil toBlock:toBlock];
+    self = [super init];
+    if(self != nil) {
+        _fromBlock = [fromBlock copy];
+        _toBlock = [toBlock copy];
+    }
+    return self;
 }
 
 - (instancetype)initWithPath:(NSString*)path fromBlock:(GLBModelJsonConvertBlock)fromBlock toBlock:(GLBModelJsonConvertBlock)toBlock {

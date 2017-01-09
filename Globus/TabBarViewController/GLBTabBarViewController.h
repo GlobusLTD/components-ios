@@ -20,8 +20,10 @@
 @property(nonatomic) BOOL hidesBarsOnSwipe;
 @property(nonatomic) BOOL hidesBarsWhenVerticallyCompact;
 @property(nonatomic) BOOL hidesBarsOnTap;
-@property(nonatomic, strong) GLBTransitionController* transitionModal;
-@property(nonatomic, strong) GLBTransitionController* transitionNavigation;
+@property(nonatomic, nullable, strong) __kindof GLBTransitionController* transitionModal;
+@property(nonatomic, nullable, strong) __kindof GLBTransitionController* transitionNavigation;
+
++ (instancetype _Nullable)viewControllerWithViewControllers:(NSArray< __kindof UIViewController* >* _Nullable)viewControllers NS_SWIFT_NAME(viewController(viewControllers:));
 
 - (void)setup NS_REQUIRES_SUPER;
 

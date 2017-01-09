@@ -37,11 +37,11 @@ typedef NS_ENUM(uint8_t, GLBObjectPackType) {
 
 @interface NSObject (GLB_NSPack)
 
-+ (NSData* _Nullable)glb_packObject:(_Nonnull id)object;
-+ (void)glb_packObject:(_Nonnull id)object stream:(NSOutputStream* _Nonnull)stream;
++ (NSData* _Nullable)glb_packObject:(id _Nonnull)object;
++ (void)glb_packObject:(id _Nonnull)object stream:(NSOutputStream* _Nonnull)stream;
 
-+ (_Nullable id)glb_unpackFromData:(NSData* _Nonnull)data;
-+ (_Nullable id)glb_unpackFromStream:(NSInputStream* _Nonnull)stream;
++ (id _Nullable)glb_unpackFromData:(NSData* _Nonnull)data;
++ (id _Nullable)glb_unpackFromStream:(NSInputStream* _Nonnull)stream;
 
 @end
 

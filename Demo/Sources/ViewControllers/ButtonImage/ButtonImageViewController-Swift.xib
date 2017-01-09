@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <viewController id="FOu-Yx-K22" customClass="ButtonImageViewController" customModule="Globus_Swift">
+            <layoutGuides>
+                <viewControllerLayoutGuide type="top" id="khK-qZ-Qc6"/>
+                <viewControllerLayoutGuide type="bottom" id="5oU-nT-k4x"/>
+            </layoutGuides>
+            <view key="view" contentMode="scaleToFill" id="eBc-Db-N13">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="loc-Kd-VmK" customClass="GLBButton">
+                        <rect key="frame" x="160.5" y="316.5" width="54" height="34"/>
+                        <inset key="imageEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                        <state key="normal" title="Button">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="pressed:" destination="FOu-Yx-K22" eventType="touchUpInside" id="vOD-sm-FIb"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstItem="loc-Kd-VmK" firstAttribute="centerX" secondItem="eBc-Db-N13" secondAttribute="centerX" id="4Tg-dU-CS4"/>
+                    <constraint firstItem="loc-Kd-VmK" firstAttribute="centerY" secondItem="eBc-Db-N13" secondAttribute="centerY" id="iP3-kr-5Ap"/>
+                </constraints>
+            </view>
+            <navigationItem key="navigationItem" title="Button &amp; Image" id="Zeq-ai-Ktd"/>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <connections>
+                <outlet property="button" destination="loc-Kd-VmK" id="gRp-SQ-fDp"/>
+            </connections>
+            <point key="canvasLocation" x="1262" y="634"/>
+        </viewController>
+    </objects>
+</document>

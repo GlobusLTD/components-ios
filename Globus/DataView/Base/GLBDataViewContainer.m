@@ -10,8 +10,8 @@
 
 #pragma mark - Synthesize
 
-@synthesize view = _view;
-@synthesize parent = _parent;
+@synthesize dataView = _dataView;
+@synthesize container = _container;
 @synthesize hidden = _hidden;
 @synthesize allowAutoAlign = _allowAutoAlign;
 @synthesize alignInsets = _alignInsets;
@@ -38,31 +38,31 @@
 
 #pragma mark - Property
 
-- (void)setView:(GLBDataView*)view {
-    if(_view != view) {
-        [self _willChangeView];
-        _view = view;
-        [self _didChangeView];
+- (void)setDataView:(GLBDataView*)dataView {
+    if(_dataView != dataView) {
+        [self willChangeDataView];
+        _dataView = dataView;
+        [self didChangeDataView];
     }
 }
 
-- (void)setParent:(GLBDataViewContainer*)parent {
-    if(_parent != parent) {
-        [self _willChangeParent];
-        _parent = parent;
-        [self _didChangeParent];
+- (void)setContainer:(GLBDataViewContainer*)container {
+    if(_container != container) {
+        [self willChangeContainer];
+        _container = container;
+        [self didChangeContainer];
     }
 }
 
 - (CGRect)frame {
-    [_view validateLayoutIfNeed];
+    [_dataView validateLayoutIfNeed];
     return _frame;
 }
 
 - (void)setHidden:(BOOL)hidden {
     if(_hidden != hidden) {
         _hidden = hidden;
-        [_view setNeedValidateLayout];
+        [_dataView setNeedValidateLayout];
     }
 }
 
@@ -70,60 +70,110 @@
     if(_hidden == YES) {
         return YES;
     }
-    return _parent.hiddenInHierarchy;
+    return _container.hiddenInHierarchy;
 }
 
-#pragma mark - Property private
+#pragma mark - Public
 
-- (void)_willChangeView {
+- (NSArray*)allItems {
+    return @[];
 }
 
-- (void)_didChangeView {
+- (void)setNeedResize {
 }
 
-- (void)_willChangeParent {
+- (void)setNeedUpdate {
 }
 
-- (void)_didChangeParent {
-    if(_parent != nil) {
-        self.view = _parent.view;
+- (void)setNeedReload {
+    [self setNeedUpdate];
+}
+
+- (void)willChangeDataView {
+}
+
+- (void)didChangeDataView {
+}
+
+- (void)willChangeContainer {
+}
+
+- (void)didChangeContainer {
+    if(_container != nil) {
+        self.dataView = _container.dataView;
     }
 }
 
-- (void)_willBeginDragging {
+- (GLBDataViewItem*)itemForPoint:(CGPoint __unused)point {
+    return nil;
 }
 
-- (void)_didScrollDragging:(BOOL)dragging decelerating:(BOOL)decelerating {
+- (GLBDataViewItem*)itemForData:(id __unused)data {
+    return nil;
 }
 
-- (void)_willEndDraggingWithVelocity:(CGPoint)velocity contentOffset:(inout CGPoint*)contentOffset contentSize:(CGSize)contentSize visibleSize:(CGSize)visibleSize {
+- (GLBDataViewCell*)cellForData:(id)data {
+    GLBDataViewItem* item = [self itemForData:data];
+    if(item != nil) {
+        return item.cell;
+    }
+    return nil;
+}
+
+- (BOOL)containsActionForKey:(id)key {
+    return [_dataView containsActionForKey:key];
+}
+
+- (BOOL)containsActionForIdentifier:(id)identifier forKey:(id)key {
+    return [_dataView containsActionForIdentifier:identifier forKey:key];
+}
+
+- (void)performActionForKey:(id)key withArguments:(NSArray*)arguments {
+    [_dataView performActionForKey:key withArguments:[@[ self ] glb_unionWithArray:arguments]];
+}
+
+- (void)performActionForIdentifier:(id)identifier forKey:(id)key withArguments:(NSArray*)arguments {
+    [_dataView performActionForIdentifier:identifier forKey:key withArguments:[@[ self ] glb_unionWithArray:arguments]];
+}
+
+- (void)willBeginDragging {
+}
+
+- (void)didScrollDragging:(BOOL)dragging decelerating:(BOOL)decelerating {
+}
+
+- (void)willEndDraggingWithVelocity:(CGPoint)velocity contentOffset:(inout CGPoint*)contentOffset contentSize:(CGSize)contentSize visibleSize:(CGSize)visibleSize {
     if(_allowAutoAlign == YES) {
-        *contentOffset = [self _alignWithVelocity:velocity contentOffset:*contentOffset contentSize:contentSize visibleSize:visibleSize];
+        *contentOffset = [self alignWithVelocity:velocity contentOffset:*contentOffset contentSize:contentSize visibleSize:visibleSize];
     }
 }
 
-- (void)_didEndDraggingWillDecelerate:(BOOL __unused)decelerate {
+- (void)didEndDraggingWillDecelerate:(BOOL __unused)decelerate {
 }
 
-- (void)_willBeginDecelerating {
+- (void)willBeginDecelerating {
 }
 
-- (void)_didEndDecelerating {
+- (void)didEndDecelerating {
 }
 
-- (void)_didEndScrollingAnimation {
+- (void)didEndScrollingAnimation {
 }
 
-- (void)_beginUpdateAnimated:(BOOL __unused)animated {
+- (void)beginUpdateAnimated:(BOOL __unused)animated {
 }
 
-- (void)_updateAnimated:(BOOL __unused)animated {
+- (void)updateAnimated:(BOOL __unused)animated {
 }
 
-- (void)_endUpdateAnimated:(BOOL __unused)animated {
+- (void)endUpdateAnimated:(BOOL __unused)animated {
     if(_allowAutoAlign == YES) {
         [self align];
     }
+}
+
+- (CGPoint)alignPoint {
+    return [self alignPointWithContentOffset:_dataView.contentOffset contentSize:_dataView.contentSize visibleSize:_dataView.glb_boundsSize];
 }
 
 - (CGPoint)_alignPointWithContentOffset:(CGPoint)contentOffset contentSize:(CGSize)contentSize visibleSize:(CGSize)visibleSize {
@@ -150,103 +200,51 @@
     return alignPoint;
 }
 
-- (CGPoint)_alignWithVelocity:(CGPoint __unused)velocity contentOffset:(CGPoint)contentOffset contentSize:(CGSize __unused)contentSize visibleSize:(CGSize __unused)visibleSize {
+- (CGPoint)alignWithVelocity:(CGPoint __unused)velocity contentOffset:(CGPoint)contentOffset contentSize:(CGSize __unused)contentSize visibleSize:(CGSize __unused)visibleSize {
     return contentOffset;
 }
 
-- (CGRect)_validateLayoutForAvailableFrame:(CGRect)frame {
-    _frame = [self _frameForAvailableFrame:frame];
-    [self _layoutForAvailableFrame:frame];
+- (void)align {
+    if((_dataView.dragging == NO) && (_dataView.decelerating == NO)) {
+        [_dataView setContentOffset:[self alignWithVelocity:CGPointZero contentOffset:_dataView.contentOffset contentSize:_dataView.contentSize visibleSize:_dataView.glb_boundsSize] animated:YES];
+    }
+}
+
+- (CGRect)validateLayoutForAvailableFrame:(CGRect)frame {
+    _frame = [self frameForAvailableFrame:frame];
+    [self layoutForAvailableFrame:frame];
     return _frame;
 }
 
-- (CGRect)_frameForAvailableFrame:(CGRect)frame {
+- (CGRect)frameForAvailableFrame:(CGRect)frame {
     return CGRectNull;
 }
 
-- (void)_layoutForAvailableFrame:(CGRect)frame {
+- (void)layoutForAvailableFrame:(CGRect)frame {
 }
 
-- (void)_willLayoutForBounds:(CGRect __unused)bounds {
+- (void)willLayoutForBounds:(CGRect __unused)bounds {
 }
 
-- (void)_didLayoutForBounds:(CGRect __unused)bounds {
+- (void)didLayoutForBounds:(CGRect __unused)bounds {
 }
 
-- (void)_beginMovingItem:(GLBDataViewItem*)item location:(CGPoint)location {
+- (void)beginMovingItem:(GLBDataViewItem*)item location:(CGPoint)location {
 }
 
-- (void)_movingItem:(GLBDataViewItem*)item location:(CGPoint)location delta:(CGPoint)delta allowsSorting:(BOOL)allowsSorting {
+- (void)movingItem:(GLBDataViewItem*)item location:(CGPoint)location delta:(CGPoint)delta allowsSorting:(BOOL)allowsSorting {
 }
 
-- (void)_endMovingItem:(GLBDataViewItem*)item location:(CGPoint)location {
+- (void)endMovingItem:(GLBDataViewItem*)item location:(CGPoint)location {
 }
 
-- (void)_beginTransition {
+- (void)beginTransition {
 }
 
-- (void)_transitionResize {
+- (void)transitionResize {
 }
 
-- (void)_endTransition {
-}
-
-#pragma mark - Public
-
-- (NSArray*)allItems {
-    return @[];
-}
-
-- (void)setNeedResize {
-}
-
-- (void)setNeedUpdate {
-}
-
-- (void)setNeedReload {
-    [self setNeedUpdate];
-}
-
-- (GLBDataViewItem*)itemForPoint:(CGPoint __unused)point {
-    return nil;
-}
-
-- (GLBDataViewItem*)itemForData:(id __unused)data {
-    return nil;
-}
-
-- (GLBDataViewCell*)cellForData:(id)data {
-    GLBDataViewItem* item = [self itemForData:data];
-    if(item != nil) {
-        return item.cell;
-    }
-    return nil;
-}
-
-- (BOOL)containsActionForKey:(id)key {
-    return [_view containsActionForKey:key];
-}
-
-- (BOOL)containsActionForIdentifier:(id)identifier forKey:(id)key {
-    return [_view containsActionForIdentifier:identifier forKey:key];
-}
-
-- (void)performActionForKey:(id)key withArguments:(NSArray*)arguments {
-    [_view performActionForKey:key withArguments:[@[ self ] glb_unionWithArray:arguments]];
-}
-
-- (void)performActionForIdentifier:(id)identifier forKey:(id)key withArguments:(NSArray*)arguments {
-    [_view performActionForIdentifier:identifier forKey:key withArguments:[@[ self ] glb_unionWithArray:arguments]];
-}
-
-- (CGPoint)alignPoint {
-    return [self _alignPointWithContentOffset:_view.contentOffset contentSize:_view.contentSize visibleSize:_view.glb_boundsSize];
-}
-
-- (void)align {
-    if((_view.dragging == NO) && (_view.decelerating == NO)) {
-        [_view setContentOffset:[self _alignWithVelocity:CGPointZero contentOffset:_view.contentOffset contentSize:_view.contentSize visibleSize:_view.glb_boundsSize] animated:YES];
-    }
+- (void)endTransition {
 }
 
 #pragma mark - GLBSearchBarDelegate

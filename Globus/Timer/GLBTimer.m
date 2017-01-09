@@ -34,23 +34,20 @@
     return [[self alloc] initWithInterval:interval delay:delay repeat:repeat];
 }
 
-- (instancetype)initWithInterval:(NSTimeInterval)interval {
+- (instancetype)init {
     self = [super init];
     if(self != nil) {
-        _interval = interval;
         [self setup];
     }
     return self;
 }
 
+- (instancetype)initWithInterval:(NSTimeInterval)interval {
+    return [self initWithInterval:interval delay:0 repeat:0];
+}
+
 - (instancetype)initWithInterval:(NSTimeInterval)interval repeat:(NSUInteger)repeat {
-    self = [super init];
-    if(self != nil) {
-        _interval = interval;
-        _repeat = repeat;
-        [self setup];
-    }
-    return self;
+    return [self initWithInterval:interval delay:0 repeat:repeat];
 }
 
 - (instancetype)initWithInterval:(NSTimeInterval)interval delay:(NSTimeInterval)delay repeat:(NSUInteger)repeat {

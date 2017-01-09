@@ -116,49 +116,49 @@ typedef NS_ENUM(NSUInteger, GLBDataViewDirection) {
     BOOL _canDraggingRightRefresh;
 }
 
-@property(nonatomic, strong) GLBDataViewDelegateProxy* delegateProxy;
+@property(nonatomic, nullable, strong) GLBDataViewDelegateProxy* delegateProxy;
 @property(nonatomic) GLBDataViewDirection scrollDirection;
 @property(nonatomic) UIEdgeInsets saveContainerInset;
 @property(nonatomic) CGPoint scrollBeginPosition;
 
 @property(nonatomic) CGPoint movingItemLastOffset;
 
-@property(nonatomic, strong) GLBActions* registersActions;
-@property(nonatomic, strong) NSMutableArray* queueBatch;
-@property(nonatomic, strong) NSMutableArray* reloadedBeforeItems;
-@property(nonatomic, strong) NSMutableArray* reloadedAfterItems;
-@property(nonatomic, strong) NSMutableArray* deletedItems;
-@property(nonatomic, strong) NSMutableArray* insertedItems;
+@property(nonatomic, nonnull, strong) GLBActions* registersActions;
+@property(nonatomic, nonnull, strong) NSMutableArray* queueBatch;
+@property(nonatomic, nonnull, strong) NSMutableArray* reloadedBeforeItems;
+@property(nonatomic, nonnull, strong) NSMutableArray* reloadedAfterItems;
+@property(nonatomic, nonnull, strong) NSMutableArray* deletedItems;
+@property(nonatomic, nonnull, strong) NSMutableArray* insertedItems;
 @property(nonatomic, getter=isAnimating) BOOL animating;
 @property(nonatomic, getter=isUpdating) BOOL updating;
 @property(nonatomic) BOOL invalidLayout;
 
 @property(nonatomic) CGFloat searchBarInset;
 @property(nonatomic) CGFloat searchBarOverlayLastPosition;
-@property(nonatomic, weak) NSLayoutConstraint* constraintSearchBarTop;
-@property(nonatomic, weak) NSLayoutConstraint* constraintSearchBarLeft;
-@property(nonatomic, weak) NSLayoutConstraint* constraintSearchBarRight;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintSearchBarTop;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintSearchBarLeft;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintSearchBarRight;
 
 @property(nonatomic) UIEdgeInsets refreshViewInset;
-@property(nonatomic, weak) NSLayoutConstraint* constraintTopRefreshTop;
-@property(nonatomic, weak) NSLayoutConstraint* constraintTopRefreshLeft;
-@property(nonatomic, weak) NSLayoutConstraint* constraintTopRefreshRight;
-@property(nonatomic, weak) NSLayoutConstraint* constraintTopRefreshSize;
-@property(nonatomic, weak) NSLayoutConstraint* constraintBottomRefreshBottom;
-@property(nonatomic, weak) NSLayoutConstraint* constraintBottomRefreshLeft;
-@property(nonatomic, weak) NSLayoutConstraint* constraintBottomRefreshRight;
-@property(nonatomic, weak) NSLayoutConstraint* constraintBottomRefreshSize;
-@property(nonatomic, weak) NSLayoutConstraint* constraintLeftRefreshTop;
-@property(nonatomic, weak) NSLayoutConstraint* constraintLeftRefreshBottom;
-@property(nonatomic, weak) NSLayoutConstraint* constraintLeftRefreshLeft;
-@property(nonatomic, weak) NSLayoutConstraint* constraintLeftRefreshSize;
-@property(nonatomic, weak) NSLayoutConstraint* constraintRightRefreshTop;
-@property(nonatomic, weak) NSLayoutConstraint* constraintRightRefreshBottom;
-@property(nonatomic, weak) NSLayoutConstraint* constraintRightRefreshRight;
-@property(nonatomic, weak) NSLayoutConstraint* constraintRightRefreshSize;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintTopRefreshTop;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintTopRefreshLeft;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintTopRefreshRight;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintTopRefreshSize;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintBottomRefreshBottom;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintBottomRefreshLeft;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintBottomRefreshRight;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintBottomRefreshSize;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintLeftRefreshTop;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintLeftRefreshBottom;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintLeftRefreshLeft;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintLeftRefreshSize;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintRightRefreshTop;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintRightRefreshBottom;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintRightRefreshRight;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintRightRefreshSize;
 
-@property(nonatomic, strong) CADisplayLink* scrollDisplayLink;
-@property(nonatomic, strong) CAMediaTimingFunction* scrollTimingFunction;
+@property(nonatomic, nullable, strong) CADisplayLink* scrollDisplayLink;
+@property(nonatomic, nullable, strong) CAMediaTimingFunction* scrollTimingFunction;
 @property(nonatomic) CFTimeInterval scrollDuration;
 @property(nonatomic) BOOL scrollAnimationStarted;
 @property(nonatomic) CFTimeInterval scrollBeginTime;
@@ -171,61 +171,21 @@ typedef NS_ENUM(NSUInteger, GLBDataViewDirection) {
 @property(nonatomic) BOOL canDraggingLeftRefresh;
 @property(nonatomic) BOOL canDraggingRightRefresh;
 
-@property(nonatomic, strong) UILongPressGestureRecognizer* longPressGestureRecognizer;
+@property(nonatomic, nullable, strong) UILongPressGestureRecognizer* longPressGestureRecognizer;
 
-- (void)_setEdgeInset:(UIEdgeInsets)edgeInsets force:(BOOL)force;
-- (void)_setSearchBarInset:(CGFloat)searchBarInset force:(BOOL)force;
-- (void)_setRefreshViewInset:(UIEdgeInsets)refreshViewInset force:(BOOL)force;
-- (void)_setContainerInset:(UIEdgeInsets)containerInset force:(BOOL)force;
+- (void)setEdgeInset:(UIEdgeInsets)edgeInset force:(BOOL)force;
+- (void)setContainerInset:(UIEdgeInsets)containerInset force:(BOOL)force;
+- (void)setSearchBarInset:(CGFloat)searchBarInset force:(BOOL)force;
+- (void)setRefreshViewInset:(UIEdgeInsets)refreshViewInset force:(BOOL)force;
 
-- (void)_pressedItem:(GLBDataViewItem*)item animated:(BOOL)animated;
+- (void)pressedItem:(GLBDataViewItem* _Nonnull)item animated:(BOOL)animated;
 
-- (BOOL)_shouldSelectItem:(GLBDataViewItem*)item user:(BOOL)user;
-- (BOOL)_shouldDeselectItem:(GLBDataViewItem*)item user:(BOOL)user;
-- (void)_selectItem:(GLBDataViewItem*)item user:(BOOL)user animated:(BOOL)animated;
-- (void)_deselectItem:(GLBDataViewItem*)item user:(BOOL)user animated:(BOOL)animated;
-- (void)_deselectAllItemsUser:(BOOL)user animated:(BOOL)animated;
+- (void)appearItem:(GLBDataViewItem* _Nonnull)item;
+- (void)disappearItem:(GLBDataViewItem* _Nonnull)item;
 
-- (void)_appearItem:(GLBDataViewItem*)item;
-- (void)_disappearItem:(GLBDataViewItem*)item;
-
-- (void)_didInsertItems:(NSArray*)items;
-- (void)_didDeleteItems:(NSArray*)items;
-- (void)_didReplaceOriginItems:(NSArray*)originItems withItems:(NSArray*)items;
-
-- (void)_validateLayout;
-- (void)_layoutForVisible;
-
-- (void)_updateSuperviewConstraints;
-- (void)_updateInsets:(BOOL)force;
-
-- (void)_willBeginDragging;
-- (void)_didScrollDragging:(BOOL)dragging decelerating:(BOOL)decelerating;
-- (void)_willEndDraggingWithVelocity:(CGPoint)velocity contentOffset:(inout CGPoint*)contentOffset contentSize:(CGSize)contentSize visibleSize:(CGSize)visibleSize;
-- (void)_didEndDraggingWillDecelerate:(BOOL)decelerate;
-- (void)_willBeginDecelerating;
-- (void)_didEndDecelerating;
-- (void)_didEndScrollingAnimation;
-
-- (void)_showSearchBarAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete;
-- (void)_hideSearchBarAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete;
-
-- (void)_showTopRefreshAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete;
-- (void)_hideTopRefreshAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete;
-- (void)_showBottomRefreshAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete;
-- (void)_hideBottomRefreshAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete;
-- (void)_showLeftRefreshAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete;
-- (void)_hideLeftRefreshAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete;
-- (void)_showRightRefreshAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete;
-- (void)_hideRightRefreshAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete;
-
-- (void)_changedPageControl;
-
-- (void)_animateContentOffset:(CADisplayLink*)displayLink;
-- (void)_animateContentOffsetByProgress:(CGFloat)progress;
-- (void)_stopAnimateContentOffset;
-
-- (void)_handlerLongPressGestureRecognizer:(UILongPressGestureRecognizer*)gestureRecognizer;
+- (void)didInsertItems:(NSArray< GLBDataViewCell* >* _Nonnull)items;
+- (void)didDeleteItems:(NSArray< GLBDataViewCell* >* _Nonnull)items;
+- (void)didReplaceOriginItems:(NSArray< GLBDataViewCell* >* _Nonnull)originItems withItems:(NSArray< GLBDataViewCell* >* _Nonnull)items;
 
 @end
 
@@ -234,10 +194,10 @@ typedef NS_ENUM(NSUInteger, GLBDataViewDirection) {
 @interface GLBDataBatch : NSObject
 
 @property(nonatomic, readonly, assign) NSTimeInterval duration;
-@property(nonatomic, readonly, copy) GLBSimpleBlock update;
-@property(nonatomic, readonly, copy) GLBSimpleBlock complete;
+@property(nonatomic, nullable, readonly, copy) GLBSimpleBlock update;
+@property(nonatomic, nullable, readonly, copy) GLBSimpleBlock complete;
 
-- (instancetype)initWithDuration:(NSTimeInterval)duration update:(GLBSimpleBlock)update complete:(GLBSimpleBlock)complete;
+- (instancetype _Nonnull)initWithDuration:(NSTimeInterval)duration update:(GLBSimpleBlock _Nullable)update complete:(GLBSimpleBlock _Nullable)complete;
 
 @end
 
@@ -247,14 +207,13 @@ typedef NS_ENUM(NSUInteger, GLBDataViewDirection) {
 @protected
     __weak GLBDataView* _view;
     __weak id< UIScrollViewDelegate > _delegate;
-@protected
     BOOL _lockDidScroll;
 }
 
-@property(nonatomic, weak) GLBDataView* view;
-@property(nonatomic, weak) id< UIScrollViewDelegate > delegate;
+@property(nonatomic, nullable, weak) GLBDataView* view;
+@property(nonatomic, nullable, weak) id< UIScrollViewDelegate > delegate;
 
-- (instancetype)initWithDataView:(GLBDataView*)view;
+- (instancetype _Nonnull)initWithDataView:(GLBDataView* _Nonnull)view;
 
 @end
 

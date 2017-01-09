@@ -9,7 +9,7 @@
 
 @interface GLBImageView () < GLBImageManagerTarget >
 
-@property(nonatomic, strong) NSString* processingKey;
+@property(nonatomic, nullable, strong) NSString* processingKey;
 
 @end
 

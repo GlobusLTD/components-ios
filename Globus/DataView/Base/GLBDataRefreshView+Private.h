@@ -24,9 +24,6 @@
 @property(nonatomic, weak) NSLayoutConstraint* constraintSize;
 @property(nonatomic) GLBDataRefreshViewState state;
 
-- (void)_showAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete;
-- (void)_hideAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete;
-
 @end
 
 /*--------------------------------------------------*/

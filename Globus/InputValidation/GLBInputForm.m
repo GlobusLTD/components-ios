@@ -18,7 +18,7 @@
 
 #pragma mark - Property
 
-- (void)setFields:(NSArray*)fields {
+- (void)setFields:(NSArray< id< GLBInputField > >*)fields {
     NSMutableArray* checkedFields = [NSMutableArray array];
     for(id field in fields) {
         if([field conformsToProtocol:@protocol(GLBInputField)]) {

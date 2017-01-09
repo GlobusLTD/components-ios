@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <viewController automaticallyAdjustsScrollViewInsets="NO" id="vv4-uu-lC2" customClass="ChoiseViewController">
+            <layoutGuides>
+                <viewControllerLayoutGuide type="top" id="Xzq-2R-Kv9"/>
+                <viewControllerLayoutGuide type="bottom" id="doH-6F-i18"/>
+            </layoutGuides>
+            <view key="view" contentMode="scaleToFill" id="Hw2-Bs-PJT">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HLh-Rc-Dkx">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="vv4-uu-lC2" id="bnP-Zx-PLo"/>
+                            <outlet property="delegate" destination="vv4-uu-lC2" id="GBB-f6-WY8"/>
+                        </connections>
+                    </tableView>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="HLh-Rc-Dkx" firstAttribute="top" secondItem="Xzq-2R-Kv9" secondAttribute="bottom" id="DDK-MT-k8q"/>
+                    <constraint firstItem="doH-6F-i18" firstAttribute="top" secondItem="HLh-Rc-Dkx" secondAttribute="bottom" id="SX5-ew-ppq"/>
+                    <constraint firstAttribute="trailing" secondItem="HLh-Rc-Dkx" secondAttribute="trailing" id="vVd-Nm-7pS"/>
+                    <constraint firstItem="HLh-Rc-Dkx" firstAttribute="leading" secondItem="Hw2-Bs-PJT" secondAttribute="leading" id="zNb-i4-BBJ"/>
+                </constraints>
+            </view>
+            <navigationItem key="navigationItem" title="Globus" id="Xha-gz-APJ">
+                <barButtonItem key="backBarButtonItem" title="Back" id="NLx-hq-KZf"/>
+            </navigationItem>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <connections>
+                <outlet property="tableView" destination="HLh-Rc-Dkx" id="9AT-77-cD4"/>
+            </connections>
+            <point key="canvasLocation" x="-361" y="64"/>
+        </viewController>
+    </objects>
+</document>

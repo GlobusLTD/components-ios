@@ -18,7 +18,7 @@ typedef void(^GLBBlurViewUpdateBlock)();
 @property(nonatomic) IBInspectable NSUInteger blurIterations;
 @property(nonatomic, getter = isDynamic) IBInspectable BOOL dynamic;
 @property(nonatomic) IBInspectable NSTimeInterval updateInterval;
-@property(nonatomic, weak) IBOutlet UIView* underlyingView;
+@property(nonatomic, nullable, weak) IBOutlet UIView* underlyingView;
 
 + (void)setBlurEnabled:(BOOL)blurEnabled;
 + (void)setUpdatesEnabled;
@@ -26,7 +26,7 @@ typedef void(^GLBBlurViewUpdateBlock)();
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)updateAsynchronously:(BOOL)async completion:(GLBBlurViewUpdateBlock)completion;
+- (void)updateAsynchronously:(BOOL)async completion:(GLBBlurViewUpdateBlock _Nullable)completion;
 
 @end
 

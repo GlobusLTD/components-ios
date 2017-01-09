@@ -19,9 +19,3 @@
 /*--------------------------------------------------*/
 #endif
 /*--------------------------------------------------*/
-
-#if __has_include("GLBSpinnerViewFadingCircleAlt.h")
-#import "GLBSpinnerViewFadingCircleAlt.h"
-#endif
-
-/*--------------------------------------------------*/

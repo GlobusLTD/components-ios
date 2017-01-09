@@ -36,7 +36,7 @@
     _layers = [NSMutableArray array];
     
     [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(_receiveMemoryWarning)
+                                           selector:@selector(receiveMemoryWarning)
                                                name:UIApplicationDidReceiveMemoryWarningNotification
                                              object:nil];
 }
@@ -131,7 +131,7 @@
     }
     GLBDataViewCell* cell = [layer dequeueCellWithIdentifier:item.identifier];
     if(cell != nil) {
-        cell.view = _view;
+        cell.dataView = _dataView;
     }
     return cell;
 }
@@ -141,14 +141,14 @@
     if(layer != nil) {
         [layer enqueueCell:cell identifier:item.identifier];
     }
-    cell.view = nil;
+    cell.dataView = nil;
 }
 
 #pragma mark - Private
 
-- (void)_receiveMemoryWarning {
+- (void)receiveMemoryWarning {
     for(GLBDataContentLayerView* layer in _layers) {
-        [layer _receiveMemoryWarning];
+        [layer receiveMemoryWarning];
     }
 }
 
@@ -226,7 +226,7 @@
 
 #pragma mark - Private
 
-- (void)_receiveMemoryWarning {
+- (void)receiveMemoryWarning {
     [_cache removeAllObjects];
 }
 

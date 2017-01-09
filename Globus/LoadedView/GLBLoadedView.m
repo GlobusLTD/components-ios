@@ -6,13 +6,12 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@interface GLBLoadedView ()
-
-@property(nonatomic, strong) NSLayoutConstraint* constraintRootViewTop;
-@property(nonatomic, strong) NSLayoutConstraint* constraintRootViewBottom;
-@property(nonatomic, strong) NSLayoutConstraint* constraintRootViewLeft;
-@property(nonatomic, strong) NSLayoutConstraint* constraintRootViewRight;
-
+@interface GLBLoadedView () {
+    NSLayoutConstraint* _constraintRootViewTop;
+    NSLayoutConstraint* _constraintRootViewBottom;
+    NSLayoutConstraint* _constraintRootViewLeft;
+    NSLayoutConstraint* _constraintRootViewRight;
+}
 
 @end
 
@@ -21,6 +20,18 @@
 @implementation GLBLoadedView
 
 #pragma mark - Init / Free
+
++ (instancetype)instantiate {
+    return [self instantiateWithOptions:nil];
+}
+
++ (instancetype)instantiateWithOptions:(NSDictionary*)options {
+    UINib* nib = self.glb_nib;
+    if(nib != nil) {
+        return [nib glb_instantiateWithClass:self.class owner:nil options:options];
+    }
+    return nil;
+}
 
 - (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super initWithCoder:coder];
@@ -40,14 +51,17 @@
 
 - (void)setup {
     self.clipsToBounds = YES;
-    
-    UINib* nib = [UINib glb_nibWithClass:self.class bundle:nil];
-    if(nib != nil) {
-        [nib instantiateWithOwner:self options:nil];
-    }
 }
 
 #pragma mark - UIView
+
+- (void)didMoveToSuperview {
+    [super didMoveToSuperview];
+    
+    if(self.superview != nil) {
+        [self load];
+    }
+}
 
 - (void)updateConstraints {
     if(_rootView != nil) {
@@ -160,6 +174,21 @@
 
 - (CGFloat)rootEdgeInsetsRight {
     return _rootEdgeInsets.right;
+}
+
+#pragma mark - Public
+
+- (void)load {
+    if(_rootView == nil) {
+        UINib* nib = self.class.glb_nib;
+        if(nib != nil) {
+            [nib instantiateWithOwner:self options:nil];
+        }
+    }
+}
+
+- (void)unload {
+    self.rootView = nil;
 }
 
 #pragma mark - GLBNibExtension

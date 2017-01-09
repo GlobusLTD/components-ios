@@ -12,10 +12,10 @@
 
 @interface GLBListField : GLBTextField
 
-@property(nonatomic, strong) NSArray* items;
-@property(nonatomic, strong) GLBListFieldItem* selectedItem;
+@property(nonatomic, nullable, strong) NSArray* items;
+@property(nonatomic, nullable, strong) GLBListFieldItem* selectedItem;
 
-- (void)setSelectedItem:(GLBListFieldItem*)selectedItem animated:(BOOL)animated;
+- (void)setSelectedItem:(GLBListFieldItem* _Nullable)selectedItem animated:(BOOL)animated;
 
 @end
 
@@ -23,14 +23,15 @@
 
 @interface GLBListFieldItem : NSObject
 
-@property(nonatomic, strong) NSString* title;
-@property(nonatomic, strong) UIFont* font;
-@property(nonatomic, strong) UIColor* color;
-@property(nonatomic, strong) id value;
+@property(nonatomic, nonnull, strong) NSString* title;
+@property(nonatomic, nullable, strong) UIFont* font;
+@property(nonatomic, nullable, strong) UIColor* color;
+@property(nonatomic, nullable, strong) id value;
 
-- (instancetype)initWithTitle:(NSString*)title value:(id)value;
-- (instancetype)initWithTitle:(NSString*)title color:(UIColor*)color value:(id)value;
-- (instancetype)initWithTitle:(NSString*)title font:(UIFont*)font color:(UIColor*)color value:(id)value;
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithTitle:(NSString* _Nonnull)title value:(id _Nullable)value;
+- (instancetype _Nonnull)initWithTitle:(NSString* _Nonnull)title color:(UIColor* _Nullable)color value:(id _Nullable)value;
+- (instancetype _Nonnull)initWithTitle:(NSString* _Nonnull)title font:(UIFont* _Nullable)font color:(UIColor* _Nullable)color value:(id _Nullable)value NS_DESIGNATED_INITIALIZER;
 
 - (void)setup NS_REQUIRES_SUPER;
 

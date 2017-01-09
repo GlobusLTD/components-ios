@@ -44,6 +44,10 @@
     return [[self alloc] initWithURL:URL];
 }
 
++ (instancetype)viewControllerWithURL:(NSURL*)URL {
+    return [[self alloc] initWithURL:URL];
+}
+
 - (instancetype)initWithURL:(NSURL*)URL {
     self = [super initWithNibName:nil bundle:nil];
     if(self != nil) {

@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, GLBDataViewSearchBarStyle) {
 
 @interface GLBDataView : UIScrollView < UIGestureRecognizerDelegate, GLBScrollViewExtension, GLBSearchBarDelegate >
 
-@property(nonatomic, readonly, strong, nullable) GLBDataContentView* contentView;
+@property(nonatomic, nullable, readonly, strong) GLBDataContentView* contentView;
 
 @property(nonatomic) IBInspectable CGFloat velocity;
 @property(nonatomic) IBInspectable CGFloat velocityMin;
@@ -57,22 +57,22 @@ typedef NS_ENUM(NSUInteger, GLBDataViewSearchBarStyle) {
 @property(nonatomic) CGFloat edgeInsetBottom;
 @property(nonatomic) CGFloat edgeInsetLeft;
 
-@property(nonatomic, strong, nullable) __kindof GLBDataViewContainer* container;
+@property(nonatomic, nullable, strong) __kindof GLBDataViewContainer* container;
 @property(nonatomic) UIEdgeInsets containerInset;
 @property(nonatomic) CGFloat containerInsetTop;
 @property(nonatomic) CGFloat containerInsetRight;
 @property(nonatomic) CGFloat containerInsetBottom;
 @property(nonatomic) CGFloat containerInsetLeft;
-@property(nonatomic, readonly, strong, nonnull) NSArray< __kindof GLBDataViewItem* >* visibleItems;
-@property(nonatomic, readonly, strong, nonnull) NSArray< __kindof GLBDataViewCell* >* visibleCells;
-@property(nonatomic, readonly, strong, nonnull) NSArray< __kindof GLBDataViewItem* >* selectedItems;
-@property(nonatomic, readonly, strong, nonnull) NSArray< __kindof GLBDataViewCell* >* selectedCells;
-@property(nonatomic, readonly, strong, nonnull) NSArray< __kindof GLBDataViewItem* >* highlightedItems;
-@property(nonatomic, readonly, strong, nonnull) NSArray< __kindof GLBDataViewCell* >* highlightedCells;
-@property(nonatomic, readonly, strong, nonnull) NSArray< __kindof GLBDataViewItem* >* editingItems;
-@property(nonatomic, readonly, strong, nonnull) NSArray< __kindof GLBDataViewCell* >* editingCells;
-@property(nonatomic, readonly, strong, nullable) __kindof GLBDataViewItem* movingItem;
-@property(nonatomic, readonly, strong, nullable) __kindof GLBDataViewCell* movingCell;
+@property(nonatomic, nonnull, readonly, strong) NSArray< __kindof GLBDataViewItem* >* visibleItems;
+@property(nonatomic, nonnull, readonly, strong) NSArray< __kindof GLBDataViewCell* >* visibleCells;
+@property(nonatomic, nonnull, readonly, strong) NSArray< __kindof GLBDataViewItem* >* selectedItems;
+@property(nonatomic, nonnull, readonly, strong) NSArray< __kindof GLBDataViewCell* >* selectedCells;
+@property(nonatomic, nonnull, readonly, strong) NSArray< __kindof GLBDataViewItem* >* highlightedItems;
+@property(nonatomic, nonnull, readonly, strong) NSArray< __kindof GLBDataViewCell* >* highlightedCells;
+@property(nonatomic, nonnull, readonly, strong) NSArray< __kindof GLBDataViewItem* >* editingItems;
+@property(nonatomic, nonnull, readonly, strong) NSArray< __kindof GLBDataViewCell* >* editingCells;
+@property(nonatomic, nullable, readonly, strong) __kindof GLBDataViewItem* movingItem;
+@property(nonatomic, nullable, readonly, strong) __kindof GLBDataViewCell* movingCell;
 @property(nonatomic, readonly, assign, getter=isAnimating) BOOL animating;
 @property(nonatomic, readonly, assign, getter=isUpdating) BOOL updating;
 @property(nonatomic, readonly, assign, getter=isTransiting) BOOL transiting;
@@ -82,21 +82,21 @@ typedef NS_ENUM(NSUInteger, GLBDataViewSearchBarStyle) {
 @property(nonatomic) IBInspectable BOOL searchBarIteractionEnabled;
 @property(nonatomic, getter=isShowedSearchBar) IBInspectable BOOL showedSearchBar;
 @property(nonatomic) IBInspectable GLBDataViewSearchBarStyle searchBarStyle;
-@property(nonatomic, strong, nullable) IBOutlet __kindof GLBSearchBar* searchBar;
+@property(nonatomic, nullable, strong) IBOutlet __kindof GLBSearchBar* searchBar;
 @property(nonatomic, readonly, assign) CGFloat searchBarInset;
 
 @property(nonatomic) IBInspectable BOOL topRefreshIteractionEnabled;
 @property(nonatomic) IBInspectable BOOL topRefreshBelowDataView;
-@property(nonatomic, strong, nullable) IBOutlet __kindof GLBDataRefreshView* topRefreshView;
+@property(nonatomic, nullable, strong) IBOutlet __kindof GLBDataRefreshView* topRefreshView;
 @property(nonatomic) IBInspectable BOOL bottomRefreshIteractionEnabled;
 @property(nonatomic) IBInspectable BOOL bottomRefreshBelowDataView;
-@property(nonatomic, strong, nullable) IBOutlet __kindof GLBDataRefreshView* bottomRefreshView;
+@property(nonatomic, nullable, strong) IBOutlet __kindof GLBDataRefreshView* bottomRefreshView;
 @property(nonatomic) IBInspectable BOOL leftRefreshIteractionEnabled;
 @property(nonatomic) IBInspectable BOOL leftRefreshBelowDataView;
-@property(nonatomic, strong, nullable) IBOutlet __kindof GLBDataRefreshView* leftRefreshView;
+@property(nonatomic, nullable, strong) IBOutlet __kindof GLBDataRefreshView* leftRefreshView;
 @property(nonatomic) IBInspectable BOOL rightRefreshIteractionEnabled;
 @property(nonatomic) IBInspectable BOOL rightRefreshBelowDataView;
-@property(nonatomic, strong, nullable) IBOutlet __kindof GLBDataRefreshView* rightRefreshView;
+@property(nonatomic, nullable, strong) IBOutlet __kindof GLBDataRefreshView* rightRefreshView;
 @property(nonatomic, readonly, assign) UIEdgeInsets refreshViewInset;
 
 - (void)setup NS_REQUIRES_SUPER;
@@ -105,27 +105,27 @@ typedef NS_ENUM(NSUInteger, GLBDataViewSearchBarStyle) {
 - (void)unregisterIdentifier:(NSString* _Nonnull)identifier;
 - (void)unregisterAllIdentifiers;
 
-- (void)registerActionWithTarget:(_Nonnull id)target action:(_Nonnull SEL)action forKey:(_Nonnull id)key;
-- (void)registerActionWithTarget:(_Nonnull id)target action:(_Nonnull SEL)action forIdentifier:(_Nonnull id)identifier forKey:(_Nonnull id)key;
-- (void)unregisterActionWithTarget:(_Nonnull id)target forKey:(_Nonnull id)key;
-- (void)unregisterActionWithTarget:(_Nonnull id)target forIdentifier:(_Nonnull id)identifier forKey:(_Nonnull id)key;
-- (void)unregisterActionsWithTarget:(_Nonnull id)target;
+- (void)registerActionWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action forKey:(id _Nonnull)key;
+- (void)registerActionWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action forIdentifier:(id _Nonnull)identifier forKey:(id _Nonnull)key;
+- (void)unregisterActionWithTarget:(id _Nonnull)target forKey:(id _Nonnull)key;
+- (void)unregisterActionWithTarget:(id _Nonnull)target forIdentifier:(id _Nonnull)identifier forKey:(id _Nonnull)key;
+- (void)unregisterActionsWithTarget:(id _Nonnull)target;
 - (void)unregisterAllActions;
 
-- (BOOL)containsActionForKey:(_Nonnull id)key;
-- (BOOL)containsActionForIdentifier:(_Nonnull id)identifier forKey:(_Nonnull id)key;
+- (BOOL)containsActionForKey:(id _Nonnull)key;
+- (BOOL)containsActionForIdentifier:(id _Nonnull)identifier forKey:(id _Nonnull)key;
 
-- (void)performActionForKey:(_Nonnull id)key withArguments:(NSArray* _Nullable)arguments;
-- (void)performActionForIdentifier:(_Nonnull id)identifier forKey:(_Nonnull id)key withArguments:(NSArray* _Nullable)arguments;
+- (void)performActionForKey:(id _Nonnull)key withArguments:(NSArray* _Nullable)arguments;
+- (void)performActionForIdentifier:(id _Nonnull)identifier forKey:(id _Nonnull)key withArguments:(NSArray* _Nullable)arguments;
 
-- (_Nullable Class)cellClassWithItem:(GLBDataViewItem*_Nonnull )item;
+- (Class _Nullable)cellClassWithItem:(GLBDataViewItem*_Nonnull )item;
 
 - (__kindof GLBDataViewCell* _Nullable)dequeueCellWithItem:(GLBDataViewItem* _Nonnull)item;
 - (void)enqueueCell:(GLBDataViewCell* _Nonnull)cell;
 
 - (__kindof GLBDataViewItem* _Nullable)itemForPoint:(CGPoint)point;
-- (__kindof GLBDataViewItem* _Nullable)itemForData:(_Nonnull id)data;
-- (__kindof GLBDataViewCell* _Nullable)cellForData:(_Nonnull id)data;
+- (__kindof GLBDataViewItem* _Nullable)itemForData:(id _Nonnull)data;
+- (__kindof GLBDataViewCell* _Nullable)cellForData:(id _Nonnull)data;
 
 - (BOOL)isSelectedItem:(GLBDataViewItem* _Nonnull)item;
 - (BOOL)shouldSelectItem:(GLBDataViewItem* _Nonnull)item;

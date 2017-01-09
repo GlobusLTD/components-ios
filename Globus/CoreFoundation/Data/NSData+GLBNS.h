@@ -38,7 +38,7 @@
  * NSString *hexString = [data glb_hexString];
  * @endcode
  */
-- (NSString* _Nullable)glb_hexString;
+- (NSString* _Nonnull)glb_hexString;
 
 /**
  * @brief Convert NSData to base 64 String.
@@ -50,7 +50,7 @@
  * NSString *base64String = [data glb_base64String];
  * @endcode
  */
-- (NSString* _Nullable)glb_base64String;
+- (NSString* _Nonnull)glb_base64String;
 
 @end
 

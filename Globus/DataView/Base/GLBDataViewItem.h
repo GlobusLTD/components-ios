@@ -16,8 +16,8 @@
 
 @interface GLBDataViewItem : NSObject< GLBSearchBarDelegate >
 
-@property(nonatomic, readonly, weak) __kindof GLBDataView* view;
-@property(nonatomic, readonly, weak) __kindof GLBDataViewContainer* parent;
+@property(nonatomic, readonly, weak) __kindof GLBDataView* dataView;
+@property(nonatomic, readonly, weak) __kindof GLBDataViewContainer* container;
 @property(nonatomic, readonly, strong) NSString* identifier;
 @property(nonatomic, readonly, assign) NSUInteger order;
 @property(nonatomic, readonly, assign) NSUInteger accessibilityOrder;
@@ -83,8 +83,6 @@
 - (void)setNeedUpdate;
 - (void)setNeedReload GLB_DEPRECATED;
 
-- (void)appear;
-- (void)disappear;
 - (void)validateLayoutForBounds:(CGRect)bounds;
 - (void)invalidateLayoutForBounds:(CGRect)bounds;
 

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.2.54'
+  s.version = '0.3.0'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -133,6 +133,11 @@ Pod::Spec.new do |s|
       sss.source_files = 'Globus/UIKit/Button/**/*.{h,m}'
       sss.dependency 'Globus/UIKit/View'
     end
+    ss.subspec 'CollectionView' do |sss|
+      sss.source_files = 'Globus/UIKit/CollectionView/**/*.{h,m}'
+      sss.dependency 'Globus/UIKit/View'
+      sss.dependency 'Globus/UIKit/Nib'
+    end
     ss.subspec 'Color' do |sss|
       sss.source_files = 'Globus/UIKit/Color/**/*.{h,m}'
       sss.dependency 'Globus/UIKit/Base'
@@ -176,6 +181,11 @@ Pod::Spec.new do |s|
       sss.source_files = 'Globus/UIKit/TabBar/**/*.{h,m}'
       sss.dependency 'Globus/UIKit/View'
     end
+    ss.subspec 'TableView' do |sss|
+      sss.source_files = 'Globus/UIKit/TableView/**/*.{h,m}'
+      sss.dependency 'Globus/UIKit/View'
+      sss.dependency 'Globus/UIKit/Nib'
+    end
     ss.subspec 'View' do |sss|
       sss.source_files = 'Globus/UIKit/View/**/*.{h,m}'
       sss.dependency 'Globus/UIKit/Base'
@@ -204,6 +214,27 @@ Pod::Spec.new do |s|
   s.subspec 'Grid' do |ss|
     ss.source_files = 'Globus/Grid/**/*.{h,m}'
     ss.dependency 'Globus/CoreFoundation/Base'
+  end
+  s.subspec 'StructedObject' do |ss|
+    ss.source_files = 'Globus/StructedObject/**/*.{h,m}'
+    ss.dependency 'Globus/CoreFoundation/Base'
+  end
+  s.subspec 'Json' do |ss|
+    ss.source_files = 'Globus/Json/**/*.{h,m}'
+    ss.dependency 'Globus/StructedObject'
+    ss.dependency 'Globus/CoreFoundation/Number'
+    ss.dependency 'Globus/CoreFoundation/String'
+    ss.dependency 'Globus/CoreFoundation/Date'
+    ss.dependency 'Globus/UIKit/Color'
+  end
+  s.subspec 'Pack' do |ss|
+    ss.source_files = 'Globus/Pack/**/*.{h,m}'
+    ss.dependency 'Globus/StructedObject'
+    ss.dependency 'Globus/CoreFoundation/Number'
+    ss.dependency 'Globus/CoreFoundation/String'
+    ss.dependency 'Globus/CoreFoundation/Date'
+    ss.dependency 'Globus/CoreFoundation/Pack'
+    ss.dependency 'Globus/UIKit/Color'
   end
   s.subspec 'Action' do |ss|
     ss.source_files = 'Globus/Action/**/*.{h,m}'
@@ -277,10 +308,6 @@ Pod::Spec.new do |s|
     ss.dependency 'Globus/CoreFoundation/Data'
     ss.dependency 'Globus/CoreFoundation/URL'
     ss.dependency 'Globus/CoreFoundation/Error'
-  end
-  s.subspec 'DataSource' do |ss|
-    ss.source_files = 'Globus/DataSource/**/*.{h,m}'
-    ss.dependency 'Globus/CoreFoundation/Base'
   end
   s.subspec 'SpinnerView' do |ss|
     ss.subspec 'Base' do |sss|

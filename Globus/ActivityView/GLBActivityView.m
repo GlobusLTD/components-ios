@@ -50,50 +50,73 @@
     return [[self alloc] initWithSpinnerView:spinnerView text:text textWidth:textWidth];
 }
 
+- (instancetype)initWithSpinnerView:(GLBSpinnerView*)spinnerView {
+    return [self initWithSpinnerView:spinnerView text:nil textWidth:GLBActivityViewTextWidth];
+}
+
+- (instancetype)initWithSpinnerView:(GLBSpinnerView*)spinnerView text:(NSString*)text {
+    return [self initWithSpinnerView:spinnerView text:text textWidth:GLBActivityViewTextWidth];
+}
+
 - (instancetype)initWithSpinnerView:(GLBSpinnerView*)spinnerView text:(NSString*)text textWidth:(NSUInteger)textWidth {
     self = [super initWithFrame:UIScreen.mainScreen.bounds];
     if(self != nil) {
+        [self setup];
+        
         _spinnerView = spinnerView;
-        _margin = GLBActivityViewMargin;
-        _spacing = GLBActivityViewSpacing;
+        _spinnerView.color = GLBActivityViewSpinnerColor;
+        _spinnerView.size = GLBActivityViewSpinnerSize;
+        [_panelView addSubview:_spinnerView];
+        
         _textWidth = textWidth;
-        _showDuration = GLBActivityDuration;
-        _showDelay = GLBActivityDelay;
-        _hideDuration = GLBActivityDuration;
-        _hideDelay = GLBActivityDelay;
-        
-        self.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-        self.backgroundColor = GLBActivityViewBackgroundColor;
-        self.alpha = 0.0;
-        
-        _panelView = [[UIView alloc] initWithFrame:CGRectZero];
-        _panelView.backgroundColor = GLBActivityViewPanelColor;
-        _panelView.glb_cornerRadius = GLBActivityViewPanelCornerRadius;
-        _panelView.clipsToBounds = YES;
-        [self addSubview:_panelView];
-        
-        if(_spinnerView != nil) {
-            _spinnerView.color = GLBActivityViewSpinnerColor;
-            _spinnerView.size = GLBActivityViewSpinnerSize;
-            [_panelView addSubview:_spinnerView];
-        }
-        _textView = [[UILabel alloc] initWithFrame:CGRectZero];
-        _textView.backgroundColor = [UIColor clearColor];
-        _textView.textColor = GLBActivityViewTextColor;
-        _textView.font = GLBActivityViewTextFont;
-        _textView.textAlignment = NSTextAlignmentCenter;
-        _textView.numberOfLines = 0;
         _textView.text = text;
-        [_panelView addSubview:_textView];
-        
-        _showCount = NSNotFound;
-        
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if(self != nil) {
+        [self setup];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder*)coder {
+    self = [super initWithCoder:coder];
+    if(self != nil) {
         [self setup];
     }
     return self;
 }
 
 - (void)setup {
+    _margin = GLBActivityViewMargin;
+    _spacing = GLBActivityViewSpacing;
+    _showDuration = GLBActivityDuration;
+    _showDelay = GLBActivityDelay;
+    _hideDuration = GLBActivityDuration;
+    _hideDelay = GLBActivityDelay;
+    
+    self.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+    self.backgroundColor = GLBActivityViewBackgroundColor;
+    self.alpha = 0.0;
+    
+    _panelView = [[UIView alloc] initWithFrame:CGRectZero];
+    _panelView.backgroundColor = GLBActivityViewPanelColor;
+    _panelView.glb_cornerRadius = GLBActivityViewPanelCornerRadius;
+    _panelView.clipsToBounds = YES;
+    [self addSubview:_panelView];
+    
+    _textView = [[UILabel alloc] initWithFrame:CGRectZero];
+    _textView.backgroundColor = [UIColor clearColor];
+    _textView.textColor = GLBActivityViewTextColor;
+    _textView.font = GLBActivityViewTextFont;
+    _textView.textAlignment = NSTextAlignmentCenter;
+    _textView.numberOfLines = 0;
+    [_panelView addSubview:_textView];
+    
+    _showCount = NSNotFound;
 }
 
 #pragma mark - Public override

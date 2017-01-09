@@ -7,10 +7,10 @@
 
 @interface GLBManagedModel ()
 
-@property(nonatomic, readonly, nonnull, strong) NSDictionary< NSString*, GLBModelJson* >* jsonMap;
-@property(nonatomic, readonly, nonnull, strong) NSDictionary< NSString*, NSDictionary< NSString*, GLBModelJson* >* >* jsonShemeMap;
-@property(nonatomic, readonly, nonnull, strong) NSDictionary< NSString*, GLBModelPack* >* packMap;
-@property(nonatomic, readonly, nonnull, strong) NSArray< NSString* >* propertyMap;
+@property(nonatomic, nonnull, readonly, strong) NSDictionary< NSString*, GLBModelJson* >* jsonMap;
+@property(nonatomic, nonnull, readonly, strong) NSDictionary< NSString*, NSDictionary< NSString*, GLBModelJson* >* >* jsonShemeMap;
+@property(nonatomic, nonnull, readonly, strong) NSDictionary< NSString*, GLBModelPack* >* packMap;
+@property(nonatomic, nonnull, readonly, strong) NSArray< NSString* >* propertyMap;
 
 + (NSDictionary< NSString*, GLBModelJson* >* _Nonnull)_buildJsonMap;
 + (NSDictionary< NSString*, NSDictionary< NSString*, GLBModelJson* >* >* _Nonnull)_buildJsonShemeMap;
@@ -26,12 +26,12 @@
     NSURL* _containerUrl;
 }
 
-@property(nonatomic, readonly, nullable, strong) NSManagedObjectContext* storeContext;
-@property(nonatomic, readonly, nullable, strong) NSManagedObjectContext* mainContext;
-@property(nonatomic, readonly, nullable, strong) NSManagedObjectContext* backgroundContext;
-@property(nonatomic, readonly, nullable, strong) NSManagedObjectContext* currentContext;
-@property(nonatomic, readonly, nullable, strong) NSManagedObjectModel* model;
-@property(nonatomic, readonly, nullable, strong) NSPersistentStoreCoordinator* coordinator;
+@property(nonatomic, nullable, readonly, strong) NSManagedObjectContext* storeContext;
+@property(nonatomic, nullable, readonly, strong) NSManagedObjectContext* mainContext;
+@property(nonatomic, nullable, readonly, strong) NSManagedObjectContext* backgroundContext;
+@property(nonatomic, nullable, readonly, strong) NSManagedObjectContext* currentContext;
+@property(nonatomic, nullable, readonly, strong) NSManagedObjectModel* model;
+@property(nonatomic, nullable, readonly, strong) NSPersistentStoreCoordinator* coordinator;
 @property(nonatomic, nullable, strong) NSURL* existStoreUrl;
 
 @end

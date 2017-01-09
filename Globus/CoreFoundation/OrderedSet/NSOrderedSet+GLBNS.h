@@ -18,49 +18,49 @@
 
 @interface NSOrderedSet< __covariant ObjectType > (GLB_NS)
 
-+ (instancetype _Nullable)glb_orderedSetWithOrderedSet:(NSOrderedSet< ObjectType >* _Nullable)orderedSet addingObject:(_Nonnull ObjectType)object;
-+ (instancetype _Nullable)glb_orderedSetWithOrderedSet:(NSOrderedSet< ObjectType >* _Nullable)orderedSet addingObjectsFromOrderedSet:(NSOrderedSet< ObjectType >* _Nonnull)addingObjects;
-+ (instancetype _Nullable)glb_orderedSetWithOrderedSet:(NSOrderedSet< ObjectType >* _Nullable)orderedSet removingObject:(_Nonnull ObjectType)object;
-+ (instancetype _Nullable)glb_orderedSetWithOrderedSet:(NSOrderedSet< ObjectType >* _Nullable)orderedSet removingObjectsInOrderedSet:(NSOrderedSet< ObjectType >* _Nonnull)removingObjects;
++ (instancetype _Nonnull)glb_orderedSetWithOrderedSet:(NSOrderedSet< ObjectType >* _Nonnull)orderedSet addingObject:(ObjectType _Nonnull)object;
++ (instancetype _Nonnull)glb_orderedSetWithOrderedSet:(NSOrderedSet< ObjectType >* _Nonnull)orderedSet addingObjectsFromOrderedSet:(NSOrderedSet< ObjectType >* _Nonnull)addingObjects;
++ (instancetype _Nonnull)glb_orderedSetWithOrderedSet:(NSOrderedSet< ObjectType >* _Nonnull)orderedSet removingObject:(ObjectType _Nonnull)object;
++ (instancetype _Nonnull)glb_orderedSetWithOrderedSet:(NSOrderedSet< ObjectType >* _Nonnull)orderedSet removingObjectsInOrderedSet:(NSOrderedSet< ObjectType >* _Nonnull)removingObjects;
 
-- (NSOrderedSet< ObjectType >* _Nullable)glb_orderedSetByReplaceObject:(_Nonnull ObjectType)object atIndex:(NSUInteger)index;
+- (instancetype _Nonnull)glb_orderedSetByReplaceObject:(ObjectType _Nonnull)object atIndex:(NSUInteger)index;
 
-- (NSOrderedSet< ObjectType >* _Nullable)glb_orderedSetByRemovedObjectAtIndex:(NSUInteger)index;
-- (NSOrderedSet< ObjectType >* _Nullable)glb_orderedSetByRemovedObject:(_Nonnull ObjectType)object;
-- (NSOrderedSet< ObjectType >* _Nullable)glb_orderedSetByRemovedObjectsFromOrderedSet:(NSOrderedSet< ObjectType >* _Nonnull)orderedSet;
+- (instancetype _Nonnull)glb_orderedSetByRemovedObjectAtIndex:(NSUInteger)index;
+- (instancetype _Nonnull)glb_orderedSetByRemovedObject:(ObjectType _Nonnull)object;
+- (instancetype _Nonnull)glb_orderedSetByRemovedObjectsFromOrderedSet:(NSOrderedSet< ObjectType >* _Nonnull)orderedSet;
 
-- (NSOrderedSet< ObjectType >* _Nullable)glb_orderedSetByObjectClass:(_Nonnull Class)objectClass;
-- (NSOrderedSet< ObjectType >* _Nullable)glb_orderedSetByObjectProtocol:(Protocol* _Nonnull)objectProtocol;
+- (instancetype _Nonnull)glb_orderedSetByObjectClass:(Class _Nonnull)objectClass;
+- (instancetype _Nonnull)glb_orderedSetByObjectProtocol:(Protocol* _Nonnull)objectProtocol;
 
-- (_Nullable ObjectType)glb_firstObjectIsClass:(_Nonnull Class)objectClass;
-- (_Nullable ObjectType)glb_lastObjectIsClass:(_Nonnull Class)objectClass;
+- (ObjectType _Nullable)glb_firstObjectIsClass:(Class _Nonnull)objectClass;
+- (ObjectType _Nullable)glb_lastObjectIsClass:(Class _Nonnull)objectClass;
 
-- (_Nullable ObjectType)glb_firstObjectIsProtocol:(Protocol* _Nonnull)objectProtocol;
-- (_Nullable ObjectType)glb_lastObjectIsProtocol:(Protocol* _Nonnull)objectProtocol;
+- (ObjectType _Nullable)glb_firstObjectIsProtocol:(Protocol* _Nonnull)objectProtocol;
+- (ObjectType _Nullable)glb_lastObjectIsProtocol:(Protocol* _Nonnull)objectProtocol;
 
 - (BOOL)glb_containsObjectsInOrderedSet:(NSOrderedSet< ObjectType >* _Nonnull)objectsOrderedSet;
 
-- (NSUInteger)glb_nextIndexOfObject:(_Nonnull ObjectType)object;
-- (NSUInteger)glb_prevIndexOfObject:(_Nonnull ObjectType)object;
+- (NSUInteger)glb_nextIndexOfObject:(ObjectType _Nonnull)object;
+- (NSUInteger)glb_prevIndexOfObject:(ObjectType _Nonnull)object;
 
-- (_Nullable ObjectType)glb_nextObjectOfObject:(_Nonnull ObjectType)object;
-- (_Nullable ObjectType)glb_prevObjectOfObject:(_Nonnull ObjectType)object;
+- (ObjectType _Nullable)glb_nextObjectOfObject:(ObjectType _Nonnull)object;
+- (ObjectType _Nullable)glb_prevObjectOfObject:(ObjectType _Nonnull)object;
 
-- (void)glb_each:(void(^ _Nonnull)(_Nonnull ObjectType object))block;
-- (void)glb_each:(void(^ _Nonnull)(_Nonnull ObjectType object))block range:(NSRange)range;
-- (void)glb_eachWithIndex:(void(^ _Nonnull)(_Nonnull ObjectType object, NSUInteger index))block;
-- (void)glb_eachWithIndex:(void(^ _Nonnull)(_Nonnull ObjectType object, NSUInteger index))block range:(NSRange)range;
-- (void)glb_each:(void(^ _Nonnull)(_Nonnull ObjectType object))block options:(NSEnumerationOptions)options;
-- (void)glb_each:(void(^ _Nonnull)(_Nonnull ObjectType object))block range:(NSRange)range options:(NSEnumerationOptions)options;
-- (void)glb_eachWithIndex:(void(^ _Nonnull)(_Nonnull ObjectType object, NSUInteger index))block options:(NSEnumerationOptions)options;
-- (void)glb_eachWithIndex:(void(^ _Nonnull)(_Nonnull ObjectType object, NSUInteger index))block range:(NSRange)range options:(NSEnumerationOptions)options;
-- (NSOrderedSet* _Nullable)glb_map:(_Nullable id(^ _Nonnull)(_Nonnull ObjectType object))block;
-- (NSDictionary* _Nullable)glb_groupBy:(_Nullable id(^ _Nonnull)(_Nonnull ObjectType object))block;
-- (NSOrderedSet< ObjectType >* _Nullable)glb_select:(BOOL(^ _Nonnull)(_Nonnull ObjectType object))block;
-- (NSOrderedSet< ObjectType >* _Nullable)glb_reject:(BOOL(^ _Nonnull)(_Nonnull ObjectType object))block;
-- (ObjectType _Nullable)glb_find:(BOOL(^ _Nonnull)(_Nonnull ObjectType object))block;
-- (_Nullable ObjectType)glb_find:(BOOL(^ _Nonnull)(_Nonnull ObjectType object))block options:(NSEnumerationOptions)options;
-- (_Nullable ObjectType)glb_find:(BOOL(^ _Nonnull)(_Nonnull ObjectType object))block  range:(NSRange)range options:(NSEnumerationOptions)options;
+- (void)glb_each:(void(^ _Nonnull)(ObjectType _Nonnull object))block;
+- (void)glb_each:(void(^ _Nonnull)(ObjectType _Nonnull object))block range:(NSRange)range;
+- (void)glb_eachWithIndex:(void(^ _Nonnull)(ObjectType _Nonnull object, NSUInteger index))block;
+- (void)glb_eachWithIndex:(void(^ _Nonnull)(ObjectType _Nonnull object, NSUInteger index))block range:(NSRange)range;
+- (void)glb_each:(void(^ _Nonnull)(ObjectType _Nonnull object))block options:(NSEnumerationOptions)options;
+- (void)glb_each:(void(^ _Nonnull)(ObjectType _Nonnull object))block range:(NSRange)range options:(NSEnumerationOptions)options;
+- (void)glb_eachWithIndex:(void(^ _Nonnull)(ObjectType _Nonnull object, NSUInteger index))block options:(NSEnumerationOptions)options;
+- (void)glb_eachWithIndex:(void(^ _Nonnull)(ObjectType _Nonnull object, NSUInteger index))block range:(NSRange)range options:(NSEnumerationOptions)options;
+- (NSOrderedSet* _Nullable)glb_map:(id _Nullable(^ _Nonnull)(ObjectType _Nonnull object))block;
+- (NSDictionary* _Nullable)glb_groupBy:(id _Nullable(^ _Nonnull)(ObjectType _Nonnull object))block;
+- (NSOrderedSet< ObjectType >* _Nullable)glb_select:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block;
+- (NSOrderedSet< ObjectType >* _Nullable)glb_reject:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block;
+- (ObjectType _Nullable)glb_find:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block;
+- (ObjectType _Nullable)glb_find:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block options:(NSEnumerationOptions)options;
+- (ObjectType _Nullable)glb_find:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block  range:(NSRange)range options:(NSEnumerationOptions)options;
 
 @end
 

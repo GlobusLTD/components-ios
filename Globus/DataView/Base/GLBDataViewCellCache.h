@@ -17,7 +17,7 @@
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (__kindof GLBDataViewCell* _Nullable)dequeueCellClass:(_Nonnull Class)cellClass;
+- (__kindof GLBDataViewCell* _Nullable)dequeueCellClass:(Class _Nonnull)cellClass;
 - (void)enqueueCell:(GLBDataViewCell* _Nonnull)cell;
 
 @end

@@ -23,6 +23,18 @@
 
 #pragma mark - Init / Free
 
++ (instancetype)instantiate {
+    return [self instantiateWithOptions:nil];
+}
+
++ (instancetype)instantiateWithOptions:(NSDictionary*)options {
+    UINib* nib = self.glb_nib;
+    if(nib != nil) {
+        return [nib glb_instantiateWithClass:self.class owner:nil options:nil];
+    }
+    return nil;
+}
+
 - (void)setup {
     [super setup];
     
@@ -57,12 +69,17 @@
 #pragma clang diagnostic pop
 
 - (void)loadView {
-    UINib* nib = nil;
+    Class class = self.class;
+    NSBundle* bundle = self.nibBundle;
+    if(bundle == nil) {
+        bundle = [NSBundle bundleForClass:class];
+    }
     NSString* nibName = self.nibName;
+    UINib* nib = nil;
     if(nibName.length > 0) {
-        nib = [UINib glb_nibWithName:nibName bundle:self.nibBundle];
+        nib = [UINib glb_nibWithName:nibName bundle:bundle];
     } else {
-        nib = [UINib glb_nibWithClass:self.class bundle:self.nibBundle];
+        nib = [UINib glb_nibWithClass:class bundle:bundle];
     }
     if(nib != nil) {
         NSArray* objects = [nib instantiateWithOwner:self options:nil];

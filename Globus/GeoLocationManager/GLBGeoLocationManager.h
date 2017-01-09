@@ -51,51 +51,51 @@ typedef NS_ENUM(NSInteger, GLBGeoLocationStatus) {
 @property(nonatomic, assign) BOOL useMonitoringSignificantChanges __WATCHOS_UNAVAILABLE;
 @property(nonatomic, assign) BOOL useUpdatingLocation;
 @property(nonatomic, assign) NSTimeInterval timeAccuracy;
-@property(nonatomic, readonly, copy) NSArray* requests;
+@property(nonatomic, nonnull, readonly, copy) NSArray* requests;
 @property(nonatomic, readonly, assign, getter=isUpdatingLocation) BOOL updatingLocation;
 
 + (GLBGeoLocationServicesState)servicesState;
 + (BOOL)availableSignificantMonitoringChanges __WATCHOS_UNAVAILABLE;
 
-+ (instancetype)shared;
++ (instancetype _Nullable)shared;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (GLBGeoLocationRequest*)requestWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
-                                             success:(GLBAction*)success
-                                             failure:(GLBAction*)failure;
+- (GLBGeoLocationRequest* _Nullable)requestWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
+                                                       success:(GLBAction* _Nullable)success
+                                                       failure:(GLBAction* _Nullable)failure;
 
-- (GLBGeoLocationRequest*)requestWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
-                                     timeoutInterval:(NSTimeInterval)timeoutInterval
-                                             success:(GLBAction*)success
-                                             failure:(GLBAction*)failure;
+- (GLBGeoLocationRequest* _Nullable)requestWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
+                                               timeoutInterval:(NSTimeInterval)timeoutInterval
+                                                       success:(GLBAction* _Nullable)success
+                                                       failure:(GLBAction* _Nullable)failure;
 
-- (GLBGeoLocationRequest*)subscribeWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
-                                               success:(GLBAction*)success
-                                               failure:(GLBAction*)failure;
+- (GLBGeoLocationRequest* _Nullable)subscribeWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
+                                                         success:(GLBAction* _Nullable)success
+                                                         failure:(GLBAction* _Nullable)failure;
 
-- (GLBGeoLocationRequest*)subscribeWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
-                                        updateInterval:(NSTimeInterval)updateInterval
-                                               success:(GLBAction*)success
-                                               failure:(GLBAction*)failure;
+- (GLBGeoLocationRequest* _Nullable)subscribeWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
+                                                  updateInterval:(NSTimeInterval)updateInterval
+                                                         success:(GLBAction* _Nullable)success
+                                                         failure:(GLBAction* _Nullable)failure;
 
-- (void)cancelRequest:(GLBGeoLocationRequest*)request;
+- (void)cancelRequest:(GLBGeoLocationRequest* _Nonnull)request;
 - (void)cancelAllRequests;
 
-- (void)geocodeAddressString:(NSString*)address block:(CLGeocodeCompletionHandler)block;
-- (void)reverseGeocodeLocation:(CLLocation*)location block:(CLGeocodeCompletionHandler)block;
+- (void)geocodeAddressString:(NSString* _Nonnull)address block:(CLGeocodeCompletionHandler _Nullable)block;
+- (void)reverseGeocodeLocation:(CLLocation* _Nonnull)location block:(CLGeocodeCompletionHandler _Nullable)block;
 
 @end
 
 /*--------------------------------------------------*/
 
-extern NSString* GLBGeoLocationManagerUserDenied;
+extern NSString* _Nonnull GLBGeoLocationManagerUserDenied;
 
 /*--------------------------------------------------*/
 
 @interface GLBGeoLocationRequest : NSObject
 
-@property(nonatomic, strong) NSDictionary* userInfo;
+@property(nonatomic, nullable, strong) NSDictionary* userInfo;
 @property(nonatomic, readonly, assign) CLLocationAccuracy desiredAccuracy;
 @property(nonatomic, readonly, assign) NSTimeInterval timeoutInterval;
 @property(nonatomic, readonly, assign) NSTimeInterval updateInterval;

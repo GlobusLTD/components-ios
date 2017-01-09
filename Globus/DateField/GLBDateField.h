@@ -9,15 +9,15 @@
 @interface GLBDateField : GLBTextField
 
 @property(nonatomic) IBInspectable UIDatePickerMode datePickerMode;
-@property(nonatomic, strong) IBInspectable NSDateFormatter* dateFormatter;
-@property(nonatomic, strong) IBInspectable NSLocale* locale;
-@property(nonatomic, copy) IBInspectable NSCalendar* calendar;
-@property(nonatomic, strong) IBInspectable NSTimeZone* timeZone;
-@property(nonatomic, strong) IBInspectable NSDate* minimumDate;
-@property(nonatomic, strong) IBInspectable NSDate* maximumDate;
-@property(nonatomic, strong) IBInspectable NSDate* date;
+@property(nonatomic, nullable, strong) IBInspectable NSDateFormatter* dateFormatter;
+@property(nonatomic, nullable, strong) IBInspectable NSLocale* locale;
+@property(nonatomic, nullable, strong) IBInspectable NSCalendar* calendar;
+@property(nonatomic, nullable, strong) IBInspectable NSTimeZone* timeZone;
+@property(nonatomic, nullable, strong) IBInspectable NSDate* minimumDate;
+@property(nonatomic, nullable, strong) IBInspectable NSDate* maximumDate;
+@property(nonatomic, nonnull, strong) IBInspectable NSDate* date;
 
-- (void)setDate:(NSDate*)date animated:(BOOL)animated;
+- (void)setDate:(NSDate* _Nonnull)date animated:(BOOL)animated;
 
 @end
 

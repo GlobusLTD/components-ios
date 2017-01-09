@@ -41,6 +41,10 @@ static void GLBAppGroupNotificationCenterNotificationCallback(CFNotificationCent
 
 @synthesize messagePassingPath = _messagePassingPath;
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+
 #pragma mark Init / Free
 
 - (instancetype)initWithIdentifier:(NSString*)identifier directory:(NSString*)directory {

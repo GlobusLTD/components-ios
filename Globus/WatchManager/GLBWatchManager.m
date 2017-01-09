@@ -32,25 +32,25 @@
 
 @interface GLBWatchProviderCommand : NSObject
 
-@property(nonatomic, readonly, nullable, strong) NSDictionary< NSString*, id >* info;
-@property(nonatomic, readonly, nullable, strong) NSData* data;
+@property(nonatomic, nullable, readonly, strong) NSDictionary< NSString*, id >* info;
+@property(nonatomic, nullable, readonly, strong) NSData* data;
 @property(nonatomic, readonly, getter=isComplication) BOOL complication;
 
-@property(nonatomic, readonly, nullable, weak) GLBWatchProvider* profider;
-@property(nonatomic, readonly, nullable, strong) NSString* fileName;
-@property(nonatomic, readonly, nullable, strong) NSURL* fileURL;
-@property(nonatomic, readonly, nullable, strong) NSDictionary* metadata;
+@property(nonatomic, nullable, readonly, weak) GLBWatchProvider* profider;
+@property(nonatomic, nullable, readonly, strong) NSString* fileName;
+@property(nonatomic, nullable, readonly, strong) NSURL* fileURL;
+@property(nonatomic, nullable, readonly, strong) NSDictionary* metadata;
 
 + (NSDictionary* _Nullable)metadataWithProfider:(GLBWatchProvider* _Nonnull)profider reachableInfo:(NSDictionary< NSString*, id >* _Nonnull)reachableInfo;
 
-- (_Nullable instancetype)initWithProfider:(GLBWatchProvider* _Nonnull)profider reachableInfo:(NSDictionary< NSString*, id >* _Nonnull)reachableInfo;
-- (_Nullable instancetype)initWithProfider:(GLBWatchProvider* _Nonnull)profider info:(NSDictionary< NSString*, id >* _Nonnull)info data:(NSData* _Nullable)data complication:(BOOL)complication;
+- (instancetype _Nullable)initWithProfider:(GLBWatchProvider* _Nonnull)profider reachableInfo:(NSDictionary< NSString*, id >* _Nonnull)reachableInfo;
+- (instancetype _Nullable)initWithProfider:(GLBWatchProvider* _Nonnull)profider info:(NSDictionary< NSString*, id >* _Nonnull)info data:(NSData* _Nullable)data complication:(BOOL)complication;
 
-- (_Nullable instancetype)initWithReachableMessage:(NSDictionary< NSString*, id >*)reachableMessage;
-- (_Nullable instancetype)initWithUserInfoTransfer:(WCSessionUserInfoTransfer* _Nonnull)userInfoTransfer;
-- (_Nullable instancetype)initWithUserInfo:(NSDictionary< NSString*, id >* _Nonnull)userInfo;
-- (_Nullable instancetype)initWithFileTransfer:(WCSessionFileTransfer* _Nonnull)fileTransfer;
-- (_Nullable instancetype)initWithFile:(WCSessionFile* _Nonnull)file;
+- (instancetype _Nullable)initWithReachableMessage:(NSDictionary< NSString*, id >*)reachableMessage;
+- (instancetype _Nullable)initWithUserInfoTransfer:(WCSessionUserInfoTransfer* _Nonnull)userInfoTransfer;
+- (instancetype _Nullable)initWithUserInfo:(NSDictionary< NSString*, id >* _Nonnull)userInfo;
+- (instancetype _Nullable)initWithFileTransfer:(WCSessionFileTransfer* _Nonnull)fileTransfer;
+- (instancetype _Nullable)initWithFile:(WCSessionFile* _Nonnull)file;
 
 - (void)saveToTemp;
 - (void)cleanupTemp;
@@ -339,7 +339,15 @@ static NSString* GLBWatchProviderFileName = @"file";
 
 @implementation GLBWatchProvider
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+
 #pragma mark - Init / Free
+
++ (instancetype)watchProviderWithIdentifier:(NSString*)identifier delegate:(id< GLBWatchProviderDelegate >)delegate {
+    return [[self alloc] initWithIdentifier:identifier delegate:delegate];
+}
 
 - (instancetype)initWithIdentifier:(NSString*)identifier delegate:(id< GLBWatchProviderDelegate >)delegate {
     self = [super init];

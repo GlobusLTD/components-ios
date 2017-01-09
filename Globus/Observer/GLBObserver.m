@@ -14,7 +14,15 @@
 
 @implementation GLBObserver
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+
 #pragma mark - Init / Free
+
++ (instancetype)observerWithProtocol:(Protocol*)protocol {
+    return [[self alloc] initWithProtocol:protocol];
+}
 
 - (instancetype)initWithProtocol:(Protocol*)protocol {
     self = [super init];

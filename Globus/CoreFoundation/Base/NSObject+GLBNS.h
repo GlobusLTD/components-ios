@@ -21,6 +21,21 @@
 + (NSString* _Nonnull)glb_className;
 - (NSString* _Nonnull)glb_className;
 
+- (BOOL)glb_isNull;
+- (BOOL)glb_isNumber;
+- (BOOL)glb_isString;
+- (BOOL)glb_isUrl;
+
+- (BOOL)glb_isArray;
+- (BOOL)glb_isSet;
+- (BOOL)glb_isOrderedSet;
+- (BOOL)glb_isDictionary;
+
+- (BOOL)glb_isMutableArray;
+- (BOOL)glb_isMutableSet;
+- (BOOL)glb_isMutableOrderedSet;
+- (BOOL)glb_isMutableDictionary;
+
 @end
 
 /*--------------------------------------------------*/

@@ -11,24 +11,24 @@
 
 @interface GLBTextStyle : NSObject
 
-@property(nonatomic, strong, nullable) UIFont* font;
-@property(nonatomic, strong, nullable) UIColor* color;
-@property(nonatomic, strong, nullable) UIColor* backgroundColor;
-@property(nonatomic, strong, nullable) UIColor* strikeColor;
+@property(nonatomic, nullable, strong) UIFont* font;
+@property(nonatomic, nullable, strong) UIColor* color;
+@property(nonatomic, nullable, strong) UIColor* backgroundColor;
+@property(nonatomic, nullable, strong) UIColor* strikeColor;
 @property(nonatomic) CGFloat strikeWidth;
 @property(nonatomic) NSInteger strikeThrough;
-@property(nonatomic, strong, nullable) UIColor* underlineColor;
+@property(nonatomic, nullable, strong) UIColor* underlineColor;
 @property(nonatomic) NSUnderlineStyle underlineStyle;
-@property(nonatomic, strong, nullable) NSShadow* shadow GLB_UNAVAILABLE_WATCHOS;
+@property(nonatomic, nullable, strong) NSShadow* shadow GLB_UNAVAILABLE_WATCHOS;
 @property(nonatomic, assign) CGSize shadowOffset GLB_UNAVAILABLE_WATCHOS;
 @property(nonatomic, assign) CGFloat shadowBlurRadius GLB_UNAVAILABLE_WATCHOS;
-@property(nonatomic, strong, nullable) UIColor* shadowColor GLB_UNAVAILABLE_WATCHOS;
+@property(nonatomic, nullable, strong) UIColor* shadowColor GLB_UNAVAILABLE_WATCHOS;
 @property(nonatomic) NSInteger ligature;
 @property(nonatomic) CGFloat kerning;
 @property(nonatomic) CGFloat baselineOffset;
 @property(nonatomic) CGFloat obliqueness;
 @property(nonatomic) CGFloat expansion;
-@property(nonatomic, strong, nullable) NSParagraphStyle* paragraphStyle;
+@property(nonatomic, nullable, strong) NSParagraphStyle* paragraphStyle;
 @property(nonatomic) CGFloat lineSpacing;
 @property(nonatomic) CGFloat paragraphBetween;
 @property(nonatomic) NSTextAlignment alignment;
@@ -43,7 +43,7 @@
 @property(nonatomic) CGFloat paragraphSpacingBefore;
 @property(nonatomic) CGFloat hyphenationFactor;
 
-@property(nonatomic, strong, nullable) NSDictionary< NSString*, id >* attributes;
+@property(nonatomic, nullable, strong) NSDictionary< NSString*, id >* attributes;
 
 - (void)setup NS_REQUIRES_SUPER;
 

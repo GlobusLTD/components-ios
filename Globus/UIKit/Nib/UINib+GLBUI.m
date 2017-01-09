@@ -12,6 +12,15 @@ static NSMutableDictionary< NSString*, UINib* >* GLBNibCache = nil;
 
 @implementation UINib (GLB_UI)
 
++ (UINib*)glb_nibWithName:(NSString*)name {
+    return [self glb_nibWithName:name bundle:NSBundle.mainBundle];
+}
+
++ (UINib*)glb_nibWithClass:(Class)aClass {
+    NSBundle* bundle = [NSBundle bundleForClass:aClass];
+    return [self glb_nibWithClass:aClass bundle:bundle];
+}
+
 + (UINib*)glb_nibWithName:(NSString*)name bundle:(NSBundle*)bundle {
     UINib* nib = [self glb_cacheNibForName:name];
     if(nib == nil) {
@@ -21,64 +30,93 @@ static NSMutableDictionary< NSString*, UINib* >* GLBNibCache = nil;
         NSMutableArray* nibNames = [NSMutableArray array];
         NSFileManager* fileManager = NSFileManager.defaultManager;
         if(UIDevice.glb_isIPhone) {
-            NSString* modelBaseName = [NSString stringWithFormat:@"%@%@", name, @"-iPhone"];
+            NSString* phoneModelBaseName = [NSString stringWithFormat:@"%@%@", name, @"-iPhone"];
             switch(UIDevice.glb_model) {
+                case GLBDeviceModelPhone7Plus:
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", phoneModelBaseName, @"-7Plus"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", phoneModelBaseName, @"-7+"]];
+                case GLBDeviceModelPhone7:
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", phoneModelBaseName, @"-7"]];
                 case GLBDeviceModelPhone6Plus:
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-6Plus"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", phoneModelBaseName, @"-6Plus"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", phoneModelBaseName, @"-6+"]];
                 case GLBDeviceModelPhone6:
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-6"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", phoneModelBaseName, @"-6"]];
+                case GLBDeviceModelPhoneSE:
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", phoneModelBaseName, @"-SE"]];
                 case GLBDeviceModelPhone5S:
                 case GLBDeviceModelPhone5C:
                 case GLBDeviceModelPhone5:
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-5"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", phoneModelBaseName, @"-5"]];
                 case GLBDeviceModelPhone4S:
                 case GLBDeviceModelPhone4:
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-4"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", phoneModelBaseName, @"-4"]];
                 case GLBDeviceModelPhone3GS:
                 case GLBDeviceModelPhone3G:
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-3"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", phoneModelBaseName, @"-3"]];
                 default:
                     break;
             }
-            [nibNames addObject:modelBaseName];
+            [nibNames addObject:phoneModelBaseName];
+            
+            NSString* podModelBaseName = [NSString stringWithFormat:@"%@%@", name, @"-iPod"];
+            switch(UIDevice.glb_model) {
+                case GLBDeviceModelPod6:
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", phoneModelBaseName, @"-6"]];
+                case GLBDeviceModelPod5:
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", phoneModelBaseName, @"-5"]];
+                case GLBDeviceModelPod4:
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", phoneModelBaseName, @"-4"]];
+                case GLBDeviceModelPod3:
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", phoneModelBaseName, @"-3"]];
+                case GLBDeviceModelPod2:
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", phoneModelBaseName, @"-2"]];
+                case GLBDeviceModelPod1:
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", phoneModelBaseName, @"-1"]];
+                default:
+                    break;
+            }
+            [nibNames addObject:podModelBaseName];
         } else if(UIDevice.glb_isIPad) {
-            NSString* modelBaseName = [NSString stringWithFormat:@"%@%@", name, @"-iPad"];
+            NSString* padModelBaseName = [NSString stringWithFormat:@"%@%@", name, @"-iPad"];
             switch(UIDevice.glb_model) {
                 case GLBDeviceModelPadPro129:
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-Pro129"]];
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-Pro"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", padModelBaseName, @"-Pro129"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", padModelBaseName, @"-Pro"]];
                     break;
                 case GLBDeviceModelPadPro97:
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-Pro97"]];
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-Pro"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", padModelBaseName, @"-Pro97"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", padModelBaseName, @"-Pro"]];
                     break;
                 case GLBDeviceModelPadAir2:
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-Air2"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", padModelBaseName, @"-Air2"]];
                 case GLBDeviceModelPadAir1:
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-Air1"]];
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-Air"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", padModelBaseName, @"-Air1"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", padModelBaseName, @"-Air"]];
                     break;
+                case GLBDeviceModelPadMini4:
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", padModelBaseName, @"-Mini4"]];
                 case GLBDeviceModelPadMini3:
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-Mini3"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", padModelBaseName, @"-Mini3"]];
                 case GLBDeviceModelPadMini2:
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-Mini2"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", padModelBaseName, @"-Mini2"]];
                 case GLBDeviceModelPadMini1:
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-Mini1"]];
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-Mini"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", padModelBaseName, @"-Mini1"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", padModelBaseName, @"-Mini"]];
                     break;
                 case GLBDeviceModelPad4:
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-4"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", padModelBaseName, @"-4"]];
                 case GLBDeviceModelPad3:
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-3"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", padModelBaseName, @"-3"]];
                 case GLBDeviceModelPad2:
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-2"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", padModelBaseName, @"-2"]];
                 case GLBDeviceModelPad1:
-                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", modelBaseName, @"-1"]];
+                    [nibNames addObject:[NSString stringWithFormat:@"%@%@", padModelBaseName, @"-1"]];
                     break;
                 default:
                     break;
             }
-            [nibNames addObject:modelBaseName];
+            [nibNames addObject:padModelBaseName];
         }
         [nibNames addObject:name];
         
@@ -151,6 +189,17 @@ static NSMutableDictionary< NSString*, UINib* >* GLBNibCache = nil;
         }
     }
     return nil;
+}
+
+@end
+
+/*--------------------------------------------------*/
+
+
+@implementation UIResponder (GLBNib)
+
++ (UINib*)glb_nib {
+    return [UINib glb_nibWithClass:self.class];
 }
 
 @end

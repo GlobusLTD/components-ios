@@ -367,13 +367,17 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
         }
         [self setSearching:YES animated:YES complete:nil];
     }
-    if(self.searchField.text.length > 0) {
+    NSString* text = self.searchField.text;
+    if(text == nil) {
+        text = @"";
+    }
+    if(text.length > 0) {
         _searchField.clearButtonMode = UITextFieldViewModeAlways;
     } else {
         _searchField.clearButtonMode = UITextFieldViewModeNever;
     }
     if([_delegate respondsToSelector:@selector(searchBar:textChanged:)]) {
-        [_delegate searchBar:self textChanged:self.searchField.text];
+        [_delegate searchBar:self textChanged:text];
     }
 }
 

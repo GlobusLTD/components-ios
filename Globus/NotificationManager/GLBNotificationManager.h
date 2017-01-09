@@ -16,14 +16,14 @@
 
 /*--------------------------------------------------*/
 
-typedef void(^GLBNotificationPressed)(GLBNotificationView* notificationView);
+typedef void(^GLBNotificationPressed)(GLBNotificationView* _Nonnull notificationView);
 
 /*--------------------------------------------------*/
 
 @interface GLBNotificationManager : NSObject
 
-+ (void)setParentWindow:(UIWindow*)parentWindow;
-+ (UIWindow*)parentWindow;
++ (void)setParentWindow:(UIWindow* _Nullable)parentWindow;
++ (UIWindow* _Nullable)parentWindow;
 
 + (void)setStatusBarStyle:(UIStatusBarStyle)statusBarStyle;
 + (UIStatusBarStyle)statusBarStyle;
@@ -31,12 +31,12 @@ typedef void(^GLBNotificationPressed)(GLBNotificationView* notificationView);
 + (void)setStatusBarHidden:(BOOL)statusBarHidden;
 + (BOOL)statusBarHidden;
 
-+ (GLBNotificationView*)showView:(UIView*)view;
-+ (GLBNotificationView*)showView:(UIView*)view pressed:(GLBNotificationPressed)pressed;
-+ (GLBNotificationView*)showView:(UIView*)view duration:(NSTimeInterval)duration;
-+ (GLBNotificationView*)showView:(UIView*)view duration:(NSTimeInterval)duration pressed:(GLBNotificationPressed)pressed;
++ (GLBNotificationView* _Nonnull)showView:(UIView* _Nonnull)view;
++ (GLBNotificationView* _Nonnull)showView:(UIView* _Nonnull)view pressed:(GLBNotificationPressed _Nullable)pressed;
++ (GLBNotificationView* _Nonnull)showView:(UIView* _Nonnull)view duration:(NSTimeInterval)duration;
++ (GLBNotificationView* _Nonnull)showView:(UIView* _Nonnull)view duration:(NSTimeInterval)duration pressed:(GLBNotificationPressed _Nullable)pressed;
 
-+ (void)hideNotificationView:(GLBNotificationView*)notificationView animated:(BOOL)animated;
++ (void)hideNotificationView:(GLBNotificationView* _Nonnull)notificationView animated:(BOOL)animated;
 + (void)hideAllAnimated:(BOOL)animated;
 
 @end
@@ -45,9 +45,9 @@ typedef void(^GLBNotificationPressed)(GLBNotificationView* notificationView);
 
 @interface GLBNotificationView : UIView
 
-@property(nonatomic, readonly, strong) UIView* view;
+@property(nonatomic, nonnull, readonly, strong) UIView* view;
 @property(nonatomic, readonly, assign) NSTimeInterval duration;
-@property(nonatomic, readonly, copy) GLBNotificationPressed pressed;
+@property(nonatomic, nullable, readonly, copy) GLBNotificationPressed pressed;
 
 - (void)hideAnimated:(BOOL)animated;
 
@@ -62,7 +62,7 @@ typedef void(^GLBNotificationPressed)(GLBNotificationView* notificationView);
 
 @interface UIView (GLBNotification)
 
-@property(nonatomic, weak) GLBNotificationView* glb_notificationView;
+@property(nonatomic, nullable, weak) GLBNotificationView* glb_notificationView;
 
 @end
 

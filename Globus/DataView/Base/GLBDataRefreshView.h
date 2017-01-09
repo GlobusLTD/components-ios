@@ -44,6 +44,9 @@ typedef NS_ENUM(NSUInteger, GLBDataRefreshViewState) {
 - (void)showAnimated:(BOOL)animated complete:(GLBSimpleBlock)complete;
 - (void)hideAnimated:(BOOL)animated complete:(GLBSimpleBlock)complete;
 
+- (void)showAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete;
+- (void)hideAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete;
+
 - (void)didProgress:(CGFloat)progress;
 - (void)didIdle;
 - (void)didPull;

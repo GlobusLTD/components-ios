@@ -15,7 +15,7 @@
 @property(nonatomic) NSUInteger currentSectionIndex;
 @property(nonatomic, strong) GLBDataViewContainer* currentSection;
 
-+ (instancetype)containerWithOrientation:(GLBDataViewContainerOrientation)orientation;
++ (instancetype)containerWithOrientation:(GLBDataViewContainerOrientation)orientation NS_SWIFT_UNAVAILABLE("Use init(orientation:)");
 
 - (instancetype)initWithOrientation:(GLBDataViewContainerOrientation)orientation;
 

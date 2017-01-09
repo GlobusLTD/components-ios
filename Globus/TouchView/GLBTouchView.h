@@ -8,7 +8,7 @@
 
 @interface GLBTouchView : UIView
 
-@property(nonatomic, weak) UIView* receiver;
+@property(nonatomic, nullable, weak) UIView* receiver;
 
 - (void)setup NS_REQUIRES_SUPER;
 

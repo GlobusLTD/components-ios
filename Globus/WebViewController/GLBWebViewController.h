@@ -13,27 +13,29 @@
 
 @interface GLBWebViewController : GLBViewController
 
-@property(nonatomic, readonly, strong) UIWebView* uiWebView;
-@property(nonatomic, readonly, strong) WKWebView* wkWebView;
-@property(nonatomic, strong) UIBarButtonItem* doneBarButtonItem;
-@property(nonatomic, strong) UIBarButtonItem* backBarButtonItem;
-@property(nonatomic, strong) UIBarButtonItem* forwardBarButtonItem;
-@property(nonatomic, strong) UIBarButtonItem* refreshBarButtonItem;
-@property(nonatomic, strong) UIBarButtonItem* stopBarButtonItem;
-@property(nonatomic, strong) UIBarButtonItem* actionBarButtonItem;
-@property(nonatomic, readonly, strong) UIProgressView* progressView;
+@property(nonatomic, nullable, readonly, strong) UIWebView* uiWebView;
+@property(nonatomic, nullable, readonly, strong) WKWebView* wkWebView;
+@property(nonatomic, nullable, strong) UIBarButtonItem* doneBarButtonItem;
+@property(nonatomic, nullable, strong) UIBarButtonItem* backBarButtonItem;
+@property(nonatomic, nullable, strong) UIBarButtonItem* forwardBarButtonItem;
+@property(nonatomic, nullable, strong) UIBarButtonItem* refreshBarButtonItem;
+@property(nonatomic, nullable, strong) UIBarButtonItem* stopBarButtonItem;
+@property(nonatomic, nullable, strong) UIBarButtonItem* actionBarButtonItem;
+@property(nonatomic, nullable, readonly, strong) UIProgressView* progressView;
 
 @property(nonatomic) BOOL allowsWebKit;
-@property(nonatomic, strong) NSBundle* resourcesBundle;
+@property(nonatomic, nullable, strong) NSBundle* resourcesBundle;
 
-@property(nonatomic, strong) NSURL* URL;
+@property(nonatomic, nullable, strong) NSURL* URL;
 @property(nonatomic, readonly, assign, getter=isLoading) BOOL loading;
 @property(nonatomic, readonly, assign) BOOL canGoBack;
 @property(nonatomic, readonly, assign) BOOL canGoForward;
 
-+ (instancetype)webViewControllerWithURL:(NSURL*)URL;
++ (instancetype _Nullable)webViewControllerWithURL:(NSURL* _Nonnull)URL GLB_DEPRECATED_MSG("Use viewControllerWithURL:");
 
-- (instancetype)initWithURL:(NSURL*)URL;
++ (instancetype _Nullable)viewControllerWithURL:(NSURL* _Nonnull)URL NS_SWIFT_NAME(viewController(url:));
+
+- (instancetype _Nullable)initWithURL:(NSURL* _Nonnull)URL;
 
 - (void)reload NS_REQUIRES_SUPER;
 - (void)stopLoading NS_REQUIRES_SUPER;
@@ -42,11 +44,11 @@
 
 - (void)didStartLoading;
 - (void)didFinishLoading;
-- (void)didLoadingError:(NSError*)error;
+- (void)didLoadingError:(NSError* _Nullable)error;
 
 - (void)updateNavigationItems;
 
-- (void)share:(id)sender;
+- (void)share:(id _Nullable)sender;
 
 @end
 

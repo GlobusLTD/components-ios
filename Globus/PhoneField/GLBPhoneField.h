@@ -9,22 +9,22 @@
 
 @interface GLBPhoneField : GLBTextField
 
-@property(nonatomic, copy) NSString* prefix;
-@property(nonatomic, readonly, strong) id userInfo;
+@property(nonatomic, nullable, copy) NSString* prefix;
+@property(nonatomic, nullable, readonly, strong) id userInfo;
 
-- (void)setFormattedText:(NSString*)text;
+- (void)setFormattedText:(NSString* _Nullable)text;
 
-- (NSString*)phoneNumberWithoutPrefix;
-- (NSString*)phoneNumber;
+- (NSString* _Nullable)phoneNumberWithoutPrefix;
+- (NSString* _Nullable)phoneNumber;
 
 - (void)resetFormats;
 - (void)resetDefaultFormat;
 
-- (void)setDefaultOutputPattern:(NSString*)pattern;
-- (void)setDefaultOutputPattern:(NSString*)pattern userInfo:(id)userInfo;
+- (void)setDefaultOutputPattern:(NSString* _Nullable)pattern;
+- (void)setDefaultOutputPattern:(NSString* _Nullable)pattern userInfo:(id _Nullable)userInfo;
 
-- (void)addOutputPattern:(NSString*)pattern forRegExp:(NSString*)regexp;
-- (void)addOutputPattern:(NSString*)pattern forRegExp:(NSString*)regexp userInfo:(id)userInfo;
+- (void)addOutputPattern:(NSString* _Nonnull)pattern forRegExp:(NSString* _Nonnull)regexp;
+- (void)addOutputPattern:(NSString* _Nonnull)pattern forRegExp:(NSString* _Nonnull)regexp userInfo:(id _Nullable)userInfo;
 
 @end
 

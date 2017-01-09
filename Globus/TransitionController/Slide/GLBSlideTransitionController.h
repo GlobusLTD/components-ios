@@ -21,9 +21,3 @@
 /*--------------------------------------------------*/
 #endif
 /*--------------------------------------------------*/
-
-#if __has_include("GLBTransitionControllerSlide.h")
-#import "GLBTransitionControllerSlide.h"
-#endif
-
-/*--------------------------------------------------*/

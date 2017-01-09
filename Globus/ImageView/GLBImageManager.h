@@ -24,35 +24,35 @@
 
 /*--------------------------------------------------*/
 
-typedef void(^GLBImageDownloadImageBlock)(UIImage* image);
+typedef void(^GLBImageDownloadImageBlock)(UIImage* _Nonnull image);
 
 /*--------------------------------------------------*/
 
 @interface GLBImageManager : NSObject
 
-@property(nonatomic, readonly, strong) GLBApiProvider* provider;
-@property(nonatomic, readonly, strong) NSURLCache* urlCache;
-@property(nonatomic, readonly, strong) GLBCache* durableCache;
+@property(nonatomic, nonnull, readonly, strong) GLBApiProvider* provider;
+@property(nonatomic, nonnull, readonly, strong) NSURLCache* urlCache;
+@property(nonatomic, nonnull, readonly, strong) GLBCache* durableCache;
 
-+ (instancetype)defaultImageManager;
++ (instancetype _Nullable)defaultImageManager;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (BOOL)existImageByUrl:(NSURL*)url;
-- (BOOL)existImageByUrl:(NSURL*)url processing:(NSString*)processing;
-- (UIImage*)imageByUrl:(NSURL*)url;
-- (UIImage*)imageByUrl:(NSURL*)url processing:(NSString*)processing;
-- (void)imageByUrl:(NSURL*)url complete:(GLBImageDownloadImageBlock)complete;
-- (void)imageByUrl:(NSURL*)url processing:(NSString*)processing complete:(GLBImageDownloadImageBlock)complete;
-- (void)setImage:(UIImage*)image url:(NSURL*)url complete:(GLBSimpleBlock)complete;
-- (void)setImage:(UIImage*)image url:(NSURL*)url processing:(NSString*)processing complete:(GLBSimpleBlock)complete;
-- (void)removeImageByUrl:(NSURL*)url complete:(GLBSimpleBlock)complete;
-- (void)removeImageByUrl:(NSURL*)url processing:(NSString*)processing complete:(GLBSimpleBlock)complete;
-- (void)cleanupImagesComplete:(GLBSimpleBlock)complete;
+- (BOOL)existImageByUrl:(NSURL* _Nonnull)url;
+- (BOOL)existImageByUrl:(NSURL* _Nonnull)url processing:(NSString* _Nullable)processing;
+- (UIImage* _Nullable)imageByUrl:(NSURL* _Nonnull)url;
+- (UIImage* _Nullable)imageByUrl:(NSURL* _Nonnull)url processing:(NSString* _Nullable)processing;
+- (void)imageByUrl:(NSURL* _Nonnull)url complete:(GLBImageDownloadImageBlock _Nullable)complete;
+- (void)imageByUrl:(NSURL* _Nonnull)url processing:(NSString* _Nullable)processing complete:(GLBImageDownloadImageBlock _Nullable)complete;
+- (void)setImage:(UIImage* _Nonnull)image url:(NSURL* _Nonnull)url complete:(GLBSimpleBlock _Nullable)complete;
+- (void)setImage:(UIImage* _Nonnull)image url:(NSURL* _Nonnull)url processing:(NSString* _Nullable)processing complete:(GLBSimpleBlock _Nullable)complete;
+- (void)removeImageByUrl:(NSURL* _Nonnull)url complete:(GLBSimpleBlock _Nullable)complete;
+- (void)removeImageByUrl:(NSURL* _Nonnull)url processing:(NSString* _Nullable)processing complete:(GLBSimpleBlock _Nullable)complete;
+- (void)cleanupImagesComplete:(GLBSimpleBlock _Nullable)complete;
 
-- (void)imageByUrl:(NSURL*)url target:(id< GLBImageManagerTarget >)target;
-- (void)imageByUrl:(NSURL*)url processing:(NSString*)processing target:(id< GLBImageManagerTarget >)target;
-- (void)cancelByTarget:(id< GLBImageManagerTarget >)target;
+- (void)imageByUrl:(NSURL* _Nonnull)url target:(id< GLBImageManagerTarget > _Nonnull)target;
+- (void)imageByUrl:(NSURL* _Nonnull)url processing:(NSString* _Nullable)processing target:(id< GLBImageManagerTarget > _Nonnull)target;
+- (void)cancelByTarget:(id< GLBImageManagerTarget > _Nonnull)target;
 
 @end
 
@@ -61,17 +61,17 @@ typedef void(^GLBImageDownloadImageBlock)(UIImage* image);
 @protocol GLBImageManagerTarget < NSObject >
 
 @required
-- (void)imageManager:(GLBImageManager*)imageManager cacheImage:(UIImage*)image;
+- (void)imageManager:(GLBImageManager* _Nonnull)imageManager cacheImage:(UIImage* _Nullable)image;
 
 @required
-- (UIImage*)imageManager:(GLBImageManager*)imageManager processing:(NSString*)processing image:(UIImage*)image;
+- (UIImage* _Nullable)imageManager:(GLBImageManager* _Nonnull)imageManager processing:(NSString* _Nullable)processing image:(UIImage* _Nonnull)image;
 
 @required
-- (void)startDownloadInImageManager:(GLBImageManager*)imageManager;
-- (void)finishDownloadInImageManager:(GLBImageManager*)imageManager;
-- (void)imageManager:(GLBImageManager*)imageManager downloadProgress:(NSProgress*)progress;
-- (void)imageManager:(GLBImageManager*)imageManager downloadImage:(UIImage*)image;
-- (void)imageManager:(GLBImageManager*)imageManager downloadError:(NSError*)error;
+- (void)startDownloadInImageManager:(GLBImageManager* _Nonnull)imageManager;
+- (void)finishDownloadInImageManager:(GLBImageManager* _Nonnull)imageManager;
+- (void)imageManager:(GLBImageManager* _Nonnull)imageManager downloadProgress:(NSProgress* _Nonnull)progress;
+- (void)imageManager:(GLBImageManager* _Nonnull)imageManager downloadImage:(UIImage* _Nonnull)image;
+- (void)imageManager:(GLBImageManager* _Nonnull)imageManager downloadError:(NSError* _Nullable)error;
 
 @end
 

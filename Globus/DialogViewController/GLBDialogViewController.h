@@ -32,7 +32,7 @@ typedef NS_ENUM(NSUInteger, GLBDialogViewControllerSizeBehaviour) {
 
 /*--------------------------------------------------*/
 
-typedef void(^GLBDialogViewControllerBlock)(GLBDialogViewController* dialogViewController);
+typedef void(^GLBDialogViewControllerBlock)(GLBDialogViewController* _Nonnull dialogViewController);
 
 /*--------------------------------------------------*/
 
@@ -40,7 +40,7 @@ typedef void(^GLBDialogViewControllerBlock)(GLBDialogViewController* dialogViewC
 
 @property(nonatomic, getter=isPresented) BOOL presented;
 
-@property(nonatomic, strong) GLBDialogAnimationController* animationController;
+@property(nonatomic, nullable, strong) GLBDialogAnimationController* animationController;
 
 @property(nonatomic) CGFloat animationDuration;
 
@@ -49,8 +49,8 @@ typedef void(^GLBDialogViewControllerBlock)(GLBDialogViewController* dialogViewC
 @property(nonatomic) NSUInteger backgroundBlurIterations;
 @property(nonatomic, getter = isBackgroundBlurDynamic) IBInspectable BOOL backgroundBlurDynamic;
 @property(nonatomic) IBInspectable NSTimeInterval backgroundBlurUpdateInterval;
-@property(nonatomic, strong) UIColor* backgroundColor;
-@property(nonatomic, strong) UIColor* backgroundTintColor;
+@property(nonatomic, nullable, strong) UIColor* backgroundColor;
+@property(nonatomic, nullable, strong) UIColor* backgroundTintColor;
 @property(nonatomic) CGFloat backgroundAlpha;
 
 @property(nonatomic) GLBDialogViewControllerAlignmentVertical contentVerticalAlignment;
@@ -74,14 +74,14 @@ typedef void(^GLBDialogViewControllerBlock)(GLBDialogViewController* dialogViewC
 @property(nonatomic) CGFloat contentInsetLeft;
 @property(nonatomic) CGFloat contentInsetRight;
 
-@property(nonatomic, copy) GLBDialogViewControllerBlock touchedOutsideContent;
-@property(nonatomic, copy) GLBDialogViewControllerBlock dismiss;
+@property(nonatomic, nullable, copy) GLBDialogViewControllerBlock touchedOutsideContent;
+@property(nonatomic, nullable, copy) GLBDialogViewControllerBlock dismiss;
 
-- (instancetype)initWithContentViewController:(UIViewController*)contentViewController;
+- (instancetype _Nonnull)initWithContentViewController:(UIViewController* _Nonnull)contentViewController;
 
-- (void)presentViewController:(UIViewController*)viewController withCompletion:(GLBDialogViewControllerBlock)completion;
-- (void)presentWithCompletion:(GLBDialogViewControllerBlock)completion;
-- (void)dismissWithCompletion:(GLBDialogViewControllerBlock)completion;
+- (void)presentViewController:(UIViewController* _Nullable)viewController withCompletion:(GLBDialogViewControllerBlock _Nullable)completion;
+- (void)presentWithCompletion:(GLBDialogViewControllerBlock _Nullable)completion;
+- (void)dismissWithCompletion:(GLBDialogViewControllerBlock _Nullable)completion;
 
 @end
 
@@ -89,8 +89,8 @@ typedef void(^GLBDialogViewControllerBlock)(GLBDialogViewController* dialogViewC
 
 @interface GLBDialogAnimationController : NSObject
 
-- (void)presentDialogViewController:(GLBDialogViewController*)dialogViewController completion:(GLBSimpleBlock)completion;
-- (void)dismissDialogViewController:(GLBDialogViewController*)dialogViewController completion:(GLBSimpleBlock)completion;
+- (void)presentDialogViewController:(GLBDialogViewController* _Nonnull)dialogViewController completion:(GLBSimpleBlock _Nonnull)completion;
+- (void)dismissDialogViewController:(GLBDialogViewController* _Nonnull)dialogViewController completion:(GLBSimpleBlock _Nonnull)completion;
 
 @end
 
@@ -104,12 +104,12 @@ typedef void(^GLBDialogViewControllerBlock)(GLBDialogViewController* dialogViewC
 @protocol GLBDialogContentViewController < NSObject >
 
 @optional
-- (void)willPresentDialogViewController:(GLBDialogViewController*)dialogViewController;
-- (void)didPresentDialogViewController:(GLBDialogViewController*)dialogViewController;
+- (void)willPresentDialogViewController:(GLBDialogViewController* _Nonnull)dialogViewController;
+- (void)didPresentDialogViewController:(GLBDialogViewController* _Nonnull)dialogViewController;
 
 @optional
-- (void)willDismissDialogViewController:(GLBDialogViewController*)dialogViewController;
-- (void)didDismissDialogViewController:(GLBDialogViewController*)dialogViewController;
+- (void)willDismissDialogViewController:(GLBDialogViewController* _Nonnull)dialogViewController;
+- (void)didDismissDialogViewController:(GLBDialogViewController* _Nonnull)dialogViewController;
 
 @end
 
@@ -117,7 +117,7 @@ typedef void(^GLBDialogViewControllerBlock)(GLBDialogViewController* dialogViewC
 
 @interface UIViewController (GLBDialogViewController)
 
-@property(nonatomic, weak) GLBDialogViewController* glb_dialogViewController;
+@property(nonatomic, nullable, weak) GLBDialogViewController* glb_dialogViewController;
 
 @end
 

@@ -166,13 +166,15 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
     }
     if(image == nil) {
         NSData* data = [self.durableCache dataForKey:uniqueKey];
-        image = [self _imageWithData:data];
-        if(image != nil) {
-            @synchronized(self) {
-                _imagesCache[uniqueKey] = image;
+        if(data != nil) {
+            image = [self _imageWithData:data];
+            if(image != nil) {
+                @synchronized(self) {
+                    _imagesCache[uniqueKey] = image;
+                }
+            } else {
+                [self.durableCache removeDataForKey:uniqueKey];
             }
-        } else {
-            [self.durableCache removeDataForKey:uniqueKey];
         }
     }
     return image;

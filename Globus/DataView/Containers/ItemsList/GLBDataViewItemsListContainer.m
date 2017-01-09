@@ -54,8 +54,8 @@
 - (void)setOrientation:(GLBDataViewContainerOrientation)orientation {
     if(_orientation != orientation) {
         _orientation = orientation;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -63,15 +63,15 @@
 - (void)setMode:(GLBDataViewItemsListContainerMode)mode {
     if(_mode != mode) {
         _mode = mode;
-        [_view setNeedValidateLayout];
+        [_dataView setNeedValidateLayout];
     }
 }
 
 - (void)setMargin:(UIEdgeInsets)margin {
     if(UIEdgeInsetsEqualToEdgeInsets(_margin, margin) == NO) {
         _margin = margin;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -79,8 +79,8 @@
 - (void)setSpacing:(UIOffset)spacing {
     if(UIOffsetEqualToOffset(_spacing, spacing) == NO) {
         _spacing = spacing;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -88,8 +88,8 @@
 - (void)setDefaultSize:(CGSize)defaultSize {
     if(CGSizeEqualToSize(_defaultSize, defaultSize) == NO) {
         _defaultSize = defaultSize;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -113,14 +113,14 @@
 - (void)setHeader:(GLBDataViewItem*)header {
     if(_header != header) {
         if(_header != nil) {
-            [self _deleteEntry:_header];
+            [super deleteEntry:_header];
         }
         _header = header;
         if(_header != nil) {
-            [self _prependEntry:_header];
+            [super prependEntry:_header];
         }
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -128,19 +128,19 @@
 - (void)setFooter:(GLBDataViewItem*)footer {
     if(_footer != footer) {
         if(_footer != nil) {
-            [self _deleteEntry:_footer];
+            [super deleteEntry:_footer];
         }
         _footer = footer;
         if(_footer != nil) {
-            [self _appendEntry:_footer];
+            [super appendEntry:_footer];
         }
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
 
-#pragma mark - Public
+#pragma mark - Public override
 
 - (GLBDataViewItem*)prependIdentifier:(NSString*)identifier byData:(id)data {
     return [self prependIdentifier:identifier byData:data order:_defaultOrder configure:nil];
@@ -166,18 +166,18 @@
 - (void)prependItem:(GLBDataViewItem*)item {
     [_items insertObject:item atIndex:0];
     if(_header != nil) {
-        [self _insertEntry:item atIndex:[_entries indexOfObject:_header] + 1];
+        [super insertEntry:item atIndex:[_entries indexOfObject:_header] + 1];
     } else {
-        [self _prependEntry:item];
+        [super prependEntry:item];
     }
 }
 
 - (void)prependItems:(NSArray*)items {
     [_items insertObjects:items atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, items.count)]];
     if(_header != nil) {
-        [self _insertEntries:items atIndex:[_entries indexOfObject:_header] + 1];
+        [super insertEntries:items atIndex:[_entries indexOfObject:_header] + 1];
     } else {
-        [self _prependEntries:items];
+        [super prependEntries:items];
     }
 }
 
@@ -205,18 +205,18 @@
 - (void)appendItem:(GLBDataViewItem*)item {
     [_items addObject:item];
     if(_footer != nil) {
-        [self _insertEntry:item atIndex:[_entries indexOfObject:_footer] - 1];
+        [super insertEntry:item atIndex:[_entries indexOfObject:_footer] - 1];
     } else {
-        [self _appendEntry:item];
+        [super appendEntry:item];
     }
 }
 
 - (void)appendItems:(NSArray*)items {
     [_items addObjectsFromArray:items];
     if(_footer != nil) {
-        [self _insertEntries:items atIndex:[_entries indexOfObject:_footer] - 1];
+        [super insertEntries:items atIndex:[_entries indexOfObject:_footer] - 1];
     } else {
-        [self _appendEntries:items];
+        [super appendEntries:items];
     }
 }
 
@@ -249,7 +249,7 @@
     if(_footer != nil) {
         index = MIN(index, [_entries indexOfObject:_footer] - 1);
     }
-    [self _insertEntry:item atIndex:index];
+    [super insertEntry:item atIndex:index];
 }
 
 - (void)insertItems:(NSArray*)items atIndex:(NSUInteger)index {
@@ -260,7 +260,7 @@
     if(_footer != nil) {
         index = MIN(index, [_entries indexOfObject:_footer] - 1);
     }
-    [self _insertEntries:items atIndex:index];
+    [super insertEntries:items atIndex:index];
 }
 
 - (void)insertItem:(GLBDataViewItem*)item aboveItem:(GLBDataViewItem*)aboveItem {
@@ -295,7 +295,7 @@
     NSUInteger index = [_items indexOfObject:originItem];
     if(index != NSNotFound) {
         _items[index] = item;
-        [self _replaceOriginEntry:originItem withEntry:item];
+        [super replaceOriginEntry:originItem withEntry:item];
     }
 }
 
@@ -305,21 +305,21 @@
     }];
     if(indexSet.count == items.count) {
         [_items replaceObjectsAtIndexes:indexSet withObjects:items];
-        [self _replaceOriginEntries:originItems withEntries:items];
+        [super replaceOriginEntries:originItems withEntries:items];
     }
 }
 
 - (void)deleteItem:(GLBDataViewItem*)item {
     if([_items containsObject:item] == YES) {
         [_items removeObject:item];
-        [self _deleteEntry:item];
+        [super deleteEntry:item];
     }
 }
 
 - (void)deleteItems:(NSArray*)items {
     if([_items glb_containsObjectsInArray:items] == YES) {
         [_items removeObjectsInArray:items];
-        [self _deleteEntries:items];
+        [super deleteEntries:items];
     }
 }
 
@@ -327,13 +327,11 @@
     if(_items.count > 0) {
         NSArray* items = [NSArray arrayWithArray:_items];
         [_items removeAllObjects];
-        [self _deleteEntries:items];
+        [super deleteEntries:items];
     }
 }
 
-#pragma mark - Private override
-
-- (CGRect)_frameEntriesForAvailableFrame:(CGRect)frame {
+- (CGRect)frameEntriesForAvailableFrame:(CGRect)frame {
     CGSize restriction = CGSizeMake(frame.size.width - (_margin.left + _margin.right), frame.size.height - (_margin.top + _margin.bottom));
     CGSize cumulative = CGSizeZero;
     
@@ -404,7 +402,7 @@
     return CGRectMake(frame.origin.x, frame.origin.y, _margin.left + cumulative.width + _margin.right, _margin.top + cumulative.height + _margin.bottom);
 }
 
-- (void)_layoutEntriesForFrame:(CGRect)frame {
+- (void)layoutEntriesForFrame:(CGRect)frame {
     __block CGPoint offset = CGPointMake(frame.origin.x + _margin.left, frame.origin.y + _margin.top);
     CGSize restriction = CGSizeMake(frame.size.width - (_margin.left + _margin.right), frame.size.height - (_margin.top + _margin.bottom));
     CGSize cumulative = CGSizeZero;
@@ -498,7 +496,7 @@
     }
 }
 
-- (void)_willEntriesLayoutForBounds:(CGRect)bounds {
+- (void)willEntriesLayoutForBounds:(CGRect)bounds {
     switch(_orientation) {
         case GLBDataViewContainerOrientationVertical: {
             CGFloat boundsBefore = bounds.origin.y;
@@ -565,7 +563,7 @@
     }
 }
 
-- (void)_beginMovingItem:(GLBDataViewItem*)item location:(CGPoint)location {
+- (void)beginMovingItem:(GLBDataViewItem*)item location:(CGPoint)location {
     if(_items.count >= 2) {
         GLBDataViewItem* firstMovingRange = [_items glb_find:^BOOL(GLBDataViewItem* existItem) {
             return (existItem.allowsMoving == YES) && (existItem.hidden == NO);
@@ -579,7 +577,7 @@
     }
 }
 
-- (void)_movingItem:(GLBDataViewItem*)item location:(CGPoint)location delta:(CGPoint)delta allowsSorting:(BOOL)allowsSorting {
+- (void)movingItem:(GLBDataViewItem*)item location:(CGPoint)location delta:(CGPoint)delta allowsSorting:(BOOL)allowsSorting {
     CGRect frame = item.updateFrame;
     if(CGRectIsEmpty(_movingFrame) == NO) {
         NSUInteger srcIndex = [_items indexOfObject:item];
@@ -621,15 +619,15 @@
             [_items glb_moveObjectAtIndex:srcIndex toIndex:dstIndex];
             
             __weak typeof(self) weakSelf = self;
-            [self.view batchDuration:0.1f update:^{
-                [weakSelf.view setNeedValidateLayout];
+            [self.dataView batchDuration:0.1f update:^{
+                [weakSelf.dataView setNeedValidateLayout];
             }];
         }
     }
     item.updateFrame = frame;
 }
 
-- (void)_endMovingItem:(GLBDataViewItem*)item location:(CGPoint)location {
+- (void)endMovingItem:(GLBDataViewItem*)item location:(CGPoint)location {
     _movingFrame = CGRectZero;
 }
 

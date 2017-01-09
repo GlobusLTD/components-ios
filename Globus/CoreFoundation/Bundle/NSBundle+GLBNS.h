@@ -34,7 +34,7 @@
  * @param Key.
  * @return Value with key or default value.
  */
-- (_Nullable id)glb_objectForInfoDictionaryKey:(NSString* _Nullable)key defaultValue:(_Nullable id)defaultValue;
+- (id _Nullable)glb_objectForInfoDictionaryKey:(NSString* _Nonnull)key defaultValue:(id _Nullable)defaultValue;
 
 @end
 

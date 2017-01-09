@@ -10,7 +10,7 @@
 
 @interface GLBManagedModel : NSManagedObject < GLBModelProtocol, NSCoding, GLBObjectDebugProtocol >
 
-- (_Nullable instancetype)initWithDefaultContext;
+- (instancetype _Nullable)initWithDefaultContext;
 
 + (NSManagedObjectContext* _Nullable)entityContext;
 + (NSString* _Nullable)entityName;
@@ -59,21 +59,21 @@ typedef void(^GLBManagedManagerPerform)();
 @property(nonatomic, nullable, strong) NSString* modelName;
 @property(nonatomic, nullable, strong) NSString* modelExtension;
 
-@property(nonatomic, readonly, nullable, strong) NSURL* existStoreUrl;
-@property(nonatomic, readonly, nullable, strong) NSURL* storeUrl;
+@property(nonatomic, nullable, readonly, strong) NSURL* existStoreUrl;
+@property(nonatomic, nullable, readonly, strong) NSURL* storeUrl;
 
-+ (_Nullable instancetype)shared;
++ (instancetype _Nullable)shared;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)addObserver:(_Nonnull id< GLBManagedManagerObserver >)observer;
-- (void)removeObserver:(_Nonnull id< GLBManagedManagerObserver >)observer;
+- (void)addObserver:(id< GLBManagedManagerObserver > _Nonnull)observer;
+- (void)removeObserver:(id< GLBManagedManagerObserver > _Nonnull)observer;
 
 - (BOOL)initializeStore;
 - (void)closeStore;
 
-- (void)performBlock:(_Nonnull GLBManagedManagerPerform)update;
-- (void)performBlockAndWait:(_Nonnull GLBManagedManagerPerform)update;
+- (void)performBlock:(GLBManagedManagerPerform _Nonnull)update;
+- (void)performBlockAndWait:(GLBManagedManagerPerform _Nonnull)update;
 
 - (void)undo;
 - (void)redo;

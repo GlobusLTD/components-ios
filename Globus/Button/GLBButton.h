@@ -42,17 +42,23 @@ typedef NS_ENUM(NSInteger, GLBButtonBadgeVerticalAlignment) {
 
 @property(nonatomic) IBInspectable GLBButtonImageAlignment imageAlignment;
 
-@property(nonatomic, strong) IBInspectable UIColor* normalBackgroundColor;
-@property(nonatomic, strong) IBInspectable UIColor* selectedBackgroundColor;
-@property(nonatomic, strong) IBInspectable UIColor* highlightedBackgroundColor;
-@property(nonatomic, strong) IBInspectable UIColor* disabledBackgroundColor;
-@property(nonatomic, readonly, strong) UIColor* currentBackgroundColor;
+@property(nonatomic, nullable, strong) IBInspectable UIColor* normalBackgroundColor;
+@property(nonatomic, nullable, strong) IBInspectable UIColor* selectedBackgroundColor;
+@property(nonatomic, nullable, strong) IBInspectable UIColor* highlightedBackgroundColor;
+@property(nonatomic, nullable, strong) IBInspectable UIColor* disabledBackgroundColor;
+@property(nonatomic, nullable, readonly, strong) UIColor* currentBackgroundColor;
 
-@property(nonatomic, strong) IBInspectable UIColor* normalBorderColor;
-@property(nonatomic, strong) IBInspectable UIColor* selectedBorderColor;
-@property(nonatomic, strong) IBInspectable UIColor* highlightedBorderColor;
-@property(nonatomic, strong) IBInspectable UIColor* disabledBorderColor;
-@property(nonatomic, readonly, strong) UIColor* currentBorderColor;
+@property(nonatomic, nullable, strong) IBInspectable UIColor* normalTintColor;
+@property(nonatomic, nullable, strong) IBInspectable UIColor* selectedTintColor;
+@property(nonatomic, nullable, strong) IBInspectable UIColor* highlightedTintColor;
+@property(nonatomic, nullable, strong) IBInspectable UIColor* disabledTintColor;
+@property(nonatomic, nullable, readonly, strong) UIColor* currentTintColor;
+
+@property(nonatomic, nullable, strong) IBInspectable UIColor* normalBorderColor;
+@property(nonatomic, nullable, strong) IBInspectable UIColor* selectedBorderColor;
+@property(nonatomic, nullable, strong) IBInspectable UIColor* highlightedBorderColor;
+@property(nonatomic, nullable, strong) IBInspectable UIColor* disabledBorderColor;
+@property(nonatomic, nullable, readonly, strong) UIColor* currentBorderColor;
 
 @property(nonatomic) IBInspectable CGFloat normalBorderWidth;
 @property(nonatomic) IBInspectable CGFloat selectedBorderWidth;
@@ -66,7 +72,7 @@ typedef NS_ENUM(NSInteger, GLBButtonBadgeVerticalAlignment) {
 @property(nonatomic) IBInspectable CGFloat disabledCornerRadius;
 @property(nonatomic, readonly, assign) CGFloat currentCornerRadius;
 
-@property(nonatomic, readonly, strong) GLBBadgeView* badgeView;
+@property(nonatomic, nullable, readonly, strong) GLBBadgeView* badgeView;
 @property(nonatomic) IBInspectable GLBButtonBadgeAlias badgeAlias;
 @property(nonatomic) IBInspectable GLBButtonBadgeHorizontalAlignment badgeHorizontalAlignment;
 @property(nonatomic) IBInspectable GLBButtonBadgeVerticalAlignment badgeVerticalAlignment;

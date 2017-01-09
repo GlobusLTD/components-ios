@@ -29,6 +29,14 @@
 
 #pragma mark - Init / Free
 
++ (instancetype)viewControllerWithNavigationBarClass:(Class)navigationBarClass toolbarClass:(Class)toolbarClass {
+    return [[self alloc] initWithNavigationBarClass:navigationBarClass toolbarClass:toolbarClass];
+}
+
++ (instancetype)viewControllerWithRootViewController:(UIViewController*)rootViewController {
+    return [[self alloc] initWithRootViewController:rootViewController];
+}
+
 - (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super initWithCoder:coder];
     if(self != nil) {
@@ -64,7 +72,6 @@
 - (void)setup {
     self.delegate = self;
     self.transitioningDelegate = self;
-    self.interactivePopGestureRecognizer.delegate = self;
 }
 
 - (void)dealloc {
@@ -82,6 +89,12 @@
         [self viewDidUnload];
     }
 #pragma clang diagnostic pop
+}
+
+- (UIGestureRecognizer*)interactivePopGestureRecognizer {
+    UIGestureRecognizer* gesture = super.interactivePopGestureRecognizer;
+    gesture.delegate = self;
+    return gesture;
 }
 
 #pragma mark - Public

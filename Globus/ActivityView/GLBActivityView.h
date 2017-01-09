@@ -24,17 +24,17 @@
 @property(nonatomic) CGFloat margin;
 @property(nonatomic) CGFloat spacing;
 
-@property(nonatomic, strong) UIColor* panelColor;
+@property(nonatomic, nullable, strong) UIColor* panelColor;
 @property(nonatomic) CGFloat panelCornerRadius;
 
-@property(nonatomic, strong) GLBSpinnerView* spinner;
-@property(nonatomic, strong) UIColor* spinnerColor;
+@property(nonatomic, nullable, strong) GLBSpinnerView* spinner;
+@property(nonatomic, nullable, strong) UIColor* spinnerColor;
 @property(nonatomic) CGFloat spinnerSize;
 
-@property(nonatomic, strong) UIColor* textColor;
-@property(nonatomic, strong) UIFont* textFont;
+@property(nonatomic, nullable, strong) UIColor* textColor;
+@property(nonatomic, nullable, strong) UIFont* textFont;
 @property(nonatomic, readonly, assign) CGFloat textWidth;
-@property(nonatomic, strong) NSString* text;
+@property(nonatomic, nullable, strong) NSString* text;
 
 @property(nonatomic, readonly, assign, getter=isShowed) BOOL showed;
 
@@ -43,21 +43,25 @@
 @property(nonatomic) NSTimeInterval hideDuration;
 @property(nonatomic) NSTimeInterval hideDelay;
 
-+ (instancetype)activityViewWithSpinnerView:(GLBSpinnerView*)spinnerView;
-+ (instancetype)activityViewWithSpinnerView:(GLBSpinnerView*)spinnerView text:(NSString*)text;
-+ (instancetype)activityViewWithSpinnerView:(GLBSpinnerView*)spinnerView text:(NSString*)text textWidth:(NSUInteger)textWidth;
++ (instancetype _Nonnull)activityViewWithSpinnerView:(GLBSpinnerView* _Nonnull)spinnerView NS_SWIFT_UNAVAILABLE("Use init(spinnerView:)");
++ (instancetype _Nonnull)activityViewWithSpinnerView:(GLBSpinnerView* _Nonnull)spinnerView text:(NSString* _Nullable)text NS_SWIFT_UNAVAILABLE("Use init(spinnerView:text:)");
++ (instancetype _Nonnull)activityViewWithSpinnerView:(GLBSpinnerView* _Nonnull)spinnerView text:(NSString* _Nullable)text textWidth:(NSUInteger)textWidth NS_SWIFT_UNAVAILABLE("Use init(spinnerView:text:textWidth:)");
 
-- (instancetype)initWithSpinnerView:(GLBSpinnerView*)spinnerView text:(NSString*)text textWidth:(NSUInteger)textWidth;
+- (instancetype _Nonnull)initWithSpinnerView:(GLBSpinnerView* _Nonnull)spinnerView;
+- (instancetype _Nonnull)initWithSpinnerView:(GLBSpinnerView* _Nonnull)spinnerView text:(NSString* _Nullable)text;
+- (instancetype _Nonnull)initWithSpinnerView:(GLBSpinnerView* _Nonnull)spinnerView text:(NSString* _Nullable)text textWidth:(NSUInteger)textWidth NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithFrame:(CGRect)frame NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nullable)initWithCoder:(NSCoder* _Nullable)coder NS_DESIGNATED_INITIALIZER;
 
 - (void)setup NS_REQUIRES_SUPER;
 
 - (void)show;
-- (void)showComplete:(GLBSimpleBlock)complete;
-- (void)showPrepare:(GLBSimpleBlock)prepare complete:(GLBSimpleBlock)complete;
+- (void)showComplete:(GLBSimpleBlock _Nullable)complete;
+- (void)showPrepare:(GLBSimpleBlock _Nullable)prepare complete:(GLBSimpleBlock _Nullable)complete;
 
 - (void)hide;
-- (void)hideComplete:(GLBSimpleBlock)complete;
-- (void)hidePrepare:(GLBSimpleBlock)prepare complete:(GLBSimpleBlock)complete;
+- (void)hideComplete:(GLBSimpleBlock _Nullable)complete;
+- (void)hidePrepare:(GLBSimpleBlock _Nullable)prepare complete:(GLBSimpleBlock _Nullable)complete;
 
 @end
 
