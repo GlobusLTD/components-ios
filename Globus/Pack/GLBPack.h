@@ -4,6 +4,10 @@
 
 /*--------------------------------------------------*/
 
+#include "GLBUI.h"
+
+/*--------------------------------------------------*/
+
 @interface GLBPack : GLBStructedObject
 
 + (instancetype _Nonnull)packWithRootObject:(id _Nullable)rootObject NS_SWIFT_UNAVAILABLE("Use init(rootObject:)");

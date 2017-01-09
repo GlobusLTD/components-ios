@@ -4,6 +4,10 @@
 
 /*--------------------------------------------------*/
 
+#include "GLBUI.h"
+
+/*--------------------------------------------------*/
+
 @interface GLBJson : GLBStructedObject
 
 + (instancetype _Nonnull)jsonWithRootObject:(id _Nullable)rootObject NS_SWIFT_UNAVAILABLE("Use init(rootObject:)");
