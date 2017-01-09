@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.3.0'
+  s.version = '0.3.1'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -217,23 +217,21 @@ Pod::Spec.new do |s|
   end
   s.subspec 'StructedObject' do |ss|
     ss.source_files = 'Globus/StructedObject/**/*.{h,m}'
-    ss.dependency 'Globus/CoreFoundation/Base'
+    ss.dependency 'Globus/CoreFoundation/String'
   end
   s.subspec 'Json' do |ss|
     ss.source_files = 'Globus/Json/**/*.{h,m}'
     ss.dependency 'Globus/StructedObject'
     ss.dependency 'Globus/CoreFoundation/Number'
-    ss.dependency 'Globus/CoreFoundation/String'
     ss.dependency 'Globus/CoreFoundation/Date'
     ss.dependency 'Globus/UIKit/Color'
   end
   s.subspec 'Pack' do |ss|
     ss.source_files = 'Globus/Pack/**/*.{h,m}'
     ss.dependency 'Globus/StructedObject'
-    ss.dependency 'Globus/CoreFoundation/Number'
-    ss.dependency 'Globus/CoreFoundation/String'
-    ss.dependency 'Globus/CoreFoundation/Date'
     ss.dependency 'Globus/CoreFoundation/Pack'
+    ss.dependency 'Globus/CoreFoundation/Number'
+    ss.dependency 'Globus/CoreFoundation/Date'
     ss.dependency 'Globus/UIKit/Color'
   end
   s.subspec 'Action' do |ss|

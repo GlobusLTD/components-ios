@@ -176,7 +176,7 @@
     return [self alignPointWithContentOffset:_dataView.contentOffset contentSize:_dataView.contentSize visibleSize:_dataView.glb_boundsSize];
 }
 
-- (CGPoint)_alignPointWithContentOffset:(CGPoint)contentOffset contentSize:(CGSize)contentSize visibleSize:(CGSize)visibleSize {
+- (CGPoint)alignPointWithContentOffset:(CGPoint)contentOffset contentSize:(CGSize)contentSize visibleSize:(CGSize)visibleSize {
     CGPoint alignPoint = CGPointZero;
     CGRect visibleRect = CGRectMake(_alignInsets.left, _alignInsets.top, visibleSize.width - (_alignInsets.left + _alignInsets.right), visibleSize.height - (_alignInsets.top + _alignInsets.bottom));
     if((_alignPosition & GLBDataViewContainerAlignLeft) != 0) {
