@@ -23,9 +23,12 @@
 #pragma mark - Public override
 
 - (void)willChangeDataView {
+    [super willChangeDataView];
 }
 
 - (void)didChangeDataView {
+    [super didChangeDataView];
+
     for(GLBDataViewItem* entry in _entries) {
         entry.dataView = _dataView;
     }
