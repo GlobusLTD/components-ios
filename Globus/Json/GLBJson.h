@@ -34,7 +34,7 @@
          format:(NSString* _Nonnull)format
         forPath:(NSString* _Nonnull)path NS_SWIFT_NAME(set(date:format:forPath:));
 
-- (BOOL)setValue:(id _Nonnull)value
+- (BOOL)setValue:(id _Nullable)value
              map:(NSDictionary* _Nonnull)map
          forPath:(NSString* _Nonnull)path NS_SWIFT_NAME(set(value:map:forPath:));
 

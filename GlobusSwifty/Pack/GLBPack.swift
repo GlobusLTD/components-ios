@@ -192,8 +192,11 @@ public func <<< < Type:GLBPackValueProrocol >(left: inout Type?, right: (GLBPack
 /*--------------------------------------------------*/
 
 public func >>> < Type:GLBPackValueProrocol >(left: [Type], right: (GLBPack, String)) {
-    let array = left.map { (item: Type) -> Any? in
-        return item.to(pack: right.0)
+    var array: [Any] = []
+    left.forEach { (item: Type) in
+        if let object = item.to(pack: right.0) {
+            array.append(object)
+        }
     }
     right.0.set(array: array, forPath: right.1)
 }
@@ -207,8 +210,11 @@ public func >>> < Type:GLBPackValueProrocol >(left: [Type]?, right: (GLBPack, St
 }
 
 public func >>> < Type:GLBPackValueProrocol >(left: [Type], right: GLBPack) {
-    let array = left.map { (item: Type) -> Any? in
-        return item.to(pack: right)
+    var array: [Any] = []
+    left.forEach { (item: Type) in
+        if let object = item.to(pack: right) {
+            array.append(object)
+        }
     }
     right.set(rootArray: array)
 }
