@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'GlobusSwifty'
-  s.version = '0.3.5'
+  s.version = '0.3.6'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
