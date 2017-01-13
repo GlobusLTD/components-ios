@@ -9,7 +9,10 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@interface GLBButton ()
+@interface GLBButton () {
+    NSLayoutConstraint* _constraintWidth;
+    NSLayoutConstraint* _constraintHeight;
+}
 
 #if __has_include("GLBBadgeView.h")
 @property(nonatomic, strong) GLBBadgeView* badgeView;
@@ -478,11 +481,23 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
     if(((self.currentTitle.length > 0) || (self.currentAttributedTitle.length > 0)) && (self.currentImage != nil)) {
         CGSize size = self.frame.size;
         CGRect contentRect = [self contentRectForBounds:CGRectMake(0.0f, 0.0f, size.width, size.height)];
-        self.titleLabel.frame = [self titleRectForContentRect:contentRect];
-        self.imageView.frame = [self imageRectForContentRect:contentRect];
+        CGRect titleRect = [super titleRectForContentRect:CGRectMake(0.0, 0.0, FLT_MAX, FLT_MAX)];
+        CGRect imageRect = [super imageRectForContentRect:CGRectMake(0.0, 0.0, FLT_MAX, FLT_MAX)];
+        CGSize fullSize = [self _layoutContentRect:contentRect contentEdgeInsets:self.contentEdgeInsets
+                                         imageRect:&imageRect imageEdgeInsets:self.imageEdgeInsets imageSize:self.currentImage.size
+                                         titleRect:&titleRect titleEdgeInsets:self.titleEdgeInsets];
+        self.titleLabel.frame = titleRect;
+        self.imageView.frame = imageRect;
+        if((_constraintWidth != nil) && (_constraintWidth.constant != fullSize.width)) {
+            _constraintWidth.constant = fullSize.width;
+        }
+        if((_constraintHeight != nil) && (_constraintHeight.constant != fullSize.height)) {
+            _constraintHeight.constant = fullSize.height;
+        }
     }
 #if __has_include("GLBBadgeView.h")
     if(_badgeView != nil) {
@@ -507,6 +522,31 @@
         _badgeView.glb_frameCenter = [view convertPoint:anchor toView:self];
     }
 #endif
+}
+
+- (void)updateConstraints {
+    [super updateConstraints];
+    
+    _constraintWidth = nil;
+    _constraintHeight = nil;
+    
+    Class contentSizeLayoutConstraint = objc_getClass(GLB_STR(NSContentSizeLayoutConstraint));
+    if(contentSizeLayoutConstraint != nil) {
+        for(NSLayoutConstraint* constraint in self.constraints) {
+            if(([constraint isKindOfClass:contentSizeLayoutConstraint] == YES) && (constraint.firstItem == self)) {
+                switch(constraint.firstAttribute) {
+                    case NSLayoutAttributeWidth:
+                        _constraintWidth = constraint;
+                        break;
+                    case NSLayoutAttributeHeight:
+                        _constraintHeight = constraint;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
@@ -546,7 +586,7 @@
     if(((self.currentTitle.length > 0) || (self.currentAttributedTitle.length > 0)) && (self.currentImage != nil)) {
         CGRect titleRect = [super titleRectForContentRect:CGRectMake(0.0, 0.0, FLT_MAX, FLT_MAX)];
         CGRect imageRect = [super imageRectForContentRect:CGRectMake(0.0, 0.0, FLT_MAX, FLT_MAX)];
-        [self _layoutContentRect:contentRect imageRect:&imageRect imageEdgeInsets:self.imageEdgeInsets imageSize:self.currentImage.size titleRect:&titleRect titleEdgeInsets:self.titleEdgeInsets];
+        [self _layoutContentRect:contentRect contentEdgeInsets:UIEdgeInsetsZero imageRect:&imageRect imageEdgeInsets:self.imageEdgeInsets imageSize:self.currentImage.size titleRect:&titleRect titleEdgeInsets:self.titleEdgeInsets];
         return titleRect;
     }
     return [super titleRectForContentRect:contentRect];
@@ -556,7 +596,7 @@
     if(((self.currentTitle.length > 0) || (self.currentAttributedTitle.length > 0)) && (self.currentImage != nil)) {
         CGRect titleRect = [super titleRectForContentRect:CGRectMake(0.0, 0.0, FLT_MAX, FLT_MAX)];
         CGRect imageRect = [super imageRectForContentRect:CGRectMake(0.0, 0.0, FLT_MAX, FLT_MAX)];
-        [self _layoutContentRect:contentRect imageRect:&imageRect imageEdgeInsets:self.imageEdgeInsets imageSize:self.currentImage.size titleRect:&titleRect titleEdgeInsets:self.titleEdgeInsets];
+        [self _layoutContentRect:contentRect contentEdgeInsets:UIEdgeInsetsZero imageRect:&imageRect imageEdgeInsets:self.imageEdgeInsets imageSize:self.currentImage.size titleRect:&titleRect titleEdgeInsets:self.titleEdgeInsets];
         return imageRect;
     }
     return [super imageRectForContentRect:contentRect];
@@ -564,12 +604,24 @@
 
 #pragma mark - Private
 
-- (void)_layoutContentRect:(CGRect)contentRect imageRect:(CGRect*)imageRect imageEdgeInsets:(UIEdgeInsets)imageEdgeInsets imageSize:(CGSize)imageSize titleRect:(CGRect*)titleRect titleEdgeInsets:(UIEdgeInsets)titleEdgeInsets {
+- (CGSize)_layoutContentRect:(CGRect)contentRect contentEdgeInsets:(UIEdgeInsets)contentEdgeInsets imageRect:(CGRect*)imageRect imageEdgeInsets:(UIEdgeInsets)imageEdgeInsets imageSize:(CGSize)imageSize titleRect:(CGRect*)titleRect titleEdgeInsets:(UIEdgeInsets)titleEdgeInsets {
     imageRect->size.width = imageSize.width;
     imageRect->size.height = imageSize.height;
     CGSize fullImageSize = CGSizeMake(imageEdgeInsets.left + imageRect->size.width + imageEdgeInsets.right, imageEdgeInsets.top + imageRect->size.height + imageEdgeInsets.bottom);
     CGSize fullTitleSize = CGSizeMake(titleEdgeInsets.left + titleRect->size.width + titleEdgeInsets.right, titleEdgeInsets.top + titleRect->size.height + titleEdgeInsets.bottom);
-    CGSize fullSize = CGSizeMake(fullImageSize.width + fullTitleSize.width, fullImageSize.height + fullTitleSize.height);
+    CGSize fullSize = CGSizeMake(contentEdgeInsets.left + contentEdgeInsets.right, contentEdgeInsets.top + contentEdgeInsets.bottom);
+    switch(_imageAlignment) {
+        case GLBButtonImageAlignmentTop:
+        case GLBButtonImageAlignmentBottom:
+            fullSize.width += MAX(fullTitleSize.width, fullImageSize.width);
+            fullSize.height += fullTitleSize.height + fullImageSize.height ;
+            break;
+        case GLBButtonImageAlignmentLeft:
+        case GLBButtonImageAlignmentRight:
+            fullSize.width += fullTitleSize.width + fullImageSize.width;
+            fullSize.height += MAX(fullTitleSize.height, fullImageSize.height);
+            break;
+    }
     switch(self.contentHorizontalAlignment) {
         case UIControlContentHorizontalAlignmentLeft: {
             switch(_imageAlignment) {
@@ -724,6 +776,7 @@
             break;
         }
     }
+    return fullSize;
 }
 
 - (void)_updateCurrentState {

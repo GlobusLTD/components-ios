@@ -15,7 +15,16 @@ class ButtonImageViewController: GLBViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.button.adjustsImageWhenHighlighted = false
+        self.button.imageEdgeInsets = UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
+        self.button.titleEdgeInsets = UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
         self.button.glb_normalImage = UIImage.init(named: "ButtonIcon")
+        self.button.glb_normalTitleColor = UIColor.darkGray
+        self.button.normalBackgroundColor = UIColor.lightGray
+        self.button.normalCornerRadius = 4.0
+        self.button.glb_highlightedTitleColor = UIColor.black
+        self.button.highlightedBackgroundColor = UIColor.darkGray
+        self.button.highlightedCornerRadius = 8.0
     }
     
     // MARK - Action

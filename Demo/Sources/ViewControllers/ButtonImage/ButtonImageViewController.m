@@ -17,7 +17,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _button.adjustsImageWhenHighlighted = NO;
+    _button.imageEdgeInsets = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
+    _button.titleEdgeInsets = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
     _button.glb_normalImage = [UIImage imageNamed:@"ButtonIcon"];
+    _button.glb_normalTitleColor = UIColor.darkGrayColor;
+    _button.normalBackgroundColor = UIColor.lightGrayColor;
+    _button.normalCornerRadius = 4.0f;
+    _button.glb_highlightedTitleColor = UIColor.blackColor;
+    _button.highlightedBackgroundColor = UIColor.darkGrayColor;
+    _button.highlightedCornerRadius = 8.0f;
 }
 
 #pragma mark - Actions
