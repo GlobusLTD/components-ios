@@ -104,11 +104,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+#if __has_include("GLBNavigationViewController.h")
     UINavigationController* nvc = self.navigationController;
     if([nvc isKindOfClass:GLBNavigationViewController.class] == YES) {
         GLBNavigationViewController* glbvc = (GLBNavigationViewController*)nvc;
         [glbvc updateBarsWithViewController:self animated:animated];
     }
+#endif
 }
 
 - (void)viewWillLayoutSubviews {
