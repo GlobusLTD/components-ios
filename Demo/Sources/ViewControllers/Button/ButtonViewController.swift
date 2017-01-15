@@ -8,8 +8,8 @@ class ButtonViewController: GLBViewController {
     
     // MARK - Outlet property
     
-    @IBOutlet weak var fillButton: GLBButton!
-    @IBOutlet weak var strokeButton: GLBButton!
+    @IBOutlet fileprivate weak var fillButton: GLBButton!
+    @IBOutlet fileprivate weak var strokeButton: GLBButton!
     
     // MARK - UIViewController
     

@@ -15,10 +15,10 @@
 		402EBBA51E29C53F001E0591 /* ListFieldViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 402EBBA31E29C538001E0591 /* ListFieldViewController.xib */; };
 		402EBBA61E29C541001E0591 /* ListFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBBA21E29C538001E0591 /* ListFieldViewController.swift */; };
 		402EBBA71E29C541001E0591 /* ListFieldViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 402EBB9F1E29C538001E0591 /* ListFieldViewController-Swift.xib */; };
-		402EBBAE1E29D644001E0591 /* TextViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 402EBBAB1E29D63E001E0591 /* TextViewViewController.m */; };
-		402EBBAF1E29D644001E0591 /* TextViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 402EBBAD1E29D63E001E0591 /* TextViewViewController.xib */; };
-		402EBBB01E29D647001E0591 /* TextViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBBAC1E29D63E001E0591 /* TextViewViewController.swift */; };
-		402EBBB11E29D647001E0591 /* TextViewViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 402EBBA91E29D63E001E0591 /* TextViewViewController-Swift.xib */; };
+		402EBBAE1E29D644001E0591 /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 402EBBAB1E29D63E001E0591 /* TextViewController.m */; };
+		402EBBAF1E29D644001E0591 /* TextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 402EBBAD1E29D63E001E0591 /* TextViewController.xib */; };
+		402EBBB01E29D647001E0591 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBBAC1E29D63E001E0591 /* TextViewController.swift */; };
+		402EBBB11E29D647001E0591 /* TextViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 402EBBA91E29D63E001E0591 /* TextViewController-Swift.xib */; };
 		4031C3681E29B26B004BA2D1 /* TextFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4031C3651E29B19E004BA2D1 /* TextFieldViewController.m */; };
 		4031C3691E29B26B004BA2D1 /* TextFieldViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4031C3671E29B19E004BA2D1 /* TextFieldViewController.xib */; };
 		4031C36A1E29B26D004BA2D1 /* TextFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4031C3661E29B19E004BA2D1 /* TextFieldViewController.swift */; };
@@ -45,6 +45,10 @@
 		40AD658E1E2B664900FAF2CA /* ImagePickerCropViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD658C1E2B659300FAF2CA /* ImagePickerCropViewController.xib */; };
 		40AD658F1E2B664C00FAF2CA /* ImagePickerCropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AD658B1E2B659300FAF2CA /* ImagePickerCropViewController.swift */; };
 		40AD65901E2B664C00FAF2CA /* ImagePickerCropViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD65881E2B659300FAF2CA /* ImagePickerCropViewController-Swift.xib */; };
+		40AD65971E2BC2DD00FAF2CA /* SpinnerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40AD65941E2BC23C00FAF2CA /* SpinnerViewController.m */; };
+		40AD65981E2BC2DD00FAF2CA /* SpinnerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD65961E2BC23C00FAF2CA /* SpinnerViewController.xib */; };
+		40AD65991E2BCF0000FAF2CA /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AD65951E2BC23C00FAF2CA /* SpinnerViewController.swift */; };
+		40AD659A1E2BCF0000FAF2CA /* SpinnerViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD65921E2BC23C00FAF2CA /* SpinnerViewController-Swift.xib */; };
 		40AFE7841E297FDF009A524B /* PhoneFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40AFE7811E29764B009A524B /* PhoneFieldViewController.m */; };
 		40AFE7851E297FE5009A524B /* PhoneFieldViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AFE7831E29764B009A524B /* PhoneFieldViewController.xib */; };
 		40AFE7861E297FE7009A524B /* PhoneFieldViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AFE77F1E29764B009A524B /* PhoneFieldViewController-Swift.xib */; };
@@ -91,11 +95,11 @@
 		402EBBA11E29C538001E0591 /* ListFieldViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListFieldViewController.m; sourceTree = "<group>"; };
 		402EBBA21E29C538001E0591 /* ListFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFieldViewController.swift; sourceTree = "<group>"; };
 		402EBBA31E29C538001E0591 /* ListFieldViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListFieldViewController.xib; sourceTree = "<group>"; };
-		402EBBA91E29D63E001E0591 /* TextViewViewController-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "TextViewViewController-Swift.xib"; sourceTree = "<group>"; };
-		402EBBAA1E29D63E001E0591 /* TextViewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextViewViewController.h; sourceTree = "<group>"; };
-		402EBBAB1E29D63E001E0591 /* TextViewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextViewViewController.m; sourceTree = "<group>"; };
-		402EBBAC1E29D63E001E0591 /* TextViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewViewController.swift; sourceTree = "<group>"; };
-		402EBBAD1E29D63E001E0591 /* TextViewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextViewViewController.xib; sourceTree = "<group>"; };
+		402EBBA91E29D63E001E0591 /* TextViewController-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "TextViewController-Swift.xib"; sourceTree = "<group>"; };
+		402EBBAA1E29D63E001E0591 /* TextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
+		402EBBAB1E29D63E001E0591 /* TextViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
+		402EBBAC1E29D63E001E0591 /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
+		402EBBAD1E29D63E001E0591 /* TextViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextViewController.xib; sourceTree = "<group>"; };
 		4031C3631E29B19E004BA2D1 /* TextFieldViewController-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "TextFieldViewController-Swift.xib"; sourceTree = "<group>"; };
 		4031C3641E29B19E004BA2D1 /* TextFieldViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextFieldViewController.h; sourceTree = "<group>"; };
 		4031C3651E29B19E004BA2D1 /* TextFieldViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextFieldViewController.m; sourceTree = "<group>"; };
@@ -122,6 +126,11 @@
 		40AD658A1E2B659300FAF2CA /* ImagePickerCropViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImagePickerCropViewController.m; sourceTree = "<group>"; };
 		40AD658B1E2B659300FAF2CA /* ImagePickerCropViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCropViewController.swift; sourceTree = "<group>"; };
 		40AD658C1E2B659300FAF2CA /* ImagePickerCropViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagePickerCropViewController.xib; sourceTree = "<group>"; };
+		40AD65921E2BC23C00FAF2CA /* SpinnerViewController-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "SpinnerViewController-Swift.xib"; sourceTree = "<group>"; };
+		40AD65931E2BC23C00FAF2CA /* SpinnerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpinnerViewController.h; sourceTree = "<group>"; };
+		40AD65941E2BC23C00FAF2CA /* SpinnerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpinnerViewController.m; sourceTree = "<group>"; };
+		40AD65951E2BC23C00FAF2CA /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
+		40AD65961E2BC23C00FAF2CA /* SpinnerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpinnerViewController.xib; sourceTree = "<group>"; };
 		40AFE77F1E29764B009A524B /* PhoneFieldViewController-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "PhoneFieldViewController-Swift.xib"; sourceTree = "<group>"; };
 		40AFE7801E29764B009A524B /* PhoneFieldViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhoneFieldViewController.h; sourceTree = "<group>"; };
 		40AFE7811E29764B009A524B /* PhoneFieldViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhoneFieldViewController.m; sourceTree = "<group>"; };
@@ -217,11 +226,11 @@
 		402EBBA81E29D63E001E0591 /* TextView */ = {
 			isa = PBXGroup;
 			children = (
-				402EBBAA1E29D63E001E0591 /* TextViewViewController.h */,
-				402EBBAB1E29D63E001E0591 /* TextViewViewController.m */,
-				402EBBAC1E29D63E001E0591 /* TextViewViewController.swift */,
-				402EBBAD1E29D63E001E0591 /* TextViewViewController.xib */,
-				402EBBA91E29D63E001E0591 /* TextViewViewController-Swift.xib */,
+				402EBBAA1E29D63E001E0591 /* TextViewController.h */,
+				402EBBAB1E29D63E001E0591 /* TextViewController.m */,
+				402EBBAC1E29D63E001E0591 /* TextViewController.swift */,
+				402EBBAD1E29D63E001E0591 /* TextViewController.xib */,
+				402EBBA91E29D63E001E0591 /* TextViewController-Swift.xib */,
 			);
 			path = TextView;
 			sourceTree = "<group>";
@@ -248,6 +257,18 @@
 				40AD65881E2B659300FAF2CA /* ImagePickerCropViewController-Swift.xib */,
 			);
 			path = ImagePickerCrop;
+			sourceTree = "<group>";
+		};
+		40AD65911E2BC23C00FAF2CA /* Spinner */ = {
+			isa = PBXGroup;
+			children = (
+				40AD65931E2BC23C00FAF2CA /* SpinnerViewController.h */,
+				40AD65941E2BC23C00FAF2CA /* SpinnerViewController.m */,
+				40AD65951E2BC23C00FAF2CA /* SpinnerViewController.swift */,
+				40AD65961E2BC23C00FAF2CA /* SpinnerViewController.xib */,
+				40AD65921E2BC23C00FAF2CA /* SpinnerViewController-Swift.xib */,
+			);
+			path = Spinner;
 			sourceTree = "<group>";
 		};
 		40AFE77E1E29764B009A524B /* PhoneField */ = {
@@ -312,6 +333,7 @@
 				402EBB9E1E29C538001E0591 /* ListField */,
 				40AFE77E1E29764B009A524B /* PhoneField */,
 				402EBBA81E29D63E001E0591 /* TextView */,
+				40AD65911E2BC23C00FAF2CA /* Spinner */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -539,8 +561,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				402EBB9B1E29C393001E0591 /* DateFieldViewController.xib in Resources */,
-				402EBBAF1E29D644001E0591 /* TextViewViewController.xib in Resources */,
+				402EBBAF1E29D644001E0591 /* TextViewController.xib in Resources */,
 				40AD658E1E2B664900FAF2CA /* ImagePickerCropViewController.xib in Resources */,
+				40AD65981E2BC2DD00FAF2CA /* SpinnerViewController.xib in Resources */,
 				40AFE7851E297FE5009A524B /* PhoneFieldViewController.xib in Resources */,
 				4052DAA41E1A9565002FE296 /* ChoiseViewController.xib in Resources */,
 				4052DAAE1E1AD536002FE296 /* ButtonViewController.xib in Resources */,
@@ -563,8 +586,9 @@
 			files = (
 				4031C36B1E29B26D004BA2D1 /* TextFieldViewController-Swift.xib in Resources */,
 				405133331E19C5F000641BF4 /* Assets.xcassets in Resources */,
-				402EBBB11E29D647001E0591 /* TextViewViewController-Swift.xib in Resources */,
+				402EBBB11E29D647001E0591 /* TextViewController-Swift.xib in Resources */,
 				402EBB9D1E29C396001E0591 /* DateFieldViewController-Swift.xib in Resources */,
+				40AD659A1E2BCF0000FAF2CA /* SpinnerViewController-Swift.xib in Resources */,
 				405133311E19C5EA00641BF4 /* Main.storyboard in Resources */,
 				4052DABA1E1AD55C002FE296 /* ImageViewController-Swift.xib in Resources */,
 				40AD65901E2B664C00FAF2CA /* ImagePickerCropViewController-Swift.xib in Resources */,
@@ -682,8 +706,9 @@
 			files = (
 				40FE3DE71E28D2F00014D9C0 /* MainViewController.m in Sources */,
 				40F2DFC61E19C38700F85F49 /* Main.m in Sources */,
+				40AD65971E2BC2DD00FAF2CA /* SpinnerViewController.m in Sources */,
 				40AD658D1E2B664900FAF2CA /* ImagePickerCropViewController.m in Sources */,
-				402EBBAE1E29D644001E0591 /* TextViewViewController.m in Sources */,
+				402EBBAE1E29D644001E0591 /* TextViewController.m in Sources */,
 				40AFE7841E297FDF009A524B /* PhoneFieldViewController.m in Sources */,
 				40F2DFA61E19C16400F85F49 /* ButtonImageViewController.m in Sources */,
 				40F2DFAA1E19C16400F85F49 /* ImageViewController.m in Sources */,
@@ -709,7 +734,8 @@
 				40AD658F1E2B664C00FAF2CA /* ImagePickerCropViewController.swift in Sources */,
 				40F2DFC01E19C18700F85F49 /* ChoiseViewController.swift in Sources */,
 				402EBBA61E29C541001E0591 /* ListFieldViewController.swift in Sources */,
-				402EBBB01E29D647001E0591 /* TextViewViewController.swift in Sources */,
+				402EBBB01E29D647001E0591 /* TextViewController.swift in Sources */,
+				40AD65991E2BCF0000FAF2CA /* SpinnerViewController.swift in Sources */,
 				40F2DFC11E19C18700F85F49 /* ChoiseCellTableViewCell.swift in Sources */,
 				40F2DFBD1E19C18700F85F49 /* ButtonViewController.swift in Sources */,
 				40F2DF9F1E19C11900F85F49 /* AppDelegate.swift in Sources */,

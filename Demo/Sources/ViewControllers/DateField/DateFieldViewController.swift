@@ -8,7 +8,7 @@ class DateFieldViewController: GLBViewController, GLBSlideViewControllerDelegate
     
     // MARK - Outlet property
     
-    @IBOutlet weak var dateField: GLBDateField!
+    @IBOutlet fileprivate weak var dateField: GLBDateField!
     
     // MARK - UIViewController
     

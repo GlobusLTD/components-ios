@@ -8,8 +8,8 @@ class ImagePickerCropViewController: GLBViewController {
     
     // MARK - Outlet property
     
-    @IBOutlet weak var pickedImageView: UIImageView!
-    @IBOutlet weak var croppedImageView: UIImageView!
+    @IBOutlet fileprivate weak var pickedImageView: UIImageView!
+    @IBOutlet fileprivate weak var croppedImageView: UIImageView!
     
     // MARK - Action
     
@@ -25,7 +25,7 @@ class ImagePickerCropViewController: GLBViewController {
                 self.croppedImageView.image = nil
                 
                 GLBTimeout.execute({ [unowned self] in ()
-                    let cropViewController = GLBImageCropViewController.init(image: image!)
+                    let cropViewController = GLBImageCropViewController.init(image: image!, cropMode: .circle)
                     cropViewController.choiceBlock = { [unowned self] (cropViewController: GLBImageCropViewController, croppedImage: UIImage?) in ()
                         self.croppedImageView.image = croppedImage
                         cropViewController.dismiss(animated: true, completion: nil)

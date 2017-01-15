@@ -40,7 +40,6 @@ typedef NS_ENUM(NSUInteger, GLBImageCropMode) {
 @property(nonatomic, readonly) CGFloat scale;
 
 @property(nonatomic, readwrite) BOOL avoidEmptySpaceAroundImage;
-@property(nonatomic, readwrite) BOOL applyMaskToCroppedImage;
 
 @property(nonatomic, nullable, readwrite, copy) GLBImageCropViewControllerChoiceBlock choiceBlock;
 @property(nonatomic, nullable, readwrite, copy) GLBImageCropViewControllerBlock cancelBlock;

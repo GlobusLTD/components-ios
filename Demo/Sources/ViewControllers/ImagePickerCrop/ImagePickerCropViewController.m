@@ -28,7 +28,7 @@
             weakSelf.croppedImageView.image = nil;
             
             [GLBTimeout executeBlock:^{
-                GLBImageCropViewController* cropViewController = [[GLBImageCropViewController alloc] initWithImage:image];
+                GLBImageCropViewController* cropViewController = [[GLBImageCropViewController alloc] initWithImage:image cropMode:GLBImageCropModeCircle];
                 cropViewController.choiceBlock = ^(GLBImageCropViewController* cropViewController, UIImage* croppedImage) {
                     weakSelf.croppedImageView.image = croppedImage;
                     [cropViewController dismissViewControllerAnimated:YES completion:nil];

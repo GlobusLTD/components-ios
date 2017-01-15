@@ -83,11 +83,7 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
 #pragma mark Init / Free
 
 - (instancetype)initWithImage:(UIImage*)image {
-    self = [super init];
-    if(self != nil) {
-        _image = image;
-    }
-    return self;
+    return [self initWithImage:image cropMode:GLBImageCropModeCircle];
 }
 
 - (instancetype)initWithImage:(UIImage*)image cropMode:(GLBImageCropMode)cropMode {
@@ -105,9 +101,7 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
     self.statusBarStyle = UIStatusBarStyleLightContent;
     
     _maskColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.7f];
-    _cropMode = GLBImageCropModeSquare;
     _avoidEmptySpaceAroundImage = YES;
-    _applyMaskToCroppedImage = NO;
 }
 
 #pragma mark - UIViewController
@@ -464,6 +458,7 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
                 diameter = MIN(boundsSize.width, boundsSize.height) - GLBImageCropController_LandscapeCircleInsets * 2;
             }
             _maskRect = CGRectMake((boundsSize.width - diameter) * 0.5f, (boundsSize.height - diameter) * 0.5f, diameter, diameter);
+            _maskPath = [UIBezierPath bezierPathWithOvalInRect:_maskRect];
             break;
         }
         case GLBImageCropModeSquare: {
@@ -474,11 +469,10 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
                 length = MIN(boundsSize.width, boundsSize.height) - GLBImageCropController_LandscapeSquareInsets * 2;
             }
             _maskRect = CGRectMake((boundsSize.width - length) * 0.5f, (boundsSize.height - length) * 0.5f, length, length);
+            _maskPath = [UIBezierPath bezierPathWithRect:_maskRect];
             break;
         }
     }
-    _maskPath = [UIBezierPath bezierPathWithRect:_maskRect];
-    
     UIBezierPath* clipPath = [UIBezierPath bezierPathWithRect:_overlayView.frame];
     clipPath.usesEvenOddFillRule = YES;
     [clipPath appendPath:_maskPath];
@@ -497,11 +491,10 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
     CGRect cropRect = [self cropRect];
     CGFloat zoom = _scrollView.zoomScale;
     UIBezierPath* maskPath = _maskPath;
-    BOOL applyMaskToCroppedImage = _applyMaskToCroppedImage;
     GLBImageCropViewControllerChoiceBlock choiceBlock = [_choiceBlock copy];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage* croppedImage = [self.class __croppedImage:image cropMode:cropMode cropRect:cropRect zoom:zoom maskPath:maskPath applyMaskToCroppedImage:applyMaskToCroppedImage];
+        UIImage* croppedImage = [self.class __croppedImage:image cropMode:cropMode cropRect:cropRect zoom:zoom maskPath:maskPath];
         dispatch_async(dispatch_get_main_queue(), ^{
             if(choiceBlock != nil) {
                 choiceBlock(self, croppedImage);
@@ -516,7 +509,7 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
     }
 }
 
-+ (UIImage*)__croppedImage:(UIImage*)image cropMode:(GLBImageCropMode)cropMode cropRect:(CGRect)cropRect zoom:(CGFloat)zoom maskPath:(UIBezierPath*)maskPath applyMaskToCroppedImage:(BOOL)applyMaskToCroppedImage {
++ (UIImage*)__croppedImage:(UIImage*)image cropMode:(GLBImageCropMode)cropMode cropRect:(CGRect)cropRect zoom:(CGFloat)zoom maskPath:(UIBezierPath*)maskPath {
     CGSize imageSize = image.size;
     CGFloat x = CGRectGetMinX(cropRect);
     CGFloat y = CGRectGetMinY(cropRect);
@@ -540,31 +533,9 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
     CGFloat imageScale = image.scale;
     cropRect = CGRectApplyAffineTransform(cropRect, CGAffineTransformMakeScale(imageScale, imageScale));
     CGImageRef croppedCGImage = CGImageCreateWithImageInRect(image.CGImage, cropRect);
-    UIImage *croppedImage = [UIImage imageWithCGImage:croppedCGImage scale:imageScale orientation:imageOrientation];
+    UIImage* croppedImage = [UIImage imageWithCGImage:croppedCGImage scale:imageScale orientation:imageOrientation];
     CGImageRelease(croppedCGImage);
-    croppedImage = [croppedImage glb_unrotate];
-    imageOrientation = croppedImage.imageOrientation;
-    if((cropMode == GLBImageCropModeSquare) || (applyMaskToCroppedImage == NO)) {
-        return croppedImage;
-    } else {
-        CGSize maskSize = CGRectIntegral(maskPath.bounds).size;
-        CGSize contextSize = CGSizeMake(GLB_CEIL(maskSize.width / zoom), GLB_CEIL(maskSize.height / zoom));
-        UIGraphicsBeginImageContextWithOptions(contextSize, NO, imageScale);
-        if(applyMaskToCroppedImage == YES) {
-            UIBezierPath* maskPathCopy = [maskPath copy];
-            CGFloat scale = 1.0f / zoom;
-            [maskPathCopy applyTransform:CGAffineTransformMakeScale(scale, scale)];
-            CGPoint translation = CGPointMake(-CGRectGetMinX(maskPathCopy.bounds), -CGRectGetMinY(maskPathCopy.bounds));
-            [maskPathCopy applyTransform:CGAffineTransformMakeTranslation(translation.x, translation.y)];
-            [maskPathCopy addClip];
-        }
-        CGPoint point = CGPointMake(round((contextSize.width - croppedImage.size.width) * 0.5f), round((contextSize.height - croppedImage.size.height) * 0.5f));
-        [croppedImage drawAtPoint:point];
-        croppedImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        croppedImage = [UIImage imageWithCGImage:croppedImage.CGImage scale:imageScale orientation:imageOrientation];
-        return croppedImage;
-    }
+    return [croppedImage glb_unrotate];
 }
 
 #pragma mark UIScrollViewDelegate

@@ -8,7 +8,7 @@ class LabelViewController: GLBViewController {
     
     // MARK - Outlet property
     
-    @IBOutlet weak var label: GLBLabel!
+    @IBOutlet fileprivate weak var label: GLBLabel!
     
     // MARK - UIViewController
     

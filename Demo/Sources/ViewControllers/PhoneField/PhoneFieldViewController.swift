@@ -8,10 +8,10 @@ class PhoneFieldViewController: GLBViewController {
     
     // MARK - Outlet property
     
-    @IBOutlet weak var phoneField: GLBPhoneField!
-    @IBOutlet weak var regionLabel: UILabel!
-    @IBOutlet weak var phoneNumberLabel: UILabel!
-    @IBOutlet weak var phoneNumberWithoutPrefixLabel: UILabel!
+    @IBOutlet fileprivate weak var phoneField: GLBPhoneField!
+    @IBOutlet fileprivate weak var regionLabel: UILabel!
+    @IBOutlet fileprivate weak var phoneNumberLabel: UILabel!
+    @IBOutlet fileprivate weak var phoneNumberWithoutPrefixLabel: UILabel!
     
     // MARK - UIViewController
     

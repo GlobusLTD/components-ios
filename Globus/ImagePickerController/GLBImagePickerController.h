@@ -13,8 +13,8 @@ typedef void(^GLBImagePickerControllerCompletionBlock)(UIImage* _Nullable image)
 @interface GLBImagePickerController : NSObject
 
 @property(nonatomic, readonly) UIImagePickerControllerSourceType sourceType;
-@property(nonatomic, readonly) BOOL allowsEditing;
-@property(nonatomic, readonly) CGSize maximumSize;
+@property(nonatomic) BOOL allowsEditing;
+@property(nonatomic) CGSize maximumSize;
 
 + (instancetype _Nonnull)imagePickerControllerWithViewController:(UIViewController* _Nonnull)viewController NS_SWIFT_UNAVAILABLE("Use init(viewController:)");
 

@@ -8,7 +8,7 @@ class ListFieldViewController: GLBViewController {
     
     // MARK - Outlet property
     
-    @IBOutlet weak var listField: GLBListField!
+    @IBOutlet fileprivate weak var listField: GLBListField!
     
     // MARK - UIViewController
     

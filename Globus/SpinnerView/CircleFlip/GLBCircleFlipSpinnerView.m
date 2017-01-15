@@ -18,7 +18,7 @@
     CALayer* circle = [CALayer layer];
     circle.frame = CGRectInset(CGRectMake(0, 0, self.size, self.size), 2, 2);
     circle.backgroundColor = self.color.CGColor;
-    circle.cornerRadius = self.size / 2;
+    circle.cornerRadius = GLB_CEIL((self.size - 4) / 2);
     circle.anchorPoint = CGPointMake(0.5, 0.5);
     circle.anchorPointZ = 0.5;
     circle.shouldRasterize = YES;

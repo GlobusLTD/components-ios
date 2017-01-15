@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <viewController automaticallyAdjustsScrollViewInsets="NO" id="Ydv-oi-IDD" customClass="TextViewViewController" customModule="Globus_Swift">
+        <viewController automaticallyAdjustsScrollViewInsets="NO" id="Ydv-oi-IDD" customClass="TextViewController" customModule="Globus_Swift">
             <layoutGuides>
                 <viewControllerLayoutGuide type="top" id="Kcp-lW-eTF"/>
                 <viewControllerLayoutGuide type="bottom" id="3Lq-yv-TzH"/>

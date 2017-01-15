@@ -39,10 +39,10 @@
             [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]
         ];
         squareAnimation.keyTimes = @[
-            @(0), @(0), @(1)
+            @(0), @(1)
         ];
         squareAnimation.values = @[
-            @(1), @(0), @(0)
+            @(1), @(0)
         ];
         [square addAnimation:squareAnimation forKey:@"square"];
     }

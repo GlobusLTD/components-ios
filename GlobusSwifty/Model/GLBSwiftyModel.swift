@@ -33,10 +33,12 @@ public protocol GLBSwiftyModelProtocol {
     func toJsonString() -> String?
     func toJsonString(encoding: UInt) -> String?
     func toJson() -> GLBJson?
+    func toJson(json: GLBJson)
     
     func packObject() -> Any?
     func packData() -> Data?
     func pack() -> GLBPack?
+    func pack(pack: GLBPack)
     
 }
 
@@ -78,33 +80,33 @@ open class GLBSwiftyModel: GLBSwiftyModelProtocol {
     
     // MARK: Public static func
     
-    open class func exist(name: String) -> Bool {
+    public final class func exist(name: String) -> Bool {
         return (UserDefaults.standard.data(forKey: self.name(name)) != nil)
     }
     
-    open class func exist(name: String, defaults: UserDefaults!) -> Bool {
+    public final class func exist(name: String, defaults: UserDefaults!) -> Bool {
         return (defaults.data(forKey: self.name(name)) != nil)
     }
     
-    open class func exist(fileName: String) -> Bool {
+    public final class func exist(fileName: String) -> Bool {
         if let fileUrl = self.fileUrl(fileName: fileName) {
             return FileManager.default.fileExists(atPath: fileUrl.path)
         }
         return false
     }
     
-    open class func exist(fileName: String, inAppGroup: String) -> Bool {
+    public final class func exist(fileName: String, inAppGroup: String) -> Bool {
         if let fileUrl = self.fileUrl(fileName: fileName, inAppGroup: inAppGroup) {
             return FileManager.default.fileExists(atPath: fileUrl.path)
         }
         return false
     }
     
-    open class func model(name: String) -> Self? {
+    public final class func model(name: String) -> Self? {
         return self.model(name: name, defaults: UserDefaults.standard)
     }
     
-    open class func model(name: String, defaults: UserDefaults) -> Self? {
+    public final class func model(name: String, defaults: UserDefaults) -> Self? {
         if let data = defaults.data(forKey: self.name(name)) {
             let model = self.init()
             model.storeName = name
@@ -115,21 +117,21 @@ open class GLBSwiftyModel: GLBSwiftyModelProtocol {
         return nil
     }
     
-    open class func model(fileName: String) -> Self? {
+    public final class func model(fileName: String) -> Self? {
         if let fileUrl = self.fileUrl(fileName: fileName) {
             return self.model(fileName: fileName, fileUrl: fileUrl)
         }
         return nil
     }
     
-    open class func model(fileName: String, inAppGroup: String) -> Self? {
+    public final class func model(fileName: String, inAppGroup: String) -> Self? {
         if let fileUrl = self.fileUrl(fileName: fileName, inAppGroup: inAppGroup) {
             return self.model(fileName: fileName, fileUrl: fileUrl)
         }
         return nil
     }
     
-    open class func model(fileName: String, fileUrl: URL) -> Self? {
+    public final class func model(fileName: String, fileUrl: URL) -> Self? {
         if FileManager.default.fileExists(atPath: fileUrl.path) {
             if let data = FileManager.default.contents(atPath: fileUrl.path) {
                 let model = self.init()
@@ -192,120 +194,130 @@ open class GLBSwiftyModel: GLBSwiftyModelProtocol {
     
     // MARK: GLBSwiftyModelProtocol
     
-    open class func model(jsonObject: Any?) -> Self? {
+    public final class func model(jsonObject: Any?) -> Self? {
         return self.model(json: GLBJson.init(rootObject: jsonObject))
     }
     
-    open class func model(jsonData: Data) -> Self? {
+    public final class func model(jsonData: Data) -> Self? {
         return self.model(json: GLBJson.init(data: jsonData))
     }
     
-    open class func model(jsonString: String) -> Self? {
+    public final class func model(jsonString: String) -> Self? {
         return self.model(json: GLBJson.init(string: jsonString))
     }
     
-    open class func model(jsonString: String, encoding: UInt) -> Self? {
+    public final class func model(jsonString: String, encoding: UInt) -> Self? {
         return self.model(json: GLBJson.init(string: jsonString, encoding: encoding))
     }
     
-    open class func model(json: GLBJson) -> Self? {
+    public final class func model(json: GLBJson) -> Self? {
         let model = self.init()
         model.fromJson(json: json)
         return model
     }
     
-    open class func model(packObject: Any?) -> Self? {
+    public final class func model(packObject: Any?) -> Self? {
         return self.model(pack: GLBPack.init(rootObject: packObject))
     }
     
-    open class func model(packData: Data) -> Self? {
+    public final class func model(packData: Data) -> Self? {
         return self.model(pack: GLBPack.init(data: packData))
     }
     
-    open class func model(pack: GLBPack) -> Self? {
+    public final class func model(pack: GLBPack) -> Self? {
         let model = self.init()
         model.unpack(pack: pack)
         return model
     }
     
-    open func fromJson(object: Any?) {
+    public final func fromJson(object: Any?) {
         self.fromJson(json: GLBJson.init(rootObject: object))
     }
     
-    open func fromJson(data: Data) {
+    public final func fromJson(data: Data) {
         self.fromJson(json: GLBJson.init(data: data))
     }
     
-    open func fromJson(string: String) {
+    public final func fromJson(string: String) {
         self.fromJson(json: GLBJson.init(string: string))
     }
     
-    open func fromJson(string: String, encoding: UInt) {
+    public final func fromJson(string: String, encoding: UInt) {
         self.fromJson(json: GLBJson.init(string: string, encoding: encoding))
     }
     
     open func fromJson(json: GLBJson) {
     }
     
-    open func unpack(object: Any?) {
+    public final func unpack(object: Any?) {
         self.unpack(pack: GLBPack.init(rootObject: object))
     }
     
-    open func unpack(data: Data) {
+    public final func unpack(data: Data) {
         self.unpack(pack: GLBPack.init(data: data))
     }
     
     open func unpack(pack: GLBPack) {
     }
     
-    open func toJsonObject() -> Any? {
+    public final func toJsonObject() -> Any? {
         if let json = self.toJson() {
             return json.rootObject
         }
         return nil
     }
     
-    open func toJsonData() -> Data? {
+    public final func toJsonData() -> Data? {
         if let json = self.toJson() {
             return json.toData()
         }
         return nil
     }
     
-    open func toJsonString() -> String? {
+    public final func toJsonString() -> String? {
         if let json = self.toJson() {
             return json.toString()
         }
         return nil
     }
     
-    open func toJsonString(encoding: UInt) -> String? {
+    public final func toJsonString(encoding: UInt) -> String? {
         if let json = self.toJson() {
             return json.toString(encoding: encoding)
         }
         return nil
     }
     
-    open func toJson() -> GLBJson? {
-        return nil
+    public final func toJson() -> GLBJson? {
+        let json = GLBJson.init()
+        self.toJson(json: json)
+        return json
     }
     
-    open func packObject() -> Any? {
+    open func toJson(json: GLBJson) {
+    }
+    
+    public final func packObject() -> Any? {
         if let pack = self.pack() {
             return pack.rootObject
         }
         return nil
     }
     
-    open func packData() -> Data? {
+    public final func packData() -> Data? {
         if let pack = self.pack() {
             return pack.toData()
         }
         return nil
     }
     
-    open func pack() -> GLBPack? {
-        return nil
+    public final func pack() -> GLBPack? {
+        let pack = GLBPack.init()
+        self.pack(pack: pack)
+        return pack
+    }
+    
+    open func pack(pack: GLBPack) {
     }
     
 }

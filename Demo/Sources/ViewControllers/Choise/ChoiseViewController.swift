@@ -8,7 +8,7 @@ class ChoiseViewController: GLBViewController {
     
     // MARK: - Outlet property
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet fileprivate weak var tableView: UITableView!
     
     // MARK: - Private property
     
@@ -23,7 +23,8 @@ class ChoiseViewController: GLBViewController {
         ChoiseControllerViewModel< DateFieldViewController >.init(title:"Date field"),
         ChoiseControllerViewModel< ListFieldViewController >.init(title:"List field"),
         ChoiseControllerViewModel< PhoneFieldViewController >.init(title:"Phone field"),
-        ChoiseControllerViewModel< TextViewViewController >.init(title:"Text view"),
+        ChoiseControllerViewModel< TextViewController >.init(title:"Text view"),
+        ChoiseControllerViewModel< SpinnerViewController >.init(title:"Spinners"),
     ]
     
     //MARK: - UIViewController

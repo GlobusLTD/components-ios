@@ -4,11 +4,11 @@
 
 import Globus
 
-class TextViewViewController: GLBViewController {
+class TextViewController: GLBViewController {
     
     // MARK - Outlet property
     
-    @IBOutlet weak var textView: GLBTextView!
+    @IBOutlet fileprivate weak var textView: GLBTextView!
     
     // MARK - UIViewController
     
@@ -49,7 +49,7 @@ class TextViewViewController: GLBViewController {
     // MARK: - GLBNibExtension
     
     public override static func nibName() -> String {
-        return "TextViewViewController-Swift"
+        return "TextViewController-Swift"
     }
     
 }

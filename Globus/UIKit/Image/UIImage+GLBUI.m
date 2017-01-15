@@ -12,7 +12,15 @@
 
 @implementation UIImage (GLB_UI)
 
-+ (UIImage*)glb_imageNamed:(NSString*)name capInsets:(UIEdgeInsets)capInsets {
++ (instancetype)glb_imageNamed:(NSString*)name renderingMode:(UIImageRenderingMode)renderingMode {
+    UIImage* result = [self imageNamed:name];
+    if(result != nil) {
+        result = [result imageWithRenderingMode:renderingMode];
+    }
+    return result;
+}
+
++ (instancetype)glb_imageNamed:(NSString*)name capInsets:(UIEdgeInsets)capInsets {
     UIImage* result = [self imageNamed:name];
     if(result != nil) {
         result = [result resizableImageWithCapInsets:capInsets];
@@ -20,11 +28,11 @@
     return result;
 }
 
-+ (UIImage*)glb_imageWithColor:(UIColor*)color size:(CGSize)size {
++ (instancetype)glb_imageWithColor:(UIColor*)color size:(CGSize)size {
     return [self glb_imageWithColor:color size:size cornerRadius:0];
 }
 
-+ (UIImage*)glb_imageWithColor:(UIColor*)color size:(CGSize)size cornerRadius:(CGFloat)cornerRadius {
++ (instancetype)glb_imageWithColor:(UIColor*)color size:(CGSize)size cornerRadius:(CGFloat)cornerRadius {
     UIImage* image = nil;
     UIGraphicsBeginImageContextWithOptions(size, NO, UIScreen.mainScreen.scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -95,7 +103,7 @@
     }
 }
 
-- (UIImage*)glb_unrotate {
+- (instancetype)glb_unrotate {
     UIImage* result = nil;
     CGImageRef imageRef = self.CGImage;
     if(imageRef != NULL) {
@@ -179,7 +187,7 @@
     return result;
 }
 
-- (UIImage*)glb_scaleToSize:(CGSize)size {
+- (instancetype)glb_scaleToSize:(CGSize)size {
     UIImage* result = nil;
     CGColorSpaceRef colourSpace = CGColorSpaceCreateDeviceRGB();
     if(colourSpace != NULL) {
@@ -204,7 +212,7 @@
     return result;
 }
 
-- (UIImage*)glb_rotateToAngleInRadians:(CGFloat)angleInRadians {
+- (instancetype)glb_rotateToAngleInRadians:(CGFloat)angleInRadians {
     UIImage* result = nil;
     CGSize size = self.size;
     if((size.width > 0) && (size.height > 0)) {
@@ -222,7 +230,7 @@
     return result;
 }
 
-- (UIImage*)glb_grayscale {
+- (instancetype)glb_grayscale {
     UIImage* result = nil;
     CGSize size = self.size;
     CGRect rect = CGRectMake(0, 0, size.width, size.height);
@@ -243,7 +251,7 @@
     return result;
 }
 
-- (UIImage*)glb_blackAndWhite {
+- (instancetype)glb_blackAndWhite {
     UIImage* result = nil;
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
     if(colorSpace != NULL) {
@@ -264,7 +272,7 @@
     return result;
 }
 
-- (UIImage*)glb_invertColors {
+- (instancetype)glb_invertColors {
     UIImage* result = nil;
     UIGraphicsBeginImageContextWithOptions(self.size, NO, UIScreen.mainScreen.scale);
     CGContextSetBlendMode(UIGraphicsGetCurrentContext(), kCGBlendModeCopy);
@@ -277,7 +285,7 @@
     return result;
 }
 
-- (UIImage*)glb_blurredImageWithRadius:(CGFloat)radius iterations:(NSUInteger)iterations tintColor:(UIColor*)tintColor {
+- (instancetype)glb_blurredImageWithRadius:(CGFloat)radius iterations:(NSUInteger)iterations tintColor:(UIColor*)tintColor {
     UIImage* image = nil;
     CGSize size = self.size;
     CGFloat scale = self.scale;

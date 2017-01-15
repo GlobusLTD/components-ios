@@ -16,8 +16,8 @@ class ImageViewController: GLBViewController {
     
     // MARK - Outlet property
     
-    @IBOutlet weak var imageView: GLBImageView!
-    @IBOutlet weak var urlField: GLBTextView!
+    @IBOutlet fileprivate weak var imageView: GLBImageView!
+    @IBOutlet fileprivate weak var urlField: GLBTextView!
     
     // MARK - UIViewController
     

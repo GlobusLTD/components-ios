@@ -8,7 +8,7 @@ class ChoiseCellTableViewCell: UITableViewCell, GLBNibExtension {
     
     // MARK: - Outlet property
     
-    @IBOutlet weak var displayLabel: UILabel!
+    @IBOutlet fileprivate weak var displayLabel: UILabel!
     
     // MARK: - Public func
 

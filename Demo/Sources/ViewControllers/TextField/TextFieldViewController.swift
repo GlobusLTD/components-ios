@@ -8,7 +8,7 @@ class TextFieldViewController: GLBViewController {
     
     // MARK - Outlet property
     
-    @IBOutlet weak var textField: GLBTextField!
+    @IBOutlet fileprivate weak var textField: GLBTextField!
     
     // MARK - UIViewController
     

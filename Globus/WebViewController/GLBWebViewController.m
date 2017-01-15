@@ -468,14 +468,20 @@
 #pragma mark - Private
 
 - (UIImage*)_imageFromResourceBundle:(NSString*)imageName {
+    UIImage* image = nil;
     NSBundle* bundle = self.resourcesBundle;
     if([UIDevice glb_compareSystemVersion:@"8.0"] != NSOrderedAscending) {
         return [UIImage imageNamed:imageName inBundle:bundle compatibleWithTraitCollection:nil];
     }
     if(bundle != NSBundle.mainBundle) {
-        return [UIImage imageWithContentsOfFile:[bundle.resourcePath stringByAppendingPathComponent:imageName]];
+        image = [UIImage imageWithContentsOfFile:[bundle.resourcePath stringByAppendingPathComponent:imageName]];
+    } else {
+        image = [UIImage imageNamed:imageName];
     }
-    return [UIImage imageNamed:imageName];
+    if(image != nil) {
+        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    }
+    return image;
 }
 
 - (void)_attachWebView {

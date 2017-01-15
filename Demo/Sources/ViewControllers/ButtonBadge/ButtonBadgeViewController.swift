@@ -8,7 +8,7 @@ class ButtonBadgeViewController: GLBViewController {
     
     // MARK - Outlet property
     
-    @IBOutlet weak var button: GLBButton!
+    @IBOutlet fileprivate weak var button: GLBButton!
     
     // MARK - UIViewController
     

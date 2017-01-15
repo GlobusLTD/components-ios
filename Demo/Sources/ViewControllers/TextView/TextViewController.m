@@ -2,15 +2,15 @@
 //  Globus
 //
 
-#import "TextViewViewController.h"
+#import "TextViewController.h"
 
-@interface TextViewViewController ()
+@interface TextViewController ()
 
 @property(nonatomic, weak) IBOutlet GLBTextView* textView;
 
 @end
 
-@implementation TextViewViewController
+@implementation TextViewController
 
 #pragma mark - UIViewController
 

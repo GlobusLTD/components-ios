@@ -16,7 +16,8 @@
 #import "DateFieldViewController.h"
 #import "ListFieldViewController.h"
 #import "PhoneFieldViewController.h"
-#import "TextViewViewController.h"
+#import "TextViewController.h"
+#import "SpinnerViewController.h"
 
 @interface ChoiseViewController () < UITableViewDataSource, UITableViewDelegate > {
     NSArray< ChoiseViewModel* >* _data;
@@ -44,7 +45,8 @@
         [ChoiseViewModel viewModelWithTitle:@"Date field" viewController:DateFieldViewController.class],
         [ChoiseViewModel viewModelWithTitle:@"List field" viewController:ListFieldViewController.class],
         [ChoiseViewModel viewModelWithTitle:@"Phone field" viewController:PhoneFieldViewController.class],
-        [ChoiseViewModel viewModelWithTitle:@"Text view" viewController:TextViewViewController.class],
+        [ChoiseViewModel viewModelWithTitle:@"Text view" viewController:TextViewController.class],
+        [ChoiseViewModel viewModelWithTitle:@"Spinners" viewController:SpinnerViewController.class],
     ];
     
     [_tableView glb_registerCell:ChoiseCellTableViewCell.class];

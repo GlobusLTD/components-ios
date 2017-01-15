@@ -78,19 +78,18 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
 #pragma mark - UIImagePickerControllerDelegate
 
 - (void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary< NSString*, id >*)info {
-    UIImage* sourceImage = info[UIImagePickerControllerOriginalImage];
-    if(sourceImage != nil) {
-        sourceImage = [sourceImage glb_unrotate];
+    _image = info[UIImagePickerControllerEditedImage];
+    if(_image == nil) {
+        _image = info[UIImagePickerControllerOriginalImage];
     }
-    if(sourceImage != nil) {
-        CGSize sourceImageSize = sourceImage.size;
-        if((sourceImageSize.width > _maximumSize.width) || (sourceImageSize.height > _maximumSize.height)) {
-            _image = [sourceImage glb_scaleToSize:sourceImageSize];
-        } else {
-            _image = sourceImage;
+    if(_image != nil) {
+        _image = [_image glb_unrotate];
+    }
+    if((_image != nil) && (_maximumSize.width > GLB_EPSILON) && (_maximumSize.height > GLB_EPSILON)) {
+        CGSize imageSize = _image.size;
+        if((imageSize.width > _maximumSize.width) || (imageSize.height > _maximumSize.height)) {
+            _image = [_image glb_scaleToSize:_maximumSize];
         }
-    } else {
-        _image = nil;
     }
     [self dismissAnimated:YES];
 }
