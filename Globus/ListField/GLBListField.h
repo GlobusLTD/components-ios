@@ -12,7 +12,7 @@
 
 @interface GLBListField : GLBTextField
 
-@property(nonatomic, nullable, strong) NSArray* items;
+@property(nonatomic, nullable, strong) NSArray< GLBListFieldItem* >* items;
 @property(nonatomic, nullable, strong) GLBListFieldItem* selectedItem;
 
 - (void)setSelectedItem:(GLBListFieldItem* _Nullable)selectedItem animated:(BOOL)animated;
@@ -27,6 +27,11 @@
 @property(nonatomic, nullable, strong) UIFont* font;
 @property(nonatomic, nullable, strong) UIColor* color;
 @property(nonatomic, nullable, strong) id value;
+
++ (instancetype _Nonnull)new NS_UNAVAILABLE;
++ (instancetype _Nonnull)itemWithTitle:(NSString* _Nonnull)title value:(id _Nullable)value NS_SWIFT_UNAVAILABLE("Use init(title:value:)");
++ (instancetype _Nonnull)itemWithTitle:(NSString* _Nonnull)title color:(UIColor* _Nullable)color value:(id _Nullable)value NS_SWIFT_UNAVAILABLE("Use init(title:color:value:)");
++ (instancetype _Nonnull)itemWithTitle:(NSString* _Nonnull)title font:(UIFont* _Nullable)font color:(UIColor* _Nullable)color value:(id _Nullable)value NS_SWIFT_UNAVAILABLE("Use init(title:font:color:value:)");
 
 - (instancetype _Nonnull)init NS_UNAVAILABLE;
 - (instancetype _Nonnull)initWithTitle:(NSString* _Nonnull)title value:(id _Nullable)value;

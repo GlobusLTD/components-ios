@@ -6,6 +6,10 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+#if __has_include("GLBNavigationViewController.h")
+#import "GLBNavigationViewController.h"
+#endif
+
 #if __has_include("GLBActivityView.h")
 #import "GLBActivityView.h"
 #endif
@@ -94,6 +98,16 @@
         }
     } else {
         [super loadView];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    UINavigationController* nvc = self.navigationController;
+    if([nvc isKindOfClass:GLBNavigationViewController.class] == YES) {
+        GLBNavigationViewController* glbvc = (GLBNavigationViewController*)nvc;
+        [glbvc updateBarsWithViewController:self animated:animated];
     }
 }
 

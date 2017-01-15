@@ -17,11 +17,11 @@
                 <viewControllerLayoutGuide type="bottom" id="EVO-Mn-lev"/>
             </layoutGuides>
             <view key="view" contentMode="scaleToFill" id="h2N-uT-sQf">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ttj-Hg-Plf" customClass="GLBButton">
-                        <rect key="frame" x="160.5" y="316.5" width="54" height="34"/>
+                        <rect key="frame" x="160.5" y="284.5" width="54" height="34"/>
                         <state key="normal" title="Button">
                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -36,7 +36,14 @@
                     <constraint firstItem="Ttj-Hg-Plf" firstAttribute="centerY" secondItem="h2N-uT-sQf" secondAttribute="centerY" id="jeQ-id-gnV"/>
                 </constraints>
             </view>
-            <navigationItem key="navigationItem" title="Button &amp; Image" id="za8-S7-Tj3"/>
+            <extendedEdge key="edgesForExtendedLayout"/>
+            <navigationItem key="navigationItem" title="Button &amp; Image" id="za8-S7-Tj3">
+                <barButtonItem key="leftBarButtonItem" image="MenuButton" id="eEL-cz-G7K">
+                    <connections>
+                        <action selector="pressedMenu:" destination="3Nl-v1-d2g" id="nL2-88-tf1"/>
+                    </connections>
+                </barButtonItem>
+            </navigationItem>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <connections>
                 <outlet property="button" destination="Ttj-Hg-Plf" id="qfN-9U-4NU"/>
@@ -44,4 +51,7 @@
             <point key="canvasLocation" x="1262" y="634"/>
         </viewController>
     </objects>
+    <resources>
+        <image name="MenuButton" width="22" height="12"/>
+    </resources>
 </document>

@@ -878,5 +878,21 @@
 #endif
 
 /*--------------------------------------------------*/
+#pragma mark - ImageCropViewController
+/*--------------------------------------------------*/
+
+#if __has_include("GLBImageCropViewController.h")
+#import "GLBImageCropViewController.h"
+#endif
+
+/*--------------------------------------------------*/
+#pragma mark - ImagePickerController
+/*--------------------------------------------------*/
+
+#if __has_include("GLBImagePickerController.h")
+#import "GLBImagePickerController.h"
+#endif
+
+/*--------------------------------------------------*/
 #endif
 /*--------------------------------------------------*/

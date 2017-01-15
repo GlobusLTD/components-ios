@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,17 +19,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ISx-t3-b9e">
-                        <rect key="frame" x="16" y="16" width="343" height="11.5"/>
+                        <rect key="frame" x="8" y="8" width="359" height="27.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="ISx-t3-b9e" firstAttribute="leading" secondItem="mQL-od-sny" secondAttribute="leadingMargin" constant="8" id="Txo-sO-meT"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="ISx-t3-b9e" secondAttribute="bottom" constant="8" id="f1O-mO-d7V"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="ISx-t3-b9e" secondAttribute="trailing" constant="8" id="jMX-eL-mdS"/>
-                    <constraint firstItem="ISx-t3-b9e" firstAttribute="top" secondItem="mQL-od-sny" secondAttribute="topMargin" constant="8" id="yEP-fP-Hso"/>
+                    <constraint firstItem="ISx-t3-b9e" firstAttribute="leading" secondItem="mQL-od-sny" secondAttribute="leading" constant="8" id="Txo-sO-meT"/>
+                    <constraint firstAttribute="bottom" secondItem="ISx-t3-b9e" secondAttribute="bottom" constant="8" id="f1O-mO-d7V"/>
+                    <constraint firstAttribute="trailing" secondItem="ISx-t3-b9e" secondAttribute="trailing" constant="8" id="jMX-eL-mdS"/>
+                    <constraint firstItem="ISx-t3-b9e" firstAttribute="top" secondItem="mQL-od-sny" secondAttribute="top" constant="8" id="yEP-fP-Hso"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

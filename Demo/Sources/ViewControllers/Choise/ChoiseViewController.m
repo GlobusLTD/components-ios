@@ -11,6 +11,12 @@
 #import "ButtonImageViewController.h"
 #import "ButtonBadgeViewController.h"
 #import "ImageViewController.h"
+#import "ImagePickerCropViewController.h"
+#import "TextFieldViewController.h"
+#import "DateFieldViewController.h"
+#import "ListFieldViewController.h"
+#import "PhoneFieldViewController.h"
+#import "TextViewViewController.h"
 
 @interface ChoiseViewController () < UITableViewDataSource, UITableViewDelegate > {
     NSArray< ChoiseViewModel* >* _data;
@@ -33,6 +39,12 @@
         [ChoiseViewModel viewModelWithTitle:@"Button & Image" viewController:ButtonImageViewController.class],
         [ChoiseViewModel viewModelWithTitle:@"Button & Badge" viewController:ButtonBadgeViewController.class],
         [ChoiseViewModel viewModelWithTitle:@"Image" viewController:ImageViewController.class],
+        [ChoiseViewModel viewModelWithTitle:@"Image picker & crop" viewController:ImagePickerCropViewController.class],
+        [ChoiseViewModel viewModelWithTitle:@"Text field" viewController:TextFieldViewController.class],
+        [ChoiseViewModel viewModelWithTitle:@"Date field" viewController:DateFieldViewController.class],
+        [ChoiseViewModel viewModelWithTitle:@"List field" viewController:ListFieldViewController.class],
+        [ChoiseViewModel viewModelWithTitle:@"Phone field" viewController:PhoneFieldViewController.class],
+        [ChoiseViewModel viewModelWithTitle:@"Text view" viewController:TextViewViewController.class],
     ];
     
     [_tableView glb_registerCell:ChoiseCellTableViewCell.class];
@@ -59,11 +71,16 @@
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    NSUInteger index = (NSUInteger)(indexPath.row);
-    ChoiseViewModel* viewModel = _data[index];
-    GLBViewController* vc = [viewModel instantiateViewController];
-    if(vc != nil) {
-        [self.navigationController pushViewController:vc animated:YES];
+    GLBSlideViewController* svc = self.glb_slideViewController;
+    if([svc.centerViewController isKindOfClass:GLBNavigationViewController.class] == YES) {
+        GLBNavigationViewController* nvc = svc.centerViewController;
+        
+        NSUInteger index = (NSUInteger)(indexPath.row);
+        GLBViewController* vc = [_data[index] instantiateViewController];
+        if(vc != nil) {
+            [nvc setViewControllers:@[ vc ] animated:YES];
+        }
+        [svc hideLeftViewControllerAnimated:YES complete:nil];
     }
 }
 

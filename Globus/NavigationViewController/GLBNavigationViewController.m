@@ -107,6 +107,54 @@
     }
 }
 
+- (void)updateBarsAnimated:(BOOL)animated {
+    UIViewController* viewController = self.topViewController;
+    if(viewController != nil) {
+        [self updateBarsWithViewController:viewController animated:animated];
+    }
+}
+
+- (void)updateBarsWithViewController:(UIViewController*)viewController animated:(BOOL)animated {
+    id vc = viewController;
+    if([vc respondsToSelector:@selector(isNavigationBarHidden)] == YES) {
+        [self setNavigationBarHidden:[vc isNavigationBarHidden] animated:animated];
+    }
+    if([vc respondsToSelector:@selector(isToolbarHidden)] == YES) {
+        [self setToolbarHidden:[vc isToolbarHidden] animated:animated];
+    }
+    if([UIDevice glb_compareSystemVersion:@"8.0"] != NSOrderedAscending) {
+        if([vc respondsToSelector:@selector(hidesBarsWhenKeyboardAppears)] == YES) {
+            self.hidesBarsWhenKeyboardAppears = [vc hidesBarsWhenKeyboardAppears];
+        }
+        if([vc respondsToSelector:@selector(hidesBarsOnSwipe)] == YES) {
+            self.hidesBarsOnSwipe = [vc hidesBarsOnSwipe];
+        }
+        if([vc respondsToSelector:@selector(hidesBarsWhenVerticallyCompact)] == YES) {
+            self.hidesBarsWhenVerticallyCompact = [vc hidesBarsWhenVerticallyCompact];
+        }
+        if([vc respondsToSelector:@selector(hidesBarsOnTap)] == YES) {
+            self.hidesBarsOnTap = [vc hidesBarsOnTap];
+        }
+    }
+#ifndef GLOBUS_APP_EXTENSION
+    if([vc respondsToSelector:@selector(supportedInterfaceOrientations)] == YES) {
+        UIInterfaceOrientation currectOrientation = UIApplication.sharedApplication.statusBarOrientation;
+        UIInterfaceOrientationMask supportedOrientations = [vc supportedInterfaceOrientations];
+        if((supportedOrientations & (1 << currectOrientation)) == 0) {
+            if((supportedOrientations & UIInterfaceOrientationMaskPortrait) != 0) {
+                [UIDevice glb_setOrientation:UIInterfaceOrientationPortrait];
+            } else if((supportedOrientations & UIInterfaceOrientationMaskPortraitUpsideDown) != 0) {
+                [UIDevice glb_setOrientation:UIInterfaceOrientationPortraitUpsideDown];
+            } else if((supportedOrientations & UIInterfaceOrientationMaskLandscapeLeft) != 0) {
+                [UIDevice glb_setOrientation:UIInterfaceOrientationLandscapeLeft];
+            } else if((supportedOrientations & UIInterfaceOrientationMaskLandscapeRight) != 0) {
+                [UIDevice glb_setOrientation:UIInterfaceOrientationLandscapeRight];
+            }
+        }
+    }
+#endif
+}
+
 #pragma mark - UIViewController
 
 - (BOOL)shouldAutorotate {
@@ -211,47 +259,6 @@
 }
 
 #pragma mark - UINavigationControllerDelegate
-
-- (void)navigationController:(UINavigationController*)navigationController willShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
-    id vc = viewController;
-    if([vc respondsToSelector:@selector(isNavigationBarHidden)] == YES) {
-        [navigationController setNavigationBarHidden:[vc isNavigationBarHidden] animated:animated];
-    }
-    if([vc respondsToSelector:@selector(isToolbarHidden)] == YES) {
-        [navigationController setToolbarHidden:[vc isToolbarHidden] animated:animated];
-    }
-    if([UIDevice glb_compareSystemVersion:@"8.0"] != NSOrderedAscending) {
-        if([vc respondsToSelector:@selector(hidesBarsWhenKeyboardAppears)] == YES) {
-            navigationController.hidesBarsWhenKeyboardAppears = [vc hidesBarsWhenKeyboardAppears];
-        }
-        if([vc respondsToSelector:@selector(hidesBarsOnSwipe)] == YES) {
-            navigationController.hidesBarsOnSwipe = [vc hidesBarsOnSwipe];
-        }
-        if([vc respondsToSelector:@selector(hidesBarsWhenVerticallyCompact)] == YES) {
-            navigationController.hidesBarsWhenVerticallyCompact = [vc hidesBarsWhenVerticallyCompact];
-        }
-        if([vc respondsToSelector:@selector(hidesBarsOnTap)] == YES) {
-            navigationController.hidesBarsOnTap = [vc hidesBarsOnTap];
-        }
-    }
-#ifndef GLOBUS_APP_EXTENSION
-    if([vc respondsToSelector:@selector(supportedInterfaceOrientations)] == YES) {
-        UIInterfaceOrientation currectOrientation = UIApplication.sharedApplication.statusBarOrientation;
-        UIInterfaceOrientationMask supportedOrientations = [vc supportedInterfaceOrientations];
-        if((supportedOrientations & (1 << currectOrientation)) == 0) {
-            if((supportedOrientations & UIInterfaceOrientationMaskPortrait) != 0) {
-                [UIDevice glb_setOrientation:UIInterfaceOrientationPortrait];
-            } else if((supportedOrientations & UIInterfaceOrientationMaskPortraitUpsideDown) != 0) {
-                [UIDevice glb_setOrientation:UIInterfaceOrientationPortraitUpsideDown];
-            } else if((supportedOrientations & UIInterfaceOrientationMaskLandscapeLeft) != 0) {
-                [UIDevice glb_setOrientation:UIInterfaceOrientationLandscapeLeft];
-            } else if((supportedOrientations & UIInterfaceOrientationMaskLandscapeRight) != 0) {
-                [UIDevice glb_setOrientation:UIInterfaceOrientationLandscapeRight];
-            }
-        }
-    }
-#endif
-}
 
 - (UIInterfaceOrientationMask)navigationControllerSupportedInterfaceOrientations:(UINavigationController*)navigationController {
     return self.topViewController.supportedInterfaceOrientations;

@@ -76,6 +76,7 @@ typedef NS_ENUM(NSInteger, GLBButtonBadgeVerticalAlignment) {
 @property(nonatomic) IBInspectable GLBButtonBadgeAlias badgeAlias;
 @property(nonatomic) IBInspectable GLBButtonBadgeHorizontalAlignment badgeHorizontalAlignment;
 @property(nonatomic) IBInspectable GLBButtonBadgeVerticalAlignment badgeVerticalAlignment;
+@property(nonatomic) IBInspectable UIOffset badgeOffset;
 
 - (void)setup NS_REQUIRES_SUPER;
 

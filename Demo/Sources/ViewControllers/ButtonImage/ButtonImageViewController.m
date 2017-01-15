@@ -31,6 +31,10 @@
 
 #pragma mark - Actions
 
+- (IBAction)pressedMenu:(id)sender {
+    [self.glb_slideViewController showLeftViewControllerAnimated:YES complete:nil];
+}
+
 - (IBAction)pressed:(id)sender {
     switch(_button.imageAlignment) {
         case GLBButtonImageAlignmentLeft:

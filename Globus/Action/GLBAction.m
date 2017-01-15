@@ -14,14 +14,22 @@
 
 @implementation GLBAction
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+
 #pragma mark - Init / Free
 
 + (id)actionWithTarget:(id)target action:(SEL)action {
-    return [[self alloc] initWithTarget:target action:action inThread:nil];
+    return [[self alloc] initWithTarget:target action:action];
 }
 
 + (id)actionWithTarget:(id)target action:(SEL)action inThread:(NSThread*)thread {
     return [[self alloc] initWithTarget:target action:action inThread:thread];
+}
+
+- (instancetype)initWithTarget:(id)target action:(SEL)action {
+    return [self initWithTarget:target action:action inThread:nil];
 }
 
 - (instancetype)initWithTarget:(id)target action:(SEL)action inThread:(NSThread*)thread {
@@ -130,12 +138,16 @@
 
 #pragma mark - Public
 
-- (void)addActionWithTarget:(id)target action:(SEL)action forKey:(id)key {
-    [self addAction:[GLBAction actionWithTarget:target action:action] inGroup:_defaultGroup forKey:key];
+- (GLBAction*)addActionWithTarget:(id)target action:(SEL)action forKey:(id)key {
+    GLBAction* result = [GLBAction actionWithTarget:target action:action];
+    [self addAction:result inGroup:_defaultGroup forKey:key];
+    return result;
 }
 
-- (void)addActionWithTarget:(id)target action:(SEL)action inGroup:(id)group forKey:(id)key {
-    [self addAction:[GLBAction actionWithTarget:target action:action] inGroup:group forKey:key];
+- (GLBAction*)addActionWithTarget:(id)target action:(SEL)action inGroup:(id)group forKey:(id)key {
+    GLBAction* result = [GLBAction actionWithTarget:target action:action];
+    [self addAction:result inGroup:group forKey:key];
+    return result;
 }
 
 - (void)addAction:(GLBAction*)action forKey:(id)key {

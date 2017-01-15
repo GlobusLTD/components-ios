@@ -384,11 +384,16 @@
 }
 
 - (NSString*)phoneNumberWithoutPrefix {
-    return [_formatter _digitOnlyString:[self.text stringByReplacingOccurrencesOfString:_formatter.prefix withString:@""]];
+    return [_formatter _digitOnlyString:self.text];
 }
 
 - (NSString*)phoneNumber {
-    return [_formatter _digitOnlyString:self.text];
+    NSString* prefix = _formatter.prefix;
+    NSString* digits = [_formatter _digitOnlyString:self.text];
+    if(prefix.length > 0) {
+        return [NSString stringWithFormat:@"%@%@", prefix, digits];
+    }
+    return digits;
 }
 
 - (void)resetFormats {

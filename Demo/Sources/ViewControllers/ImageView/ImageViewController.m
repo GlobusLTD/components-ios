@@ -22,6 +22,12 @@
     _urlField.text = DefaultImageUrl;
 }
 
+#pragma mark - Actions
+
+- (IBAction)pressedMenu:(id)sender {
+    [self.glb_slideViewController showLeftViewControllerAnimated:YES complete:nil];
+}
+
 #pragma mark - UITextViewDelegate
 
 - (void)textViewDidEndEditing:(UITextView*)textView {

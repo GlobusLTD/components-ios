@@ -8,18 +8,19 @@
 
 @interface GLBPopoverController : NSObject
 
-@property(nonatomic, nonnull, readonly, strong) UIViewController* controller;
+@property(nonatomic, nonnull, readonly, strong) UIViewController* viewController;
 
-+ (instancetype _Nullable)presentController:(UIViewController* _Nonnull)controller
-                                   fromView:(UIView* _Nonnull)view
-                            arrowTargetView:(UIView* _Nonnull)arrowTargetView
-                             arrowDirection:(UIPopoverArrowDirection)arrowDirection
-                                   animated:(BOOL)animated NS_SWIFT_NAME(present(controller:fromView:arrowTargetView:arrowDirection:animated:));
++ (instancetype _Nonnull)presentViewController:(UIViewController* _Nonnull)viewController
+                                      fromView:(UIView* _Nonnull)view
+                               arrowTargetView:(UIView* _Nonnull)arrowTargetView
+                                arrowDirection:(UIPopoverArrowDirection)arrowDirection
+                                      animated:(BOOL)animated NS_SWIFT_UNAVAILABLE("Use init(viewController:fromView:arrowTargetView:arrowDirection:animated:)");
 
-- (instancetype _Nullable)initWithController:(UIViewController* _Nonnull)controller
-                                    fromView:(UIView* _Nonnull)view
-                             arrowTargetView:(UIView* _Nonnull)arrowTargetView
-                              arrowDirection:(UIPopoverArrowDirection)arrowDirection;
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithViewController:(UIViewController* _Nonnull)viewController
+                                       fromView:(UIView* _Nonnull)view
+                                arrowTargetView:(UIView* _Nonnull)arrowTargetView
+                                 arrowDirection:(UIPopoverArrowDirection)arrowDirection NS_DESIGNATED_INITIALIZER;
 
 - (void)presentAnimated:(BOOL)animated;
 - (void)dismissAnimated:(BOOL)animated;

@@ -163,6 +163,18 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
 
 #pragma mark - Init / Free
 
++ (instancetype)itemWithTitle:(NSString*)title value:(id)value {
+    return [[self alloc] initWithTitle:title value:value];
+}
+
++ (instancetype)itemWithTitle:(NSString*)title color:(UIColor*)color value:(id)value {
+    return [[self alloc] initWithTitle:title color:color value:value];
+}
+
++ (instancetype)itemWithTitle:(NSString*)title font:(UIFont*)font color:(UIColor*)color value:(id)value {
+    return [[self alloc] initWithTitle:title font:font color:color value:value];
+}
+
 - (instancetype)initWithTitle:(NSString*)title value:(id)value {
     return [self initWithTitle:title font:[UIFont systemFontOfSize:UIFont.systemFontSize] color:UIColor.blackColor value:value];
 }

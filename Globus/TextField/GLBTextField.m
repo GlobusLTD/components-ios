@@ -11,19 +11,12 @@ static const CGFloat GLBTextField_ToolbarHeight = 44;
 
 /*--------------------------------------------------*/
 
-@interface GLBTextField ()
+@interface GLBTextField () {
+    NSMutableAttributedString* _attributedPlaceholder;
+    UIResponder* _prevInputResponder;
+    UIResponder* _nextInputResponder;
+}
 
-@property(nonatomic, weak) UIResponder* prevInputResponder;
-@property(nonatomic, weak) UIResponder* nextInputResponder;
-
-@property(nonatomic) NSInteger prevPhoneDigitsCount;
-@property(nonatomic) NSInteger formatDigitsCount;
-@property(nonatomic, strong) NSString* phonePrefixWithoutSpaces;
-
-- (void)pressedPrev;
-- (void)pressedNext;
-- (void)pressedDone;
- 
 @end
 
 /*--------------------------------------------------*/
@@ -54,6 +47,9 @@ static const CGFloat GLBTextField_ToolbarHeight = 44;
 }
 
 - (void)setup {
+    _attributedPlaceholder = [NSMutableAttributedString new];
+    _toolbarHeight = GLBTextField_ToolbarHeight;
+    
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didBeginEditing) name:UITextFieldTextDidBeginEditingNotification object:self];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didEndEditing) name:UITextFieldTextDidEndEditingNotification object:self];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didValueChanged) name:UITextFieldTextDidChangeNotification object:self];
@@ -63,24 +59,61 @@ static const CGFloat GLBTextField_ToolbarHeight = 44;
     [NSNotificationCenter.defaultCenter removeObserver:self];
 }
 
-#pragma mark - Property
+#pragma mark - Property override
 
-- (void)setText:(NSString*)string {
-    [super setText:string];
+- (void)setText:(NSString*)text {
+    [super setText:text];
     if(self.isEditing == NO) {
         [self validate];
     }
 }
 
+- (void)setAttributedText:(NSAttributedString*)attributedText {
+    [super setAttributedText:attributedText];
+    if(self.isEditing == NO) {
+        [self validate];
+    }
+}
+
+- (void)setPlaceholder:(NSString*)placeholder {
+    if([_attributedPlaceholder.string isEqualToString:placeholder] == NO) {
+        [_attributedPlaceholder setAttributedString:[[NSAttributedString alloc] initWithString:placeholder]];
+        [self __updateAttributedPlaceholder];
+    }
+}
+
+- (void)setAttributedPlaceholder:(NSAttributedString*)attributedPlaceholder {
+    if([_attributedPlaceholder isEqualToAttributedString:attributedPlaceholder] == NO) {
+        [_attributedPlaceholder setAttributedString:attributedPlaceholder];
+        [self __updateAttributedPlaceholder];
+    }
+}
+
+#pragma mark - Property
+
+- (void)setTextStyle:(GLBTextStyle*)textStyle {
+    _textStyle = textStyle;
+    if(_textStyle != nil) {
+        self.defaultTextAttributes = _textStyle.attributes;
+    } else {
+        self.defaultTextAttributes = @{};
+    }
+}
+
+- (void)setPlaceholderStyle:(GLBTextStyle*)placeholderStyle {
+    _placeholderStyle = placeholderStyle;
+    [self __updateAttributedPlaceholder];
+}
+
 - (void)setForm:(GLBInputForm*)form {
-    if([_form isEqual:form] == NO) {
+    if(_form != form) {
         _form = form;
         [self validate];
     }
 }
 
 - (void)setValidator:(id< GLBInputValidator >)validator {
-    if([_validator isEqual:validator] == NO) {
+    if(_validator != validator) {
         if(_validator != nil) {
             _validator.field = nil;
         }
@@ -109,6 +142,53 @@ static const CGFloat GLBTextField_ToolbarHeight = 44;
     }
 }
 
+- (void)setToolbarHeight:(CGFloat)toolbarHeight {
+    if(_toolbarHeight != toolbarHeight) {
+        _toolbarHeight = toolbarHeight;
+        if(_toolbar != nil) {
+            _toolbar.glb_frameHeight = _toolbarHeight;
+        }
+    }
+}
+
+- (UIToolbar*)toolbar {
+    if(_toolbar == nil) {
+        CGRect windowBounds = self.window.bounds;
+        _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(windowBounds.origin.x, windowBounds.origin.y, windowBounds.size.width, _toolbarHeight)];
+        _toolbar.barStyle = UIBarStyleDefault;
+        _toolbar.clipsToBounds = YES;
+    }
+    return _toolbar;
+}
+
+- (UIBarButtonItem*)prevButton {
+    if(_prevButton == nil) {
+        _prevButton = [[UIBarButtonItem alloc] initWithTitle:@"<" style:UIBarButtonItemStylePlain target:self action:@selector(__pressedPrev)];
+    }
+    return _prevButton;
+}
+
+- (UIBarButtonItem*)nextButton {
+    if(_nextButton == nil) {
+        _nextButton = [[UIBarButtonItem alloc] initWithTitle:@">" style:UIBarButtonItemStylePlain target:self action:@selector(__pressedNext)];
+    }
+    return _nextButton;
+}
+
+- (UIBarButtonItem*)flexButton {
+    if(_flexButton == nil) {
+        _flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    }
+    return _flexButton;
+}
+
+- (UIBarButtonItem*)doneButton {
+    if(_doneButton == nil) {
+        _doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(__pressedDone)];
+    }
+    return _doneButton;
+}
+
 #pragma mark - Public
 
 - (void)setHiddenToolbar:(BOOL)hiddenToolbar animated:(BOOL)animated {
@@ -116,7 +196,7 @@ static const CGFloat GLBTextField_ToolbarHeight = 44;
         _hiddenToolbar = hiddenToolbar;
         
         if([self isEditing] == YES) {
-            CGFloat toolbarHeight = (_hiddenToolbar == NO) ? GLBTextField_ToolbarHeight : 0;
+            CGFloat toolbarHeight = (_hiddenToolbar == NO) ? _toolbarHeight : 0;
             if(animated == YES) {
                 [UIView animateWithDuration:GLBTextField_Duration
                                  animations:^{
@@ -130,28 +210,17 @@ static const CGFloat GLBTextField_ToolbarHeight = 44;
 }
 
 - (void)didBeginEditing {
-    if(self.toolbar == nil) {
-        CGRect windowBounds = self.window.bounds;
-        self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(windowBounds.origin.x, windowBounds.origin.y, windowBounds.size.width, GLBTextField_ToolbarHeight)];
-        self.prevButton = [[UIBarButtonItem alloc] initWithTitle:@"<" style:UIBarButtonItemStylePlain target:self action:@selector(pressedPrev)];
-        self.nextButton = [[UIBarButtonItem alloc] initWithTitle:@">" style:UIBarButtonItemStylePlain target:self action:@selector(pressedNext)];
-        self.flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-        self.doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(pressedDone)];
-        
-        self.toolbar.barStyle = UIBarStyleDefault;
-        self.toolbar.clipsToBounds = YES;
-    }
     if(self.toolbar != nil) {
-        self.prevInputResponder = [UIResponder glb_prevResponderFromView:self];
-        self.nextInputResponder = [UIResponder glb_nextResponderFromView:self];
+        _prevInputResponder = [UIResponder glb_prevResponderFromView:self];
+        _nextInputResponder = [UIResponder glb_nextResponderFromView:self];
         if(self.hiddenToolbarArrows == YES) {
             self.toolbar.items = @[ self.flexButton, self.doneButton ];
         } else {
             self.toolbar.items = @[ self.prevButton, self.nextButton, self.flexButton, self.doneButton ];
         }
-        self.prevButton.enabled = (self.prevInputResponder != nil);
-        self.nextButton.enabled = (self.nextInputResponder != nil);
-        self.toolbar.glb_frameHeight = (self.hiddenToolbar == NO) ? GLBTextField_ToolbarHeight : 0;
+        self.prevButton.enabled = (_prevInputResponder != nil);
+        self.nextButton.enabled = (_nextInputResponder != nil);
+        self.toolbar.glb_frameHeight = (self.hiddenToolbar == NO) ? self.toolbarHeight : 0;
         self.inputAccessoryView = self.toolbar;
         [self reloadInputViews];
     }
@@ -162,40 +231,48 @@ static const CGFloat GLBTextField_ToolbarHeight = 44;
 }
 
 - (void)didEndEditing {
-    self.prevInputResponder = nil;
-    self.nextInputResponder = nil;
+    _prevInputResponder = nil;
+    _nextInputResponder = nil;
 }
 
 #pragma mark - GLBInputField
 
 - (void)validate {
-    if((self.form != nil) && (self.validator != nil)) {
-        [self.form performValidator:self.validator value:self.text];
+    if((_form != nil) && (_validator != nil)) {
+        [_form performValidator:_validator value:self.text];
     }
 }
 
 - (NSArray*)messages {
-    if((self.form != nil) && (self.validator != nil)) {
-        return [self.validator messages:self.text];
+    if((_form != nil) && (_validator != nil)) {
+        return [_validator messages:self.text];
     }
     return @[];
 }
 
 #pragma mark - Private
 
-- (void)pressedPrev {
-    if(self.prevInputResponder != nil) {
-        [self.prevInputResponder becomeFirstResponder];
+- (void)__updateAttributedPlaceholder {
+    NSMutableAttributedString* result = [[NSMutableAttributedString alloc] initWithAttributedString:_attributedPlaceholder];
+    if(_placeholderStyle != nil) {
+        [result setAttributes:_placeholderStyle.attributes range:NSMakeRange(0, result.string.length)];
+    }
+    [super setAttributedPlaceholder:result];
+}
+
+- (void)__pressedPrev {
+    if(_prevInputResponder != nil) {
+        [_prevInputResponder becomeFirstResponder];
     }
 }
 
-- (void)pressedNext {
-    if(self.nextInputResponder != nil) {
-        [self.nextInputResponder becomeFirstResponder];
+- (void)__pressedNext {
+    if(_nextInputResponder != nil) {
+        [_nextInputResponder becomeFirstResponder];
     }
 }
 
-- (void)pressedDone {
+- (void)__pressedDone {
     [self endEditing:NO];
 }
 

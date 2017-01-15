@@ -37,4 +37,10 @@
     _strokeButton.highlightedCornerRadius = 8.0f;
 }
 
+#pragma mark - Actions
+
+- (IBAction)pressedMenu:(id)sender {
+    [self.glb_slideViewController showLeftViewControllerAnimated:YES complete:nil];
+}
+
 @end

@@ -20,7 +20,7 @@
 /*--------------------------------------------------*/
 
 @interface GLBLabel () {
-    NSMutableAttributedString* _attributedText;
+    NSMutableAttributedString* _attributed;
     NSMutableArray< GLBLabelLink* >* _links;
     NSMutableArray< GLBLabelLink* >* _hightlightedLinks;
 }
@@ -61,7 +61,7 @@
 }
 
 - (void)setup {
-    _attributedText = [NSMutableAttributedString new];
+    _attributed = [NSMutableAttributedString new];
     
     self.userInteractionEnabled = YES;
     [self addGestureRecognizer:self.pressGesture];
@@ -81,6 +81,20 @@
 }
 
 #pragma mark - Property override
+
+- (void)setText:(NSString*)text {
+    if([_attributed.string isEqualToString:text] == NO) {
+        [_attributed setAttributedString:[[NSAttributedString alloc] initWithString:text]];
+        [self __updateAttributed];
+    }
+}
+
+- (void)setAttributedText:(NSAttributedString*)attributedText {
+    if([_attributed isEqualToAttributedString:attributedText] == NO) {
+        [_attributed setAttributedString:attributedText];
+        [self __updateAttributed];
+    }
+}
 
 - (void)setLineBreakMode:(NSLineBreakMode)lineBreakMode {
     [super setLineBreakMode:lineBreakMode];
@@ -107,23 +121,9 @@
     return _pressGesture;
 }
 
-- (void)setText:(NSString*)text {
-    if([_attributedText.string isEqualToString:text] == NO) {
-        [_attributedText setAttributedString:[[NSAttributedString alloc] initWithString:text]];
-        [self __update];
-    }
-}
-
-- (void)setAttributedText:(NSAttributedString*)attributedText {
-    if([_attributedText isEqualToAttributedString:attributedText] == NO) {
-        [_attributedText setAttributedString:attributedText];
-        [self __update];
-    }
-}
-
 - (void)setTextStyle:(GLBTextStyle*)textStyle {
     _textStyle = textStyle;
-    [self __update];
+    [self __updateAttributed];
 }
 
 #pragma mark - Property internal
@@ -161,7 +161,7 @@
 }
 
 - (NSRange)addLink:(NSString*)link normalStyle:(GLBTextStyle*)normalStyle highlightStyle:(GLBTextStyle*)highlightStyle pressed:(GLBSimpleBlock)pressed {
-    NSRange range = [_attributedText.string rangeOfString:link];
+    NSRange range = [_attributed.string rangeOfString:link];
     if((range.location != NSNotFound) && (range.length > 0)) {
         [self addLinkRange:range normalStyle:normalStyle highlightStyle:highlightStyle pressed:pressed];
     }
@@ -179,7 +179,7 @@
             _links = [NSMutableArray array];
         }
         [_links addObject:link];
-        [self __update];
+        [self __updateAttributed];
     }
 }
 
@@ -200,7 +200,7 @@
             } else {
                 [_links removeObjectsAtIndexes:indexSet];
             }
-            [self __update];
+            [self __updateAttributed];
         }
     }
 }
@@ -208,27 +208,27 @@
 - (void)removeLinkAllRanges {
     if(_links != nil) {
         [_links removeAllObjects];
-        [self __update];
+        [self __updateAttributed];
     }
 }
 
 #pragma mark - Private
 
-- (void)__update {
-    NSMutableAttributedString* attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:_attributedText];
+- (void)__updateAttributed {
+    NSMutableAttributedString* result = [[NSMutableAttributedString alloc] initWithAttributedString:_attributed];
     if(_textStyle != nil) {
-        [attributedString setAttributes:_textStyle.attributes range:NSMakeRange(0, _attributedText.string.length)];
+        [result setAttributes:_textStyle.attributes range:NSMakeRange(0, result.string.length)];
     }
     for(GLBLabelLink* link in _links) {
         if([_hightlightedLinks containsObject:link] == YES) {
-            [attributedString addAttributes:link.highlightStyle.attributes range:link.range];
+            [result addAttributes:link.highlightStyle.attributes range:link.range];
         } else {
-            [attributedString addAttributes:link.normalStyle.attributes range:link.range];
+            [result addAttributes:link.normalStyle.attributes range:link.range];
         }
     }
-    [super setAttributedText:attributedString];
+    [super setAttributedText:result];
     if(_textStorage != nil) {
-        [_textStorage setAttributedString:attributedString];
+        [_textStorage setAttributedString:result];
     }
 }
 
@@ -265,7 +265,7 @@
     }
     if([_hightlightedLinks isEqualToArray:links] == NO) {
         [_hightlightedLinks setArray:links];
-        [self __update];
+        [self __updateAttributed];
     }
 }
 

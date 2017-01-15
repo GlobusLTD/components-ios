@@ -24,6 +24,9 @@
 
 - (void)setNeedUpdate;
 
+- (void)updateBarsAnimated:(BOOL)animated;
+- (void)updateBarsWithViewController:(UIViewController* _Nonnull)viewController animated:(BOOL)animated;
+
 @end
 
 /*--------------------------------------------------*/

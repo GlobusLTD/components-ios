@@ -41,7 +41,13 @@ class LabelViewController: GLBViewController {
         }
     }
     
-    //MARK: - GLBNibExtension
+    // MARK - Action
+    
+    @IBAction internal func pressedMenu(_ sender: Any) {
+        self.glb_slideViewController?.showLeftViewController(animated: true, complete: nil)
+    }
+    
+    // MARK: - GLBNibExtension
     
     public override static func nibName() -> String {
         return "LabelViewController-Swift"

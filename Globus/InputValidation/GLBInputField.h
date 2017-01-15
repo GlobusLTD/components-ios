@@ -18,6 +18,7 @@
 @property(nonatomic, strong) id< GLBInputValidator > validator;
 
 @required
+
 - (void)validate;
 - (NSArray*)messages;
 

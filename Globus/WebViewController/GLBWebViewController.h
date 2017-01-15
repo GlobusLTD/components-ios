@@ -15,6 +15,7 @@
 
 @property(nonatomic, nullable, readonly, strong) UIWebView* uiWebView;
 @property(nonatomic, nullable, readonly, strong) WKWebView* wkWebView;
+@property(nonatomic) BOOL allowsDoneBarButton;
 @property(nonatomic, nullable, strong) UIBarButtonItem* doneBarButtonItem;
 @property(nonatomic, nullable, strong) UIBarButtonItem* backBarButtonItem;
 @property(nonatomic, nullable, strong) UIBarButtonItem* forwardBarButtonItem;

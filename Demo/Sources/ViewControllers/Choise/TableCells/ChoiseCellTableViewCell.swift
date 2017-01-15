@@ -21,7 +21,7 @@ class ChoiseCellTableViewCell: UITableViewCell, GLBNibExtension {
         self.displayLabel.textColor = UIColor.darkGray
     }
     
-    //MARK: - GLBNibExtension
+    // MARK: - GLBNibExtension
     
     public static func nibName() -> String {
         return "ChoiseCellTableViewCell-Swift"

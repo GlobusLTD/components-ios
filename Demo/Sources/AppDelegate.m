@@ -4,6 +4,7 @@
 
 #import "AppDelegate.h"
 #import "ChoiseViewController.h"
+#import "MainViewController.h"
 
 @implementation AppDelegate
 
@@ -32,9 +33,10 @@
     navbarAppearance.tintColor = UIColor.lightGrayColor;
     navbarAppearance.titleTextAttributes = navbarTextStyle.attributes;
     
-    ChoiseViewController* vc = [ChoiseViewController instantiate];
-    GLBNavigationViewController* nvc = [GLBNavigationViewController viewControllerWithRootViewController:vc];
-    self.primaryWindow.rootViewController = nvc;
+    GLBSlideViewController* svc = [GLBSlideViewController new];
+    svc.leftViewController = [GLBNavigationViewController viewControllerWithRootViewController:[ChoiseViewController instantiate]];
+    svc.centerViewController = [GLBNavigationViewController viewControllerWithRootViewController:[MainViewController instantiate]];
+    self.primaryWindow.rootViewController = svc;
     [self.primaryWindow makeKeyAndVisible];
     return YES;
 }

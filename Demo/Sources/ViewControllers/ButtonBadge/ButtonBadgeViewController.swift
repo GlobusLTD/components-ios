@@ -28,6 +28,10 @@ class ButtonBadgeViewController: GLBViewController {
     
     // MARK - Action
     
+    @IBAction internal func pressedMenu(_ sender: Any) {
+        self.glb_slideViewController?.showLeftViewController(animated: true, complete: nil)
+    }
+    
     @IBAction internal func pressed(_ sender: Any) {
         switch(self.button.badgeAlias) {
             case .title:
@@ -42,7 +46,7 @@ class ButtonBadgeViewController: GLBViewController {
         }
     }
     
-    //MARK: - GLBNibExtension
+    // MARK: - GLBNibExtension
     
     public override static func nibName() -> String {
         return "ButtonBadgeViewController-Swift"

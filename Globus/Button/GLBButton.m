@@ -428,7 +428,7 @@
             _badgeView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
             [self addSubview:_badgeView];
         }
-        [self setNeedsUpdateConstraints];
+        [self setNeedsLayout];
     }
 }
 
@@ -442,21 +442,28 @@
 - (void)setBadgeAlias:(GLBButtonBadgeAlias)badgeAlias {
     if(_badgeAlias != badgeAlias) {
         _badgeAlias = badgeAlias;
-        [self setNeedsUpdateConstraints];
+        [self setNeedsLayout];
     }
 }
 
 - (void)setBadgeHorizontalAlignment:(GLBButtonBadgeHorizontalAlignment)badgeHorizontalAlignment {
     if(_badgeHorizontalAlignment != badgeHorizontalAlignment) {
         _badgeHorizontalAlignment = badgeHorizontalAlignment;
-        [self setNeedsUpdateConstraints];
+        [self setNeedsLayout];
     }
 }
 
 - (void)setBadgeVerticalAlignment:(GLBButtonBadgeVerticalAlignment)badgeVerticalAlignment {
     if(_badgeVerticalAlignment != badgeVerticalAlignment) {
         _badgeVerticalAlignment = badgeVerticalAlignment;
-        [self setNeedsUpdateConstraints];
+        [self setNeedsLayout];
+    }
+}
+
+- (void)setBadgeOffset:(UIOffset)badgeOffset {
+    if(UIOffsetEqualToOffset(_badgeOffset, badgeOffset) == NO) {
+        _badgeOffset = badgeOffset;
+        [self setNeedsLayout];
     }
 }
 #endif
@@ -519,7 +526,9 @@
             case GLBButtonBadgeVerticalAlignmentBottom: anchor.y = CGRectGetMaxY(view.bounds); break;
         }
         [_badgeView sizeToFit];
-        _badgeView.glb_frameCenter = [view convertPoint:anchor toView:self];
+        
+        CGPoint center = [view convertPoint:anchor toView:self];
+        _badgeView.glb_frameCenter = CGPointMake(center.x + _badgeOffset.horizontal, center.y + _badgeOffset.vertical);
     }
 #endif
 }

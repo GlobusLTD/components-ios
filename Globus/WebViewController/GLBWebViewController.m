@@ -62,6 +62,7 @@
     self.toolbarHidden = NO;
     self.hideKeyboardIfTouched = NO;
     
+    _allowsDoneBarButton = YES;
     _allowsWebKit = YES;
 }
 
@@ -387,48 +388,52 @@
     if(UIDevice.glb_isIPad == YES) {
         if(self.navigationController.viewControllers.firstObject == self) {
             self.navigationItem.leftBarButtonItems = @[
-                                                       fixedSpace,
-                                                       self.actionBarButtonItem,
-                                                       fixedSpace,
-                                                       self.forwardBarButtonItem,
-                                                       fixedSpace,
-                                                       self.backBarButtonItem,
-                                                       fixedSpace,
-                                                       refreshStopBarButtonItem,
-                                                       fixedSpace
-                                                       ];
-            self.navigationItem.rightBarButtonItems = @[
-                                                        self.doneBarButtonItem
-                                                        ];
+                fixedSpace,
+                self.actionBarButtonItem,
+                fixedSpace,
+                self.forwardBarButtonItem,
+                fixedSpace,
+                self.backBarButtonItem,
+                fixedSpace,
+                refreshStopBarButtonItem,
+                fixedSpace
+            ];
+            if(_allowsDoneBarButton == YES) {
+                self.navigationItem.rightBarButtonItems = @[
+                    self.doneBarButtonItem
+                ];
+            } else {
+                self.navigationItem.rightBarButtonItems = @[];
+            }
         } else {
             self.navigationItem.rightBarButtonItems = @[
-                                                        self.actionBarButtonItem,
-                                                        fixedSpace,
-                                                        self.forwardBarButtonItem,
-                                                        fixedSpace,
-                                                        self.backBarButtonItem,
-                                                        fixedSpace,
-                                                        refreshStopBarButtonItem,
-                                                        fixedSpace
-                                                        ];
+                self.actionBarButtonItem,
+                fixedSpace,
+                self.forwardBarButtonItem,
+                fixedSpace,
+                self.backBarButtonItem,
+                fixedSpace,
+                refreshStopBarButtonItem,
+                fixedSpace
+            ];
         }
     } else {
-        if(self.navigationController.viewControllers.firstObject == self) {
+        if((self.navigationController.viewControllers.firstObject == self) && (_allowsDoneBarButton == YES)) {
             self.navigationItem.rightBarButtonItems = @[
-                                                        self.doneBarButtonItem
-                                                        ];
+                self.doneBarButtonItem
+            ];
         }
         self.toolbarItems = @[
-                              fixedSpace,
-                              self.backBarButtonItem,
-                              flexibleSpace,
-                              self.forwardBarButtonItem,
-                              flexibleSpace,
-                              refreshStopBarButtonItem,
-                              flexibleSpace,
-                              self.actionBarButtonItem,
-                              fixedSpace
-                              ];
+            fixedSpace,
+            self.backBarButtonItem,
+            flexibleSpace,
+            self.forwardBarButtonItem,
+            flexibleSpace,
+            refreshStopBarButtonItem,
+            flexibleSpace,
+            self.actionBarButtonItem,
+            fixedSpace
+        ];
     }
 }
 
@@ -491,14 +496,32 @@
     if(webView != nil) {
         [self.view insertSubview:webView atIndex:0];
         
-        [webView glb_addConstraintAttribute:NSLayoutAttributeTop
-                                   relation:NSLayoutRelationEqual
-                                  attribute:NSLayoutAttributeTop
-                                   constant:0.0];
-        [webView glb_addConstraintAttribute:NSLayoutAttributeBottom
-                                   relation:NSLayoutRelationEqual
-                                  attribute:NSLayoutAttributeBottom
-                                   constant:0.0];
+        if(self.topLayoutGuide != nil) {
+            [webView glb_addConstraintAttribute:NSLayoutAttributeTop
+                                       relation:NSLayoutRelationEqual
+                                           view:self.topLayoutGuide
+                                      attribute:NSLayoutAttributeBottom
+                                       constant:0.0
+                                       priority:UILayoutPriorityRequired];
+        } else {
+            [webView glb_addConstraintAttribute:NSLayoutAttributeTop
+                                       relation:NSLayoutRelationEqual
+                                      attribute:NSLayoutAttributeTop
+                                       constant:0.0];
+        }
+        if(self.bottomLayoutGuide != nil) {
+            [webView glb_addConstraintAttribute:NSLayoutAttributeBottom
+                                       relation:NSLayoutRelationEqual
+                                           view:self.bottomLayoutGuide
+                                      attribute:NSLayoutAttributeTop
+                                       constant:0.0
+                                       priority:UILayoutPriorityRequired];
+        } else {
+            [webView glb_addConstraintAttribute:NSLayoutAttributeBottom
+                                       relation:NSLayoutRelationEqual
+                                      attribute:NSLayoutAttributeBottom
+                                       constant:0.0];
+        }
         [webView glb_addConstraintAttribute:NSLayoutAttributeLeft
                                    relation:NSLayoutRelationEqual
                                   attribute:NSLayoutAttributeLeft

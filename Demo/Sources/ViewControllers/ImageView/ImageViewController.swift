@@ -28,7 +28,13 @@ class ImageViewController: GLBViewController {
         self.urlField.text = Const.DefaultImageUrl;
     }
     
-    //MARK: - GLBNibExtension
+    // MARK - Action
+    
+    @IBAction internal func pressedMenu(_ sender: Any) {
+        self.glb_slideViewController?.showLeftViewController(animated: true, complete: nil)
+    }
+    
+    // MARK: - GLBNibExtension
     
     public override static func nibName() -> String {
         return "ImageViewController-Swift"

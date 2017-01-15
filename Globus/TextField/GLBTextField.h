@@ -5,6 +5,10 @@
 
 /*--------------------------------------------------*/
 
+#import "GLBTextStyle.h"
+
+/*--------------------------------------------------*/
+
 #import "GLBInputForm.h"
 #import "GLBInputField.h"
 #import "GLBInputValidator.h"
@@ -15,8 +19,11 @@
 
 @interface GLBTextField : UITextField< GLBInputField >
 
+@property(nonatomic, nullable, strong) GLBTextStyle* textStyle;
+@property(nonatomic, nullable, strong) GLBTextStyle* placeholderStyle;
 @property(nonatomic) IBInspectable BOOL hiddenToolbar;
 @property(nonatomic) IBInspectable BOOL hiddenToolbarArrows;
+@property(nonatomic) IBInspectable CGFloat toolbarHeight;
 @property(nonatomic, nullable, strong) UIToolbar* toolbar;
 @property(nonatomic, nullable, strong) UIBarButtonItem* prevButton;
 @property(nonatomic, nullable, strong) UIBarButtonItem* nextButton;

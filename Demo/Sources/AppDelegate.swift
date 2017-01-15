@@ -32,9 +32,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navbarAppearance.tintColor = UIColor.lightGray
         navbarAppearance.titleTextAttributes = navbarTextStyle.attributes
         
-        let vc = ChoiseViewController.instantiate();
-        let nvc = GLBNavigationViewController.viewController(rootViewController: vc!)
-        self.primaryWindow.rootViewController = nvc
+        let svc = GLBSlideViewController.init();
+        svc.leftViewController = GLBNavigationViewController.init(rootViewController: ChoiseViewController.instantiate()!)
+        svc.centerViewController = GLBNavigationViewController.init(rootViewController: MainViewController.instantiate()!)
+        self.primaryWindow.rootViewController = svc
         self.primaryWindow.makeKeyAndVisible()
         return true
     }

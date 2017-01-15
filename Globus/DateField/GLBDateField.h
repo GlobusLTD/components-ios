@@ -15,9 +15,9 @@
 @property(nonatomic, nullable, strong) IBInspectable NSTimeZone* timeZone;
 @property(nonatomic, nullable, strong) IBInspectable NSDate* minimumDate;
 @property(nonatomic, nullable, strong) IBInspectable NSDate* maximumDate;
-@property(nonatomic, nonnull, strong) IBInspectable NSDate* date;
+@property(nonatomic, nullable, strong) IBInspectable NSDate* date;
 
-- (void)setDate:(NSDate* _Nonnull)date animated:(BOOL)animated;
+- (void)setDate:(NSDate* _Nullable)date animated:(BOOL)animated;
 
 @end
 

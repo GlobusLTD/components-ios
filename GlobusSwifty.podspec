@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'GlobusSwifty'
-  s.version = '0.3.7'
+  s.version = '0.3.8'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -15,6 +15,10 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = '2.0'
   s.requires_arc = true
 
+  s.subspec 'ApiManager' do |ss|
+    ss.source_files = 'GlobusSwifty/ApiManager/**/*.{swift}'
+    ss.dependency 'Globus/ApiManager'
+  end
   s.subspec 'StructedObject' do |ss|
     ss.source_files = 'GlobusSwifty/StructedObject/**/*.{swift}'
     ss.dependency 'Globus/StructedObject'

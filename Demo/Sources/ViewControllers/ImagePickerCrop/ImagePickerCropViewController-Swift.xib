@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <viewController automaticallyAdjustsScrollViewInsets="NO" id="H3q-gv-mcv" customClass="ImagePickerCropViewController" customModule="Globus_Swift">
+            <layoutGuides>
+                <viewControllerLayoutGuide type="top" id="zTS-by-xSI"/>
+                <viewControllerLayoutGuide type="bottom" id="z43-E4-Nz6"/>
+            </layoutGuides>
+            <view key="view" contentMode="scaleToFill" id="SRx-OE-WeS">
+                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Xc-5X-tTL" customClass="GLBImageView">
+                        <rect key="frame" x="8" y="8" width="359" height="289.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="glb_cornerRadius">
+                                <real key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uEh-5Q-Bn4" customClass="GLBImageView">
+                        <rect key="frame" x="8" y="305.5" width="359" height="289.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="glb_cornerRadius">
+                                <real key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="uEh-5Q-Bn4" firstAttribute="leading" secondItem="SRx-OE-WeS" secondAttribute="leading" constant="8" id="1HK-7J-MMb"/>
+                    <constraint firstItem="9Xc-5X-tTL" firstAttribute="top" secondItem="zTS-by-xSI" secondAttribute="bottom" constant="8" id="7HW-Gu-Fvn"/>
+                    <constraint firstAttribute="trailing" secondItem="9Xc-5X-tTL" secondAttribute="trailing" constant="8" id="7Tc-eQ-l2Q"/>
+                    <constraint firstItem="z43-E4-Nz6" firstAttribute="top" secondItem="uEh-5Q-Bn4" secondAttribute="bottom" constant="8" id="Sx4-SL-pCM"/>
+                    <constraint firstAttribute="trailing" secondItem="uEh-5Q-Bn4" secondAttribute="trailing" constant="8" id="WqB-FA-vGW"/>
+                    <constraint firstItem="uEh-5Q-Bn4" firstAttribute="height" secondItem="9Xc-5X-tTL" secondAttribute="height" id="Zzm-3C-Id7"/>
+                    <constraint firstItem="uEh-5Q-Bn4" firstAttribute="top" secondItem="9Xc-5X-tTL" secondAttribute="bottom" constant="8" id="fRv-qN-Rqo"/>
+                    <constraint firstItem="9Xc-5X-tTL" firstAttribute="leading" secondItem="SRx-OE-WeS" secondAttribute="leading" constant="8" id="v3D-1w-XOD"/>
+                </constraints>
+            </view>
+            <extendedEdge key="edgesForExtendedLayout"/>
+            <toolbarItems/>
+            <navigationItem key="navigationItem" title="Image picker &amp; crop" id="7I9-oo-R5U">
+                <barButtonItem key="leftBarButtonItem" image="MenuButton" id="NuI-8a-pES">
+                    <connections>
+                        <action selector="pressedMenu:" destination="H3q-gv-mcv" id="AFj-47-t2M"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem key="rightBarButtonItem" title="Choice" id="2WE-vE-KQP">
+                    <connections>
+                        <action selector="pressedChoice:" destination="H3q-gv-mcv" id="8Uo-Q9-hsV"/>
+                    </connections>
+                </barButtonItem>
+            </navigationItem>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <connections>
+                <outlet property="croppedImageView" destination="uEh-5Q-Bn4" id="4Gm-YQ-gAI"/>
+                <outlet property="pickedImageView" destination="9Xc-5X-tTL" id="A94-J4-gf2"/>
+            </connections>
+            <point key="canvasLocation" x="838" y="1079"/>
+        </viewController>
+    </objects>
+    <resources>
+        <image name="MenuButton" width="22" height="12"/>
+    </resources>
+</document>

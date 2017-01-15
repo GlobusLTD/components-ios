@@ -308,6 +308,30 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)presentViewController:(UIViewController*)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
+    [self setNeedsStatusBarAppearanceUpdate];
+    
+    __weak typeof(self) weakSelf = self;
+    [super presentViewController:viewControllerToPresent animated:flag completion:^{
+        [weakSelf setNeedsStatusBarAppearanceUpdate];
+        if(completion != nil) {
+            completion();
+        }
+    }];
+}
+
+- (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
+    [self setNeedsStatusBarAppearanceUpdate];
+    
+    __weak typeof(self) weakSelf = self;
+    [super dismissViewControllerAnimated:flag completion:^{
+        [weakSelf setNeedsStatusBarAppearanceUpdate];
+        if(completion != nil) {
+            completion();
+        }
+    }];
+}
+
 #pragma mark - UIViewControllerTransitioningDelegate
 
 - (id< UIViewControllerAnimatedTransitioning >)animationControllerForPresentedController:(UIViewController*)presented presentingController:(UIViewController*)presenting sourceController:(UIViewController*)source {

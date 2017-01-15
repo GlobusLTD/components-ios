@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.3.7'
+  s.version = '0.3.8'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -398,6 +398,7 @@ Pod::Spec.new do |s|
     ss.dependency 'Globus/InputValidation'
     ss.dependency 'Globus/UIKit/Responder'
     ss.dependency 'Globus/UIKit/View'
+    ss.dependency 'Globus/TextStyle'
   end
   s.subspec 'DateField' do |ss|
     ss.source_files = 'Globus/DateField/**/*.{h,m}'
@@ -416,6 +417,8 @@ Pod::Spec.new do |s|
     ss.dependency 'Globus/InputValidation'
     ss.dependency 'Globus/UIKit/Responder'
     ss.dependency 'Globus/UIKit/View'
+    ss.dependency 'Globus/TextStyle'
+    ss.dependency 'Globus/Action'
   end
   s.subspec 'BadgeView' do |ss|
     ss.source_files = 'Globus/BadgeView/**/*.{h,m}'
@@ -670,5 +673,21 @@ Pod::Spec.new do |s|
     ss.dependency 'Globus/UIKit/Device'
     ss.dependency 'Globus/WatchKit/Device'
     ss.dependency 'Globus/Observer'
+  end
+  s.subspec 'ImageCropViewController' do |ss|
+    ss.source_files = 'Globus/ImageCropViewController/**/*.{h,m}'
+    ss.dependency 'Globus/ViewController'
+    ss.dependency 'Globus/CoreGraphics'
+    ss.dependency 'Globus/UIKit/Device'
+    ss.dependency 'Globus/UIKit/Image'
+    ss.dependency 'Globus/Action'
+    ss.dependency 'Globus/Button'
+    ss.dependency 'Globus/Label'
+  end
+  s.subspec 'ImagePickerController' do |ss|
+    ss.source_files = 'Globus/ImagePickerController/**/*.{h,m}'
+    ss.dependency 'Globus/UIKit/Base'
+    ss.dependency 'Globus/UIKit/Image'
+    ss.dependency 'Globus/Action'
   end
 end

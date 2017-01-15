@@ -706,6 +706,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
             CGFloat leftAlpha = [self _leftViewAlphaByPercent:_swipeProgress];
             CGRect centerFrame = [self _centerViewFrameByPercent:_swipeProgress];
             CGFloat centerAlpha = [self _centerViewAlphaByPercent:_swipeProgress];
+            [_centerViewController.view endEditing:NO];
             if(animated == YES) {
                 NSTimeInterval duration = _leftViewControllerWidth / _swipeVelocity;
                 if([centerViewController respondsToSelector:@selector(willShowLeftViewControllerInSlideViewController:duration:)] == YES) {
@@ -1492,6 +1493,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 
 - (void)_didBeganSwipe {
     _swipeDragging = YES;
+    [_centerViewController.view endEditing:YES];
     if((_canUseScreenshot == YES) && (_showedLeftViewController == NO) && (_showedRightViewController == NO)) {
         [self _takeScreenshotView];
     }

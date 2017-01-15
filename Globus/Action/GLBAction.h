@@ -13,10 +13,12 @@
 @property(nonatomic, nonnull, readonly, assign) SEL action;
 @property(nonatomic, nullable, readonly, weak) NSThread* thread;
 
-+ (instancetype _Nullable)actionWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action NS_SWIFT_NAME(action(target:action:));
-+ (instancetype _Nullable)actionWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action inThread:(NSThread* _Nullable)thread NS_SWIFT_NAME(action(target:action:thread:));
++ (instancetype _Nonnull)actionWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action NS_SWIFT_UNAVAILABLE("Use init(target:action:)");
++ (instancetype _Nonnull)actionWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action inThread:(NSThread* _Nullable)thread NS_SWIFT_UNAVAILABLE("Use init(target:action:inThread:)");
 
-- (instancetype _Nullable)initWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action inThread:(NSThread* _Nullable)thread;
+- (instancetype _Nonnull)init NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action;
+- (instancetype _Nonnull)initWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action inThread:(NSThread* _Nullable)thread NS_DESIGNATED_INITIALIZER;
 
 - (void)setup NS_REQUIRES_SUPER;
 
@@ -32,8 +34,8 @@
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)addActionWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action forKey:(id _Nonnull)key;
-- (void)addActionWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action inGroup:(id _Nonnull)group forKey:(id _Nonnull)key;
+- (GLBAction* _Nonnull)addActionWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action forKey:(id _Nonnull)key;
+- (GLBAction* _Nonnull)addActionWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action inGroup:(id _Nonnull)group forKey:(id _Nonnull)key;
 - (void)addAction:(GLBAction* _Nonnull)action forKey:(id _Nonnull)key;
 - (void)addAction:(GLBAction* _Nonnull)action inGroup:(id _Nonnull)group forKey:(id _Nonnull)key;
 

@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,18 +18,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MtE-G2-FFX">
-                        <rect key="frame" x="16" y="16" width="343" height="11.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MtE-G2-FFX">
+                        <rect key="frame" x="8" y="8" width="359" height="27.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="MtE-G2-FFX" firstAttribute="leading" secondItem="Sf6-o7-dWU" secondAttribute="leadingMargin" constant="8" id="EHL-T9-Hbb"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="MtE-G2-FFX" secondAttribute="bottom" constant="8" id="Gn0-wc-mDB"/>
-                    <constraint firstItem="MtE-G2-FFX" firstAttribute="top" secondItem="Sf6-o7-dWU" secondAttribute="topMargin" constant="8" id="Isi-Ej-xtQ"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="MtE-G2-FFX" secondAttribute="trailing" constant="8" id="LEn-Sl-fTH"/>
+                    <constraint firstItem="MtE-G2-FFX" firstAttribute="leading" secondItem="Sf6-o7-dWU" secondAttribute="leading" constant="8" id="EHL-T9-Hbb"/>
+                    <constraint firstAttribute="bottom" secondItem="MtE-G2-FFX" secondAttribute="bottom" constant="8" id="Gn0-wc-mDB"/>
+                    <constraint firstItem="MtE-G2-FFX" firstAttribute="top" secondItem="Sf6-o7-dWU" secondAttribute="top" constant="8" id="Isi-Ej-xtQ"/>
+                    <constraint firstAttribute="trailing" secondItem="MtE-G2-FFX" secondAttribute="trailing" constant="8" id="LEn-Sl-fTH"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

@@ -7,6 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		402EBB9A1E29C393001E0591 /* DateFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB971E29C38C001E0591 /* DateFieldViewController.m */; };
+		402EBB9B1E29C393001E0591 /* DateFieldViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 402EBB991E29C38C001E0591 /* DateFieldViewController.xib */; };
+		402EBB9C1E29C396001E0591 /* DateFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB981E29C38C001E0591 /* DateFieldViewController.swift */; };
+		402EBB9D1E29C396001E0591 /* DateFieldViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 402EBB951E29C38B001E0591 /* DateFieldViewController-Swift.xib */; };
+		402EBBA41E29C53F001E0591 /* ListFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 402EBBA11E29C538001E0591 /* ListFieldViewController.m */; };
+		402EBBA51E29C53F001E0591 /* ListFieldViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 402EBBA31E29C538001E0591 /* ListFieldViewController.xib */; };
+		402EBBA61E29C541001E0591 /* ListFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBBA21E29C538001E0591 /* ListFieldViewController.swift */; };
+		402EBBA71E29C541001E0591 /* ListFieldViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 402EBB9F1E29C538001E0591 /* ListFieldViewController-Swift.xib */; };
+		402EBBAE1E29D644001E0591 /* TextViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 402EBBAB1E29D63E001E0591 /* TextViewViewController.m */; };
+		402EBBAF1E29D644001E0591 /* TextViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 402EBBAD1E29D63E001E0591 /* TextViewViewController.xib */; };
+		402EBBB01E29D647001E0591 /* TextViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBBAC1E29D63E001E0591 /* TextViewViewController.swift */; };
+		402EBBB11E29D647001E0591 /* TextViewViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 402EBBA91E29D63E001E0591 /* TextViewViewController-Swift.xib */; };
+		4031C3681E29B26B004BA2D1 /* TextFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4031C3651E29B19E004BA2D1 /* TextFieldViewController.m */; };
+		4031C3691E29B26B004BA2D1 /* TextFieldViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4031C3671E29B19E004BA2D1 /* TextFieldViewController.xib */; };
+		4031C36A1E29B26D004BA2D1 /* TextFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4031C3661E29B19E004BA2D1 /* TextFieldViewController.swift */; };
+		4031C36B1E29B26D004BA2D1 /* TextFieldViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4031C3631E29B19E004BA2D1 /* TextFieldViewController-Swift.xib */; };
 		405133301E19C5E800641BF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40F2DF7F1E19C10400F85F49 /* Main.storyboard */; };
 		405133311E19C5EA00641BF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40F2DF7F1E19C10400F85F49 /* Main.storyboard */; };
 		405133321E19C5F000641BF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40F2DF7C1E19C10400F85F49 /* Assets.xcassets */; };
@@ -25,6 +41,14 @@
 		4052DABC1E1AD561002FE296 /* ButtonImageViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4052DABB1E1AD561002FE296 /* ButtonImageViewController-Swift.xib */; };
 		4052DABE1E1AD566002FE296 /* ButtonBadgeViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4052DABD1E1AD566002FE296 /* ButtonBadgeViewController-Swift.xib */; };
 		4052DAC01E1AD56B002FE296 /* ButtonViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4052DABF1E1AD56B002FE296 /* ButtonViewController-Swift.xib */; };
+		40AD658D1E2B664900FAF2CA /* ImagePickerCropViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40AD658A1E2B659300FAF2CA /* ImagePickerCropViewController.m */; };
+		40AD658E1E2B664900FAF2CA /* ImagePickerCropViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD658C1E2B659300FAF2CA /* ImagePickerCropViewController.xib */; };
+		40AD658F1E2B664C00FAF2CA /* ImagePickerCropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AD658B1E2B659300FAF2CA /* ImagePickerCropViewController.swift */; };
+		40AD65901E2B664C00FAF2CA /* ImagePickerCropViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD65881E2B659300FAF2CA /* ImagePickerCropViewController-Swift.xib */; };
+		40AFE7841E297FDF009A524B /* PhoneFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40AFE7811E29764B009A524B /* PhoneFieldViewController.m */; };
+		40AFE7851E297FE5009A524B /* PhoneFieldViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AFE7831E29764B009A524B /* PhoneFieldViewController.xib */; };
+		40AFE7861E297FE7009A524B /* PhoneFieldViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AFE77F1E29764B009A524B /* PhoneFieldViewController-Swift.xib */; };
+		40AFE7871E297FE9009A524B /* PhoneFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AFE7821E29764B009A524B /* PhoneFieldViewController.swift */; };
 		40F2DF9E1E19C11600F85F49 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DF7A1E19C10400F85F49 /* AppDelegate.m */; };
 		40F2DF9F1E19C11900F85F49 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DF7B1E19C10400F85F49 /* AppDelegate.swift */; };
 		40F2DFA01E19C12400F85F49 /* ButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DF851E19C10400F85F49 /* ButtonViewController.m */; };
@@ -44,6 +68,10 @@
 		40F2DFC31E19C18700F85F49 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DFAE1E19C17500F85F49 /* ImageViewController.swift */; };
 		40F2DFC41E19C18700F85F49 /* LabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DFB01E19C17B00F85F49 /* LabelViewController.swift */; };
 		40F2DFC61E19C38700F85F49 /* Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F2DFC51E19C38700F85F49 /* Main.m */; };
+		40FE3DE61E28D2F00014D9C0 /* MainViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40FE3DE01E28D2F00014D9C0 /* MainViewController-Swift.xib */; };
+		40FE3DE71E28D2F00014D9C0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40FE3DE21E28D2F00014D9C0 /* MainViewController.m */; };
+		40FE3DEA1E28D2F00014D9C0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FE3DE31E28D2F00014D9C0 /* MainViewController.swift */; };
+		40FE3DED1E28D3030014D9C0 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40FE3DE41E28D2F00014D9C0 /* MainViewController.xib */; };
 		5EF295C31B18EAAE17B2C2F1 /* libPods-Globus-ObjC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35A5B7F953D1DA768C5DB103 /* libPods-Globus-ObjC.a */; };
 		F71C902023B0E87AE7705CBE /* Pods_Globus_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19781EB4EA4EEABFDFB59F5D /* Pods_Globus_Swift.framework */; };
 /* End PBXBuildFile section */
@@ -53,6 +81,26 @@
 		2444B2A2D38343CD1705B5B1 /* libPods-Globus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Globus.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F84ACF56FF4045B45888466 /* Pods-Globus-ObjC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Globus-ObjC.release.xcconfig"; path = "Pods/Target Support Files/Pods-Globus-ObjC/Pods-Globus-ObjC.release.xcconfig"; sourceTree = "<group>"; };
 		35A5B7F953D1DA768C5DB103 /* libPods-Globus-ObjC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Globus-ObjC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		402EBB951E29C38B001E0591 /* DateFieldViewController-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "DateFieldViewController-Swift.xib"; sourceTree = "<group>"; };
+		402EBB961E29C38C001E0591 /* DateFieldViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DateFieldViewController.h; sourceTree = "<group>"; };
+		402EBB971E29C38C001E0591 /* DateFieldViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DateFieldViewController.m; sourceTree = "<group>"; };
+		402EBB981E29C38C001E0591 /* DateFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFieldViewController.swift; sourceTree = "<group>"; };
+		402EBB991E29C38C001E0591 /* DateFieldViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateFieldViewController.xib; sourceTree = "<group>"; };
+		402EBB9F1E29C538001E0591 /* ListFieldViewController-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "ListFieldViewController-Swift.xib"; sourceTree = "<group>"; };
+		402EBBA01E29C538001E0591 /* ListFieldViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ListFieldViewController.h; sourceTree = "<group>"; };
+		402EBBA11E29C538001E0591 /* ListFieldViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListFieldViewController.m; sourceTree = "<group>"; };
+		402EBBA21E29C538001E0591 /* ListFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFieldViewController.swift; sourceTree = "<group>"; };
+		402EBBA31E29C538001E0591 /* ListFieldViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListFieldViewController.xib; sourceTree = "<group>"; };
+		402EBBA91E29D63E001E0591 /* TextViewViewController-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "TextViewViewController-Swift.xib"; sourceTree = "<group>"; };
+		402EBBAA1E29D63E001E0591 /* TextViewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextViewViewController.h; sourceTree = "<group>"; };
+		402EBBAB1E29D63E001E0591 /* TextViewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextViewViewController.m; sourceTree = "<group>"; };
+		402EBBAC1E29D63E001E0591 /* TextViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewViewController.swift; sourceTree = "<group>"; };
+		402EBBAD1E29D63E001E0591 /* TextViewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextViewViewController.xib; sourceTree = "<group>"; };
+		4031C3631E29B19E004BA2D1 /* TextFieldViewController-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "TextFieldViewController-Swift.xib"; sourceTree = "<group>"; };
+		4031C3641E29B19E004BA2D1 /* TextFieldViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextFieldViewController.h; sourceTree = "<group>"; };
+		4031C3651E29B19E004BA2D1 /* TextFieldViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextFieldViewController.m; sourceTree = "<group>"; };
+		4031C3661E29B19E004BA2D1 /* TextFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldViewController.swift; sourceTree = "<group>"; };
+		4031C3671E29B19E004BA2D1 /* TextFieldViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldViewController.xib; sourceTree = "<group>"; };
 		4052DAA31E1A9565002FE296 /* ChoiseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChoiseViewController.xib; sourceTree = "<group>"; };
 		4052DAA71E1AA2FD002FE296 /* ChoiseViewController-Swift.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ChoiseViewController-Swift.xib"; sourceTree = "<group>"; };
 		4052DAA91E1AAF2E002FE296 /* ChoiseCellTableViewCell-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "ChoiseCellTableViewCell-Swift.xib"; sourceTree = "<group>"; };
@@ -69,6 +117,16 @@
 		4052DABF1E1AD56B002FE296 /* ButtonViewController-Swift.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ButtonViewController-Swift.xib"; sourceTree = "<group>"; };
 		40925B4A1E1B291D00C3FD61 /* Globus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Globus.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Globus-fxidihclcghidqccadrcdtlmvpyb/Build/Products/Debug-iphoneos/Globus-framework/Globus.framework"; sourceTree = "<group>"; };
 		40925B4B1E1B291D00C3FD61 /* GlobusSwifty.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GlobusSwifty.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Globus-fxidihclcghidqccadrcdtlmvpyb/Build/Products/Debug-iphoneos/GlobusSwifty/GlobusSwifty.framework"; sourceTree = "<group>"; };
+		40AD65881E2B659300FAF2CA /* ImagePickerCropViewController-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "ImagePickerCropViewController-Swift.xib"; sourceTree = "<group>"; };
+		40AD65891E2B659300FAF2CA /* ImagePickerCropViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImagePickerCropViewController.h; sourceTree = "<group>"; };
+		40AD658A1E2B659300FAF2CA /* ImagePickerCropViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImagePickerCropViewController.m; sourceTree = "<group>"; };
+		40AD658B1E2B659300FAF2CA /* ImagePickerCropViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCropViewController.swift; sourceTree = "<group>"; };
+		40AD658C1E2B659300FAF2CA /* ImagePickerCropViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagePickerCropViewController.xib; sourceTree = "<group>"; };
+		40AFE77F1E29764B009A524B /* PhoneFieldViewController-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "PhoneFieldViewController-Swift.xib"; sourceTree = "<group>"; };
+		40AFE7801E29764B009A524B /* PhoneFieldViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhoneFieldViewController.h; sourceTree = "<group>"; };
+		40AFE7811E29764B009A524B /* PhoneFieldViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhoneFieldViewController.m; sourceTree = "<group>"; };
+		40AFE7821E29764B009A524B /* PhoneFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneFieldViewController.swift; sourceTree = "<group>"; };
+		40AFE7831E29764B009A524B /* PhoneFieldViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhoneFieldViewController.xib; sourceTree = "<group>"; };
 		40F2DF4B1E19BF7400F85F49 /* Globus-ObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Globus-ObjC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		40F2DF661E19C0DF00F85F49 /* Globus-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Globus-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		40F2DF791E19C10400F85F49 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -102,6 +160,11 @@
 		40F2DFAE1E19C17500F85F49 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		40F2DFB01E19C17B00F85F49 /* LabelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelViewController.swift; sourceTree = "<group>"; };
 		40F2DFC51E19C38700F85F49 /* Main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Main.m; sourceTree = "<group>"; };
+		40FE3DE01E28D2F00014D9C0 /* MainViewController-Swift.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainViewController-Swift.xib"; sourceTree = "<group>"; };
+		40FE3DE11E28D2F00014D9C0 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		40FE3DE21E28D2F00014D9C0 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		40FE3DE31E28D2F00014D9C0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		40FE3DE41E28D2F00014D9C0 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		53F0CEFC75C4048325F1F349 /* Pods-Globus-ObjC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Globus-ObjC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Globus-ObjC/Pods-Globus-ObjC.debug.xcconfig"; sourceTree = "<group>"; };
 		7B281748BB7657B689EC6ADE /* Pods-Globus-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Globus-Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Globus-Swift/Pods-Globus-Swift.debug.xcconfig"; sourceTree = "<group>"; };
 		7B4063ACBEB007401527F860 /* Pods-Globus-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Globus-Swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-Globus-Swift/Pods-Globus-Swift.release.xcconfig"; sourceTree = "<group>"; };
@@ -127,6 +190,78 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		402EBB941E29C38B001E0591 /* DateField */ = {
+			isa = PBXGroup;
+			children = (
+				402EBB961E29C38C001E0591 /* DateFieldViewController.h */,
+				402EBB971E29C38C001E0591 /* DateFieldViewController.m */,
+				402EBB981E29C38C001E0591 /* DateFieldViewController.swift */,
+				402EBB991E29C38C001E0591 /* DateFieldViewController.xib */,
+				402EBB951E29C38B001E0591 /* DateFieldViewController-Swift.xib */,
+			);
+			path = DateField;
+			sourceTree = "<group>";
+		};
+		402EBB9E1E29C538001E0591 /* ListField */ = {
+			isa = PBXGroup;
+			children = (
+				402EBBA01E29C538001E0591 /* ListFieldViewController.h */,
+				402EBBA11E29C538001E0591 /* ListFieldViewController.m */,
+				402EBBA21E29C538001E0591 /* ListFieldViewController.swift */,
+				402EBBA31E29C538001E0591 /* ListFieldViewController.xib */,
+				402EBB9F1E29C538001E0591 /* ListFieldViewController-Swift.xib */,
+			);
+			path = ListField;
+			sourceTree = "<group>";
+		};
+		402EBBA81E29D63E001E0591 /* TextView */ = {
+			isa = PBXGroup;
+			children = (
+				402EBBAA1E29D63E001E0591 /* TextViewViewController.h */,
+				402EBBAB1E29D63E001E0591 /* TextViewViewController.m */,
+				402EBBAC1E29D63E001E0591 /* TextViewViewController.swift */,
+				402EBBAD1E29D63E001E0591 /* TextViewViewController.xib */,
+				402EBBA91E29D63E001E0591 /* TextViewViewController-Swift.xib */,
+			);
+			path = TextView;
+			sourceTree = "<group>";
+		};
+		4031C3621E29B19E004BA2D1 /* TextField */ = {
+			isa = PBXGroup;
+			children = (
+				4031C3641E29B19E004BA2D1 /* TextFieldViewController.h */,
+				4031C3651E29B19E004BA2D1 /* TextFieldViewController.m */,
+				4031C3661E29B19E004BA2D1 /* TextFieldViewController.swift */,
+				4031C3671E29B19E004BA2D1 /* TextFieldViewController.xib */,
+				4031C3631E29B19E004BA2D1 /* TextFieldViewController-Swift.xib */,
+			);
+			path = TextField;
+			sourceTree = "<group>";
+		};
+		40AD65871E2B659300FAF2CA /* ImagePickerCrop */ = {
+			isa = PBXGroup;
+			children = (
+				40AD65891E2B659300FAF2CA /* ImagePickerCropViewController.h */,
+				40AD658A1E2B659300FAF2CA /* ImagePickerCropViewController.m */,
+				40AD658B1E2B659300FAF2CA /* ImagePickerCropViewController.swift */,
+				40AD658C1E2B659300FAF2CA /* ImagePickerCropViewController.xib */,
+				40AD65881E2B659300FAF2CA /* ImagePickerCropViewController-Swift.xib */,
+			);
+			path = ImagePickerCrop;
+			sourceTree = "<group>";
+		};
+		40AFE77E1E29764B009A524B /* PhoneField */ = {
+			isa = PBXGroup;
+			children = (
+				40AFE7801E29764B009A524B /* PhoneFieldViewController.h */,
+				40AFE7811E29764B009A524B /* PhoneFieldViewController.m */,
+				40AFE7821E29764B009A524B /* PhoneFieldViewController.swift */,
+				40AFE7831E29764B009A524B /* PhoneFieldViewController.xib */,
+				40AFE77F1E29764B009A524B /* PhoneFieldViewController-Swift.xib */,
+			);
+			path = PhoneField;
+			sourceTree = "<group>";
+		};
 		40E8ADFB1E197D86008D73E5 = {
 			isa = PBXGroup;
 			children = (
@@ -164,12 +299,19 @@
 		40F2DF821E19C10400F85F49 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				40F2DF8C1E19C10400F85F49 /* Choise */,
+				40FE3DDF1E28D2BD0014D9C0 /* Main */,
+				40F2DF9B1E19C10400F85F49 /* Label */,
 				40F2DF831E19C10400F85F49 /* Button */,
 				40F2DF861E19C10400F85F49 /* ButtonBadge */,
 				40F2DF891E19C10400F85F49 /* ButtonImage */,
-				40F2DF8C1E19C10400F85F49 /* Choise */,
 				40F2DF981E19C10400F85F49 /* ImageView */,
-				40F2DF9B1E19C10400F85F49 /* Label */,
+				40AD65871E2B659300FAF2CA /* ImagePickerCrop */,
+				4031C3621E29B19E004BA2D1 /* TextField */,
+				402EBB941E29C38B001E0591 /* DateField */,
+				402EBB9E1E29C538001E0591 /* ListField */,
+				40AFE77E1E29764B009A524B /* PhoneField */,
+				402EBBA81E29D63E001E0591 /* TextView */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -270,6 +412,18 @@
 			path = Label;
 			sourceTree = "<group>";
 		};
+		40FE3DDF1E28D2BD0014D9C0 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				40FE3DE11E28D2F00014D9C0 /* MainViewController.h */,
+				40FE3DE21E28D2F00014D9C0 /* MainViewController.m */,
+				40FE3DE31E28D2F00014D9C0 /* MainViewController.swift */,
+				40FE3DE41E28D2F00014D9C0 /* MainViewController.xib */,
+				40FE3DE01E28D2F00014D9C0 /* MainViewController-Swift.xib */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		8EE3AE9BA1D7BF616042DD38 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,11 +503,13 @@
 					40F2DF4A1E19BF7400F85F49 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = YFADDH8BLW;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					40F2DF651E19C0DF00F85F49 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = YFADDH8BLW;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -382,6 +538,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				402EBB9B1E29C393001E0591 /* DateFieldViewController.xib in Resources */,
+				402EBBAF1E29D644001E0591 /* TextViewViewController.xib in Resources */,
+				40AD658E1E2B664900FAF2CA /* ImagePickerCropViewController.xib in Resources */,
+				40AFE7851E297FE5009A524B /* PhoneFieldViewController.xib in Resources */,
 				4052DAA41E1A9565002FE296 /* ChoiseViewController.xib in Resources */,
 				4052DAAE1E1AD536002FE296 /* ButtonViewController.xib in Resources */,
 				4052DAB61E1AD54F002FE296 /* LabelViewController.xib in Resources */,
@@ -389,8 +549,11 @@
 				4052DAB01E1AD53C002FE296 /* ButtonBadgeViewController.xib in Resources */,
 				405133321E19C5F000641BF4 /* Assets.xcassets in Resources */,
 				4052DAAC1E1AAF37002FE296 /* ChoiseCellTableViewCell.xib in Resources */,
+				4031C3691E29B26B004BA2D1 /* TextFieldViewController.xib in Resources */,
+				40FE3DED1E28D3030014D9C0 /* MainViewController.xib in Resources */,
 				4052DAB21E1AD542002FE296 /* ButtonImageViewController.xib in Resources */,
 				405133301E19C5E800641BF4 /* Main.storyboard in Resources */,
+				402EBBA51E29C53F001E0591 /* ListFieldViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,15 +561,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4031C36B1E29B26D004BA2D1 /* TextFieldViewController-Swift.xib in Resources */,
 				405133331E19C5F000641BF4 /* Assets.xcassets in Resources */,
+				402EBBB11E29D647001E0591 /* TextViewViewController-Swift.xib in Resources */,
+				402EBB9D1E29C396001E0591 /* DateFieldViewController-Swift.xib in Resources */,
 				405133311E19C5EA00641BF4 /* Main.storyboard in Resources */,
 				4052DABA1E1AD55C002FE296 /* ImageViewController-Swift.xib in Resources */,
+				40AD65901E2B664C00FAF2CA /* ImagePickerCropViewController-Swift.xib in Resources */,
 				4052DAAB1E1AAF35002FE296 /* ChoiseCellTableViewCell-Swift.xib in Resources */,
+				40AFE7861E297FE7009A524B /* PhoneFieldViewController-Swift.xib in Resources */,
 				4052DABE1E1AD566002FE296 /* ButtonBadgeViewController-Swift.xib in Resources */,
 				4052DAA81E1AA2FD002FE296 /* ChoiseViewController-Swift.xib in Resources */,
 				4052DABC1E1AD561002FE296 /* ButtonImageViewController-Swift.xib in Resources */,
+				40FE3DE61E28D2F00014D9C0 /* MainViewController-Swift.xib in Resources */,
 				4052DAC01E1AD56B002FE296 /* ButtonViewController-Swift.xib in Resources */,
 				4052DAB81E1AD556002FE296 /* LabelViewController-Swift.xib in Resources */,
+				402EBBA71E29C541001E0591 /* ListFieldViewController-Swift.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,16 +680,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40FE3DE71E28D2F00014D9C0 /* MainViewController.m in Sources */,
 				40F2DFC61E19C38700F85F49 /* Main.m in Sources */,
+				40AD658D1E2B664900FAF2CA /* ImagePickerCropViewController.m in Sources */,
+				402EBBAE1E29D644001E0591 /* TextViewViewController.m in Sources */,
+				40AFE7841E297FDF009A524B /* PhoneFieldViewController.m in Sources */,
 				40F2DFA61E19C16400F85F49 /* ButtonImageViewController.m in Sources */,
 				40F2DFAA1E19C16400F85F49 /* ImageViewController.m in Sources */,
 				40F2DFA01E19C12400F85F49 /* ButtonViewController.m in Sources */,
 				40F2DFA81E19C16400F85F49 /* ChoiseCellTableViewCell.m in Sources */,
 				40F2DFA71E19C16400F85F49 /* ChoiseViewController.m in Sources */,
 				40F2DFA51E19C16400F85F49 /* ButtonBadgeViewController.m in Sources */,
+				402EBB9A1E29C393001E0591 /* DateFieldViewController.m in Sources */,
 				40F2DFA91E19C16400F85F49 /* ChoiseViewModel.m in Sources */,
 				40F2DF9E1E19C11600F85F49 /* AppDelegate.m in Sources */,
 				40F2DFAB1E19C16400F85F49 /* LabelViewController.m in Sources */,
+				4031C3681E29B26B004BA2D1 /* TextFieldViewController.m in Sources */,
+				402EBBA41E29C53F001E0591 /* ListFieldViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,11 +705,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				40F2DFBF1E19C18700F85F49 /* ButtonImageViewController.swift in Sources */,
+				40FE3DEA1E28D2F00014D9C0 /* MainViewController.swift in Sources */,
+				40AD658F1E2B664C00FAF2CA /* ImagePickerCropViewController.swift in Sources */,
 				40F2DFC01E19C18700F85F49 /* ChoiseViewController.swift in Sources */,
+				402EBBA61E29C541001E0591 /* ListFieldViewController.swift in Sources */,
+				402EBBB01E29D647001E0591 /* TextViewViewController.swift in Sources */,
 				40F2DFC11E19C18700F85F49 /* ChoiseCellTableViewCell.swift in Sources */,
 				40F2DFBD1E19C18700F85F49 /* ButtonViewController.swift in Sources */,
 				40F2DF9F1E19C11900F85F49 /* AppDelegate.swift in Sources */,
 				40F2DFC41E19C18700F85F49 /* LabelViewController.swift in Sources */,
+				402EBB9C1E29C396001E0591 /* DateFieldViewController.swift in Sources */,
+				40AFE7871E297FE9009A524B /* PhoneFieldViewController.swift in Sources */,
+				4031C36A1E29B26D004BA2D1 /* TextFieldViewController.swift in Sources */,
 				40F2DFC31E19C18700F85F49 /* ImageViewController.swift in Sources */,
 				40F2DFBE1E19C18700F85F49 /* ButtonBadgeViewController.swift in Sources */,
 				40F2DFC21E19C18700F85F49 /* ChoiseViewModel.swift in Sources */,
@@ -648,11 +832,14 @@
 			baseConfigurationReference = 53F0CEFC75C4048325F1F349 /* Pods-Globus-ObjC.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = YFADDH8BLW;
 				INFOPLIST_FILE = Sources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.globus-ltd.components.objc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -661,11 +848,13 @@
 			baseConfigurationReference = 2F84ACF56FF4045B45888466 /* Pods-Globus-ObjC.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = YFADDH8BLW;
 				INFOPLIST_FILE = Sources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.globus-ltd.components.objc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -674,6 +863,7 @@
 			baseConfigurationReference = 7B281748BB7657B689EC6ADE /* Pods-Globus-Swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = YFADDH8BLW;
 				INFOPLIST_FILE = Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -691,6 +881,7 @@
 			baseConfigurationReference = 7B4063ACBEB007401527F860 /* Pods-Globus-Swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = YFADDH8BLW;
 				INFOPLIST_FILE = Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

@@ -17,7 +17,13 @@ class ChoiseViewController: GLBViewController {
         ChoiseControllerViewModel< ButtonViewController >.init(title:"Button"),
         ChoiseControllerViewModel< ButtonImageViewController >.init(title:"Button & Image"),
         ChoiseControllerViewModel< ButtonBadgeViewController >.init(title:"Button & Badge"),
-        ChoiseControllerViewModel< ImageViewController >.init(title:"Image")
+        ChoiseControllerViewModel< ImageViewController >.init(title:"Image"),
+        ChoiseControllerViewModel< ImagePickerCropViewController >.init(title:"Image picker & crop"),
+        ChoiseControllerViewModel< TextFieldViewController >.init(title:"Text field"),
+        ChoiseControllerViewModel< DateFieldViewController >.init(title:"Date field"),
+        ChoiseControllerViewModel< ListFieldViewController >.init(title:"List field"),
+        ChoiseControllerViewModel< PhoneFieldViewController >.init(title:"Phone field"),
+        ChoiseControllerViewModel< TextViewViewController >.init(title:"Text view"),
     ]
     
     //MARK: - UIViewController
@@ -28,7 +34,7 @@ class ChoiseViewController: GLBViewController {
         self.tableView.glb_registerCell(ChoiseCellTableViewCell.self)
     }
     
-    //MARK: - GLBNibExtension
+    // MARK: - GLBNibExtension
     
     public override static func nibName() -> String {
         return "ChoiseViewController-Swift"
@@ -55,9 +61,14 @@ extension ChoiseViewController: UITableViewDataSource {
 extension ChoiseViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let viewModel = self.data[indexPath.row]
-        if let vc = viewModel.instantiateViewController() {
-            self.navigationController?.pushViewController(vc, animated: true)
+        if let svc = self.glb_slideViewController {
+            if let nvc = svc.centerViewController as? UINavigationController {
+                let viewModel = self.data[indexPath.row]
+                if let vc = viewModel.instantiateViewController() {
+                    nvc.setViewControllers([ vc ], animated: true)
+                }
+            }
+            svc.hideLeftViewController(animated: true, complete: nil)
         }
     }
     
