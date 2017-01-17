@@ -56,7 +56,7 @@
     [_listField becomeFirstResponder];
 }
 
-#pragma mark - Public
+#pragma mark - Property
 
 - (void)setSpinnerView:(GLBSpinnerView*)spinnerView {
     if(_spinnerView != spinnerView) {

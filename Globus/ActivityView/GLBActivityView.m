@@ -9,7 +9,6 @@
 @interface GLBActivityView ()
 
 @property(nonatomic, strong) UIView* panelView;
-@property(nonatomic, strong) GLBSpinnerView* spinnerView;
 @property(nonatomic, strong) UILabel* textView;
 @property(nonatomic) NSUInteger showCount;
 
@@ -29,7 +28,7 @@
 #define GLBActivityViewTextColor                    [UIColor colorWithWhite:1.0 alpha:0.8f]
 #define GLBActivityViewTextFont                     [UIFont boldSystemFontOfSize:[UIFont systemFontSize]]
 #define GLBActivityViewTextWidth                    NSNotFound
-#define GLBActivityDuration                         0.1f
+#define GLBActivityDuration                         0.2f
 #define GLBActivityDelay                            0.1f
 
 /*--------------------------------------------------*/

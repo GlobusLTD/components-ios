@@ -19,6 +19,7 @@
 #import "PhoneFieldViewController.h"
 #import "TextViewController.h"
 #import "SpinnerViewController.h"
+#import "ActivityViewController.h"
 #import "ScrollViewController.h"
 
 @interface ChoiseViewController () < UITableViewDataSource, UITableViewDelegate > {
@@ -49,7 +50,8 @@
         [ChoiseViewModel viewModelWithTitle:@"List field" viewController:ListFieldViewController.class],
         [ChoiseViewModel viewModelWithTitle:@"Phone field" viewController:PhoneFieldViewController.class],
         [ChoiseViewModel viewModelWithTitle:@"Text view" viewController:TextViewController.class],
-        [ChoiseViewModel viewModelWithTitle:@"Spinners" viewController:SpinnerViewController.class],
+        [ChoiseViewModel viewModelWithTitle:@"Spinner view" viewController:SpinnerViewController.class],
+        [ChoiseViewModel viewModelWithTitle:@"Activity view" viewController:ActivityViewController.class],
         [ChoiseViewModel viewModelWithTitle:@"ScrollView" viewController:ScrollViewController.class],
     ];
     

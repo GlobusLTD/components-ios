@@ -27,7 +27,7 @@
 @property(nonatomic, nullable, strong) UIColor* panelColor;
 @property(nonatomic) CGFloat panelCornerRadius;
 
-@property(nonatomic, nullable, strong) GLBSpinnerView* spinner;
+@property(nonatomic, nullable, readonly, strong) GLBSpinnerView* spinnerView;
 @property(nonatomic, nullable, strong) UIColor* spinnerColor;
 @property(nonatomic) CGFloat spinnerSize;
 

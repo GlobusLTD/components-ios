@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <viewController automaticallyAdjustsScrollViewInsets="NO" id="vv4-uu-lC2" customClass="SpinnerViewController">
+        <viewController automaticallyAdjustsScrollViewInsets="NO" id="vv4-uu-lC2" customClass="ActivityViewController">
             <layoutGuides>
                 <viewControllerLayoutGuide type="top" id="Xzq-2R-Kv9"/>
                 <viewControllerLayoutGuide type="bottom" id="doH-6F-i18"/>
@@ -21,7 +21,7 @@
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lqU-ow-cEh" customClass="GLBListField">
-                        <rect key="frame" x="16" y="16" width="343" height="30"/>
+                        <rect key="frame" x="16" y="16" width="289" height="30"/>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
@@ -29,31 +29,25 @@
                             <action selector="changedSelectedItem:" destination="vv4-uu-lC2" eventType="valueChanged" id="Ys1-gG-JMm"/>
                         </connections>
                     </textField>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s8C-IS-ieh">
-                        <rect key="frame" x="16" y="62" width="343" height="200"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="200" id="CF4-HU-mVK"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="glb_cornerRadius">
-                                <real key="value" value="4"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="glU-H4-DYz" customClass="GLBButton">
+                        <rect key="frame" x="321" y="16" width="38" height="30"/>
+                        <state key="normal" title="Show"/>
+                        <connections>
+                            <action selector="pressedShow:" destination="vv4-uu-lC2" eventType="touchUpInside" id="yAK-mG-X2H"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="lqU-ow-cEh" secondAttribute="trailing" constant="16" id="A8Q-gm-COf"/>
-                    <constraint firstAttribute="trailing" secondItem="s8C-IS-ieh" secondAttribute="trailing" constant="16" id="LyA-FE-qtq"/>
-                    <constraint firstItem="s8C-IS-ieh" firstAttribute="leading" secondItem="Hw2-Bs-PJT" secondAttribute="leading" constant="16" id="Qkc-gk-kOS"/>
-                    <constraint firstItem="s8C-IS-ieh" firstAttribute="top" secondItem="lqU-ow-cEh" secondAttribute="bottom" constant="16" id="j71-Dk-zd8"/>
+                    <constraint firstItem="glU-H4-DYz" firstAttribute="leading" secondItem="lqU-ow-cEh" secondAttribute="trailing" constant="16" id="0FM-UI-9lJ"/>
+                    <constraint firstAttribute="trailing" secondItem="glU-H4-DYz" secondAttribute="trailing" constant="16" id="EzI-Q5-v6x"/>
+                    <constraint firstItem="glU-H4-DYz" firstAttribute="top" secondItem="Xzq-2R-Kv9" secondAttribute="bottom" constant="16" id="U2V-7L-hCE"/>
                     <constraint firstItem="lqU-ow-cEh" firstAttribute="leading" secondItem="Hw2-Bs-PJT" secondAttribute="leading" constant="16" id="rEr-t8-Lh9"/>
                     <constraint firstItem="lqU-ow-cEh" firstAttribute="top" secondItem="Xzq-2R-Kv9" secondAttribute="bottom" constant="16" id="rvv-ZC-6YL"/>
                 </constraints>
             </view>
             <extendedEdge key="edgesForExtendedLayout"/>
-            <navigationItem key="navigationItem" title="Spinners" id="Xha-gz-APJ">
+            <navigationItem key="navigationItem" title="Activity view" id="Xha-gz-APJ">
                 <barButtonItem key="leftBarButtonItem" image="MenuButton" id="QYC-7C-lDg">
                     <connections>
                         <action selector="pressedMenu:" destination="vv4-uu-lC2" id="6dJ-ym-tKo"/>
@@ -63,9 +57,9 @@
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <connections>
                 <outlet property="listField" destination="lqU-ow-cEh" id="UL3-ji-S6t"/>
-                <outlet property="wrapSpinnerView" destination="s8C-IS-ieh" id="Fda-Ac-EV2"/>
+                <outlet property="showButton" destination="glU-H4-DYz" id="QHe-MY-aaB"/>
             </connections>
-            <point key="canvasLocation" x="-654" y="-11"/>
+            <point key="canvasLocation" x="-653.5" y="-308.5"/>
         </viewController>
     </objects>
     <resources>

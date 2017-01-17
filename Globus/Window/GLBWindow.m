@@ -148,7 +148,7 @@
 #if __has_include("GLBActivityView.h")
 
 - (void)setActivityView:(GLBActivityView*)activityView {
-    if(_activityView == activityView) {
+    if(_activityView != activityView) {
         if(_activityView != nil) {
             [_activityView removeFromSuperview];
         }
