@@ -14,14 +14,31 @@
 
 @implementation GLBMaterialTransitionController
 
+#pragma mark - Init / Free
+
+- (void)setup {
+    [super setup];
+    
+    _backgroundColor = UIColor.whiteColor;
+}
+
 #pragma mark - Transition
 
 - (void)_startTransition {
-    if(self.sourceView != nil) {
-        self.sourceFrame = [_sourceView.superview convertRect:self.sourceView.frame toView:nil];
+    CGRect containerFrame = self.containerView.bounds;
+    if(_sourceView != nil) {
+        _sourceFrame = [_sourceView.superview convertRect:_sourceView.frame toView:nil];
+    } else {
+        CGFloat defaultSize = MIN(containerFrame.size.width, containerFrame.size.height) * 0.1f;
+        _sourceFrame = CGRectMake(
+            (containerFrame.origin.x + (containerFrame.size.width * 0.5f)) + (defaultSize * 0.5f),
+            (containerFrame.origin.y + (containerFrame.size.height * 0.5f)) + (defaultSize * 0.5f),
+            defaultSize,
+            defaultSize
+        );
     }
-    self.toView.frame = self.containerView.bounds;
-    self.fromView.frame = self.containerView.bounds;
+    self.toView.frame = containerFrame;
+    self.fromView.frame = containerFrame;
     [self.containerView addSubview:self.toView];
     switch(self.operation) {
         case GLBTransitionOperationPresent:
@@ -38,11 +55,11 @@
 #pragma mark - Private
 
 - (void)_startTransitionForward {
-    CGRect startFrame = [self.containerView.superview convertRect:self.sourceFrame toView:self.containerView];
+    CGRect startFrame = [self.containerView.superview convertRect:_sourceFrame toView:self.containerView];
     
     UIView* animatedView = [[UIView alloc] initWithFrame:startFrame];
     animatedView.glb_cornerRadius = startFrame.size.height * 0.5f;
-    animatedView.backgroundColor = self.backgroundColor;
+    animatedView.backgroundColor = _backgroundColor;
     animatedView.clipsToBounds = YES;
     [self.containerView addSubview:animatedView];
     
@@ -62,14 +79,15 @@
     } completion:^(BOOL finished) {
         [animatedView removeFromSuperview];
         [self _completeTransition];
-    }];}
+    }];
+}
 
 - (void)_startTransitionReverse {
-    CGRect startFrame = [self.containerView.superview convertRect:self.sourceFrame toView:self.containerView];
+    CGRect startFrame = [self.containerView.superview convertRect:_sourceFrame toView:self.containerView];
     
     UIView* animatedView = [[UIView alloc] initWithFrame:startFrame];
     animatedView.glb_cornerRadius = startFrame.size.height / 2;
-    animatedView.backgroundColor = self.backgroundColor;
+    animatedView.backgroundColor = _backgroundColor;
     animatedView.clipsToBounds = YES;
     [self.containerView addSubview:animatedView];
     
@@ -90,7 +108,7 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(NSEC_PER_SEC * self.duration * 0.32)), dispatch_get_main_queue(), ^{
         [UIView transitionWithView:animatedView duration:self.duration * 0.58 options:0 animations:^{
             animatedView.transform = CGAffineTransformIdentity;
-            animatedView.backgroundColor = self.backgroundColor;
+            animatedView.backgroundColor = _backgroundColor;
             animatedView.frame = startFrame;
         } completion:^(BOOL finished) {
             [animatedView removeFromSuperview];

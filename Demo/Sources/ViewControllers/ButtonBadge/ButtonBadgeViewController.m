@@ -23,8 +23,7 @@
     _button.adjustsImageWhenHighlighted = NO;
     _button.imageView.backgroundColor = UIColor.darkGrayColor;
     _button.titleLabel.backgroundColor = UIColor.darkGrayColor;
-    _button.badgeView.text = @"x";
-    _button.badgeView.textInsets = UIEdgeInsetsMake(0.0f, 0.0f, 3.0f, 0.0f);
+    _button.badgeView.text = @"X";
 }
 
 #pragma mark - Actions

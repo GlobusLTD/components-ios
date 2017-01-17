@@ -54,8 +54,13 @@
 
 - (void)setTransitionContext:(id< UIViewControllerContextTransitioning >)transitionContext {
     if(_transitionContext != transitionContext) {
+        if(_transitionContext != nil) {
+            [self _cleanupTransitionContext];
+        }
         _transitionContext = transitionContext;
-        [self _prepareTransitionContext];
+        if(_transitionContext != nil) {
+            [self _prepareTransitionContext];
+        }
     }
 }
 
@@ -109,10 +114,25 @@
     if([UIDevice glb_compareSystemVersion:@"8.0"] != NSOrderedAscending) {
         _fromView = [_transitionContext viewForKey:UITransitionContextFromViewKey];
         _toView = [_transitionContext viewForKey:UITransitionContextToViewKey];
-    } else {
+    }
+    if(_fromView == nil) {
         _fromView = _fromViewController.view;
+    }
+    if(_toView == nil) {
         _toView = _toViewController.view;
     }
+}
+
+- (void)_cleanupTransitionContext {
+    _fromViewController = nil;
+    _initialFrameFromViewController = CGRectNull;
+    _finalFrameFromViewController = CGRectNull;
+    _toViewController = nil;
+    _initialFrameToViewController = CGRectNull;
+    _finalFrameToViewController = CGRectNull;
+    _containerView = nil;
+    _fromView = nil;
+    _toView = nil;
 }
 
 - (void)_startTransition {
@@ -153,6 +173,7 @@
 }
 
 - (void)animationEnded:(BOOL)transitionComplete {
+    self.transitionContext = nil;
 }
 
 #pragma mark - UIViewControllerInteractiveTransitioning
@@ -171,7 +192,7 @@
 }
 
 - (UIViewAnimationCurve)completionCurve {
-    return _completionSpeed;
+    return _completionCurve;
 }
 
 @end

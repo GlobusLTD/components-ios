@@ -19,6 +19,7 @@
 @property(nonatomic, readonly, strong) UIView* toView;
 
 - (void)_prepareTransitionContext;
+- (void)_cleanupTransitionContext;
 
 - (void)_startTransition;
 - (void)_completeTransition;

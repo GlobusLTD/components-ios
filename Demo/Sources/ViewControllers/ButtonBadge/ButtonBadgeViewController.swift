@@ -22,8 +22,7 @@ class ButtonBadgeViewController: GLBViewController {
         self.button.adjustsImageWhenHighlighted = false
         self.button.imageView?.backgroundColor = UIColor.darkGray
         self.button.titleLabel?.backgroundColor = UIColor.darkGray
-        self.button.badgeView?.text = "x"
-        self.button.badgeView?.textInsets = UIEdgeInsets.init(top: 0.0, left: 0.0, bottom: 3.0, right: 0.0)
+        self.button.badgeView?.text = "X"
     }
     
     // MARK - Action

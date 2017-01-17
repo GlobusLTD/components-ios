@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <viewController id="sJo-3v-SfU" customClass="TransitionRootViewController" customModule="Globus_Swift">
+            <layoutGuides>
+                <viewControllerLayoutGuide type="top" id="zTu-g0-tED"/>
+                <viewControllerLayoutGuide type="bottom" id="fJi-n4-fwm"/>
+            </layoutGuides>
+            <view key="view" contentMode="scaleToFill" id="hgj-QJ-4vd">
+                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Auf-vU-M87" customClass="GLBListField">
+                        <rect key="frame" x="16" y="16" width="289" height="30"/>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <action selector="changedSelectedItem:" destination="sJo-3v-SfU" eventType="valueChanged" id="oh9-Ng-c3g"/>
+                        </connections>
+                    </textField>
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="meI-fA-xeO">
+                        <rect key="frame" x="321" y="16" width="38" height="30"/>
+                        <state key="normal" title="Show"/>
+                        <connections>
+                            <action selector="pressedPresent:" destination="sJo-3v-SfU" eventType="touchUpInside" id="gpa-vK-wmn"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstItem="Auf-vU-M87" firstAttribute="leading" secondItem="hgj-QJ-4vd" secondAttribute="leading" constant="16" id="3K8-lT-IFL"/>
+                    <constraint firstAttribute="trailing" secondItem="meI-fA-xeO" secondAttribute="trailing" constant="16" id="DAv-wH-xCq"/>
+                    <constraint firstItem="meI-fA-xeO" firstAttribute="top" secondItem="zTu-g0-tED" secondAttribute="bottom" constant="16" id="U18-Gm-Dj0"/>
+                    <constraint firstItem="meI-fA-xeO" firstAttribute="leading" secondItem="Auf-vU-M87" secondAttribute="trailing" constant="16" id="e0J-g9-GVj"/>
+                    <constraint firstItem="Auf-vU-M87" firstAttribute="top" secondItem="zTu-g0-tED" secondAttribute="bottom" constant="16" id="qek-76-2M6"/>
+                </constraints>
+            </view>
+            <extendedEdge key="edgesForExtendedLayout"/>
+            <toolbarItems/>
+            <navigationItem key="navigationItem" title="Transition" id="ff0-Kv-PHb">
+                <barButtonItem key="leftBarButtonItem" image="MenuButton" id="cAN-Co-AqB">
+                    <connections>
+                        <action selector="pressedMenu:" destination="sJo-3v-SfU" id="cIr-hl-ukn"/>
+                    </connections>
+                </barButtonItem>
+            </navigationItem>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <connections>
+                <outlet property="listField" destination="Auf-vU-M87" id="XOe-jW-2l9"/>
+            </connections>
+            <point key="canvasLocation" x="411.5" y="627.5"/>
+        </viewController>
+    </objects>
+    <resources>
+        <image name="MenuButton" width="22" height="12"/>
+    </resources>
+</document>

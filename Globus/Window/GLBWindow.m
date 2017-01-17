@@ -29,6 +29,20 @@
 #pragma mark -
 /*--------------------------------------------------*/
 
+@interface GLBWindowTransitionContext: NSObject < UIViewControllerContextTransitioning >
+
+@property(nonatomic, readonly, weak) GLBWindow* window;
+@property(nonatomic, readonly, weak) UIViewController* fromViewController;
+@property(nonatomic, readonly, weak) UIViewController* toViewController;
+
+- (instancetype)initWithWindow:(GLBWindow*)window fromViewController:(UIViewController*)fromViewController toViewController:(UIViewController*)toViewController;
+
+@end
+
+/*--------------------------------------------------*/
+#pragma mark -
+/*--------------------------------------------------*/
+
 @implementation GLBWindow
 
 #pragma mark - Init / Free
@@ -162,6 +176,17 @@
 
 #endif
 
+#pragma mark - Public
+
+- (void)changeRootViewController:(UIViewController*)rootViewController animated:(BOOL)animated {
+    if((animated == YES) && (_transition != nil)) {
+        GLBWindowTransitionContext* context = [[GLBWindowTransitionContext alloc] initWithWindow:self fromViewController:self.rootViewController toViewController:rootViewController];
+        [_transition animateTransition:context];
+    } else {
+        [self setRootViewController:rootViewController];
+    }
+}
+
 #pragma mark - Private
 
 - (void)_willShowKeyboard:(NSNotification*)notification {
@@ -177,6 +202,92 @@
     if(responder != nil) {
         [responder resignFirstResponder];
     }
+}
+
+@end
+
+/*--------------------------------------------------*/
+#pragma mark -
+/*--------------------------------------------------*/
+
+@implementation GLBWindowTransitionContext
+
+#pragma mark - Init / Free
+
+- (instancetype)initWithWindow:(GLBWindow*)window fromViewController:(UIViewController*)fromViewController toViewController:(UIViewController*)toViewController {
+    self = [super init];
+    if(self != nil) {
+        _window = window;
+        _fromViewController = fromViewController;
+        _toViewController = toViewController;
+    }
+    return self;
+}
+
+#pragma mark - UIViewControllerContextTransitioning
+
+- (UIView*)containerView {
+    return _window;
+}
+
+- (BOOL)isAnimated {
+    return YES;
+}
+
+- (BOOL)isInteractive {
+    return NO;
+}
+
+- (BOOL)transitionWasCancelled {
+    return NO;
+}
+
+- (UIModalPresentationStyle)presentationStyle {
+    return UIModalPresentationNone;
+}
+
+- (void)updateInteractiveTransition:(CGFloat)percentComplete {
+}
+
+- (void)finishInteractiveTransition {
+}
+
+- (void)cancelInteractiveTransition {
+}
+
+- (void)pauseInteractiveTransition {
+}
+
+- (void)completeTransition:(BOOL)didComplete {
+    if(didComplete == YES) {
+        [_window setRootViewController:_toViewController];
+    }
+    [_window.transition animationEnded:didComplete];
+}
+
+- (UIViewController*)viewControllerForKey:(UITransitionContextViewControllerKey)key {
+    if([key isEqualToString:UITransitionContextFromViewControllerKey] == YES) {
+        return _fromViewController;
+    } else if([key isEqualToString:UITransitionContextToViewControllerKey] == YES) {
+        return _toViewController;
+    }
+    return nil;
+}
+
+- (UIView*)viewForKey:(UITransitionContextViewKey)key {
+    return nil;
+}
+
+- (CGAffineTransform)targetTransform {
+    return CGAffineTransformIdentity;
+}
+
+- (CGRect)initialFrameForViewController:(UIViewController*)viewController {
+    return _window.frame;
+}
+
+- (CGRect)finalFrameForViewController:(UIViewController*)viewController {
+    return _window.frame;
 }
 
 @end

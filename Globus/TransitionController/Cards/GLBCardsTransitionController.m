@@ -49,20 +49,36 @@
                                    delay:0
                                  options:UIViewKeyframeAnimationOptionCalculationModeCubic
                               animations:^{
-                                  [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:0.4 animations:^{
+                                  [UIView addKeyframeWithRelativeStartTime:0.0f relativeDuration:0.4f animations:^{
                                       self.fromView.layer.transform = t1;
                                       self.fromView.alpha = 0.6f;
                                   }];
-                                  [UIView addKeyframeWithRelativeStartTime:0.2 relativeDuration:0.4 animations:^{
+                                  [UIView addKeyframeWithRelativeStartTime:0.2f relativeDuration:0.4f animations:^{
                                       self.fromView.layer.transform = t2;
                                   }];
-                                  [UIView addKeyframeWithRelativeStartTime:0.6 relativeDuration:0.2 animations:^{
-                                      self.toView.frame = CGRectOffset(self.toView.frame, 0, -30);
+                                  [UIView addKeyframeWithRelativeStartTime:0.6f relativeDuration:0.2f animations:^{
+                                      self.toView.frame = CGRectOffset(self.toView.frame, 0.0f, -30.0f);
                                   }];
-                                  [UIView addKeyframeWithRelativeStartTime:0.8 relativeDuration:0.2 animations:^{
+                                  [UIView addKeyframeWithRelativeStartTime:0.8f relativeDuration:0.2f animations:^{
                                       self.toView.frame = frame;
                                   }];
                               } completion:^(BOOL finished) {
+                                  if([self isCancelled] == YES) {
+                                      self.toView.frame = frame;
+                                      self.toView.layer.transform = CATransform3DIdentity;
+                                      self.toView.alpha = 1.0f;
+                                      self.fromView.frame = frame;
+                                      self.fromView.layer.transform = CATransform3DIdentity;
+                                      self.fromView.alpha = 1.0f;
+                                  } else {
+                                      self.toView.frame = frame;
+                                      self.toView.layer.transform = CATransform3DIdentity;
+                                      self.toView.alpha = 1.0f;
+                                      
+                                      self.fromView.layer.transform = t2;
+                                      self.fromView.alpha = 0.6f;
+                                      [self.fromView removeFromSuperview];
+                                  }
                                   [self _completeTransition];
                               }];
 }
@@ -70,30 +86,40 @@
 - (void)_startTransitionReverse {
     CGRect frame = self.initialFrameFromViewController;
     self.toView.frame = frame;
-    self.toView.layer.transform = CATransform3DScale(CATransform3DIdentity, (CGFloat)(0.6), (CGFloat)(0.6), 1);
+    self.toView.layer.transform = CATransform3DScale(CATransform3DIdentity, 0.6f, 0.6f, 1.0f);
     self.toView.alpha = 0.6f;
     [self.containerView insertSubview:self.toView belowSubview:self.fromView];
     CGRect frameOffScreen = frame;
     frameOffScreen.origin.y = frame.size.height;
     CATransform3D t1 = [self _firstTransform];
     [UIView animateKeyframesWithDuration:self.duration
-                                   delay:0
+                                   delay:0.0f
                                  options:UIViewKeyframeAnimationOptionCalculationModeCubic
                               animations:^{
-                                  [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:0.5 animations:^{
+                                  [UIView addKeyframeWithRelativeStartTime:0.0f relativeDuration:0.5f animations:^{
                                       self.fromView.frame = frameOffScreen;
                                   }];
-                                  [UIView addKeyframeWithRelativeStartTime:0.35 relativeDuration:0.35 animations:^{
+                                  [UIView addKeyframeWithRelativeStartTime:0.35f relativeDuration:0.35f animations:^{
                                       self.toView.layer.transform = t1;
                                       self.toView.alpha = 1;
                                   }];
-                                  [UIView addKeyframeWithRelativeStartTime:0.75 relativeDuration:0.25 animations:^{
+                                  [UIView addKeyframeWithRelativeStartTime:0.75f relativeDuration:0.25f animations:^{
                                       self.toView.layer.transform = CATransform3DIdentity;
+                                      self.toView.frame = frame;
+                                      self.toView.alpha = 1;
                                   }];
                               } completion:^(BOOL finished) {
-                                  if(self.isCancelled == YES) {
+                                  if([self isCancelled] == YES) {
+                                      self.toView.frame = frame;
+                                      self.toView.layer.transform = CATransform3DScale(CATransform3DIdentity, 0.6f, 0.6f, 1.0f);
+                                      self.toView.alpha = 0.6f;
+                                      self.fromView.frame = frame;
+                                  } else {
+                                      self.fromView.frame = frameOffScreen;
                                       self.toView.layer.transform = CATransform3DIdentity;
-                                      self.toView.alpha = 1;
+                                      self.toView.frame = frame;
+                                      self.toView.alpha = 1.0f;
+                                      [self.fromView removeFromSuperview];
                                   }
                                   [self _completeTransition];
                               }];
@@ -101,9 +127,9 @@
 
 - (CATransform3D)_firstTransform {
     CATransform3D t1 = CATransform3DIdentity;
-    t1.m34 = 1 / -900;
-    t1 = CATransform3DScale(t1, (CGFloat)(0.95), (CGFloat)(0.95), 1);
-    t1 = CATransform3DRotate(t1, (CGFloat)((15 * M_PI) / 180), 1, 0, 0);
+    t1.m34 = 1.0f / -900.0f;
+    t1 = CATransform3DScale(t1, (CGFloat)(0.95f), (CGFloat)(0.95f), 1.0f);
+    t1 = CATransform3DRotate(t1, (CGFloat)((15.0f * M_PI) / 180.0f), 1.0f, 0.0f, 0.0f);
     return t1;
 }
 
@@ -111,8 +137,8 @@
     CATransform3D t1 = [self _firstTransform];
     CATransform3D t2 = CATransform3DIdentity;
     t2.m34 = t1.m34;
-    t2 = CATransform3DTranslate(t2, 0, (CGFloat)(view.frame.size.height * -0.08), 0);
-    t2 = CATransform3DScale(t2, (CGFloat)(0.8), (CGFloat)(0.8), 1);
+    t2 = CATransform3DTranslate(t2, 0.0f, (CGFloat)(view.frame.size.height * -0.08f), 0.0f);
+    t2 = CATransform3DScale(t2, 0.8f, 0.8f, 1.0f);
     return t2;
 }
 

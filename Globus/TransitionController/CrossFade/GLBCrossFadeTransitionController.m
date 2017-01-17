@@ -31,8 +31,8 @@
                          if([self isCancelled] == YES) {
                              self.fromView.alpha = 1;
                          } else {
-                             [self.fromView removeFromSuperview];
                              self.fromView.alpha = 1;
+                             [self.fromView removeFromSuperview];
                          }
                          [self _completeTransition];
                      }];

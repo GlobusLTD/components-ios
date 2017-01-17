@@ -34,50 +34,18 @@
     switch(self.operation) {
         case GLBTransitionOperationPresent:
         case GLBTransitionOperationPush: {
-            if(CGRectIsEmpty(self.initialFrameFromViewController) == YES) {
-                self.initialFrameFromViewController = containerFrame;
-            }
-            if(CGRectIsEmpty(self.finalFrameFromViewController) == YES) {
-                if(CGRectIsEmpty(self.finalFrameToViewController) == NO) {
-                    self.finalFrameFromViewController = CGRectMake(self.initialFrameFromViewController.origin.x - self.initialFrameFromViewController.size.width, self.initialFrameFromViewController.origin.y, self.initialFrameFromViewController.size.width, self.initialFrameFromViewController.size.height);
-                } else {
-                    self.finalFrameFromViewController = CGRectMake(containerFrame.origin.x - containerFrame.size.width, containerFrame.origin.y, containerFrame.size.width, containerFrame.size.height);
-                }
-            }
-            if(CGRectIsEmpty(self.initialFrameToViewController) == YES) {
-                if(CGRectIsEmpty(self.finalFrameToViewController) == NO) {
-                    self.initialFrameToViewController = CGRectMake(self.finalFrameToViewController.origin.x + (self.finalFrameToViewController.size.width * self.ratio), self.finalFrameToViewController.origin.y, self.finalFrameToViewController.size.width, self.finalFrameToViewController.size.height);
-                } else {
-                    self.initialFrameToViewController = CGRectMake(containerFrame.origin.x + (containerFrame.size.width * self.ratio), containerFrame.origin.y, containerFrame.size.width, containerFrame.size.height);
-                }
-            }
-            if(CGRectIsEmpty(self.finalFrameToViewController) == YES) {
-                self.finalFrameToViewController = containerFrame;
-            }
+            self.initialFrameFromViewController = containerFrame;
+            self.finalFrameFromViewController = CGRectMake(containerFrame.origin.x - containerFrame.size.width, containerFrame.origin.y, containerFrame.size.width, containerFrame.size.height);
+            self.initialFrameToViewController = CGRectMake(containerFrame.origin.x + (containerFrame.size.width * self.ratio), containerFrame.origin.y, containerFrame.size.width, containerFrame.size.height);
+            self.finalFrameToViewController = containerFrame;
             break;
         }
         case GLBTransitionOperationDismiss:
         case GLBTransitionOperationPop: {
-            if(CGRectIsEmpty(self.initialFrameFromViewController) == YES) {
-                self.initialFrameFromViewController = containerFrame;
-            }
-            if(CGRectIsEmpty(self.finalFrameFromViewController) == YES) {
-                if(CGRectIsEmpty(self.finalFrameToViewController) == NO) {
-                    self.finalFrameFromViewController = CGRectMake(self.initialFrameFromViewController.origin.x + self.initialFrameFromViewController.size.width, self.initialFrameFromViewController.origin.y, self.initialFrameFromViewController.size.width, self.initialFrameFromViewController.size.height);
-                } else {
-                    self.finalFrameFromViewController = CGRectMake(containerFrame.origin.x + containerFrame.size.width, containerFrame.origin.y, containerFrame.size.width, containerFrame.size.height);
-                }
-            }
-            if(CGRectIsEmpty(self.initialFrameToViewController) == YES) {
-                if(CGRectIsEmpty(self.finalFrameToViewController) == NO) {
-                    self.initialFrameToViewController = CGRectMake(self.finalFrameToViewController.origin.x - (self.finalFrameToViewController.size.width * self.ratio), self.finalFrameToViewController.origin.y, self.finalFrameToViewController.size.width, self.finalFrameToViewController.size.height);
-                } else {
-                    self.initialFrameToViewController = CGRectMake(containerFrame.origin.x - (containerFrame.size.width * self.ratio), containerFrame.origin.y, containerFrame.size.width, containerFrame.size.height);
-                }
-            }
-            if(CGRectIsEmpty(self.finalFrameToViewController) == YES) {
-                self.finalFrameToViewController = containerFrame;
-            }
+            self.initialFrameFromViewController = containerFrame;
+            self.finalFrameFromViewController = CGRectMake(containerFrame.origin.x + containerFrame.size.width, containerFrame.origin.y, containerFrame.size.width, containerFrame.size.height);
+            self.initialFrameToViewController = CGRectMake(containerFrame.origin.x - (containerFrame.size.width * self.ratio), containerFrame.origin.y, containerFrame.size.width, containerFrame.size.height);
+            self.finalFrameToViewController = containerFrame;
             break;
         }
     }
@@ -87,10 +55,14 @@
 
 - (void)_startTransition {
     self.fromView.frame = self.initialFrameFromViewController;
+    if(self.fromView.superview == nil) {
+        [self.containerView addSubview:self.fromView];
+    }
     self.toView.frame = self.initialFrameToViewController;
-    
-    [self.containerView addSubview:self.toView];
-    [self.containerView sendSubviewToBack:self.toView];
+    if(self.toView.superview == nil) {
+        [self.containerView addSubview:self.toView];
+    }
+    [self.containerView sendSubviewToBack:self.fromView];
     
     [UIView animateWithDuration:self.duration
                           delay:0

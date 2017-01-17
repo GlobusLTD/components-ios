@@ -5,6 +5,10 @@
 #import "UIWindow+GLBUI.h"
 
 /*--------------------------------------------------*/
+
+#import "GLBTransitionController.h"
+
+/*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
@@ -15,10 +19,12 @@
 @interface GLBWindow : UIWindow
 
 @property(nonatomic) BOOL hideKeyboardIfTouched;
-
+@property(nonatomic, nullable, strong) GLBTransitionController* transition;
 @property(nonatomic, nullable, strong) GLBActivityView* activityView;
 
 - (void)setup NS_REQUIRES_SUPER;
+
+- (void)changeRootViewController:(UIViewController* _Nonnull)rootViewController animated:(BOOL)animated NS_SWIFT_NAME(change(rootViewController:animated:));
 
 @end
 

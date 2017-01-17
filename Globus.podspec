@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.3.12'
+  s.version = '0.3.13'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -518,6 +518,7 @@ Pod::Spec.new do |s|
     ss.dependency 'Globus/UIKit/Responder'
     ss.dependency 'Globus/UIKit/Application'
     ss.dependency 'Globus/UIKit/Window'
+    ss.dependency 'Globus/TransitionController/Base'
   end
   s.subspec 'TransitionController' do |ss|
     ss.subspec 'Base' do |sss|

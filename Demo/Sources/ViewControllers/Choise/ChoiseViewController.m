@@ -21,6 +21,7 @@
 #import "SpinnerViewController.h"
 #import "ActivityViewController.h"
 #import "ScrollViewController.h"
+#import "TransitionRootViewController.h"
 
 @interface ChoiseViewController () < UITableViewDataSource, UITableViewDelegate > {
     NSArray< ChoiseViewModel* >* _data;
@@ -53,6 +54,7 @@
         [ChoiseViewModel viewModelWithTitle:@"Spinner view" viewController:SpinnerViewController.class],
         [ChoiseViewModel viewModelWithTitle:@"Activity view" viewController:ActivityViewController.class],
         [ChoiseViewModel viewModelWithTitle:@"ScrollView" viewController:ScrollViewController.class],
+        [ChoiseViewModel viewModelWithTitle:@"Transition" viewController:TransitionRootViewController.class],
     ];
     
     [_tableView glb_registerCell:ChoiseCellTableViewCell.class];
