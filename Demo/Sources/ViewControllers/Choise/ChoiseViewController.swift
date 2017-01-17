@@ -13,6 +13,7 @@ class ChoiseViewController: GLBViewController {
     // MARK: - Private property
     
     var data: Array< ChoiseViewModel > = [
+        ChoiseControllerViewModel< MainViewController >.init(title:"Main"),
         ChoiseControllerViewModel< LabelViewController >.init(title:"Label"),
         ChoiseControllerViewModel< ButtonViewController >.init(title:"Button"),
         ChoiseControllerViewModel< ButtonImageViewController >.init(title:"Button & Image"),
@@ -25,6 +26,7 @@ class ChoiseViewController: GLBViewController {
         ChoiseControllerViewModel< PhoneFieldViewController >.init(title:"Phone field"),
         ChoiseControllerViewModel< TextViewController >.init(title:"Text view"),
         ChoiseControllerViewModel< SpinnerViewController >.init(title:"Spinners"),
+        ChoiseControllerViewModel< ScrollViewController >.init(title:"ScrollView"),
     ]
     
     //MARK: - UIViewController

@@ -15,12 +15,12 @@ class TextViewController: GLBViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.textView.glb_borderColor = UIColor.darkGray;
-        self.textView.glb_borderWidth = 1;
-        self.textView.glb_cornerRadius = 4;
+        self.textView.glb_borderColor = UIColor.darkGray
+        self.textView.glb_borderWidth = 1
+        self.textView.glb_cornerRadius = 4
         
-        self.textView.minimumHeight = 48;
-        self.textView.maximumHeight = 96;
+        self.textView.minimumHeight = 48
+        self.textView.maximumHeight = 96
 
         let placeholderStyle = GLBTextStyle.init()
         placeholderStyle.font = UIFont.boldSystemFont(ofSize: 16)

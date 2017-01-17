@@ -27,8 +27,8 @@
     
     _phoneField.prefix = @"+";
     [_phoneField setDefaultOutputPattern:@"############"];
-    [_phoneField addOutputPattern:@"# (###) ###-##-##" forRegExp:@"^7\\d{10}$" userInfo:@"RU"];
-    [_phoneField addOutputPattern:@"## (####) ##-##-##" forRegExp:@"^44\\d{10}$" userInfo:@"UK"];
+    [_phoneField addOutputPattern:@"# (###) ###-##-##" forRegExp:@"^7\\d{10}" userInfo:@"RU"];
+    [_phoneField addOutputPattern:@"## (####) ##-##-##" forRegExp:@"^44\\d{10}" userInfo:@"UK"];
     
     [self changedPhone:nil];
 }

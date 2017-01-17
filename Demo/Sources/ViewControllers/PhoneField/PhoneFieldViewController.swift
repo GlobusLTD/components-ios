@@ -25,8 +25,8 @@ class PhoneFieldViewController: GLBViewController {
         
         self.phoneField.prefix = "+"
         self.phoneField.setDefaultOutputPattern("############")
-        self.phoneField.addOutputPattern("# (###) ###-##-##", forRegExp: "^7\\d{10}$", userInfo: "RU")
-        self.phoneField.addOutputPattern("## (####) ##-##-##", forRegExp: "^44\\d{10}$", userInfo: "UK")
+        self.phoneField.addOutputPattern("# (###) ###-##-##", forRegExp: "^7\\d{10}", userInfo: "RU")
+        self.phoneField.addOutputPattern("## (####) ##-##-##", forRegExp: "^44\\d{10}", userInfo: "UK")
         
         self.changedPhone(self.phoneField)
     }

@@ -6,6 +6,7 @@
 #import "ChoiseCellTableViewCell.h"
 #import "ChoiseViewModel.h"
 
+#import "MainViewController.h"
 #import "LabelViewController.h"
 #import "ButtonViewController.h"
 #import "ButtonImageViewController.h"
@@ -18,6 +19,7 @@
 #import "PhoneFieldViewController.h"
 #import "TextViewController.h"
 #import "SpinnerViewController.h"
+#import "ScrollViewController.h"
 
 @interface ChoiseViewController () < UITableViewDataSource, UITableViewDelegate > {
     NSArray< ChoiseViewModel* >* _data;
@@ -35,6 +37,7 @@
     [super viewDidLoad];
     
     _data = @[
+        [ChoiseViewModel viewModelWithTitle:@"Main" viewController:MainViewController.class],
         [ChoiseViewModel viewModelWithTitle:@"Label" viewController:LabelViewController.class],
         [ChoiseViewModel viewModelWithTitle:@"Button" viewController:ButtonViewController.class],
         [ChoiseViewModel viewModelWithTitle:@"Button & Image" viewController:ButtonImageViewController.class],
@@ -47,6 +50,7 @@
         [ChoiseViewModel viewModelWithTitle:@"Phone field" viewController:PhoneFieldViewController.class],
         [ChoiseViewModel viewModelWithTitle:@"Text view" viewController:TextViewController.class],
         [ChoiseViewModel viewModelWithTitle:@"Spinners" viewController:SpinnerViewController.class],
+        [ChoiseViewModel viewModelWithTitle:@"ScrollView" viewController:ScrollViewController.class],
     ];
     
     [_tableView glb_registerCell:ChoiseCellTableViewCell.class];
