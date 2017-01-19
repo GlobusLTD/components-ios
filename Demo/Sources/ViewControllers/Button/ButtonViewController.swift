@@ -16,20 +16,36 @@ class ButtonViewController: GLBViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.fillButton.glb_normalTitleColor = UIColor.darkGray
+        let fillNormalTitleStyle = GLBTextStyle.init()
+        fillNormalTitleStyle.font = UIFont.boldSystemFont(ofSize: 16)
+        fillNormalTitleStyle.color = UIColor.darkGray
+        
+        let fillHighlightedTitleStyle = GLBTextStyle.init()
+        fillHighlightedTitleStyle.font = UIFont.boldSystemFont(ofSize: 16)
+        fillHighlightedTitleStyle.color = UIColor.black
+        
+        self.fillButton.normalTitleStyle = fillNormalTitleStyle
         self.fillButton.normalBackgroundColor = UIColor.lightGray
         self.fillButton.normalCornerRadius = 4.0
         
-        self.fillButton.glb_highlightedTitleColor = UIColor.black
+        self.fillButton.highlightedTitleStyle = fillHighlightedTitleStyle
         self.fillButton.highlightedBackgroundColor = UIColor.darkGray
         self.fillButton.highlightedCornerRadius = 8.0
         
-        self.strokeButton.glb_normalTitleColor = UIColor.lightGray
+        let strokeNormalTitleStyle = GLBTextStyle.init()
+        strokeNormalTitleStyle.font = UIFont.italicSystemFont(ofSize: 16)
+        strokeNormalTitleStyle.color = UIColor.lightGray
+        
+        let strokeHighlightedTitleStyle = GLBTextStyle.init()
+        strokeHighlightedTitleStyle.font = UIFont.italicSystemFont(ofSize: 16)
+        strokeHighlightedTitleStyle.color = UIColor.darkGray
+        
+        self.strokeButton.normalTitleStyle = strokeNormalTitleStyle
         self.strokeButton.normalBorderWidth = 1.0
         self.strokeButton.normalBorderColor = UIColor.lightGray
         self.strokeButton.normalCornerRadius = 4.0
         
-        self.strokeButton.glb_highlightedTitleColor = UIColor.darkGray
+        self.strokeButton.highlightedTitleStyle = strokeHighlightedTitleStyle
         self.strokeButton.highlightedBorderColor = UIColor.darkGray
         self.strokeButton.highlightedBorderWidth = 2.0
         self.strokeButton.highlightedCornerRadius = 8.0

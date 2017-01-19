@@ -18,6 +18,14 @@
     return [self titleForState:UIControlStateNormal];
 }
 
+- (void)setGlb_normalAttributedTitle:(NSAttributedString*)normalAttributedTitle {
+    [self setAttributedTitle:normalAttributedTitle forState:UIControlStateNormal];
+}
+
+- (NSAttributedString*)glb_normalAttributedTitle {
+    return [self attributedTitleForState:UIControlStateNormal];
+}
+
 - (void)setGlb_normalTitleColor:(UIColor*)normalTitleColor {
     [self setTitleColor:normalTitleColor forState:UIControlStateNormal];
 }
@@ -56,6 +64,14 @@
 
 - (NSString*)glb_highlightedTitle {
     return [self titleForState:UIControlStateHighlighted];
+}
+
+- (void)setGlb_highlightedAttributedTitle:(NSAttributedString*)highlightedAttributedTitle {
+    [self setAttributedTitle:highlightedAttributedTitle forState:UIControlStateHighlighted];
+}
+
+- (NSAttributedString*)glb_highlightedAttributedTitle {
+    return [self attributedTitleForState:UIControlStateHighlighted];
 }
 
 - (void)setGlb_highlightedTitleColor:(UIColor*)highlightedTitleColor {
@@ -98,6 +114,14 @@
     return [self titleForState:UIControlStateSelected];
 }
 
+- (void)setGlb_selectedAttributedTitle:(NSAttributedString*)selectedAttributedTitle {
+    [self setAttributedTitle:selectedAttributedTitle forState:UIControlStateSelected];
+}
+
+- (NSAttributedString*)glb_selectedAttributedTitle {
+    return [self attributedTitleForState:UIControlStateSelected];
+}
+
 - (void)setGlb_selectedTitleColor:(UIColor*)selectedTitleColor {
     [self setTitleColor:selectedTitleColor forState:UIControlStateSelected];
 }
@@ -136,6 +160,14 @@
 
 - (NSString*)glb_disabledTitle {
     return [self titleForState:UIControlStateDisabled];
+}
+
+- (void)setGlb_disabledAttributedTitle:(NSAttributedString*)disabledAttributedTitle {
+    [self setAttributedTitle:disabledAttributedTitle forState:UIControlStateDisabled];
+}
+
+- (NSAttributedString*)glb_disabledAttributedTitle {
+    return [self attributedTitleForState:UIControlStateDisabled];
 }
 
 - (void)setGlb_disabledTitleColor:(UIColor*)disabledTitleColor {

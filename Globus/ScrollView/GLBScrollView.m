@@ -6,17 +6,9 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@interface GLBScrollView ()
-
-@property(nonatomic, strong) NSLayoutConstraint* constraintRootViewL;
-@property(nonatomic, strong) NSLayoutConstraint* constraintRootViewT;
-@property(nonatomic, strong) NSLayoutConstraint* constraintRootViewR;
-@property(nonatomic, strong) NSLayoutConstraint* constraintRootViewB;
-@property(nonatomic, strong) NSLayoutConstraint* constraintRootViewW;
-@property(nonatomic, strong) NSLayoutConstraint* constraintRootViewH;
-
-- (void)linkConstraint;
-- (void)unlinkConstraint;
+@interface GLBScrollView () {
+    NSMutableArray< NSLayoutConstraint* >* _constraints;
+}
 
 @end
 
@@ -45,6 +37,7 @@
 }
 
 - (void)setup {
+    _constraints = [NSMutableArray array];
     _direction = GLBScrollViewDirectionVertical;
     
     [self glb_registerAdjustmentResponder];
@@ -58,135 +51,66 @@
 
 - (void)setDirection:(GLBScrollViewDirection)direction {
     if(_direction != direction) {
-        if(_rootView != nil) {
-            [self unlinkConstraint];
-        }
         _direction = direction;
-        if(_rootView != nil) {
-            [self linkConstraint];
-        }
-        [self setNeedsLayout];
+        [self setNeedsUpdateConstraints];
     }
 }
 
 - (void)setRootView:(UIView*)rootView {
     if(_rootView != rootView) {
         if(_rootView != nil) {
-            [self unlinkConstraint];
             [_rootView removeFromSuperview];
         }
         _rootView = rootView;
         if(_rootView != nil) {
             _rootView.translatesAutoresizingMaskIntoConstraints = NO;
             [self addSubview:_rootView];
-            [self linkConstraint];
         }
-        [self setNeedsLayout];
+        [self setNeedsUpdateConstraints];
     }
 }
 
-#pragma mark - Private
+#pragma mark - UIView
 
-- (void)linkConstraint {
-    switch(_direction) {
-        case GLBScrollViewDirectionStretch:
-            self.constraintRootViewT = [_rootView glb_addConstraintAttribute:NSLayoutAttributeTop
-                                                                    relation:NSLayoutRelationEqual
-                                                                   attribute:NSLayoutAttributeTop
-                                                                    constant:0.0];
-            self.constraintRootViewB = [_rootView glb_addConstraintAttribute:NSLayoutAttributeBottom
-                                                                    relation:NSLayoutRelationEqual
-                                                                   attribute:NSLayoutAttributeBottom
-                                                                    constant:0.0];
-            self.constraintRootViewL = [_rootView glb_addConstraintAttribute:NSLayoutAttributeLeft
-                                                                    relation:NSLayoutRelationEqual
-                                                                   attribute:NSLayoutAttributeLeft
-                                                                    constant:0.0];
-            self.constraintRootViewR = [_rootView glb_addConstraintAttribute:NSLayoutAttributeRight
-                                                                    relation:NSLayoutRelationEqual
-                                                                   attribute:NSLayoutAttributeRight
-                                                                    constant:0.0];
-            self.constraintRootViewW = [_rootView glb_addConstraintAttribute:NSLayoutAttributeWidth
-                                                                    relation:NSLayoutRelationEqual
-                                                                   attribute:NSLayoutAttributeWidth
-                                                                    constant:0.0];
-            self.constraintRootViewH = [_rootView glb_addConstraintAttribute:NSLayoutAttributeHeight
-                                                                    relation:NSLayoutRelationEqual
-                                                                   attribute:NSLayoutAttributeHeight
-                                                                    constant:0.0];
-            break;
-        case GLBScrollViewDirectionVertical:
-            self.constraintRootViewT = [_rootView glb_addConstraintAttribute:NSLayoutAttributeTop
-                                                                    relation:NSLayoutRelationEqual
-                                                                   attribute:NSLayoutAttributeTop
-                                                                    constant:0.0];
-            self.constraintRootViewB = [_rootView glb_addConstraintAttribute:NSLayoutAttributeBottom
-                                                                    relation:NSLayoutRelationEqual
-                                                                   attribute:NSLayoutAttributeBottom
-                                                                    constant:0.0];
-            self.constraintRootViewL = [_rootView glb_addConstraintAttribute:NSLayoutAttributeLeft
-                                                                    relation:NSLayoutRelationEqual
-                                                                   attribute:NSLayoutAttributeLeft
-                                                                    constant:0.0];
-            self.constraintRootViewR = [_rootView glb_addConstraintAttribute:NSLayoutAttributeRight
-                                                                    relation:NSLayoutRelationEqual
-                                                                   attribute:NSLayoutAttributeRight
-                                                                    constant:0.0];
-            self.constraintRootViewW = [_rootView glb_addConstraintAttribute:NSLayoutAttributeWidth
-                                                                    relation:NSLayoutRelationEqual
-                                                                   attribute:NSLayoutAttributeWidth
-                                                                    constant:0.0];
-            break;
-        case GLBScrollViewDirectionHorizontal:
-            
-            self.constraintRootViewT = [_rootView glb_addConstraintAttribute:NSLayoutAttributeTop
-                                                                    relation:NSLayoutRelationEqual
-                                                                   attribute:NSLayoutAttributeTop
-                                                                    constant:0.0];
-            self.constraintRootViewB = [_rootView glb_addConstraintAttribute:NSLayoutAttributeBottom
-                                                                    relation:NSLayoutRelationEqual
-                                                                   attribute:NSLayoutAttributeBottom
-                                                                    constant:0.0];
-            self.constraintRootViewL = [_rootView glb_addConstraintAttribute:NSLayoutAttributeLeading
-                                                                    relation:NSLayoutRelationEqual
-                                                                   attribute:NSLayoutAttributeLeading
-                                                                    constant:0.0];
-            self.constraintRootViewR = [_rootView glb_addConstraintAttribute:NSLayoutAttributeTrailing
-                                                                    relation:NSLayoutRelationEqual
-                                                                   attribute:NSLayoutAttributeTrailing
-                                                                    constant:0.0];
-            self.constraintRootViewH = [_rootView glb_addConstraintAttribute:NSLayoutAttributeHeight
-                                                                    relation:NSLayoutRelationEqual
-                                                                   attribute:NSLayoutAttributeHeight
-                                                                    constant:0.0];
-            break;
+- (void)updateConstraints {
+    [super updateConstraints];
+    
+    if(_constraints.count > 0) {
+        [self removeConstraints:_constraints];
+        [_constraints removeAllObjects];
     }
-}
-
-- (void)unlinkConstraint {
-    if(self.constraintRootViewL != nil) {
-        [self removeConstraint:self.constraintRootViewL];
-        self.constraintRootViewL = nil;
-    }
-    if(self.constraintRootViewT != nil) {
-        [self removeConstraint:self.constraintRootViewT];
-        self.constraintRootViewT = nil;
-    }
-    if(self.constraintRootViewR != nil) {
-        [self removeConstraint:self.constraintRootViewR];
-        self.constraintRootViewR = nil;
-    }
-    if(self.constraintRootViewB != nil) {
-        [self removeConstraint:self.constraintRootViewB];
-        self.constraintRootViewB = nil;
-    }
-    if(self.constraintRootViewW != nil) {
-        [self removeConstraint:self.constraintRootViewW];
-        self.constraintRootViewW = nil;
-    }
-    if(self.constraintRootViewH != nil) {
-        [self removeConstraint:self.constraintRootViewH];
-        self.constraintRootViewH = nil;
+    if(_rootView != nil) {
+        NSArray* edgeConstraint = [_rootView glb_addConstraintEdgeInsets];
+        if(edgeConstraint != nil) {
+            [_constraints addObjectsFromArray:edgeConstraint];
+        }
+        switch(_direction) {
+            case GLBScrollViewDirectionStretch: {
+                NSLayoutConstraint* widthConstraint = [_rootView glb_addConstraintWidthView:self];
+                if(widthConstraint != nil) {
+                    [_constraints addObject:widthConstraint];
+                }
+                NSLayoutConstraint* heightConstraint = [_rootView glb_addConstraintHeightView:self];
+                if(heightConstraint != nil) {
+                    [_constraints addObject:heightConstraint];
+                }
+                break;
+            }
+            case GLBScrollViewDirectionVertical: {
+                NSLayoutConstraint* widthConstraint = [_rootView glb_addConstraintWidthView:self];
+                if(widthConstraint != nil) {
+                    [_constraints addObject:widthConstraint];
+                }
+                break;
+            }
+            case GLBScrollViewDirectionHorizontal: {
+                NSLayoutConstraint* heightConstraint = [_rootView glb_addConstraintHeightView:self];
+                if(heightConstraint != nil) {
+                    [_constraints addObject:heightConstraint];
+                }
+                break;
+            }
+        }
     }
 }
 

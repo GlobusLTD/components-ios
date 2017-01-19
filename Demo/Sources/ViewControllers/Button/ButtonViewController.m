@@ -18,20 +18,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _fillButton.glb_normalTitleColor = UIColor.darkGrayColor;
+    GLBTextStyle* fillNormalTitleStyle = [GLBTextStyle new];
+    fillNormalTitleStyle.font = [UIFont boldSystemFontOfSize:16];
+    fillNormalTitleStyle.color = UIColor.darkGrayColor;
+    
+    GLBTextStyle* fillHighlightedTitleStyle = [GLBTextStyle new];
+    fillHighlightedTitleStyle.font = [UIFont boldSystemFontOfSize:16];
+    fillHighlightedTitleStyle.color = UIColor.blackColor;
+    
+    _fillButton.normalTitleStyle = fillNormalTitleStyle;
     _fillButton.normalBackgroundColor = UIColor.lightGrayColor;
     _fillButton.normalCornerRadius = 4.0f;
     
-    _fillButton.glb_highlightedTitleColor = UIColor.blackColor;
+    _fillButton.highlightedTitleStyle = fillHighlightedTitleStyle;
     _fillButton.highlightedBackgroundColor = UIColor.darkGrayColor;
     _fillButton.highlightedCornerRadius = 8.0f;
     
-    _strokeButton.glb_normalTitleColor = UIColor.lightGrayColor;
+    GLBTextStyle* strokeNormalTitleStyle = [GLBTextStyle new];
+    strokeNormalTitleStyle.font = [UIFont italicSystemFontOfSize:16];
+    strokeNormalTitleStyle.color = UIColor.lightGrayColor;
+    
+    GLBTextStyle* strokeHighlightedTitleStyle = [GLBTextStyle new];
+    strokeHighlightedTitleStyle.font = [UIFont italicSystemFontOfSize:16];
+    strokeHighlightedTitleStyle.color = UIColor.darkGrayColor;
+    
+    _strokeButton.normalTitleStyle = strokeNormalTitleStyle;
     _strokeButton.normalBorderWidth = 1.0f;
     _strokeButton.normalBorderColor = UIColor.lightGrayColor;
     _strokeButton.normalCornerRadius = 4.0f;
     
-    _strokeButton.glb_highlightedTitleColor = UIColor.darkGrayColor;
+    _strokeButton.highlightedTitleStyle = strokeHighlightedTitleStyle;
     _strokeButton.highlightedBorderColor = UIColor.darkGrayColor;
     _strokeButton.highlightedBorderWidth = 2.0f;
     _strokeButton.highlightedCornerRadius = 8.0f;

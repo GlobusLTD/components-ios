@@ -11,16 +11,6 @@ class ActivityViewController: GLBViewController {
     @IBOutlet fileprivate weak var listField: GLBListField!
     @IBOutlet fileprivate weak var showButton: GLBButton!
     
-    private var spinnerView: GLBSpinnerView? {
-        willSet {
-            self.activityView = nil;
-        }
-        didSet {
-            if let spinnerView = self.spinnerView {
-                self.activityView = GLBActivityView.init(spinnerView: spinnerView, text: "Activity message")
-            }
-        }
-    }
     private var timer: GLBTimer?
     
     // MARK - UIViewController
@@ -48,7 +38,10 @@ class ActivityViewController: GLBViewController {
             GLBListFieldItem.init(title: GLBWaveSpinnerView.glb_className(), value:GLBWaveSpinnerView.self),
             GLBListFieldItem.init(title: GLBWordPressSpinnerView.glb_className(), value:GLBWordPressSpinnerView.self),
         ]
-        self.spinnerView = GLBArcSpinnerView.init()
+        
+        self.activityView = GLBActivityView.init();
+        self.activityView!.spinnerView = GLBArcSpinnerView.init()
+        self.activityView!.textLabel!.text = "This is activity message"
     }
     
     // MARK - Action
@@ -68,12 +61,12 @@ class ActivityViewController: GLBViewController {
     @IBAction internal func changedSelectedItem(_ sender: Any) {
         if let selected = self.listField.selectedItem {
             if let spinnerViewClass = selected.value as? GLBSpinnerView.Type {
-                self.spinnerView = spinnerViewClass.init()
+                self.activityView!.spinnerView = spinnerViewClass.init()
             } else {
-                self.spinnerView = nil
+                self.activityView!.spinnerView = nil
             }
         } else {
-            self.spinnerView = nil
+            self.activityView!.spinnerView = nil
         }
     }
     

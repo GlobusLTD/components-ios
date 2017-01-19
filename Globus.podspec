@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.3.13'
+  s.version = '0.3.14'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -382,10 +382,9 @@ Pod::Spec.new do |s|
   end
   s.subspec 'ActivityView' do |ss|
     ss.source_files = 'Globus/ActivityView/**/*.{h,m}'
-    ss.dependency 'Globus/SpinnerView/Base'
-    ss.dependency 'Globus/UIKit/View'
-    ss.dependency 'Globus/UIKit/Label'
     ss.dependency 'Globus/CoreGraphics'
+    ss.dependency 'Globus/SpinnerView/Arc'
+    ss.dependency 'Globus/Label'
   end
   s.subspec 'InputValidation' do |ss|
     ss.source_files = 'Globus/InputValidation/**/*.{h,m}'
@@ -428,6 +427,7 @@ Pod::Spec.new do |s|
     ss.source_files = 'Globus/Button/**/*.{h,m}'
     ss.dependency 'Globus/UIKit/Button'
     ss.dependency 'Globus/UIKit/Color'
+    ss.dependency 'Globus/TextStyle'
   end
   s.subspec 'Label' do |ss|
     ss.source_files = 'Globus/Label/**/*.{h,m}'

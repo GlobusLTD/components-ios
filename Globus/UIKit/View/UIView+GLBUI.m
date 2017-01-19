@@ -999,15 +999,15 @@
 }
 
 - (NSArray< NSLayoutConstraint* >*)glb_addConstraintEdgeInsets:(UIEdgeInsets)edgeInsets {
-    return [self glb_addConstraintEdgeInsets:UIEdgeInsetsZero relation:NSLayoutRelationEqual view:self.superview];
+    return [self glb_addConstraintEdgeInsets:edgeInsets relation:NSLayoutRelationEqual view:self.superview];
 }
 
 - (NSArray< NSLayoutConstraint* >*)glb_addConstraintEdgeInsets:(UIEdgeInsets)edgeInsets relation:(NSLayoutRelation)relation {
-    return [self glb_addConstraintEdgeInsets:UIEdgeInsetsZero relation:relation view:self.superview];
+    return [self glb_addConstraintEdgeInsets:edgeInsets relation:relation view:self.superview];
 }
 
 - (NSArray< NSLayoutConstraint* >*)glb_addConstraintEdgeInsets:(UIEdgeInsets)edgeInsets view:(UIView*)view {
-    return [self glb_addConstraintEdgeInsets:UIEdgeInsetsZero relation:NSLayoutRelationEqual view:view];
+    return [self glb_addConstraintEdgeInsets:edgeInsets relation:NSLayoutRelationEqual view:view];
 }
 
 - (NSArray< NSLayoutConstraint* >*)glb_addConstraintEdgeInsets:(UIEdgeInsets)edgeInsets relation:(NSLayoutRelation)relation view:(UIView*)view {

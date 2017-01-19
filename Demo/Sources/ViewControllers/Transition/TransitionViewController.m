@@ -39,7 +39,7 @@
         if(selected != nil) {
             _transition = [transitionControllerClass new];
             if([_transition isKindOfClass:GLBMaterialTransitionController.class] == YES) {
-                GLBMaterialTransitionController* materialTransition = _transition;
+                GLBMaterialTransitionController* materialTransition = (GLBMaterialTransitionController*)_transition;
                 materialTransition.backgroundColor = UIColor.redColor;
             }
         } else {

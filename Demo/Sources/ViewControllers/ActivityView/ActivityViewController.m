@@ -9,7 +9,6 @@
 @property(nonatomic, weak) IBOutlet GLBListField* listField;
 @property(nonatomic, weak) IBOutlet GLBButton* showButton;
 
-@property(nonatomic, strong) GLBSpinnerView* spinnerView;
 @property(nonatomic, strong) GLBTimer* timer;
 
 @end
@@ -41,21 +40,10 @@
         [GLBListFieldItem itemWithTitle:GLBWaveSpinnerView.glb_className value:GLBWaveSpinnerView.class],
         [GLBListFieldItem itemWithTitle:GLBWordPressSpinnerView.glb_className value:GLBWordPressSpinnerView.class],
     ];
-    self.spinnerView = GLBArcSpinnerView.new;
-}
-
-#pragma mark - Property
-
-- (void)setSpinnerView:(GLBSpinnerView*)spinnerView {
-    if(_spinnerView != spinnerView) {
-        if(_spinnerView != nil) {
-            self.activityView = nil;
-        }
-        _spinnerView = spinnerView;
-        if(_spinnerView != nil) {
-            self.activityView = [GLBActivityView activityViewWithSpinnerView:_spinnerView text:@"Activity message"];
-        }
-    }
+    
+    self.activityView = [GLBActivityView new];
+    self.activityView.spinnerView = GLBArcSpinnerView.new;
+    self.activityView.textLabel.text = @"This is activity message";
 }
 
 #pragma mark - Actions
@@ -75,12 +63,12 @@
     if(selected != nil) {
         Class spinnerViewClass = selected.value;
         if(selected != nil) {
-            self.spinnerView = spinnerViewClass.new;
+            self.activityView.spinnerView = spinnerViewClass.new;
         } else {
-            self.spinnerView = nil;
+            self.activityView.spinnerView = nil;
         }
     } else {
-        self.spinnerView = nil;
+        self.activityView.spinnerView = nil;
     }
 }
 

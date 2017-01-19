@@ -20,8 +20,6 @@
 @property(nonatomic, strong) NSLayoutConstraint* constraintBadgeCenterY;
 #endif
 
-- (void)_updateCurrentState;
-
 @end
 
 /*--------------------------------------------------*/
@@ -98,11 +96,14 @@
 
 - (void)setTitle:(NSString*)title forState:(UIControlState)state {
     [super setTitle:title forState:state];
+    [self __updateTitleStyleForState:state];
     [self setNeedsLayout];
 }
 
 - (void)setAttributedTitle:(NSAttributedString*)attributedTitle forState:(UIControlState)state {
     [super setAttributedTitle:attributedTitle forState:state];
+    [super setTitle:nil forState:state];
+    [self __updateTitleStyleForState:state];
     [self setNeedsLayout];
 }
 
@@ -124,7 +125,7 @@
 - (void)setEnabled:(BOOL)enabled {
     if(self.enabled != enabled) {
         super.enabled = enabled;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
         [self setNeedsLayout];
     }
 }
@@ -132,7 +133,7 @@
 - (void)setSelected:(BOOL)selected {
     if(self.selected != selected) {
         super.selected = selected;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
         [self setNeedsLayout];
     }
 }
@@ -140,7 +141,7 @@
 - (void)setHighlighted:(BOOL)highlighted {
     if(self.highlighted != highlighted) {
         super.highlighted = highlighted;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
         [self setNeedsLayout];
     }
 }
@@ -152,31 +153,68 @@
     }
 }
 
+- (void)setNormalTitleStyle:(GLBTextStyle*)normalTitleStyle {
+    _normalTitleStyle = normalTitleStyle;
+    [self __updateTitleStyleForState:UIControlStateNormal];
+}
+
+- (void)setSelectedTitleStyle:(GLBTextStyle*)selectedTitleStyle {
+    _selectedTitleStyle = selectedTitleStyle;
+    [self __updateTitleStyleForState:UIControlStateSelected];
+}
+
+- (void)setHighlightedTitleStyle:(GLBTextStyle*)highlightedTitleStyle {
+    _highlightedTitleStyle = highlightedTitleStyle;
+    [self __updateTitleStyleForState:UIControlStateHighlighted];
+}
+
+- (void)setDisabledTitleStyle:(GLBTextStyle*)disabledTitleStyle {
+    _disabledTitleStyle = disabledTitleStyle;
+    [self __updateTitleStyleForState:UIControlStateDisabled];
+}
+
+- (GLBTextStyle*)currentTitleStyle {
+    if(self.isEnabled == NO) {
+        if(_disabledTitleStyle != nil) {
+            return _disabledTitleStyle;
+        }
+    } else if(self.isHighlighted == YES) {
+        if(_highlightedTitleStyle != nil) {
+            return _highlightedTitleStyle;
+        }
+    } else if(self.isSelected == YES) {
+        if(_selectedTitleStyle != nil) {
+            return _selectedTitleStyle;
+        }
+    }
+    return _normalTitleStyle;
+}
+
 - (void)setNormalBackgroundColor:(UIColor*)normalBackgroundColor {
     if([_normalBackgroundColor isEqual:normalBackgroundColor] == NO) {
         _normalBackgroundColor = normalBackgroundColor;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
 - (void)setSelectedBackgroundColor:(UIColor*)selectedBackgroundColor {
     if([_selectedBackgroundColor isEqual:selectedBackgroundColor] == NO) {
         _selectedBackgroundColor = selectedBackgroundColor;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
 - (void)setHighlightedBackgroundColor:(UIColor*)highlightedBackgroundColor {
     if([_highlightedBackgroundColor isEqual:highlightedBackgroundColor] == NO) {
         _highlightedBackgroundColor = highlightedBackgroundColor;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
 - (void)setDisabledBackgroundColor:(UIColor*)disabledBackgroundColor {
     if([_disabledBackgroundColor isEqual:disabledBackgroundColor] == NO) {
         _disabledBackgroundColor = disabledBackgroundColor;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
@@ -211,28 +249,28 @@
 - (void)setNormalTintColor:(UIColor*)normalTintColor {
     if([_normalTintColor isEqual:normalTintColor] == NO) {
         _normalTintColor = normalTintColor;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
 - (void)setSelectedTintColor:(UIColor*)selectedTintColor {
     if([_selectedTintColor isEqual:selectedTintColor] == NO) {
         _selectedTintColor = selectedTintColor;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
 - (void)setHighlightedTintColor:(UIColor*)highlightedTintColor {
     if([_highlightedTintColor isEqual:highlightedTintColor] == NO) {
         _highlightedTintColor = highlightedTintColor;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
 - (void)setDisabledTintColor:(UIColor*)disabledTintColor {
     if([_disabledTintColor isEqual:disabledTintColor] == NO) {
         _disabledTintColor = disabledTintColor;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
@@ -267,28 +305,28 @@
 - (void)setNormalBorderColor:(UIColor*)normalBorderColor {
     if([_normalBorderColor isEqual:normalBorderColor] == NO) {
         _normalBorderColor = normalBorderColor;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
 - (void)setSelectedBorderColor:(UIColor*)selectedBorderColor {
     if([_selectedBorderColor isEqual:selectedBorderColor] == NO) {
         _selectedBorderColor = selectedBorderColor;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
 - (void)setHighlightedBorderColor:(UIColor*)highlightedBorderColor {
     if([_highlightedBorderColor isEqual:highlightedBorderColor] == NO) {
         _highlightedBorderColor = highlightedBorderColor;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
 - (void)setDisabledBorderColor:(UIColor*)disabledBorderColor {
     if([_disabledBorderColor isEqual:disabledBorderColor] == NO) {
         _disabledBorderColor = disabledBorderColor;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
@@ -323,28 +361,28 @@
 - (void)setNormalBorderWidth:(CGFloat)normalBorderWidth {
     if(_normalBorderWidth != normalBorderWidth) {
         _normalBorderWidth = normalBorderWidth;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
 - (void)setSelectedBorderWidth:(CGFloat)selectedBorderWidth {
     if(_selectedBorderWidth != selectedBorderWidth) {
         _selectedBorderWidth = selectedBorderWidth;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
 - (void)setHighlightedBorderWidth:(CGFloat)highlightedBorderWidth {
     if(_highlightedBorderWidth != highlightedBorderWidth) {
         _highlightedBorderWidth = highlightedBorderWidth;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
 - (void)setDisabledBorderWidth:(CGFloat)disabledBorderWidth {
     if(_disabledBorderWidth != disabledBorderWidth) {
         _disabledBorderWidth = disabledBorderWidth;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
@@ -371,28 +409,28 @@
 - (void)setNormalCornerRadius:(CGFloat)normalCornerRadius {
     if(_normalCornerRadius != normalCornerRadius) {
         _normalCornerRadius = normalCornerRadius;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
 - (void)setSelectedCornerRadius:(CGFloat)selectedCornerRadius {
     if(_selectedCornerRadius != selectedCornerRadius) {
         _selectedCornerRadius = selectedCornerRadius;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
 - (void)setHighlightedCornerRadius:(CGFloat)highlightedCornerRadius {
     if(_highlightedCornerRadius != highlightedCornerRadius) {
         _highlightedCornerRadius = highlightedCornerRadius;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
 - (void)setDisabledCornerRadius:(CGFloat)disabledCornerRadius {
     if(_disabledCornerRadius != disabledCornerRadius) {
         _disabledCornerRadius = disabledCornerRadius;
-        [self _updateCurrentState];
+        [self __updateCurrentState];
     }
 }
 
@@ -468,6 +506,38 @@
 }
 #endif
 
+#pragma mark - Public
+
+- (void)setTitleStyle:(GLBTextStyle*)titleStyle forState:(UIControlState)state {
+    switch(state) {
+        case UIControlStateNormal:
+            _normalTitleStyle = titleStyle;
+            break;
+        case UIControlStateSelected:
+            _selectedTitleStyle = titleStyle;
+            break;
+        case UIControlStateHighlighted:
+            _highlightedTitleStyle = titleStyle;
+            break;
+        case UIControlStateDisabled:
+            _disabledTitleStyle = titleStyle;
+            break;
+        default:
+            break;
+    }
+    [self __updateTitleStyleForState:state];
+}
+
+- (GLBTextStyle*)titleStyleForState:(UIControlState)state {
+    switch(state) {
+        case UIControlStateNormal: return _normalTitleStyle;
+        case UIControlStateSelected: return _selectedTitleStyle;
+        case UIControlStateHighlighted: return _highlightedTitleStyle;
+        case UIControlStateDisabled: return _disabledTitleStyle;
+        default: return nil;
+    }
+}
+
 #pragma mark - Public override
 
 - (void)didMoveToSuperview {
@@ -494,9 +564,9 @@
         CGRect contentRect = [self contentRectForBounds:CGRectMake(0.0f, 0.0f, size.width, size.height)];
         CGRect titleRect = [super titleRectForContentRect:CGRectMake(0.0, 0.0, FLT_MAX, FLT_MAX)];
         CGRect imageRect = [super imageRectForContentRect:CGRectMake(0.0, 0.0, FLT_MAX, FLT_MAX)];
-        CGSize fullSize = [self _layoutContentRect:contentRect contentEdgeInsets:self.contentEdgeInsets
-                                         imageRect:&imageRect imageEdgeInsets:self.imageEdgeInsets imageSize:self.currentImage.size
-                                         titleRect:&titleRect titleEdgeInsets:self.titleEdgeInsets];
+        CGSize fullSize = [self __layoutContentRect:contentRect contentEdgeInsets:self.contentEdgeInsets
+                                          imageRect:&imageRect imageEdgeInsets:self.imageEdgeInsets imageSize:self.currentImage.size
+                                          titleRect:&titleRect titleEdgeInsets:self.titleEdgeInsets];
         self.titleLabel.frame = titleRect;
         self.imageView.frame = imageRect;
         if((_constraintWidth != nil) && (_constraintWidth.constant != fullSize.width)) {
@@ -595,7 +665,7 @@
     if(((self.currentTitle.length > 0) || (self.currentAttributedTitle.length > 0)) && (self.currentImage != nil)) {
         CGRect titleRect = [super titleRectForContentRect:CGRectMake(0.0, 0.0, FLT_MAX, FLT_MAX)];
         CGRect imageRect = [super imageRectForContentRect:CGRectMake(0.0, 0.0, FLT_MAX, FLT_MAX)];
-        [self _layoutContentRect:contentRect contentEdgeInsets:UIEdgeInsetsZero imageRect:&imageRect imageEdgeInsets:self.imageEdgeInsets imageSize:self.currentImage.size titleRect:&titleRect titleEdgeInsets:self.titleEdgeInsets];
+        [self __layoutContentRect:contentRect contentEdgeInsets:UIEdgeInsetsZero imageRect:&imageRect imageEdgeInsets:self.imageEdgeInsets imageSize:self.currentImage.size titleRect:&titleRect titleEdgeInsets:self.titleEdgeInsets];
         return titleRect;
     }
     return [super titleRectForContentRect:contentRect];
@@ -605,7 +675,7 @@
     if(((self.currentTitle.length > 0) || (self.currentAttributedTitle.length > 0)) && (self.currentImage != nil)) {
         CGRect titleRect = [super titleRectForContentRect:CGRectMake(0.0, 0.0, FLT_MAX, FLT_MAX)];
         CGRect imageRect = [super imageRectForContentRect:CGRectMake(0.0, 0.0, FLT_MAX, FLT_MAX)];
-        [self _layoutContentRect:contentRect contentEdgeInsets:UIEdgeInsetsZero imageRect:&imageRect imageEdgeInsets:self.imageEdgeInsets imageSize:self.currentImage.size titleRect:&titleRect titleEdgeInsets:self.titleEdgeInsets];
+        [self __layoutContentRect:contentRect contentEdgeInsets:UIEdgeInsetsZero imageRect:&imageRect imageEdgeInsets:self.imageEdgeInsets imageSize:self.currentImage.size titleRect:&titleRect titleEdgeInsets:self.titleEdgeInsets];
         return imageRect;
     }
     return [super imageRectForContentRect:contentRect];
@@ -613,7 +683,7 @@
 
 #pragma mark - Private
 
-- (CGSize)_layoutContentRect:(CGRect)contentRect contentEdgeInsets:(UIEdgeInsets)contentEdgeInsets imageRect:(CGRect*)imageRect imageEdgeInsets:(UIEdgeInsets)imageEdgeInsets imageSize:(CGSize)imageSize titleRect:(CGRect*)titleRect titleEdgeInsets:(UIEdgeInsets)titleEdgeInsets {
+- (CGSize)__layoutContentRect:(CGRect)contentRect contentEdgeInsets:(UIEdgeInsets)contentEdgeInsets imageRect:(CGRect*)imageRect imageEdgeInsets:(UIEdgeInsets)imageEdgeInsets imageSize:(CGSize)imageSize titleRect:(CGRect*)titleRect titleEdgeInsets:(UIEdgeInsets)titleEdgeInsets {
     imageRect->size.width = imageSize.width;
     imageRect->size.height = imageSize.height;
     CGSize fullImageSize = CGSizeMake(imageEdgeInsets.left + imageRect->size.width + imageEdgeInsets.right, imageEdgeInsets.top + imageRect->size.height + imageEdgeInsets.bottom);
@@ -788,7 +858,36 @@
     return fullSize;
 }
 
-- (void)_updateCurrentState {
+- (void)__updateTitleStyleForState:(UIControlState)state {
+    NSMutableAttributedString* result = [NSMutableAttributedString new];
+    NSString* title = [self titleForState:state];
+    if(title != nil) {
+        [result appendAttributedString:[[NSAttributedString alloc] initWithString:title]];
+    } else {
+        NSAttributedString* attributedTitle = [self attributedTitleForState:state];
+        if(attributedTitle != nil) {
+            [result appendAttributedString:attributedTitle];
+        }
+    }
+    NSRange range = NSMakeRange(0, result.string.length);
+    UIColor* titleColor = [self titleColorForState:state];
+    if(titleColor != nil) {
+        [result addAttribute:NSForegroundColorAttributeName value:titleColor range:range];
+    }
+    UIColor* titleShadowColor = [self titleShadowColorForState:state];
+    if(titleShadowColor != nil) {
+        NSShadow* shadow = [NSShadow new];
+        shadow.shadowColor = titleShadowColor;
+        [result addAttribute:NSShadowAttributeName value:shadow range:range];
+    }
+    GLBTextStyle* style = [self titleStyleForState:state];
+    if(style != nil) {
+        [result setAttributes:style.attributes range:NSMakeRange(0, result.string.length)];
+    }
+    [super setAttributedTitle:result forState:state];
+}
+
+- (void)__updateCurrentState {
     self.backgroundColor = [self currentBackgroundColor];
     self.glb_borderColor = [self currentBorderColor];
     self.glb_borderWidth = [self currentBorderWidth];

@@ -4,6 +4,10 @@
 #import "UIColor+GLBUI.h"
 
 /*--------------------------------------------------*/
+
+#import "GLBTextStyle.h"
+
+/*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
@@ -42,6 +46,12 @@ typedef NS_ENUM(NSInteger, GLBButtonBadgeVerticalAlignment) {
 
 @property(nonatomic) IBInspectable GLBButtonImageAlignment imageAlignment;
 
+@property(nonatomic, nullable, copy) GLBTextStyle* normalTitleStyle;
+@property(nonatomic, nullable, copy) GLBTextStyle* selectedTitleStyle;
+@property(nonatomic, nullable, copy) GLBTextStyle* highlightedTitleStyle;
+@property(nonatomic, nullable, copy) GLBTextStyle* disabledTitleStyle;
+@property(nonatomic, nullable, readonly, strong) GLBTextStyle* currentTitleStyle;
+
 @property(nonatomic, nullable, strong) IBInspectable UIColor* normalBackgroundColor;
 @property(nonatomic, nullable, strong) IBInspectable UIColor* selectedBackgroundColor;
 @property(nonatomic, nullable, strong) IBInspectable UIColor* highlightedBackgroundColor;
@@ -79,6 +89,10 @@ typedef NS_ENUM(NSInteger, GLBButtonBadgeVerticalAlignment) {
 @property(nonatomic) IBInspectable UIOffset badgeOffset;
 
 - (void)setup NS_REQUIRES_SUPER;
+
+- (void)setTitleStyle:(GLBTextStyle* _Nullable)titleStyle forState:(UIControlState)state;
+
+- (GLBTextStyle* _Nullable)titleStyleForState:(UIControlState)state;
 
 @end
 

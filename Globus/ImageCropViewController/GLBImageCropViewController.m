@@ -230,6 +230,7 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
     if(_cancelButton == nil) {
         _cancelButton = [GLBButton new];
         _cancelButton.glb_normalTitle = NSLocalizedString(@"Cancel", @"Cancel button");
+        _cancelButton.glb_normalTitleColor = UIColor.whiteColor;
         _cancelButton.opaque = NO;
         
         [_cancelButton addTarget:self action:@selector(__pressedCancel:) forControlEvents:UIControlEventTouchUpInside];
@@ -242,6 +243,7 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
     if(_choiceButton == nil) {
         _choiceButton = [GLBButton new];
         _choiceButton.glb_normalTitle = NSLocalizedString(@"Choice", @"Choice button");
+        _choiceButton.glb_normalTitleColor = UIColor.whiteColor;
         _choiceButton.opaque = NO;
         
         [_choiceButton addTarget:self action:@selector(__pressedChoice:) forControlEvents:UIControlEventTouchUpInside];

@@ -1,16 +1,15 @@
 /*--------------------------------------------------*/
 
 #import "GLBActivityView.h"
+#import "GLBArcSpinnerView.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@interface GLBActivityView ()
-
-@property(nonatomic, strong) UIView* panelView;
-@property(nonatomic, strong) UILabel* textView;
-@property(nonatomic) NSUInteger showCount;
+@interface GLBActivityView () {
+    NSUInteger _showCount;
+}
 
 @end
 
@@ -18,60 +17,15 @@
 #pragma mark -
 /*--------------------------------------------------*/
 
-#define GLBActivityViewMargin                       15.0
-#define GLBActivityViewSpacing                      8.0
-#define GLBActivityViewBackgroundColor              [UIColor colorWithWhite:0.1f alpha:0.2f]
-#define GLBActivityViewPanelColor                   [UIColor colorWithWhite:0.2f alpha:0.8f]
-#define GLBActivityViewPanelCornerRadius            8.0
-#define GLBActivityViewSpinnerColor                 [UIColor colorWithWhite:1.0 alpha:0.8f]
-#define GLBActivityViewSpinnerSize                  42.0
-#define GLBActivityViewTextColor                    [UIColor colorWithWhite:1.0 alpha:0.8f]
-#define GLBActivityViewTextFont                     [UIFont boldSystemFontOfSize:[UIFont systemFontSize]]
-#define GLBActivityViewTextWidth                    NSNotFound
-#define GLBActivityDuration                         0.2f
-#define GLBActivityDelay                            0.1f
-
-/*--------------------------------------------------*/
-
 @implementation GLBActivityView
 
+#pragma mark - Synthesize
+
+@synthesize panelView = _panelView;
+@synthesize spinnerView = _spinnerView;
+@synthesize textLabel = _textLabel;
+
 #pragma mark - Init / Free
-
-+ (instancetype)activityViewWithSpinnerView:(GLBSpinnerView*)spinnerView {
-    return [[self alloc] initWithSpinnerView:spinnerView text:nil textWidth:GLBActivityViewTextWidth];
-}
-
-+ (instancetype)activityViewWithSpinnerView:(GLBSpinnerView*)spinnerView text:(NSString*)text {
-    return [[self alloc] initWithSpinnerView:spinnerView text:text textWidth:GLBActivityViewTextWidth];
-}
-
-+ (instancetype)activityViewWithSpinnerView:(GLBSpinnerView*)spinnerView text:(NSString*)text textWidth:(NSUInteger)textWidth {
-    return [[self alloc] initWithSpinnerView:spinnerView text:text textWidth:textWidth];
-}
-
-- (instancetype)initWithSpinnerView:(GLBSpinnerView*)spinnerView {
-    return [self initWithSpinnerView:spinnerView text:nil textWidth:GLBActivityViewTextWidth];
-}
-
-- (instancetype)initWithSpinnerView:(GLBSpinnerView*)spinnerView text:(NSString*)text {
-    return [self initWithSpinnerView:spinnerView text:text textWidth:GLBActivityViewTextWidth];
-}
-
-- (instancetype)initWithSpinnerView:(GLBSpinnerView*)spinnerView text:(NSString*)text textWidth:(NSUInteger)textWidth {
-    self = [super initWithFrame:UIScreen.mainScreen.bounds];
-    if(self != nil) {
-        [self setup];
-        
-        _spinnerView = spinnerView;
-        _spinnerView.color = GLBActivityViewSpinnerColor;
-        _spinnerView.size = GLBActivityViewSpinnerSize;
-        [_panelView addSubview:_spinnerView];
-        
-        _textWidth = textWidth;
-        _textView.text = text;
-    }
-    return self;
-}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -90,128 +44,159 @@
 }
 
 - (void)setup {
-    _margin = GLBActivityViewMargin;
-    _spacing = GLBActivityViewSpacing;
-    _showDuration = GLBActivityDuration;
-    _showDelay = GLBActivityDelay;
-    _hideDuration = GLBActivityDuration;
-    _hideDelay = GLBActivityDelay;
+    _showCount = NSNotFound;
+    
+    _margin = UIEdgeInsetsMake(16.0f, 16.0f, 16.0f, 16.0f);
+    _spacing = 8.0f;
+    _panelMaximumSize = CGSizeMake(256.0f, 256.0f);
+    _showDuration = 0.2f;
+    _showDelay = 0.1f;
+    _hideDuration = 0.2f;
+    _hideDelay = 0.1f;
     
     self.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-    self.backgroundColor = GLBActivityViewBackgroundColor;
+    self.backgroundColor = [UIColor colorWithWhite:0.1f alpha:0.2f];
     self.alpha = 0.0;
-    
-    _panelView = [[UIView alloc] initWithFrame:CGRectZero];
-    _panelView.backgroundColor = GLBActivityViewPanelColor;
-    _panelView.glb_cornerRadius = GLBActivityViewPanelCornerRadius;
-    _panelView.clipsToBounds = YES;
-    [self addSubview:_panelView];
-    
-    _textView = [[UILabel alloc] initWithFrame:CGRectZero];
-    _textView.backgroundColor = [UIColor clearColor];
-    _textView.textColor = GLBActivityViewTextColor;
-    _textView.font = GLBActivityViewTextFont;
-    _textView.textAlignment = NSTextAlignmentCenter;
-    _textView.numberOfLines = 0;
-    [_panelView addSubview:_textView];
-    
-    _showCount = NSNotFound;
 }
 
 #pragma mark - Public override
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
+- (void)updateConstraints {
+    [super updateConstraints];
     
-    CGSize spinnerSize = CGSizeMake(self.spinnerSize, self.spinnerSize);
-    CGSize textSize = [self.textView glb_sizeForWidth:self.textWidth];
-    CGSize panelSize = CGSizeMake(self.margin + MAX(spinnerSize.width, textSize.width) + self.margin, self.margin + spinnerSize.height + ((self.textView.text.length > 0) ? self.spacing + textSize.height : 0) + self.margin);
-    CGFloat spinnerOffset = GLB_FLOOR((panelSize.width - spinnerSize.width) * 0.5f);
+    UIView* panelView = self.panelView;
+    GLBSpinnerView* spinnerView = _spinnerView;
+    GLBLabel* textLabel = _textLabel;
     
-    self.panelView.frame = GLBRectMakeCenterPoint(self.glb_frameCenter, panelSize.width, panelSize.height);
-    self.spinnerView.frame = CGRectMake(spinnerOffset, self.margin, spinnerSize.width, spinnerSize.height);
-    self.textView.frame = CGRectMake(self.margin, self.margin + spinnerSize.height + self.spacing, textSize.width, textSize.height);
+    [self glb_removeAllConstraints];
+    [panelView glb_removeAllConstraints];
+    [panelView glb_addConstraintCenter];
+    if(_panelMaximumSize.width > GLB_EPSILON) {
+        [panelView glb_addConstraintWidth:_panelMaximumSize.width relation:NSLayoutRelationLessThanOrEqual];
+    }
+    if(_panelMaximumSize.height > GLB_EPSILON) {
+        [panelView glb_addConstraintHeight:_panelMaximumSize.height relation:NSLayoutRelationLessThanOrEqual];
+    }
+    if(textLabel != nil) {
+        [spinnerView glb_addConstraintTop:_margin.top];
+        [spinnerView glb_addConstraintLeft:_margin.left relation:NSLayoutRelationGreaterThanOrEqual];
+        [spinnerView glb_addConstraintRight:_margin.right relation:NSLayoutRelationGreaterThanOrEqual];
+        [spinnerView glb_addConstraintHorizontal:0.0f];
+        
+        [spinnerView glb_addConstraintBottom:_spacing topView:textLabel];
+        
+        [textLabel glb_addConstraintLeft:_margin.left relation:NSLayoutRelationGreaterThanOrEqual];
+        [textLabel glb_addConstraintRight:_margin.right relation:NSLayoutRelationGreaterThanOrEqual];
+        [textLabel glb_addConstraintHorizontal:0.0f];
+        [textLabel glb_addConstraintBottom:_margin.bottom];
+    } else {
+        [spinnerView glb_addConstraintEdgeInsets:_margin];
+    }
 }
 
 #pragma mark - Property
 
-- (void)setMargin:(CGFloat)margin {
-    if(_margin != margin) {
+- (void)setMargin:(UIEdgeInsets)margin {
+    if(UIEdgeInsetsEqualToEdgeInsets(_margin, margin) == NO) {
         _margin = margin;
-        [self setNeedsLayout];
+        [self setNeedsUpdateConstraints];
     }
 }
 
 - (void)setSpacing:(CGFloat)spacing {
     if(_spacing != spacing) {
         _spacing = spacing;
-        [self setNeedsLayout];
+        [self setNeedsUpdateConstraints];
     }
 }
 
-- (void)setPanelColor:(UIColor*)panelColor {
-    _panelView.backgroundColor = panelColor;
-}
-
-- (UIColor*)panelColor {
-    return _panelView.backgroundColor;
-}
-
-- (void)setPanelCornerRadius:(CGFloat)panelCornerRadius {
-    _panelView.glb_cornerRadius = panelCornerRadius;
-}
-
-- (CGFloat)panelCornerRadius {
-    return _panelView.glb_cornerRadius;
-}
-
-- (void)setSpinnerColor:(UIColor*)spinnerColor {
-    _spinnerView.color = spinnerColor;
-}
-
-- (UIColor*)spinnerColor {
-    return _spinnerView.color;
-}
-
-- (void)setSpinnerSize:(CGFloat)spinnerSize {
-    if(_spinnerView.size != spinnerSize) {
-        _spinnerView.size = spinnerSize;
-        [self setNeedsLayout];
+- (void)setPanelMaximumSize:(CGSize)panelMaximumSize {
+    if(CGSizeEqualToSize(_panelMaximumSize, panelMaximumSize) == NO) {
+        _panelMaximumSize = panelMaximumSize;
+        [self setNeedsUpdateConstraints];
     }
 }
 
-- (CGFloat)spinnerSize {
-    return _spinnerView.size;
-}
-
-- (void)setTextColor:(UIColor*)textColor {
-    _textView.textColor = textColor;
-}
-
-- (UIColor*)textColor {
-    return _textView.textColor;
-}
-
-- (void)setText:(NSString*)text {
-    if([_textView.text isEqualToString:text] == NO) {
-        _textView.text = text;
-        [self setNeedsLayout];
+- (void)setPanelView:(UIView*)panelView {
+    if(_panelView != panelView) {
+        if(_panelView != nil) {
+            [_panelView removeFromSuperview];
+        }
+        _panelView = panelView;
+        if(_panelView != nil) {
+            _panelView.translatesAutoresizingMaskIntoConstraints = NO;
+            [self addSubview:_panelView];
+            if(_spinnerView != nil) {
+                [_panelView addSubview:_spinnerView];
+            }
+            if(_textLabel != nil) {
+                [_panelView addSubview:_textLabel];
+            }
+        }
+        [self setNeedsUpdateConstraints];
     }
 }
 
-- (NSString*)text {
-    return _textView.text;
+- (UIView*)panelView {
+    if(_panelView == nil) {
+        UIView* panelView = [UIView new];
+        panelView = [[UIView alloc] initWithFrame:CGRectZero];
+        panelView.backgroundColor = [UIColor colorWithWhite:0.2f alpha:0.8f];
+        panelView.glb_cornerRadius = 8.0f;
+        panelView.clipsToBounds = YES;
+        self.panelView = panelView;
+    }
+    return _panelView;
 }
 
-- (void)setTextFont:(UIFont*)textFont {
-    if([_textView.font isEqual:textFont] == NO) {
-        _textView.font = textFont;
-        [self setNeedsLayout];
+- (void)setSpinnerView:(GLBSpinnerView*)spinnerView {
+    if(_spinnerView != spinnerView) {
+        if(_spinnerView != nil) {
+            [_spinnerView removeFromSuperview];
+        }
+        _spinnerView = spinnerView;
+        if(_spinnerView != nil) {
+            _spinnerView.translatesAutoresizingMaskIntoConstraints = NO;
+            [self.panelView addSubview:_spinnerView];
+        }
+        [self setNeedsUpdateConstraints];
     }
 }
 
-- (UIFont*)textFont {
-    return _textView.font;
+- (GLBSpinnerView*)spinnerView {
+    if(_spinnerView == nil) {
+        GLBSpinnerView* spinnerView = [GLBArcSpinnerView new];
+        spinnerView.color = UIColor.whiteColor;
+        self.spinnerView = spinnerView;
+    }
+    return _spinnerView;
+}
+
+- (void)setTextLabel:(GLBLabel*)textLabel {
+    if(_textLabel != textLabel) {
+        if(_textLabel != nil) {
+            [_textLabel removeFromSuperview];
+        }
+        _textLabel = textLabel;
+        if(_textLabel != nil) {
+            _textLabel.translatesAutoresizingMaskIntoConstraints = NO;
+            [self.panelView addSubview:_textLabel];
+        }
+        [self setNeedsUpdateConstraints];
+    }
+}
+
+- (GLBLabel*)textLabel {
+    if(_textLabel == nil) {
+        GLBLabel* textLabel = [GLBLabel new];
+        textLabel.backgroundColor = UIColor.clearColor;
+        textLabel.textColor = [UIColor colorWithWhite:1.0 alpha:0.8f];
+        textLabel.font = [UIFont boldSystemFontOfSize:UIFont.systemFontSize];
+        textLabel.textAlignment = NSTextAlignmentCenter;
+        textLabel.numberOfLines = 0;
+        self.textLabel = textLabel;
+    }
+    return _textLabel;
 }
 
 - (BOOL)isShowed {
