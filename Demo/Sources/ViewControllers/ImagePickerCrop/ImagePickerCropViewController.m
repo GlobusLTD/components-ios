@@ -29,6 +29,7 @@
             
             [GLBTimeout executeBlock:^{
                 GLBImageCropViewController* cropViewController = [[GLBImageCropViewController alloc] initWithImage:image cropMode:GLBImageCropModeCircle];
+                cropViewController.supportedOrientationMask = UIInterfaceOrientationMaskAll;
                 cropViewController.choiceBlock = ^(GLBImageCropViewController* cropViewController, UIImage* croppedImage) {
                     weakSelf.croppedImageView.image = croppedImage;
                     [cropViewController dismissViewControllerAnimated:YES completion:nil];

@@ -124,10 +124,12 @@
 
 - (NSAttributedString*)pickerView:(UIPickerView*)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
     GLBListFieldItem* listItem = _items[(NSUInteger)row];
-    return [[NSAttributedString alloc] initWithString:[listItem title] attributes:@{
-        NSFontAttributeName : [listItem font],
-        NSForegroundColorAttributeName: [listItem color]
-    }];
+    NSString* title = listItem.title;
+    GLBTextStyle* style = listItem.style;
+    if((title != nil) && (style != nil)) {
+        return [[NSAttributedString alloc] initWithString:listItem.title attributes:style.attributes];
+    }
+    return nil;
 }
 
 - (void)pickerView:(UIPickerView*)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
@@ -167,28 +169,19 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
     return [[self alloc] initWithTitle:title value:value];
 }
 
-+ (instancetype)itemWithTitle:(NSString*)title color:(UIColor*)color value:(id)value {
-    return [[self alloc] initWithTitle:title color:color value:value];
-}
-
-+ (instancetype)itemWithTitle:(NSString*)title font:(UIFont*)font color:(UIColor*)color value:(id)value {
-    return [[self alloc] initWithTitle:title font:font color:color value:value];
++ (instancetype)itemWithTitle:(NSString*)title style:(GLBTextStyle*)style value:(id)value {
+    return [[self alloc] initWithTitle:title style:style value:value];
 }
 
 - (instancetype)initWithTitle:(NSString*)title value:(id)value {
-    return [self initWithTitle:title font:[UIFont systemFontOfSize:UIFont.systemFontSize] color:UIColor.blackColor value:value];
+    return [self initWithTitle:title style:nil value:value];
 }
 
-- (instancetype)initWithTitle:(NSString*)title color:(UIColor*)color value:(id)value {
-    return [self initWithTitle:title font:[UIFont systemFontOfSize:UIFont.systemFontSize] color:color value:value];
-}
-
-- (instancetype)initWithTitle:(NSString*)title font:(UIFont*)font color:(UIColor*)color value:(id)value {
+- (instancetype)initWithTitle:(NSString*)title style:(GLBTextStyle*)style value:(id)value {
     self = [super init];
     if(self != nil) {
         _title = title;
-        _font = font;
-        _color = color;
+        _style = style;
         _value = value;
         [self setup];
     }

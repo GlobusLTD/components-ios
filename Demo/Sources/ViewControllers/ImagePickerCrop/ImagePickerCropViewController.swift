@@ -26,6 +26,7 @@ class ImagePickerCropViewController: GLBViewController {
                 
                 GLBTimeout.execute({ [unowned self] in ()
                     let cropViewController = GLBImageCropViewController.init(image: image!, cropMode: .circle)
+                    cropViewController.supportedOrientationMask = .all
                     cropViewController.choiceBlock = { [unowned self] (cropViewController: GLBImageCropViewController, croppedImage: UIImage?) in ()
                         self.croppedImageView.image = croppedImage
                         cropViewController.dismiss(animated: true, completion: nil)

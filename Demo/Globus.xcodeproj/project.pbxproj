@@ -67,6 +67,10 @@
 		40AD66701E2E0C1300FAF2CA /* TransitionRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AD66641E2E01C000FAF2CA /* TransitionRootViewController.swift */; };
 		40AD66711E2E0C1300FAF2CA /* TransitionRootViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD66611E2E01C000FAF2CA /* TransitionRootViewController-Swift.xib */; };
 		40AD66721E2E0C1300FAF2CA /* TransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AD66541E2DFE7800FAF2CA /* TransitionViewController.swift */; };
+		40AD66791E3127DE00FAF2CA /* PageControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40AD66761E3127D400FAF2CA /* PageControlViewController.m */; };
+		40AD667A1E3127DE00FAF2CA /* PageControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD66781E3127D400FAF2CA /* PageControlViewController.xib */; };
+		40AD667B1E3127E100FAF2CA /* PageControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AD66771E3127D400FAF2CA /* PageControlViewController.swift */; };
+		40AD667C1E3127E100FAF2CA /* PageControlViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD66741E3127D400FAF2CA /* PageControlViewController-Swift.xib */; };
 		40AFE7841E297FDF009A524B /* PhoneFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40AFE7811E29764B009A524B /* PhoneFieldViewController.m */; };
 		40AFE7851E297FE5009A524B /* PhoneFieldViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AFE7831E29764B009A524B /* PhoneFieldViewController.xib */; };
 		40AFE7861E297FE7009A524B /* PhoneFieldViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AFE77F1E29764B009A524B /* PhoneFieldViewController-Swift.xib */; };
@@ -172,6 +176,11 @@
 		40AD66631E2E01C000FAF2CA /* TransitionRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransitionRootViewController.m; sourceTree = "<group>"; };
 		40AD66641E2E01C000FAF2CA /* TransitionRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionRootViewController.swift; sourceTree = "<group>"; };
 		40AD66651E2E01C000FAF2CA /* TransitionRootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransitionRootViewController.xib; sourceTree = "<group>"; };
+		40AD66741E3127D400FAF2CA /* PageControlViewController-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "PageControlViewController-Swift.xib"; sourceTree = "<group>"; };
+		40AD66751E3127D400FAF2CA /* PageControlViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageControlViewController.h; sourceTree = "<group>"; };
+		40AD66761E3127D400FAF2CA /* PageControlViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PageControlViewController.m; sourceTree = "<group>"; };
+		40AD66771E3127D400FAF2CA /* PageControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControlViewController.swift; sourceTree = "<group>"; };
+		40AD66781E3127D400FAF2CA /* PageControlViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PageControlViewController.xib; sourceTree = "<group>"; };
 		40AFE77F1E29764B009A524B /* PhoneFieldViewController-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "PhoneFieldViewController-Swift.xib"; sourceTree = "<group>"; };
 		40AFE7801E29764B009A524B /* PhoneFieldViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhoneFieldViewController.h; sourceTree = "<group>"; };
 		40AFE7811E29764B009A524B /* PhoneFieldViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhoneFieldViewController.m; sourceTree = "<group>"; };
@@ -372,6 +381,18 @@
 			path = Root;
 			sourceTree = "<group>";
 		};
+		40AD66731E3127D400FAF2CA /* PageControl */ = {
+			isa = PBXGroup;
+			children = (
+				40AD66751E3127D400FAF2CA /* PageControlViewController.h */,
+				40AD66761E3127D400FAF2CA /* PageControlViewController.m */,
+				40AD66771E3127D400FAF2CA /* PageControlViewController.swift */,
+				40AD66781E3127D400FAF2CA /* PageControlViewController.xib */,
+				40AD66741E3127D400FAF2CA /* PageControlViewController-Swift.xib */,
+			);
+			path = PageControl;
+			sourceTree = "<group>";
+		};
 		40AFE77E1E29764B009A524B /* PhoneField */ = {
 			isa = PBXGroup;
 			children = (
@@ -438,6 +459,7 @@
 				40AD663B1E2DCA9F00FAF2CA /* ActivityView */,
 				40AD66271E2DBB4000FAF2CA /* ScrollView */,
 				40AD66451E2DFE0900FAF2CA /* Transition */,
+				40AD66731E3127D400FAF2CA /* PageControl */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -681,6 +703,7 @@
 				4052DAAC1E1AAF37002FE296 /* ChoiseCellTableViewCell.xib in Resources */,
 				40AD66421E2DCAA600FAF2CA /* ActivityViewController.xib in Resources */,
 				4031C3691E29B26B004BA2D1 /* TextFieldViewController.xib in Resources */,
+				40AD667A1E3127DE00FAF2CA /* PageControlViewController.xib in Resources */,
 				40FE3DED1E28D3030014D9C0 /* MainViewController.xib in Resources */,
 				4052DAB21E1AD542002FE296 /* ButtonImageViewController.xib in Resources */,
 				405133301E19C5E800641BF4 /* Main.storyboard in Resources */,
@@ -713,6 +736,7 @@
 				4052DAB81E1AD556002FE296 /* LabelViewController-Swift.xib in Resources */,
 				40AD663A1E2DCA8A00FAF2CA /* SpinnerViewController-Swift.xib in Resources */,
 				402EBBA71E29C541001E0591 /* ListFieldViewController-Swift.xib in Resources */,
+				40AD667C1E3127E100FAF2CA /* PageControlViewController-Swift.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -835,6 +859,7 @@
 				40F2DFAB1E19C16400F85F49 /* LabelViewController.m in Sources */,
 				40AD66681E2E04B800FAF2CA /* TransitionRootViewController.m in Sources */,
 				40AD66561E2DFE7E00FAF2CA /* TransitionViewController.m in Sources */,
+				40AD66791E3127DE00FAF2CA /* PageControlViewController.m in Sources */,
 				4031C3681E29B26B004BA2D1 /* TextFieldViewController.m in Sources */,
 				402EBBA41E29C53F001E0591 /* ListFieldViewController.m in Sources */,
 				40AD66371E2DCA8800FAF2CA /* SpinnerViewController.m in Sources */,
@@ -853,6 +878,7 @@
 				40F2DFC01E19C18700F85F49 /* ChoiseViewController.swift in Sources */,
 				402EBBA61E29C541001E0591 /* ListFieldViewController.swift in Sources */,
 				402EBBB01E29D647001E0591 /* TextViewController.swift in Sources */,
+				40AD667B1E3127E100FAF2CA /* PageControlViewController.swift in Sources */,
 				40F2DFC11E19C18700F85F49 /* ChoiseCellTableViewCell.swift in Sources */,
 				40F2DFBD1E19C18700F85F49 /* ButtonViewController.swift in Sources */,
 				40F2DF9F1E19C11900F85F49 /* AppDelegate.swift in Sources */,

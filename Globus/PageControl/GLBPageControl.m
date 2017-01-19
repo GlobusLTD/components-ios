@@ -48,6 +48,10 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
 #pragma mark -
 /*--------------------------------------------------*/
 
+static CGFloat GLBPageControl_TouchSize = 10.0f;
+
+/*--------------------------------------------------*/
+
 @implementation GLBPageControl
 
 #pragma mark - Synthesize
@@ -296,10 +300,16 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
     UITouch* touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];
     if(_tapBehavior == GLBPageControlTapBehaviorJump) {
+        CGRect touchRect = CGRectMake(
+            point.x - (GLBPageControl_TouchSize / 2),
+            point.y - (GLBPageControl_TouchSize / 2),
+            GLBPageControl_TouchSize,
+            GLBPageControl_TouchSize
+        );
         __block NSUInteger tappedIndicatorIndex = NSNotFound;
         [_pageRects enumerateObjectsUsingBlock:^(NSValue *value, NSUInteger index, BOOL *stop) {
             CGRect indicatorRect = [value CGRectValue];
-            if(CGRectContainsPoint(indicatorRect, point)) {
+            if(CGRectIntersectsRect(indicatorRect, touchRect) == YES) {
                 tappedIndicatorIndex = index;
                 *stop = YES;
             }
@@ -313,7 +323,9 @@ typedef NS_ENUM(NSUInteger, GLBPageControlImageType) {
     CGFloat left = [self _leftOffset];
     CGFloat middle = left + (size.width / 2);
     if(point.x < middle) {
-        [self _setCurrentPage:_currentPage - 1 sendAction:YES canDefer:YES];
+        if(_currentPage > 0) {
+            [self _setCurrentPage:_currentPage - 1 sendAction:YES canDefer:YES];
+        }
     } else {
         [self _setCurrentPage:_currentPage + 1 sendAction:YES canDefer:YES];
     }

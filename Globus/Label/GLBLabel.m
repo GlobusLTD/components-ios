@@ -67,9 +67,6 @@
     [self addGestureRecognizer:self.pressGesture];
 }
 
-- (void)dealloc {
-}
-
 #pragma mark - UIView
 
 - (void)layoutSubviews {

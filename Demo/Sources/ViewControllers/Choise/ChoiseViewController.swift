@@ -29,6 +29,7 @@ class ChoiseViewController: GLBViewController {
         ChoiseControllerViewModel< ActivityViewController >.init(title:"Activity view"),
         ChoiseControllerViewModel< ScrollViewController >.init(title:"ScrollView"),
         ChoiseControllerViewModel< TransitionRootViewController >.init(title:"Transition"),
+        ChoiseControllerViewModel< PageControlViewController >.init(title:"PageControl"),
     ]
     
     //MARK: - UIViewController

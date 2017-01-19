@@ -6,7 +6,6 @@
 /*--------------------------------------------------*/
 
 #import "UIDevice+GLBUI.h"
-#import "UIButton+GLBUI.h"
 #import "UIImage+GLBUI.h"
 
 /*--------------------------------------------------*/
@@ -37,13 +36,12 @@
 #pragma mark -
 /*--------------------------------------------------*/
 
-@interface GLBImageCropViewController () < UIScrollViewDelegate, UIGestureRecognizerDelegate >
-
-@property(nonatomic, readwrite, strong) GLBImageScrollView* scrollView;
-@property(nonatomic, readwrite, strong) GLBTouchView* overlayView;
-@property(nonatomic, readwrite, strong) CAShapeLayer* maskLayer;
-
-@property(nonatomic, readwrite, strong) UITapGestureRecognizer* doubleTapGestureRecognizer;
+@interface GLBImageCropViewController () < UIScrollViewDelegate, UIGestureRecognizerDelegate > {
+    GLBImageScrollView* _scrollView;
+    GLBTouchView* _overlayView;
+    CAShapeLayer* _maskLayer;
+    UITapGestureRecognizer* _doubleTapGestureRecognizer;
+}
 
 @end
 
@@ -51,20 +49,12 @@
 #pragma mark -
 /*--------------------------------------------------*/
 
-static const CGFloat GLBImageCropController_PortraitCircleInsets = 15.0f;
-static const CGFloat GLBImageCropController_PortraitSquareInsets = 20.0f;
-static const CGFloat GLBImageCropController_PortraitTitleLabelVerticalMargin = 64.0f;
-static const CGFloat GLBImageCropController_PortraitButtonsHorizontalMargin = 13.0f;
-static const CGFloat GLBImageCropController_PortraitButtonsVerticalMargin = 21.0f;
-
-static const CGFloat GLBImageCropController_LandscapeCircleInsets = 45.0f;
-static const CGFloat GLBImageCropController_LandscapeSquareInsets = 45.0f;
-static const CGFloat GLBImageCropController_LandscapeTitleLabelVerticalMargin = 12.0f;
-static const CGFloat GLBImageCropController_LandscapeButtonsHorizontalMargin = 13.0f;
-static const CGFloat GLBImageCropController_LandscapeButtonsVerticalMargin = 12.0f;
-
-static const CGFloat GLBImageCropController_ResetDuration = 0.4f;
-static const CGFloat GLBImageCropController_ScrollDuration = 0.25f;
+static const CGFloat GLBImageCropViewController_PortraitCircleInsets = 15.0f;
+static const CGFloat GLBImageCropViewController_PortraitSquareInsets = 20.0f;
+static const CGFloat GLBImageCropViewController_LandscapeCircleInsets = 45.0f;
+static const CGFloat GLBImageCropViewController_LandscapeSquareInsets = 45.0f;
+static const CGFloat GLBImageCropViewController_ResetDuration = 0.4f;
+static const CGFloat GLBImageCropViewController_ScrollDuration = 0.25f;
 
 /*--------------------------------------------------*/
 
@@ -72,9 +62,7 @@ static const CGFloat GLBImageCropController_ScrollDuration = 0.25f;
 
 #pragma mark Synthesize
 
-@synthesize titleLabel = _titleLabel;
-@synthesize choiceButton = _choiceButton;
-@synthesize cancelButton = _cancelButton;
+@synthesize contentView = _contentView;
 
 #pragma mark - Not designated initializer
 
@@ -87,7 +75,7 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
 }
 
 - (instancetype)initWithImage:(UIImage*)image cropMode:(GLBImageCropMode)cropMode {
-    self = [super init];
+    self = [super initWithNibName:nil bundle:nil];
     if(self != nil) {
         _image = image;
         _cropMode = cropMode;
@@ -106,37 +94,57 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
 
 #pragma mark - UIViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)loadView {
+    [super loadView];
     
-    self.view.backgroundColor = UIColor.blackColor;
-    self.view.clipsToBounds = YES;
+    CGRect screenBounds = UIScreen.mainScreen.bounds;
+    UIView* rootView = [[UIView alloc] initWithFrame:screenBounds];
+    rootView.backgroundColor = UIColor.blackColor;
+    rootView.clipsToBounds = YES;
     
-    [self.view addSubview:self.scrollView];
-    [self.view addSubview:self.overlayView];
-    [self.view addSubview:self.titleLabel];
-    [self.view addSubview:self.cancelButton];
-    [self.view addSubview:self.choiceButton];
+    _scrollView = [[GLBImageScrollView alloc] initWithFrame:screenBounds];
+    _scrollView.aspectFill = _avoidEmptySpaceAroundImage;
+    _scrollView.delegate = self;
+    [rootView addSubview:_scrollView];
     
-    [self.view addGestureRecognizer:self.doubleTapGestureRecognizer];
+    _overlayView = [[GLBTouchView alloc] initWithFrame:screenBounds];
+    _overlayView.receiver = _scrollView;
+    [rootView addSubview:_overlayView];
+    
+    _maskLayer = [CAShapeLayer layer];
+    _maskLayer.fillRule = kCAFillRuleEvenOdd;
+    _maskLayer.fillColor = _maskColor.CGColor;
+    [_overlayView.layer addSublayer:_maskLayer];
+    
+    _doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(__handleDoubleTap:)];
+    _doubleTapGestureRecognizer.numberOfTapsRequired = 2;
+    _doubleTapGestureRecognizer.delaysTouchesEnded = NO;
+    _doubleTapGestureRecognizer.delegate = self;
+    [rootView addGestureRecognizer:_doubleTapGestureRecognizer];
+    
+    _contentView = [self defaultContentView];
+    _contentView.viewController = self;
+    [rootView addSubview:_contentView];
+    
+    self.view = rootView;
 }
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
+    CGRect bounds = self.view.bounds;
+    CGFloat topLayoutOffset = self.topLayoutGuide.length;
+    CGFloat bottomLayoutOffset = self.bottomLayoutGuide.length;
+    
+    _overlayView.frame = bounds;
+    _contentView.edgeInsets = UIEdgeInsetsMake(topLayoutOffset, 0, bottomLayoutOffset, 0);
+    _contentView.frame = bounds;
+    
     [self __updateMask];
     [self __layoutImageScrollView];
     [self __layoutOverlayView];
     
-    CGRect bounds = self.view.bounds;
-    BOOL isPortrait = [self __isPortrait];
-    CGFloat titleLabelVerticalMargin = (isPortrait == YES) ? GLBImageCropController_PortraitTitleLabelVerticalMargin : GLBImageCropController_LandscapeTitleLabelVerticalMargin;
-    CGFloat buttonsHorizontalMargin = (isPortrait == YES) ? GLBImageCropController_PortraitButtonsHorizontalMargin : GLBImageCropController_LandscapeButtonsHorizontalMargin;
-    CGFloat buttonsVerticalMargin = (isPortrait == YES) ? GLBImageCropController_PortraitButtonsVerticalMargin : GLBImageCropController_LandscapeButtonsVerticalMargin;
-    
-    _titleLabel.glb_framePosition = CGPointMake((bounds.origin.x + (bounds.size.width * 0.5f)) - (_titleLabel.glb_frameWidth * 0.5f), bounds.origin.y + titleLabelVerticalMargin);
-    _cancelButton.glb_framePosition = CGPointMake(bounds.origin.x + buttonsHorizontalMargin, (bounds.origin.y + bounds.size.height) - (_cancelButton.glb_frameHeight + buttonsVerticalMargin));
-    _choiceButton.glb_framePosition = CGPointMake((bounds.origin.x + bounds.size.width) - (_choiceButton.glb_frameWidth + buttonsHorizontalMargin), (bounds.origin.y + bounds.size.height) - (_cancelButton.glb_frameHeight + buttonsVerticalMargin));
+    [_contentView setNeedsUpdateConstraints];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -187,79 +195,22 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
     }
 }
 
-- (GLBImageScrollView*)scrollView {
-    if(_scrollView == nil) {
-        _scrollView = [[GLBImageScrollView alloc] initWithFrame:self.view.bounds];
-        _scrollView.aspectFill = _avoidEmptySpaceAroundImage;
-        _scrollView.delegate = self;
-    }
-    return _scrollView;
-}
-
-- (GLBTouchView*)overlayView {
-    if(_overlayView == nil) {
-        _overlayView = [[GLBTouchView alloc] initWithFrame:self.view.bounds];
-        _overlayView.receiver = _scrollView;
-        [_overlayView.layer addSublayer:self.maskLayer];
-    }
-    return _overlayView;
-}
-
-- (CAShapeLayer*)maskLayer {
-    if(_maskLayer == nil) {
-        _maskLayer = [CAShapeLayer layer];
-        _maskLayer.fillRule = kCAFillRuleEvenOdd;
-        _maskLayer.fillColor = _maskColor.CGColor;
-    }
-    return _maskLayer;
-}
-
 - (GLBLabel*)titleLabel {
-    if(_titleLabel == nil) {
-        _titleLabel = [GLBLabel new];
-        _titleLabel.backgroundColor = UIColor.clearColor;
-        _titleLabel.text = NSLocalizedString(@"Move and Scale", @"Move and Scale label");
-        _titleLabel.textColor = UIColor.whiteColor;
-        _titleLabel.opaque = NO;
-        [_titleLabel sizeToFit];
-    }
-    return _titleLabel;
+    return self.contentView.titleLabel;
 }
 
 - (GLBButton*)cancelButton {
-    if(_cancelButton == nil) {
-        _cancelButton = [GLBButton new];
-        _cancelButton.glb_normalTitle = NSLocalizedString(@"Cancel", @"Cancel button");
-        _cancelButton.glb_normalTitleColor = UIColor.whiteColor;
-        _cancelButton.opaque = NO;
-        
-        [_cancelButton addTarget:self action:@selector(__pressedCancel:) forControlEvents:UIControlEventTouchUpInside];
-        [_cancelButton sizeToFit];
-    }
-    return _cancelButton;
+    return self.contentView.cancelButton;
 }
 
 - (GLBButton*)choiceButton {
-    if(_choiceButton == nil) {
-        _choiceButton = [GLBButton new];
-        _choiceButton.glb_normalTitle = NSLocalizedString(@"Choice", @"Choice button");
-        _choiceButton.glb_normalTitleColor = UIColor.whiteColor;
-        _choiceButton.opaque = NO;
-        
-        [_choiceButton addTarget:self action:@selector(__pressedChoice:) forControlEvents:UIControlEventTouchUpInside];
-        [_choiceButton sizeToFit];
-    }
-    return _choiceButton;
+    return self.contentView.choiceButton;
 }
 
-- (UITapGestureRecognizer*)doubleTapGestureRecognizer {
-    if(_doubleTapGestureRecognizer == nil) {
-        _doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(__handleDoubleTap:)];
-        _doubleTapGestureRecognizer.numberOfTapsRequired = 2;
-        _doubleTapGestureRecognizer.delaysTouchesEnded = NO;
-        _doubleTapGestureRecognizer.delegate = self;
-    }
-    return _doubleTapGestureRecognizer;
+#pragma mark - Public
+
+- (GLBImageCropContentView*)defaultContentView {
+    return [[GLBImageCropContentView alloc] initWithFrame:self.view.bounds];
 }
 
 #pragma mark - Actions
@@ -281,7 +232,7 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
     gestureRecognizer.rotation = 0;
     
     if(gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        [UIView animateWithDuration:GLBImageCropController_ScrollDuration delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        [UIView animateWithDuration:GLBImageCropViewController_ScrollDuration delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             [self __layoutImageScrollView];
         } completion:nil];
     }
@@ -303,7 +254,7 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
     if(animated == YES) {
         [UIView beginAnimations:@"reset" context:NULL];
         [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-        [UIView setAnimationDuration:GLBImageCropController_ResetDuration];
+        [UIView setAnimationDuration:GLBImageCropViewController_ResetDuration];
         [UIView setAnimationBeginsFromCurrentState:YES];
     }
     [self __resetRotation];
@@ -455,9 +406,9 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
         case GLBImageCropModeCircle: {
             CGFloat diameter;
             if([self __isPortrait] == YES) {
-                diameter = MIN(boundsSize.width, boundsSize.height) - GLBImageCropController_PortraitCircleInsets * 2;
+                diameter = MIN(boundsSize.width, boundsSize.height) - GLBImageCropViewController_PortraitCircleInsets * 2;
             } else {
-                diameter = MIN(boundsSize.width, boundsSize.height) - GLBImageCropController_LandscapeCircleInsets * 2;
+                diameter = MIN(boundsSize.width, boundsSize.height) - GLBImageCropViewController_LandscapeCircleInsets * 2;
             }
             _maskRect = CGRectMake((boundsSize.width - diameter) * 0.5f, (boundsSize.height - diameter) * 0.5f, diameter, diameter);
             _maskPath = [UIBezierPath bezierPathWithOvalInRect:_maskRect];
@@ -466,9 +417,9 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
         case GLBImageCropModeSquare: {
             CGFloat length;
             if([self __isPortrait] == YES) {
-                length = MIN(boundsSize.width, boundsSize.height) - GLBImageCropController_PortraitSquareInsets * 2;
+                length = MIN(boundsSize.width, boundsSize.height) - GLBImageCropViewController_PortraitSquareInsets * 2;
             } else {
-                length = MIN(boundsSize.width, boundsSize.height) - GLBImageCropController_LandscapeSquareInsets * 2;
+                length = MIN(boundsSize.width, boundsSize.height) - GLBImageCropViewController_LandscapeSquareInsets * 2;
             }
             _maskRect = CGRectMake((boundsSize.width - length) * 0.5f, (boundsSize.height - length) * 0.5f, length, length);
             _maskPath = [UIBezierPath bezierPathWithRect:_maskRect];
@@ -585,12 +536,13 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
 }
 
 - (void)setFrame:(CGRect)frame {
-    BOOL sizeChanging = CGSizeEqualToSize(self.glb_frameSize, frame.size);
-    if(sizeChanging == NO) {
+    CGRect superFrame = super.frame;
+    BOOL sizeEquals = CGSizeEqualToSize(superFrame.size, frame.size);
+    if(sizeEquals == NO) {
         [self __prepareToResize];
     }
     [super setFrame:frame];
-    if(sizeChanging == NO) {
+    if(sizeEquals == NO) {
         [self __recoverFromResizing];
         [self __centerZoomView];
     }
@@ -731,6 +683,199 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
 
 - (CGPoint)__minimumContentOffset {
     return CGPointZero;
+}
+
+@end
+
+/*--------------------------------------------------*/
+#pragma mark -
+/*--------------------------------------------------*/
+
+static const CGFloat GLBImageCropContentView_PortraitButtonsHorizontalMargin = 13.0f;
+static const CGFloat GLBImageCropContentView_PortraitButtonsVerticalMargin = 21.0f;
+
+static const CGFloat GLBImageCropContentView_LandscapeButtonsHorizontalMargin = 13.0f;
+static const CGFloat GLBImageCropContentView_LandscapeButtonsVerticalMargin = 12.0f;
+
+/*--------------------------------------------------*/
+
+@implementation GLBImageCropContentView
+
+#pragma mark Synthesize
+
+@synthesize titleLabel = _titleLabel;
+@synthesize choiceButton = _choiceButton;
+@synthesize cancelButton = _cancelButton;
+
+#pragma mark - Init / Free
+
+- (instancetype)initWithCoder:(NSCoder*)coder {
+    self = [super initWithCoder:coder];
+    if(self != nil) {
+        [self setup];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if(self != nil) {
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup {
+    self.titleLabel = [self defaultTitleLabel];
+    self.cancelButton = [self defaultCancelButton];
+    self.choiceButton = [self defaultChoiceButton];
+}
+
+#pragma mark - UIView
+
+- (UIView*)hitTest:(CGPoint)point withEvent:(UIEvent*)event {
+    UIView* view = [super hitTest:point withEvent:event];
+    if(view == self) {
+        view = nil;
+    }
+    return view;
+}
+
+- (void)updateConstraints {
+    [super updateConstraints];
+    
+    [self glb_removeAllConstraints];
+    
+    CGRect maskRect = _viewController.maskRect;
+    
+    [_titleLabel glb_addConstraintVertical:_edgeInsets.top + ((maskRect.origin.y - _edgeInsets.top) / 2.0f) topView:self];
+    [_titleLabel glb_addConstraintHorizontal:0.0f];
+    
+    if([_viewController __isPortrait] == YES) {
+        CGFloat horizontalMargin = GLBImageCropContentView_PortraitButtonsHorizontalMargin;
+        CGFloat verticalMargin = GLBImageCropContentView_PortraitButtonsVerticalMargin;
+        
+        [_cancelButton glb_addConstraintLeft:_edgeInsets.left + horizontalMargin];
+        [_cancelButton glb_addConstraintBottom:_edgeInsets.bottom + verticalMargin];
+        
+        [_choiceButton glb_addConstraintRight:_edgeInsets.right + horizontalMargin];
+        [_choiceButton glb_addConstraintBottom:_edgeInsets.bottom + verticalMargin];
+    } else {
+        CGFloat horizontalMargin = GLBImageCropContentView_LandscapeButtonsHorizontalMargin;
+        CGFloat verticalMargin = GLBImageCropContentView_LandscapeButtonsVerticalMargin;
+        
+        [_cancelButton glb_addConstraintLeft:_edgeInsets.left + horizontalMargin];
+        [_cancelButton glb_addConstraintBottom:_edgeInsets.bottom + verticalMargin];
+        
+        [_choiceButton glb_addConstraintRight:_edgeInsets.right + horizontalMargin];
+        [_choiceButton glb_addConstraintBottom:_edgeInsets.bottom + verticalMargin];
+    }
+}
+
+#pragma mark - Property
+
+- (void)setTitleLabel:(GLBLabel*)titleLabel {
+    if(_titleLabel != titleLabel) {
+        if(_titleLabel != nil) {
+            [_titleLabel removeFromSuperview];
+        }
+        _titleLabel = titleLabel;
+        if(_titleLabel != nil) {
+            _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+            [self addSubview:_titleLabel];
+        }
+        [self setNeedsUpdateConstraints];
+    }
+}
+
+- (GLBLabel*)titleLabel {
+    if(_titleLabel == nil) {
+        self.titleLabel = [self defaultTitleLabel];
+    }
+    return _titleLabel;
+}
+
+- (void)setCancelButton:(GLBButton*)cancelButton {
+    if(_cancelButton != cancelButton) {
+        if(_cancelButton != nil) {
+            [_cancelButton removeTarget:self action:@selector(__pressedCancel:) forControlEvents:UIControlEventTouchUpInside];
+            [_cancelButton removeFromSuperview];
+        }
+        _cancelButton = cancelButton;
+        if(_cancelButton != nil) {
+            _cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
+            [_cancelButton addTarget:self action:@selector(__pressedCancel:) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:_cancelButton];
+        }
+        [self setNeedsUpdateConstraints];
+    }
+}
+
+- (GLBButton*)cancelButton {
+    if(_cancelButton == nil) {
+        self.cancelButton = [self defaultCancelButton];
+    }
+    return _cancelButton;
+}
+
+- (void)setChoiceButton:(GLBButton*)choiceButton {
+    if(_choiceButton != choiceButton) {
+        if(_choiceButton != nil) {
+            [_choiceButton removeTarget:self action:@selector(__pressedChoice:) forControlEvents:UIControlEventTouchUpInside];
+            [_choiceButton removeFromSuperview];
+        }
+        _choiceButton = choiceButton;
+        if(_choiceButton != nil) {
+            _choiceButton.translatesAutoresizingMaskIntoConstraints = NO;
+            [_choiceButton addTarget:self action:@selector(__pressedChoice:) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:_choiceButton];
+        }
+        [self setNeedsUpdateConstraints];
+    }
+}
+
+- (GLBButton*)choiceButton {
+    if(_choiceButton == nil) {
+        self.choiceButton = [self defaultChoiceButton];
+    }
+    return _choiceButton;
+}
+
+#pragma mark - Public
+
+- (GLBLabel*)defaultTitleLabel {
+    GLBLabel* label = [GLBLabel new];
+    label.backgroundColor = UIColor.clearColor;
+    label.text = NSLocalizedString(@"Move and Scale", @"Move and Scale label");
+    label.textColor = UIColor.whiteColor;
+    label.opaque = NO;
+    return label;
+}
+
+- (GLBButton*)defaultCancelButton {
+    GLBButton* button = [GLBButton new];
+    button.glb_normalTitle = NSLocalizedString(@"Cancel", @"Cancel button");
+    button.glb_normalTitleColor = UIColor.whiteColor;
+    button.opaque = NO;
+    return button;
+}
+
+- (GLBButton*)defaultChoiceButton {
+    GLBButton* button = [GLBButton new];
+    button.glb_normalTitle = NSLocalizedString(@"Choice", @"Choice button");
+    button.glb_normalTitleColor = UIColor.whiteColor;
+    button.opaque = NO;
+    return button;
+}
+
+#pragma mark - Actions
+
+- (void)__pressedCancel:(id)sender {
+    [_viewController __pressedCancel:sender];
+}
+
+- (void)__pressedChoice:(id)sender {
+    [_viewController __pressedChoice:sender];
 }
 
 @end
