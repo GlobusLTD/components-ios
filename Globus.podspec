@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.3.16'
+  s.version = '0.3.17'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -434,6 +434,7 @@ Pod::Spec.new do |s|
     ss.dependency 'Globus/TextStyle'
     ss.dependency 'Globus/UIKit/Responder'
     ss.dependency 'Globus/UIKit/View'
+    ss.dependency 'Globus/UIKit/Label'
   end
   s.subspec 'LayoutView' do |ss|
     ss.source_files = 'Globus/LayoutView/**/*.{h,m}'
