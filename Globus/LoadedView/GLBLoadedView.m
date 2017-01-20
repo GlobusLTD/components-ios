@@ -44,6 +44,10 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if(self != nil) {
+        UINib* nib = self.class.glb_nib;
+        if(nib != nil) {
+            [nib instantiateWithOwner:self options:nil];
+        }
         [self setup];
     }
     return self;
@@ -54,14 +58,6 @@
 }
 
 #pragma mark - UIView
-
-- (void)didMoveToSuperview {
-    [super didMoveToSuperview];
-    
-    if(self.superview != nil) {
-        [self load];
-    }
-}
 
 - (void)updateConstraints {
     if(_rootView != nil) {
@@ -174,21 +170,6 @@
 
 - (CGFloat)rootEdgeInsetsRight {
     return _rootEdgeInsets.right;
-}
-
-#pragma mark - Public
-
-- (void)load {
-    if(_rootView == nil) {
-        UINib* nib = self.class.glb_nib;
-        if(nib != nil) {
-            [nib instantiateWithOwner:self options:nil];
-        }
-    }
-}
-
-- (void)unload {
-    self.rootView = nil;
 }
 
 #pragma mark - GLBNibExtension

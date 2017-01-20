@@ -71,6 +71,22 @@
 		40AD667A1E3127DE00FAF2CA /* PageControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD66781E3127D400FAF2CA /* PageControlViewController.xib */; };
 		40AD667B1E3127E100FAF2CA /* PageControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AD66771E3127D400FAF2CA /* PageControlViewController.swift */; };
 		40AD667C1E3127E100FAF2CA /* PageControlViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD66741E3127D400FAF2CA /* PageControlViewController-Swift.xib */; };
+		40AD66831E31F69800FAF2CA /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40AD66801E31F69100FAF2CA /* NotificationsViewController.m */; };
+		40AD66841E31F69800FAF2CA /* NotificationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD66821E31F69100FAF2CA /* NotificationsViewController.xib */; };
+		40AD66851E31F69A00FAF2CA /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AD66811E31F69100FAF2CA /* NotificationsViewController.swift */; };
+		40AD66861E31F69A00FAF2CA /* NotificationsViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD667E1E31F69100FAF2CA /* NotificationsViewController-Swift.xib */; };
+		40AD668A1E31F79B00FAF2CA /* NotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40AD66891E31F79B00FAF2CA /* NotificationView.m */; };
+		40AD668C1E31F7D900FAF2CA /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AD668B1E31F7D900FAF2CA /* NotificationView.swift */; };
+		40AD668E1E31F8A600FAF2CA /* NotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD668D1E31F8A600FAF2CA /* NotificationView.xib */; };
+		40AD66901E31F8F900FAF2CA /* NotificationView-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD668F1E31F8F900FAF2CA /* NotificationView-Swift.xib */; };
+		40AD66961E3206CC00FAF2CA /* NotificationTopDecorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40AD66931E3206C600FAF2CA /* NotificationTopDecorView.m */; };
+		40AD66971E3206CC00FAF2CA /* NotificationTopDecorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD66951E3206C600FAF2CA /* NotificationTopDecorView.xib */; };
+		40AD66981E3206CE00FAF2CA /* NotificationTopDecorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AD66941E3206C600FAF2CA /* NotificationTopDecorView.swift */; };
+		40AD66991E3206CE00FAF2CA /* NotificationTopDecorView-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD66911E3206C600FAF2CA /* NotificationTopDecorView-Swift.xib */; };
+		40AD669F1E32127B00FAF2CA /* NotificationBottomDecorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AD669D1E320E3300FAF2CA /* NotificationBottomDecorView.swift */; };
+		40AD66A01E32128000FAF2CA /* NotificationBottomDecorView-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD669A1E320E3300FAF2CA /* NotificationBottomDecorView-Swift.xib */; };
+		40AD66A11E32128300FAF2CA /* NotificationBottomDecorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40AD669C1E320E3300FAF2CA /* NotificationBottomDecorView.m */; };
+		40AD66A21E32128300FAF2CA /* NotificationBottomDecorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AD669E1E320E3300FAF2CA /* NotificationBottomDecorView.xib */; };
 		40AFE7841E297FDF009A524B /* PhoneFieldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40AFE7811E29764B009A524B /* PhoneFieldViewController.m */; };
 		40AFE7851E297FE5009A524B /* PhoneFieldViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AFE7831E29764B009A524B /* PhoneFieldViewController.xib */; };
 		40AFE7861E297FE7009A524B /* PhoneFieldViewController-Swift.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40AFE77F1E29764B009A524B /* PhoneFieldViewController-Swift.xib */; };
@@ -181,6 +197,26 @@
 		40AD66761E3127D400FAF2CA /* PageControlViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PageControlViewController.m; sourceTree = "<group>"; };
 		40AD66771E3127D400FAF2CA /* PageControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControlViewController.swift; sourceTree = "<group>"; };
 		40AD66781E3127D400FAF2CA /* PageControlViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PageControlViewController.xib; sourceTree = "<group>"; };
+		40AD667E1E31F69100FAF2CA /* NotificationsViewController-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "NotificationsViewController-Swift.xib"; sourceTree = "<group>"; };
+		40AD667F1E31F69100FAF2CA /* NotificationsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationsViewController.h; sourceTree = "<group>"; };
+		40AD66801E31F69100FAF2CA /* NotificationsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
+		40AD66811E31F69100FAF2CA /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		40AD66821E31F69100FAF2CA /* NotificationsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationsViewController.xib; sourceTree = "<group>"; };
+		40AD66881E31F79B00FAF2CA /* NotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationView.h; sourceTree = "<group>"; };
+		40AD66891E31F79B00FAF2CA /* NotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationView.m; sourceTree = "<group>"; };
+		40AD668B1E31F7D900FAF2CA /* NotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		40AD668D1E31F8A600FAF2CA /* NotificationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationView.xib; sourceTree = "<group>"; };
+		40AD668F1E31F8F900FAF2CA /* NotificationView-Swift.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "NotificationView-Swift.xib"; sourceTree = "<group>"; };
+		40AD66911E3206C600FAF2CA /* NotificationTopDecorView-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "NotificationTopDecorView-Swift.xib"; sourceTree = "<group>"; };
+		40AD66921E3206C600FAF2CA /* NotificationTopDecorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationTopDecorView.h; sourceTree = "<group>"; };
+		40AD66931E3206C600FAF2CA /* NotificationTopDecorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationTopDecorView.m; sourceTree = "<group>"; };
+		40AD66941E3206C600FAF2CA /* NotificationTopDecorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTopDecorView.swift; sourceTree = "<group>"; };
+		40AD66951E3206C600FAF2CA /* NotificationTopDecorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationTopDecorView.xib; sourceTree = "<group>"; };
+		40AD669A1E320E3300FAF2CA /* NotificationBottomDecorView-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "NotificationBottomDecorView-Swift.xib"; sourceTree = "<group>"; };
+		40AD669B1E320E3300FAF2CA /* NotificationBottomDecorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationBottomDecorView.h; sourceTree = "<group>"; };
+		40AD669C1E320E3300FAF2CA /* NotificationBottomDecorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationBottomDecorView.m; sourceTree = "<group>"; };
+		40AD669D1E320E3300FAF2CA /* NotificationBottomDecorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBottomDecorView.swift; sourceTree = "<group>"; };
+		40AD669E1E320E3300FAF2CA /* NotificationBottomDecorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationBottomDecorView.xib; sourceTree = "<group>"; };
 		40AFE77F1E29764B009A524B /* PhoneFieldViewController-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "PhoneFieldViewController-Swift.xib"; sourceTree = "<group>"; };
 		40AFE7801E29764B009A524B /* PhoneFieldViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhoneFieldViewController.h; sourceTree = "<group>"; };
 		40AFE7811E29764B009A524B /* PhoneFieldViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhoneFieldViewController.m; sourceTree = "<group>"; };
@@ -393,6 +429,41 @@
 			path = PageControl;
 			sourceTree = "<group>";
 		};
+		40AD667D1E31F69100FAF2CA /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				40AD66871E31F78000FAF2CA /* Views */,
+				40AD667F1E31F69100FAF2CA /* NotificationsViewController.h */,
+				40AD66801E31F69100FAF2CA /* NotificationsViewController.m */,
+				40AD66811E31F69100FAF2CA /* NotificationsViewController.swift */,
+				40AD66821E31F69100FAF2CA /* NotificationsViewController.xib */,
+				40AD667E1E31F69100FAF2CA /* NotificationsViewController-Swift.xib */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		40AD66871E31F78000FAF2CA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				40AD66921E3206C600FAF2CA /* NotificationTopDecorView.h */,
+				40AD66931E3206C600FAF2CA /* NotificationTopDecorView.m */,
+				40AD66941E3206C600FAF2CA /* NotificationTopDecorView.swift */,
+				40AD66951E3206C600FAF2CA /* NotificationTopDecorView.xib */,
+				40AD66911E3206C600FAF2CA /* NotificationTopDecorView-Swift.xib */,
+				40AD66881E31F79B00FAF2CA /* NotificationView.h */,
+				40AD66891E31F79B00FAF2CA /* NotificationView.m */,
+				40AD668B1E31F7D900FAF2CA /* NotificationView.swift */,
+				40AD668D1E31F8A600FAF2CA /* NotificationView.xib */,
+				40AD668F1E31F8F900FAF2CA /* NotificationView-Swift.xib */,
+				40AD669B1E320E3300FAF2CA /* NotificationBottomDecorView.h */,
+				40AD669C1E320E3300FAF2CA /* NotificationBottomDecorView.m */,
+				40AD669D1E320E3300FAF2CA /* NotificationBottomDecorView.swift */,
+				40AD669E1E320E3300FAF2CA /* NotificationBottomDecorView.xib */,
+				40AD669A1E320E3300FAF2CA /* NotificationBottomDecorView-Swift.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		40AFE77E1E29764B009A524B /* PhoneField */ = {
 			isa = PBXGroup;
 			children = (
@@ -460,6 +531,7 @@
 				40AD66271E2DBB4000FAF2CA /* ScrollView */,
 				40AD66451E2DFE0900FAF2CA /* Transition */,
 				40AD66731E3127D400FAF2CA /* PageControl */,
+				40AD667D1E31F69100FAF2CA /* Notifications */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -692,10 +764,12 @@
 				40AFE7851E297FE5009A524B /* PhoneFieldViewController.xib in Resources */,
 				40AD662E1E2DBBE900FAF2CA /* ScrollViewController.xib in Resources */,
 				4052DAA41E1A9565002FE296 /* ChoiseViewController.xib in Resources */,
+				40AD66841E31F69800FAF2CA /* NotificationsViewController.xib in Resources */,
 				40AD66381E2DCA8800FAF2CA /* SpinnerViewController.xib in Resources */,
 				4052DAAE1E1AD536002FE296 /* ButtonViewController.xib in Resources */,
 				40AD66671E2E024000FAF2CA /* TransitionChildViewController.xib in Resources */,
 				40AD66691E2E04BC00FAF2CA /* TransitionRootViewController.xib in Resources */,
+				40AD66A21E32128300FAF2CA /* NotificationBottomDecorView.xib in Resources */,
 				4052DAB61E1AD54F002FE296 /* LabelViewController.xib in Resources */,
 				4052DAB41E1AD548002FE296 /* ImageViewController.xib in Resources */,
 				4052DAB01E1AD53C002FE296 /* ButtonBadgeViewController.xib in Resources */,
@@ -705,9 +779,11 @@
 				4031C3691E29B26B004BA2D1 /* TextFieldViewController.xib in Resources */,
 				40AD667A1E3127DE00FAF2CA /* PageControlViewController.xib in Resources */,
 				40FE3DED1E28D3030014D9C0 /* MainViewController.xib in Resources */,
+				40AD66971E3206CC00FAF2CA /* NotificationTopDecorView.xib in Resources */,
 				4052DAB21E1AD542002FE296 /* ButtonImageViewController.xib in Resources */,
 				405133301E19C5E800641BF4 /* Main.storyboard in Resources */,
 				402EBBA51E29C53F001E0591 /* ListFieldViewController.xib in Resources */,
+				40AD668E1E31F8A600FAF2CA /* NotificationView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -722,8 +798,11 @@
 				402EBB9D1E29C396001E0591 /* DateFieldViewController-Swift.xib in Resources */,
 				405133311E19C5EA00641BF4 /* Main.storyboard in Resources */,
 				4052DABA1E1AD55C002FE296 /* ImageViewController-Swift.xib in Resources */,
+				40AD66901E31F8F900FAF2CA /* NotificationView-Swift.xib in Resources */,
 				40AD65901E2B664C00FAF2CA /* ImagePickerCropViewController-Swift.xib in Resources */,
+				40AD66991E3206CE00FAF2CA /* NotificationTopDecorView-Swift.xib in Resources */,
 				4052DAAB1E1AAF35002FE296 /* ChoiseCellTableViewCell-Swift.xib in Resources */,
+				40AD66861E31F69A00FAF2CA /* NotificationsViewController-Swift.xib in Resources */,
 				40AFE7861E297FE7009A524B /* PhoneFieldViewController-Swift.xib in Resources */,
 				4052DABE1E1AD566002FE296 /* ButtonBadgeViewController-Swift.xib in Resources */,
 				4052DAA81E1AA2FD002FE296 /* ChoiseViewController-Swift.xib in Resources */,
@@ -737,6 +816,7 @@
 				40AD663A1E2DCA8A00FAF2CA /* SpinnerViewController-Swift.xib in Resources */,
 				402EBBA71E29C541001E0591 /* ListFieldViewController-Swift.xib in Resources */,
 				40AD667C1E3127E100FAF2CA /* PageControlViewController-Swift.xib in Resources */,
+				40AD66A01E32128000FAF2CA /* NotificationBottomDecorView-Swift.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -846,11 +926,14 @@
 				40AD658D1E2B664900FAF2CA /* ImagePickerCropViewController.m in Sources */,
 				402EBBAE1E29D644001E0591 /* TextViewController.m in Sources */,
 				40AFE7841E297FDF009A524B /* PhoneFieldViewController.m in Sources */,
+				40AD66961E3206CC00FAF2CA /* NotificationTopDecorView.m in Sources */,
 				40F2DFA61E19C16400F85F49 /* ButtonImageViewController.m in Sources */,
+				40AD668A1E31F79B00FAF2CA /* NotificationView.m in Sources */,
 				40F2DFAA1E19C16400F85F49 /* ImageViewController.m in Sources */,
 				40F2DFA01E19C12400F85F49 /* ButtonViewController.m in Sources */,
 				40AD662D1E2DBBE900FAF2CA /* ScrollViewController.m in Sources */,
 				40F2DFA81E19C16400F85F49 /* ChoiseCellTableViewCell.m in Sources */,
+				40AD66A11E32128300FAF2CA /* NotificationBottomDecorView.m in Sources */,
 				40F2DFA71E19C16400F85F49 /* ChoiseViewController.m in Sources */,
 				40F2DFA51E19C16400F85F49 /* ButtonBadgeViewController.m in Sources */,
 				402EBB9A1E29C393001E0591 /* DateFieldViewController.m in Sources */,
@@ -860,6 +943,7 @@
 				40AD66681E2E04B800FAF2CA /* TransitionRootViewController.m in Sources */,
 				40AD66561E2DFE7E00FAF2CA /* TransitionViewController.m in Sources */,
 				40AD66791E3127DE00FAF2CA /* PageControlViewController.m in Sources */,
+				40AD66831E31F69800FAF2CA /* NotificationsViewController.m in Sources */,
 				4031C3681E29B26B004BA2D1 /* TextFieldViewController.m in Sources */,
 				402EBBA41E29C53F001E0591 /* ListFieldViewController.m in Sources */,
 				40AD66371E2DCA8800FAF2CA /* SpinnerViewController.m in Sources */,
@@ -879,13 +963,17 @@
 				402EBBA61E29C541001E0591 /* ListFieldViewController.swift in Sources */,
 				402EBBB01E29D647001E0591 /* TextViewController.swift in Sources */,
 				40AD667B1E3127E100FAF2CA /* PageControlViewController.swift in Sources */,
+				40AD66981E3206CE00FAF2CA /* NotificationTopDecorView.swift in Sources */,
 				40F2DFC11E19C18700F85F49 /* ChoiseCellTableViewCell.swift in Sources */,
+				40AD668C1E31F7D900FAF2CA /* NotificationView.swift in Sources */,
 				40F2DFBD1E19C18700F85F49 /* ButtonViewController.swift in Sources */,
 				40F2DF9F1E19C11900F85F49 /* AppDelegate.swift in Sources */,
 				40F2DFC41E19C18700F85F49 /* LabelViewController.swift in Sources */,
 				402EBB9C1E29C396001E0591 /* DateFieldViewController.swift in Sources */,
+				40AD669F1E32127B00FAF2CA /* NotificationBottomDecorView.swift in Sources */,
 				40AD66701E2E0C1300FAF2CA /* TransitionRootViewController.swift in Sources */,
 				40AFE7871E297FE9009A524B /* PhoneFieldViewController.swift in Sources */,
+				40AD66851E31F69A00FAF2CA /* NotificationsViewController.swift in Sources */,
 				40AD662F1E2DBBEC00FAF2CA /* ScrollViewController.swift in Sources */,
 				4031C36A1E29B26D004BA2D1 /* TextFieldViewController.swift in Sources */,
 				40F2DFC31E19C18700F85F49 /* ImageViewController.swift in Sources */,

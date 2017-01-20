@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment version="2048" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <viewController automaticallyAdjustsScrollViewInsets="NO" id="vv4-uu-lC2" customClass="NotificationsViewController">
+            <layoutGuides>
+                <viewControllerLayoutGuide type="top" id="Xzq-2R-Kv9"/>
+                <viewControllerLayoutGuide type="bottom" id="doH-6F-i18"/>
+            </layoutGuides>
+            <view key="view" contentMode="scaleToFill" id="Hw2-Bs-PJT">
+                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="cxp-jV-6LG">
+                        <rect key="frame" x="16" y="16" width="343" height="29"/>
+                        <segments>
+                            <segment title="First"/>
+                            <segment title="Second"/>
+                        </segments>
+                        <connections>
+                            <action selector="changeDisplayType:" destination="vv4-uu-lC2" eventType="valueChanged" id="mIh-9j-iAL"/>
+                        </connections>
+                    </segmentedControl>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Asn-MZ-aju">
+                        <rect key="frame" x="16" y="60" width="343" height="31"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Top decor view" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e2v-lb-mCn">
+                                <rect key="frame" x="0.0" y="0.0" width="278" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wvZ-Bz-3J4">
+                                <rect key="frame" x="294" y="0.0" width="51" height="31"/>
+                                <connections>
+                                    <action selector="changeTopDecorView:" destination="vv4-uu-lC2" eventType="valueChanged" id="6q2-66-S0l"/>
+                                </connections>
+                            </switch>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="e2v-lb-mCn" firstAttribute="top" secondItem="Asn-MZ-aju" secondAttribute="top" id="DRq-ct-fM7"/>
+                            <constraint firstItem="e2v-lb-mCn" firstAttribute="leading" secondItem="Asn-MZ-aju" secondAttribute="leading" id="KqL-SV-6oD"/>
+                            <constraint firstAttribute="bottom" secondItem="e2v-lb-mCn" secondAttribute="bottom" id="Qxx-6N-pls"/>
+                            <constraint firstAttribute="bottom" secondItem="wvZ-Bz-3J4" secondAttribute="bottom" id="Zi1-Ig-FFb"/>
+                            <constraint firstItem="wvZ-Bz-3J4" firstAttribute="leading" secondItem="e2v-lb-mCn" secondAttribute="trailing" constant="16" id="e5C-fg-Mhn"/>
+                            <constraint firstItem="wvZ-Bz-3J4" firstAttribute="top" secondItem="Asn-MZ-aju" secondAttribute="top" id="fhI-iE-EyE"/>
+                            <constraint firstAttribute="trailing" secondItem="wvZ-Bz-3J4" secondAttribute="trailing" id="vOf-27-Xnb"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B26-Kz-h3Z">
+                        <rect key="frame" x="16" y="107" width="343" height="31"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bottom decor view" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cYZ-lV-R97">
+                                <rect key="frame" x="0.0" y="0.0" width="278" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c3b-t3-Ypq">
+                                <rect key="frame" x="294" y="0.0" width="51" height="31"/>
+                                <connections>
+                                    <action selector="changeBottomDecorView:" destination="vv4-uu-lC2" eventType="valueChanged" id="AV0-rw-bNq"/>
+                                </connections>
+                            </switch>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="c3b-t3-Ypq" secondAttribute="bottom" id="Jbc-di-WTy"/>
+                            <constraint firstItem="cYZ-lV-R97" firstAttribute="leading" secondItem="B26-Kz-h3Z" secondAttribute="leading" id="KZf-bs-OkC"/>
+                            <constraint firstItem="cYZ-lV-R97" firstAttribute="top" secondItem="B26-Kz-h3Z" secondAttribute="top" id="OwN-BO-Ac4"/>
+                            <constraint firstAttribute="bottom" secondItem="cYZ-lV-R97" secondAttribute="bottom" id="Rsw-e3-6gI"/>
+                            <constraint firstAttribute="trailing" secondItem="c3b-t3-Ypq" secondAttribute="trailing" id="Yde-Ya-hsD"/>
+                            <constraint firstItem="c3b-t3-Ypq" firstAttribute="leading" secondItem="cYZ-lV-R97" secondAttribute="trailing" constant="16" id="Zui-7Q-Fid"/>
+                            <constraint firstItem="c3b-t3-Ypq" firstAttribute="top" secondItem="B26-Kz-h3Z" secondAttribute="top" id="jwU-Hc-kbU"/>
+                        </constraints>
+                    </view>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lqU-ow-cEh">
+                        <rect key="frame" x="16" y="154" width="343" height="30"/>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Omy-kl-QKd">
+                        <rect key="frame" x="16" y="200" width="343" height="30"/>
+                        <state key="normal" title="Show"/>
+                        <connections>
+                            <action selector="pressedShow:" destination="vv4-uu-lC2" eventType="touchUpInside" id="np0-Xt-7zI"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="lqU-ow-cEh" firstAttribute="top" secondItem="B26-Kz-h3Z" secondAttribute="bottom" constant="16" id="1Ci-ge-QY8"/>
+                    <constraint firstItem="B26-Kz-h3Z" firstAttribute="leading" secondItem="Hw2-Bs-PJT" secondAttribute="leading" constant="16" id="5a6-CD-6Rj"/>
+                    <constraint firstAttribute="trailing" secondItem="lqU-ow-cEh" secondAttribute="trailing" constant="16" id="A8Q-gm-COf"/>
+                    <constraint firstItem="Asn-MZ-aju" firstAttribute="leading" secondItem="Hw2-Bs-PJT" secondAttribute="leading" constant="16" id="De7-Hv-ns2"/>
+                    <constraint firstAttribute="trailing" secondItem="B26-Kz-h3Z" secondAttribute="trailing" constant="16" id="Eog-pA-2dq"/>
+                    <constraint firstItem="Omy-kl-QKd" firstAttribute="leading" secondItem="Hw2-Bs-PJT" secondAttribute="leading" constant="16" id="FJz-9e-htl"/>
+                    <constraint firstItem="B26-Kz-h3Z" firstAttribute="top" secondItem="Asn-MZ-aju" secondAttribute="bottom" constant="16" id="Mbf-dk-eto"/>
+                    <constraint firstAttribute="trailing" secondItem="Asn-MZ-aju" secondAttribute="trailing" constant="16" id="PoN-ok-cg3"/>
+                    <constraint firstItem="cxp-jV-6LG" firstAttribute="leading" secondItem="Hw2-Bs-PJT" secondAttribute="leading" constant="16" id="QbD-gz-TTb"/>
+                    <constraint firstAttribute="trailing" secondItem="Omy-kl-QKd" secondAttribute="trailing" constant="16" id="b1Z-nc-eFU"/>
+                    <constraint firstAttribute="trailing" secondItem="cxp-jV-6LG" secondAttribute="trailing" constant="16" id="eCM-Wb-TN4"/>
+                    <constraint firstItem="Omy-kl-QKd" firstAttribute="top" secondItem="lqU-ow-cEh" secondAttribute="bottom" constant="16" id="hla-be-7aX"/>
+                    <constraint firstItem="cxp-jV-6LG" firstAttribute="top" secondItem="Xzq-2R-Kv9" secondAttribute="bottom" constant="16" id="qio-YN-ynt"/>
+                    <constraint firstItem="lqU-ow-cEh" firstAttribute="leading" secondItem="Hw2-Bs-PJT" secondAttribute="leading" constant="16" id="rEr-t8-Lh9"/>
+                    <constraint firstItem="Asn-MZ-aju" firstAttribute="top" secondItem="cxp-jV-6LG" secondAttribute="bottom" constant="16" id="two-tI-rec"/>
+                </constraints>
+            </view>
+            <extendedEdge key="edgesForExtendedLayout"/>
+            <navigationItem key="navigationItem" title="Notifications" id="Xha-gz-APJ">
+                <barButtonItem key="leftBarButtonItem" image="MenuButton" id="QYC-7C-lDg">
+                    <connections>
+                        <action selector="pressedMenu:" destination="vv4-uu-lC2" id="6dJ-ym-tKo"/>
+                    </connections>
+                </barButtonItem>
+            </navigationItem>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <connections>
+                <outlet property="segmentedControl" destination="cxp-jV-6LG" id="Bl1-Sm-xvX"/>
+                <outlet property="textField" destination="lqU-ow-cEh" id="UL3-ji-S6t"/>
+                <outlet property="useBottomDecorView" destination="c3b-t3-Ypq" id="jTU-zS-cgB"/>
+                <outlet property="useTopDecorView" destination="wvZ-Bz-3J4" id="Ffn-6D-jlX"/>
+            </connections>
+            <point key="canvasLocation" x="-1323.5" y="-298.5"/>
+        </viewController>
+    </objects>
+    <resources>
+        <image name="MenuButton" width="22" height="12"/>
+    </resources>
+</document>

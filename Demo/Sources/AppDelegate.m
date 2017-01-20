@@ -38,6 +38,7 @@
     svc.centerViewController = [GLBNavigationViewController viewControllerWithRootViewController:[MainViewController instantiate]];
     self.primaryWindow.rootViewController = svc;
     [self.primaryWindow makeKeyAndVisible];
+    
     return YES;
 }
 

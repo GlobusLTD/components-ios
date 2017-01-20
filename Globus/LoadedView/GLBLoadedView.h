@@ -21,9 +21,6 @@
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)load NS_REQUIRES_SUPER;
-- (void)unload NS_REQUIRES_SUPER;
-
 @end
 
 /*--------------------------------------------------*/

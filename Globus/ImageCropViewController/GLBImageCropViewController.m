@@ -95,8 +95,6 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
 #pragma mark - UIViewController
 
 - (void)loadView {
-    [super loadView];
-    
     CGRect screenBounds = UIScreen.mainScreen.bounds;
     UIView* rootView = [[UIView alloc] initWithFrame:screenBounds];
     rootView.backgroundColor = UIColor.blackColor;
