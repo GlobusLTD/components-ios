@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,13 +21,25 @@
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDz-Ur-HnJ" customClass="GLBButton">
-                        <rect key="frame" x="24" y="8" width="167.5" height="34"/>
+                        <rect key="frame" x="16" y="16" width="163.5" height="34"/>
                         <state key="normal" title="Button">
                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1xe-8Z-5pH" customClass="GLBButton">
-                        <rect key="frame" x="199.5" y="8" width="167.5" height="34"/>
+                        <rect key="frame" x="195.5" y="16" width="163.5" height="34"/>
+                        <state key="normal" title="Button">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9SQ-Mb-z1O" customClass="GLBButton">
+                        <rect key="frame" x="16" y="66" width="163.5" height="34"/>
+                        <state key="normal" title="Button">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kx1-6U-rfs" customClass="GLBButton">
+                        <rect key="frame" x="195.5" y="66" width="163.5" height="34"/>
                         <state key="normal" title="Button">
                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -36,12 +47,18 @@
                 </subviews>
                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
-                    <constraint firstItem="HDz-Ur-HnJ" firstAttribute="leading" secondItem="UsQ-dx-a8g" secondAttribute="leadingMargin" constant="8" id="HTC-fV-8Af"/>
-                    <constraint firstItem="1xe-8Z-5pH" firstAttribute="top" secondItem="jdg-QT-MOh" secondAttribute="bottom" constant="8" id="MqE-So-1n0"/>
-                    <constraint firstItem="HDz-Ur-HnJ" firstAttribute="top" secondItem="jdg-QT-MOh" secondAttribute="bottom" constant="8" id="P14-Qq-jfD"/>
+                    <constraint firstItem="HDz-Ur-HnJ" firstAttribute="leading" secondItem="UsQ-dx-a8g" secondAttribute="leading" constant="16" id="HTC-fV-8Af"/>
+                    <constraint firstItem="1xe-8Z-5pH" firstAttribute="top" secondItem="jdg-QT-MOh" secondAttribute="bottom" constant="16" id="MqE-So-1n0"/>
+                    <constraint firstItem="HDz-Ur-HnJ" firstAttribute="top" secondItem="jdg-QT-MOh" secondAttribute="bottom" constant="16" id="P14-Qq-jfD"/>
+                    <constraint firstItem="kx1-6U-rfs" firstAttribute="width" secondItem="9SQ-Mb-z1O" secondAttribute="width" id="dvd-M6-jd1"/>
                     <constraint firstItem="1xe-8Z-5pH" firstAttribute="width" secondItem="HDz-Ur-HnJ" secondAttribute="width" id="fWB-Ae-MXs"/>
-                    <constraint firstItem="1xe-8Z-5pH" firstAttribute="trailing" secondItem="UsQ-dx-a8g" secondAttribute="trailingMargin" constant="8" id="p0i-eT-GoS"/>
-                    <constraint firstItem="1xe-8Z-5pH" firstAttribute="leading" secondItem="HDz-Ur-HnJ" secondAttribute="trailing" constant="8" id="pBV-kM-nLA"/>
+                    <constraint firstItem="kx1-6U-rfs" firstAttribute="top" secondItem="1xe-8Z-5pH" secondAttribute="bottom" constant="16" id="gVV-HX-obq"/>
+                    <constraint firstItem="kx1-6U-rfs" firstAttribute="leading" secondItem="9SQ-Mb-z1O" secondAttribute="trailing" constant="16" id="lNk-Pu-RY1"/>
+                    <constraint firstItem="9SQ-Mb-z1O" firstAttribute="top" secondItem="HDz-Ur-HnJ" secondAttribute="bottom" constant="16" id="oVh-yz-m9z"/>
+                    <constraint firstAttribute="trailing" secondItem="1xe-8Z-5pH" secondAttribute="trailing" constant="16" id="p0i-eT-GoS"/>
+                    <constraint firstItem="1xe-8Z-5pH" firstAttribute="leading" secondItem="HDz-Ur-HnJ" secondAttribute="trailing" constant="16" id="pBV-kM-nLA"/>
+                    <constraint firstAttribute="trailing" secondItem="kx1-6U-rfs" secondAttribute="trailing" constant="16" id="xDw-V1-JY4"/>
+                    <constraint firstItem="9SQ-Mb-z1O" firstAttribute="leading" secondItem="UsQ-dx-a8g" secondAttribute="leading" constant="16" id="yFq-QT-lId"/>
                 </constraints>
             </view>
             <extendedEdge key="edgesForExtendedLayout"/>
@@ -57,8 +74,10 @@
             <connections>
                 <outlet property="fillButton" destination="HDz-Ur-HnJ" id="Xgr-cf-7IA"/>
                 <outlet property="strokeButton" destination="1xe-8Z-5pH" id="Atx-cZ-15o"/>
+                <outlet property="tintFillButton" destination="9SQ-Mb-z1O" id="0oI-j4-dTd"/>
+                <outlet property="tintStrokeButton" destination="kx1-6U-rfs" id="IJJ-xi-gcy"/>
             </connections>
-            <point key="canvasLocation" x="412" y="628"/>
+            <point key="canvasLocation" x="411.5" y="627.5"/>
         </viewController>
     </objects>
     <resources>
