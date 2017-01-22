@@ -6,6 +6,9 @@
 #import "ChoiseViewController.h"
 #import "MainViewController.h"
 
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 @implementation AppDelegate
 
 #pragma mark - Property
@@ -26,6 +29,8 @@
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
+    [Fabric with:@[ Crashlytics.class ]];
+    
     GLBTextStyle* navbarTextStyle = [GLBTextStyle new];
     navbarTextStyle.color = UIColor.darkGrayColor;
     

@@ -4,6 +4,9 @@ target 'Globus-ObjC' do
 	platform :ios, '7.0'
 
 	pod 'Globus', :path => '../'
+
+	pod 'Fabric'
+	pod 'Crashlytics'
 end
 
 target 'Globus-Swift' do
@@ -13,4 +16,7 @@ target 'Globus-Swift' do
 
 	pod 'Globus', :path => '../'
 	pod 'GlobusSwifty', :path => '../'
+
+	pod 'Fabric'
+	pod 'Crashlytics'
 end

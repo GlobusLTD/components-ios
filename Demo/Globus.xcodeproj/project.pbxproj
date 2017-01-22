@@ -143,6 +143,8 @@
 		4031C3651E29B19E004BA2D1 /* TextFieldViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextFieldViewController.m; sourceTree = "<group>"; };
 		4031C3661E29B19E004BA2D1 /* TextFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldViewController.swift; sourceTree = "<group>"; };
 		4031C3671E29B19E004BA2D1 /* TextFieldViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldViewController.xib; sourceTree = "<group>"; };
+		404479891E343ABB00271A2E /* Info-ObjC.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-ObjC.plist"; sourceTree = "<group>"; };
+		4044798A1E343ABB00271A2E /* Info-Swift.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Swift.plist"; sourceTree = "<group>"; };
 		4052DAA31E1A9565002FE296 /* ChoiseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChoiseViewController.xib; sourceTree = "<group>"; };
 		4052DAA71E1AA2FD002FE296 /* ChoiseViewController-Swift.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ChoiseViewController-Swift.xib"; sourceTree = "<group>"; };
 		4052DAA91E1AAF2E002FE296 /* ChoiseCellTableViewCell-Swift.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "ChoiseCellTableViewCell-Swift.xib"; sourceTree = "<group>"; };
@@ -229,7 +231,6 @@
 		40F2DF7B1E19C10400F85F49 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40F2DF7C1E19C10400F85F49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		40F2DF801E19C10400F85F49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		40F2DF811E19C10400F85F49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		40F2DF841E19C10400F85F49 /* ButtonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ButtonViewController.h; sourceTree = "<group>"; };
 		40F2DF851E19C10400F85F49 /* ButtonViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ButtonViewController.m; sourceTree = "<group>"; };
 		40F2DF871E19C10400F85F49 /* ButtonBadgeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ButtonBadgeViewController.h; sourceTree = "<group>"; };
@@ -503,9 +504,10 @@
 				40F2DF7A1E19C10400F85F49 /* AppDelegate.m */,
 				40F2DF7B1E19C10400F85F49 /* AppDelegate.swift */,
 				40F2DFC51E19C38700F85F49 /* Main.m */,
+				404479891E343ABB00271A2E /* Info-ObjC.plist */,
+				4044798A1E343ABB00271A2E /* Info-Swift.plist */,
 				40F2DF7C1E19C10400F85F49 /* Assets.xcassets */,
 				40F2DF7F1E19C10400F85F49 /* Main.storyboard */,
-				40F2DF811E19C10400F85F49 /* Info.plist */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1096,7 +1098,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = YFADDH8BLW;
-				INFOPLIST_FILE = Sources/Info.plist;
+				INFOPLIST_FILE = "Sources/Info-ObjC.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.globus-ltd.components.objc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1112,7 +1114,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = YFADDH8BLW;
-				INFOPLIST_FILE = Sources/Info.plist;
+				INFOPLIST_FILE = "Sources/Info-ObjC.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.globus-ltd.components.objc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1127,7 +1129,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = YFADDH8BLW;
-				INFOPLIST_FILE = Sources/Info.plist;
+				INFOPLIST_FILE = "Sources/Info-Swift.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.globus-ltd.components.swift";
@@ -1145,7 +1147,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = YFADDH8BLW;
-				INFOPLIST_FILE = Sources/Info.plist;
+				INFOPLIST_FILE = "Sources/Info-Swift.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.globus-ltd.components.swift";
