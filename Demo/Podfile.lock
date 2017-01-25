@@ -21,6 +21,7 @@ PODS:
     - Globus/CoreGraphics (= 0.3.17)
     - Globus/DataView (= 0.3.17)
     - Globus/DateField (= 0.3.17)
+    - Globus/DialogAnimationController (= 0.3.17)
     - Globus/DialogViewController (= 0.3.17)
     - Globus/GeoLocationManager (= 0.3.17)
     - Globus/Grid (= 0.3.17)
@@ -222,6 +223,13 @@ PODS:
     - Globus/DataView/Base
   - Globus/DateField (0.3.17):
     - Globus/TextField
+  - Globus/DialogAnimationController (0.3.17):
+    - Globus/DialogAnimationController/Base (= 0.3.17)
+    - Globus/DialogAnimationController/Push (= 0.3.17)
+  - Globus/DialogAnimationController/Base (0.3.17):
+    - Globus/DialogViewController
+  - Globus/DialogAnimationController/Push (0.3.17):
+    - Globus/DialogAnimationController/Base
   - Globus/DialogViewController (0.3.17):
     - Globus/UIKit/Application
     - Globus/UIKit/ViewController
@@ -566,7 +574,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Crashlytics: 2b6dbe138a42395577cfa73dfa1aa7248cadf39e
   Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
-  Globus: 92f3b986b99196c607871ea14ee76f9a784a705d
+  Globus: b54ceea21df1795c90c960b13a8006a216b74f5e
   GlobusSwifty: 6b765b0af26d65f2a3f2ce3e37d9269e8cf3060d
 
 PODFILE CHECKSUM: 82140a7872f00d11c320b4f66a5e05f47e50b222

@@ -3,6 +3,12 @@
 #import "GLBDialogViewController.h"
 
 /*--------------------------------------------------*/
+
+#if __has_include("GLBBlurView.h")
+#import "GLBBlurView.h"
+#endif
+
+/*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 

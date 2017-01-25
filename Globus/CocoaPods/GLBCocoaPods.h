@@ -726,6 +726,14 @@
 #endif
 
 /*--------------------------------------------------*/
+#pragma mark - DialogAnimationController
+/*--------------------------------------------------*/
+
+#if __has_include("GLBDialogPushAnimationController.h")
+#import "GLBDialogPushAnimationController.h"
+#endif
+
+/*--------------------------------------------------*/
 #pragma mark - SlideViewController
 /*--------------------------------------------------*/
 

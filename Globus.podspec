@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.3.17'
+  s.version = '0.3.18'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -558,6 +558,15 @@ Pod::Spec.new do |s|
     ss.dependency 'Globus/UIKit/Application'
     ss.dependency 'Globus/UIKit/ViewController'
     ss.dependency 'Globus/UIKit/Window'
+  end
+  s.subspec 'DialogAnimationController' do |ss|
+    ss.subspec 'Base' do |sss|
+      sss.dependency 'Globus/DialogViewController'
+    end
+    ss.subspec 'Push' do |sss|
+    ss.source_files = 'Globus/DialogAnimationController/Push/**/*.{h,m}'
+      sss.dependency 'Globus/DialogAnimationController/Base'
+    end
   end
   s.subspec 'SlideViewController' do |ss|
     ss.source_files = 'Globus/SlideViewController/**/*.{h,m}'

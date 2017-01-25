@@ -44,10 +44,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if(self != nil) {
-        UINib* nib = self.class.glb_nib;
-        if(nib != nil) {
-            [nib instantiateWithOwner:self options:nil];
-        }
+        [self __loadFromNib];
         [self setup];
     }
     return self;
@@ -58,6 +55,14 @@
 }
 
 #pragma mark - UIView
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    if(_rootView == nil) {
+        [self __loadFromNib];
+    }
+}
 
 - (void)updateConstraints {
     if(_rootView != nil) {
@@ -180,6 +185,15 @@
 
 + (NSBundle*)nibBundle {
     return nil;
+}
+
+#pragma mark - Private
+
+- (void)__loadFromNib {
+    UINib* nib = self.class.glb_nib;
+    if(nib != nil) {
+        [nib instantiateWithOwner:self options:nil];
+    }
 }
 
 @end

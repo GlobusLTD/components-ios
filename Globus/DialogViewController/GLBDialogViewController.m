@@ -10,10 +10,6 @@
 #import "GLBSlideViewController.h"
 #endif
 
-#if __has_include("GLBBlurView.h")
-#import "GLBBlurView.h"
-#endif
-
 /*--------------------------------------------------*/
 
 static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0;
@@ -22,22 +18,16 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0;
 
 @implementation GLBDialogViewController
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(initWithCoder:(NSCoder*)coder)
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(initWithNibName:(NSString*)nibName bundle:(NSBundle*)bundle)
+
 #pragma mark - Init / Free
 
-- (instancetype)initWithCoder:(NSCoder*)coder {
-    self = [super initWithCoder:coder];
-    if(self != nil) {
-        [self setup];
-    }
-    return self;
-}
-
-- (instancetype)initWithNibName:(NSString*)nib bundle:(NSBundle*)bundle {
-    self = [super initWithNibName:nib bundle:bundle];
-    if(self != nil) {
-        [self setup];
-    }
-    return self;
++ (instancetype)dialogViewControllerWithContentViewController:(UIViewController*)contentViewController {
+    return [[self alloc] initWithContentViewController:contentViewController];
 }
 
 - (instancetype)initWithContentViewController:(UIViewController*)contentViewController {
@@ -608,7 +598,6 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0;
 
 - (void)_updateConstraintContentView {
     if(_needClearConstraintContentView == YES) {
-        
         if(_constraintContentViewVerticalAlignment != nil) {
             [self.view removeConstraint:_constraintContentViewVerticalAlignment];
             _constraintContentViewVerticalAlignment = nil;
@@ -617,7 +606,6 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0;
             [self.view removeConstraint:_constraintContentViewHorizontalAlignment];
             _constraintContentViewHorizontalAlignment = nil;
         }
-        
         if(_constraintContentViewWidth != nil) {
             [self.view removeConstraint:_constraintContentViewWidth];
             _constraintContentViewWidth = nil;
@@ -638,7 +626,6 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0;
             [self.view removeConstraint:_constraintContentViewRight];
             _constraintContentViewRight = nil;
         }
-        
         if(_constraintContentViewHeight != nil) {
             [self.view removeConstraint:_constraintContentViewHeight];
             _constraintContentViewHeight = nil;
@@ -973,8 +960,6 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0;
 #pragma mark - Public
 
 - (void)presentDialogViewController:(GLBDialogViewController*)dialogViewController completion:(GLBSimpleBlock)completion {
-    dialogViewController.view.alpha = 0.0;
-    
 #if __has_include("GLBBlurView.h")
     if(dialogViewController.backgroundBlurred == YES) {
         dialogViewController.backgroundView.blurRadius = 0.0;
@@ -1006,6 +991,7 @@ static CGFloat GLBDialogViewController_WindowLevelOffset = 1.0;
         if(completion != nil) {
             completion();
         }
+        dialogViewController.view.alpha = 1.0;
     }];
 }
 

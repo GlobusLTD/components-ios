@@ -31,6 +31,7 @@ class ChoiseViewController: GLBViewController {
         ChoiseControllerViewModel< TransitionRootViewController >.init(title:"Transition"),
         ChoiseControllerViewModel< PageControlViewController >.init(title:"PageControl"),
         ChoiseControllerViewModel< NotificationsViewController >.init(title:"Notifications"),
+        ChoiseControllerViewModel< DialogRootViewController >.init(title:"Dialog"),
     ]
     
     //MARK: - UIViewController

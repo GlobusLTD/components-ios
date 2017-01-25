@@ -124,6 +124,7 @@
                 if(queryString.length > 0) {
                     [queryString appendString:@"&"];
                 }
+                NSString* tempValue = (_encodeUrlParams == YES) ? value.description.glb_stringByEncodingURLFormat : value.description;
                 if(_includeArraySymbolsUrlParams == NO) {
                     static NSRegularExpression* regexp = nil;
                     if(regexp == nil) {
@@ -132,10 +133,10 @@
                     key = [regexp stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, key.length) withTemplate:@""];
                 }
                 if(key != nil) {
-                    [queryString appendFormat:@"%@=%@", key, value.description];
+                    [queryString appendFormat:@"%@=%@", key, tempValue];
                 }
             }];
-            urlComponents.query = queryString;
+            urlComponents.percentEncodedQuery = queryString;
             url = urlComponents.URL;
         }
         if(_provider.headers.count > 0) {

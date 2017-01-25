@@ -9,6 +9,9 @@ class TransitionViewController: GLBViewController {
     // MARK - Outlet property
     
     @IBOutlet fileprivate weak var listField: GLBListField!
+    
+    // MARK - Internal property
+    
     internal var transition: GLBTransitionController? {
         didSet {
             if let materialTransition = self.transition as? GLBMaterialTransitionController {

@@ -77,7 +77,11 @@ typedef void(^GLBDialogViewControllerBlock)(GLBDialogViewController* _Nonnull di
 @property(nonatomic, nullable, copy) GLBDialogViewControllerBlock touchedOutsideContent;
 @property(nonatomic, nullable, copy) GLBDialogViewControllerBlock dismiss;
 
-- (instancetype _Nonnull)initWithContentViewController:(UIViewController* _Nonnull)contentViewController;
++ (instancetype _Nonnull)dialogViewControllerWithContentViewController:(UIViewController* _Nonnull)contentViewController NS_SWIFT_UNAVAILABLE("Use init(contentViewController:)");
+
+- (instancetype _Nullable)initWithCoder:(NSCoder* _Nonnull)coder NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithNibName:(NSString* _Nullable)nib bundle:(NSBundle* _Nullable)bundle NS_UNAVAILABLE;
+- (instancetype _Nonnull)initWithContentViewController:(UIViewController* _Nonnull)contentViewController NS_DESIGNATED_INITIALIZER;
 
 - (void)presentViewController:(UIViewController* _Nullable)viewController withCompletion:(GLBDialogViewControllerBlock _Nullable)completion;
 - (void)presentWithCompletion:(GLBDialogViewControllerBlock _Nullable)completion;

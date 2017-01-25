@@ -24,6 +24,7 @@
 #import "TransitionRootViewController.h"
 #import "PageControlViewController.h"
 #import "NotificationsViewController.h"
+#import "DialogRootViewController.h"
 
 @interface ChoiseViewController () < UITableViewDataSource, UITableViewDelegate > {
     NSArray< ChoiseViewModel* >* _data;
@@ -59,6 +60,7 @@
         [ChoiseViewModel viewModelWithTitle:@"Transition" viewController:TransitionRootViewController.class],
         [ChoiseViewModel viewModelWithTitle:@"PageControl" viewController:PageControlViewController.class],
         [ChoiseViewModel viewModelWithTitle:@"Notifications" viewController:NotificationsViewController.class],
+        [ChoiseViewModel viewModelWithTitle:@"Dialog" viewController:DialogRootViewController.class],
     ];
     
     [_tableView glb_registerCell:ChoiseCellTableViewCell.class];
