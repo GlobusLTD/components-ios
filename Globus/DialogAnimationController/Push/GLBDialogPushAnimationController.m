@@ -4,6 +4,8 @@
 #import "GLBDialogViewController+Private.h"
 
 /*--------------------------------------------------*/
+#if defined(GLB_TARGET_IOS)
+/*--------------------------------------------------*/
 
 @implementation GLBDialogPushAnimationController
 
@@ -82,4 +84,6 @@
 
 @end
 
+/*--------------------------------------------------*/
+#endif
 /*--------------------------------------------------*/
