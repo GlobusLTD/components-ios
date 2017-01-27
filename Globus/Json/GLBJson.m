@@ -62,7 +62,7 @@ static NSString* GLBJsonDefaultDateFormat = @"yyyy-MM-dd'T'HH:mm:ssZZZZZ";
 
 - (NSData*)toData {
     if(self.rootObject != nil) {
-        return [NSJSONSerialization dataWithJSONObject:self.rootObject options:0 error:nil];
+        return [NSJSONSerialization dataWithJSONObject:self.rootObject options:(NSJSONWritingOptions)0 error:nil];
     }
     return nil;
 }

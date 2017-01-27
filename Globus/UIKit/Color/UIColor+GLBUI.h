@@ -6,13 +6,13 @@
 
 @interface UIColor (GLB_UI)
 
-+ (UIColor* _Nullable)glb_colorWithString:(NSString* _Nonnull)string;
-+ (CGFloat)glb_colorComponentFromString:(NSString* _Nonnull)string start:(NSUInteger)start length:(NSUInteger)length;
++ (nullable UIColor*)glb_colorWithString:(nonnull NSString*)string;
++ (CGFloat)glb_colorComponentFromString:(nonnull NSString*)string start:(NSUInteger)start length:(NSUInteger)length;
 
-- (NSString* _Nullable)glb_stringValue;
+- (nullable NSString*)glb_stringValue;
 
-- (UIColor* _Nullable)glb_multiplyColor:(UIColor* _Nonnull)color percent:(CGFloat)percent;
-- (UIColor* _Nullable)glb_multiplyBrightness:(CGFloat)brightness;
+- (nullable UIColor*)glb_multiplyColor:(nonnull UIColor*)color percent:(CGFloat)percent;
+- (nullable UIColor*)glb_multiplyBrightness:(CGFloat)brightness;
 
 @end
 

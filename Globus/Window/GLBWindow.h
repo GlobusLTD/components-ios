@@ -24,7 +24,7 @@
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)changeRootViewController:(UIViewController* _Nonnull)rootViewController animated:(BOOL)animated NS_SWIFT_NAME(change(rootViewController:animated:));
+- (void)changeRootViewController:(nonnull UIViewController*)rootViewController animated:(BOOL)animated NS_SWIFT_NAME(change(rootViewController:animated:));
 
 @end
 

@@ -17,7 +17,7 @@
 @property(nonatomic, nullable, strong) IBInspectable NSDate* maximumDate;
 @property(nonatomic, nullable, strong) IBInspectable NSDate* date;
 
-- (void)setDate:(NSDate* _Nullable)date animated:(BOOL)animated;
+- (void)setDate:(nullable NSDate*)date animated:(BOOL)animated;
 
 @end
 

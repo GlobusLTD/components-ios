@@ -26,18 +26,18 @@ typedef void (^GLBAudioSessionPermissionBlock)();
 
 @property(nonatomic) CGFloat volume;
 
-+ (instancetype _Nullable)shared;
++ (nullable instancetype)shared;
 
-- (void)addObserver:(id< GLBAudioSessionObserver > _Nonnull)observer;
-- (void)removeObserver:(id< GLBAudioSessionObserver > _Nonnull)observer;
+- (void)addObserver:(nonnull id< GLBAudioSessionObserver >)observer;
+- (void)removeObserver:(nonnull id< GLBAudioSessionObserver >)observer;
 
 + (void)activateWithOptions:(AVAudioSessionSetActiveOptions)activeOptions
-                   category:(NSString* _Nonnull)category
+                   category:(nonnull NSString*)category
             categoryOptions:(AVAudioSessionCategoryOptions)categoryOptions
-                       mode:(NSString* _Nonnull)mode
-                      block:(GLBAudioSessionActivateBlock _Nonnull)block;
+                       mode:(nonnull NSString*)mode
+                      block:(nonnull GLBAudioSessionActivateBlock)block;
 
-+ (void)recordPermission:(GLBAudioSessionPermissionBlock _Nonnull)block;
++ (void)recordPermission:(nonnull GLBAudioSessionPermissionBlock)block;
 
 @end
 

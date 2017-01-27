@@ -19,17 +19,17 @@
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)registerIdentifier:(NSString* _Nonnull)identifier withViewClass:(Class _Nonnull)viewClass;
-- (void)unregisterIdentifier:(NSString* _Nonnull)identifier;
+- (void)registerIdentifier:(nonnull NSString*)identifier withViewClass:(nonnull Class)viewClass;
+- (void)unregisterIdentifier:(nonnull NSString*)identifier;
 - (void)unregisterAllIdentifiers;
 
-- (Class _Nullable)cellClassWithItem:(GLBDataViewItem* _Nullable)item;
-- (Class _Nullable)cellClassWithIdentifier:(NSString* _Nonnull)identifier;
+- (nullable Class)cellClassWithItem:(nullable GLBDataViewItem*)item;
+- (nullable Class)cellClassWithIdentifier:(nonnull NSString*)identifier;
 
-- (GLBDataContentLayerView* _Nullable)layerWithItem:(GLBDataViewItem* _Nonnull)item;
+- (nullable GLBDataContentLayerView*)layerWithItem:(nonnull GLBDataViewItem*)item;
 
-- (__kindof GLBDataViewCell* _Nullable)dequeueCellWithItem:(GLBDataViewItem* _Nonnull)item;
-- (void)enqueueCell:(GLBDataViewCell* _Nonnull)cell item:(GLBDataViewItem* _Nonnull)item;
+- (nullable __kindof GLBDataViewCell*)dequeueCellWithItem:(nonnull GLBDataViewItem*)item;
+- (void)enqueueCell:(nonnull GLBDataViewCell*)cell item:(nonnull GLBDataViewItem*)item;
 
 - (void)receiveMemoryWarning;
 
@@ -42,12 +42,12 @@
 @property(nonatomic, readwrite, weak, nullable) GLBDataContentView* contentView;
 @property(nonatomic, readonly) NSUInteger order;
 
-- (instancetype _Nullable)initWithContentView:(GLBDataContentView* _Nonnull)contentView order:(NSUInteger)order;
+- (nullable instancetype)initWithContentView:(nonnull GLBDataContentView*)contentView order:(NSUInteger)order;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (__kindof GLBDataViewCell* _Nullable)dequeueCellWithIdentifier:(NSString* _Nonnull)identifier;
-- (void)enqueueCell:(GLBDataViewCell* _Nonnull)cell identifier:(NSString* _Nonnull)identifier;
+- (nullable __kindof GLBDataViewCell*)dequeueCellWithIdentifier:(nonnull NSString*)identifier;
+- (void)enqueueCell:(nonnull GLBDataViewCell*)cell identifier:(nonnull NSString*)identifier;
 
 - (void)receiveMemoryWarning;
 

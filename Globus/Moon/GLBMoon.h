@@ -24,14 +24,14 @@ typedef double GLBMoonDay;
 
 @interface GLBMoon : NSObject
 
-+ (GLBMoonDay)moonDayFromDate:(NSDate* _Nonnull)date;
++ (GLBMoonDay)moonDayFromDate:(nonnull NSDate*)date;
 
-+ (GLBMoonPhase)moonPhaseFromDate:(NSDate* _Nonnull)date;
++ (GLBMoonPhase)moonPhaseFromDate:(nonnull NSDate*)date;
 + (GLBMoonPhase)moonPhaseFromMoonDay:(GLBMoonDay)moonDay;
 
-+ (NSString* _Nullable)moonPhaseStringFromDate:(NSDate* _Nonnull)date;
-+ (NSString* _Nullable)moonPhaseStringFromPhase:(GLBMoonPhase)moonPhase;
-+ (NSString* _Nullable)moonPhaseStringFromMoonDay:(GLBMoonDay)moonDay;
++ (nullable NSString*)moonPhaseStringFromDate:(nonnull NSDate*)date;
++ (nullable NSString*)moonPhaseStringFromPhase:(GLBMoonPhase)moonPhase;
++ (nullable NSString*)moonPhaseStringFromMoonDay:(GLBMoonDay)moonDay;
 
 @end
 

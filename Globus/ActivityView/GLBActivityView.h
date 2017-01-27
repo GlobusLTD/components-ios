@@ -32,12 +32,12 @@
 - (void)setup NS_REQUIRES_SUPER;
 
 - (void)show;
-- (void)showComplete:(GLBSimpleBlock _Nullable)complete;
-- (void)showPrepare:(GLBSimpleBlock _Nullable)prepare complete:(GLBSimpleBlock _Nullable)complete;
+- (void)showComplete:(nullable GLBSimpleBlock)complete;
+- (void)showPrepare:(nullable GLBSimpleBlock)prepare complete:(nullable GLBSimpleBlock)complete;
 
 - (void)hide;
-- (void)hideComplete:(GLBSimpleBlock _Nullable)complete;
-- (void)hidePrepare:(GLBSimpleBlock _Nullable)prepare complete:(GLBSimpleBlock _Nullable)complete;
+- (void)hideComplete:(nullable GLBSimpleBlock)complete;
+- (void)hidePrepare:(nullable GLBSimpleBlock)prepare complete:(nullable GLBSimpleBlock)complete;
 
 @end
 

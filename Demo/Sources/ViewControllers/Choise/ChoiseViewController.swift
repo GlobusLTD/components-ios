@@ -32,6 +32,8 @@ class ChoiseViewController: GLBViewController {
         ChoiseControllerViewModel< PageControlViewController >.init(title:"PageControl"),
         ChoiseControllerViewModel< NotificationsViewController >.init(title:"Notifications"),
         ChoiseControllerViewModel< DialogRootViewController >.init(title:"Dialog"),
+        ChoiseControllerViewModel< ListDataViewController >.init(title:"ListDataView"),
+        ChoiseControllerViewModel< CalendarDataViewController >.init(title:"CalendarDataView"),
     ]
     
     //MARK: - UIViewController

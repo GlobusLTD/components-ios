@@ -24,7 +24,7 @@
 
 @interface NSMutableAttributedString (GLBNS)
 
-- (NSRange)glb_appendString:(NSString* _Nonnull)string attributes:(NSDictionary* _Nonnull)attributes;
+- (NSRange)glb_appendString:(nonnull NSString*)string attributes:(nonnull NSDictionary*)attributes;
 
 @end
 

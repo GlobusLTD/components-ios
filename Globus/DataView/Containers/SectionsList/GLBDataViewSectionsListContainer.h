@@ -13,20 +13,20 @@
 @property(nonatomic) UIOffset spacing;
 @property(nonatomic) BOOL pagingEnabled;
 @property(nonatomic) NSUInteger currentSectionIndex;
-@property(nonatomic, strong) GLBDataViewContainer* currentSection;
+@property(nonatomic, nullable, strong) GLBDataViewContainer* currentSection;
 
-+ (instancetype)containerWithOrientation:(GLBDataViewContainerOrientation)orientation NS_SWIFT_UNAVAILABLE("Use init(orientation:)");
++ (nonnull instancetype)containerWithOrientation:(GLBDataViewContainerOrientation)orientation NS_SWIFT_UNAVAILABLE("Use init(orientation:)");
 
-- (instancetype)initWithOrientation:(GLBDataViewContainerOrientation)orientation;
+- (nonnull instancetype)initWithOrientation:(GLBDataViewContainerOrientation)orientation;
 
 - (void)setCurrentSectionIndex:(NSUInteger)currentSectionIndex animated:(BOOL)animated;
-- (void)setCurrentSection:(GLBDataViewContainer*)currentSection animated:(BOOL)animated;
+- (void)setCurrentSection:(nullable GLBDataViewContainer*)currentSection animated:(BOOL)animated;
 
 @end
 
 /*--------------------------------------------------*/
 
-extern NSString* GLBDataViewContainerCurrentSectionChanged;
+extern NSString* _Nonnull GLBDataViewContainerCurrentSectionChanged;
 
 /*--------------------------------------------------*/
 #endif

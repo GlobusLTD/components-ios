@@ -125,7 +125,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
 }
 
 + (instancetype)modelWithJsonData:(NSData*)data sheme:(NSString*)sheme {
-    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    id json = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingOptions)0 error:nil];
     if(json != nil) {
         return [[self alloc] initWithJson:json sheme:sheme];
     }
@@ -185,7 +185,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
 }
 
 - (void)fromJsonData:(NSData*)data sheme:(NSString*)sheme {
-    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    id json = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingOptions)0 error:nil];
     if(json != nil) {
         [self fromJson:json sheme:sheme];
     }
@@ -215,12 +215,12 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
 - (NSData*)toJsonData:(NSString*)sheme {
     NSDictionary* json = [self toJson:sheme];
     if(json != nil) {
-        return [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
+        return [NSJSONSerialization dataWithJSONObject:json options:(NSJSONWritingOptions)0 error:nil];
     }
     return nil;
 }
 
-- (NSDictionary< NSString*, id >* _Nullable)pack {
+- (nullable NSDictionary< NSString*, id >*)pack {
     NSMutableDictionary* result = NSMutableDictionary.dictionary;
     [self.packMap enumerateKeysAndObjectsUsingBlock:^(NSString* field, GLBModelPack* converter, BOOL* stop __unused) {
         id value = [self valueForKey:field];
@@ -309,7 +309,7 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
     return [GLBModelHelper dictionaryMap:cache withClass:self.class selector:@selector(packMap)];
 }
 
-+ (NSArray< NSString* >* _Nonnull)_buildPropertyMap {
++ (nonnull NSArray< NSString* >*)_buildPropertyMap {
     static NSMutableDictionary* cache = nil;
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;
@@ -886,15 +886,15 @@ static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistSto
     return nil;
 }
 
-- (void)insertObject:(NSManagedObject* _Nonnull)object {
+- (void)insertObject:(nonnull NSManagedObject*)object {
     [self.currentContext insertObject:object];
 }
 
-- (void)deleteObject:(NSManagedObject* _Nonnull)object {
+- (void)deleteObject:(nonnull NSManagedObject*)object {
     [self.currentContext deleteObject:object];
 }
 
-- (void)refreshObject:(NSManagedObject* _Nonnull)object mergeChanges:(BOOL)flag {
+- (void)refreshObject:(nonnull NSManagedObject*)object mergeChanges:(BOOL)flag {
     [self.currentContext refreshObject:object mergeChanges:flag];
 }
 
@@ -905,7 +905,7 @@ static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistSto
     }
 }
 
-- (void)detectConflictsForObject:(NSManagedObject* _Nonnull)object {
+- (void)detectConflictsForObject:(nonnull NSManagedObject*)object {
     [self.currentContext detectConflictsForObject:object];
 }
 

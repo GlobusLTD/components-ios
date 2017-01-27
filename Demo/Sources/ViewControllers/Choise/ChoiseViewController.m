@@ -25,6 +25,8 @@
 #import "PageControlViewController.h"
 #import "NotificationsViewController.h"
 #import "DialogRootViewController.h"
+#import "ListDataViewController.h"
+#import "CalendarDataViewController.h"
 
 @interface ChoiseViewController () < UITableViewDataSource, UITableViewDelegate > {
     NSArray< ChoiseViewModel* >* _data;
@@ -61,6 +63,8 @@
         [ChoiseViewModel viewModelWithTitle:@"PageControl" viewController:PageControlViewController.class],
         [ChoiseViewModel viewModelWithTitle:@"Notifications" viewController:NotificationsViewController.class],
         [ChoiseViewModel viewModelWithTitle:@"Dialog" viewController:DialogRootViewController.class],
+        [ChoiseViewModel viewModelWithTitle:@"ListDataView" viewController:ListDataViewController.class],
+        [ChoiseViewModel viewModelWithTitle:@"CalendarDataView" viewController:CalendarDataViewController.class],
     ];
     
     [_tableView glb_registerCell:ChoiseCellTableViewCell.class];

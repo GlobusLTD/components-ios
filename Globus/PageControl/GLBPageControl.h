@@ -50,20 +50,20 @@ typedef NS_ENUM(NSUInteger, GLBPageControlTapBehavior) {
 - (CGRect)rectForPageIndicator:(NSUInteger)pageIndex;
 - (CGSize)sizeForNumberOfPages:(NSUInteger)pageCount;
 
-- (void)setImage:(UIImage* _Nullable)image forPage:(NSUInteger)pageIndex;
-- (UIImage* _Nullable)imageForPage:(NSUInteger)pageIndex;
+- (void)setImage:(nullable UIImage*)image forPage:(NSUInteger)pageIndex;
+- (nullable UIImage*)imageForPage:(NSUInteger)pageIndex;
 
-- (void)setCurrentImage:(UIImage* _Nullable)image forPage:(NSUInteger)pageIndex;
-- (UIImage* _Nullable)currentImageForPage:(NSUInteger)pageIndex;
+- (void)setCurrentImage:(nullable UIImage*)image forPage:(NSUInteger)pageIndex;
+- (nullable UIImage*)currentImageForPage:(NSUInteger)pageIndex;
 
-- (void)setImageMask:(UIImage* _Nullable)image forPage:(NSUInteger)pageIndex;
-- (UIImage* _Nullable)imageMaskForPage:(NSUInteger)pageIndex;
+- (void)setImageMask:(nullable UIImage*)image forPage:(NSUInteger)pageIndex;
+- (nullable UIImage*)imageMaskForPage:(NSUInteger)pageIndex;
 
-- (void)setScrollViewContentOffsetForCurrentPage:(UIScrollView* _Nonnull)scrollView animated:(BOOL)animated;
-- (void)updatePageNumberForScrollView:(UIScrollView* _Nonnull)scrollView;
+- (void)setScrollViewContentOffsetForCurrentPage:(nonnull UIScrollView*)scrollView animated:(BOOL)animated;
+- (void)updatePageNumberForScrollView:(nonnull UIScrollView*)scrollView;
 
-- (void)setName:(NSString* _Nullable)name forPage:(NSUInteger)pageIndex;
-- (NSString* _Nullable)nameForPage:(NSUInteger)pageIndex;
+- (void)setName:(nullable NSString*)name forPage:(NSUInteger)pageIndex;
+- (nullable NSString*)nameForPage:(NSUInteger)pageIndex;
 
 @end
 

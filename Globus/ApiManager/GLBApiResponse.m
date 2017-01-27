@@ -99,7 +99,13 @@
 }
 
 - (BOOL)fromData:(NSData*)data mimetype:(NSString*)mimetype {
-    return NO;
+    BOOL valid = NO;
+    NSError* parseError = nil;
+    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
+    if(json != nil) {
+        valid = [self fromJson:json];
+    }
+    return valid;
 }
 
 - (BOOL)fromJson:(id)json {

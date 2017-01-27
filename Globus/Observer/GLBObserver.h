@@ -19,19 +19,19 @@ typedef void(^GLBObserverPerformBlock)(_Nonnull id< GLBObserverProtocol > observ
 @property(nonatomic, nonnull, assign) Protocol* protocol;
 @property(nonatomic, readonly, assign) NSUInteger count;
 
-+ (instancetype _Nonnull)observerWithProtocol:(Protocol* _Nonnull)protocol NS_SWIFT_UNAVAILABLE("Use init(protocol:)");
++ (nonnull instancetype)observerWithProtocol:(nonnull Protocol*)protocol NS_SWIFT_UNAVAILABLE("Use init(protocol:)");
 
-- (instancetype _Nonnull)init NS_UNAVAILABLE;
-- (instancetype _Nonnull)initWithProtocol:(Protocol* _Nonnull)protocol NS_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init NS_UNAVAILABLE;
+- (nonnull instancetype)initWithProtocol:(nonnull Protocol*)protocol NS_DESIGNATED_INITIALIZER;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (BOOL)containsObserver:(id< GLBObserverProtocol > _Nonnull)observer;
+- (BOOL)containsObserver:(nonnull id< GLBObserverProtocol >)observer;
 
-- (void)addObserver:(id< GLBObserverProtocol > _Nonnull)observer;
-- (void)removeObserver:(id< GLBObserverProtocol > _Nonnull)observer;
+- (void)addObserver:(nonnull id< GLBObserverProtocol >)observer;
+- (void)removeObserver:(nonnull id< GLBObserverProtocol >)observer;
 
-- (void)performSelector:(SEL _Nonnull)selector block:(GLBObserverPerformBlock _Nonnull)block;
+- (void)performSelector:(nonnull SEL)selector block:(nonnull GLBObserverPerformBlock)block;
 
 @end
 

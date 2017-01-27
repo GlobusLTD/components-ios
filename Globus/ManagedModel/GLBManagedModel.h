@@ -10,12 +10,12 @@
 
 @interface GLBManagedModel : NSManagedObject < GLBModelProtocol, NSCoding, GLBObjectDebugProtocol >
 
-- (instancetype _Nullable)initWithDefaultContext;
+- (nullable instancetype)initWithDefaultContext;
 
-+ (NSManagedObjectContext* _Nullable)entityContext;
-+ (NSString* _Nullable)entityName;
++ (nullable NSManagedObjectContext*)entityContext;
++ (nullable NSString*)entityName;
 
-+ (NSArray< NSString* >* _Nullable)propertyMap;
++ (nullable NSArray< NSString* >*)propertyMap;
 
 - (void)refreshMergeChanges:(BOOL)flag;
 
@@ -62,18 +62,18 @@ typedef void(^GLBManagedManagerPerform)();
 @property(nonatomic, nullable, readonly, strong) NSURL* existStoreUrl;
 @property(nonatomic, nullable, readonly, strong) NSURL* storeUrl;
 
-+ (instancetype _Nullable)shared;
++ (nullable instancetype)shared;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)addObserver:(id< GLBManagedManagerObserver > _Nonnull)observer;
-- (void)removeObserver:(id< GLBManagedManagerObserver > _Nonnull)observer;
+- (void)addObserver:(nonnull id< GLBManagedManagerObserver >)observer;
+- (void)removeObserver:(nonnull id< GLBManagedManagerObserver >)observer;
 
 - (BOOL)initializeStore;
 - (void)closeStore;
 
-- (void)performBlock:(GLBManagedManagerPerform _Nonnull)update;
-- (void)performBlockAndWait:(GLBManagedManagerPerform _Nonnull)update;
+- (void)performBlock:(nonnull GLBManagedManagerPerform)update;
+- (void)performBlockAndWait:(nonnull GLBManagedManagerPerform)update;
 
 - (void)undo;
 - (void)redo;
@@ -82,24 +82,24 @@ typedef void(^GLBManagedManagerPerform)();
 
 - (BOOL)save;
 
-- (__kindof NSManagedObject* _Nullable)objectRegisteredForID:(NSManagedObjectID* _Nonnull)objectID;
-- (__kindof NSManagedObject* _Nullable)objectWithID:(NSManagedObjectID* _Nonnull)objectID;
-- (__kindof NSManagedObject* _Nullable)existingObjectWithID:(NSManagedObjectID* _Nonnull)objectID error:(NSError* _Nullable * _Nullable)error;
+- (nullable __kindof NSManagedObject*)objectRegisteredForID:(nonnull NSManagedObjectID*)objectID;
+- (nullable __kindof NSManagedObject*)objectWithID:(nonnull NSManagedObjectID*)objectID;
+- (nullable __kindof NSManagedObject*)existingObjectWithID:(nonnull NSManagedObjectID*)objectID error:(NSError* _Nullable * _Nullable)error;
 
-- (NSArray* _Nullable)executeFetchRequest:(NSFetchRequest* _Nonnull)request error:(NSError* _Nullable * _Nullable)error;
-- (NSUInteger)countForFetchRequest:(NSFetchRequest* _Nonnull)request error: (NSError* _Nullable * _Nullable)error;
+- (nullable NSArray*)executeFetchRequest:(nonnull NSFetchRequest*)request error:(NSError* _Nullable * _Nullable)error;
+- (NSUInteger)countForFetchRequest:(nonnull NSFetchRequest*)request error: (NSError* _Nullable * _Nullable)error;
 
-- (void)setFetchRequestTemplate:(NSFetchRequest* _Nullable)fetchRequestTemplate forName:(NSString* _Nonnull)name;
-- (NSFetchRequest* _Nullable)fetchRequestTemplateForName:(NSString* _Nonnull)name;
-- (NSFetchRequest* _Nullable)fetchRequestFromTemplateWithName:(NSString* _Nonnull)name variables:(NSDictionary< NSString*, id >* _Nullable)variables;
-- (NSArray* _Nullable)executeTemplateFetchRequestForName:(NSString* _Nonnull)name error:(NSError* _Nullable * _Nullable)error;
-- (NSArray* _Nullable)executeTemplateFetchRequestForName:(NSString* _Nonnull)name variables:(NSDictionary< NSString*, id >* _Nullable)variables error:(NSError* _Nullable * _Nullable)error;
+- (void)setFetchRequestTemplate:(nullable NSFetchRequest*)fetchRequestTemplate forName:(nonnull NSString*)name;
+- (nullable NSFetchRequest*)fetchRequestTemplateForName:(nonnull NSString*)name;
+- (nullable NSFetchRequest*)fetchRequestFromTemplateWithName:(nonnull NSString*)name variables:(nullable NSDictionary< NSString*, id >*)variables;
+- (nullable NSArray*)executeTemplateFetchRequestForName:(nonnull NSString*)name error:(NSError* _Nullable * _Nullable)error;
+- (nullable NSArray*)executeTemplateFetchRequestForName:(nonnull NSString*)name variables:(nullable NSDictionary< NSString*, id >*)variables error:(NSError* _Nullable * _Nullable)error;
 
-- (void)insertObject:(NSManagedObject* _Nonnull)object;
-- (void)deleteObject:(NSManagedObject* _Nonnull)object;
-- (void)refreshObject:(NSManagedObject* _Nonnull)object mergeChanges:(BOOL)flag;
+- (void)insertObject:(nonnull NSManagedObject*)object;
+- (void)deleteObject:(nonnull NSManagedObject*)object;
+- (void)refreshObject:(nonnull NSManagedObject*)object mergeChanges:(BOOL)flag;
 - (void)refreshRegisteredObjectsMergeChanges:(BOOL)flag;
-- (void)detectConflictsForObject:(NSManagedObject* _Nonnull)object;
+- (void)detectConflictsForObject:(nonnull NSManagedObject*)object;
 
 @end
 
@@ -108,9 +108,9 @@ typedef void(^GLBManagedManagerPerform)();
 @protocol GLBManagedManagerObserver < NSObject >
 
 @optional
-- (NSURL* _Nullable)existStoreUrlInManagedManager:(GLBManagedManager* _Nonnull)managedManager;
-- (void)initializeStoreInManagedManager:(GLBManagedManager* _Nonnull)managedManager error:(NSError* _Nullable)error;
-- (void)closeStoreInManagedManager:(GLBManagedManager* _Nonnull)managedManager;
+- (nullable NSURL*)existStoreUrlInManagedManager:(nonnull GLBManagedManager*)managedManager;
+- (void)initializeStoreInManagedManager:(nonnull GLBManagedManager*)managedManager error:(nullable NSError*)error;
+- (void)closeStoreInManagedManager:(nonnull GLBManagedManager*)managedManager;
 
 @end
 

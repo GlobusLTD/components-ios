@@ -35,8 +35,8 @@
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)setSearching:(BOOL)searching animated:(BOOL)animated complete:(GLBSimpleBlock _Nullable)complete;
-- (void)setEditing:(BOOL)editing animated:(BOOL)animated complete:(GLBSimpleBlock _Nullable)complete;
+- (void)setSearching:(BOOL)searching animated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
 
 @end
 
@@ -45,16 +45,16 @@
 @protocol GLBSearchBarDelegate < NSObject >
 
 @optional
-- (void)searchBarBeginSearch:(GLBSearchBar* _Nonnull)searchBar;
-- (void)searchBarEndSearch:(GLBSearchBar* _Nonnull)searchBar;
+- (void)searchBarBeginSearch:(nonnull GLBSearchBar*)searchBar;
+- (void)searchBarEndSearch:(nonnull GLBSearchBar*)searchBar;
 
-- (void)searchBarBeginEditing:(GLBSearchBar* _Nonnull)searchBar;
-- (void)searchBar:(GLBSearchBar* _Nonnull)searchBar textChanged:(NSString* _Nonnull)textChanged;
-- (void)searchBarEndEditing:(GLBSearchBar* _Nonnull)searchBar;
+- (void)searchBarBeginEditing:(nonnull GLBSearchBar*)searchBar;
+- (void)searchBar:(nonnull GLBSearchBar*)searchBar textChanged:(nonnull NSString*)textChanged;
+- (void)searchBarEndEditing:(nonnull GLBSearchBar*)searchBar;
 
-- (void)searchBarPressedClear:(GLBSearchBar* _Nonnull)searchBar;
-- (void)searchBarPressedReturn:(GLBSearchBar* _Nonnull)searchBar;
-- (void)searchBarPressedCancel:(GLBSearchBar* _Nonnull)searchBar;
+- (void)searchBarPressedClear:(nonnull GLBSearchBar*)searchBar;
+- (void)searchBarPressedReturn:(nonnull GLBSearchBar*)searchBar;
+- (void)searchBarPressedCancel:(nonnull GLBSearchBar*)searchBar;
 
 @end
 

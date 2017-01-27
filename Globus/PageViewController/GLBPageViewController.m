@@ -72,9 +72,25 @@
 
 @implementation GLBPageViewController
 
+#pragma mark - Init / Free
+
+- (instancetype)initWithCoder:(NSCoder*)coder {
+    self = [super initWithCoder:coder];
+    if(self != nil) {
+        [self setup];
+    }
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString*)nib bundle:(NSBundle*)bundle {
+    self = [super initWithNibName:nib bundle:bundle];
+    if(self != nil) {
+        [self setup];
+    }
+    return self;
+}
+
 - (void)setup {
-    [super setup];
-    
     _userInteractionEnabled = YES;
     _draggingRate = (CGFloat)(0.5);
     _bounceRate = (CGFloat)(0.5);
@@ -83,6 +99,8 @@
     
     _friendlyGestures = [NSMutableArray array];
 }
+
+#pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -909,6 +927,25 @@
     return NO;
 }
 
+#pragma mark - GLBWindowExtension
+
+- (BOOL)hideKeyboardIfTouched {
+    id vc = _viewController;
+    if([vc respondsToSelector:@selector(hideKeyboardIfTouched)] == YES) {
+        return [vc hideKeyboardIfTouched];
+    }
+    return NO;
+}
+
+#pragma mark - GLBViewControllerExtension
+
+- (UIViewController*)currentViewController {
+    if(_viewController != nil) {
+        return _viewController.glb_currentViewController;
+    }
+    return self;
+}
+
 #if __has_include("GLBSlideViewController.h")
 
 #pragma mark - GLBSlideViewControllerDelegate
@@ -1143,15 +1180,6 @@
 }
 
 #endif
-
-#pragma mark - GLBViewController
-
-- (UIViewController*)currentViewController {
-    if(_viewController != nil) {
-        return _viewController.glb_currentViewController;
-    }
-    return self;
-}
 
 @end
 

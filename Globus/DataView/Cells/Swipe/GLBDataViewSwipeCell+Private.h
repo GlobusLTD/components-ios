@@ -58,19 +58,19 @@ typedef NS_ENUM(NSUInteger, GLBDataCellSwipeDirection) {
     GLBDataCellSwipeDirection _panSwipeDirection;
 }
 
-@property(nonatomic, strong) UIPanGestureRecognizer* panGestureRecognizer;
+@property(nonatomic, nonnull, strong) UIPanGestureRecognizer* panGestureRecognizer;
 @property(nonatomic, getter=isSwipeDragging) BOOL swipeDragging;
 @property(nonatomic, getter=isSwipeDecelerating) BOOL swipeDecelerating;
 
-@property(nonatomic, strong) NSLayoutConstraint* constraintLeftSwipeViewOffsetX;
-@property(nonatomic, strong) NSLayoutConstraint* constraintLeftSwipeViewCenterY;
-@property(nonatomic, strong) NSLayoutConstraint* constraintLeftSwipeViewWidth;
-@property(nonatomic, strong) NSLayoutConstraint* constraintLeftSwipeViewHeight;
+@property(nonatomic, nullable, strong) NSLayoutConstraint* constraintLeftSwipeViewOffsetX;
+@property(nonatomic, nullable, strong) NSLayoutConstraint* constraintLeftSwipeViewCenterY;
+@property(nonatomic, nullable, strong) NSLayoutConstraint* constraintLeftSwipeViewWidth;
+@property(nonatomic, nullable, strong) NSLayoutConstraint* constraintLeftSwipeViewHeight;
 
-@property(nonatomic, strong) NSLayoutConstraint* constraintRightSwipeViewOffsetX;
-@property(nonatomic, strong) NSLayoutConstraint* constraintRightSwipeViewCenterY;
-@property(nonatomic, strong) NSLayoutConstraint* constraintRightSwipeViewWidth;
-@property(nonatomic, strong) NSLayoutConstraint* constraintRightSwipeViewHeight;
+@property(nonatomic, nullable, strong) NSLayoutConstraint* constraintRightSwipeViewOffsetX;
+@property(nonatomic, nullable, strong) NSLayoutConstraint* constraintRightSwipeViewCenterY;
+@property(nonatomic, nullable, strong) NSLayoutConstraint* constraintRightSwipeViewWidth;
+@property(nonatomic, nullable, strong) NSLayoutConstraint* constraintRightSwipeViewHeight;
 
 @property(nonatomic) CGFloat panSwipeLastOffset;
 @property(nonatomic) CGFloat panSwipeLastVelocity;

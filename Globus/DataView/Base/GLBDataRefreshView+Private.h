@@ -19,9 +19,9 @@
     CGFloat _threshold;
 }
 
-@property(nonatomic, weak) GLBDataView* view;
-@property(nonatomic, weak) NSLayoutConstraint* constraintOffset;
-@property(nonatomic, weak) NSLayoutConstraint* constraintSize;
+@property(nonatomic, nullable, weak) GLBDataView* view;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintOffset;
+@property(nonatomic, nullable, weak) NSLayoutConstraint* constraintSize;
 @property(nonatomic) GLBDataRefreshViewState state;
 
 @end

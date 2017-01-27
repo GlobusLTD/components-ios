@@ -139,8 +139,7 @@
 
 - (UIView*)panelView {
     if(_panelView == nil) {
-        UIView* panelView = [UIView new];
-        panelView = [[UIView alloc] initWithFrame:CGRectZero];
+        UIView* panelView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 100.0f)];
         panelView.backgroundColor = [UIColor colorWithWhite:0.2f alpha:0.8f];
         panelView.glb_cornerRadius = 8.0f;
         panelView.clipsToBounds = YES;

@@ -18,26 +18,26 @@
 
 @interface NSSet< __covariant ObjectType > (GLB_NS)
 
-+ (instancetype _Nonnull)glb_setWithSet:(NSSet< ObjectType >* _Nonnull)set addingObject:(ObjectType _Nonnull)object;
-+ (instancetype _Nonnull)glb_setWithSet:(NSSet< ObjectType >* _Nonnull)set addingObjectsFromSet:(NSSet< ObjectType >* _Nonnull)addingObjects;
-+ (instancetype _Nonnull)glb_setWithSet:(NSSet< ObjectType >* _Nonnull)set removingObject:(ObjectType _Nonnull)object;
-+ (instancetype _Nonnull)glb_setWithSet:(NSSet< ObjectType >* _Nonnull)set removingObjectsInSet:(NSSet< ObjectType >* _Nonnull)removingObjects;
++ (nonnull instancetype)glb_setWithSet:(nonnull NSSet< ObjectType >*)set addingObject:(nonnull ObjectType)object;
++ (nonnull instancetype)glb_setWithSet:(nonnull NSSet< ObjectType >*)set addingObjectsFromSet:(nonnull NSSet< ObjectType >*)addingObjects;
++ (nonnull instancetype)glb_setWithSet:(nonnull NSSet< ObjectType >*)set removingObject:(nonnull ObjectType)object;
++ (nonnull instancetype)glb_setWithSet:(nonnull NSSet< ObjectType >*)set removingObjectsInSet:(nonnull NSSet< ObjectType >*)removingObjects;
 
-- (instancetype _Nonnull)glb_setByRemovedObject:(ObjectType _Nonnull)object;
-- (instancetype _Nonnull)glb_setByRemovedObjectsFromSet:(NSSet< ObjectType >* _Nonnull)set;
+- (nonnull instancetype)glb_setByRemovedObject:(nonnull ObjectType)object;
+- (nonnull instancetype)glb_setByRemovedObjectsFromSet:(nonnull NSSet< ObjectType >*)set;
 
-- (instancetype _Nonnull)glb_setByObjectClass:(Class _Nonnull)objectClass;
-- (instancetype _Nonnull)glb_setByObjectProtocol:(Protocol* _Nonnull)objectProtocol;
+- (nonnull instancetype)glb_setByObjectClass:(nonnull Class)objectClass;
+- (nonnull instancetype)glb_setByObjectProtocol:(nonnull Protocol*)objectProtocol;
 
-- (BOOL)glb_containsObjectsInSet:(NSSet< ObjectType >* _Nonnull)objectsSet;
+- (BOOL)glb_containsObjectsInSet:(nonnull NSSet< ObjectType >*)objectsSet;
 
 - (void)glb_each:(void(^ _Nonnull)(ObjectType _Nonnull object))block;
 - (void)glb_each:(void(^ _Nonnull)(ObjectType _Nonnull object))block options:(NSEnumerationOptions)options;
-- (NSSet* _Nonnull)glb_map:(id _Nullable(^ _Nonnull)(ObjectType _Nonnull object))block;
-- (NSDictionary* _Nonnull)glb_groupBy:(id _Nullable(^ _Nonnull)(ObjectType _Nonnull object))block;
-- (NSSet< ObjectType >* _Nonnull)glb_select:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block;
-- (NSSet< ObjectType >* _Nonnull)glb_reject:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block;
-- (ObjectType _Nullable)glb_find:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block;
+- (nonnull NSSet*)glb_map:(id _Nullable(^ _Nonnull)(ObjectType _Nonnull object))block;
+- (nonnull NSDictionary*)glb_groupBy:(id _Nullable(^ _Nonnull)(ObjectType _Nonnull object))block;
+- (nonnull NSSet< ObjectType >*)glb_select:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block;
+- (nonnull NSSet< ObjectType >*)glb_reject:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block;
+- (nullable ObjectType)glb_find:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block;
 
 @end
 

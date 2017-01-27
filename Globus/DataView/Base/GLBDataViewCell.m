@@ -49,10 +49,6 @@
     return result;
 }
 
-- (CGSize)sizeForItem:(id)item availableSize:(CGSize)size {
-    return [self sizeForAvailableSize:size];
-}
-
 - (CGSize)sizeForAvailableSize:(CGSize)size {
     UILayoutPriority fittingHorizontalPriority = self.fittingHorizontalPriority;
     UILayoutPriority fittingVerticalPriority = self.fittingVerticalPriority;
@@ -157,7 +153,6 @@
             }
             [self setNeedsLayout];
             [self willShow];
-            [self layoutIfNeeded];
         }
     }
 }

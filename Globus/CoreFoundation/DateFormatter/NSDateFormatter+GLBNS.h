@@ -18,10 +18,10 @@
 
 @interface NSDateFormatter (GLB_NS)
 
-+ (instancetype _Nonnull)glb_dateFormatterWithFormat:(NSString* _Nonnull)format;
-+ (instancetype _Nonnull)glb_dateFormatterWithFormat:(NSString* _Nonnull)format locale:(NSLocale* _Nullable)locale;
-+ (instancetype _Nonnull)glb_dateFormatterWithFormatTemplate:(NSString* _Nonnull)formatTemplate;
-+ (instancetype _Nonnull)glb_dateFormatterWithFormatTemplate:(NSString* _Nonnull)formatTemplate locale:(NSLocale* _Nullable)locale;
++ (nonnull instancetype)glb_dateFormatterWithFormat:(nonnull NSString*)format;
++ (nonnull instancetype)glb_dateFormatterWithFormat:(nonnull NSString*)format locale:(nullable NSLocale*)locale;
++ (nonnull instancetype)glb_dateFormatterWithFormatTemplate:(nonnull NSString*)formatTemplate;
++ (nonnull instancetype)glb_dateFormatterWithFormatTemplate:(nonnull NSString*)formatTemplate locale:(nullable NSLocale*)locale;
 
 @end
 

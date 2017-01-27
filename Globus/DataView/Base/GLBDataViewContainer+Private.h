@@ -19,8 +19,8 @@
     CGRect _frame;
 }
 
-@property(nonatomic, weak) __kindof GLBDataView* dataView;
-@property(nonatomic, weak) __kindof GLBDataViewContainer* container;
+@property(nonatomic, nullable, weak) __kindof GLBDataView* dataView;
+@property(nonatomic, nullable, weak) __kindof GLBDataViewContainer* container;
 
 @end
 

@@ -18,25 +18,25 @@ typedef void (^GLBCacheComplete)();
 @property(nonatomic, readonly, assign) NSTimeInterval storageInterval;
 @property(nonatomic, readonly, assign) NSUInteger currentUsage;
 
-+ (instancetype _Nullable)shared;
++ (nullable instancetype)shared;
 
-- (instancetype _Nullable)initWithName:(NSString* _Nonnull)name;
-- (instancetype _Nullable)initWithName:(NSString* _Nonnull)name capacity:(NSUInteger)capacity;
-- (instancetype _Nullable)initWithName:(NSString* _Nonnull)name capacity:(NSUInteger)capacity storageInterval:(NSTimeInterval)storageInterval NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithName:(nonnull NSString*)name;
+- (nullable instancetype)initWithName:(nonnull NSString*)name capacity:(NSUInteger)capacity;
+- (nullable instancetype)initWithName:(nonnull NSString*)name capacity:(NSUInteger)capacity storageInterval:(NSTimeInterval)storageInterval NS_DESIGNATED_INITIALIZER;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (BOOL)existDataForKey:(NSString* _Nonnull)key;
+- (BOOL)existDataForKey:(nonnull NSString*)key;
 
-- (void)setData:(NSData* _Nonnull)data forKey:(NSString* _Nonnull)key;
-- (void)setData:(NSData* _Nonnull)data forKey:(NSString* _Nonnull)key complete:(GLBCacheComplete _Nullable)complete;
-- (NSData* _Nullable)dataForKey:(NSString* _Nonnull)key;
-- (void)dataForKey:(NSString* _Nonnull)key complete:(GLBCacheDataForKey _Nullable)complete;
+- (void)setData:(nonnull NSData*)data forKey:(nonnull NSString*)key;
+- (void)setData:(nonnull NSData*)data forKey:(nonnull NSString*)key complete:(nullable GLBCacheComplete)complete;
+- (nullable NSData*)dataForKey:(nonnull NSString*)key;
+- (void)dataForKey:(nonnull NSString*)key complete:(nullable GLBCacheDataForKey)complete;
 
-- (void)removeDataForKey:(NSString* _Nonnull)key;
-- (void)removeDataForKey:(NSString* _Nonnull)key complete:(GLBCacheComplete _Nullable)complete;
+- (void)removeDataForKey:(nonnull NSString*)key;
+- (void)removeDataForKey:(nonnull NSString*)key complete:(nullable GLBCacheComplete)complete;
 - (void)removeAllData;
-- (void)removeAllDataComplete:(GLBCacheComplete _Nullable)complete;
+- (void)removeAllDataComplete:(nullable GLBCacheComplete)complete;
 
 @end
 

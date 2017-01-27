@@ -1,16 +1,10 @@
 /*--------------------------------------------------*/
 
-#import "NSString+GLBNS.h"
-
-/*--------------------------------------------------*/
-
-#import "UIViewController+GLBUI.h"
-#import "UIDevice+GLBUI.h"
-
-/*--------------------------------------------------*/
-
 #import "GLBWindow.h"
 #import "GLBTransitionController.h"
+#import "NSString+GLBNS.h"
+#import "UIViewController+GLBUI.h"
+#import "UIDevice+GLBUI.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)

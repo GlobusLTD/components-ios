@@ -13,12 +13,12 @@
 
 @interface GLBDataViewCellCache : NSObject
 
-+ (instancetype _Nullable)shared;
++ (nonnull instancetype)shared;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (__kindof GLBDataViewCell* _Nullable)dequeueCellClass:(Class _Nonnull)cellClass;
-- (void)enqueueCell:(GLBDataViewCell* _Nonnull)cell;
+- (nullable __kindof GLBDataViewCell*)dequeueCellClass:(nonnull Class)cellClass;
+- (void)enqueueCell:(nonnull GLBDataViewCell*)cell;
 
 @end
 

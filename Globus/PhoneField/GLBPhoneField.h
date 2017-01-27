@@ -11,19 +11,19 @@
 @property(nonatomic, nullable, copy) NSString* prefix;
 @property(nonatomic, nullable, readonly, strong) id userInfo;
 
-- (void)setFormattedText:(NSString* _Nullable)text;
+- (void)setFormattedText:(nullable NSString*)text;
 
-- (NSString* _Nullable)phoneNumberWithoutPrefix;
-- (NSString* _Nullable)phoneNumber;
+- (nullable NSString*)phoneNumberWithoutPrefix;
+- (nullable NSString*)phoneNumber;
 
 - (void)resetFormats;
 - (void)resetDefaultFormat;
 
-- (void)setDefaultOutputPattern:(NSString* _Nullable)pattern;
-- (void)setDefaultOutputPattern:(NSString* _Nullable)pattern userInfo:(id _Nullable)userInfo;
+- (void)setDefaultOutputPattern:(nullable NSString*)pattern;
+- (void)setDefaultOutputPattern:(nullable NSString*)pattern userInfo:(nullable id)userInfo;
 
-- (void)addOutputPattern:(NSString* _Nonnull)pattern forRegExp:(NSString* _Nonnull)regexp;
-- (void)addOutputPattern:(NSString* _Nonnull)pattern forRegExp:(NSString* _Nonnull)regexp userInfo:(id _Nullable)userInfo;
+- (void)addOutputPattern:(nonnull NSString*)pattern forRegExp:(nonnull NSString*)regexp;
+- (void)addOutputPattern:(nonnull NSString*)pattern forRegExp:(nonnull NSString*)regexp userInfo:(nullable id)userInfo;
 
 @end
 

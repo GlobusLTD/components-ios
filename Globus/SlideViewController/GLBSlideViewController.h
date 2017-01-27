@@ -1,19 +1,12 @@
 /*--------------------------------------------------*/
 
-#import "GLBBaseViewController.h"
-
-/*--------------------------------------------------*/
-
+#import "GLBWindow.h"
 #import "NSArray+GLBNS.h"
-
-/*--------------------------------------------------*/
-
-#include "GLBCG.h"
-
-/*--------------------------------------------------*/
-
+#import "NSString+GLBNS.h"
 #import "UIApplication+GLBUI.h"
+#import "UIViewController+GLBUI.h"
 #import "UIDevice+GLBUI.h"
+#include "GLBCG.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
@@ -28,7 +21,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerStyle) {
 
 /*--------------------------------------------------*/
 
-@interface GLBSlideViewController : GLBBaseViewController < GLBViewController >
+@interface GLBSlideViewController : UIViewController< GLBWindowExtension, GLBViewControllerExtension >
 
 @property(nonatomic, getter=isAnimating) IBInspectable BOOL animating;
 @property(nonatomic, readonly, getter=isSwipeDragging) BOOL swipeDragging;
@@ -77,16 +70,16 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerStyle) {
 @property(nonatomic, getter=isDraggingStatusBar) BOOL draggingStatusBar;
 @property(nonatomic) BOOL canUseScreenshot;
 
-- (void)setBackgroundViewController:(UIViewController* _Nullable)backgroundViewController animated:(BOOL)animated complete:(GLBSimpleBlock _Nullable)complete;
-- (void)setLeftViewController:(UIViewController* _Nullable)leftViewController animated:(BOOL)animated complete:(GLBSimpleBlock _Nullable)complete;
-- (void)setRightViewController:(UIViewController* _Nullable)rightViewController animated:(BOOL)animated complete:(GLBSimpleBlock _Nullable)complete;
-- (void)setCenterViewController:(UIViewController* _Nullable)centerViewController animated:(BOOL)animated complete:(GLBSimpleBlock _Nullable)complete;
+- (void)setBackgroundViewController:(nullable UIViewController*)backgroundViewController animated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
+- (void)setLeftViewController:(nullable UIViewController*)leftViewController animated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
+- (void)setRightViewController:(nullable UIViewController*)rightViewController animated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
+- (void)setCenterViewController:(nullable UIViewController*)centerViewController animated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
 
-- (void)showLeftViewControllerAnimated:(BOOL)animated complete:(GLBSimpleBlock _Nullable)complete;
-- (void)hideLeftViewControllerAnimated:(BOOL)animated complete:(GLBSimpleBlock _Nullable)complete;
+- (void)showLeftViewControllerAnimated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
+- (void)hideLeftViewControllerAnimated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
 
-- (void)showRightViewControllerAnimated:(BOOL)animated complete:(GLBSimpleBlock _Nullable)complete;
-- (void)hideRightViewControllerAnimated:(BOOL)animated complete:(GLBSimpleBlock _Nullable)complete;
+- (void)showRightViewControllerAnimated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
+- (void)hideRightViewControllerAnimated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
 
 @end
 
@@ -95,48 +88,48 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerStyle) {
 @protocol GLBSlideViewControllerDelegate < NSObject >
 
 @optional
-- (BOOL)canShowLeftViewControllerInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
-- (BOOL)canShowLeftViewControllerInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController touch:(CGPoint)touch bounds:(CGRect)bounds;
-- (void)willShowLeftViewControllerInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController duration:(NSTimeInterval)duration;
-- (void)didShowLeftViewControllerInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
-- (void)willHideLeftViewControllerInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController duration:(NSTimeInterval)duration;
-- (void)didHideLeftViewControllerInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
+- (BOOL)canShowLeftViewControllerInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
+- (BOOL)canShowLeftViewControllerInSlideViewController:(nonnull GLBSlideViewController*)slideViewController touch:(CGPoint)touch bounds:(CGRect)bounds;
+- (void)willShowLeftViewControllerInSlideViewController:(nonnull GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration;
+- (void)didShowLeftViewControllerInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
+- (void)willHideLeftViewControllerInSlideViewController:(nonnull GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration;
+- (void)didHideLeftViewControllerInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
 
 @optional
-- (BOOL)canShowRightViewControllerInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
-- (BOOL)canShowRightViewControllerInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController touch:(CGPoint)touch bounds:(CGRect)bounds;
-- (void)willShowRightViewControllerInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController duration:(NSTimeInterval)duration;
-- (void)didShowRightViewControllerInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
-- (void)willHideRightViewControllerInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController duration:(NSTimeInterval)duration;
-- (void)didHideRightViewControllerInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
+- (BOOL)canShowRightViewControllerInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
+- (BOOL)canShowRightViewControllerInSlideViewController:(nonnull GLBSlideViewController*)slideViewController touch:(CGPoint)touch bounds:(CGRect)bounds;
+- (void)willShowRightViewControllerInSlideViewController:(nonnull GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration;
+- (void)didShowRightViewControllerInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
+- (void)willHideRightViewControllerInSlideViewController:(nonnull GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration;
+- (void)didHideRightViewControllerInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
 
 @optional
-- (BOOL)canShowViewControllerInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
-- (void)willShowViewControllerInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController duration:(NSTimeInterval)duration;
-- (void)didShowViewControllerInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
-- (void)willHideViewControllerInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController duration:(NSTimeInterval)duration;
-- (void)didHideViewControllerInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
+- (BOOL)canShowViewControllerInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
+- (void)willShowViewControllerInSlideViewController:(nonnull GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration;
+- (void)didShowViewControllerInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
+- (void)willHideViewControllerInSlideViewController:(nonnull GLBSlideViewController*)slideViewController duration:(NSTimeInterval)duration;
+- (void)didHideViewControllerInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
 
 @optional
-- (void)willBeganLeftSwipeInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
-- (void)didBeganLeftSwipeInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
-- (void)movingLeftSwipeInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController progress:(CGFloat)progress;
-- (void)willEndedLeftSwipeInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
-- (void)didEndedLeftSwipeInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
+- (void)willBeganLeftSwipeInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
+- (void)didBeganLeftSwipeInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
+- (void)movingLeftSwipeInSlideViewController:(nonnull GLBSlideViewController*)slideViewController progress:(CGFloat)progress;
+- (void)willEndedLeftSwipeInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
+- (void)didEndedLeftSwipeInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
 
 @optional
-- (void)willBeganRightSwipeInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
-- (void)didBeganRightSwipeInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
-- (void)movingRightSwipeInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController progress:(CGFloat)progress;
-- (void)willEndedRightSwipeInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
-- (void)didEndedRightSwipeInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
+- (void)willBeganRightSwipeInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
+- (void)didBeganRightSwipeInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
+- (void)movingRightSwipeInSlideViewController:(nonnull GLBSlideViewController*)slideViewController progress:(CGFloat)progress;
+- (void)willEndedRightSwipeInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
+- (void)didEndedRightSwipeInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
 
 @optional
-- (void)willBeganSwipeInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
-- (void)didBeganSwipeInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
-- (void)movingSwipeInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController progress:(CGFloat)progress;
-- (void)willEndedSwipeInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
-- (void)didEndedSwipeInSlideViewController:(GLBSlideViewController* _Nonnull)slideViewController;
+- (void)willBeganSwipeInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
+- (void)didBeganSwipeInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
+- (void)movingSwipeInSlideViewController:(nonnull GLBSlideViewController*)slideViewController progress:(CGFloat)progress;
+- (void)willEndedSwipeInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
+- (void)didEndedSwipeInSlideViewController:(nonnull GLBSlideViewController*)slideViewController;
 
 @end
 

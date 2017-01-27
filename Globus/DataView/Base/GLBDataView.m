@@ -1565,7 +1565,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     [_visibleItems removeObject:item];
 }
 
-- (void)didInsertItems:(NSArray< GLBDataViewCell* >*)items {
+- (void)didInsertItems:(NSArray< GLBDataViewItem* >*)items {
     if(_updating == NO) {
         @throw [NSException exceptionWithName:self.glb_className reason:@"Need invoke on batchUpdate" userInfo:nil];
     }
@@ -1573,7 +1573,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     [self setNeedValidateLayout];
 }
 
-- (void)didDeleteItems:(NSArray< GLBDataViewCell* >*)items {
+- (void)didDeleteItems:(NSArray< GLBDataViewItem* >*)items {
     if(_updating == NO) {
         @throw [NSException exceptionWithName:self.glb_className reason:@"Need invoke on batchUpdate" userInfo:nil];
     }
@@ -1585,7 +1585,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     [self setNeedValidateLayout];
 }
 
-- (void)didReplaceOriginItems:(NSArray< GLBDataViewCell* >*)originItems withItems:(NSArray< GLBDataViewCell* >*)items {
+- (void)didReplaceOriginItems:(NSArray< GLBDataViewItem* >*)originItems withItems:(NSArray< GLBDataViewItem* >*)items {
     if(_updating == NO) {
         @throw [NSException exceptionWithName:self.glb_className reason:@"Need invoke on batchUpdate" userInfo:nil];
     }

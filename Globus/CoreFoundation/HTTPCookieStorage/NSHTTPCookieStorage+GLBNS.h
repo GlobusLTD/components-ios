@@ -18,7 +18,7 @@
 
 @interface NSHTTPCookieStorage (GLB_NS)
 
-+ (void)glb_clearCookieWithDomain:(NSString* _Nonnull)domain;
++ (void)glb_clearCookieWithDomain:(nonnull NSString*)domain;
 
 @end
 

@@ -293,6 +293,16 @@
     return nil;
 }
 
+#pragma mark - GLBViewControllerExtension
+
+- (UIViewController*)currentViewController {
+    UIViewController* viewController = self.selectedViewController;
+    if(viewController != nil) {
+        return viewController.glb_currentViewController;
+    }
+    return self;
+}
+
 #if __has_include("GLBSlideViewController.h")
 
 #pragma mark - GLBSlideViewControllerDelegate
@@ -527,16 +537,6 @@
 }
 
 #endif
-
-#pragma mark - GLBViewController
-
-- (UIViewController*)currentViewController {
-    UIViewController* viewController = self.selectedViewController;
-    if(viewController != nil) {
-        return viewController.glb_currentViewController;
-    }
-    return self;
-}
 
 @end
 

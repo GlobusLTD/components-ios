@@ -38,7 +38,7 @@
  * [NSArray glb_arrayWithArray:@[a, b, c] addingObject:obj];
  * @endcode
  */
-+ (instancetype _Nonnull)glb_arrayWithArray:(NSArray< ObjectType >* _Nonnull)array addingObject:(ObjectType _Nonnull)object;
++ (nonnull instancetype)glb_arrayWithArray:(nonnull NSArray< ObjectType >*)array addingObject:(nonnull ObjectType)object;
 
 /**
  * @brief Adds an array to the immutable array.
@@ -50,7 +50,7 @@
  * [NSArray glb_arrayWithArray:@[a, b, c] addingObjectsFromArray:@[d, e, f]];
  * @endcode
  */
-+ (instancetype _Nonnull)glb_arrayWithArray:(NSArray< ObjectType >* _Nonnull)array addingObjectsFromArray:(NSArray< ObjectType >* _Nonnull)addingObjects;
++ (nonnull instancetype)glb_arrayWithArray:(nonnull NSArray< ObjectType >*)array addingObjectsFromArray:(nonnull NSArray< ObjectType >*)addingObjects;
 
 /**
  * @brief Removes all occurrences in the array of a given object.
@@ -62,7 +62,7 @@
  * [NSArray glb_arrayWithArray:@[a, b, c] removingObject:object];
  * @endcode
  */
-+ (instancetype _Nonnull)glb_arrayWithArray:(NSArray< ObjectType >* _Nonnull)array removingObject:(ObjectType _Nonnull)object;
++ (nonnull instancetype)glb_arrayWithArray:(nonnull NSArray< ObjectType >*)array removingObject:(nonnull ObjectType)object;
 
 /**
  * @brief Removes all occurrences in the array of a given objects form second array.
@@ -74,7 +74,7 @@
  * [NSArray glb_arrayWithArray:@[a, b, c] removingObjectsInArray:@[c, b]];
  * @endcode
  */
-+ (instancetype _Nonnull)glb_arrayWithArray:(NSArray< ObjectType >* _Nonnull)array removingObjectsInArray:(NSArray< ObjectType >* _Nonnull)removingObjects;
++ (nonnull instancetype)glb_arrayWithArray:(nonnull NSArray< ObjectType >*)array removingObjectsInArray:(nonnull NSArray< ObjectType >*)removingObjects;
 
 /**
  * @brief Replaces an object at index in the array.
@@ -86,7 +86,7 @@
  * [array glb_arrayByReplaceObject:object atIndex:index];
  * @endcode
  */
-- (NSArray< ObjectType >* _Nonnull)glb_arrayByReplaceObject:(ObjectType _Nonnull)object atIndex:(NSUInteger)index;
+- (nonnull NSArray< ObjectType >*)glb_arrayByReplaceObject:(nonnull ObjectType)object atIndex:(NSUInteger)index;
 
 /**
  * @brief Removes an object in the array at index.
@@ -97,7 +97,7 @@
  * [NSArray glb_arrayByRemovedObjectAtIndex:index];
  * @endcode
  */
-- (NSArray< ObjectType >* _Nonnull)glb_arrayByRemovedObjectAtIndex:(NSUInteger)index;
+- (nonnull NSArray< ObjectType >*)glb_arrayByRemovedObjectAtIndex:(NSUInteger)index;
 
 /**
  * @brief Removes all occurrences in the array of a given object.
@@ -108,7 +108,7 @@
  * [NSArray glb_arrayByRemovedObject:object];
  * @endcode
  */
-- (NSArray< ObjectType >* _Nonnull)glb_arrayByRemovedObject:(ObjectType _Nonnull)object;
+- (nonnull NSArray< ObjectType >*)glb_arrayByRemovedObject:(nonnull ObjectType)object;
 
 /**
  * @brief Removes all occurrences in the array of a given objects in array.
@@ -119,7 +119,7 @@
  * [NSArray glb_arrayByRemovedObjectsFromArray:@[a, b]];
  * @endcode
  */
-- (NSArray< ObjectType >* _Nonnull)glb_arrayByRemovedObjectsFromArray:(NSArray< ObjectType >* _Nonnull)array;
+- (nonnull NSArray< ObjectType >*)glb_arrayByRemovedObjectsFromArray:(nonnull NSArray< ObjectType >*)array;
 
 /**
  * @brief Finds all objects of a given class in the array.
@@ -130,7 +130,7 @@
  * [NSArray glb_arrayByObjectClass:class];
  * @endcode
  */
-- (NSArray< ObjectType >* _Nonnull)glb_arrayByObjectClass:(Class _Nonnull)objectClass;
+- (nonnull NSArray< ObjectType >*)glb_arrayByObjectClass:(nonnull Class)objectClass;
 
 /**
  * @brief Finds all objects conforms a given protocol.
@@ -141,7 +141,7 @@
  * [NSArray glb_arrayByObjectProtocol:protocol];
  * @endcode
  */
-- (NSArray< ObjectType >* _Nonnull)glb_arrayByObjectProtocol:(Protocol* _Nonnull)objectProtocol;
+- (nonnull NSArray< ObjectType >*)glb_arrayByObjectProtocol:(nonnull Protocol*)objectProtocol;
 
 /**
  * @brief Finds the first object of certain class.
@@ -152,7 +152,7 @@
  * id obj = [array glb_firstObjectIsClass:class];
  * @endcode
  */
-- (ObjectType _Nullable)glb_firstObjectIsClass:(Class _Nonnull)objectClass;
+- (nullable ObjectType)glb_firstObjectIsClass:(nonnull Class)objectClass;
 
 /**
  * @brief Finds the last object of certain class.
@@ -163,7 +163,7 @@
  * id obj = [array glb_firstObjectIsClass:class];
  * @endcode
  */
-- (ObjectType _Nullable)glb_lastObjectIsClass:(Class _Nonnull)objectClass;
+- (nullable ObjectType)glb_lastObjectIsClass:(nonnull Class)objectClass;
 
 /**
  * @brief Finds the first object of certain protocol.
@@ -174,7 +174,7 @@
  * id obj = [array glb_firstObjectIsProtocol:protocol];
  * @endcode
  */
-- (ObjectType _Nullable)glb_firstObjectIsProtocol:(Protocol* _Nonnull)objectProtocol;
+- (nullable ObjectType)glb_firstObjectIsProtocol:(nonnull Protocol*)objectProtocol;
 
 /**
  * @brief Finds the last object of certain protocol.
@@ -185,7 +185,7 @@
  * id obj = [array glb_lastObjectIsProtocol:protocol];
  * @endcode
  */
-- (ObjectType _Nullable)glb_lastObjectIsProtocol:(Protocol* _Nonnull)objectProtocol;
+- (nullable ObjectType)glb_lastObjectIsProtocol:(nonnull Protocol*)objectProtocol;
 
 /**
  * @brief Is there a given objects or not.
@@ -196,7 +196,7 @@
  * [array glb_containsObjectsInArray:@[a, b, c]];
  * @endcode
  */
-- (BOOL)glb_containsObjectsInArray:(NSArray< ObjectType >* _Nonnull)objectsArray;
+- (BOOL)glb_containsObjectsInArray:(nonnull NSArray< ObjectType >*)objectsArray;
 
 /**
  * @brief Index of object next to the given object.
@@ -207,7 +207,7 @@
  * [array glb_nextIndexOfObject:object];
  * @endcode
  */
-- (NSUInteger)glb_nextIndexOfObject:(ObjectType _Nonnull)object;
+- (NSUInteger)glb_nextIndexOfObject:(nonnull ObjectType)object;
 
 /**
  * @brief Index of object previouse to the given object.
@@ -218,7 +218,7 @@
  * [array glb_prevIndexOfObject:object];
  * @endcode
  */
-- (NSUInteger)glb_prevIndexOfObject:(ObjectType _Nonnull)object;
+- (NSUInteger)glb_prevIndexOfObject:(nonnull ObjectType)object;
 
 /**
  * @brief Object next to the given object.
@@ -229,7 +229,7 @@
  * [array glb_nextObjectOfObject:object];
  * @endcode
  */
-- (ObjectType _Nullable)glb_nextObjectOfObject:(ObjectType _Nonnull)object;
+- (nullable ObjectType)glb_nextObjectOfObject:(nonnull ObjectType)object;
 
 /**
  * @brief Index of object previouse to the given object.
@@ -240,7 +240,7 @@
  * [array glb_prevObjectOfObject:object];
  * @endcode
  */
-- (ObjectType _Nullable)glb_prevObjectOfObject:(ObjectType _Nonnull)object;
+- (nullable ObjectType)glb_prevObjectOfObject:(nonnull ObjectType)object;
 
 /**
  * @brief Iterate every elements of an original array.
@@ -366,7 +366,7 @@
  * array2 = [array1 glb_duplicates:^id (ObjectType* object1, ObjectType* object2){}];
  * @endcode
  */
-- (NSArray< ObjectType >* _Nonnull)glb_duplicates:(id _Nullable(^ _Nonnull)(ObjectType _Nonnull object1, ObjectType _Nonnull object2))block;
+- (nonnull NSArray< ObjectType >*)glb_duplicates:(id _Nullable(^ _Nonnull)(ObjectType _Nonnull object1, ObjectType _Nonnull object2))block;
 
 /**
  * @brief Compile a new array from given one.
@@ -382,7 +382,7 @@
  * }];
  * @endcode
  */
-- (NSArray* _Nonnull)glb_map:(id _Nullable(^ _Nonnull)(ObjectType _Nonnull object))block;
+- (nonnull NSArray*)glb_map:(id _Nullable(^ _Nonnull)(ObjectType _Nonnull object))block;
 
 /**
  * @brief Compile a dictionary of groups from original array.
@@ -398,7 +398,7 @@
  * }];
  * @endcode
  */
-- (NSDictionary* _Nonnull)glb_groupBy:(id _Nullable(^ _Nonnull)(ObjectType _Nonnull object))block;
+- (nonnull NSDictionary*)glb_groupBy:(id _Nullable(^ _Nonnull)(ObjectType _Nonnull object))block;
 
 /**
  * @brief Looking for objects with specified condition.
@@ -414,7 +414,7 @@
  * }];
  * @endcode
  */
-- (NSArray< ObjectType >* _Nonnull)glb_select:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block;
+- (nonnull NSArray< ObjectType >*)glb_select:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block;
 
 /**
  * @brief Looking for objects with specified condition and remove it.
@@ -430,7 +430,7 @@
  * }];
  * @endcode
  */
-- (NSArray< ObjectType >* _Nonnull)glb_reject:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block;
+- (nonnull NSArray< ObjectType >*)glb_reject:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block;
 
 /**
  * @brief Looking for object with specified condition.
@@ -446,7 +446,7 @@
  * }];
  * @endcode
  */
-- (ObjectType _Nullable)glb_find:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block;
+- (nullable ObjectType)glb_find:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block;
 
 /**
  * @brief Looking for object with specified condition with options.
@@ -463,7 +463,7 @@
  *                             } options:NSEnumerationConcurrent];
  * @endcode
  */
-- (ObjectType _Nullable)glb_find:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block options:(NSEnumerationOptions)options;
+- (nullable ObjectType)glb_find:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block options:(NSEnumerationOptions)options;
 
 /**
  * @brief Looking for object with specified condition and options in a given range.
@@ -482,7 +482,7 @@
  *                               options:NSEnumerationConcurrent];
  * @endcode
  */
-- (ObjectType _Nullable)glb_find:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block range:(NSRange)range options:(NSEnumerationOptions)options;
+- (nullable ObjectType)glb_find:(BOOL(^ _Nonnull)(ObjectType _Nonnull object))block range:(NSRange)range options:(NSEnumerationOptions)options;
 
 /**
  * @brief Reverse the array.
@@ -492,7 +492,7 @@
  * array2 = [array1 glb_reverse];
  * @endcode
  */
-- (NSArray< ObjectType >* _Nonnull)glb_reverse;
+- (nonnull NSArray< ObjectType >*)glb_reverse;
 
 /**
  * @brief Intersection of two arrays.
@@ -502,7 +502,7 @@
  * array3 = [array1 glb_intersectionWithArray:array2];
  * @endcode
  */
-- (NSArray< ObjectType >* _Nonnull)glb_intersectionWithArray:(NSArray< ObjectType >* _Nonnull)array;
+- (nonnull NSArray< ObjectType >*)glb_intersectionWithArray:(nonnull NSArray< ObjectType >*)array;
 
 /**
  * @brief Intersection with many arrays.
@@ -512,7 +512,7 @@
  * array5 = [array1 glb_intersectionWithArrays:@[array2, array3, array4, nil]];
  * @endcode
  */
-- (NSArray< ObjectType >* _Nonnull)glb_intersectionWithArrays:(NSArray< ObjectType >* _Nonnull)firstArray, ... NS_REQUIRES_NIL_TERMINATION;
+- (nonnull NSArray< ObjectType >*)glb_intersectionWithArrays:(nonnull NSArray< ObjectType >*)firstArray, ... NS_REQUIRES_NIL_TERMINATION;
 
 /**
  * @brief Union with of two arrays.
@@ -523,7 +523,7 @@
  * array3 = [array1 glb_unionWithArray:array2];
  * @endcode
  */
-- (NSArray< ObjectType >* _Nonnull)glb_unionWithArray:(NSArray< ObjectType >* _Nonnull)array;
+- (nonnull NSArray< ObjectType >*)glb_unionWithArray:(nonnull NSArray< ObjectType >*)array;
 
 /**
  * @brief Union with many arrays.
@@ -534,7 +534,7 @@
  * array5 = [array1 glb_unionWithArrays:@[array2, array3, array4, nil]];
  * @endcode
  */
-- (NSArray< ObjectType >* _Nonnull)glb_unionWithArrays:(NSArray< ObjectType >* _Nonnull)firstArray, ... NS_REQUIRES_NIL_TERMINATION;
+- (nonnull NSArray< ObjectType >*)glb_unionWithArrays:(nonnull NSArray< ObjectType >*)firstArray, ... NS_REQUIRES_NIL_TERMINATION;
 
 /**
  * @brief The array that contains elements in second but not in original.
@@ -545,7 +545,7 @@
  * array3 = [array1 glb_relativeComplement:array2];
  * @endcode
  */
-- (NSArray< ObjectType >* _Nonnull)glb_relativeComplement:(NSArray< ObjectType >* _Nonnull)array;
+- (nonnull NSArray< ObjectType >*)glb_relativeComplement:(nonnull NSArray< ObjectType >*)array;
 
 /**
  * @brief The array that contains elements in sequince of arrays but not in original array.
@@ -556,7 +556,7 @@
  * array5 = [array1 glb_relativeComplements:@[array2, array3, array4, nil]];
  * @endcode
  */
-- (NSArray< ObjectType >* _Nonnull)glb_relativeComplements:(NSArray< ObjectType >* _Nonnull)firstArray, ... NS_REQUIRES_NIL_TERMINATION;
+- (nonnull NSArray< ObjectType >*)glb_relativeComplements:(nonnull NSArray< ObjectType >*)firstArray, ... NS_REQUIRES_NIL_TERMINATION;
 
 /**
  * @brief Union with two arrays with unique objects.
@@ -567,7 +567,7 @@
  * array3 = [array1 glb_symmetricDifference:array2];
  * @endcode
  */
-- (NSArray< ObjectType >* _Nonnull)glb_symmetricDifference:(NSArray< ObjectType >* _Nonnull)array;
+- (nonnull NSArray< ObjectType >*)glb_symmetricDifference:(nonnull NSArray< ObjectType >*)array;
 
 @end
 

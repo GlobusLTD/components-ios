@@ -48,7 +48,7 @@
              vAlignment:(GLBUIVerticalAlignment)vAlignment
              hAlignment:(GLBUIHorizontalAlignment)hAlignment
           lineBreakMode:(NSLineBreakMode)lineBreakMode {
-    NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine;
+    NSStringDrawingOptions options = (NSStringDrawingOptions)(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine);
     NSMutableParagraphStyle* paragraphStyle = [NSMutableParagraphStyle new];
     paragraphStyle.lineBreakMode = lineBreakMode;
     NSDictionary* attributes = @{
@@ -83,7 +83,7 @@
             vAlignment:(GLBUIVerticalAlignment)vAlignment
             hAlignment:(GLBUIHorizontalAlignment)hAlignment
          lineBreakMode:(NSLineBreakMode)lineBreakMode {
-    NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine;
+    NSStringDrawingOptions options = (NSStringDrawingOptions)(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine);
     NSMutableParagraphStyle* paragraphStyle = [NSMutableParagraphStyle new];
     paragraphStyle.lineBreakMode = lineBreakMode;
     NSDictionary* attributes = @{

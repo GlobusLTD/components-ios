@@ -18,9 +18,9 @@
 
 @interface NSPointerArray (GLB_NS)
 
-- (NSUInteger)glb_indexForPointer:(void* _Nullable)pointer;
+- (NSUInteger)glb_indexForPointer:(nullable void*)pointer;
 
-- (void)glb_removePointer:(void* _Nullable)pointer;
+- (void)glb_removePointer:(nullable void*)pointer;
 
 @end
 

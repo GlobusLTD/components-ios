@@ -1,6 +1,6 @@
 /*--------------------------------------------------*/
 
-#import "GLBDataContainer+Private.h"
+#import "GLBDataViewCalendarContainer+Private.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
@@ -12,7 +12,7 @@
 
 /*--------------------------------------------------*/
 
-@implementation GLBDataContainerCalendar
+@implementation GLBDataViewCalendarContainer
 
 #pragma mark - Synthesize
 
@@ -86,8 +86,8 @@
 - (void)setCanShowMonth:(BOOL)canShowMonth {
     if(_canShowMonth != canShowMonth) {
         _canShowMonth = canShowMonth;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -104,8 +104,8 @@
 - (void)setMonthMargin:(UIEdgeInsets)monthMargin {
     if(UIEdgeInsetsEqualToEdgeInsets(_monthMargin, monthMargin) == NO) {
         _monthMargin = monthMargin;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -113,8 +113,8 @@
 - (void)setMonthHeight:(CGFloat)monthHeight {
     if(_monthHeight != monthHeight) {
         _monthHeight = monthHeight;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -122,8 +122,8 @@
 - (void)setMonthSpacing:(CGFloat)monthSpacing {
     if(_monthSpacing != monthSpacing) {
         _monthSpacing = monthSpacing;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -131,8 +131,8 @@
 - (void)setCanShowWeekdays:(BOOL)canShowWeekdays {
     if(_canShowWeekdays != canShowWeekdays) {
         _canShowWeekdays = canShowWeekdays;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -140,7 +140,7 @@
 - (void)setCanSelectWeekdays:(BOOL)canSelectWeekdays {
     if(_canSelectWeekdays != canSelectWeekdays) {
         _canSelectWeekdays = canSelectWeekdays;
-        [_weekdayItems glb_each:^(GLBDataItemCalendarWeekday* weekdayItem) {
+        [_weekdayItems glb_each:^(GLBDataViewCalendarWeekdayItem* weekdayItem) {
             weekdayItem.allowsSelection = _canSelectWeekdays;
         }];
     }
@@ -149,8 +149,8 @@
 - (void)setWeekdaysMargin:(UIEdgeInsets)weekdaysMargin {
     if(UIEdgeInsetsEqualToEdgeInsets(_weekdaysMargin, weekdaysMargin) == NO) {
         _weekdaysMargin = weekdaysMargin;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -158,8 +158,8 @@
 - (void)setWeekdaysHeight:(CGFloat)weekdaysHeight {
     if(_weekdaysHeight != weekdaysHeight) {
         _weekdaysHeight = weekdaysHeight;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -167,8 +167,8 @@
 - (void)setWeekdaysSpacing:(UIOffset)weekdaysSpacing {
     if(UIOffsetEqualToOffset(_weekdaysSpacing, weekdaysSpacing) == NO) {
         _weekdaysSpacing = weekdaysSpacing;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -176,8 +176,8 @@
 - (void)setCanShowDays:(BOOL)canShowDays {
     if(_canShowDays != canShowDays) {
         _canShowDays = canShowDays;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -185,7 +185,7 @@
 - (void)setCanSelectDays:(BOOL)canSelectDays {
     if(_canSelectDays != canSelectDays) {
         _canSelectDays = canSelectDays;
-        [_weekdayItems glb_each:^(GLBDataItemCalendarDay* dayItem) {
+        [_weekdayItems glb_each:^(GLBDataViewCalendarWeekdayItem* dayItem) {
             if(([dayItem.date glb_isAfterOrSame:_beginDate] == YES) && ([dayItem.date glb_isEarlierOrSame:_endDate] == YES)) {
                 dayItem.allowsSelection = _canSelectDays;
             }
@@ -196,7 +196,7 @@
 - (void)setCanSelectPreviousDays:(BOOL)canSelectPreviousDays {
     if(_canSelectPreviousDays != canSelectPreviousDays) {
         _canSelectPreviousDays = canSelectPreviousDays;
-        [_weekdayItems glb_each:^(GLBDataItemCalendarDay* dayItem) {
+        [_weekdayItems glb_each:^(GLBDataViewCalendarWeekdayItem* dayItem) {
             if([dayItem.date glb_isAfter:_endDate] == YES) {
                 dayItem.allowsSelection = _canSelectNextDays;
             }
@@ -207,7 +207,7 @@
 - (void)setCanSelectNextDays:(BOOL)canSelectNextDays {
     if(_canSelectNextDays != canSelectNextDays) {
         _canSelectNextDays = canSelectNextDays;
-        [_weekdayItems glb_each:^(GLBDataItemCalendarDay* dayItem) {
+        [_weekdayItems glb_each:^(GLBDataViewCalendarWeekdayItem* dayItem) {
             if([dayItem.date glb_isEarlier:_beginDate] == YES) {
                 dayItem.allowsSelection = _canSelectPreviousDays;
             }
@@ -220,7 +220,7 @@
         _canSelectEarlierDays = canSelectEarlierDays;
         
         NSDate* now = NSDate.date.glb_withoutTime;
-        [_weekdayItems glb_each:^(GLBDataItemCalendarDay* dayItem) {
+        [_weekdayItems glb_each:^(GLBDataViewCalendarWeekdayItem* dayItem) {
             if([dayItem.date glb_isEarlier:now] == YES) {
                 dayItem.allowsSelection = _canSelectEarlierDays;
             }
@@ -233,7 +233,7 @@
         _canSelectAfterDays = canSelectAfterDays;
         
         NSDate* now = NSDate.date.glb_withoutTime;
-        [_weekdayItems glb_each:^(GLBDataItemCalendarDay* dayItem) {
+        [_weekdayItems glb_each:^(GLBDataViewCalendarWeekdayItem* dayItem) {
             if([dayItem.date glb_isAfter:now] == YES) {
                 dayItem.allowsSelection = _canSelectAfterDays;
             }
@@ -244,8 +244,8 @@
 - (void)setDaysMargin:(UIEdgeInsets)daysMargin {
     if(UIEdgeInsetsEqualToEdgeInsets(_daysMargin, daysMargin) == NO) {
         _daysMargin = daysMargin;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -253,8 +253,8 @@
 - (void)setDaysHeight:(CGFloat)daysHeight {
     if(_daysHeight != daysHeight) {
         _daysHeight = daysHeight;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
@@ -262,17 +262,17 @@
 - (void)setDaysSpacing:(UIOffset)daysSpacing {
     if(UIOffsetEqualToOffset(_daysSpacing, daysSpacing) == NO) {
         _daysSpacing = daysSpacing;
-        if(_view != nil) {
-            [_view setNeedValidateLayout];
+        if(_dataView != nil) {
+            [_dataView setNeedValidateLayout];
         }
     }
 }
 
 #pragma mark - Public
 
-- (GLBDataItemCalendarWeekday*)weekdayItemForDate:(NSDate*)date {
+- (GLBDataViewCalendarWeekdayItem*)weekdayItemForDate:(NSDate*)date {
     NSDateComponents* dateComponents = [_calendar components:NSCalendarUnitWeekday fromDate:date];
-    for(GLBDataItemCalendarWeekday* weekdayItem in _weekdayItems) {
+    for(GLBDataViewCalendarWeekdayItem* weekdayItem in _weekdayItems) {
         NSDateComponents* weekdayComponents = [_calendar components:NSCalendarUnitWeekday fromDate:weekdayItem.date];
         if(weekdayComponents.weekday == dateComponents.weekday) {
             return weekdayItem;
@@ -281,10 +281,10 @@
     return nil;
 }
 
-- (GLBDataItemCalendarDay*)dayItemForDate:(NSDate*)date {
+- (GLBDataViewCalendarDayItem*)dayItemForDate:(NSDate*)date {
     NSDate* beginDate = date.glb_beginningOfDay;
-    __block GLBDataItemCalendarDay* result = nil;
-    [_dayItems enumerateColumnsRowsUsingBlock:^(GLBDataItemCalendarDay* dayItem, NSUInteger column __unused, NSUInteger row __unused, BOOL* stopColumn, BOOL* stopRow) {
+    __block GLBDataViewCalendarDayItem* result = nil;
+    [_dayItems enumerateColumnsRowsUsingBlock:^(GLBDataViewCalendarDayItem* dayItem, NSUInteger column __unused, NSUInteger row __unused, BOOL* stopColumn, BOOL* stopRow) {
         if([dayItem.date isEqualToDate:beginDate] == YES) {
             result = dayItem;
             *stopColumn = YES;
@@ -295,7 +295,7 @@
 }
 
 - (void)prepareBeginDate:(NSDate*)beginDate endDate:(NSDate*)endDate {
-    [self prepareBeginDate:beginDate endDate:endDate monthBlock:^id(NSDate* beginDate, NSDate* endDate) {
+    [self prepareBeginDate:beginDate endDate:endDate monthBlock:^id(NSDate* monthBeginDate, NSDate* monthEndDate) {
         return [NSNull null];
     } weekdayBlock:^id(NSDate* date, NSUInteger index) {
         return [NSNull null];
@@ -305,7 +305,7 @@
 }
 
 - (void)prepareBeginDate:(NSDate*)beginDate endDate:(NSDate*)endDate dayBlock:(GLBDataContainerCalendarDayCreateBlock)dayBlock {
-    [self prepareBeginDate:beginDate endDate:endDate monthBlock:^id(NSDate* beginDate, NSDate* endDate) {
+    [self prepareBeginDate:beginDate endDate:endDate monthBlock:^id(NSDate* monthBeginDate, NSDate* monthEndDate) {
         return [NSNull null];
     } weekdayBlock:^id(NSDate* date, NSUInteger index) {
         return [NSNull null];
@@ -320,22 +320,22 @@
         _endDate = endDate;
         _displayEndDate = endDate.glb_endOfWeek;
         if(_canShowMonth == YES) {
-            _monthItem = [GLBDataItemCalendarMonth itemWithCalendar:_calendar beginDate:_beginDate endDate:_endDate displayBeginDate:_displayBeginDate displayEndDate:_displayEndDate data:monthBlock(_beginDate, _endDate)];
+            _monthItem = [GLBDataViewCalendarMonthItem itemWithCalendar:_calendar beginDate:_beginDate endDate:_endDate displayBeginDate:_displayBeginDate displayEndDate:_displayEndDate data:monthBlock(_beginDate, _endDate)];
             _monthItem.allowsSelection = _canSelectMonth;
-            [self _appendEntry:_monthItem];
+            [super appendEntry:_monthItem];
         }
         if(_canShowWeekdays == YES) {
             NSDate* weekdayDate = _beginDate.glb_beginningOfWeek;
             for(NSUInteger weekdayIndex = 0; weekdayIndex < 7; weekdayIndex++) {
-                GLBDataItemCalendarWeekday* weekdayItem;
+                GLBDataViewCalendarWeekdayItem* weekdayItem;
                 if(_canShowMonth == YES) {
-                    weekdayItem = [GLBDataItemCalendarWeekday itemWithMonthItem:_monthItem date:weekdayDate data:weekdayBlock(weekdayDate, weekdayIndex)];
+                    weekdayItem = [GLBDataViewCalendarWeekdayItem itemWithMonthItem:_monthItem date:weekdayDate data:weekdayBlock(weekdayDate, weekdayIndex)];
                 } else {
-                    weekdayItem = [GLBDataItemCalendarWeekday itemWithCalendar:_calendar date:weekdayDate data:weekdayBlock(weekdayDate, weekdayIndex)];
+                    weekdayItem = [GLBDataViewCalendarWeekdayItem itemWithCalendar:_calendar date:weekdayDate data:weekdayBlock(weekdayDate, weekdayIndex)];
                 }
                 weekdayItem.allowsSelection = _canSelectWeekdays;
                 [_weekdayItems addObject:weekdayItem];
-                [self _appendEntry:weekdayItem];
+                [super appendEntry:weekdayItem];
                 weekdayDate = weekdayDate.glb_nextDay;
             }
         }
@@ -346,13 +346,13 @@
             NSInteger weekOfMonth = [beginDayDate glb_weeksToDate:endDayDate.glb_nextSecond];
             if(weekOfMonth > 0) {
                 [_dayItems setNumberOfColumns:7 numberOfRows:weekOfMonth];
-                for(NSUInteger weekIndex = 0; weekIndex < weekOfMonth; weekIndex++) {
+                for(NSUInteger weekIndex = 0; weekIndex < (NSUInteger)weekOfMonth; weekIndex++) {
                     for(NSUInteger weekdayIndex = 0; weekdayIndex < 7; weekdayIndex++) {
-                        GLBDataItemCalendarDay* dayItem;
+                        GLBDataViewCalendarDayItem* dayItem;
                         if(_canShowWeekdays == YES) {
-                            dayItem = [GLBDataItemCalendarDay itemWithWeekdayItem:_weekdayItems[weekdayIndex] date:beginDayDate data:dayBlock(beginDayDate)];
+                            dayItem = [GLBDataViewCalendarDayItem itemWithWeekdayItem:_weekdayItems[weekdayIndex] date:beginDayDate data:dayBlock(beginDayDate)];
                         } else {
-                            dayItem = [GLBDataItemCalendarDay itemWithCalendar:_calendar date:beginDayDate data:dayBlock(beginDayDate)];
+                            dayItem = [GLBDataViewCalendarDayItem itemWithCalendar:_calendar date:beginDayDate data:dayBlock(beginDayDate)];
                         }
                         if([dayItem.date glb_isEarlier:_beginDate] == YES) {
                             dayItem.allowsSelection = (_canSelectDays == YES) ? _canSelectPreviousDays : _canSelectDays;
@@ -368,7 +368,7 @@
                             }
                         }
                         [_dayItems setObject:dayItem atColumn:weekdayIndex atRow:weekIndex];
-                        [self _appendEntry:dayItem];
+                        [super appendEntry:dayItem];
                         beginDayDate = beginDayDate.glb_nextDay;
                     }
                 }
@@ -379,7 +379,7 @@
 
 - (void)replaceDate:(NSDate*)date data:(id)data {
     __block NSUInteger foundColumn = NSNotFound, foundRow = NSNotFound;
-    [_dayItems enumerateColumnsRowsUsingBlock:^(GLBDataItemCalendarDay* day, NSUInteger column, NSUInteger row, BOOL* stopColumn, BOOL* stopRow) {
+    [_dayItems enumerateColumnsRowsUsingBlock:^(GLBDataViewCalendarDayItem* day, NSUInteger column, NSUInteger row, BOOL* stopColumn, BOOL* stopRow) {
         if([day.date isEqualToDate:date] == YES) {
             foundColumn = column;
             foundRow = row;
@@ -388,72 +388,72 @@
         }
     }];
     if((foundColumn != NSNotFound) && (foundRow != NSNotFound)) {
-        GLBDataItemCalendarDay* oldDayItem = [_dayItems objectAtColumn:foundColumn atRow:foundRow];
-        GLBDataItemCalendarDay* newDayItem;
+        GLBDataViewCalendarDayItem* oldDayItem = [_dayItems objectAtColumn:foundColumn atRow:foundRow];
+        GLBDataViewCalendarDayItem* newDayItem;
         if(oldDayItem.weekdayItem != nil) {
-            newDayItem = [GLBDataItemCalendarDay itemWithWeekdayItem:oldDayItem.weekdayItem date:date data:data];
+            newDayItem = [GLBDataViewCalendarDayItem itemWithWeekdayItem:oldDayItem.weekdayItem date:date data:data];
         } else {
-            newDayItem = [GLBDataItemCalendarDay itemWithCalendar:oldDayItem.calendar date:date data:data];
+            newDayItem = [GLBDataViewCalendarDayItem itemWithCalendar:oldDayItem.calendar date:date data:data];
         }
         newDayItem.allowsSelection = oldDayItem.allowsSelection;
         [_dayItems setObject:newDayItem atColumn:foundColumn atRow:foundRow];
-        [self _replaceOriginEntry:oldDayItem withEntry:newDayItem];
+        [super replaceOriginEntry:oldDayItem withEntry:newDayItem];
     }
 }
 
 - (void)cleanup {
     if(_monthItem != nil) {
-        [self _deleteEntry:_monthItem];
+        [super deleteEntry:_monthItem];
         _monthItem = nil;
     }
     if(_weekdayItems.count > 0) {
-        [self _deleteEntries:_weekdayItems];
+        [super deleteEntries:_weekdayItems];
         [_weekdayItems removeAllObjects];
     }
     if(_dayItems.count > 0) {
-        [self _deleteEntries:_dayItems.objects];
+        [super deleteEntries:_dayItems.objects];
         [_dayItems removeAllObjects];
     }
     _beginDate = nil;
     _endDate = nil;
 }
 
-- (void)eachDayItemsWithWeekdayItem:(GLBDataItemCalendarWeekday*)weekdayItem block:(GLBDataContainerCalendarEachDayItemsBlock)block {
+- (void)eachDayItemsWithWeekdayItem:(GLBDataViewCalendarWeekdayItem*)weekdayItem block:(GLBDataContainerCalendarEachDayItemsBlock)block {
     NSUInteger weekdayIndex = [_weekdayItems indexOfObject:weekdayItem];
     if(weekdayIndex != NSNotFound) {
-        [_dayItems each:^(GLBDataItemCalendarDay* dayItem, NSUInteger column __unused, NSUInteger row __unused) {
+        [_dayItems each:^(GLBDataViewCalendarDayItem* dayItem, NSUInteger column __unused, NSUInteger row __unused) {
             block(dayItem);
         } byColumn:weekdayIndex];
     }
 }
 
-- (void)eachWeekdayByDayItem:(GLBDataItemCalendarDay*)dayItem block:(GLBDataContainerCalendarEachDayItemsBlock)block {
+- (void)eachWeekdayByDayItem:(GLBDataViewCalendarDayItem*)dayItem block:(GLBDataContainerCalendarEachDayItemsBlock)block {
     NSUInteger dayIndex = NSNotFound;
-    [_dayItems findObjectUsingBlock:^BOOL(GLBDataItemCalendarDay* item) {
+    [_dayItems findObjectUsingBlock:^BOOL(GLBDataViewCalendarDayItem* item) {
         return dayItem == item;
     } inColumn:&dayIndex inRow:NULL];
     if(dayIndex != NSNotFound) {
-        [_dayItems each:^(GLBDataItemCalendarDay* item, NSUInteger column, NSUInteger row) {
+        [_dayItems each:^(GLBDataViewCalendarDayItem* item, NSUInteger column, NSUInteger row) {
             block(item);
         } byColumn:dayIndex];
     }
 }
 
-- (void)eachWeekByDayItem:(GLBDataItemCalendarDay*)dayItem block:(GLBDataContainerCalendarEachDayItemsBlock)block {
+- (void)eachWeekByDayItem:(GLBDataViewCalendarDayItem*)dayItem block:(GLBDataContainerCalendarEachDayItemsBlock)block {
     NSUInteger weekIndex = NSNotFound;
-    [_dayItems findObjectUsingBlock:^BOOL(GLBDataItemCalendarDay* item) {
+    [_dayItems findObjectUsingBlock:^BOOL(GLBDataViewCalendarDayItem* item) {
         return dayItem == item;
     } inColumn:NULL inRow:&weekIndex];
     if(weekIndex != NSNotFound) {
-        [_dayItems each:^(GLBDataItemCalendarDay* item, NSUInteger column, NSUInteger row) {
+        [_dayItems each:^(GLBDataViewCalendarDayItem* item, NSUInteger column, NSUInteger row) {
             block(item);
         } byRow:weekIndex];
     }
 }
 
-#pragma mark - Private override
+#pragma mark - Public override
 
-- (CGRect)_frameEntriesForAvailableFrame:(CGRect)frame {
+- (CGRect)frameEntriesForAvailableFrame:(CGRect)frame {
     BOOL canShowMonth = _canShowMonth;
     UIEdgeInsets monthMargin = (canShowMonth == YES) ? _monthMargin : UIEdgeInsetsZero;
     CGFloat monthHeight = (canShowMonth == YES) ? _monthHeight - (monthMargin.top + monthMargin.bottom) : 0.0f;
@@ -467,12 +467,6 @@
     CGFloat daysHeight = (canShowDays == YES) ? _daysHeight - (daysMargin.top + daysMargin.bottom) : 0.0f;
     UIOffset daysSpacing = (canShowDays == YES) ? _daysSpacing : UIOffsetZero;
     CGFloat monthWidth = frame.size.width - (monthMargin.left + monthMargin.right);
-    CGFloat availableWeekdaysWidth = monthWidth - (weekdaysMargin.left + weekdaysMargin.right) - (weekdaysSpacing.horizontal * 6);
-    CGFloat defaultWeekdaysWidth = GLB_FLOOR(availableWeekdaysWidth / 7);
-    CGFloat lastWeekdaysWidth = availableWeekdaysWidth - (defaultWeekdaysWidth * 6);
-    CGFloat availableDaysWidth = monthWidth - (daysMargin.left + daysMargin.right) - (daysSpacing.horizontal * 6);
-    CGFloat defaultDaysWidth = GLB_FLOOR(availableDaysWidth / 7);
-    CGFloat lastDaysWidth = availableDaysWidth - (defaultDaysWidth * 6);
     __block CGSize cumulative = CGSizeMake(monthWidth, 0.0f);
     
     if(canShowMonth == YES) {
@@ -481,7 +475,7 @@
     if(canShowWeekdays == YES) {
         NSUInteger lastIndex = _weekdayItems.count - 1;
         cumulative.height += weekdaysMargin.top;
-        [_weekdayItems glb_eachWithIndex:^(GLBDataItemCalendarWeekday* weekdayItem, NSUInteger index) {
+        [_weekdayItems glb_eachWithIndex:^(GLBDataViewCalendarWeekdayItem* weekdayItem, NSUInteger index) {
             if(index == lastIndex) {
                 cumulative.height += weekdaysHeight + weekdaysSpacing.vertical;
             }
@@ -491,7 +485,7 @@
     if(canShowDays == YES) {
         NSUInteger lastColumn = _dayItems.numberOfColumns - 1;
         cumulative.height += daysMargin.top;
-        [_dayItems eachRowsColumns:^(GLBDataItemCalendarDay* dayItem, NSUInteger column, NSUInteger row __unused) {
+        [_dayItems eachRowsColumns:^(GLBDataViewCalendarDayItem* dayItem, NSUInteger column, NSUInteger row __unused) {
             if(column == lastColumn) {
                 cumulative.height += daysHeight + daysSpacing.vertical;
             }
@@ -499,16 +493,15 @@
         cumulative.height += daysMargin.bottom - daysSpacing.vertical;
     }
     if(canShowMonth == YES) {
-        cumulative.height += monthSpacing - monthSpacing;
+        cumulative.height += monthMargin.bottom - monthSpacing;
     }
     return CGRectMake(frame.origin.x, frame.origin.y, monthMargin.left + cumulative.width + monthMargin.right, monthMargin.top + cumulative.height + monthMargin.bottom);
 }
 
-- (void)_layoutEntriesForFrame:(CGRect)frame {
+- (void)layoutEntriesForFrame:(CGRect)frame {
     BOOL canShowMonth = _canShowMonth;
     UIEdgeInsets monthMargin = (canShowMonth == YES) ? _monthMargin : UIEdgeInsetsZero;
     CGFloat monthHeight = (canShowMonth == YES) ? _monthHeight - (monthMargin.top + monthMargin.bottom) : 0.0f;
-    CGFloat monthSpacing = (canShowMonth == YES) ? _monthSpacing : 0.0f;
     BOOL canShowWeekdays = _canShowWeekdays;
     UIEdgeInsets weekdaysMargin = (canShowWeekdays == YES) ? _weekdaysMargin : UIEdgeInsetsZero;
     CGFloat weekdaysHeight = (canShowWeekdays == YES) ? _weekdaysHeight - (weekdaysMargin.top + weekdaysMargin.bottom) : 0.0f;
@@ -537,7 +530,7 @@
         __block CGFloat weekdayOffset = offset.x + weekdaysMargin.left;
         cumulative.height += weekdaysMargin.top;
         offset.y += weekdaysMargin.top;
-        [_weekdayItems glb_eachWithIndex:^(GLBDataItemCalendarWeekday* weekdayItem, NSUInteger index) {
+        [_weekdayItems glb_eachWithIndex:^(GLBDataViewCalendarWeekdayItem* weekdayItem, NSUInteger index) {
             if(index != lastIndex) {
                 weekdayItem.updateFrame = CGRectMake(weekdayOffset, offset.y, defaultWeekdaysWidth, weekdaysHeight);
                 weekdayOffset += defaultWeekdaysWidth + weekdaysSpacing.horizontal;
@@ -555,7 +548,7 @@
         __block CGFloat dayOffset = offset.x + daysMargin.left;
         cumulative.height += daysMargin.top;
         offset.y += daysMargin.top;
-        [_dayItems eachRowsColumns:^(GLBDataItemCalendarDay* dayItem, NSUInteger column, NSUInteger row __unused) {
+        [_dayItems eachRowsColumns:^(GLBDataViewCalendarDayItem* dayItem, NSUInteger column, NSUInteger row __unused) {
             if(column != lastColumn) {
                 dayItem.updateFrame = CGRectMake(dayOffset, offset.y, defaultDaysWidth, daysHeight);
                 dayOffset += defaultDaysWidth + daysSpacing.horizontal;
@@ -569,18 +562,9 @@
         cumulative.height += daysMargin.bottom - daysSpacing.vertical;
         offset.y += daysMargin.bottom - daysSpacing.vertical;
     }
-    if(canShowMonth == YES) {
-        cumulative.height += monthSpacing - monthSpacing;
-    }
 }
 
 @end
-
-/*--------------------------------------------------*/
-
-NSString* GLBDataContainerCalendarMonthIdentifier = @"GLBDataContainerCalendarMonthIdentifier";
-NSString* GLBDataContainerCalendarWeekdayIdentifier = @"GLBDataContainerCalendarWeekdayIdentifier";
-NSString* GLBDataContainerCalendarDayIdentifier = @"GLBDataContainerCalendarDayIdentifier";
 
 /*--------------------------------------------------*/
 #endif

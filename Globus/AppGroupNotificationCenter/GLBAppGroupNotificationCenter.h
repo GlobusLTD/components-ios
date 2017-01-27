@@ -12,16 +12,16 @@
 
 + (BOOL)isSupported;
 
-- (instancetype _Nonnull)init NS_UNAVAILABLE;
-- (instancetype _Nonnull)initWithIdentifier:(NSString* _Nonnull)identifier directory:(NSString* _Nonnull)directory NS_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init NS_UNAVAILABLE;
+- (nonnull instancetype)initWithIdentifier:(nonnull NSString*)identifier directory:(nonnull NSString*)directory NS_DESIGNATED_INITIALIZER;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)postNotificationName:(NSString* _Nonnull)name object:(id< NSCoding > _Nullable)object;
+- (void)postNotificationName:(nonnull NSString*)name object:(nullable id< NSCoding >)object;
 
-- (void)addObserver:(id _Nonnull)observer selector:(SEL _Nonnull)selector name:(NSString* _Nonnull)name;
-- (void)removeObserver:(id _Nonnull)observer name:(NSString* _Nonnull)name;
-- (void)removeObserver:(id _Nonnull)observer;
+- (void)addObserver:(nonnull id)observer selector:(nonnull SEL)selector name:(nonnull NSString*)name;
+- (void)removeObserver:(nonnull id)observer name:(nonnull NSString*)name;
+- (void)removeObserver:(nonnull id)observer;
 
 @end
 

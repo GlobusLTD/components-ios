@@ -23,36 +23,36 @@
 @protocol GLBModelProtocol < NSObject >
 
 @required
-+ (NSDictionary< NSString*, GLBModelJson* >* _Nullable)jsonMap;
-+ (NSDictionary< NSString*, NSDictionary< NSString*, GLBModelJson* >* >* _Nullable)jsonShemeMap;
-+ (NSDictionary< NSString*, GLBModelPack* >* _Nullable)packMap;
++ (nullable NSDictionary< NSString*, GLBModelJson* >*)jsonMap;
++ (nullable NSDictionary< NSString*, NSDictionary< NSString*, GLBModelJson* >* >*)jsonShemeMap;
++ (nullable NSDictionary< NSString*, GLBModelPack* >*)packMap;
 
 @required
-+ (instancetype _Nullable)modelWithJson:(id _Nonnull)json NS_SWIFT_NAME(model(json:));
-+ (instancetype _Nullable)modelWithJson:(id _Nonnull)json sheme:(NSString* _Nullable)sheme NS_SWIFT_NAME(model(json:sheme:));
-+ (instancetype _Nullable)modelWithJsonData:(NSData* _Nonnull)data NS_SWIFT_NAME(model(jsonData:));
-+ (instancetype _Nullable)modelWithJsonData:(NSData* _Nonnull)data sheme:(NSString* _Nullable)sheme NS_SWIFT_NAME(model(jsonData:sheme:));
-+ (instancetype _Nullable)modelWithPack:(NSDictionary< NSString*, id >* _Nonnull)data NS_SWIFT_NAME(model(pack:));
-+ (instancetype _Nullable)modelWithPackData:(NSData* _Nonnull)data NS_SWIFT_NAME(model(packData:));
++ (nullable instancetype)modelWithJson:(nonnull id)json NS_SWIFT_NAME(model(json:));
++ (nullable instancetype)modelWithJson:(nonnull id)json sheme:(nullable NSString*)sheme NS_SWIFT_NAME(model(json:sheme:));
++ (nullable instancetype)modelWithJsonData:(nonnull NSData*)data NS_SWIFT_NAME(model(jsonData:));
++ (nullable instancetype)modelWithJsonData:(nonnull NSData*)data sheme:(nullable NSString*)sheme NS_SWIFT_NAME(model(jsonData:sheme:));
++ (nullable instancetype)modelWithPack:(nonnull NSDictionary< NSString*, id >*)data NS_SWIFT_NAME(model(pack:));
++ (nullable instancetype)modelWithPackData:(nonnull NSData*)data NS_SWIFT_NAME(model(packData:));
 
-- (instancetype _Nonnull)initWithJson:(id _Nullable)json;
-- (instancetype _Nonnull)initWithJson:(id _Nullable)json sheme:(NSString* _Nullable)sheme;
-- (instancetype _Nonnull)initWithPack:(NSDictionary< NSString*, id >* _Nonnull)data;
+- (nonnull instancetype)initWithJson:(nullable id)json;
+- (nonnull instancetype)initWithJson:(nullable id)json sheme:(nullable NSString*)sheme;
+- (nonnull instancetype)initWithPack:(nonnull NSDictionary< NSString*, id >*)data;
 
-- (void)fromJson:(id _Nonnull)json;
-- (void)fromJson:(id _Nonnull)json sheme:(NSString* _Nullable)sheme;
-- (void)fromJsonData:(NSData* _Nonnull)data;
-- (void)fromJsonData:(NSData* _Nonnull)data sheme:(NSString* _Nullable)sheme;
-- (NSDictionary* _Nullable)toJson;
-- (NSDictionary* _Nullable)toJson:(NSString* _Nullable)sheme;
-- (NSData* _Nullable)toJsonData;
-- (NSData* _Nullable)toJsonData:(NSString* _Nullable)sheme;
+- (void)fromJson:(nonnull id)json;
+- (void)fromJson:(nonnull id)json sheme:(nullable NSString*)sheme;
+- (void)fromJsonData:(nonnull NSData*)data;
+- (void)fromJsonData:(nonnull NSData*)data sheme:(nullable NSString*)sheme;
+- (nullable NSDictionary*)toJson;
+- (nullable NSDictionary*)toJson:(nullable NSString*)sheme;
+- (nullable NSData*)toJsonData;
+- (nullable NSData*)toJsonData:(nullable NSString*)sheme;
 
-- (NSDictionary< NSString*, id >* _Nullable)pack;
-- (NSData* _Nullable)packData;
+- (nullable NSDictionary< NSString*, id >*)pack;
+- (nullable NSData*)packData;
 
-- (void)unpack:(NSDictionary< NSString*, id >* _Nonnull)data;
-- (void)unpackData:(NSData* _Nonnull)data;
+- (void)unpack:(nonnull NSDictionary< NSString*, id >*)data;
+- (void)unpackData:(nonnull NSData*)data;
 
 @end
 
@@ -64,36 +64,36 @@
 @property(nonatomic, nullable, strong) NSUserDefaults* userDefaults;
 @property(nonatomic, nullable, strong) NSString* appGroupIdentifier;
 
-+ (instancetype _Nullable)modelWithStoreName:(NSString* _Nullable)storeName userDefaults:(NSUserDefaults* _Nullable)userDefaults NS_SWIFT_NAME(model(storeName:userDefaults:));
-+ (instancetype _Nullable)modelWithStoreName:(NSString* _Nullable)storeName appGroupIdentifier:(NSString* _Nullable)appGroupIdentifier NS_SWIFT_NAME(model(storeName:appGroupIdentifier:));
++ (nullable instancetype)modelWithStoreName:(nullable NSString*)storeName userDefaults:(nullable NSUserDefaults*)userDefaults NS_SWIFT_NAME(model(storeName:userDefaults:));
++ (nullable instancetype)modelWithStoreName:(nullable NSString*)storeName appGroupIdentifier:(nullable NSString*)appGroupIdentifier NS_SWIFT_NAME(model(storeName:appGroupIdentifier:));
 
-- (instancetype _Nonnull)initWithStoreName:(NSString* _Nullable)storeName userDefaults:(NSUserDefaults* _Nullable)userDefaults;
-- (instancetype _Nonnull)initWithStoreName:(NSString* _Nullable)storeName appGroupIdentifier:(NSString* _Nullable)appGroupIdentifier;
+- (nonnull instancetype)initWithStoreName:(nullable NSString*)storeName userDefaults:(nullable NSUserDefaults*)userDefaults;
+- (nonnull instancetype)initWithStoreName:(nullable NSString*)storeName appGroupIdentifier:(nullable NSString*)appGroupIdentifier;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-+ (NSDictionary< NSString*, id >* _Nullable)defaultsMap;
++ (nullable NSDictionary< NSString*, id >*)defaultsMap;
 
-+ (id _Nullable)serializeMap;
-+ (NSArray< NSString* >* _Nullable)propertyMap;
-+ (NSArray< NSString* >* _Nullable)compareMap;
-+ (NSArray< NSString* >* _Nullable)copyMap;
++ (nullable id)serializeMap;
++ (nullable NSArray< NSString* >*)propertyMap;
++ (nullable NSArray< NSString* >*)compareMap;
++ (nullable NSArray< NSString* >*)copyMap;
 
 - (void)clear;
-- (void)clearComplete:(GLBSimpleBlock _Nullable)complete;
-- (void)clearQueue:(dispatch_queue_t _Nonnull)queue complete:(GLBSimpleBlock _Nullable)complete;
+- (void)clearComplete:(nullable GLBSimpleBlock)complete;
+- (void)clearQueue:(nonnull dispatch_queue_t)queue complete:(nullable GLBSimpleBlock)complete;
 
 - (BOOL)save;
-- (void)saveSuccess:(GLBSimpleBlock _Nullable)success failure:(GLBSimpleBlock _Nullable)failure;
-- (void)saveQueue:(dispatch_queue_t _Nonnull)queue success:(GLBSimpleBlock _Nullable)success failure:(GLBSimpleBlock _Nullable)failure;
+- (void)saveSuccess:(nullable GLBSimpleBlock)success failure:(nullable GLBSimpleBlock)failure;
+- (void)saveQueue:(nonnull dispatch_queue_t)queue success:(nullable GLBSimpleBlock)success failure:(nullable GLBSimpleBlock)failure;
 
 - (void)load;
-- (void)loadComplete:(GLBSimpleBlock _Nullable)complete;
-- (void)loadQueue:(dispatch_queue_t _Nonnull)queue complete:(GLBSimpleBlock _Nullable)complete;
+- (void)loadComplete:(nullable GLBSimpleBlock)complete;
+- (void)loadQueue:(nonnull dispatch_queue_t)queue complete:(nullable GLBSimpleBlock)complete;
 
 - (void)erase;
-- (void)eraseComplete:(GLBSimpleBlock _Nullable)complete;
-- (void)eraseQueue:(dispatch_queue_t _Nonnull)queue complete:(GLBSimpleBlock _Nullable)complete;
+- (void)eraseComplete:(nullable GLBSimpleBlock)complete;
+- (void)eraseQueue:(nonnull dispatch_queue_t)queue complete:(nullable GLBSimpleBlock)complete;
 
 @end
 

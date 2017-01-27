@@ -8,8 +8,8 @@
 
 @interface WKInterfaceDevice (GLB_WK)
 
-+ (NSString* _Nullable)glb_systemVersionString;
-+ (NSComparisonResult)glb_compareSystemVersion:(NSString* _Nonnull)requiredVersion;
++ (nullable NSString*)glb_systemVersionString;
++ (NSComparisonResult)glb_compareSystemVersion:(nonnull NSString*)requiredVersion;
 
 @end
 

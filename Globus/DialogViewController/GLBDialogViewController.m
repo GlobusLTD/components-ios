@@ -960,6 +960,7 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(initWithNibName:(NSString*)nibName
 #pragma mark - Public
 
 - (void)presentDialogViewController:(GLBDialogViewController*)dialogViewController completion:(GLBSimpleBlock)completion {
+    dialogViewController.view.alpha = 0.0;
 #if __has_include("GLBBlurView.h")
     if(dialogViewController.backgroundBlurred == YES) {
         dialogViewController.backgroundView.blurRadius = 0.0;

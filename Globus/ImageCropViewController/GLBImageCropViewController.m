@@ -359,9 +359,9 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
                 NSArray* points = [self __intersectionPointsOfLineSegment:rotatedLeftLineSegment withRect:initialRect];
                 if(points.count > 1) {
                     if((rotation > M_PI_2) && (rotation < M_PI)) {
-                        rotation = rotation - M_PI_2;
+                        rotation = rotation - (CGFloat)M_PI_2;
                     } else if((rotation > (M_PI + M_PI_2)) && (rotation < (M_PI + M_PI))) {
-                        rotation = rotation - (M_PI + M_PI_2);
+                        rotation = rotation - (CGFloat)(M_PI + M_PI_2);
                     }
                     CGFloat sinAlpha = GLB_SIN(rotation);
                     CGFloat cosAlpha = GLB_COS(rotation);

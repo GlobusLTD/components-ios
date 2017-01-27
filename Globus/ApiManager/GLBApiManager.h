@@ -13,15 +13,15 @@
 
 @property(nonatomic, nonnull, readonly, copy) NSArray< GLBApiProvider* >* providers;
 
-+ (instancetype _Nonnull)shared;
++ (nonnull instancetype)shared;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)registerProvider:(GLBApiProvider* _Nonnull)provider;
-- (void)unregisterProvider:(GLBApiProvider* _Nonnull)provider;
+- (void)registerProvider:(nonnull GLBApiProvider*)provider;
+- (void)unregisterProvider:(nonnull GLBApiProvider*)provider;
 
-- (void)cancelRequest:(GLBApiRequest* _Nonnull)request;
-- (void)cancelAllRequestsByTarget:(id _Nonnull)target;
+- (void)cancelRequest:(nonnull GLBApiRequest*)request;
+- (void)cancelAllRequestsByTarget:(nonnull id)target;
 - (void)cancelAllRequests;
 
 @end

@@ -8,27 +8,27 @@
 
 @interface NSString (GLB_UI)
 
-- (CGSize)glb_sizeWithFont:(UIFont* _Nonnull)font
+- (CGSize)glb_sizeWithFont:(nonnull UIFont*)font
              lineBreakMode:(NSLineBreakMode)lineBreakMode;
 
-- (CGSize)glb_sizeWithFont:(UIFont* _Nonnull)font
+- (CGSize)glb_sizeWithFont:(nonnull UIFont*)font
                   forWidth:(CGFloat)width
              lineBreakMode:(NSLineBreakMode)lineBreakMode;
 
-- (CGSize)glb_sizeWithFont:(UIFont* _Nonnull)font
+- (CGSize)glb_sizeWithFont:(nonnull UIFont*)font
                    forSize:(CGSize)size
              lineBreakMode:(NSLineBreakMode)lineBreakMode;
 
 - (void)glb_drawAtPoint:(CGPoint)point
-                   font:(UIFont* _Nonnull)font
-                  color:(UIColor* _Nonnull)color
+                   font:(nonnull UIFont*)font
+                  color:(nonnull UIColor*)color
              vAlignment:(GLBUIVerticalAlignment)vAlignment
              hAlignment:(GLBUIHorizontalAlignment)hAlignment
           lineBreakMode:(NSLineBreakMode)lineBreakMode;
 
 - (void)glb_drawInRect:(CGRect)rect
-                  font:(UIFont* _Nonnull)font
-                 color:(UIColor* _Nonnull)color
+                  font:(nonnull UIFont*)font
+                 color:(nonnull UIColor*)color
             vAlignment:(GLBUIVerticalAlignment)vAlignment
             hAlignment:(GLBUIHorizontalAlignment)hAlignment
          lineBreakMode:(NSLineBreakMode)lineBreakMode;

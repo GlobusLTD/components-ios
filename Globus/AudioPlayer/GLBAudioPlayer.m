@@ -29,7 +29,7 @@
 }
 
 - (void)setup {
-    _sessionActiveOptions = 0;
+    _sessionActiveOptions = (AVAudioSessionSetActiveOptions)0;
     _sessionCategory = AVAudioSessionCategoryPlayback;
     _sessionCategoryOptions = AVAudioSessionCategoryOptionMixWithOthers;
     _sessionMode = AVAudioSessionModeDefault;

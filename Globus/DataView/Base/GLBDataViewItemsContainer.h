@@ -8,22 +8,22 @@
 
 @interface GLBDataViewItemsContainer : GLBDataViewContainer
 
-@property(nonatomic, readonly, strong) NSArray* entries;
+@property(nonatomic, nonnull, readonly, strong) NSArray< __kindof GLBDataViewItem* >* entries;
 
-- (void)prependEntry:(GLBDataViewItem*)entry;
-- (void)prependEntries:(NSArray*)entries;
-- (void)appendEntry:(GLBDataViewItem*)entry;
-- (void)appendEntries:(NSArray*)entries;
-- (void)insertEntry:(GLBDataViewItem*)entry atIndex:(NSUInteger)index;
-- (void)insertEntries:(NSArray*)entries atIndex:(NSUInteger)index;
-- (void)insertEntry:(GLBDataViewItem*)entry aboveEntry:(GLBDataViewItem*)aboveEntry;
-- (void)insertEntries:(NSArray*)entries aboveEntry:(GLBDataViewItem*)aboveEntry;
-- (void)insertEntry:(GLBDataViewItem*)entry belowEntry:(GLBDataViewItem*)belowEntry;
-- (void)insertEntries:(NSArray*)entries belowEntry:(GLBDataViewItem*)belowEntry;
-- (void)replaceOriginEntry:(GLBDataViewItem*)originEntry withEntry:(GLBDataViewItem*)entry;
-- (void)replaceOriginEntries:(NSArray*)originEntries withEntries:(NSArray*)entries;
-- (void)deleteEntry:(GLBDataViewItem*)entry;
-- (void)deleteEntries:(NSArray*)entries;
+- (void)prependEntry:(nonnull GLBDataViewItem*)entry;
+- (void)prependEntries:(nonnull NSArray*)entries;
+- (void)appendEntry:(nonnull GLBDataViewItem*)entry;
+- (void)appendEntries:(nonnull NSArray*)entries;
+- (void)insertEntry:(nonnull GLBDataViewItem*)entry atIndex:(NSUInteger)index;
+- (void)insertEntries:(nonnull NSArray*)entries atIndex:(NSUInteger)index;
+- (void)insertEntry:(nonnull GLBDataViewItem*)entry aboveEntry:(nonnull GLBDataViewItem*)aboveEntry;
+- (void)insertEntries:(nonnull NSArray*)entries aboveEntry:(nonnull GLBDataViewItem*)aboveEntry;
+- (void)insertEntry:(nonnull GLBDataViewItem*)entry belowEntry:(nonnull GLBDataViewItem*)belowEntry;
+- (void)insertEntries:(nonnull NSArray*)entries belowEntry:(nonnull GLBDataViewItem*)belowEntry;
+- (void)replaceOriginEntry:(nonnull GLBDataViewItem*)originEntry withEntry:(nonnull GLBDataViewItem*)entry;
+- (void)replaceOriginEntries:(nonnull NSArray*)originEntries withEntries:(nonnull NSArray*)entries;
+- (void)deleteEntry:(nonnull GLBDataViewItem*)entry;
+- (void)deleteEntries:(nonnull NSArray*)entries;
 - (void)deleteAllEntries;
 
 - (CGRect)frameEntriesForAvailableFrame:(CGRect)frame;
@@ -32,7 +32,7 @@
 - (void)willEntriesLayoutForBounds:(CGRect)bounds;
 - (void)didEntriesLayoutForBounds:(CGRect)bounds;
 
-- (NSArray*)updateAccessibilityEntries;
+- (nonnull NSArray*)updateAccessibilityEntries;
 
 @end
 

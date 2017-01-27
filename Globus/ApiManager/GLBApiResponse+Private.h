@@ -9,9 +9,9 @@
 @property(nonatomic, nullable, strong) NSURLResponse* urlResponse;
 @property(nonatomic, nullable, readonly, strong) NSMutableData* mutableData;
 
-+ (instancetype _Nonnull)responseWithRequest:(GLBApiRequest* _Nonnull)request;
++ (nonnull instancetype)responseWithRequest:(nonnull GLBApiRequest*)request;
 
-- (instancetype _Nonnull)initWithRequest:(GLBApiRequest* _Nonnull)request;
+- (nonnull instancetype)initWithRequest:(nonnull GLBApiRequest*)request;
 
 @end
 

@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A15AFCA952E0E4E41F9033A17F24413C"
+               BlueprintIdentifier = "0A37BF14B8C1CCF840557681BF1164BA"
                BuildableName = "libGlobus-library.a"
                BlueprintName = "Globus-library"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">

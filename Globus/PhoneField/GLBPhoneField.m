@@ -214,12 +214,12 @@
 
 - (NSString*)_digitOnlyString:(NSString*)string {
     NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"\\D" options:NSRegularExpressionCaseInsensitive error:nil];
-    return [regex stringByReplacingMatchesInString:string options:0 range:NSMakeRange(0, string.length) withTemplate:@""];
+    return [regex stringByReplacingMatchesInString:string options:(NSMatchingOptions)0 range:NSMakeRange(0, string.length) withTemplate:@""];
 }
 
 - (NSString*)_plusWithDigitsString:(NSString*)string {
     NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: @"(\\+)?([0-9])*" options:NSRegularExpressionCaseInsensitive error:nil];
-    NSRange rangeOfFirstMatch = [regex rangeOfFirstMatchInString:string options:0 range:NSMakeRange(0, [string length])];
+    NSRange rangeOfFirstMatch = [regex rangeOfFirstMatchInString:string options:(NSMatchingOptions)0 range:NSMakeRange(0, [string length])];
     NSString *substringForFirstMatch = @"";
     if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))) {
         substringForFirstMatch = [string substringWithRange:rangeOfFirstMatch];
@@ -280,7 +280,7 @@
 
 - (BOOL)_matchString:(NSString*)string withPattern:(NSString*)pattern {
     NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:nil];
-    NSTextCheckingResult* match = [regex firstMatchInString:string options:0 range:NSMakeRange(0, string.length)];
+    NSTextCheckingResult* match = [regex firstMatchInString:string options:(NSMatchingOptions)0 range:NSMakeRange(0, string.length)];
     return (match != nil) ? YES : NO;
 }
 

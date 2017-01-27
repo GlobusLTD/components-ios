@@ -19,8 +19,8 @@
 
 @interface NSURL (GLB_NS)
 
-- (NSDictionary* _Nullable)glb_queryComponents;
-- (NSDictionary* _Nullable)glb_fragmentComponents;
+- (nullable NSDictionary*)glb_queryComponents;
+- (nullable NSDictionary*)glb_fragmentComponents;
 
 @end
 

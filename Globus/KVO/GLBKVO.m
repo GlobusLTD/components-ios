@@ -28,7 +28,7 @@ static void* GLBKVOContext = &GLBKVOContext;
         _keyPath = keyPath;
         _block = block;
         
-		[subject addObserver:self forKeyPath:keyPath options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:GLBKVOContext];
+		[subject addObserver:self forKeyPath:keyPath options:(NSKeyValueObservingOptions)(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:GLBKVOContext];
         
         [self setup];
 	}

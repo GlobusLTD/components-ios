@@ -53,11 +53,11 @@ typedef NS_ENUM(NSUInteger, GLBImageCropMode) {
 @property(nonatomic, nonnull, readonly, strong) GLBButton* cancelButton;
 @property(nonatomic, nonnull, readonly, strong) GLBButton* choiceButton;
 
-- (instancetype _Nonnull)init NS_UNAVAILABLE;
-- (instancetype _Nonnull)initWithImage:(UIImage* _Nonnull)image;
-- (instancetype _Nonnull)initWithImage:(UIImage* _Nonnull)image cropMode:(GLBImageCropMode)cropMode;
+- (nonnull instancetype)init NS_UNAVAILABLE;
+- (nonnull instancetype)initWithImage:(nonnull UIImage*)image;
+- (nonnull instancetype)initWithImage:(nonnull UIImage*)image cropMode:(GLBImageCropMode)cropMode;
 
-- (GLBImageCropContentView* _Nonnull)defaultContentView;
+- (nonnull GLBImageCropContentView*)defaultContentView;
 
 @end
 
@@ -73,9 +73,9 @@ typedef NS_ENUM(NSUInteger, GLBImageCropMode) {
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (GLBLabel* _Nonnull)defaultTitleLabel;
-- (GLBButton* _Nonnull)defaultCancelButton;
-- (GLBButton* _Nonnull)defaultChoiceButton;
+- (nonnull GLBLabel*)defaultTitleLabel;
+- (nonnull GLBButton*)defaultCancelButton;
+- (nonnull GLBButton*)defaultChoiceButton;
 
 @end
 

@@ -645,36 +645,32 @@
 #import "GLBDataViewItemsFlowContainer.h"
 #endif
 
+#if __has_include("GLBDataViewCalendarItem.h")
+#import "GLBDataViewCalendarItem.h"
+#endif
+
+#if __has_include("GLBDataViewCalendarContainer.h")
+#import "GLBDataViewCalendarContainer.h"
+#endif
+
+#if __has_include("GLBDataViewCalendarDaysContainer.h")
+#import "GLBDataViewCalendarDaysContainer.h"
+#endif
+
+/*--------------------------------------------------*/
+#pragma mark - DataViewController
+/*--------------------------------------------------*/
+
+#if __has_include("GLBDataViewController.h")
+#import "GLBDataViewController.h"
+#endif
+
+/*--------------------------------------------------*/
+#pragma mark - PressAndHoldGestureRecognizer
+/*--------------------------------------------------*/
+
 #if __has_include("GLBPressAndHoldGestureRecognizer.h")
 #import "GLBPressAndHoldGestureRecognizer.h"
-#endif
-
-/*--------------------------------------------------*/
-#pragma mark - DataView/Legacy
-/*--------------------------------------------------*/
-
-#if __has_include("GLBDataItem.h")
-#import "GLBDataItem.h"
-#endif
-
-#if __has_include("GLBDataItem+Private.h")
-#import "GLBDataItem+Private.h"
-#endif
-
-#if __has_include("GLBDataViewSectionsContainer.h")
-#import "GLBDataViewSectionsContainer.h"
-#endif
-
-#if __has_include("GLBDataContainer+Private.h")
-#import "GLBDataContainer+Private.h"
-#endif
-
-#if __has_include("GLBDataCell.h")
-#import "GLBDataCell.h"
-#endif
-
-#if __has_include("GLBDataCell+Private.h")
-#import "GLBDataCell+Private.h"
 #endif
 
 /*--------------------------------------------------*/

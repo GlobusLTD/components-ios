@@ -26,7 +26,7 @@ typedef void(^GLBBlurViewUpdateBlock)();
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)updateAsynchronously:(BOOL)async completion:(GLBBlurViewUpdateBlock _Nullable)completion;
+- (void)updateAsynchronously:(BOOL)async completion:(nullable GLBBlurViewUpdateBlock)completion;
 
 @end
 

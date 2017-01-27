@@ -22,7 +22,7 @@
 - (void)setup NS_REQUIRES_SUPER;
 
 - (void)startDownload NS_REQUIRES_SUPER;
-- (void)downloadProgress:(NSProgress* _Nullable)progress NS_REQUIRES_SUPER;
+- (void)downloadProgress:(nullable NSProgress*)progress NS_REQUIRES_SUPER;
 - (void)finishDownload NS_REQUIRES_SUPER;
 
 @end

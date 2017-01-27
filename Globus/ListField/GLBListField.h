@@ -15,7 +15,7 @@
 @property(nonatomic, nullable, strong) NSArray< GLBListFieldItem* >* items;
 @property(nonatomic, nullable, strong) GLBListFieldItem* selectedItem;
 
-- (void)setSelectedItem:(GLBListFieldItem* _Nullable)selectedItem animated:(BOOL)animated;
+- (void)setSelectedItem:(nullable GLBListFieldItem*)selectedItem animated:(BOOL)animated;
 
 @end
 
@@ -27,13 +27,13 @@
 @property(nonatomic, nullable, strong) GLBTextStyle* style;
 @property(nonatomic, nullable, strong) id value;
 
-+ (instancetype _Nonnull)new NS_UNAVAILABLE;
-+ (instancetype _Nonnull)itemWithTitle:(NSString* _Nonnull)title value:(id _Nullable)value NS_SWIFT_UNAVAILABLE("Use init(title:value:)");
-+ (instancetype _Nonnull)itemWithTitle:(NSString* _Nonnull)title style:(GLBTextStyle* _Nullable)style value:(id _Nullable)value NS_SWIFT_UNAVAILABLE("Use init(title:style:value:)");
++ (nonnull instancetype)new NS_UNAVAILABLE;
++ (nonnull instancetype)itemWithTitle:(nonnull NSString*)title value:(nullable id)value NS_SWIFT_UNAVAILABLE("Use init(title:value:)");
++ (nonnull instancetype)itemWithTitle:(nonnull NSString*)title style:(nullable GLBTextStyle*)style value:(nullable id)value NS_SWIFT_UNAVAILABLE("Use init(title:style:value:)");
 
-- (instancetype _Nonnull)init NS_UNAVAILABLE;
-- (instancetype _Nonnull)initWithTitle:(NSString* _Nonnull)title value:(id _Nullable)value;
-- (instancetype _Nonnull)initWithTitle:(NSString* _Nonnull)title style:(GLBTextStyle* _Nullable)style value:(id _Nullable)value NS_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init NS_UNAVAILABLE;
+- (nonnull instancetype)initWithTitle:(nonnull NSString*)title value:(nullable id)value;
+- (nonnull instancetype)initWithTitle:(nonnull NSString*)title style:(nullable GLBTextStyle*)style value:(nullable id)value NS_DESIGNATED_INITIALIZER;
 
 - (void)setup NS_REQUIRES_SUPER;
 

@@ -18,7 +18,7 @@
 
 @property(nonatomic, nullable, readonly, strong) UIImage* image;
 
-- (UIImage* _Nullable)imageWithData:(NSData* _Nonnull)data mimetype:(NSString* _Nonnull)mimetype;
+- (nullable UIImage*)imageWithData:(nonnull NSData*)data mimetype:(nonnull NSString*)mimetype;
 
 @end
 

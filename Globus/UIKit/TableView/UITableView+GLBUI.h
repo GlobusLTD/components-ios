@@ -9,15 +9,15 @@
 
 @interface UITableView (GLB_UI)
 
-- (BOOL)glb_registerCell:(Class _Nonnull)cell;
-- (BOOL)glb_registerCell:(Class _Nonnull)cell reuseIdentifier:(NSString* _Nonnull)reuseIdentifier;
+- (BOOL)glb_registerCell:(nonnull Class)cell;
+- (BOOL)glb_registerCell:(nonnull Class)cell reuseIdentifier:(nonnull NSString*)reuseIdentifier;
 
-- (BOOL)glb_registerView:(Class _Nonnull)view;
-- (BOOL)glb_registerView:(Class _Nonnull)view reuseIdentifier:(NSString* _Nonnull)reuseIdentifier;
+- (BOOL)glb_registerView:(nonnull Class)view;
+- (BOOL)glb_registerView:(nonnull Class)view reuseIdentifier:(nonnull NSString*)reuseIdentifier;
 
-- (__kindof UITableViewCell* _Nullable)glb_dequeueReusableCell:(Class _Nonnull)cell;
+- (nullable __kindof UITableViewCell*)glb_dequeueReusableCell:(nonnull Class)cell;
 
-- (__kindof UITableViewHeaderFooterView* _Nullable)glb_dequeueReusableView:(Class _Nonnull)view;
+- (nullable __kindof UITableViewHeaderFooterView*)glb_dequeueReusableView:(nonnull Class)view;
 
 @end
 
@@ -25,7 +25,7 @@
 
 @interface UITableViewCell (GLB_UI)
 
-+ (NSString* _Nonnull)glb_reuseIdentifier;
++ (nonnull NSString*)glb_reuseIdentifier;
 
 @end
 
@@ -33,7 +33,7 @@
 
 @interface UITableViewHeaderFooterView (GLB_UI)
 
-+ (NSString* _Nonnull)glb_reuseIdentifier;
++ (nonnull NSString*)glb_reuseIdentifier;
 
 @end
 

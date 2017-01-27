@@ -10,16 +10,16 @@
 
 @property(nonatomic, nonnull, readonly, strong) UIViewController* viewController;
 
-+ (instancetype _Nonnull)presentViewController:(UIViewController* _Nonnull)viewController
-                                      fromView:(UIView* _Nonnull)view
-                               arrowTargetView:(UIView* _Nonnull)arrowTargetView
++ (nonnull instancetype)presentViewController:(nonnull UIViewController*)viewController
+                                      fromView:(nonnull UIView*)view
+                               arrowTargetView:(nonnull UIView*)arrowTargetView
                                 arrowDirection:(UIPopoverArrowDirection)arrowDirection
                                       animated:(BOOL)animated NS_SWIFT_UNAVAILABLE("Use init(viewController:fromView:arrowTargetView:arrowDirection:animated:)");
 
-- (instancetype _Nonnull)init NS_UNAVAILABLE;
-- (instancetype _Nonnull)initWithViewController:(UIViewController* _Nonnull)viewController
-                                       fromView:(UIView* _Nonnull)view
-                                arrowTargetView:(UIView* _Nonnull)arrowTargetView
+- (nonnull instancetype)init NS_UNAVAILABLE;
+- (nonnull instancetype)initWithViewController:(nonnull UIViewController*)viewController
+                                       fromView:(nonnull UIView*)view
+                                arrowTargetView:(nonnull UIView*)arrowTargetView
                                  arrowDirection:(UIPopoverArrowDirection)arrowDirection NS_DESIGNATED_INITIALIZER;
 
 - (void)presentAnimated:(BOOL)animated;

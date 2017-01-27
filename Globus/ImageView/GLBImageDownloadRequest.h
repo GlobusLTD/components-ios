@@ -8,7 +8,7 @@
 
 @interface GLBImageDownloadRequest : GLBApiRequest
 
-+ (instancetype _Nonnull)requestWithUrl:(NSURL* _Nonnull)url;
++ (nonnull instancetype)requestWithUrl:(nonnull NSURL*)url;
 
 @end
 

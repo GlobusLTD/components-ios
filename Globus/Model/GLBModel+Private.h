@@ -17,18 +17,18 @@
 @property(nonatomic, nonnull, readonly, strong) NSArray< NSString* >* compareMap;
 @property(nonatomic, nonnull, readonly, strong) NSArray< NSString* >* copyMap;
 
-+ (NSString* _Nullable)_filePathWithStoreName:(NSString* _Nonnull)storeName appGroupIdentifier:(NSString* _Nullable)appGroupIdentifier;
++ (nullable NSString*)_filePathWithStoreName:(nonnull NSString*)storeName appGroupIdentifier:(nullable NSString*)appGroupIdentifier;
 
-+ (NSDictionary< NSString*, GLBModelJson* >* _Nonnull)_buildJsonMap;
-+ (NSDictionary< NSString*, NSDictionary< NSString*, GLBModelJson* >* >* _Nonnull)_buildJsonShemeMap;
-+ (NSDictionary< NSString*, GLBModelPack* >* _Nonnull)_buildPackMap;
-+ (NSDictionary< NSString*, id >* _Nonnull)_buildDefaultsMap;
-+ (NSDictionary< NSString*, id >* _Nonnull)_buildSerializeMap;
-+ (NSArray< NSString* >* _Nonnull)_buildPropertyMap;
-+ (NSArray< NSString* >* _Nonnull)_buildCompareMap;
-+ (NSArray< NSString* >* _Nonnull)_buildCopyMap;
++ (nonnull NSDictionary< NSString*, GLBModelJson* >*)_buildJsonMap;
++ (nonnull NSDictionary< NSString*, NSDictionary< NSString*, GLBModelJson* >* >*)_buildJsonShemeMap;
++ (nonnull NSDictionary< NSString*, GLBModelPack* >*)_buildPackMap;
++ (nonnull NSDictionary< NSString*, id >*)_buildDefaultsMap;
++ (nonnull NSDictionary< NSString*, id >*)_buildSerializeMap;
++ (nonnull NSArray< NSString* >*)_buildPropertyMap;
++ (nonnull NSArray< NSString* >*)_buildCompareMap;
++ (nonnull NSArray< NSString* >*)_buildCopyMap;
 
-- (NSString* _Nullable)_filePath;
+- (nullable NSString*)_filePath;
 
 @end
 
@@ -40,12 +40,12 @@ typedef id _Nullable(^GLBModelHelperConvertBlock)(id _Nullable value);
 
 @interface GLBModelHelper : NSObject
 
-+ (NSDictionary< id, NSDictionary* >* _Nonnull)multiDictionaryMap:(NSMutableDictionary* _Nonnull)cache withClass:(Class _Nonnull)aClass selector:(SEL _Nonnull)selector;
-+ (NSDictionary< id, NSDictionary* >* _Nonnull)multiDictionaryMap:(NSMutableDictionary* _Nonnull)cache withClass:(Class _Nonnull)aClass selector:(SEL _Nonnull)selector convert:(_Nullable GLBModelHelperConvertBlock)convert;
-+ (NSDictionary* _Nonnull)dictionaryMap:(NSMutableDictionary* _Nonnull)cache withClass:(Class _Nonnull)aClass selector:(SEL _Nonnull)selector;
-+ (NSDictionary* _Nonnull)dictionaryMap:(NSMutableDictionary* _Nonnull)cache withClass:(Class _Nonnull)aClass selector:(SEL _Nonnull)selector convert:(_Nullable GLBModelHelperConvertBlock)convert;
-+ (NSArray* _Nonnull)arrayMap:(NSMutableDictionary* _Nonnull)cache withClass:(Class _Nonnull)aClass selector:(SEL _Nonnull)selector;
-+ (NSArray* _Nonnull)arrayMap:(NSMutableDictionary* _Nonnull)cache withClass:(Class _Nonnull)aClass selector:(SEL _Nonnull)selector convert:(_Nullable GLBModelHelperConvertBlock)convert;
++ (nonnull NSDictionary< id, NSDictionary* >*)multiDictionaryMap:(nonnull NSMutableDictionary*)cache withClass:(nonnull Class)aClass selector:(nonnull SEL)selector;
++ (nonnull NSDictionary< id, NSDictionary* >*)multiDictionaryMap:(nonnull NSMutableDictionary*)cache withClass:(nonnull Class)aClass selector:(nonnull SEL)selector convert:(nullable GLBModelHelperConvertBlock)convert;
++ (nonnull NSDictionary*)dictionaryMap:(nonnull NSMutableDictionary*)cache withClass:(nonnull Class)aClass selector:(nonnull SEL)selector;
++ (nonnull NSDictionary*)dictionaryMap:(nonnull NSMutableDictionary*)cache withClass:(nonnull Class)aClass selector:(nonnull SEL)selector convert:(nullable GLBModelHelperConvertBlock)convert;
++ (nonnull NSArray*)arrayMap:(nonnull NSMutableDictionary*)cache withClass:(nonnull Class)aClass selector:(nonnull SEL)selector;
++ (nonnull NSArray*)arrayMap:(nonnull NSMutableDictionary*)cache withClass:(nonnull Class)aClass selector:(nonnull SEL)selector convert:(nullable GLBModelHelperConvertBlock)convert;
 
 @end
 

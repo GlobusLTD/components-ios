@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.3.19'
+  s.version = '0.3.20'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -507,6 +507,11 @@ Pod::Spec.new do |s|
       sss.source_files = 'Globus/DataView/Containers/ItemsFlow/**/*.{h,m}'
       sss.dependency 'Globus/DataView/Base'
     end
+    ss.subspec 'Calendar' do |sss|
+      sss.source_files = 'Globus/DataView/Containers/Calendar/**/*.{h,m}'
+      sss.dependency 'Globus/DataView/Base'
+      sss.dependency 'Globus/Grid'
+    end
   end
   s.subspec 'PressAndHoldGestureRecognizer' do |ss|
     ss.source_files = 'Globus/PressAndHoldGestureRecognizer/**/*.{h,m}'
@@ -570,16 +575,24 @@ Pod::Spec.new do |s|
   end
   s.subspec 'SlideViewController' do |ss|
     ss.source_files = 'Globus/SlideViewController/**/*.{h,m}'
-    ss.dependency 'Globus/BaseViewController'
+    ss.dependency 'Globus/Window'
+    ss.dependency 'Globus/CoreFoundation/String'
     ss.dependency 'Globus/CoreFoundation/Array'
     ss.dependency 'Globus/CoreGraphics'
     ss.dependency 'Globus/UIKit/Application'
+    ss.dependency 'Globus/UIKit/ViewController'
     ss.dependency 'Globus/UIKit/Device'
   end
   s.subspec 'PageViewController' do |ss|
     ss.source_files = 'Globus/PageViewController/**/*.{h,m}'
-    ss.dependency 'Globus/BaseViewController'
+    ss.dependency 'Globus/Window'
+    ss.dependency 'Globus/CoreFoundation/String'
+    ss.dependency 'Globus/CoreFoundation/Array'
+    ss.dependency 'Globus/CoreGraphics'
+    ss.dependency 'Globus/UIKit/Application'
+    ss.dependency 'Globus/UIKit/ViewController'
     ss.dependency 'Globus/UIKit/ScrollView'
+    ss.dependency 'Globus/UIKit/Device'
   end
   s.subspec 'NavigationViewController' do |ss|
     ss.source_files = 'Globus/NavigationViewController/**/*.{h,m}'
@@ -602,6 +615,13 @@ Pod::Spec.new do |s|
   s.subspec 'ViewController' do |ss|
     ss.source_files = 'Globus/ViewController/**/*.{h,m}'
     ss.dependency 'Globus/BaseViewController'
+  end
+  s.subspec 'DataViewController' do |ss|
+    ss.subspec 'Base' do |sss|
+      sss.source_files = 'Globus/DataViewController/**/*.{h,m}'
+      sss.dependency 'Globus/ViewController'
+      sss.dependency 'Globus/DataView/Base'
+    end
   end
   s.subspec 'PopoverController' do |ss|
     ss.source_files = 'Globus/PopoverController/**/*.{h,m}'

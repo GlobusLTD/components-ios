@@ -342,7 +342,7 @@
 }
 
 + (instancetype)modelWithJsonData:(NSData*)data {
-    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    id json = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingOptions)0 error:nil];
     if(json != nil) {
         return [[self alloc] initWithJson:json];
     }
@@ -350,7 +350,7 @@
 }
 
 + (instancetype)modelWithJsonData:(NSData*)data sheme:(NSString*)sheme {
-    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    id json = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingOptions)0 error:nil];
     if(json != nil) {
         return [[self alloc] initWithJson:json sheme:sheme];
     }
@@ -412,7 +412,7 @@
 }
 
 - (void)fromJsonData:(NSData*)data sheme:(NSString*)sheme {
-    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    id json = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingOptions)0 error:nil];
     if(json != nil) {
         [self fromJson:json sheme:sheme];
     }
@@ -442,7 +442,7 @@
 - (NSData*)toJsonData:(NSString*)sheme {
     NSDictionary* json = [self toJson:sheme];
     if(json != nil) {
-        return [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
+        return [NSJSONSerialization dataWithJSONObject:json options:(NSJSONWritingOptions)0 error:nil];
     }
     return nil;
 }
@@ -707,7 +707,7 @@
     }];
 }
 
-+ (NSArray< NSString* >* _Nonnull)_buildPropertyMap {
++ (nonnull NSArray< NSString* >*)_buildPropertyMap {
     static NSMutableDictionary* cache = nil;
     if(cache == nil) {
         cache = NSMutableDictionary.dictionary;

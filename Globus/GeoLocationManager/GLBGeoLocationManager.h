@@ -57,33 +57,33 @@ typedef NS_ENUM(NSInteger, GLBGeoLocationStatus) {
 + (GLBGeoLocationServicesState)servicesState;
 + (BOOL)availableSignificantMonitoringChanges __WATCHOS_UNAVAILABLE;
 
-+ (instancetype _Nullable)shared;
++ (nullable instancetype)shared;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (GLBGeoLocationRequest* _Nullable)requestWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
-                                                       success:(GLBAction* _Nullable)success
-                                                       failure:(GLBAction* _Nullable)failure;
+- (nullable GLBGeoLocationRequest*)requestWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
+                                                       success:(nullable GLBAction*)success
+                                                       failure:(nullable GLBAction*)failure;
 
-- (GLBGeoLocationRequest* _Nullable)requestWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
+- (nullable GLBGeoLocationRequest*)requestWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
                                                timeoutInterval:(NSTimeInterval)timeoutInterval
-                                                       success:(GLBAction* _Nullable)success
-                                                       failure:(GLBAction* _Nullable)failure;
+                                                       success:(nullable GLBAction*)success
+                                                       failure:(nullable GLBAction*)failure;
 
-- (GLBGeoLocationRequest* _Nullable)subscribeWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
-                                                         success:(GLBAction* _Nullable)success
-                                                         failure:(GLBAction* _Nullable)failure;
+- (nullable GLBGeoLocationRequest*)subscribeWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
+                                                         success:(nullable GLBAction*)success
+                                                         failure:(nullable GLBAction*)failure;
 
-- (GLBGeoLocationRequest* _Nullable)subscribeWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
+- (nullable GLBGeoLocationRequest*)subscribeWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy
                                                   updateInterval:(NSTimeInterval)updateInterval
-                                                         success:(GLBAction* _Nullable)success
-                                                         failure:(GLBAction* _Nullable)failure;
+                                                         success:(nullable GLBAction*)success
+                                                         failure:(nullable GLBAction*)failure;
 
-- (void)cancelRequest:(GLBGeoLocationRequest* _Nonnull)request;
+- (void)cancelRequest:(nonnull GLBGeoLocationRequest*)request;
 - (void)cancelAllRequests;
 
-- (void)geocodeAddressString:(NSString* _Nonnull)address block:(CLGeocodeCompletionHandler _Nullable)block;
-- (void)reverseGeocodeLocation:(CLLocation* _Nonnull)location block:(CLGeocodeCompletionHandler _Nullable)block;
+- (void)geocodeAddressString:(nonnull NSString*)address block:(nullable CLGeocodeCompletionHandler)block;
+- (void)reverseGeocodeLocation:(nonnull CLLocation*)location block:(nullable CLGeocodeCompletionHandler)block;
 
 @end
 

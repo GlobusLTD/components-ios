@@ -11,7 +11,7 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@interface GLBTabBarViewController : UITabBarController< GLBViewController >
+@interface GLBTabBarViewController : UITabBarController< GLBViewControllerExtension >
 
 @property(nonatomic, readonly, assign, getter=isAppeared) BOOL appeared;
 @property(nonatomic, getter=isNavigationBarHidden) BOOL navigationBarHidden;
@@ -23,7 +23,7 @@
 @property(nonatomic, nullable, strong) __kindof GLBTransitionController* transitionModal;
 @property(nonatomic, nullable, strong) __kindof GLBTransitionController* transitionNavigation;
 
-+ (instancetype _Nullable)viewControllerWithViewControllers:(NSArray< __kindof UIViewController* >* _Nullable)viewControllers NS_SWIFT_NAME(viewController(viewControllers:));
++ (nullable instancetype)viewControllerWithViewControllers:(nullable NSArray< __kindof UIViewController* >*)viewControllers NS_SWIFT_NAME(viewController(viewControllers:));
 
 - (void)setup NS_REQUIRES_SUPER;
 

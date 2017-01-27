@@ -31,9 +31,9 @@ typedef NS_ENUM(NSUInteger, GLBDataRefreshViewState) {
 @interface GLBDataRefreshView : UIView
 
 @property(nonatomic) GLBDataRefreshViewType type;
-@property(nonatomic, readonly, weak) __kindof GLBDataView* view;
-@property(nonatomic, readonly, weak) NSLayoutConstraint* constraintOffset;
-@property(nonatomic, readonly, weak) NSLayoutConstraint* constraintSize;
+@property(nonatomic, nullable, readonly, weak) __kindof GLBDataView* view;
+@property(nonatomic, nullable, readonly, weak) NSLayoutConstraint* constraintOffset;
+@property(nonatomic, nullable, readonly, weak) NSLayoutConstraint* constraintSize;
 @property(nonatomic, readonly, assign) GLBDataRefreshViewState state;
 @property(nonatomic) IBInspectable BOOL triggeredOnRelease;
 @property(nonatomic) IBInspectable CGFloat size;
@@ -41,11 +41,11 @@ typedef NS_ENUM(NSUInteger, GLBDataRefreshViewState) {
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)showAnimated:(BOOL)animated complete:(GLBSimpleBlock)complete;
-- (void)hideAnimated:(BOOL)animated complete:(GLBSimpleBlock)complete;
+- (void)showAnimated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
+- (void)hideAnimated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
 
-- (void)showAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete;
-- (void)hideAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete;
+- (void)showAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(nullable GLBSimpleBlock)complete;
+- (void)hideAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(nullable GLBSimpleBlock)complete;
 
 - (void)didProgress:(CGFloat)progress;
 - (void)didIdle;

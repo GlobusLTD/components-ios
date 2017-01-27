@@ -178,14 +178,14 @@ typedef NS_ENUM(NSUInteger, GLBDataViewDirection) {
 - (void)setSearchBarInset:(CGFloat)searchBarInset force:(BOOL)force;
 - (void)setRefreshViewInset:(UIEdgeInsets)refreshViewInset force:(BOOL)force;
 
-- (void)pressedItem:(GLBDataViewItem* _Nonnull)item animated:(BOOL)animated;
+- (void)pressedItem:(nonnull GLBDataViewItem*)item animated:(BOOL)animated;
 
-- (void)appearItem:(GLBDataViewItem* _Nonnull)item;
-- (void)disappearItem:(GLBDataViewItem* _Nonnull)item;
+- (void)appearItem:(nonnull GLBDataViewItem*)item;
+- (void)disappearItem:(nonnull GLBDataViewItem*)item;
 
-- (void)didInsertItems:(NSArray< GLBDataViewCell* >* _Nonnull)items;
-- (void)didDeleteItems:(NSArray< GLBDataViewCell* >* _Nonnull)items;
-- (void)didReplaceOriginItems:(NSArray< GLBDataViewCell* >* _Nonnull)originItems withItems:(NSArray< GLBDataViewCell* >* _Nonnull)items;
+- (void)didInsertItems:(nonnull NSArray< GLBDataViewItem* >*)items;
+- (void)didDeleteItems:(nonnull NSArray< GLBDataViewItem* >*)items;
+- (void)didReplaceOriginItems:(nonnull NSArray< GLBDataViewItem* >*)originItems withItems:(nonnull NSArray< GLBDataViewItem* >*)items;
 
 @end
 
@@ -197,7 +197,7 @@ typedef NS_ENUM(NSUInteger, GLBDataViewDirection) {
 @property(nonatomic, nullable, readonly, copy) GLBSimpleBlock update;
 @property(nonatomic, nullable, readonly, copy) GLBSimpleBlock complete;
 
-- (instancetype _Nonnull)initWithDuration:(NSTimeInterval)duration update:(GLBSimpleBlock _Nullable)update complete:(GLBSimpleBlock _Nullable)complete;
+- (nonnull instancetype)initWithDuration:(NSTimeInterval)duration update:(nullable GLBSimpleBlock)update complete:(nullable GLBSimpleBlock)complete;
 
 @end
 
@@ -213,7 +213,7 @@ typedef NS_ENUM(NSUInteger, GLBDataViewDirection) {
 @property(nonatomic, nullable, weak) GLBDataView* view;
 @property(nonatomic, nullable, weak) id< UIScrollViewDelegate > delegate;
 
-- (instancetype _Nonnull)initWithDataView:(GLBDataView* _Nonnull)view;
+- (nonnull instancetype)initWithDataView:(nonnull GLBDataView*)view;
 
 @end
 

@@ -6,7 +6,7 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@protocol GLBViewController < NSObject >
+@protocol GLBViewControllerExtension < NSObject >
 
 @required
 - (__kindof UIViewController*)currentViewController;

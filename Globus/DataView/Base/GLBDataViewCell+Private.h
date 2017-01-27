@@ -27,15 +27,15 @@
     NSLayoutConstraint* _constraintRootViewHeight;
 }
 
-@property(nonatomic, weak) GLBDataView* dataView;
-@property(nonatomic, weak) GLBDataViewItem* item;
+@property(nonatomic, nullable, weak) GLBDataView* dataView;
+@property(nonatomic, nullable, weak) GLBDataViewItem* item;
 @property(nonatomic, getter=isMoving) BOOL moving;
-@property(nonatomic, strong) UILongPressGestureRecognizer* pressGestureRecognizer;
-@property(nonatomic, strong) UILongPressGestureRecognizer* longPressGestureRecognizer;
-@property(nonatomic, strong) NSLayoutConstraint* constraintRootViewCenterX;
-@property(nonatomic, strong) NSLayoutConstraint* constraintRootViewCenterY;
-@property(nonatomic, strong) NSLayoutConstraint* constraintRootViewWidth;
-@property(nonatomic, strong) NSLayoutConstraint* constraintRootViewHeight;
+@property(nonatomic, nullable, strong) UILongPressGestureRecognizer* pressGestureRecognizer;
+@property(nonatomic, nullable, strong) UILongPressGestureRecognizer* longPressGestureRecognizer;
+@property(nonatomic, nullable, strong) NSLayoutConstraint* constraintRootViewCenterX;
+@property(nonatomic, nullable, strong) NSLayoutConstraint* constraintRootViewCenterY;
+@property(nonatomic, nullable, strong) NSLayoutConstraint* constraintRootViewWidth;
+@property(nonatomic, nullable, strong) NSLayoutConstraint* constraintRootViewHeight;
 
 @end
 

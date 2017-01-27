@@ -36,7 +36,7 @@ static double GLBMoonNormalize(double v) {
         if(gregorian == nil) {
             gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
         }
-        NSCalendarUnit units = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+        NSCalendarUnit units = (NSCalendarUnit)(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay);
         NSDateComponents* components = [gregorian components:units fromDate:date];
         int year = (int)components.year;
         int month = (int)components.month;

@@ -37,7 +37,7 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
 }
 
 
-- (instancetype _Nonnull)initWithViewController:(UIViewController*)viewController {
+- (nonnull instancetype)initWithViewController:(UIViewController*)viewController {
     self = [super init];
     if(self != nil) {
         _ownerViewController = viewController;

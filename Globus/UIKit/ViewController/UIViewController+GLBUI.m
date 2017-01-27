@@ -14,8 +14,8 @@
     if(self.presentedViewController != nil) {
         return [self.presentedViewController glb_currentViewController];
     }
-    if([self conformsToProtocol:@protocol(GLBViewController)]) {
-        return [(id<GLBViewController>)self currentViewController];
+    if([self conformsToProtocol:@protocol(GLBViewControllerExtension)]) {
+        return [(id< GLBViewControllerExtension >)self currentViewController];
     }
     return self;
 }

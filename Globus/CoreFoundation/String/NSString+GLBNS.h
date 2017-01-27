@@ -18,27 +18,27 @@
 
 @interface NSString (GLB_NS)
 
-+ (instancetype _Nonnull)glb_stringWithData:(NSData* _Nonnull)data encoding:(NSStringEncoding)encoding;
++ (nonnull instancetype)glb_stringWithData:(nonnull NSData*)data encoding:(NSStringEncoding)encoding;
 
-- (NSString* _Nonnull)glb_stringByUppercaseFirstCharacterString;
-- (NSString* _Nonnull)glb_stringByLowercaseFirstCharacterString;
+- (nonnull NSString*)glb_stringByUppercaseFirstCharacterString;
+- (nonnull NSString*)glb_stringByLowercaseFirstCharacterString;
 
-- (NSString* _Nonnull)glb_stringByMD5;
-- (NSString* _Nonnull)glb_stringBySHA256;
+- (nonnull NSString*)glb_stringByMD5;
+- (nonnull NSString*)glb_stringBySHA256;
 
-- (NSString* _Nullable)glb_stringByDecodingURLFormat;
-- (NSString* _Nullable)glb_stringByEncodingURLFormat;
-- (NSDictionary* _Nonnull)glb_dictionaryFromQueryComponents;
+- (nullable NSString*)glb_stringByDecodingURLFormat;
+- (nullable NSString*)glb_stringByEncodingURLFormat;
+- (nonnull NSDictionary*)glb_dictionaryFromQueryComponents;
 
 - (BOOL)glb_isEmail;
 
-- (NSData* _Nonnull)glb_dataHmacSha1WithKey:(NSString* _Nonnull)key;
+- (nonnull NSData*)glb_dataHmacSha1WithKey:(nonnull NSString*)key;
 
 - (BOOL)glb_bool;
-- (NSNumber* _Nullable)glb_number;
-- (NSDate* _Nullable)glb_dateWithFormat:(NSString* _Nonnull)format;
+- (nullable NSNumber*)glb_number;
+- (nullable NSDate*)glb_dateWithFormat:(nonnull NSString*)format;
 
-- (NSArray* _Nonnull)glb_charactersArray;
+- (nonnull NSArray*)glb_charactersArray;
 
 - (UInt32)glb_crc32;
 
@@ -48,9 +48,9 @@
 
 @interface NSMutableString (GLB_NS)
 
-+ (instancetype _Nonnull)glb_stringWithString:(NSString* _Nonnull)string repeat:(NSUInteger)repeat;
++ (nonnull instancetype)glb_stringWithString:(nonnull NSString*)string repeat:(NSUInteger)repeat;
 
-- (void)glb_appendString:(NSString* _Nonnull)string repeat:(NSUInteger)repeat;
+- (void)glb_appendString:(nonnull NSString*)string repeat:(NSUInteger)repeat;
 
 @end
 

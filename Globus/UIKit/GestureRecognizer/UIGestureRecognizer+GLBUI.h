@@ -8,7 +8,7 @@
 
 @interface UIGestureRecognizer (GLB_UI)
 
-+ (void)glb_cancelInView:(UIView* _Nonnull)view recursive:(BOOL)recursive;
++ (void)glb_cancelInView:(nonnull UIView*)view recursive:(BOOL)recursive;
 
 - (void)glb_cancel;
 

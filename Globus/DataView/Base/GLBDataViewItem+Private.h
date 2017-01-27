@@ -9,18 +9,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@interface GLBDataViewItemAccessibilityElement ()
-
-@property(nonatomic, weak) __kindof GLBDataView* dataView;
-
-+ (instancetype)accessibilityElementWithDataView:(GLBDataView*)dataView item:(GLBDataViewItem*)item;
-
-- (instancetype)initWithDataView:(GLBDataView*)dataView item:(GLBDataViewItem*)item;
-
-@end
-
-/*--------------------------------------------------*/
-
 @interface GLBDataViewItem () {
 @protected
     __weak GLBDataView* _view;
@@ -52,9 +40,17 @@
     GLBDataViewItemAccessibilityElement* _accessibilityElement;
 }
 
-@property(nonatomic, weak) __kindof GLBDataView* dataView;
-@property(nonatomic, weak) __kindof GLBDataViewContainer* container;
-@property(nonatomic, strong) GLBDataViewCell* cell;
+@property(nonatomic, nullable, weak) __kindof GLBDataView* dataView;
+@property(nonatomic, nullable, weak) __kindof GLBDataViewContainer* container;
+@property(nonatomic, nullable, strong) GLBDataViewCell* cell;
+
+@end
+
+/*--------------------------------------------------*/
+
+@interface GLBDataViewItemAccessibilityElement ()
+
+@property(nonatomic, nullable, weak) __kindof GLBDataView* dataView;
 
 @end
 

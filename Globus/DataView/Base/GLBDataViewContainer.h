@@ -32,14 +32,14 @@ typedef NS_OPTIONS(NSUInteger, GLBDataViewContainerAlign) {
 
 /*--------------------------------------------------*/
 
-typedef void(^GLBDataViewContainerConfigureItemBlock)(__kindof GLBDataViewItem* item);
+typedef void(^GLBDataViewContainerConfigureItemBlock)(__kindof GLBDataViewItem* _Nonnull item);
 
 /*--------------------------------------------------*/
 
 @interface GLBDataViewContainer : NSObject< GLBSearchBarDelegate >
 
-@property(nonatomic, readonly, weak) __kindof GLBDataView* dataView;
-@property(nonatomic, readonly, weak) __kindof GLBDataViewContainer* container;
+@property(nonatomic, nullable, readonly, weak) __kindof GLBDataView* dataView;
+@property(nonatomic, nullable, readonly, weak) __kindof GLBDataViewContainer* container;
 @property(nonatomic, readonly, assign) CGRect frame;
 @property(nonatomic, getter=isHidden) BOOL hidden;
 @property(nonatomic, readonly, assign, getter=isHiddenInHierarchy) BOOL hiddenInHierarchy;
@@ -59,21 +59,21 @@ typedef void(^GLBDataViewContainerConfigureItemBlock)(__kindof GLBDataViewItem* 
 - (void)setNeedUpdate;
 - (void)setNeedReload GLB_DEPRECATED;
 
-- (NSArray*)allItems;
+- (nonnull NSArray*)allItems;
 
-- (__kindof GLBDataViewItem*)itemForPoint:(CGPoint)point;
-- (__kindof GLBDataViewItem*)itemForData:(id)data;
-- (__kindof GLBDataViewCell*)cellForData:(id)data;
+- (nullable __kindof GLBDataViewItem*)itemForPoint:(CGPoint)point;
+- (nullable __kindof GLBDataViewItem*)itemForData:(nonnull id)data;
+- (nullable __kindof GLBDataViewCell*)cellForData:(nonnull id)data;
 
-- (BOOL)containsActionForKey:(id)key;
-- (BOOL)containsActionForIdentifier:(id)identifier forKey:(id)key;
+- (BOOL)containsActionForKey:(nonnull id)key;
+- (BOOL)containsActionForIdentifier:(nonnull id)identifier forKey:(nonnull id)key;
 
-- (void)performActionForKey:(id)key withArguments:(NSArray*)arguments;
-- (void)performActionForIdentifier:(id)identifier forKey:(id)key withArguments:(NSArray*)arguments;
+- (void)performActionForKey:(nonnull id)key withArguments:(nullable NSArray*)arguments;
+- (void)performActionForIdentifier:(nonnull id)identifier forKey:(nonnull id)key withArguments:(nullable NSArray*)arguments;
 
 - (void)willBeginDragging;
 - (void)didScrollDragging:(BOOL)dragging decelerating:(BOOL)decelerating;
-- (void)willEndDraggingWithVelocity:(CGPoint)velocity contentOffset:(inout CGPoint*)contentOffset contentSize:(CGSize)contentSize visibleSize:(CGSize)visibleSize;
+- (void)willEndDraggingWithVelocity:(CGPoint)velocity contentOffset:(nullable inout CGPoint*)contentOffset contentSize:(CGSize)contentSize visibleSize:(CGSize)visibleSize;
 - (void)didEndDraggingWillDecelerate:(BOOL)decelerate;
 - (void)willBeginDecelerating;
 - (void)didEndDecelerating;
@@ -95,9 +95,9 @@ typedef void(^GLBDataViewContainerConfigureItemBlock)(__kindof GLBDataViewItem* 
 - (void)willLayoutForBounds:(CGRect)bounds;
 - (void)didLayoutForBounds:(CGRect)bounds;
 
-- (void)beginMovingItem:(GLBDataViewItem*)item location:(CGPoint)location;
-- (void)movingItem:(GLBDataViewItem*)item location:(CGPoint)location delta:(CGPoint)delta allowsSorting:(BOOL)allowsSorting;
-- (void)endMovingItem:(GLBDataViewItem*)item location:(CGPoint)location;
+- (void)beginMovingItem:(nonnull GLBDataViewItem*)item location:(CGPoint)location;
+- (void)movingItem:(nonnull GLBDataViewItem*)item location:(CGPoint)location delta:(CGPoint)delta allowsSorting:(BOOL)allowsSorting;
+- (void)endMovingItem:(nonnull GLBDataViewItem*)item location:(CGPoint)location;
 
 - (void)beginTransition;
 - (void)transitionResize;

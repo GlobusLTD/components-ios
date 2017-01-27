@@ -90,9 +90,9 @@ typedef NS_ENUM(NSInteger, GLBButtonBadgeVerticalAlignment) {
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)setTitleStyle:(GLBTextStyle* _Nullable)titleStyle forState:(UIControlState)state;
+- (void)setTitleStyle:(nullable GLBTextStyle*)titleStyle forState:(UIControlState)state;
 
-- (GLBTextStyle* _Nullable)titleStyleForState:(UIControlState)state;
+- (nullable GLBTextStyle*)titleStyleForState:(UIControlState)state;
 
 @end
 

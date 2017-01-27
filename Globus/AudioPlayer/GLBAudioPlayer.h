@@ -44,10 +44,10 @@
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (BOOL)prepareWithData:(NSData* _Nonnull)data;
-- (BOOL)prepareWithName:(NSString* _Nonnull)name;
-- (BOOL)prepareWithPath:(NSString* _Nonnull)path name:(NSString* _Nonnull)name;
-- (BOOL)prepareWithURL:(NSURL* _Nonnull)url;
+- (BOOL)prepareWithData:(nonnull NSData*)data;
+- (BOOL)prepareWithName:(nonnull NSString*)name;
+- (BOOL)prepareWithPath:(nonnull NSString*)path name:(nonnull NSString*)name;
+- (BOOL)prepareWithURL:(nonnull NSURL*)url;
 - (void)clean;
 
 - (BOOL)play;

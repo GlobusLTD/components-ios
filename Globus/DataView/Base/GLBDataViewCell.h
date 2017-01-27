@@ -15,31 +15,30 @@
 
 @interface GLBDataViewCell : UIView< UIGestureRecognizerDelegate, GLBSearchBarDelegate, GLBWindowExtension, GLBNibExtension >
 
-@property(nonatomic, readonly, weak) __kindof GLBDataView* dataView;
-@property(nonatomic, readonly, weak) __kindof GLBDataViewItem* item;
+@property(nonatomic, nullable, readonly, weak) __kindof GLBDataView* dataView;
+@property(nonatomic, nullable, readonly, weak) __kindof GLBDataViewItem* item;
 @property(nonatomic) BOOL hideKeyboardIfTouched;
 @property(nonatomic, readonly, assign, getter=isSelected) BOOL selected;
 @property(nonatomic, readonly, assign, getter=isHighlighted) BOOL highlighted;
 @property(nonatomic, readonly, assign, getter=isEditing) BOOL editing;
 @property(nonatomic, readonly, assign, getter=isMoving) BOOL moving;
 
-@property(nonatomic, readonly, strong) UILongPressGestureRecognizer* pressGestureRecognizer;
-@property(nonatomic, readonly, strong) UILongPressGestureRecognizer* longPressGestureRecognizer;
+@property(nonatomic, nullable, readonly, strong) UILongPressGestureRecognizer* pressGestureRecognizer;
+@property(nonatomic, nullable, readonly, strong) UILongPressGestureRecognizer* longPressGestureRecognizer;
 
-@property(nonatomic, strong) IBOutlet UIView* rootView;
+@property(nonatomic, nullable, strong) IBOutlet UIView* rootView;
 @property(nonatomic) UIOffset rootViewOffset;
 @property(nonatomic) CGSize rootViewSize;
 
-@property(nonatomic, readonly, strong) NSArray< UIView* >* orderedSubviews;
+@property(nonatomic, nonnull, readonly, strong) NSArray< UIView* >* orderedSubviews;
 
-+ (CGSize)sizeForItem:(id)item availableSize:(CGSize)size;
++ (CGSize)sizeForItem:(nonnull id)item availableSize:(CGSize)size;
 
-- (CGSize)sizeForItem:(id)item availableSize:(CGSize)size GLB_DEPRECATED;
 - (CGSize)sizeForAvailableSize:(CGSize)size;
 - (UILayoutPriority)fittingHorizontalPriority;
 - (UILayoutPriority)fittingVerticalPriority;
 
-- (instancetype)initWithNib:(UINib*)nib;
+- (nonnull instancetype)initWithNib:(nullable UINib*)nib;
 
 - (void)setup NS_REQUIRES_SUPER;
 
@@ -50,10 +49,10 @@
 
 - (void)refreshConstraints;
 
-- (BOOL)containsActionForKey:(id)key;
-- (BOOL)containsActionForIdentifier:(id)identifier forKey:(id)key;
+- (BOOL)containsActionForKey:(nonnull id)key;
+- (BOOL)containsActionForIdentifier:(nonnull id)identifier forKey:(nonnull id)key;
 
-- (void)performActionForKey:(id)key withArguments:(NSArray*)arguments;
+- (void)performActionForKey:(nonnull id)key withArguments:(nullable NSArray*)arguments;
 
 - (void)pressed NS_REQUIRES_SUPER;
 - (void)longPressed NS_REQUIRES_SUPER;
@@ -83,8 +82,8 @@
 
 /*--------------------------------------------------*/
 
-extern NSString* GLBDataViewCellPressed;
-extern NSString* GLBDataViewCellLongPressed;
+extern NSString* _Nonnull GLBDataViewCellPressed;
+extern NSString* _Nonnull GLBDataViewCellLongPressed;
 
 /*--------------------------------------------------*/
 #endif

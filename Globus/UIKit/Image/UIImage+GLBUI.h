@@ -20,21 +20,21 @@ typedef NS_OPTIONS(NSUInteger, GLBUIImageAlignment) {
 
 @interface UIImage (GLB_UI)
 
-+ (instancetype _Nullable)glb_imageNamed:(NSString* _Nonnull)name renderingMode:(UIImageRenderingMode)renderingMode;
-+ (instancetype _Nullable)glb_imageNamed:(NSString* _Nonnull)name capInsets:(UIEdgeInsets)capInsets;
-+ (instancetype _Nullable)glb_imageWithColor:(UIColor* _Nonnull)color size:(CGSize)size;
-+ (instancetype _Nullable)glb_imageWithColor:(UIColor* _Nonnull)color size:(CGSize)size cornerRadius:(CGFloat)cornerRadius;
-+ (instancetype _Nullable)glb_imageWithData:(NSData* _Nonnull)data;
++ (nullable instancetype)glb_imageNamed:(nonnull NSString*)name renderingMode:(UIImageRenderingMode)renderingMode;
++ (nullable instancetype)glb_imageNamed:(nonnull NSString*)name capInsets:(UIEdgeInsets)capInsets;
++ (nullable instancetype)glb_imageWithColor:(nonnull UIColor*)color size:(CGSize)size;
++ (nullable instancetype)glb_imageWithColor:(nonnull UIColor*)color size:(CGSize)size cornerRadius:(CGFloat)cornerRadius;
++ (nullable instancetype)glb_imageWithData:(nonnull NSData*)data;
 
-- (instancetype _Nullable)glb_unrotate;
-- (instancetype _Nullable)glb_scaleToSize:(CGSize)size;
-- (instancetype _Nullable)glb_rotateToAngleInRadians:(CGFloat)angleInRadians;
+- (nullable instancetype)glb_unrotate;
+- (nullable instancetype)glb_scaleToSize:(CGSize)size;
+- (nullable instancetype)glb_rotateToAngleInRadians:(CGFloat)angleInRadians;
 
-- (instancetype _Nullable)glb_grayscale;
-- (instancetype _Nullable)glb_blackAndWhite;
-- (instancetype _Nullable)glb_invertColors;
+- (nullable instancetype)glb_grayscale;
+- (nullable instancetype)glb_blackAndWhite;
+- (nullable instancetype)glb_invertColors;
 
-- (instancetype _Nullable)glb_blurredImageWithRadius:(CGFloat)radius iterations:(NSUInteger)iterations tintColor:(UIColor* _Nullable)tintColor;
+- (nullable instancetype)glb_blurredImageWithRadius:(CGFloat)radius iterations:(NSUInteger)iterations tintColor:(nullable UIColor*)tintColor;
 
 - (void)glb_drawInRect:(CGRect)rect alignment:(GLBUIImageAlignment)alignment;
 - (void)glb_drawInRect:(CGRect)rect alignment:(GLBUIImageAlignment)alignment blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha;

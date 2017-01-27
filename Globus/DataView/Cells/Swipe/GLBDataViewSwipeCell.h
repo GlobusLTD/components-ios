@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, GLBDataViewSwipeCellStyle) {
 
 @interface GLBDataViewSwipeCell : GLBDataViewCell
 
-@property(nonatomic, readonly, strong) UIPanGestureRecognizer* panGestureRecognizer;
+@property(nonatomic, nonnull, readonly, strong) UIPanGestureRecognizer* panGestureRecognizer;
 
 @property(nonatomic, getter=isSwipeEnabled) BOOL swipeEnabled;
 @property(nonatomic) IBInspectable GLBDataViewSwipeCellStyle swipeStyle;
@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, GLBDataViewSwipeCellStyle) {
 
 @property(nonatomic, getter=isShowedLeftSwipeView) IBInspectable BOOL showedLeftSwipeView;
 @property(nonatomic, getter=isLeftSwipeEnabled) IBInspectable BOOL leftSwipeEnabled;
-@property(nonatomic, strong) IBOutlet UIView* leftSwipeView;
+@property(nonatomic, nullable, strong) IBOutlet UIView* leftSwipeView;
 @property(nonatomic) CGFloat leftSwipeOffset;
 @property(nonatomic) CGFloat leftSwipeSize;
 @property(nonatomic) CGFloat leftSwipeStretchSize;
@@ -39,7 +39,7 @@ typedef NS_ENUM(NSUInteger, GLBDataViewSwipeCellStyle) {
 
 @property(nonatomic, getter=isShowedRightSwipeView) IBInspectable BOOL showedRightSwipeView;
 @property(nonatomic, getter=isRightSwipeEnabled) IBInspectable BOOL rightSwipeEnabled;
-@property(nonatomic, strong) IBOutlet UIView* rightSwipeView;
+@property(nonatomic, nullable, strong) IBOutlet UIView* rightSwipeView;
 @property(nonatomic) CGFloat rightSwipeOffset;
 @property(nonatomic) CGFloat rightSwipeSize;
 @property(nonatomic) CGFloat rightSwipeStretchSize;
@@ -66,7 +66,7 @@ typedef NS_ENUM(NSUInteger, GLBDataViewSwipeCellStyle) {
 
 - (void)updateSwipeProgress:(CGFloat)swipeProgress speed:(CGFloat)speed endedSwipe:(BOOL)endedSwipe;
 
-- (void)handlerPanGestureRecognizer:(UIPanGestureRecognizer*)gestureRecognizer;
+- (void)handlerPanGestureRecognizer:(nonnull UIPanGestureRecognizer*)gestureRecognizer;
 
 @end
 

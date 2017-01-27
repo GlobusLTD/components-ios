@@ -18,8 +18,8 @@
 
 @interface NSObject (GLB_NS)
 
-+ (NSString* _Nonnull)glb_className;
-- (NSString* _Nonnull)glb_className;
++ (nonnull NSString*)glb_className;
+- (nonnull NSString*)glb_className;
 
 - (BOOL)glb_isNull;
 - (BOOL)glb_isNumber;

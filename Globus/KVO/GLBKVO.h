@@ -18,7 +18,7 @@ typedef void (^GLBKVOBlock)(GLBKVO* _Nonnull kvo, id _Nullable oldValue, id _Nul
 @property(nonatomic, nonnull, readonly, strong) NSString* keyPath;
 @property(nonatomic, nonnull, copy) GLBKVOBlock block;
 
-- (instancetype _Nonnull)initWithSubject:(id _Nonnull)subject keyPath:(NSString* _Nonnull)keyPath block:(GLBKVOBlock _Nonnull)block;
+- (nonnull instancetype)initWithSubject:(nonnull id)subject keyPath:(nonnull NSString*)keyPath block:(nonnull GLBKVOBlock)block;
 
 - (void)setup NS_REQUIRES_SUPER;
 
@@ -30,8 +30,8 @@ typedef void (^GLBKVOBlock)(GLBKVO* _Nonnull kvo, id _Nullable oldValue, id _Nul
 
 @interface NSObject (GLBKVO)
 
-- (GLBKVO* _Nonnull)glb_observeKeyPath:(NSString* _Nonnull)keyPath withBlock:(GLBKVOBlock _Nonnull)block;
-- (GLBKVO* _Nonnull)glb_observeSelector:(SEL _Nonnull)selector withBlock:(GLBKVOBlock _Nonnull)block;
+- (nonnull GLBKVO*)glb_observeKeyPath:(nonnull NSString*)keyPath withBlock:(nonnull GLBKVOBlock)block;
+- (nonnull GLBKVO*)glb_observeSelector:(nonnull SEL)selector withBlock:(nonnull GLBKVOBlock)block;
 
 @end
 

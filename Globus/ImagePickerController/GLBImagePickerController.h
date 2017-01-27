@@ -16,12 +16,12 @@ typedef void(^GLBImagePickerControllerCompletionBlock)(UIImage* _Nullable image)
 @property(nonatomic) BOOL allowsEditing;
 @property(nonatomic) CGSize maximumSize;
 
-+ (instancetype _Nonnull)imagePickerControllerWithViewController:(UIViewController* _Nonnull)viewController NS_SWIFT_UNAVAILABLE("Use init(viewController:)");
++ (nonnull instancetype)imagePickerControllerWithViewController:(nonnull UIViewController*)viewController NS_SWIFT_UNAVAILABLE("Use init(viewController:)");
 
-- (instancetype _Nonnull)init NS_UNAVAILABLE;
-- (instancetype _Nonnull)initWithViewController:(UIViewController* _Nonnull)viewController NS_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init NS_UNAVAILABLE;
+- (nonnull instancetype)initWithViewController:(nonnull UIViewController*)viewController NS_DESIGNATED_INITIALIZER;
 
-- (void)presentAnimated:(BOOL)animated completion:(GLBImagePickerControllerCompletionBlock _Nonnull)completion;
+- (void)presentAnimated:(BOOL)animated completion:(nonnull GLBImagePickerControllerCompletionBlock)completion;
 - (void)dismissAnimated:(BOOL)animated;
 
 @end

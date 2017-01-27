@@ -42,7 +42,6 @@
 - (void)setup {
     [super setup];
     
-    _automaticallyHideKeyboard = YES;
     if(UIDevice.glb_isIPhone == YES) {
         _supportedOrientationMask = UIInterfaceOrientationMaskPortrait;
     } else {

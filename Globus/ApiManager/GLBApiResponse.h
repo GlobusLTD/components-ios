@@ -24,8 +24,8 @@
 + (BOOL)allowsBackgroundThread;
 
 - (void)parse;
-- (BOOL)fromData:(NSData* _Nonnull)data mimetype:(NSString* _Nonnull)mimetype;
-- (BOOL)fromJson:(id _Nonnull)json;
+- (BOOL)fromData:(nonnull NSData*)data mimetype:(nonnull NSString*)mimetype;
+- (BOOL)fromJson:(nonnull id)json;
 - (BOOL)fromEmpty;
 
 @end

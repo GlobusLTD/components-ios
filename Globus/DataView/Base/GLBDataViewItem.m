@@ -8,6 +8,10 @@
 
 @implementation GLBDataViewItem
 
+#pragma mark - Not designated initializer
+
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(item)
+
 #pragma mark - Synthesize
 
 @synthesize dataView = _dataView;
@@ -38,18 +42,6 @@
 @synthesize accessibilityElement = _accessibilityElement;
 
 #pragma mark - Init / Free
-
-+ (NSArray*)itemsWithIdentifier:(NSString*)identifier order:(NSUInteger)order dataArray:(NSArray*)dataArray {
-    return [self itemsWithIdentifier:identifier order:order accessibilityOrder:order dataArray:dataArray];
-}
-
-+ (NSArray*)itemsWithIdentifier:(NSString*)identifier order:(NSUInteger)order accessibilityOrder:(NSUInteger)accessibilityOrder dataArray:(NSArray*)dataArray {
-    NSMutableArray* items = [NSMutableArray arrayWithCapacity:dataArray.count];
-    for(id data in dataArray) {
-        [items addObject:[self itemWithIdentifier:identifier order:order data:data]];
-    }
-    return items;
-}
 
 + (instancetype)itemWithIdentifier:(NSString*)identifier order:(NSUInteger)order data:(id)data {
     return [[self alloc] initWithIdentifier:identifier order:order accessibilityOrder:order data:data];

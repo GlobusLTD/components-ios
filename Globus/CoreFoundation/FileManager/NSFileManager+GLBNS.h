@@ -18,9 +18,9 @@
 
 @interface NSFileManager (GLB_NS)
 
-+ (NSString* _Nonnull)glb_documentDirectory;
-+ (NSString* _Nonnull)glb_libraryDirectory;
-+ (NSString* _Nonnull)glb_cachesDirectory;
++ (nonnull NSString*)glb_documentDirectory;
++ (nonnull NSString*)glb_libraryDirectory;
++ (nonnull NSString*)glb_cachesDirectory;
 
 @end
 

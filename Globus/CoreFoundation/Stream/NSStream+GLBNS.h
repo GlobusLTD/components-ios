@@ -28,8 +28,8 @@
 - (uint64_t)glb_uint64;
 - (float)glb_real32;
 - (double)glb_real64;
-- (NSString* _Nullable)glb_string;
-- (NSData* _Nullable)glb_data;
+- (nullable NSString*)glb_string;
+- (nullable NSData*)glb_data;
 
 @end
 
@@ -47,8 +47,8 @@
 - (void)glb_uint64:(uint64_t)value;
 - (void)glb_real32:(float)value;
 - (void)glb_real64:(double)value;
-- (void)glb_string:(NSString* _Nonnull)value;
-- (void)glb_data:(NSData* _Nonnull)value;
+- (void)glb_string:(nonnull NSString*)value;
+- (void)glb_data:(nonnull NSData*)value;
 
 @end
 

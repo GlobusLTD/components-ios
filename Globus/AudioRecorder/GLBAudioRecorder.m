@@ -34,7 +34,7 @@
 }
 
 - (void)setup {
-    _sessionActiveOptions = 0;
+    _sessionActiveOptions = (AVAudioSessionSetActiveOptions)0;
     _sessionCategory = AVAudioSessionCategoryRecord;
     _sessionCategoryOptions = AVAudioSessionCategoryOptionDefaultToSpeaker;
     _sessionMode = AVAudioSessionModeDefault;

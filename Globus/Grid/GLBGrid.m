@@ -42,7 +42,7 @@
 }
 
 + (instancetype)gridWithGrid:(GLBGrid*)grid {
-    return [[self alloc] gridWithGrid:grid];
+    return [[self alloc] initWithGrid:grid];
 }
 
 - (instancetype)init {

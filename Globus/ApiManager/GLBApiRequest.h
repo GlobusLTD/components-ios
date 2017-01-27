@@ -43,15 +43,15 @@
 
 @property(nonatomic, nullable, readonly, strong) NSURLRequest* urlRequest;
 
-- (void)setUrlParam:(NSString* _Nonnull)urlParam value:(NSString* _Nullable)value;
-- (void)setHeader:(NSString* _Nonnull)header value:(NSString* _Nullable)value;
-- (void)setBodyParam:(NSString* _Nonnull)bodyParam value:(NSString* _Nullable)value;
+- (void)setUrlParam:(nonnull NSString*)urlParam value:(nullable NSString*)value;
+- (void)setHeader:(nonnull NSString*)header value:(nullable NSString*)value;
+- (void)setBodyParam:(nonnull NSString*)bodyParam value:(nullable NSString*)value;
 
 - (void)resume;
 - (void)suspend;
 - (void)cancel;
 
-+ (Class _Nonnull)responseClass;
++ (nonnull Class)responseClass;
 
 @end
 
@@ -65,15 +65,15 @@
 @property(nonatomic, nullable, readonly, copy) NSString* localFilePath;
 @property(nonatomic, nullable, readonly, strong) NSData* data;
 
-- (instancetype _Nullable)initWithName:(NSString* _Nonnull)name
-                              filename:(NSString* _Nonnull)filename
-                              mimetype:(NSString* _Nonnull)mimetype
-                                  data:(NSData* _Nonnull)data;
+- (nullable instancetype)initWithName:(nonnull NSString*)name
+                              filename:(nonnull NSString*)filename
+                              mimetype:(nonnull NSString*)mimetype
+                                  data:(nonnull NSData*)data;
 
-- (instancetype _Nullable)initWithName:(NSString* _Nonnull)name
-                              filename:(NSString* _Nonnull)filename
-                              mimetype:(NSString* _Nonnull)mimetype
-                         localFilePath:(NSString* _Nonnull)localFilePath;
+- (nullable instancetype)initWithName:(nonnull NSString*)name
+                              filename:(nonnull NSString*)filename
+                              mimetype:(nonnull NSString*)mimetype
+                         localFilePath:(nonnull NSString*)localFilePath;
 
 @end
 

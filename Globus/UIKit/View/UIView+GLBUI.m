@@ -312,7 +312,7 @@
     for(UIView* view in self.subviews) {
         [result addObjectsFromArray:view.glb_responders];
     }
-    [result sortWithOptions:0 usingComparator:^NSComparisonResult(UIView* viewA, UIView* viewB) {
+    [result sortWithOptions:(NSSortOptions)0 usingComparator:^NSComparisonResult(UIView* viewA, UIView* viewB) {
         CGRect aFrame = [viewA convertRect:[viewA bounds] toView:nil], bFrame = [viewB convertRect:[viewB bounds] toView:nil];
         CGFloat aOrder = [viewA.layer zPosition], bOrder = [viewB.layer zPosition];
         if(aOrder < bOrder) {

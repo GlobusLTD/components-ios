@@ -69,8 +69,8 @@ typedef NS_ENUM(NSInteger, GLBDeviceDisplay) {
 @interface UIDevice (GLB_UI)
 
 + (CGFloat)glb_systemVersion GLB_DEPRECATED;
-+ (NSString* _Nullable)glb_systemVersionString;
-+ (NSComparisonResult)glb_compareSystemVersion:(NSString* _Nonnull)requiredVersion;
++ (nullable NSString*)glb_systemVersionString;
++ (NSComparisonResult)glb_compareSystemVersion:(nonnull NSString*)requiredVersion;
 
 + (BOOL)glb_isSimulator;
 + (BOOL)glb_isIPhone;
@@ -78,8 +78,8 @@ typedef NS_ENUM(NSInteger, GLBDeviceDisplay) {
 
 + (void)glb_setOrientation:(UIInterfaceOrientation)orientation;
 
-+ (NSString* _Nullable)glb_deviceTypeString;
-+ (NSString* _Nullable)glb_deviceVersionString;
++ (nullable NSString*)glb_deviceTypeString;
++ (nullable NSString*)glb_deviceVersionString;
 
 + (GLBDeviceFamily)glb_family;
 + (GLBDeviceModel)glb_model;

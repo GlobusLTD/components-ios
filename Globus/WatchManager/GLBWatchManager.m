@@ -18,11 +18,11 @@
 
 @interface GLBWatchProvider ()
 
-- (void)_didReceiveMessage:(NSDictionary< NSString*, id >* _Nonnull)message replyHandler:(void(^ _Nullable)(NSDictionary< NSString*, id >* _Nonnull replyMessage))replyHandler;
-- (void)_didFinishUserInfoTransfer:(WCSessionUserInfoTransfer* _Nonnull)userInfoTransfer error:(NSError* _Nullable)error;
-- (void)_didReceiveUserInfo:(NSDictionary< NSString*, id >* _Nonnull)userInfo;
-- (void)_didFinishFileTransfer:(WCSessionFileTransfer* _Nonnull)fileTransfer error:(NSError* _Nullable)error;
-- (void)_didReceiveFile:(WCSessionFile* _Nonnull)file;
+- (void)_didReceiveMessage:(nonnull NSDictionary< NSString*, id >*)message replyHandler:(void(^ _Nullable)(NSDictionary< NSString*, id >* _Nonnull replyMessage))replyHandler;
+- (void)_didFinishUserInfoTransfer:(nonnull WCSessionUserInfoTransfer*)userInfoTransfer error:(nullable NSError*)error;
+- (void)_didReceiveUserInfo:(nonnull NSDictionary< NSString*, id >*)userInfo;
+- (void)_didFinishFileTransfer:(nonnull WCSessionFileTransfer*)fileTransfer error:(nullable NSError*)error;
+- (void)_didReceiveFile:(nonnull WCSessionFile*)file;
 
 @end
 
@@ -41,16 +41,16 @@
 @property(nonatomic, nullable, readonly, strong) NSURL* fileURL;
 @property(nonatomic, nullable, readonly, strong) NSDictionary* metadata;
 
-+ (NSDictionary* _Nullable)metadataWithProfider:(GLBWatchProvider* _Nonnull)profider reachableInfo:(NSDictionary< NSString*, id >* _Nonnull)reachableInfo;
++ (nullable NSDictionary*)metadataWithProfider:(nonnull GLBWatchProvider*)profider reachableInfo:(nonnull NSDictionary< NSString*, id >*)reachableInfo;
 
-- (instancetype _Nullable)initWithProfider:(GLBWatchProvider* _Nonnull)profider reachableInfo:(NSDictionary< NSString*, id >* _Nonnull)reachableInfo;
-- (instancetype _Nullable)initWithProfider:(GLBWatchProvider* _Nonnull)profider info:(NSDictionary< NSString*, id >* _Nonnull)info data:(NSData* _Nullable)data complication:(BOOL)complication;
+- (nullable instancetype)initWithProfider:(nonnull GLBWatchProvider*)profider reachableInfo:(nonnull NSDictionary< NSString*, id >*)reachableInfo;
+- (nullable instancetype)initWithProfider:(nonnull GLBWatchProvider*)profider info:(nonnull NSDictionary< NSString*, id >*)info data:(nullable NSData*)data complication:(BOOL)complication;
 
-- (instancetype _Nullable)initWithReachableMessage:(NSDictionary< NSString*, id >*)reachableMessage;
-- (instancetype _Nullable)initWithUserInfoTransfer:(WCSessionUserInfoTransfer* _Nonnull)userInfoTransfer;
-- (instancetype _Nullable)initWithUserInfo:(NSDictionary< NSString*, id >* _Nonnull)userInfo;
-- (instancetype _Nullable)initWithFileTransfer:(WCSessionFileTransfer* _Nonnull)fileTransfer;
-- (instancetype _Nullable)initWithFile:(WCSessionFile* _Nonnull)file;
+- (nullable instancetype)initWithReachableMessage:(NSDictionary< NSString*, id >*)reachableMessage;
+- (nullable instancetype)initWithUserInfoTransfer:(nonnull WCSessionUserInfoTransfer*)userInfoTransfer;
+- (nullable instancetype)initWithUserInfo:(nonnull NSDictionary< NSString*, id >*)userInfo;
+- (nullable instancetype)initWithFileTransfer:(nonnull WCSessionFileTransfer*)fileTransfer;
+- (nullable instancetype)initWithFile:(nonnull WCSessionFile*)file;
 
 - (void)saveToTemp;
 - (void)cleanupTemp;

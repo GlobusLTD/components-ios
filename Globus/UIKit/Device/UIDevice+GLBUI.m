@@ -66,8 +66,8 @@
     static NSString* deviceVersion = nil;
     if(deviceVersion == nil) {
         NSString* deviceType = self.glb_deviceTypeString;
-        NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"[0-9]{1,},[0-9]{1,}" options:0 error:nil];
-        NSRange rangeOfVersion = [regex rangeOfFirstMatchInString:deviceType options:0 range:NSMakeRange(0, deviceType.length)];
+        NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"[0-9]{1,},[0-9]{1,}" options:(NSRegularExpressionOptions)0 error:nil];
+        NSRange rangeOfVersion = [regex rangeOfFirstMatchInString:deviceType options:(NSMatchingOptions)0 range:NSMakeRange(0, deviceType.length)];
         if((rangeOfVersion.location != NSNotFound) && (rangeOfVersion.length > 0)) {
             deviceVersion = [deviceType substringWithRange:rangeOfVersion];
         }

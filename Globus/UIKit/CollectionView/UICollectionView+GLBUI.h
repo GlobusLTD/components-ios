@@ -9,15 +9,15 @@
 
 @interface UICollectionView (GLB_UI)
 
-- (BOOL)glb_registerCell:(Class _Nonnull)cell;
-- (BOOL)glb_registerCell:(Class _Nonnull)cell reuseIdentifier:(NSString* _Nonnull)reuseIdentifier;
+- (BOOL)glb_registerCell:(nonnull Class)cell;
+- (BOOL)glb_registerCell:(nonnull Class)cell reuseIdentifier:(nonnull NSString*)reuseIdentifier;
 
-- (BOOL)glb_registerView:(Class _Nonnull)view kind:(NSString* _Nonnull)kind;
-- (BOOL)glb_registerView:(Class _Nonnull)view kind:(NSString* _Nonnull)kind reuseIdentifier:(NSString* _Nonnull)reuseIdentifier;
+- (BOOL)glb_registerView:(nonnull Class)view kind:(nonnull NSString*)kind;
+- (BOOL)glb_registerView:(nonnull Class)view kind:(nonnull NSString*)kind reuseIdentifier:(nonnull NSString*)reuseIdentifier;
 
-- (__kindof UICollectionViewCell* _Nullable)glb_dequeueReusableCell:(Class _Nonnull)cell indexPath:(NSIndexPath* _Nonnull)indexPath;
+- (nullable __kindof UICollectionViewCell*)glb_dequeueReusableCell:(nonnull Class)cell indexPath:(nonnull NSIndexPath*)indexPath;
 
-- (__kindof UICollectionReusableView* _Nullable)glb_dequeueReusableView:(Class _Nonnull)view kind:(NSString* _Nonnull)kind indexPath:(NSIndexPath* _Nonnull)indexPath;
+- (nullable __kindof UICollectionReusableView*)glb_dequeueReusableView:(nonnull Class)view kind:(nonnull NSString*)kind indexPath:(nonnull NSIndexPath*)indexPath;
 
 @end
 
@@ -25,7 +25,7 @@
 
 @interface UICollectionViewCell (GLB_UI)
 
-+ (NSString* _Nonnull)glb_reuseIdentifier;
++ (nonnull NSString*)glb_reuseIdentifier;
 
 @end
 
@@ -33,7 +33,7 @@
 
 @interface UICollectionReusableView (GLB_UI)
 
-+ (NSString* _Nonnull)glb_reuseIdentifier;
++ (nonnull NSString*)glb_reuseIdentifier;
 
 @end
 

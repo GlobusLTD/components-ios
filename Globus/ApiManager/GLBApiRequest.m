@@ -128,9 +128,9 @@
                 if(_includeArraySymbolsUrlParams == NO) {
                     static NSRegularExpression* regexp = nil;
                     if(regexp == nil) {
-                        regexp = [NSRegularExpression regularExpressionWithPattern:@"\\[[0-9]+\\]" options:0 error:nil];
+                        regexp = [NSRegularExpression regularExpressionWithPattern:@"\\[[0-9]+\\]" options:(NSRegularExpressionOptions)0 error:nil];
                     }
-                    key = [regexp stringByReplacingMatchesInString:key options:0 range:NSMakeRange(0, key.length) withTemplate:@""];
+                    key = [regexp stringByReplacingMatchesInString:key options:(NSMatchingOptions)0 range:NSMakeRange(0, key.length) withTemplate:@""];
                 }
                 if(key != nil) {
                     [queryString appendFormat:@"%@=%@", key, tempValue];
@@ -314,7 +314,7 @@
         }
         NSData* body = urlRequest.HTTPBody;
         if(body != nil) {
-            id json = [NSJSONSerialization JSONObjectWithData:body options:0 error:nil];
+            id json = [NSJSONSerialization JSONObjectWithData:body options:(NSJSONReadingOptions)0 error:nil];
             if(json != nil) {
                 [string glb_appendString:@"\t" repeat:baseIndent];
                 [string appendString:@"Body : "];

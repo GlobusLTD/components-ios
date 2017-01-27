@@ -218,7 +218,7 @@
     }
 }
 
-#pragma mark - GLBViewController
+#pragma mark - GLBViewControllerExtension
 
 - (UIViewController*)currentViewController {
     UIViewController* controller = (self.collapsed == YES) ? _detailViewController : _masterViewController;

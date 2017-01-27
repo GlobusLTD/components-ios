@@ -304,14 +304,14 @@ static NSString* GLBStructedObjectPathIndexPattern = @"^\\[\\d+\\]$";
 #pragma mark - Internal
 
 - (NSArray*)_paths:(NSString*)path {
-    NSArray< NSString* >* paths = [path componentsSeparatedByString:GLBStructedObjectPathSeparator];
-    NSMutableArray* result = [NSMutableArray arrayWithCapacity:paths.count];
-    for(NSString* path in paths) {
+    NSArray< NSString* >* subPaths = [path componentsSeparatedByString:GLBStructedObjectPathSeparator];
+    NSMutableArray* result = [NSMutableArray arrayWithCapacity:subPaths.count];
+    for(NSString* subPath in subPaths) {
         NSNumber* asIndex = nil;
-        if([self _path:path index:&asIndex] == YES) {
+        if([self _path:subPath index:&asIndex] == YES) {
             [result addObject:asIndex];
         } else {
-            [result addObject:path];
+            [result addObject:subPath];
         }
     }
     return result;
@@ -323,7 +323,7 @@ static NSString* GLBStructedObjectPathIndexPattern = @"^\\[\\d+\\]$";
         _indexRegexp = [NSRegularExpression regularExpressionWithPattern:GLBStructedObjectPathIndexPattern options:NSRegularExpressionAnchorsMatchLines error:nil];
     }
     NSUInteger pathLength = path.length;
-    NSRange range = [_indexRegexp rangeOfFirstMatchInString:path options:0 range:NSMakeRange(0, pathLength)];
+    NSRange range = [_indexRegexp rangeOfFirstMatchInString:path options:(NSMatchingOptions)0 range:NSMakeRange(0, pathLength)];
     if((range.location != NSNotFound) && (range.length > 0)) {
         NSNumber* number = nil;
         if(range.length > 0) {
@@ -372,7 +372,7 @@ static NSString* GLBStructedObjectPathIndexPattern = @"^\\[\\d+\\]$";
             } else {
                 id exist = [json objectForKey:path];
                 if(exist != nil) {
-                    [json setObject:object forKey:path];
+                    [json removeObjectForKey:path];
                 }
             }
             *successful = YES;

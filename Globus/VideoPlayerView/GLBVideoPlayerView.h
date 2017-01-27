@@ -49,7 +49,7 @@ typedef NS_ENUM(NSInteger, GLBVideoPlayerViewDisplayMode) {
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)prepareWithURL:(NSURL* _Nonnull)url;
+- (void)prepareWithURL:(nonnull NSURL*)url;
 - (void)clean;
 
 - (void)play;

@@ -255,7 +255,7 @@
         }
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed:
-            links = nil;
+            links = @[];
             break;
         default:
             break;

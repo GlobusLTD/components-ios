@@ -18,6 +18,7 @@
     NSTimeInterval contentDuration = duration * 0.8;
     NSTimeInterval contentDelay = duration * 0.4;
     
+    dialogViewController.view.alpha = 0.0;
 #if __has_include("GLBBlurView.h")
     if(dialogViewController.backgroundBlurred == YES) {
         dialogViewController.backgroundView.blurRadius = 0.0;

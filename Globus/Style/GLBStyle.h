@@ -13,17 +13,17 @@ typedef void(^GLBStyleBlock)(id _Nonnull target);
 @property(nonatomic, nullable, readonly, strong) NSString* name;
 @property(nonatomic, nullable, readonly, strong) GLBStyle* parent;
 
-+ (instancetype _Nonnull)styleWithName:(NSString* _Nonnull)name NS_SWIFT_NAME(style(name:));
-+ (instancetype _Nonnull)styleWithName:(NSString* _Nonnull)name block:(GLBStyleBlock _Nonnull)block NS_SWIFT_UNAVAILABLE("Use init(name:block:)");
-+ (instancetype _Nonnull)styleWithName:(NSString* _Nonnull)name parent:(GLBStyle* _Nullable)parent block:(GLBStyleBlock _Nonnull)block NS_SWIFT_UNAVAILABLE("Use init(name:parent:block:)");
++ (nonnull instancetype)styleWithName:(nonnull NSString*)name NS_SWIFT_NAME(style(name:));
++ (nonnull instancetype)styleWithName:(nonnull NSString*)name block:(nonnull GLBStyleBlock)block NS_SWIFT_UNAVAILABLE("Use init(name:block:)");
++ (nonnull instancetype)styleWithName:(nonnull NSString*)name parent:(nullable GLBStyle*)parent block:(nonnull GLBStyleBlock)block NS_SWIFT_UNAVAILABLE("Use init(name:parent:block:)");
 
-- (instancetype _Nonnull)init NS_UNAVAILABLE;
-- (instancetype _Nonnull)initWithName:(NSString* _Nonnull)name block:(GLBStyleBlock _Nonnull)block;
-- (instancetype _Nonnull)initWithName:(NSString* _Nonnull)name parent:(GLBStyle* _Nullable)parent block:(GLBStyleBlock _Nonnull)block NS_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init NS_UNAVAILABLE;
+- (nonnull instancetype)initWithName:(nonnull NSString*)name block:(nonnull GLBStyleBlock)block;
+- (nonnull instancetype)initWithName:(nonnull NSString*)name parent:(nullable GLBStyle*)parent block:(nonnull GLBStyleBlock)block NS_DESIGNATED_INITIALIZER;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-+ (void)unregisterStyleWithName:(NSString* _Nonnull)name;
++ (void)unregisterStyleWithName:(nonnull NSString*)name;
 
 @end
 

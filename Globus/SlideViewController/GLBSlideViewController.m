@@ -77,9 +77,23 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 
 #pragma mark - Init / Free
 
+- (instancetype)initWithCoder:(NSCoder*)coder {
+    self = [super initWithCoder:coder];
+    if(self != nil) {
+        [self setup];
+    }
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString*)nib bundle:(NSBundle*)bundle {
+    self = [super initWithNibName:nib bundle:bundle];
+    if(self != nil) {
+        [self setup];
+    }
+    return self;
+}
+
 - (void)setup {
-    [super setup];
-    
     _leftEdgeOffset = 20.0f;
     _rightEdgeOffset = 20.0f;
     
@@ -592,27 +606,24 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
     return NO;
 }
 
-- (BOOL)hideKeyboardIfTouched {
-    id vc = _centerViewController;
-    if([vc respondsToSelector:@selector(hideKeyboardIfTouched)] == YES) {
-        return [vc hideKeyboardIfTouched];
-    }
-    return NO;
-}
-
 #pragma mark - Public
 
 - (void)setBackgroundViewController:(UIViewController*)backgroundViewController animated:(BOOL)animated complete:(GLBSimpleBlock)complete {
     if(_backgroundViewController != backgroundViewController) {
-        if(self.isViewLoaded == NO) {
+        BOOL isLoaded = self.isViewLoaded;
+        if(isLoaded == NO) {
             animated = NO;
         }
-        if((_backgroundViewController != nil) && (self.isViewLoaded == YES)) {
-            [self _disappearBackgroundViewController];
-        }
-        _backgroundViewController = backgroundViewController;
-        if((_backgroundViewController != nil) && (self.isViewLoaded == YES)) {
-            [self _appearBackgroundViewController];
+        if(animated == YES) {
+            // TODO
+        } else {
+            if((_backgroundViewController != nil) && (isLoaded == YES)) {
+                [self _disappearBackgroundViewController];
+            }
+            _backgroundViewController = backgroundViewController;
+            if((_backgroundViewController != nil) && (isLoaded == YES)) {
+                [self _appearBackgroundViewController];
+            }
         }
         if(complete != nil) {
             complete();
@@ -622,15 +633,20 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 
 - (void)setLeftViewController:(UIViewController*)leftViewController animated:(BOOL)animated complete:(GLBSimpleBlock)complete {
     if(_leftViewController != leftViewController) {
-        if(self.isViewLoaded == NO) {
+        BOOL isLoaded = self.isViewLoaded;
+        if(isLoaded == NO) {
             animated = NO;
         }
-        if((_leftViewController != nil) && (self.isViewLoaded == YES)) {
-            [self _disappearLeftViewController];
-        }
-        _leftViewController = leftViewController;
-        if((_leftViewController != nil) && (self.isViewLoaded == YES)) {
-            [self _appearLeftViewController];
+        if(animated == YES) {
+            // TODO
+        } else {
+            if((_leftViewController != nil) && (isLoaded == YES)) {
+                [self _disappearLeftViewController];
+            }
+            _leftViewController = leftViewController;
+            if((_leftViewController != nil) && (isLoaded == YES)) {
+                [self _appearLeftViewController];
+            }
         }
         if(complete != nil) {
             complete();
@@ -640,15 +656,20 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 
 - (void)setRightViewController:(UIViewController*)rightViewController animated:(BOOL)animated complete:(GLBSimpleBlock)complete {
     if(_rightViewController != rightViewController) {
-        if(self.isViewLoaded == NO) {
+        BOOL isLoaded = self.isViewLoaded;
+        if(isLoaded == NO) {
             animated = NO;
         }
-        if((_rightViewController != nil) && (self.isViewLoaded == YES)) {
-            [self _disappearRightViewController];
-        }
-        _rightViewController = rightViewController;
-        if((_rightViewController != nil) && (self.isViewLoaded == YES)) {
-            [self _appearRightViewController];
+        if(animated == YES) {
+            // TODO
+        } else {
+            if((_rightViewController != nil) && (isLoaded == YES)) {
+                [self _disappearRightViewController];
+            }
+            _rightViewController = rightViewController;
+            if((_rightViewController != nil) && (isLoaded == YES)) {
+                [self _appearRightViewController];
+            }
         }
         if(complete != nil) {
             complete();
@@ -658,15 +679,20 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 
 - (void)setCenterViewController:(UIViewController*)centerViewController animated:(BOOL)animated complete:(GLBSimpleBlock)complete {
     if(_centerViewController != centerViewController) {
-        if(self.isViewLoaded == NO) {
+        BOOL isLoaded = self.isViewLoaded;
+        if(isLoaded == NO) {
             animated = NO;
         }
-        if((_centerViewController != nil) && (self.isViewLoaded == YES)) {
-            [self _disappearCenterViewController];
-        }
-        _centerViewController = centerViewController;
-        if((_centerViewController != nil) && (self.isViewLoaded == YES)) {
-            [self _appearCenterViewController];
+        if(animated == YES) {
+            // TODO
+        } else {
+            if((_centerViewController != nil) && (isLoaded == YES)) {
+                [self _disappearCenterViewController];
+            }
+            _centerViewController = centerViewController;
+            if((_centerViewController != nil) && (isLoaded == YES)) {
+                [self _appearCenterViewController];
+            }
         }
         if(complete != nil) {
             complete();
@@ -1818,7 +1844,17 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
     return NO;
 }
 
-#pragma mark - GLBViewController
+#pragma mark - GLBWindowExtension
+
+- (BOOL)hideKeyboardIfTouched {
+    id vc = self.currentViewController;
+    if([vc respondsToSelector:@selector(hideKeyboardIfTouched)] == YES) {
+        return [vc hideKeyboardIfTouched];
+    }
+    return NO;
+}
+
+#pragma mark - GLBViewControllerExtension
 
 - (UIViewController*)currentViewController {
     if((_showedLeftViewController == YES) && (_leftViewController != nil)) {

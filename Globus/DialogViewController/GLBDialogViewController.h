@@ -77,15 +77,15 @@ typedef void(^GLBDialogViewControllerBlock)(GLBDialogViewController* _Nonnull di
 @property(nonatomic, nullable, copy) GLBDialogViewControllerBlock touchedOutsideContent;
 @property(nonatomic, nullable, copy) GLBDialogViewControllerBlock dismiss;
 
-+ (instancetype _Nonnull)dialogViewControllerWithContentViewController:(UIViewController* _Nonnull)contentViewController NS_SWIFT_UNAVAILABLE("Use init(contentViewController:)");
++ (nonnull instancetype)dialogViewControllerWithContentViewController:(nonnull UIViewController*)contentViewController NS_SWIFT_UNAVAILABLE("Use init(contentViewController:)");
 
-- (instancetype _Nullable)initWithCoder:(NSCoder* _Nonnull)coder NS_UNAVAILABLE;
-- (instancetype _Nonnull)initWithNibName:(NSString* _Nullable)nib bundle:(NSBundle* _Nullable)bundle NS_UNAVAILABLE;
-- (instancetype _Nonnull)initWithContentViewController:(UIViewController* _Nonnull)contentViewController NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(nonnull NSCoder*)coder NS_UNAVAILABLE;
+- (nonnull instancetype)initWithNibName:(nullable NSString*)nib bundle:(nullable NSBundle*)bundle NS_UNAVAILABLE;
+- (nonnull instancetype)initWithContentViewController:(nonnull UIViewController*)contentViewController NS_DESIGNATED_INITIALIZER;
 
-- (void)presentViewController:(UIViewController* _Nullable)viewController withCompletion:(GLBDialogViewControllerBlock _Nullable)completion;
-- (void)presentWithCompletion:(GLBDialogViewControllerBlock _Nullable)completion;
-- (void)dismissWithCompletion:(GLBDialogViewControllerBlock _Nullable)completion;
+- (void)presentViewController:(nullable UIViewController*)viewController withCompletion:(nullable GLBDialogViewControllerBlock)completion;
+- (void)presentWithCompletion:(nullable GLBDialogViewControllerBlock)completion;
+- (void)dismissWithCompletion:(nullable GLBDialogViewControllerBlock)completion;
 
 @end
 
@@ -93,8 +93,8 @@ typedef void(^GLBDialogViewControllerBlock)(GLBDialogViewController* _Nonnull di
 
 @interface GLBDialogAnimationController : NSObject
 
-- (void)presentDialogViewController:(GLBDialogViewController* _Nonnull)dialogViewController completion:(GLBSimpleBlock _Nonnull)completion;
-- (void)dismissDialogViewController:(GLBDialogViewController* _Nonnull)dialogViewController completion:(GLBSimpleBlock _Nonnull)completion;
+- (void)presentDialogViewController:(nonnull GLBDialogViewController*)dialogViewController completion:(nonnull GLBSimpleBlock)completion;
+- (void)dismissDialogViewController:(nonnull GLBDialogViewController*)dialogViewController completion:(nonnull GLBSimpleBlock)completion;
 
 @end
 
@@ -108,12 +108,12 @@ typedef void(^GLBDialogViewControllerBlock)(GLBDialogViewController* _Nonnull di
 @protocol GLBDialogContentViewController < NSObject >
 
 @optional
-- (void)willPresentDialogViewController:(GLBDialogViewController* _Nonnull)dialogViewController;
-- (void)didPresentDialogViewController:(GLBDialogViewController* _Nonnull)dialogViewController;
+- (void)willPresentDialogViewController:(nonnull GLBDialogViewController*)dialogViewController;
+- (void)didPresentDialogViewController:(nonnull GLBDialogViewController*)dialogViewController;
 
 @optional
-- (void)willDismissDialogViewController:(GLBDialogViewController* _Nonnull)dialogViewController;
-- (void)didDismissDialogViewController:(GLBDialogViewController* _Nonnull)dialogViewController;
+- (void)willDismissDialogViewController:(nonnull GLBDialogViewController*)dialogViewController;
+- (void)didDismissDialogViewController:(nonnull GLBDialogViewController*)dialogViewController;
 
 @end
 

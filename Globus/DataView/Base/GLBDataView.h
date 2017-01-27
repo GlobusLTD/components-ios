@@ -101,67 +101,67 @@ typedef NS_ENUM(NSUInteger, GLBDataViewSearchBarStyle) {
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)registerIdentifier:(NSString* _Nonnull)identifier withViewClass:(Class _Nonnull)viewClass;
-- (void)unregisterIdentifier:(NSString* _Nonnull)identifier;
+- (void)registerIdentifier:(nonnull NSString*)identifier withViewClass:(nonnull Class)viewClass;
+- (void)unregisterIdentifier:(nonnull NSString*)identifier;
 - (void)unregisterAllIdentifiers;
 
-- (void)registerActionWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action forKey:(id _Nonnull)key;
-- (void)registerActionWithTarget:(id _Nonnull)target action:(SEL _Nonnull)action forIdentifier:(id _Nonnull)identifier forKey:(id _Nonnull)key;
-- (void)unregisterActionWithTarget:(id _Nonnull)target forKey:(id _Nonnull)key;
-- (void)unregisterActionWithTarget:(id _Nonnull)target forIdentifier:(id _Nonnull)identifier forKey:(id _Nonnull)key;
-- (void)unregisterActionsWithTarget:(id _Nonnull)target;
+- (void)registerActionWithTarget:(nonnull id)target action:(nonnull SEL)action forKey:(nonnull id)key;
+- (void)registerActionWithTarget:(nonnull id)target action:(nonnull SEL)action forIdentifier:(nonnull id)identifier forKey:(nonnull id)key;
+- (void)unregisterActionWithTarget:(nonnull id)target forKey:(nonnull id)key;
+- (void)unregisterActionWithTarget:(nonnull id)target forIdentifier:(nonnull id)identifier forKey:(nonnull id)key;
+- (void)unregisterActionsWithTarget:(nonnull id)target;
 - (void)unregisterAllActions;
 
-- (BOOL)containsActionForKey:(id _Nonnull)key;
-- (BOOL)containsActionForIdentifier:(id _Nonnull)identifier forKey:(id _Nonnull)key;
+- (BOOL)containsActionForKey:(nonnull id)key;
+- (BOOL)containsActionForIdentifier:(nonnull id)identifier forKey:(nonnull id)key;
 
-- (void)performActionForKey:(id _Nonnull)key withArguments:(NSArray* _Nullable)arguments;
-- (void)performActionForIdentifier:(id _Nonnull)identifier forKey:(id _Nonnull)key withArguments:(NSArray* _Nullable)arguments;
+- (void)performActionForKey:(nonnull id)key withArguments:(nullable NSArray*)arguments;
+- (void)performActionForIdentifier:(nonnull id)identifier forKey:(nonnull id)key withArguments:(nullable NSArray*)arguments;
 
-- (Class _Nullable)cellClassWithItem:(GLBDataViewItem*_Nonnull )item;
+- (nullable Class)cellClassWithItem:(nonnull GLBDataViewItem*)item;
 
-- (__kindof GLBDataViewCell* _Nullable)dequeueCellWithItem:(GLBDataViewItem* _Nonnull)item;
-- (void)enqueueCell:(GLBDataViewCell* _Nonnull)cell;
+- (nullable __kindof GLBDataViewCell*)dequeueCellWithItem:(nonnull GLBDataViewItem*)item;
+- (void)enqueueCell:(nonnull GLBDataViewCell*)cell;
 
-- (__kindof GLBDataViewItem* _Nullable)itemForPoint:(CGPoint)point;
-- (__kindof GLBDataViewItem* _Nullable)itemForData:(id _Nonnull)data;
-- (__kindof GLBDataViewCell* _Nullable)cellForData:(id _Nonnull)data;
+- (nullable __kindof GLBDataViewItem*)itemForPoint:(CGPoint)point;
+- (nullable __kindof GLBDataViewItem*)itemForData:(nonnull id)data;
+- (nullable __kindof GLBDataViewCell*)cellForData:(nonnull id)data;
 
-- (BOOL)isSelectedItem:(GLBDataViewItem* _Nonnull)item;
-- (BOOL)shouldSelectItem:(GLBDataViewItem* _Nonnull)item;
-- (BOOL)shouldDeselectItem:(GLBDataViewItem* _Nonnull)item;
-- (void)selectItem:(GLBDataViewItem* _Nonnull)item animated:(BOOL)animated;
-- (void)deselectItem:(GLBDataViewItem* _Nonnull)item animated:(BOOL)animated;
+- (BOOL)isSelectedItem:(nonnull GLBDataViewItem*)item;
+- (BOOL)shouldSelectItem:(nonnull GLBDataViewItem*)item;
+- (BOOL)shouldDeselectItem:(nonnull GLBDataViewItem*)item;
+- (void)selectItem:(nonnull GLBDataViewItem*)item animated:(BOOL)animated;
+- (void)deselectItem:(nonnull GLBDataViewItem*)item animated:(BOOL)animated;
 - (void)deselectAllItemsAnimated:(BOOL)animated;
 
-- (BOOL)isHighlightedItem:(GLBDataViewItem* _Nonnull)item;
-- (BOOL)shouldHighlightItem:(GLBDataViewItem* _Nonnull)item;
-- (BOOL)shouldUnhighlightItem:(GLBDataViewItem* _Nonnull)item;
-- (void)highlightItem:(GLBDataViewItem* _Nonnull)item animated:(BOOL)animated;
-- (void)unhighlightItem:(GLBDataViewItem* _Nonnull)item animated:(BOOL)animated;
+- (BOOL)isHighlightedItem:(nonnull GLBDataViewItem*)item;
+- (BOOL)shouldHighlightItem:(nonnull GLBDataViewItem*)item;
+- (BOOL)shouldUnhighlightItem:(nonnull GLBDataViewItem*)item;
+- (void)highlightItem:(nonnull GLBDataViewItem*)item animated:(BOOL)animated;
+- (void)unhighlightItem:(nonnull GLBDataViewItem*)item animated:(BOOL)animated;
 - (void)unhighlightAllItemsAnimated:(BOOL)animated;
 
-- (BOOL)isEditingItem:(GLBDataViewItem* _Nonnull)item;
-- (BOOL)shouldBeganEditItem:(GLBDataViewItem* _Nonnull)item;
-- (BOOL)shouldEndedEditItem:(GLBDataViewItem* _Nonnull)item;
-- (void)beganEditItem:(GLBDataViewItem* _Nonnull)item animated:(BOOL)animated;
-- (void)endedEditItem:(GLBDataViewItem* _Nonnull)item animated:(BOOL)animated;
+- (BOOL)isEditingItem:(nonnull GLBDataViewItem*)item;
+- (BOOL)shouldBeganEditItem:(nonnull GLBDataViewItem*)item;
+- (BOOL)shouldEndedEditItem:(nonnull GLBDataViewItem*)item;
+- (void)beganEditItem:(nonnull GLBDataViewItem*)item animated:(BOOL)animated;
+- (void)endedEditItem:(nonnull GLBDataViewItem*)item animated:(BOOL)animated;
 - (void)endedEditAllItemsAnimated:(BOOL)animated;
 
-- (BOOL)isMovingItem:(GLBDataViewItem* _Nonnull)item;
-- (BOOL)shouldBeganMoveItem:(GLBDataViewItem* _Nonnull)item;
-- (BOOL)shouldEndedMoveItem:(GLBDataViewItem* _Nonnull)item;
-- (void)beganMoveItem:(GLBDataViewItem* _Nonnull)item animated:(BOOL)animated;
+- (BOOL)isMovingItem:(nonnull GLBDataViewItem*)item;
+- (BOOL)shouldBeganMoveItem:(nonnull GLBDataViewItem*)item;
+- (BOOL)shouldEndedMoveItem:(nonnull GLBDataViewItem*)item;
+- (void)beganMoveItem:(nonnull GLBDataViewItem*)item animated:(BOOL)animated;
 - (void)endedMoveItemAnimated:(BOOL)animated;
 
 - (void)beginUpdateAnimated:(BOOL)animated;
-- (void)update:(_Nullable GLBSimpleBlock)update;
+- (void)update:(nullable GLBSimpleBlock)update;
 - (void)endUpdate;
 
-- (void)batchUpdate:(_Nullable GLBSimpleBlock)update;
-- (void)batchUpdate:(_Nullable GLBSimpleBlock)update complete:(_Nullable GLBSimpleBlock)complete;
-- (void)batchDuration:(NSTimeInterval)duration update:(_Nullable GLBSimpleBlock)update;
-- (void)batchDuration:(NSTimeInterval)duration update:(_Nullable GLBSimpleBlock)update complete:(_Nullable GLBSimpleBlock)complete;
+- (void)batchUpdate:(nullable GLBSimpleBlock)update;
+- (void)batchUpdate:(nullable GLBSimpleBlock)update complete:(nullable GLBSimpleBlock)complete;
+- (void)batchDuration:(NSTimeInterval)duration update:(nullable GLBSimpleBlock)update;
+- (void)batchDuration:(NSTimeInterval)duration update:(nullable GLBSimpleBlock)update complete:(nullable GLBSimpleBlock)complete;
 
 - (void)beginTransition;
 - (void)endTransition;
@@ -170,28 +170,28 @@ typedef NS_ENUM(NSUInteger, GLBDataViewSearchBarStyle) {
 - (void)validateLayoutIfNeed;
 
 - (void)animateContentOffset:(CGPoint)contentOffset
-          withTimingFunction:(CAMediaTimingFunction* _Nonnull)timingFunction;
+          withTimingFunction:(nonnull CAMediaTimingFunction*)timingFunction;
 
 - (void)animateContentOffset:(CGPoint)contentOffset
-          withTimingFunction:(CAMediaTimingFunction* _Nonnull)timingFunction
+          withTimingFunction:(nonnull CAMediaTimingFunction*)timingFunction
                     duration:(CFTimeInterval)duration;
 
 - (void)stopAnimateContentOffset;
 
-- (void)scrollToItem:(GLBDataViewItem* _Nonnull)item scrollPosition:(GLBDataViewPosition)scrollPosition animated:(BOOL)animated;
+- (void)scrollToItem:(nonnull GLBDataViewItem*)item scrollPosition:(GLBDataViewPosition)scrollPosition animated:(BOOL)animated;
 - (void)scrollToRect:(CGRect)rect scrollPosition:(GLBDataViewPosition)scrollPosition animated:(BOOL)animated;
 
-- (void)showSearchBarAnimated:(BOOL)animated complete:(_Nullable GLBSimpleBlock)complete;
-- (void)hideSearchBarAnimated:(BOOL)animated complete:(_Nullable GLBSimpleBlock)complete;
+- (void)showSearchBarAnimated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
+- (void)hideSearchBarAnimated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
 
-- (void)showTopRefreshAnimated:(BOOL)animated complete:(_Nullable GLBSimpleBlock)complete;
-- (void)hideTopRefreshAnimated:(BOOL)animated complete:(_Nullable GLBSimpleBlock)complete;
-- (void)showBottomRefreshAnimated:(BOOL)animated complete:(_Nullable GLBSimpleBlock)complete;
-- (void)hideBottomRefreshAnimated:(BOOL)animated complete:(_Nullable GLBSimpleBlock)complete;
-- (void)showLeftRefreshAnimated:(BOOL)animated complete:(_Nullable GLBSimpleBlock)complete;
-- (void)hideLeftRefreshAnimated:(BOOL)animated complete:(_Nullable GLBSimpleBlock)complete;
-- (void)showRightRefreshAnimated:(BOOL)animated complete:(_Nullable GLBSimpleBlock)complete;
-- (void)hideRightRefreshAnimated:(BOOL)animated complete:(_Nullable GLBSimpleBlock)complete;
+- (void)showTopRefreshAnimated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
+- (void)hideTopRefreshAnimated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
+- (void)showBottomRefreshAnimated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
+- (void)hideBottomRefreshAnimated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
+- (void)showLeftRefreshAnimated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
+- (void)hideLeftRefreshAnimated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
+- (void)showRightRefreshAnimated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
+- (void)hideRightRefreshAnimated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
 
 @end
 

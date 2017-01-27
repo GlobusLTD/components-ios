@@ -991,19 +991,19 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(initPath:(NSString*)path)
 
 #pragma mark - Init / Free
 
-+ (instancetype _Nonnull)jsonWithEnums:(NSDictionary* _Nonnull)enums {
++ (nonnull instancetype)jsonWithEnums:(nonnull NSDictionary*)enums {
     return [[self alloc] initWithEnums:enums];
 }
 
-+ (instancetype _Nonnull)jsonWithEnums:(NSDictionary* _Nonnull)enums defaultValue:(NSNumber* _Nonnull)defaultValue {
++ (nonnull instancetype)jsonWithEnums:(nonnull NSDictionary*)enums defaultValue:(nonnull NSNumber*)defaultValue {
     return [[self alloc] initWithEnums:enums defaultValue:defaultValue];
 }
 
-+ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path enums:(NSDictionary* _Nonnull)enums {
++ (nonnull instancetype)jsonWithPath:(nonnull NSString*)path enums:(nonnull NSDictionary*)enums {
     return [[self alloc] initWithPath:path enums:enums];
 }
 
-+ (instancetype _Nonnull)jsonWithPath:(NSString* _Nonnull)path enums:(NSDictionary* _Nonnull)enums defaultValue:(NSNumber* _Nonnull)defaultValue {
++ (nonnull instancetype)jsonWithPath:(nonnull NSString*)path enums:(nonnull NSDictionary*)enums defaultValue:(nonnull NSNumber*)defaultValue {
     return [[self alloc] initWithPath:path enums:enums defaultValue:defaultValue];
 }
 

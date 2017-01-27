@@ -16,12 +16,12 @@
 
 @interface GLBDataViewItem : NSObject< GLBSearchBarDelegate >
 
-@property(nonatomic, readonly, weak) __kindof GLBDataView* dataView;
-@property(nonatomic, readonly, weak) __kindof GLBDataViewContainer* container;
-@property(nonatomic, readonly, strong) NSString* identifier;
+@property(nonatomic, nullable, readonly, weak) __kindof GLBDataView* dataView;
+@property(nonatomic, nullable, readonly, weak) __kindof GLBDataViewContainer* container;
+@property(nonatomic, nonnull, readonly, strong) NSString* identifier;
 @property(nonatomic, readonly, assign) NSUInteger order;
 @property(nonatomic, readonly, assign) NSUInteger accessibilityOrder;
-@property(nonatomic, strong) id data;
+@property(nonatomic, nullable, strong) id data;
 @property(nonatomic, readonly, assign) CGSize size;
 @property(nonatomic) CGRect originFrame;
 @property(nonatomic) CGRect updateFrame;
@@ -42,24 +42,35 @@
 @property(nonatomic, readonly, assign, getter=isHighlighted) BOOL highlighted;
 @property(nonatomic, readonly, assign, getter=isEditing) BOOL editing;
 @property(nonatomic, readonly, assign, getter=isMoving) BOOL moving;
-@property(nonatomic, readonly, strong) __kindof GLBDataViewCell* cell;
-@property(nonatomic, readonly, strong) GLBDataViewItemAccessibilityElement* accessibilityElement;
+@property(nonatomic, nullable, readonly, strong) __kindof GLBDataViewCell* cell;
+@property(nonatomic, nullable, readonly, strong) GLBDataViewItemAccessibilityElement* accessibilityElement;
 
-+ (NSArray< __kindof GLBDataViewItem* >*)itemsWithIdentifier:(NSString*)identifier order:(NSUInteger)order dataArray:(NSArray*)dataArray;
-+ (NSArray< __kindof GLBDataViewItem* >*)itemsWithIdentifier:(NSString*)identifier order:(NSUInteger)order accessibilityOrder:(NSUInteger)accessibilityOrder dataArray:(NSArray*)dataArray;
++ (nonnull instancetype)itemWithIdentifier:(nonnull NSString*)identifier
+                                      order:(NSUInteger)order
+                                       data:(nullable id)data NS_SWIFT_UNAVAILABLE("Use init(identifier:order:data:)");
 
-+ (instancetype)itemWithIdentifier:(NSString*)identifier order:(NSUInteger)order data:(id)data;
-+ (instancetype)itemWithIdentifier:(NSString*)identifier order:(NSUInteger)order accessibilityOrder:(NSUInteger)accessibilityOrder data:(id)data;
++ (nonnull instancetype)itemWithIdentifier:(nonnull NSString*)identifier
+                                      order:(NSUInteger)order
+                         accessibilityOrder:(NSUInteger)accessibilityOrder
+                                       data:(nullable id)data NS_SWIFT_UNAVAILABLE("Use init(identifier:order:accessibilityOrder:data:)");
 
-- (instancetype)initWithIdentifier:(NSString*)identifier order:(NSUInteger)order data:(id)data;
-- (instancetype)initWithIdentifier:(NSString*)identifier order:(NSUInteger)order accessibilityOrder:(NSUInteger)accessibilityOrder data:(id)data;
+- (nonnull instancetype)init NS_UNAVAILABLE;
+
+- (nonnull instancetype)initWithIdentifier:(nonnull NSString*)identifier
+                                      order:(NSUInteger)order
+                                       data:(nullable id)data;
+
+- (nonnull instancetype)initWithIdentifier:(nonnull NSString*)identifier
+                                      order:(NSUInteger)order
+                         accessibilityOrder:(NSUInteger)accessibilityOrder
+                                       data:(nullable id)data NS_DESIGNATED_INITIALIZER;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (BOOL)containsActionForKey:(id)key;
-- (BOOL)containsActionForIdentifier:(id)identifier forKey:(id)key;
+- (BOOL)containsActionForKey:(nonnull id)key;
+- (BOOL)containsActionForIdentifier:(nonnull id)identifier forKey:(nonnull id)key;
 
-- (void)performActionForKey:(id)key withArguments:(NSArray*)arguments;
+- (void)performActionForKey:(nonnull id)key withArguments:(nullable NSArray*)arguments;
 
 - (void)beginUpdateAnimated:(BOOL)animated;
 - (void)updateAnimated:(BOOL)animated;
@@ -96,12 +107,13 @@
 
 @interface GLBDataViewItemAccessibilityElement : UIAccessibilityElement
 
-@property(nonatomic, readonly, weak) __kindof GLBDataView* dataView;
-@property(nonatomic, readonly, weak) __kindof GLBDataViewItem* item;
+@property(nonatomic, nullable, readonly, weak) __kindof GLBDataView* dataView;
+@property(nonatomic, nullable, readonly, weak) __kindof GLBDataViewItem* item;
 
-+ (instancetype)accessibilityElementWithDataView:(GLBDataView*)dataView item:(GLBDataViewItem*)item;
++ (nonnull instancetype)accessibilityElementWithDataView:(nonnull GLBDataView*)dataView
+                                                     item:(nonnull GLBDataViewItem*)item  NS_SWIFT_UNAVAILABLE("Use init(dataView:item:)");
 
-- (instancetype)initWithDataView:(GLBDataView*)dataView item:(GLBDataViewItem*)item;
+- (nonnull instancetype)initWithDataView:(nonnull GLBDataView*)dataView item:(nonnull GLBDataViewItem*)item;
 
 @end
 

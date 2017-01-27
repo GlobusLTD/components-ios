@@ -31,8 +31,8 @@ typedef void(^GLBNotificationViewBlock)(GLBNotificationView* _Nonnull notificati
 
 @interface GLBNotificationManager : NSObject
 
-+ (void)setParentWindow:(UIWindow* _Nullable)parentWindow;
-+ (UIWindow* _Nullable)parentWindow;
++ (void)setParentWindow:(nullable UIWindow*)parentWindow;
++ (nullable UIWindow*)parentWindow;
 
 + (void)setStatusBarStyle:(UIStatusBarStyle)statusBarStyle;
 + (UIStatusBarStyle)statusBarStyle;
@@ -43,28 +43,28 @@ typedef void(^GLBNotificationViewBlock)(GLBNotificationView* _Nonnull notificati
 + (void)setDisplayType:(GLBNotificationManagerDisplayType)displayType;
 + (GLBNotificationManagerDisplayType)displayType;
 
-+ (void)setTopDecorView:(UIView< GLBNotificationDecorViewProtocol >* _Nullable)topDecorView;
-+ (UIView< GLBNotificationDecorViewProtocol >* _Nullable)topDecorView;
++ (void)setTopDecorView:(nullable UIView< GLBNotificationDecorViewProtocol >*)topDecorView;
++ (nullable UIView< GLBNotificationDecorViewProtocol >*)topDecorView;
 
-+ (void)setBottomDecorView:(UIView< GLBNotificationDecorViewProtocol >* _Nullable)bottomDecorView;
-+ (UIView< GLBNotificationDecorViewProtocol >* _Nullable)bottomDecorView;
++ (void)setBottomDecorView:(nullable UIView< GLBNotificationDecorViewProtocol >*)bottomDecorView;
++ (nullable UIView< GLBNotificationDecorViewProtocol >*)bottomDecorView;
 
-+ (NSArray< GLBNotificationView* >* _Nonnull)visibleViews;
++ (nonnull NSArray< GLBNotificationView* >*)visibleViews;
 
-+ (GLBNotificationView* _Nonnull)showView:(UIView< GLBNotificationViewProtocol >* _Nonnull)view;
-+ (GLBNotificationView* _Nonnull)showView:(UIView< GLBNotificationViewProtocol >* _Nonnull)view complete:(GLBNotificationViewBlock _Nullable)complete;
-+ (GLBNotificationView* _Nonnull)showView:(UIView< GLBNotificationViewProtocol >* _Nonnull)view pressed:(GLBNotificationViewBlock _Nullable)pressed;
-+ (GLBNotificationView* _Nonnull)showView:(UIView< GLBNotificationViewProtocol >* _Nonnull)view pressed:(GLBNotificationViewBlock _Nullable)pressed complete:(GLBNotificationViewBlock _Nullable)complete;
-+ (GLBNotificationView* _Nonnull)showView:(UIView< GLBNotificationViewProtocol >* _Nonnull)view duration:(NSTimeInterval)duration;
-+ (GLBNotificationView* _Nonnull)showView:(UIView< GLBNotificationViewProtocol >* _Nonnull)view duration:(NSTimeInterval)duration complete:(GLBNotificationViewBlock _Nullable)complete;
-+ (GLBNotificationView* _Nonnull)showView:(UIView< GLBNotificationViewProtocol >* _Nonnull)view duration:(NSTimeInterval)duration pressed:(GLBNotificationViewBlock _Nullable)pressed;
-+ (GLBNotificationView* _Nonnull)showView:(UIView< GLBNotificationViewProtocol >* _Nonnull)view duration:(NSTimeInterval)duration pressed:(GLBNotificationViewBlock _Nullable)pressed complete:(GLBNotificationViewBlock _Nullable)complete;
++ (nonnull GLBNotificationView*)showView:(nonnull UIView< GLBNotificationViewProtocol >*)view;
++ (nonnull GLBNotificationView*)showView:(nonnull UIView< GLBNotificationViewProtocol >*)view complete:(nullable GLBNotificationViewBlock)complete;
++ (nonnull GLBNotificationView*)showView:(nonnull UIView< GLBNotificationViewProtocol >*)view pressed:(nullable GLBNotificationViewBlock)pressed;
++ (nonnull GLBNotificationView*)showView:(nonnull UIView< GLBNotificationViewProtocol >*)view pressed:(nullable GLBNotificationViewBlock)pressed complete:(nullable GLBNotificationViewBlock)complete;
++ (nonnull GLBNotificationView*)showView:(nonnull UIView< GLBNotificationViewProtocol >*)view duration:(NSTimeInterval)duration;
++ (nonnull GLBNotificationView*)showView:(nonnull UIView< GLBNotificationViewProtocol >*)view duration:(NSTimeInterval)duration complete:(nullable GLBNotificationViewBlock)complete;
++ (nonnull GLBNotificationView*)showView:(nonnull UIView< GLBNotificationViewProtocol >*)view duration:(NSTimeInterval)duration pressed:(nullable GLBNotificationViewBlock)pressed;
++ (nonnull GLBNotificationView*)showView:(nonnull UIView< GLBNotificationViewProtocol >*)view duration:(NSTimeInterval)duration pressed:(nullable GLBNotificationViewBlock)pressed complete:(nullable GLBNotificationViewBlock)complete;
 
-+ (void)hideNotificationView:(GLBNotificationView* _Nonnull)notificationView animated:(BOOL)animated;
-+ (void)hideNotificationView:(GLBNotificationView* _Nonnull)notificationView animated:(BOOL)animated complete:(GLBSimpleBlock _Nullable)complete;
++ (void)hideNotificationView:(nonnull GLBNotificationView*)notificationView animated:(BOOL)animated;
++ (void)hideNotificationView:(nonnull GLBNotificationView*)notificationView animated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
 
 + (void)hideAllAnimated:(BOOL)animated;
-+ (void)hideAllAnimated:(BOOL)animated complete:(GLBSimpleBlock _Nullable)complete;
++ (void)hideAllAnimated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
 
 @end
 
@@ -77,7 +77,7 @@ typedef void(^GLBNotificationViewBlock)(GLBNotificationView* _Nonnull notificati
 @property(nonatomic, nullable, readonly, copy) GLBNotificationViewBlock pressed;
 
 - (void)hideAnimated:(BOOL)animated;
-- (void)hideAnimated:(BOOL)animated complete:(GLBNotificationViewBlock _Nullable)complete;
+- (void)hideAnimated:(BOOL)animated complete:(nullable GLBNotificationViewBlock)complete;
 
 - (void)willShow;
 - (void)didShow;
@@ -99,10 +99,10 @@ typedef void(^GLBNotificationViewBlock)(GLBNotificationView* _Nonnull notificati
 @protocol GLBNotificationViewProtocol < NSObject >
 
 @required
-- (void)willShowNotificationView:(GLBNotificationView* _Nonnull)notificationView;
-- (void)didShowNotificationView:(GLBNotificationView* _Nonnull)notificationView;
-- (void)willHideNotificationView:(GLBNotificationView* _Nonnull)notificationView;
-- (void)didHideNotificationView:(GLBNotificationView* _Nonnull)notificationView;
+- (void)willShowNotificationView:(nonnull GLBNotificationView*)notificationView;
+- (void)didShowNotificationView:(nonnull GLBNotificationView*)notificationView;
+- (void)willHideNotificationView:(nonnull GLBNotificationView*)notificationView;
+- (void)didHideNotificationView:(nonnull GLBNotificationView*)notificationView;
 
 @end
 

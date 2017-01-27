@@ -1,10 +1,11 @@
 /*--------------------------------------------------*/
 
-#import "GLBBaseViewController.h"
-
-/*--------------------------------------------------*/
-
+#import "GLBWindow.h"
+#import "GLBTransitionController.h"
+#import "NSString+GLBNS.h"
+#import "UIViewController+GLBUI.h"
 #import "UIScrollView+GLBUI.h"
+#import "UIDevice+GLBUI.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
@@ -29,7 +30,7 @@ typedef NS_ENUM(NSInteger, GLBPageViewControllerDirection) {
 
 /*--------------------------------------------------*/
 
-@interface GLBPageViewController : GLBBaseViewController < GLBViewController >
+@interface GLBPageViewController : UIViewController < GLBWindowExtension, GLBViewControllerExtension >
 
 @property(nonatomic) IBInspectable GLBPageViewControllerOrientation orientation;
 @property(nonatomic, nullable, strong) UIViewController< GLBPageViewControllerDelegate >* viewController;
@@ -40,8 +41,8 @@ typedef NS_ENUM(NSInteger, GLBPageViewControllerDirection) {
 @property(nonatomic) IBInspectable CGFloat thresholdHorizontal;
 @property(nonatomic) IBInspectable CGFloat thresholdVertical;
 
-- (void)setViewController:(UIViewController< GLBPageViewControllerDelegate >* _Nullable)viewController direction:(GLBPageViewControllerDirection)direction animated:(BOOL)animated;
-- (void)setViewController:(UIViewController< GLBPageViewControllerDelegate >* _Nullable)viewController direction:(GLBPageViewControllerDirection)direction duration:(NSTimeInterval)duration animated:(BOOL)animated;
+- (void)setViewController:(nullable UIViewController< GLBPageViewControllerDelegate >*)viewController direction:(GLBPageViewControllerDirection)direction animated:(BOOL)animated;
+- (void)setViewController:(nullable UIViewController< GLBPageViewControllerDelegate >*)viewController direction:(GLBPageViewControllerDirection)direction duration:(NSTimeInterval)duration animated:(BOOL)animated;
 
 @end
 
@@ -50,26 +51,26 @@ typedef NS_ENUM(NSInteger, GLBPageViewControllerDirection) {
 @protocol GLBPageViewControllerDelegate < NSObject >
 
 @required
-- (BOOL)allowBeforeViewControllerInPageViewController:(GLBPageViewController* _Nonnull)pageController;
-- (BOOL)allowAfterViewControllerInPageViewController:(GLBPageViewController* _Nonnull)pageController;
+- (BOOL)allowBeforeViewControllerInPageViewController:(nonnull GLBPageViewController*)pageController;
+- (BOOL)allowAfterViewControllerInPageViewController:(nonnull GLBPageViewController*)pageController;
 
 @optional
-- (void)willAppearInPageViewController:(GLBPageViewController* _Nonnull)pageController direction:(GLBPageViewControllerDirection)direction;
-- (void)didAppearInPageViewController:(GLBPageViewController* _Nonnull)pageController direction:(GLBPageViewControllerDirection)direction;
-- (void)willDisappearInPageViewController:(GLBPageViewController* _Nonnull)pageController direction:(GLBPageViewControllerDirection)direction;
-- (void)didDisappearInPageViewController:(GLBPageViewController* _Nonnull)pageController direction:(GLBPageViewControllerDirection)direction;
+- (void)willAppearInPageViewController:(nonnull GLBPageViewController*)pageController direction:(GLBPageViewControllerDirection)direction;
+- (void)didAppearInPageViewController:(nonnull GLBPageViewController*)pageController direction:(GLBPageViewControllerDirection)direction;
+- (void)willDisappearInPageViewController:(nonnull GLBPageViewController*)pageController direction:(GLBPageViewControllerDirection)direction;
+- (void)didDisappearInPageViewController:(nonnull GLBPageViewController*)pageController direction:(GLBPageViewControllerDirection)direction;
 
 @optional
-- (UIViewController< GLBPageViewControllerDelegate >* _Nullable)beforeViewControllerInPageViewController:(GLBPageViewController* _Nonnull)pageController;
-- (UIEdgeInsets)beforeDecorInsetsInPageViewController:(GLBPageViewController* _Nonnull)pageController;
-- (CGSize)beforeDecorSizeInPageViewController:(GLBPageViewController* _Nonnull)pageController;
-- (UIView< GLBPageDecorDelegate >* _Nullable)beforeDecorViewInPageViewController:(GLBPageViewController* _Nonnull)pageController;
+- (nullable UIViewController< GLBPageViewControllerDelegate >*)beforeViewControllerInPageViewController:(nonnull GLBPageViewController*)pageController;
+- (UIEdgeInsets)beforeDecorInsetsInPageViewController:(nonnull GLBPageViewController*)pageController;
+- (CGSize)beforeDecorSizeInPageViewController:(nonnull GLBPageViewController*)pageController;
+- (nullable UIView< GLBPageDecorDelegate >*)beforeDecorViewInPageViewController:(nonnull GLBPageViewController*)pageController;
 
 @optional
-- (UIViewController< GLBPageViewControllerDelegate >* _Nullable)afterViewControllerInPageViewController:(GLBPageViewController* _Nonnull)pageController;
-- (UIEdgeInsets)afterDecorInsetsInPageViewController:(GLBPageViewController* _Nonnull)pageController;
-- (CGSize)afterDecorSizeInPageViewController:(GLBPageViewController* _Nonnull)pageController;
-- (UIView< GLBPageDecorDelegate >* _Nullable)afterDecorViewInPageViewController:(GLBPageViewController* _Nonnull)pageController;
+- (nullable UIViewController< GLBPageViewControllerDelegate >*)afterViewControllerInPageViewController:(nonnull GLBPageViewController*)pageController;
+- (UIEdgeInsets)afterDecorInsetsInPageViewController:(nonnull GLBPageViewController*)pageController;
+- (CGSize)afterDecorSizeInPageViewController:(nonnull GLBPageViewController*)pageController;
+- (nullable UIView< GLBPageDecorDelegate >*)afterDecorViewInPageViewController:(nonnull GLBPageViewController*)pageController;
 
 @end
 
@@ -78,7 +79,7 @@ typedef NS_ENUM(NSInteger, GLBPageViewControllerDirection) {
 @protocol GLBPageDecorDelegate < NSObject >
 
 @optional
-- (void)pageController:(GLBPageViewController* _Nonnull)pageController applyFromProgress:(CGFloat)progress;
+- (void)pageController:(nonnull GLBPageViewController*)pageController applyFromProgress:(CGFloat)progress;
 
 @end
 

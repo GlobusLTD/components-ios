@@ -16,9 +16,9 @@
 @property(nonatomic, nullable, readonly, strong) NSArray< GLBRegExpMatch* >* matches;
 @property(nonatomic, nullable, readonly, strong) NSString* result;
 
-- (instancetype _Nullable)initWithExpression:(NSString* _Nonnull)expression pattern:(NSString* _Nonnull)pattern;
+- (nullable instancetype)initWithExpression:(nonnull NSString*)expression pattern:(nonnull NSString*)pattern;
 
-- (instancetype _Nullable)initWithSting:(NSString* _Nonnull)string expression:(NSString* _Nonnull)expression pattern:(NSString* _Nonnull)pattern;
+- (nullable instancetype)initWithSting:(nonnull NSString*)string expression:(nonnull NSString*)expression pattern:(nonnull NSString*)pattern;
 
 - (void)setup NS_REQUIRES_SUPER;
 

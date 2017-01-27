@@ -121,10 +121,10 @@
     if(_string.length > 0) {
         NSMutableArray* resultMatches = NSMutableArray.array;
         NSMutableString* resultString = [NSMutableString stringWithString:_string];
-        NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:_expression options:0 error:nil];
+        NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:_expression options:(NSRegularExpressionOptions)0 error:nil];
         if(regex != nil) {
             __block NSUInteger offset = 0;
-            [regex enumerateMatchesInString:_string options:0 range:NSMakeRange(0, _string.length) usingBlock:^(NSTextCheckingResult* checkingResult, NSMatchingFlags flags, BOOL* stop) {
+            [regex enumerateMatchesInString:_string options:(NSMatchingOptions)0 range:NSMakeRange(0, _string.length) usingBlock:^(NSTextCheckingResult* checkingResult, NSMatchingFlags flags, BOOL* stop) {
                 NSUInteger numberOfRanges = checkingResult.numberOfRanges;
                 
                 NSString* matchOriginalString = [_string substringWithRange:checkingResult.range];

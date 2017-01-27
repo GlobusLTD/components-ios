@@ -15,7 +15,7 @@
 + (NSDictionary< NSString*, GLBModelJson* >* _Nonnull)_buildJsonMap;
 + (NSDictionary< NSString*, NSDictionary< NSString*, GLBModelJson* >* >* _Nonnull)_buildJsonShemeMap;
 + (NSDictionary< NSString*, GLBModelPack* >* _Nonnull)_buildPackMap;
-+ (NSArray< NSString* >* _Nonnull)_buildPropertyMap;
++ (nonnull NSArray< NSString* >*)_buildPropertyMap;
 
 @end
 

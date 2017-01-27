@@ -14,7 +14,7 @@
             result = directories.firstObject;
         }
     }
-    return result;
+    return (result != nil) ? result : @"";
 }
 
 + (NSString*)glb_libraryDirectory {
@@ -25,7 +25,7 @@
             result = directories.firstObject;
         }
     }
-    return result;
+    return (result != nil) ? result : @"";
 }
 
 + (NSString*)glb_cachesDirectory {
@@ -36,7 +36,7 @@
             result = directories.firstObject;
         }
     }
-    return result;
+    return (result != nil) ? result : @"";
 }
 
 @end

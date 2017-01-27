@@ -4,54 +4,54 @@
 
 /*--------------------------------------------------*/
 
-@interface GLBGrid : NSObject< NSCopying >
+@interface GLBGrid< __covariant ObjectType > : NSObject< NSCopying >
 
 @property(nonatomic, readonly, assign) NSUInteger numberOfColumns;
 @property(nonatomic, readonly, assign) NSUInteger numberOfRows;
 @property(nonatomic, readonly, assign) NSUInteger count;
 
-+ (instancetype)grid;
-+ (instancetype)gridWithColumns:(NSUInteger)columns rows:(NSUInteger)rows;
-+ (instancetype)gridWithColumns:(NSUInteger)columns rows:(NSUInteger)rows objects:(NSArray*)objects;
-+ (instancetype)gridWithGrid:(GLBGrid*)grid;
++ (nonnull instancetype)grid NS_SWIFT_UNAVAILABLE("Use init()");
++ (nonnull instancetype)gridWithColumns:(NSUInteger)columns rows:(NSUInteger)rows NS_SWIFT_UNAVAILABLE("Use init(columns:rows:)");
++ (nonnull instancetype)gridWithColumns:(NSUInteger)columns rows:(NSUInteger)rows objects:(nullable NSArray< ObjectType >*)objects NS_SWIFT_UNAVAILABLE("Use init(columns:rows:objects:)");
++ (nonnull instancetype)gridWithGrid:(nonnull GLBGrid< ObjectType >*)grid NS_SWIFT_UNAVAILABLE("Use init(grid:)");
 
-- (instancetype)initWithColumns:(NSUInteger)columns rows:(NSUInteger)rows;
-- (instancetype)initWithColumns:(NSUInteger)columns rows:(NSUInteger)rows objects:(NSArray*)objects;
-- (instancetype)initWithGrid:(GLBGrid*)grid;
+- (nonnull instancetype)initWithColumns:(NSUInteger)columns rows:(NSUInteger)rows;
+- (nonnull instancetype)initWithColumns:(NSUInteger)columns rows:(NSUInteger)rows objects:(nullable NSArray< ObjectType >*)objects;
+- (nonnull instancetype)initWithGrid:(nonnull GLBGrid< ObjectType >*)grid;
 
-- (BOOL)containsObject:(id)object;
+- (BOOL)containsObject:(nonnull id)object;
 - (BOOL)containsColumn:(NSUInteger)column row:(NSUInteger)row;
 - (BOOL)isEmptyColumn:(NSUInteger)column;
 - (BOOL)isEmptyRow:(NSUInteger)row;
 
-- (id)objectAtColumn:(NSUInteger)column atRow:(NSUInteger)row;
-- (void)findObject:(id)object inColumn:(NSUInteger*)column inRow:(NSUInteger*)row;
-- (void)findObjectUsingBlock:(BOOL(^)(id object))block inColumn:(NSUInteger*)column inRow:(NSUInteger*)row;
-- (NSArray*)objects;
+- (nullable id)objectAtColumn:(NSUInteger)column atRow:(NSUInteger)row;
+- (void)findObject:(nullable id)object inColumn:(nullable NSUInteger*)column inRow:(nullable NSUInteger*)row;
+- (void)findObjectUsingBlock:(BOOL(^ _Nonnull)(id _Nonnull object))block inColumn:(nullable NSUInteger*)column inRow:(nullable NSUInteger*)row;
+- (nonnull NSArray< ObjectType >*)objects;
 
-- (void)enumerateColumnsRowsUsingBlock:(void(^)(id object, NSUInteger column, NSUInteger row, BOOL* stopColumn, BOOL* stopRow))block;
-- (void)enumerateRowsColumnsUsingBlock:(void(^)(id object, NSUInteger column, NSUInteger row, BOOL* stopColumn, BOOL* stopRow))block;
-- (void)enumerateByColumn:(NSUInteger)column usingBlock:(void(^)(id object, NSUInteger column, NSUInteger row, BOOL* stop))block;
-- (void)enumerateByRow:(NSUInteger)row usingBlock:(void(^)(id object, NSUInteger column, NSUInteger row, BOOL* stop))block;
+- (void)enumerateColumnsRowsUsingBlock:(void(^ _Nonnull)(id _Nonnull object, NSUInteger column, NSUInteger row, BOOL* _Nonnull stopColumn, BOOL* _Nonnull stopRow))block;
+- (void)enumerateRowsColumnsUsingBlock:(void(^ _Nonnull)(id _Nonnull object, NSUInteger column, NSUInteger row, BOOL* _Nonnull stopColumn, BOOL* _Nonnull stopRow))block;
+- (void)enumerateByColumn:(NSUInteger)column usingBlock:(void(^ _Nonnull)(id _Nonnull object, NSUInteger column, NSUInteger row, BOOL* _Nonnull stop))block;
+- (void)enumerateByRow:(NSUInteger)row usingBlock:(void(^ _Nonnull)(id _Nonnull object, NSUInteger column, NSUInteger row, BOOL* _Nonnull stop))block;
 
-- (void)eachColumnsRows:(void(^)(id object, NSUInteger column, NSUInteger row))block;
-- (void)eachRowsColumns:(void(^)(id object, NSUInteger column, NSUInteger row))block;
-- (void)each:(void(^)(id object, NSUInteger column, NSUInteger row))block byColumn:(NSUInteger)column;
-- (void)each:(void(^)(id object, NSUInteger column, NSUInteger row))block byRow:(NSUInteger)row;
+- (void)eachColumnsRows:(void(^ _Nonnull)(id _Nonnull object, NSUInteger column, NSUInteger row))block;
+- (void)eachRowsColumns:(void(^ _Nonnull)(id _Nonnull object, NSUInteger column, NSUInteger row))block;
+- (void)each:(void(^ _Nonnull)(id _Nonnull object, NSUInteger column, NSUInteger row))block byColumn:(NSUInteger)column;
+- (void)each:(void(^ _Nonnull)(id _Nonnull object, NSUInteger column, NSUInteger row))block byRow:(NSUInteger)row;
 
 @end
 
 /*--------------------------------------------------*/
 
-@interface GLBMutableGrid : GLBGrid
+@interface GLBMutableGrid< ObjectType > : GLBGrid
 
 - (void)setNumberOfColumns:(NSUInteger)numberOfColumns numberOfRows:(NSUInteger)numberOfRows;
 
-- (void)setObject:(id)object atColumn:(NSUInteger)column atRow:(NSUInteger)row;
-- (void)setObjects:(NSArray*)objects;
+- (void)setObject:(nullable id)object atColumn:(NSUInteger)column atRow:(NSUInteger)row;
+- (void)setObjects:(nullable NSArray< ObjectType >*)objects;
 
-- (void)insertColumn:(NSUInteger)column objects:(NSArray*)objects;
-- (void)insertRow:(NSUInteger)row objects:(NSArray*)objects;
+- (void)insertColumn:(NSUInteger)column objects:(nullable NSArray< ObjectType >*)objects;
+- (void)insertRow:(NSUInteger)row objects:(nullable NSArray< ObjectType >*)objects;
 - (void)removeColumn:(NSUInteger)column;
 - (void)removeRow:(NSUInteger)row;
 - (void)removeAllObjects;

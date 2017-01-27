@@ -44,9 +44,9 @@
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (BOOL)prepareWithName:(NSString* _Nonnull)name;
-- (BOOL)prepareWithPath:(NSString* _Nonnull)path name:(NSString* _Nonnull)name;
-- (BOOL)prepareWithUrl:(NSURL* _Nonnull)url;
+- (BOOL)prepareWithName:(nonnull NSString*)name;
+- (BOOL)prepareWithPath:(nonnull NSString*)path name:(nonnull NSString*)name;
+- (BOOL)prepareWithUrl:(nonnull NSURL*)url;
 - (void)clean;
 
 - (BOOL)start;

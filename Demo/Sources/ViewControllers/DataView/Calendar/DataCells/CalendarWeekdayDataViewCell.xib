@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CalendarWeekdayDataViewCell">
+            <connections>
+                <outlet property="displayLabel" destination="dKi-4J-xus" id="sU2-dv-m4c"/>
+                <outlet property="rootView" destination="L9J-9o-2NI" id="DPl-ts-k1i"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="L9J-9o-2NI">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKi-4J-xus">
+                    <rect key="frame" x="4" y="4" width="367" height="36"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="dKi-4J-xus" secondAttribute="trailing" constant="4" id="0dl-Y5-wrA"/>
+                <constraint firstItem="dKi-4J-xus" firstAttribute="top" secondItem="L9J-9o-2NI" secondAttribute="top" constant="4" id="Mwk-2E-yd5"/>
+                <constraint firstItem="dKi-4J-xus" firstAttribute="leading" secondItem="L9J-9o-2NI" secondAttribute="leading" constant="4" id="SpW-d4-zJR"/>
+                <constraint firstAttribute="bottom" secondItem="dKi-4J-xus" secondAttribute="bottom" constant="4" id="rcE-Wd-59N"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-344" y="35"/>
+        </view>
+    </objects>
+</document>

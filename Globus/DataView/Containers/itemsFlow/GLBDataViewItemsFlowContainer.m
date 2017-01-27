@@ -220,14 +220,11 @@
 }
 
 - (GLBDataViewItem*)insertIdentifier:(NSString*)identifier atIndex:(NSUInteger)index byData:(id)data order:(NSUInteger)order configure:(GLBDataViewContainerConfigureItemBlock)configure {
-    GLBDataViewItem* item = nil;
-    if(index != NSNotFound) {
-        item = [GLBDataViewItem itemWithIdentifier:identifier order:order data:data];
-        if(configure != nil) {
-            configure(item);
-        }
-        [self insertItem:item atIndex:index];
+    GLBDataViewItem* item = [GLBDataViewItem itemWithIdentifier:identifier order:order data:data];
+    if(configure != nil) {
+        configure(item);
     }
+    [self insertItem:item atIndex:index];
     return item;
 }
 

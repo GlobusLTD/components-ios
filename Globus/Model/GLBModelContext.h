@@ -8,13 +8,13 @@
 
 @property(nonatomic, nonnull, strong) dispatch_queue_t queue;
 
-+ (instancetype _Nonnull)shared;
++ (nonnull instancetype)shared;
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (void)sync:(GLBSimpleBlock _Nonnull)work;
-- (void)async:(GLBSimpleBlock _Nonnull)work complete:(GLBSimpleBlock _Nonnull)complete;
-- (void)asyncQueue:(dispatch_queue_t _Nullable)queue work:(GLBSimpleBlock _Nonnull)work complete:(GLBSimpleBlock _Nonnull)complete;
+- (void)sync:(nonnull GLBSimpleBlock)work;
+- (void)async:(nonnull GLBSimpleBlock)work complete:(nonnull GLBSimpleBlock)complete;
+- (void)asyncQueue:(nullable dispatch_queue_t)queue work:(nonnull GLBSimpleBlock)work complete:(nonnull GLBSimpleBlock)complete;
 
 @end
 

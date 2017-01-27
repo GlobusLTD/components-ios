@@ -23,14 +23,14 @@
 @property(nonatomic, nullable, strong) GLBAction* actionPaused;
 @property(nonatomic, nullable, strong) GLBAction* actionResumed;
 
-+ (instancetype _Nonnull)timerWithInterval:(NSTimeInterval)interval NS_SWIFT_UNAVAILABLE("Use init(interval:)");
-+ (instancetype _Nonnull)timerWithInterval:(NSTimeInterval)interval repeat:(NSUInteger)repeat NS_SWIFT_UNAVAILABLE("Use init(interval:repeat:)");
-+ (instancetype _Nonnull)timerWithInterval:(NSTimeInterval)interval delay:(NSTimeInterval)delay repeat:(NSUInteger)repeat NS_SWIFT_UNAVAILABLE("Use init(interval:delay:repeat:)");
++ (nonnull instancetype)timerWithInterval:(NSTimeInterval)interval NS_SWIFT_UNAVAILABLE("Use init(interval:)");
++ (nonnull instancetype)timerWithInterval:(NSTimeInterval)interval repeat:(NSUInteger)repeat NS_SWIFT_UNAVAILABLE("Use init(interval:repeat:)");
++ (nonnull instancetype)timerWithInterval:(NSTimeInterval)interval delay:(NSTimeInterval)delay repeat:(NSUInteger)repeat NS_SWIFT_UNAVAILABLE("Use init(interval:delay:repeat:)");
 
-- (instancetype _Nonnull)init NS_DESIGNATED_INITIALIZER;
-- (instancetype _Nonnull)initWithInterval:(NSTimeInterval)interval;
-- (instancetype _Nonnull)initWithInterval:(NSTimeInterval)interval repeat:(NSUInteger)repeat;
-- (instancetype _Nonnull)initWithInterval:(NSTimeInterval)interval delay:(NSTimeInterval)delay repeat:(NSUInteger)repeat NS_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init NS_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithInterval:(NSTimeInterval)interval;
+- (nonnull instancetype)initWithInterval:(NSTimeInterval)interval repeat:(NSUInteger)repeat;
+- (nonnull instancetype)initWithInterval:(NSTimeInterval)interval delay:(NSTimeInterval)delay repeat:(NSUInteger)repeat NS_DESIGNATED_INITIALIZER;
 
 - (void)setup NS_REQUIRES_SUPER;
 

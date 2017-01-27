@@ -32,11 +32,11 @@
 @property(nonatomic, readonly, assign) BOOL canGoBack;
 @property(nonatomic, readonly, assign) BOOL canGoForward;
 
-+ (instancetype _Nullable)webViewControllerWithURL:(NSURL* _Nonnull)URL GLB_DEPRECATED_MSG("Use viewControllerWithURL:");
++ (nullable instancetype)webViewControllerWithURL:(nonnull NSURL*)URL GLB_DEPRECATED_MSG("Use viewControllerWithURL:");
 
-+ (instancetype _Nullable)viewControllerWithURL:(NSURL* _Nonnull)URL NS_SWIFT_NAME(viewController(url:));
++ (nullable instancetype)viewControllerWithURL:(nonnull NSURL*)URL NS_SWIFT_NAME(viewController(url:));
 
-- (instancetype _Nullable)initWithURL:(NSURL* _Nonnull)URL;
+- (nullable instancetype)initWithURL:(nonnull NSURL*)URL;
 
 - (void)reload NS_REQUIRES_SUPER;
 - (void)stopLoading NS_REQUIRES_SUPER;
@@ -45,11 +45,11 @@
 
 - (void)didStartLoading;
 - (void)didFinishLoading;
-- (void)didLoadingError:(NSError* _Nullable)error;
+- (void)didLoadingError:(nullable NSError*)error;
 
 - (void)updateNavigationItems;
 
-- (void)share:(id _Nullable)sender;
+- (void)share:(nullable id)sender;
 
 @end
 
