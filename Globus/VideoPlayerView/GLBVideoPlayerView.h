@@ -27,6 +27,10 @@ typedef NS_ENUM(NSInteger, GLBVideoPlayerViewDisplayMode) {
 @property(nonatomic, getter=isMuted) BOOL muted;
 @property(nonatomic) CGFloat volume;
 
+@property(nonatomic, nonnull, readonly, strong) AVPlayer* player;
+@property(nonatomic, nonnull, readonly, strong) AVPlayerLayer* playerLayer;
+@property(nonatomic, nullable, readonly, strong) AVPlayerItem* playerItem;
+
 @property(nonatomic, nullable, readonly, copy) NSURL* url;
 @property(nonatomic, readonly, assign) CGFloat buffer;
 @property(nonatomic, readonly, assign) CGFloat rate;
@@ -49,6 +53,7 @@ typedef NS_ENUM(NSInteger, GLBVideoPlayerViewDisplayMode) {
 
 - (void)setup NS_REQUIRES_SUPER;
 
+- (void)prepareWithItem:(nonnull AVPlayerItem*)item;
 - (void)prepareWithURL:(nonnull NSURL*)url;
 - (void)clean;
 

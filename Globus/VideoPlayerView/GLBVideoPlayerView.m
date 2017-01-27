@@ -14,8 +14,6 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
 
 @interface GLBVideoPlayerView ()
 
-@property(nonatomic, readonly, strong) AVPlayer* player;
-@property(nonatomic, readonly, strong) AVPlayerLayer* playerLayer;
 @property(nonatomic, strong) AVPlayerItem* playerItem;
 @property(nonatomic, strong) id playerObserver;
 
@@ -163,6 +161,12 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
 }
 
 #pragma mark - Public
+
+- (void)prepareWithItem:(AVPlayerItem*)item {
+    if(_prepared == NO) {
+        self.playerItem = [item copy];
+    }
+}
 
 - (void)prepareWithURL:(NSURL*)url {
     if(_prepared == NO) {
