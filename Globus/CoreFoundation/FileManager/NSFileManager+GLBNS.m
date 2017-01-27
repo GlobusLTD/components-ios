@@ -7,36 +7,39 @@
 @implementation NSFileManager (GLB_NS)
 
 + (NSString*)glb_documentDirectory {
-    static NSString* result = nil;
-    if(result == nil) {
+    static NSString* directory = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         NSArray* directories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         if(directories.count > 0) {
-            result = directories.firstObject;
+            directory = directories.firstObject;
         }
-    }
-    return (result != nil) ? result : @"";
+    });
+    return (directory != nil) ? directory : @"";
 }
 
 + (NSString*)glb_libraryDirectory {
-    static NSString* result = nil;
-    if(result == nil) {
+    static NSString* directory = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         NSArray* directories = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
         if(directories.count > 0) {
-            result = directories.firstObject;
+            directory = directories.firstObject;
         }
-    }
-    return (result != nil) ? result : @"";
+    });
+    return (directory != nil) ? directory : @"";
 }
 
 + (NSString*)glb_cachesDirectory {
-    static NSString* result = nil;
-    if(result == nil) {
+    static NSString* directory = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         NSArray* directories = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         if(directories.count > 0) {
-            result = directories.firstObject;
+            directory = directories.firstObject;
         }
-    }
-    return (result != nil) ? result : @"";
+    });
+    return (directory != nil) ? directory : @"";
 }
 
 @end

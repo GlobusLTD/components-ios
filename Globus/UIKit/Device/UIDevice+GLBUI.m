@@ -14,17 +14,19 @@
 
 + (CGFloat)glb_systemVersion {
     static NSNumber* systemVersion = nil;
-    if(systemVersion == nil) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         systemVersion = @(self.currentDevice.systemVersion.floatValue);
-    }
+    });
     return systemVersion.floatValue;
 }
 
 + (NSString*)glb_systemVersionString {
     static NSString* systemVersion = nil;
-    if(systemVersion == nil) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         systemVersion = self.currentDevice.systemVersion;
-    }
+    });
     return systemVersion;
 }
 
@@ -54,30 +56,33 @@
 
 + (NSString*)glb_deviceTypeString {
     static NSString* deviceType = nil;
-    if(deviceType == nil) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         struct utsname systemInfo;
         uname(&systemInfo);
         deviceType = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-    }
+    });
     return deviceType;
 }
 
 + (NSString*)glb_deviceVersionString {
     static NSString* deviceVersion = nil;
-    if(deviceVersion == nil) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         NSString* deviceType = self.glb_deviceTypeString;
         NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"[0-9]{1,},[0-9]{1,}" options:(NSRegularExpressionOptions)0 error:nil];
         NSRange rangeOfVersion = [regex rangeOfFirstMatchInString:deviceType options:(NSMatchingOptions)0 range:NSMakeRange(0, deviceType.length)];
         if((rangeOfVersion.location != NSNotFound) && (rangeOfVersion.length > 0)) {
             deviceVersion = [deviceType substringWithRange:rangeOfVersion];
         }
-    }
+    });
     return deviceVersion;
 }
 
 + (GLBDeviceFamily)glb_family {
     static GLBDeviceFamily family = GLBDeviceFamilyUnknown;
-    if(family == GLBDeviceFamilyUnknown) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
 #ifdef GLB_TARGET_IOS_SIMULATOR
         family = GLBDeviceFamilySimulator;
 #else
@@ -94,13 +99,14 @@
             }
         }];
 #endif
-    }
+    });
     return family;
 }
 
 + (GLBDeviceModel)glb_model {
     static GLBDeviceModel model = GLBDeviceModelUnknown;
-    if(model == GLBDeviceModelUnknown) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
 #ifdef GLB_TARGET_IOS_SIMULATOR
         switch(UI_USER_INTERFACE_IDIOM()) {
             case UIUserInterfaceIdiomPhone:
@@ -191,13 +197,14 @@
             }
         }
 #endif
-    }
+    });
     return model;
 }
 
 + (GLBDeviceDisplay)glb_display {
     static GLBDeviceDisplay displayType = GLBDeviceDisplayUnknown;
-    if(displayType == GLBDeviceDisplayUnknown) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         CGRect screenRect = UIScreen.mainScreen.bounds;
         CGFloat screenWidth = MAX(screenRect.size.width, screenRect.size.height);
         CGFloat screenHeight = MIN(screenRect.size.width, screenRect.size.height);
@@ -223,7 +230,7 @@
                 break;
             default: break;
         }
-    }
+    });
     return displayType;
 }
 

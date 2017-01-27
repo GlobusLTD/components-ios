@@ -52,10 +52,6 @@
 
 /*--------------------------------------------------*/
 
-static GLBImageManager* GLBImageManagerDefaultInstance = nil;
-
-/*--------------------------------------------------*/
-
 static NSUInteger GLBImageManagerDefaultMemoryCapacity = (1024 * 1024) * 4;
 static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
 
@@ -74,11 +70,12 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
 #pragma mark - Singleton
 
 + (instancetype)defaultImageManager {
+    static GLBImageManager* instance = nil;
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
-        GLBImageManagerDefaultInstance = [self new];
+        instance = [self new];
     });
-    return GLBImageManagerDefaultInstance;
+    return instance;
 }
 
 #pragma mark - Init / Free

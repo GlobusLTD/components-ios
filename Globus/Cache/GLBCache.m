@@ -53,15 +53,12 @@ static NSTimeInterval GLBCacheStorageInterval = ((60 * 60) * 24) * 90;
 #pragma mark - Singleton
 
 + (instancetype)shared {
-    static id shared = nil;
-    if(shared == nil) {
-        @synchronized(self) {
-            if(shared == nil) {
-                shared = [self new];
-            }
-        }
-    }
-    return shared;
+    static id instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [self new];
+    });
+    return instance;
 }
 
 #pragma mark - Init / Free

@@ -145,10 +145,7 @@ static UInt32 GLB_CRC32(const char* aString) {
 }
 
 - (BOOL)glb_isEmail {
-    static NSPredicate* predicate = nil;
-    if(predicate == nil) {
-        predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES[c] %@", @".+@.+\\..+"];
-    }
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES[c] %@", @".+@.+\\..+"];
     return [predicate evaluateWithObject:self];
 }
 
@@ -169,10 +166,7 @@ static UInt32 GLB_CRC32(const char* aString) {
 }
 
 - (NSNumber*)glb_number {
-	static NSNumberFormatter* numberFormat = nil;
-    if(numberFormat == nil) {
-        numberFormat = [NSNumberFormatter new];
-    }
+    NSNumberFormatter* numberFormat = [NSNumberFormatter new];
     numberFormat.locale = NSLocale.currentLocale;
     numberFormat.formatterBehavior = NSNumberFormatterBehavior10_4;
     numberFormat.numberStyle = NSNumberFormatterNoStyle;
@@ -190,10 +184,7 @@ static UInt32 GLB_CRC32(const char* aString) {
 }
 
 - (NSDate*)glb_dateWithFormat:(NSString*)format {
-    static NSDateFormatter* formatter = nil;
-    if(formatter == nil) {
-        formatter = [NSDateFormatter new];
-    }
+    NSDateFormatter* formatter = [NSDateFormatter new];
     formatter.dateFormat = format;
     return [formatter dateFromString:self];
 }

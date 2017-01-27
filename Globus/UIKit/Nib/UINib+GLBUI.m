@@ -6,10 +6,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-static NSMutableDictionary< NSString*, UINib* >* GLBNibCache = nil;
-
-/*--------------------------------------------------*/
-
 @implementation UINib (GLB_UI)
 
 + (UINib*)glb_nibWithName:(NSString*)name {
@@ -155,15 +151,21 @@ static NSMutableDictionary< NSString*, UINib* >* GLBNibCache = nil;
     return nib;
 }
 
++ (NSMutableDictionary< NSString*, UINib* >*)glb_cache {
+    static NSMutableDictionary< NSString*, UINib* >* cache = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        cache = [NSMutableDictionary dictionary];
+    });
+    return cache;
+}
+
 + (void)glb_setCacheForName:(NSString*)name nib:(UINib*)nib {
-    if(GLBNibCache == nil) {
-        GLBNibCache = [NSMutableDictionary dictionary];
-    }
-    GLBNibCache[name] = nib;
+    self.glb_cache[name] = nib;
 }
 
 + (UINib*)glb_cacheNibForName:(NSString*)name {
-    return GLBNibCache[name];
+    return self.glb_cache[name];
 }
 
 + (UINib*)glb_cacheNibForClass:(Class)aClass {
@@ -178,7 +180,7 @@ static NSMutableDictionary< NSString*, UINib* >* GLBNibCache = nil;
 }
 
 + (void)glb_removeCacheForName:(NSString*)name {
-    [GLBNibCache removeObjectForKey:name];
+    [self.glb_cache removeObjectForKey:name];
 }
 
 - (id)glb_instantiateWithClass:(Class)aClass owner:(id)owner options:(NSDictionary*)options {

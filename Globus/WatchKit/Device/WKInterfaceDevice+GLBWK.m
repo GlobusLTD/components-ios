@@ -10,9 +10,10 @@
 
 + (NSString*)glb_systemVersionString {
     static NSString* systemVersion = nil;
-    if(systemVersion == nil) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         systemVersion = self.currentDevice.systemVersion;
-    }
+    });
     return systemVersion;
 }
 

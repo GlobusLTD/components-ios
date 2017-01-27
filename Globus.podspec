@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.3.20'
+  s.version = '0.3.21'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -510,6 +510,7 @@ Pod::Spec.new do |s|
     ss.subspec 'Calendar' do |sss|
       sss.source_files = 'Globus/DataView/Containers/Calendar/**/*.{h,m}'
       sss.dependency 'Globus/DataView/Base'
+      sss.dependency 'Globus/CoreFoundation/Date'
       sss.dependency 'Globus/Grid'
     end
   end

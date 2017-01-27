@@ -75,12 +75,12 @@ static NSString* GLBWatchProviderFileName = @"file";
 #pragma mark - Singleton
 
 + (instancetype)shared {
-    static id shared = nil;
+    static id instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        shared = [self new];
+        instance = [self new];
     });
-    return shared;
+    return instance;
 }
 
 #pragma mark - Init / Free

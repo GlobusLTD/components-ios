@@ -74,11 +74,12 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
 #pragma mark - Private
 
 + (NSMutableDictionary*)_registeredStyles {
-    static NSMutableDictionary* styles = nil;
-    if(styles == nil) {
-        styles = [NSMutableDictionary dictionary];
-    }
-    return styles;
+    static NSMutableDictionary* registeredStyles = nil;
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
+        registeredStyles = [NSMutableDictionary dictionary];
+    });
+    return registeredStyles;
 }
 
 - (void)_applyWithTarget:(id)target {

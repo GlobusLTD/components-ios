@@ -120,17 +120,17 @@
             }
             [queryParams addEntriesFromDictionary:[self _formDataFromDictionary:urlParams]];
             NSMutableString* queryString = NSMutableString.string;
+            NSRegularExpression* trimArraySymbolsRegexp = nil;
+            if(_includeArraySymbolsUrlParams == NO) {
+                trimArraySymbolsRegexp = [NSRegularExpression regularExpressionWithPattern:@"\\[[0-9]+\\]" options:(NSRegularExpressionOptions)0 error:nil];
+            }
             [queryParams enumerateKeysAndObjectsUsingBlock:^(NSString* key, id< NSObject > value, BOOL* stop __unused) {
                 if(queryString.length > 0) {
                     [queryString appendString:@"&"];
                 }
                 NSString* tempValue = (_encodeUrlParams == YES) ? value.description.glb_stringByEncodingURLFormat : value.description;
                 if(_includeArraySymbolsUrlParams == NO) {
-                    static NSRegularExpression* regexp = nil;
-                    if(regexp == nil) {
-                        regexp = [NSRegularExpression regularExpressionWithPattern:@"\\[[0-9]+\\]" options:(NSRegularExpressionOptions)0 error:nil];
-                    }
-                    key = [regexp stringByReplacingMatchesInString:key options:(NSMatchingOptions)0 range:NSMakeRange(0, key.length) withTemplate:@""];
+                    key = [trimArraySymbolsRegexp stringByReplacingMatchesInString:key options:(NSMatchingOptions)0 range:NSMakeRange(0, key.length) withTemplate:@""];
                 }
                 if(key != nil) {
                     [queryString appendFormat:@"%@=%@", key, tempValue];

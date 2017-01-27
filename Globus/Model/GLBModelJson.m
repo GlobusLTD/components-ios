@@ -964,10 +964,7 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(initPath:(NSString*)path)
 #pragma mark - Private
 
 - (NSDateFormatter*)dateFormatter {
-    static NSDateFormatter* dateFormatter = nil;
-    if(dateFormatter == nil) {
-        dateFormatter = [NSDateFormatter new];
-    }
+    NSDateFormatter* dateFormatter = [NSDateFormatter new];
     if(_timeZone != nil) {
         dateFormatter.timeZone = _timeZone;
     } else {

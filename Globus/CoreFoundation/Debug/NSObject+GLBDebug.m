@@ -216,11 +216,8 @@
 #pragma mark - GLBObjectDebugProtocol
 
 - (void)glb_debugString:(NSMutableString*)string context:(NSPointerArray*)context indent:(NSUInteger)indent root:(BOOL)root {
-    static NSDateFormatter* dateFormatter = nil;
-    if(dateFormatter == nil) {
-        dateFormatter = [NSDateFormatter new];
-        dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss:SSS ZZ";
-    }
+    NSDateFormatter* dateFormatter = [NSDateFormatter new];
+    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss:SSS ZZ";
     dateFormatter.locale = NSLocale.currentLocale;
     
     if(root == YES) {

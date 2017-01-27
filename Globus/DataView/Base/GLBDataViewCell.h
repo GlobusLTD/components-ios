@@ -32,7 +32,7 @@
 
 @property(nonatomic, nonnull, readonly, strong) NSArray< UIView* >* orderedSubviews;
 
-+ (CGSize)sizeForItem:(nonnull id)item availableSize:(CGSize)size;
++ (CGSize)sizeForItem:(nullable id)item availableSize:(CGSize)size;
 
 - (CGSize)sizeForAvailableSize:(CGSize)size;
 - (UILayoutPriority)fittingHorizontalPriority;

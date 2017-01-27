@@ -659,41 +659,46 @@
 
 + (NSDictionary< NSString*, GLBModelJson* >*)_buildJsonMap {
     static NSMutableDictionary* cache = nil;
-    if(cache == nil) {
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
         cache = NSMutableDictionary.dictionary;
-    }
+    });
     return [GLBModelHelper dictionaryMap:cache withClass:self.class selector:@selector(jsonMap)];
 }
 
 + (NSDictionary< NSString*, NSDictionary< NSString*, GLBModelJson* >* >*)_buildJsonShemeMap {
     static NSMutableDictionary* cache = nil;
-    if(cache == nil) {
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
         cache = NSMutableDictionary.dictionary;
-    }
+    });
     return [GLBModelHelper multiDictionaryMap:cache withClass:self.class selector:@selector(jsonShemeMap)];
 }
 
 + (NSDictionary< NSString*, GLBModelPack* >*)_buildPackMap {
     static NSMutableDictionary* cache = nil;
-    if(cache == nil) {
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
         cache = NSMutableDictionary.dictionary;
-    }
+    });
     return [GLBModelHelper dictionaryMap:cache withClass:self.class selector:@selector(packMap)];
 }
 
 + (NSDictionary< NSString*, id >*)_buildDefaultsMap {
     static NSMutableDictionary* cache = nil;
-    if(cache == nil) {
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
         cache = NSMutableDictionary.dictionary;
-    }
+    });
     return [GLBModelHelper dictionaryMap:cache withClass:self.class selector:@selector(defaultsMap)];
 }
 
 + (NSDictionary< NSString*, id >*)_buildSerializeMap {
     static NSMutableDictionary* cache = nil;
-    if(cache == nil) {
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
         cache = NSMutableDictionary.dictionary;
-    }
+    });
     return [GLBModelHelper dictionaryMap:cache withClass:self.class selector:@selector(serializeMap) convert:^id(id value) {
         if([value isKindOfClass:NSArray.class] == YES) {
             NSArray* sourceArray = value;
@@ -709,25 +714,28 @@
 
 + (nonnull NSArray< NSString* >*)_buildPropertyMap {
     static NSMutableDictionary* cache = nil;
-    if(cache == nil) {
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
         cache = NSMutableDictionary.dictionary;
-    }
+    });
     return [GLBModelHelper arrayMap:cache withClass:self.class selector:@selector(propertyMap)];
 }
 
 + (NSArray< NSString* >*)_buildCompareMap {
     static NSMutableDictionary* cache = nil;
-    if(cache == nil) {
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
         cache = NSMutableDictionary.dictionary;
-    }
+    });
     return [GLBModelHelper arrayMap:cache withClass:self.class selector:@selector(compareMap)];
 }
 
 + (NSArray< NSString* >*)_buildCopyMap {
     static NSMutableDictionary* cache = nil;
-    if(cache == nil) {
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
         cache = NSMutableDictionary.dictionary;
-    }
+    });
     return [GLBModelHelper arrayMap:cache withClass:self.class selector:@selector(copyMap)];
 }
 

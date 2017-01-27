@@ -16,20 +16,17 @@
 #pragma mark -
 /*--------------------------------------------------*/
 
-static GLBApiManager* GLBApiManagerInstance = nil;
-
-/*--------------------------------------------------*/
-
 @implementation GLBApiManager
 
 #pragma mark - Singleton
 
 + (instancetype)shared {
+    static GLBApiManager* instance = nil;
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
-        GLBApiManagerInstance = [self new];
+        instance = [self new];
     });
-    return GLBApiManagerInstance;
+    return instance;
 }
 
 #pragma mark - Init / Free

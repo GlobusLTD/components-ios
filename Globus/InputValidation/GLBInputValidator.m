@@ -280,10 +280,7 @@
     if([value isKindOfClass:NSString.class] == YES) {
         NSString* trimmed = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if(trimmed.length > 0) {
-            static NSPredicate* predicate = nil;
-            if(predicate == nil) {
-                predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[0-9]+"];
-            }
+            NSPredicate* predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[0-9]+"];
             return [predicate evaluateWithObject:trimmed];
         } else if((_required == NO) && (trimmed.length < 1)) {
             return YES;

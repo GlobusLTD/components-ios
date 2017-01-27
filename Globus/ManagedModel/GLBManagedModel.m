@@ -287,33 +287,37 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
 
 + (NSDictionary*)_buildJsonMap {
     static NSMutableDictionary* cache = nil;
-    if(cache == nil) {
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
         cache = NSMutableDictionary.dictionary;
-    }
+    });
     return [GLBModelHelper dictionaryMap:cache withClass:self.class selector:@selector(jsonMap)];
 }
 
 + (NSDictionary*)_buildJsonShemeMap {
     static NSMutableDictionary* cache = nil;
-    if(cache == nil) {
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
         cache = NSMutableDictionary.dictionary;
-    }
+    });
     return [GLBModelHelper multiDictionaryMap:cache withClass:self.class selector:@selector(jsonShemeMap)];
 }
 
 + (NSDictionary*)_buildPackMap {
     static NSMutableDictionary* cache = nil;
-    if(cache == nil) {
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
         cache = NSMutableDictionary.dictionary;
-    }
+    });
     return [GLBModelHelper dictionaryMap:cache withClass:self.class selector:@selector(packMap)];
 }
 
 + (nonnull NSArray< NSString* >*)_buildPropertyMap {
     static NSMutableDictionary* cache = nil;
-    if(cache == nil) {
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
         cache = NSMutableDictionary.dictionary;
-    }
+    });
     return [GLBModelHelper arrayMap:cache withClass:self.class selector:@selector(propertyMap)];
 }
 
@@ -410,10 +414,6 @@ static NSString* GLBManagedModelUriKey = @"GLBManagedModelUriKey";
 #pragma mark -
 /*--------------------------------------------------*/
 
-static GLBManagedManager* GLBManagedManagerInstance = nil;
-
-/*--------------------------------------------------*/
-
 static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistStoreUrl";
 
 /*--------------------------------------------------*/
@@ -433,11 +433,12 @@ static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistSto
 #pragma mark - Singleton
 
 + (instancetype)shared {
+    static GLBManagedManager* instance = nil;
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
-        GLBManagedManagerInstance = [[self alloc] init];
+        instance = [self new];
     });
-    return GLBManagedManagerInstance;
+    return instance;
 }
 
 #pragma mark - Init / Free
@@ -1009,7 +1010,8 @@ static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistSto
 
 - (NSArray*)_allModelPaths {
     static NSArray* paths = nil;
-    if(paths == nil) {
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
         NSMutableArray* findedPaths = [NSMutableArray array];
         NSBundle* bundle = NSBundle.mainBundle;
         NSArray* momdArray = [bundle pathsForResourcesOfType:@"momd" inDirectory:nil];
@@ -1018,7 +1020,7 @@ static NSString* GLBManagedManagerExistStoreUrlKey = @"GLBManagedManagerExistSto
         }
         [findedPaths addObjectsFromArray:[bundle pathsForResourcesOfType:@"mom" inDirectory:nil]];
         paths = findedPaths.copy;
-    }
+    });
     return paths;
 }
 

@@ -32,10 +32,7 @@ static double GLBMoonNormalize(double v) {
 
 + (GLBMoonDay)moonDayFromDate:(NSDate*)date; {
     if(date != nil) {
-        static NSCalendar* gregorian = nil;
-        if(gregorian == nil) {
-            gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-        }
+        NSCalendar* gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
         NSCalendarUnit units = (NSCalendarUnit)(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay);
         NSDateComponents* components = [gregorian components:units fromDate:date];
         int year = (int)components.year;
@@ -134,7 +131,8 @@ static double GLBMoonNormalize(double v) {
 
 + (NSBundle*)resourcesBundle {
     static NSBundle* resourcesBundle = nil;
-    if(resourcesBundle == nil) {
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
         NSString* mainBundlePath = NSBundle.mainBundle.bundlePath;
         Class currentClass = self.class;
         while((resourcesBundle == nil) && (currentClass != nil)) {
@@ -145,7 +143,7 @@ static double GLBMoonNormalize(double v) {
         if(resourcesBundle == nil) {
             resourcesBundle = NSBundle.mainBundle;
         }
-    }
+    });
     return resourcesBundle;
 }
 

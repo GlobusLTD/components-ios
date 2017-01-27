@@ -361,11 +361,12 @@
 #pragma mark - Singleton
 
 + (instancetype)sharedInstance {
-    static GLBBlurScheduler *sharedInstance = nil;
-    if(sharedInstance == nil) {
-        sharedInstance = [[GLBBlurScheduler alloc] init];
-    }
-    return sharedInstance;
+    static GLBBlurScheduler* instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[GLBBlurScheduler alloc] init];
+    });
+    return instance;
 }
 
 #pragma mark - Init / Free

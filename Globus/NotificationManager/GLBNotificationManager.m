@@ -1107,15 +1107,12 @@ static NSTimeInterval GLBNotificationManager_Dutation = 3.0;
 #pragma mark - Singleton
 
 + (instancetype)shared {
-    static id shared = nil;
-    if(shared == nil) {
-        @synchronized(self) {
-            if(shared == nil) {
-                shared = [self new];
-            }
-        }
-    }
-    return shared;
+    static id instance = nil;
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
+        instance = [self new];
+    });
+    return instance;
 }
 
 #pragma mark - Init / Free

@@ -46,24 +46,18 @@
 }
 
 - (NSString*)glb_formatTime {
-    static NSDateFormatter* formatter = nil;
-    if(formatter == nil) {
-        formatter = [NSDateFormatter new];
-        formatter.dateFormat = NSLocalizedStringFromTable(@"h:mm a", @"GLB", @"Date format: 1:05 pm");
-        formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:NSLocalizedStringFromTable(@"en_EN", @"GLB", @"Current locale")];
-        formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-    }
+    NSDateFormatter* formatter = [NSDateFormatter new];
+    formatter.dateFormat = NSLocalizedStringFromTable(@"h:mm a", @"GLB", @"Date format: 1:05 pm");
+    formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:NSLocalizedStringFromTable(@"en_EN", @"GLB", @"Current locale")];
+    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
     return [formatter stringFromDate:self];
 }
 
 - (NSString*)glb_formatDate {
-    static NSDateFormatter* formatter = nil;
-    if(formatter == nil) {
-        formatter = [NSDateFormatter new];
-        formatter.dateFormat = NSLocalizedStringFromTable(@"EEEE, LLLL d, YYYY", @"GLB", @"Date format: Monday, July 27, 2009");
-        formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:NSLocalizedStringFromTable(@"en_EN", @"GLB", @"Current locale")];
-        formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-    }
+    NSDateFormatter* formatter = [NSDateFormatter new];
+    formatter.dateFormat = NSLocalizedStringFromTable(@"EEEE, LLLL d, YYYY", @"GLB", @"Date format: Monday, July 27, 2009");
+    formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:NSLocalizedStringFromTable(@"en_EN", @"GLB", @"Current locale")];
+    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
     return [formatter stringFromDate:self];
 }
 
@@ -72,20 +66,14 @@
     if(diff < GLBDateDay) {
         return [self glb_formatTime];
     } else if(diff < GLBDateDay * 5) {
-        static NSDateFormatter* formatter = nil;
-        if(formatter == nil) {
-            formatter = [NSDateFormatter new];
-            formatter.dateFormat = NSLocalizedStringFromTable(@"EEEE", @"GLB", @"Date format: Monday");
-            formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:NSLocalizedStringFromTable(@"en_EN", @"GLB", @"Current locale")];
-        }
+        NSDateFormatter* formatter = [NSDateFormatter new];
+        formatter.dateFormat = NSLocalizedStringFromTable(@"EEEE", @"GLB", @"Date format: Monday");
+        formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:NSLocalizedStringFromTable(@"en_EN", @"GLB", @"Current locale")];
         return [formatter stringFromDate:self];
     } else {
-        static NSDateFormatter* formatter = nil;
-        if(formatter == nil) {
-            formatter = [NSDateFormatter new];
-            formatter.dateFormat = NSLocalizedStringFromTable(@"M/d/yy", @"GLB", @"Date format: 7/27/09");
-            formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:NSLocalizedStringFromTable(@"en_EN", @"GLB", @"Current locale")];
-        }
+        NSDateFormatter* formatter = [NSDateFormatter new];
+        formatter.dateFormat = NSLocalizedStringFromTable(@"M/d/yy", @"GLB", @"Date format: 7/27/09");
+        formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:NSLocalizedStringFromTable(@"en_EN", @"GLB", @"Current locale")];
         return [formatter stringFromDate:self];
     }
 }
@@ -95,20 +83,14 @@
     if(diff < GLBDateDay) {
         return [self glb_formatTime];
     } else if(diff < GLBDateDay * 5) {
-        static NSDateFormatter* formatter = nil;
-        if(formatter == nil) {
-            formatter = [NSDateFormatter new];
-            formatter.dateFormat = NSLocalizedStringFromTable(@"EEE h:mm a", @"GLB", @"Date format: Mon 1:05 pm");
-            formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:NSLocalizedStringFromTable(@"en_EN", @"GLB", @"Current locale")];
-        }
+        NSDateFormatter* formatter = [NSDateFormatter new];
+        formatter.dateFormat = NSLocalizedStringFromTable(@"EEE h:mm a", @"GLB", @"Date format: Mon 1:05 pm");
+        formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:NSLocalizedStringFromTable(@"en_EN", @"GLB", @"Current locale")];
         return [formatter stringFromDate:self];
     } else {
-        static NSDateFormatter* formatter = nil;
-        if(formatter == nil) {
-            formatter = [NSDateFormatter new];
-            formatter.dateFormat = NSLocalizedStringFromTable(@"MMM d h:mm a", @"GLB", @"Date format: Jul 27 1:05 pm");
-            formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:NSLocalizedStringFromTable(@"en_EN", @"GLB", @"Current locale")];
-        }
+        NSDateFormatter* formatter = [NSDateFormatter new];
+        formatter.dateFormat = NSLocalizedStringFromTable(@"MMM d h:mm a", @"GLB", @"Date format: Jul 27 1:05 pm");
+        formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:NSLocalizedStringFromTable(@"en_EN", @"GLB", @"Current locale")];
         return [formatter stringFromDate:self];
     }
 }

@@ -22,20 +22,18 @@
 
 /*--------------------------------------------------*/
 
-static GLBDataViewCellCache* GLBDataViewCellCacheInstance = nil;
-
-/*--------------------------------------------------*/
 
 @implementation GLBDataViewCellCache
 
 #pragma mark - Singleton
 
 + (instancetype)shared {
+    static GLBDataViewCellCache* instance = nil;
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
-        GLBDataViewCellCacheInstance = [self new];
+        instance = [self new];
     });
-    return GLBDataViewCellCacheInstance;
+    return instance;
 }
 
 #pragma mark - Init / Free

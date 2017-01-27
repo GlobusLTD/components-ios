@@ -208,7 +208,7 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
 #pragma mark - Public
 
 - (GLBImageCropContentView*)defaultContentView {
-    return [[GLBImageCropContentView alloc] initWithFrame:self.view.bounds];
+    return [[GLBImageCropContentView alloc] initWithFrame:UIScreen.mainScreen.bounds];
 }
 
 #pragma mark - Actions

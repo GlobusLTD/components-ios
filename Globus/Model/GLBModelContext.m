@@ -6,20 +6,17 @@
 #pragma mark -
 /*--------------------------------------------------*/
 
-static GLBModelContext* GLBModelContextInstance = nil;
-
-/*--------------------------------------------------*/
-
 @implementation GLBModelContext
 
 #pragma mark - Singleton
 
 + (instancetype)shared {
+    static GLBModelContext* instance = nil;
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
-        GLBModelContextInstance = [[self alloc] init];
+        instance = [self new];
     });
-    return GLBModelContextInstance;
+    return instance;
 }
 
 #pragma mark - Init / Free
