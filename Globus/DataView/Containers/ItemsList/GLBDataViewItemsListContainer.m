@@ -16,7 +16,6 @@
 @synthesize margin = _margin;
 @synthesize spacing = _spacing;
 @synthesize defaultSize = _defaultSize;
-@synthesize defaultOrder = _defaultOrder;
 @synthesize headerItem = _headerItem;
 @synthesize footerItem = _footerItem;
 @synthesize contentItems = _contentItems;

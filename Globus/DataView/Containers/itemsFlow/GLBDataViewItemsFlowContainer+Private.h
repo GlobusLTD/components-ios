@@ -12,7 +12,8 @@
     UIEdgeInsets _margin;
     UIOffset _spacing;
     CGSize _defaultSize;
-    NSUInteger _defaultOrder;
+    __kindof GLBDataViewItem* _headerItem;
+    __kindof GLBDataViewItem* _footerItem;
     NSMutableArray< __kindof GLBDataViewItem* >* _contentItems;
 }
 
