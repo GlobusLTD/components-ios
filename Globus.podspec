@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.4.0'
+  s.version = '0.4.1'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -422,6 +422,7 @@ Pod::Spec.new do |s|
   s.subspec 'BadgeView' do |ss|
     ss.source_files = 'Globus/BadgeView/**/*.{h,m}'
     ss.dependency 'Globus/UIKit/View'
+    ss.dependency 'Globus/Label'
   end
   s.subspec 'Button' do |ss|
     ss.source_files = 'Globus/Button/**/*.{h,m}'
