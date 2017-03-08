@@ -14,8 +14,8 @@
 @property(nonatomic) CGSize defaultSize;
 @property(nonatomic) CGFloat defaultWidth;
 @property(nonatomic) CGFloat defaultHeight;
-@property(nonatomic, nullable, strong) __kindof GLBDataViewItem* header;
-@property(nonatomic, nullable, strong) __kindof GLBDataViewItem* footer;
+@property(nonatomic, nullable, strong) __kindof GLBDataViewItem* headerItem;
+@property(nonatomic, nullable, strong) __kindof GLBDataViewItem* footerItem;
 @property(nonatomic, nonnull, readonly, strong) NSArray* contentItems;
 
 + (nonnull instancetype)containerWithOrientation:(GLBDataViewContainerOrientation)orientation NS_SWIFT_UNAVAILABLE("Use init(orientation:)");

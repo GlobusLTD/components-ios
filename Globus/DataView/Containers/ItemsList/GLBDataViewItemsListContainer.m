@@ -17,8 +17,8 @@
 @synthesize spacing = _spacing;
 @synthesize defaultSize = _defaultSize;
 @synthesize defaultOrder = _defaultOrder;
-@synthesize header = _header;
-@synthesize footer = _footer;
+@synthesize headerItem = _headerItem;
+@synthesize footerItem = _footerItem;
 @synthesize contentItems = _contentItems;
 
 #pragma mark - Init / Free
@@ -110,14 +110,14 @@
     return _defaultSize.height;
 }
 
-- (void)setHeader:(GLBDataViewItem*)header {
-    if(_header != header) {
-        if(_header != nil) {
-            [super deleteItem:_header];
+- (void)setHeaderItem:(GLBDataViewItem*)headerItem {
+    if(_headerItem != headerItem) {
+        if(_headerItem != nil) {
+            [super deleteItem:_headerItem];
         }
-        _header = header;
-        if(_header != nil) {
-            [super prependItem:_header];
+        _headerItem = headerItem;
+        if(_headerItem != nil) {
+            [super prependItem:_headerItem];
         }
         if(_dataView != nil) {
             [_dataView setNeedValidateLayout];
@@ -125,14 +125,14 @@
     }
 }
 
-- (void)setFooter:(GLBDataViewItem*)footer {
-    if(_footer != footer) {
-        if(_footer != nil) {
-            [super deleteItem:_footer];
+- (void)setFooterItem:(GLBDataViewItem*)footerItem {
+    if(_footerItem != footerItem) {
+        if(_footerItem != nil) {
+            [super deleteItem:_footerItem];
         }
-        _footer = footer;
-        if(_footer != nil) {
-            [super appendItem:_footer];
+        _footerItem = footerItem;
+        if(_footerItem != nil) {
+            [super appendItem:_footerItem];
         }
         if(_dataView != nil) {
             [_dataView setNeedValidateLayout];
@@ -165,8 +165,8 @@
 
 - (void)prependItem:(GLBDataViewItem*)item {
     [_contentItems insertObject:item atIndex:0];
-    if(_header != nil) {
-        [super insertItem:item atIndex:[_items indexOfObject:_header] + 1];
+    if(_headerItem != nil) {
+        [super insertItem:item atIndex:[_items indexOfObject:_headerItem] + 1];
     } else {
         [super prependItem:item];
     }
@@ -174,8 +174,8 @@
 
 - (void)prependItems:(NSArray*)items {
     [_contentItems insertObjects:items atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, items.count)]];
-    if(_header != nil) {
-        [super insertItems:items atIndex:[_items indexOfObject:_header] + 1];
+    if(_headerItem != nil) {
+        [super insertItems:items atIndex:[_items indexOfObject:_headerItem] + 1];
     } else {
         [super prependItems:items];
     }
@@ -204,8 +204,8 @@
 
 - (void)appendItem:(GLBDataViewItem*)item {
     [_contentItems addObject:item];
-    if(_footer != nil) {
-        [super insertItem:item atIndex:[_items indexOfObject:_footer] - 1];
+    if(_footerItem != nil) {
+        [super insertItem:item atIndex:[_items indexOfObject:_footerItem] - 1];
     } else {
         [super appendItem:item];
     }
@@ -213,8 +213,8 @@
 
 - (void)appendItems:(NSArray*)items {
     [_contentItems addObjectsFromArray:items];
-    if(_footer != nil) {
-        [super insertItems:items atIndex:[_items indexOfObject:_footer] - 1];
+    if(_footerItem != nil) {
+        [super insertItems:items atIndex:[_items indexOfObject:_footerItem] - 1];
     } else {
         [super appendItems:items];
     }
@@ -243,22 +243,22 @@
 
 - (void)insertItem:(GLBDataViewItem*)item atIndex:(NSUInteger)index {
     [_contentItems insertObject:item atIndex:index];
-    if(_header != nil) {
-        index = MAX(index, [_items indexOfObject:_header] + 1);
+    if(_headerItem != nil) {
+        index = MAX(index, [_items indexOfObject:_headerItem] + 1);
     }
-    if(_footer != nil) {
-        index = MIN(index, [_items indexOfObject:_footer] - 1);
+    if(_footerItem != nil) {
+        index = MIN(index, [_items indexOfObject:_footerItem] - 1);
     }
     [super insertItem:item atIndex:index];
 }
 
 - (void)insertItems:(NSArray*)items atIndex:(NSUInteger)index {
     [_contentItems insertObjects:items atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, items.count)]];
-    if(_header != nil) {
-        index = MAX(index, [_items indexOfObject:_header] + 1);
+    if(_headerItem != nil) {
+        index = MAX(index, [_items indexOfObject:_headerItem] + 1);
     }
-    if(_footer != nil) {
-        index = MIN(index, [_items indexOfObject:_footer] - 1);
+    if(_footerItem != nil) {
+        index = MIN(index, [_items indexOfObject:_footerItem] - 1);
     }
     [super insertItems:items atIndex:index];
 }
@@ -503,29 +503,29 @@
             CGFloat boundsAfter = bounds.origin.y + bounds.size.height;
             CGFloat entriesBefore = _frame.origin.y;
             CGFloat entriesAfter = _frame.origin.y + _frame.size.height;
-            if((_header != nil) && (_header.hidden == NO)) {
-                CGRect headerFrame = _header.updateFrame;
-                headerFrame.origin.y = boundsBefore;
-                if((_footer != nil) && (_footer.hidden == NO)) {
-                    CGRect footerFrame = _footer.updateFrame;
-                    headerFrame.origin.y = MIN(headerFrame.origin.y, (boundsAfter - (_spacing.vertical + footerFrame.size.height)) - headerFrame.size.height);
+            if((_headerItem != nil) && (_headerItem.hidden == NO)) {
+                CGRect headerItemFrame = _headerItem.updateFrame;
+                headerItemFrame.origin.y = boundsBefore;
+                if((_footerItem != nil) && (_footerItem.hidden == NO)) {
+                    CGRect footerFrame = _footerItem.updateFrame;
+                    headerItemFrame.origin.y = MIN(headerItemFrame.origin.y, (boundsAfter - (_spacing.vertical + footerFrame.size.height)) - headerItemFrame.size.height);
                 } else {
-                    headerFrame.origin.y = MIN(headerFrame.origin.y, boundsAfter - headerFrame.size.height);
+                    headerItemFrame.origin.y = MIN(headerItemFrame.origin.y, boundsAfter - headerItemFrame.size.height);
                 }
-                headerFrame.origin.y = MAX(entriesBefore, MIN(headerFrame.origin.y, entriesAfter - headerFrame.size.height));
-                _header.displayFrame = headerFrame;
+                headerItemFrame.origin.y = MAX(entriesBefore, MIN(headerItemFrame.origin.y, entriesAfter - headerItemFrame.size.height));
+                _headerItem.displayFrame = headerItemFrame;
             }
-            if((_footer != nil) && (_footer.hidden == NO)) {
-                CGRect footerFrame = _footer.updateFrame;
+            if((_footerItem != nil) && (_footerItem.hidden == NO)) {
+                CGRect footerFrame = _footerItem.updateFrame;
                 footerFrame.origin.y = boundsAfter - footerFrame.size.height;
-                if((_header != nil) && (_header.hidden == NO)) {
-                    CGRect headerFrame = _header.updateFrame;
-                    footerFrame.origin.y = MAX(footerFrame.origin.y, (boundsBefore + _spacing.vertical) + headerFrame.size.height);
+                if((_headerItem != nil) && (_headerItem.hidden == NO)) {
+                    CGRect headerItemFrame = _headerItem.updateFrame;
+                    footerFrame.origin.y = MAX(footerFrame.origin.y, (boundsBefore + _spacing.vertical) + headerItemFrame.size.height);
                 } else {
                     footerFrame.origin.y = MAX(footerFrame.origin.y, boundsBefore);
                 }
                 footerFrame.origin.y = MAX(entriesBefore, MIN(footerFrame.origin.y, entriesAfter - footerFrame.size.height));
-                _footer.displayFrame = footerFrame;
+                _footerItem.displayFrame = footerFrame;
             }
             break;
         }
@@ -534,29 +534,29 @@
             CGFloat boundsAfter = bounds.origin.x + bounds.size.width;
             CGFloat entriesBefore = _frame.origin.x;
             CGFloat entriesAfter = _frame.origin.x + _frame.size.width;
-            if((_header != nil) && (_header.hidden == NO)) {
-                CGRect headerFrame = _header.updateFrame;
-                headerFrame.origin.x = boundsBefore;
-                if((_footer != nil) && (_footer.hidden == NO)) {
-                    CGRect footerFrame = _footer.updateFrame;
-                    headerFrame.origin.x = MIN(headerFrame.origin.x, (boundsAfter - (_spacing.horizontal + footerFrame.size.width)) - headerFrame.size.width);
+            if((_headerItem != nil) && (_headerItem.hidden == NO)) {
+                CGRect headerItemFrame = _headerItem.updateFrame;
+                headerItemFrame.origin.x = boundsBefore;
+                if((_footerItem != nil) && (_footerItem.hidden == NO)) {
+                    CGRect footerFrame = _footerItem.updateFrame;
+                    headerItemFrame.origin.x = MIN(headerItemFrame.origin.x, (boundsAfter - (_spacing.horizontal + footerFrame.size.width)) - headerItemFrame.size.width);
                 } else {
-                    headerFrame.origin.x = MIN(headerFrame.origin.x, boundsAfter - headerFrame.size.width);
+                    headerItemFrame.origin.x = MIN(headerItemFrame.origin.x, boundsAfter - headerItemFrame.size.width);
                 }
-                headerFrame.origin.x = MAX(entriesBefore, MIN(headerFrame.origin.x, entriesAfter - headerFrame.size.width));
-                _header.displayFrame = headerFrame;
+                headerItemFrame.origin.x = MAX(entriesBefore, MIN(headerItemFrame.origin.x, entriesAfter - headerItemFrame.size.width));
+                _headerItem.displayFrame = headerItemFrame;
             }
-            if((_footer != nil) && (_footer.hidden == NO)) {
-                CGRect footerFrame = _footer.updateFrame;
+            if((_footerItem != nil) && (_footerItem.hidden == NO)) {
+                CGRect footerFrame = _footerItem.updateFrame;
                 footerFrame.origin.x = boundsAfter - footerFrame.size.width;
-                if((_header != nil) && (_header.hidden == NO)) {
-                    CGRect headerFrame = _header.updateFrame;
-                    footerFrame.origin.x = MAX(footerFrame.origin.x, (boundsBefore + _spacing.horizontal) + headerFrame.size.width);
+                if((_headerItem != nil) && (_headerItem.hidden == NO)) {
+                    CGRect headerItemFrame = _headerItem.updateFrame;
+                    footerFrame.origin.x = MAX(footerFrame.origin.x, (boundsBefore + _spacing.horizontal) + headerItemFrame.size.width);
                 } else {
                     footerFrame.origin.x = MAX(footerFrame.origin.x, boundsBefore);
                 }
                 footerFrame.origin.x = MAX(entriesBefore, MIN(footerFrame.origin.x, entriesAfter - footerFrame.size.width));
-                _footer.displayFrame = footerFrame;
+                _footerItem.displayFrame = footerFrame;
             }
             break;
         }
