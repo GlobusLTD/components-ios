@@ -6,15 +6,15 @@
 
 @interface GLBTimer : NSObject
 
-@property(nonatomic, readonly, assign, getter=isDelaying) BOOL delaying;
-@property(nonatomic, readonly, assign, getter=isStarted) BOOL started;
-@property(nonatomic, readonly, assign, getter=isPaused) BOOL paused;
+@property(nonatomic, readonly, getter=isDelaying) BOOL delaying;
+@property(nonatomic, readonly, getter=isStarted) BOOL started;
+@property(nonatomic, readonly, getter=isPaused) BOOL paused;
 @property(nonatomic) NSTimeInterval interval;
 @property(nonatomic) NSTimeInterval delay;
 @property(nonatomic) NSUInteger repeat;
-@property(nonatomic, readonly, assign) NSTimeInterval duration;
-@property(nonatomic, readonly, assign) NSTimeInterval elapsed;
-@property(nonatomic, readonly, assign) NSUInteger repeated;
+@property(nonatomic, readonly) NSTimeInterval duration;
+@property(nonatomic, readonly) NSTimeInterval elapsed;
+@property(nonatomic, readonly) NSUInteger repeated;
 
 @property(nonatomic, nullable, strong) GLBAction* actionStarted;
 @property(nonatomic, nullable, strong) GLBAction* actionRepeat;

@@ -4,11 +4,7 @@
 
 import Globus
 
-class ListDataViewController: GLBDataViewController {
-    
-    // MARK: - Property
-    
-    public var dataViewContainer: GLBDataViewItemsListContainer?
+class ListDataViewController: GLBListDataViewController {
     
     // MARK: - Init / Free
     
@@ -17,6 +13,10 @@ class ListDataViewController: GLBDataViewController {
         
         self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0);
         self.title = "ListDataView"
+        
+        self.provider = ListDataProvider();
+        self.spinnerView = GLBArcSpinnerView();
+        self.spinnerView!.color = UIColor.blue;
     }
     
     // MARK: - UIViewController
@@ -28,41 +28,48 @@ class ListDataViewController: GLBDataViewController {
         self.navigationItem.glb_addLeftBarButtonNormalImage(UIImage.init(named: "MenuButton"), target: self, action: #selector(pressedMenu(_ :)), animated: false)
     }
     
-    // MARK: - GLBViewController
-    
-    override func update() {
-        super.update()
-        
-        self.dataView?.batchUpdate({
-            for index in 0...1000 {
-                self.dataViewContainer?.appendIdentifier(Const.ListCellIdentifier, byData: ListDataViewModel.init(title: "Item #\(index)"))
-            }
-        })
-    }
-    
-    override func clear() {
-        self.dataView?.batchUpdate({
-            self.dataViewContainer?.deleteAllItems()
-        })
-        
-        super.clear()
-    }
-    
     // MARK: - GLBDataViewController
     
-    override func prepareDataView() {
-        self.dataViewContainer = GLBDataViewItemsListContainer.init(orientation: .vertical)
+    override func configureDataView() {
+        super.configureDataView()
         
-        self.dataView?.registerIdentifier(Const.ListCellIdentifier, withViewClass: ListDataViewCell.self)
-        
-        self.dataView?.container = self.dataViewContainer;
+        self.registerIdentifier(Const.ListCellIdentifier, withViewClass: ListDataViewCell.self)
     }
     
-    override func cleanupDataView() {
-        self.dataView?.container = nil;
-        self.dataView?.unregisterAllIdentifiers()
-        self.dataView?.unregisterAllActions()
-        self.dataViewContainer = nil;
+    // MARK: - GLBListDataViewController
+    
+    override func prepareRootContainer() -> GLBDataViewSectionsContainer? {
+        return GLBDataViewSectionsListContainer.init(orientation: .vertical)
+    }
+    
+    override func prepareContentContainer() -> GLBDataViewSectionsContainer? {
+        return GLBDataViewSectionsListContainer.init(orientation: .vertical)
+    }
+    
+    override func preparePreloadContainer() -> GLBDataViewContainer? {
+        return nil
+    }
+    
+    override func prepareEmptyContainer() -> GLBDataViewContainer? {
+        return nil
+    }
+    
+    override func prepareErrorContainerWithError(_ error: Any?) -> GLBDataViewContainer? {
+        return nil
+    }
+    
+    override func prepareSectionContainer(with model: GLBListDataProviderModel) -> GLBDataViewContainer? {
+        return GLBDataViewItemsListContainer.init(orientation: .vertical)
+    }
+    
+    override func prepareItem(withModel model: Any) -> GLBDataViewItem? {
+        return GLBDataViewItem.init(identifier: Const.ListCellIdentifier, order: 0, data: model)
+    }
+    
+    override func sectionContainer(_ sectionContainer: GLBDataViewContainer, append item: GLBDataViewItem) {
+        if let itemsListContainer = sectionContainer as? GLBDataViewItemsListContainer {
+            itemsListContainer.appendItem(item)
+        }
     }
     
     // MARK: - Actions

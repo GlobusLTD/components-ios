@@ -54,7 +54,7 @@
 
 #pragma mark - GLBDataViewController
 
-- (void)prepareDataView {
+- (void)configureDataView {
     _dataViewContainer = [GLBDataViewCalendarContainer containerWithCalendar:NSCalendar.currentCalendar];
     
     [self.dataView registerIdentifier:GLBDataViewCalendarMonthIdentifier withViewClass:CalendarMonthDataViewCell.class];
@@ -65,9 +65,8 @@
 }
 
 - (void)cleanupDataView {
-    self.dataView.container = nil;
-    [self.dataView unregisterAllIdentifiers];
-    [self.dataView unregisterAllActions];
+    [super cleanupDataView];
+    
     _dataViewContainer = nil;
 }
 

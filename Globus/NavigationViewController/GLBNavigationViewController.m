@@ -12,12 +12,25 @@
 
 /*--------------------------------------------------*/
 
+@interface GLBNavigationViewControllerDelegate : NSObject< UINavigationControllerDelegate >
+
+@property(nonatomic, nullable, weak) GLBNavigationViewController* viewController;
+@property(nonatomic, nullable, weak) id< UINavigationControllerDelegate > delegate;
+
+- (nonnull instancetype)initWithViewController:(nonnull GLBNavigationViewController*)viewController;
+
+@end
+
+/*--------------------------------------------------*/
+
 @interface GLBNavigationViewController () <
-    UIViewControllerTransitioningDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate
+    UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate
 #if __has_include("GLBSlideViewController.h")
     ,GLBSlideViewControllerDelegate
 #endif
 >
+
+@property(nonatomic, nullable, strong) GLBNavigationViewControllerDelegate* delegateProxy;
 
 @end
 
@@ -70,7 +83,7 @@
 }
 
 - (void)setup {
-    self.delegate = self;
+    self.delegateProxy = [GLBNavigationViewControllerDelegate new];
     self.transitioningDelegate = self;
 }
 
@@ -79,6 +92,28 @@
 }
 
 #pragma mark - Property
+
+- (void)setDelegateProxy:(GLBNavigationViewControllerDelegate*)delegateProxy {
+    if(_delegateProxy != delegateProxy) {
+        _delegateProxy.viewController = nil;
+        super.delegate = nil;
+        _delegateProxy = delegateProxy;
+        super.delegate = _delegateProxy;
+        _delegateProxy.viewController = self;
+    }
+}
+
+- (void)setDelegate:(id< UINavigationControllerDelegate >)delegate {
+    if(_delegateProxy.delegate != delegate) {
+        super.delegate = nil;
+        _delegateProxy.delegate = delegate;
+        super.delegate = _delegateProxy;
+    }
+}
+
+- (id< UINavigationControllerDelegate >)delegate {
+    return _delegateProxy.delegate;
+}
 
 - (void)setView:(UIView*)view {
     super.view = view;
@@ -256,41 +291,6 @@
         _transitionModal.operation = GLBTransitionOperationDismiss;
     }
     return _transitionModal;
-}
-
-#pragma mark - UINavigationControllerDelegate
-
-- (UIInterfaceOrientationMask)navigationControllerSupportedInterfaceOrientations:(UINavigationController*)navigationController {
-    return self.topViewController.supportedInterfaceOrientations;
-}
-
-- (UIInterfaceOrientation)navigationControllerPreferredInterfaceOrientationForPresentation:(UINavigationController*)navigationController {
-    return [self.topViewController preferredInterfaceOrientationForPresentation];
-}
-
-- (id< UIViewControllerInteractiveTransitioning >)navigationController:(UINavigationController*)navigationController
-                           interactionControllerForAnimationController:(id< UIViewControllerAnimatedTransitioning >)animationController {
-    return nil;
-}
-
-- (id< UIViewControllerAnimatedTransitioning >)navigationController:(UINavigationController*)navigationController
-                                    animationControllerForOperation:(UINavigationControllerOperation)operation
-                                                 fromViewController:(UIViewController*)fromViewController
-                                                   toViewController:(UIViewController*)toViewController {
-    switch(operation) {
-        case UINavigationControllerOperationPush:
-            _transitionNavigation.operation = GLBTransitionOperationPush;
-            break;
-        case UINavigationControllerOperationPop:
-            _transitionNavigation.operation = GLBTransitionOperationPop;
-            break;
-        default:
-            break;
-    }
-    if(self.interactivePopGestureRecognizer.state != UIGestureRecognizerStateBegan) {
-        return _transitionNavigation;
-    }
-    return nil;
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -565,6 +565,73 @@
 }
 
 #endif
+
+@end
+
+/*--------------------------------------------------*/
+#pragma mark -
+/*--------------------------------------------------*/
+
+@implementation GLBNavigationViewControllerDelegate
+
+#pragma mark - Init / Free
+
+- (instancetype)initWithViewController:(GLBNavigationViewController*)viewController {
+    self = [super init];
+    if(self != nil) {
+        _viewController = viewController;
+    }
+    return self;
+}
+
+#pragma mark - NSObject
+
+- (BOOL)respondsToSelector:(SEL)selector {
+    return (([_delegate respondsToSelector:selector] == YES) || ([super respondsToSelector:selector] == YES));
+}
+
+- (void)forwardInvocation:(NSInvocation*)invocation {
+    [invocation invokeWithTarget:_delegate];
+}
+
+#pragma mark - UINavigationControllerDelegate
+
+- (UIInterfaceOrientationMask)navigationControllerSupportedInterfaceOrientations:(UINavigationController*)navigationController {
+    if([_delegate respondsToSelector:@selector(navigationControllerSupportedInterfaceOrientations:)] == YES) {
+        return [_delegate navigationControllerSupportedInterfaceOrientations:navigationController];
+    }
+    return _viewController.topViewController.supportedInterfaceOrientations;
+}
+
+- (UIInterfaceOrientation)navigationControllerPreferredInterfaceOrientationForPresentation:(UINavigationController*)navigationController {
+    if([_delegate respondsToSelector:@selector(navigationControllerPreferredInterfaceOrientationForPresentation:)] == YES) {
+        return [_delegate navigationControllerPreferredInterfaceOrientationForPresentation:navigationController];
+    }
+    return [_viewController.topViewController preferredInterfaceOrientationForPresentation];
+}
+
+- (id< UIViewControllerAnimatedTransitioning >)navigationController:(UINavigationController*)navigationController
+                                    animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                 fromViewController:(UIViewController*)fromViewController
+                                                   toViewController:(UIViewController*)toViewController {
+    if([_delegate respondsToSelector:@selector(navigationController:animationControllerForOperation:fromViewController:toViewController:)] == YES) {
+        return [_delegate navigationController:navigationController animationControllerForOperation:operation fromViewController:fromViewController toViewController:toViewController];
+    }
+    switch(operation) {
+        case UINavigationControllerOperationPush:
+            _viewController.transitionNavigation.operation = GLBTransitionOperationPush;
+            break;
+        case UINavigationControllerOperationPop:
+            _viewController.transitionNavigation.operation = GLBTransitionOperationPop;
+            break;
+        default:
+            break;
+    }
+    if(_viewController.interactivePopGestureRecognizer.state != UIGestureRecognizerStateBegan) {
+        return _viewController.transitionNavigation;
+    }
+    return nil;
+}
 
 @end
 

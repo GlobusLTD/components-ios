@@ -19,7 +19,7 @@
 @synthesize defaultOrder = _defaultOrder;
 @synthesize header = _header;
 @synthesize footer = _footer;
-@synthesize items = _items;
+@synthesize contentItems = _contentItems;
 
 #pragma mark - Init / Free
 
@@ -42,7 +42,7 @@
     _margin = UIEdgeInsetsZero;
     _spacing = UIOffsetZero;
     _defaultSize = CGSizeZero;
-    _items = NSMutableArray.array;
+    _contentItems = NSMutableArray.array;
     _movingFrame = CGRectZero;
 }
 
@@ -113,11 +113,11 @@
 - (void)setHeader:(GLBDataViewItem*)header {
     if(_header != header) {
         if(_header != nil) {
-            [super deleteEntry:_header];
+            [super deleteItem:_header];
         }
         _header = header;
         if(_header != nil) {
-            [super prependEntry:_header];
+            [super prependItem:_header];
         }
         if(_dataView != nil) {
             [_dataView setNeedValidateLayout];
@@ -128,11 +128,11 @@
 - (void)setFooter:(GLBDataViewItem*)footer {
     if(_footer != footer) {
         if(_footer != nil) {
-            [super deleteEntry:_footer];
+            [super deleteItem:_footer];
         }
         _footer = footer;
         if(_footer != nil) {
-            [super appendEntry:_footer];
+            [super appendItem:_footer];
         }
         if(_dataView != nil) {
             [_dataView setNeedValidateLayout];
@@ -164,20 +164,20 @@
 }
 
 - (void)prependItem:(GLBDataViewItem*)item {
-    [_items insertObject:item atIndex:0];
+    [_contentItems insertObject:item atIndex:0];
     if(_header != nil) {
-        [super insertEntry:item atIndex:[_entries indexOfObject:_header] + 1];
+        [super insertItem:item atIndex:[_items indexOfObject:_header] + 1];
     } else {
-        [super prependEntry:item];
+        [super prependItem:item];
     }
 }
 
 - (void)prependItems:(NSArray*)items {
-    [_items insertObjects:items atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, items.count)]];
+    [_contentItems insertObjects:items atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, items.count)]];
     if(_header != nil) {
-        [super insertEntries:items atIndex:[_entries indexOfObject:_header] + 1];
+        [super insertItems:items atIndex:[_items indexOfObject:_header] + 1];
     } else {
-        [super prependEntries:items];
+        [super prependItems:items];
     }
 }
 
@@ -203,20 +203,20 @@
 }
 
 - (void)appendItem:(GLBDataViewItem*)item {
-    [_items addObject:item];
+    [_contentItems addObject:item];
     if(_footer != nil) {
-        [super insertEntry:item atIndex:[_entries indexOfObject:_footer] - 1];
+        [super insertItem:item atIndex:[_items indexOfObject:_footer] - 1];
     } else {
-        [super appendEntry:item];
+        [super appendItem:item];
     }
 }
 
 - (void)appendItems:(NSArray*)items {
-    [_items addObjectsFromArray:items];
+    [_contentItems addObjectsFromArray:items];
     if(_footer != nil) {
-        [super insertEntries:items atIndex:[_entries indexOfObject:_footer] - 1];
+        [super insertItems:items atIndex:[_items indexOfObject:_footer] - 1];
     } else {
-        [super appendEntries:items];
+        [super appendItems:items];
     }
 }
 
@@ -242,96 +242,96 @@
 }
 
 - (void)insertItem:(GLBDataViewItem*)item atIndex:(NSUInteger)index {
-    [_items insertObject:item atIndex:index];
+    [_contentItems insertObject:item atIndex:index];
     if(_header != nil) {
-        index = MAX(index, [_entries indexOfObject:_header] + 1);
+        index = MAX(index, [_items indexOfObject:_header] + 1);
     }
     if(_footer != nil) {
-        index = MIN(index, [_entries indexOfObject:_footer] - 1);
+        index = MIN(index, [_items indexOfObject:_footer] - 1);
     }
-    [super insertEntry:item atIndex:index];
+    [super insertItem:item atIndex:index];
 }
 
 - (void)insertItems:(NSArray*)items atIndex:(NSUInteger)index {
-    [_items insertObjects:items atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, items.count)]];
+    [_contentItems insertObjects:items atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, items.count)]];
     if(_header != nil) {
-        index = MAX(index, [_entries indexOfObject:_header] + 1);
+        index = MAX(index, [_items indexOfObject:_header] + 1);
     }
     if(_footer != nil) {
-        index = MIN(index, [_entries indexOfObject:_footer] - 1);
+        index = MIN(index, [_items indexOfObject:_footer] - 1);
     }
-    [super insertEntries:items atIndex:index];
+    [super insertItems:items atIndex:index];
 }
 
 - (void)insertItem:(GLBDataViewItem*)item aboveItem:(GLBDataViewItem*)aboveItem {
-    NSUInteger index = [_items indexOfObject:aboveItem];
+    NSUInteger index = [_contentItems indexOfObject:aboveItem];
     if(index != NSNotFound) {
         [self insertItem:item atIndex:index];
     }
 }
 
 - (void)insertItems:(NSArray*)items aboveItem:(GLBDataViewItem*)aboveItem {
-    NSUInteger index = [_items indexOfObject:aboveItem];
+    NSUInteger index = [_contentItems indexOfObject:aboveItem];
     if(index != NSNotFound) {
         [self insertItems:items atIndex:index];
     }
 }
 
 - (void)insertItem:(GLBDataViewItem*)item belowItem:(GLBDataViewItem*)belowItem {
-    NSUInteger index = [_items indexOfObject:belowItem];
+    NSUInteger index = [_contentItems indexOfObject:belowItem];
     if(index != NSNotFound) {
         [self insertItem:item atIndex:index + 1];
     }
 }
 
 - (void)insertItems:(NSArray*)items belowItem:(GLBDataViewItem*)belowItem {
-    NSUInteger index = [_items indexOfObject:belowItem];
+    NSUInteger index = [_contentItems indexOfObject:belowItem];
     if(index != NSNotFound) {
         [self insertItems:items atIndex:index + 1];
     }
 }
 
 - (void)replaceOriginItem:(GLBDataViewItem*)originItem withItem:(GLBDataViewItem*)item {
-    NSUInteger index = [_items indexOfObject:originItem];
+    NSUInteger index = [_contentItems indexOfObject:originItem];
     if(index != NSNotFound) {
-        _items[index] = item;
-        [super replaceOriginEntry:originItem withEntry:item];
+        _contentItems[index] = item;
+        [super replaceOriginItem:originItem withItem:item];
     }
 }
 
 - (void)replaceOriginItems:(NSArray*)originItems withItems:(NSArray*)items {
-    NSIndexSet* indexSet = [_items indexesOfObjectsPassingTest:^BOOL(GLBDataViewItem* originItem, NSUInteger index __unused, BOOL* stop __unused) {
+    NSIndexSet* indexSet = [_contentItems indexesOfObjectsPassingTest:^BOOL(GLBDataViewItem* originItem, NSUInteger index __unused, BOOL* stop __unused) {
         return [originItems containsObject:originItem];
     }];
     if(indexSet.count == items.count) {
-        [_items replaceObjectsAtIndexes:indexSet withObjects:items];
-        [super replaceOriginEntries:originItems withEntries:items];
+        [_contentItems replaceObjectsAtIndexes:indexSet withObjects:items];
+        [super replaceOriginItems:originItems withItems:items];
     }
 }
 
 - (void)deleteItem:(GLBDataViewItem*)item {
-    if([_items containsObject:item] == YES) {
-        [_items removeObject:item];
-        [super deleteEntry:item];
+    if([_contentItems containsObject:item] == YES) {
+        [_contentItems removeObject:item];
+        [super deleteItem:item];
     }
 }
 
 - (void)deleteItems:(NSArray*)items {
-    if([_items glb_containsObjectsInArray:items] == YES) {
-        [_items removeObjectsInArray:items];
-        [super deleteEntries:items];
+    if([_contentItems glb_containsObjectsInArray:items] == YES) {
+        [_contentItems removeObjectsInArray:items];
+        [super deleteItems:items];
     }
 }
 
 - (void)deleteAllItems {
-    if(_items.count > 0) {
-        NSArray* items = [NSArray arrayWithArray:_items];
-        [_items removeAllObjects];
-        [super deleteEntries:items];
+    if(_contentItems.count > 0) {
+        NSArray* items = [NSArray arrayWithArray:_contentItems];
+        [_contentItems removeAllObjects];
+        [super deleteItems:items];
     }
 }
 
-- (CGRect)frameEntriesForAvailableFrame:(CGRect)frame {
+- (CGRect)frameItemsForAvailableFrame:(CGRect)frame {
     CGSize restriction = CGSizeMake(frame.size.width - (_margin.left + _margin.right), frame.size.height - (_margin.top + _margin.bottom));
     CGSize cumulative = CGSizeZero;
     
@@ -340,7 +340,7 @@
             CGFloat availableWidth = (_defaultSize.width > 0) ? _defaultSize.width : restriction.width;
             CGFloat availableHeight = (_defaultSize.height > 0) ? _defaultSize.height : restriction.height;
             CGSize availableSize = CGSizeMake(availableWidth, availableHeight);
-            for(GLBDataViewItem* entry in _entries) {
+            for(GLBDataViewItem* entry in _items) {
                 if(entry.hidden == YES) {
                     continue;
                 }
@@ -371,7 +371,7 @@
             CGFloat availableWidth = (_defaultSize.width > 0) ? _defaultSize.width : restriction.width;
             CGFloat availableHeight = (_defaultSize.height > 0) ? _defaultSize.height : restriction.height;
             CGSize availableSize = CGSizeMake(availableWidth, availableHeight);
-            for(GLBDataViewItem* entry in _entries) {
+            for(GLBDataViewItem* entry in _items) {
                 if(entry.hidden == YES) {
                     continue;
                 }
@@ -402,7 +402,7 @@
     return CGRectMake(frame.origin.x, frame.origin.y, _margin.left + cumulative.width + _margin.right, _margin.top + cumulative.height + _margin.bottom);
 }
 
-- (void)layoutEntriesForFrame:(CGRect)frame {
+- (void)layoutItemsForFrame:(CGRect)frame {
     __block CGPoint offset = CGPointMake(frame.origin.x + _margin.left, frame.origin.y + _margin.top);
     CGSize restriction = CGSizeMake(frame.size.width - (_margin.left + _margin.right), frame.size.height - (_margin.top + _margin.bottom));
     CGSize cumulative = CGSizeZero;
@@ -411,7 +411,7 @@
             CGFloat availableWidth = (_defaultSize.width > 0) ? _defaultSize.width : restriction.width;
             CGFloat availableHeight = (_defaultSize.height > 0) ? _defaultSize.height : restriction.height;
             CGSize availableSize = CGSizeMake(availableWidth, availableHeight);
-            for(GLBDataViewItem* entry in _entries) {
+            for(GLBDataViewItem* entry in _items) {
                 if(entry.hidden == YES) {
                     continue;
                 }
@@ -439,7 +439,7 @@
                     }
                     break;
             }
-            [_entries glb_each:^(GLBDataViewItem* entry) {
+            [_items glb_each:^(GLBDataViewItem* entry) {
                 if(entry.hidden == NO) {
                     CGSize entrySize = [entry sizeForAvailableSize:availableSize];
                     if(entry.isMoving == NO) {
@@ -454,7 +454,7 @@
             CGFloat availableWidth = (_defaultSize.width > 0) ? _defaultSize.width : restriction.width;
             CGFloat availableHeight = (_defaultSize.height > 0) ? _defaultSize.height : restriction.height;
             CGSize availableSize = CGSizeMake(availableWidth, availableHeight);
-            for(GLBDataViewItem* entry in _entries) {
+            for(GLBDataViewItem* entry in _items) {
                 if(entry.hidden == YES) {
                     continue;
                 }
@@ -482,7 +482,7 @@
                     }
                     break;
             }
-            [_entries glb_each:^(GLBDataViewItem* entry) {
+            [_items glb_each:^(GLBDataViewItem* entry) {
                 if(entry.hidden == NO) {
                     CGSize entrySize = [entry sizeForAvailableSize:availableSize];
                     if(entry.isMoving == NO) {
@@ -496,7 +496,7 @@
     }
 }
 
-- (void)willEntriesLayoutForBounds:(CGRect)bounds {
+- (void)willItemsLayoutForBounds:(CGRect)bounds {
     switch(_orientation) {
         case GLBDataViewContainerOrientationVertical: {
             CGFloat boundsBefore = bounds.origin.y;
@@ -564,11 +564,11 @@
 }
 
 - (void)beginMovingItem:(GLBDataViewItem*)item location:(CGPoint)location {
-    if(_items.count >= 2) {
-        GLBDataViewItem* firstMovingRange = [_items glb_find:^BOOL(GLBDataViewItem* existItem) {
+    if(_contentItems.count >= 2) {
+        GLBDataViewItem* firstMovingRange = [_contentItems glb_find:^BOOL(GLBDataViewItem* existItem) {
             return (existItem.allowsMoving == YES) && (existItem.hidden == NO);
         }];
-        GLBDataViewItem* lastMovingRange = [_items glb_find:^BOOL(GLBDataViewItem* existItem) {
+        GLBDataViewItem* lastMovingRange = [_contentItems glb_find:^BOOL(GLBDataViewItem* existItem) {
             return (existItem.allowsMoving == YES) && (existItem.hidden == NO);
         } options:NSEnumerationReverse];
         if(firstMovingRange != lastMovingRange) {
@@ -580,7 +580,7 @@
 - (void)movingItem:(GLBDataViewItem*)item location:(CGPoint)location delta:(CGPoint)delta allowsSorting:(BOOL)allowsSorting {
     CGRect frame = item.updateFrame;
     if(CGRectIsEmpty(_movingFrame) == NO) {
-        NSUInteger srcIndex = [_items indexOfObject:item];
+        NSUInteger srcIndex = [_contentItems indexOfObject:item];
         NSUInteger dstIndex = srcIndex;
         switch(_orientation) {
             case GLBDataViewContainerOrientationVertical: {
@@ -608,15 +608,15 @@
         }
         GLBDataViewItem* dstItem = [self itemForPoint:CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame))];
         if(dstItem != nil) {
-            dstIndex = [_items indexOfObject:dstItem];
+            dstIndex = [_contentItems indexOfObject:dstItem];
         }
         if((srcIndex != dstIndex) && (allowsSorting == YES)) {
-            NSUInteger entrySrcIndex = [_entries indexOfObject:_items[srcIndex]];
-            NSUInteger entryDstIndex = [_entries indexOfObject:_items[dstIndex]];
+            NSUInteger entrySrcIndex = [_items indexOfObject:_contentItems[srcIndex]];
+            NSUInteger entryDstIndex = [_items indexOfObject:_contentItems[dstIndex]];
             if((entrySrcIndex != NSNotFound) && (entrySrcIndex != entryDstIndex)) {
-                [_entries glb_moveObjectAtIndex:entrySrcIndex toIndex:entryDstIndex];
+                [_items glb_moveObjectAtIndex:entrySrcIndex toIndex:entryDstIndex];
             }
-            [_items glb_moveObjectAtIndex:srcIndex toIndex:dstIndex];
+            [_contentItems glb_moveObjectAtIndex:srcIndex toIndex:dstIndex];
             
             __weak typeof(self) weakSelf = self;
             [self.dataView batchDuration:0.1f update:^{

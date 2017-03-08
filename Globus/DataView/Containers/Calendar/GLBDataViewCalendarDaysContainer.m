@@ -73,13 +73,13 @@
 }
 
 - (NSArray< GLBDataViewCalendarDayItem* >*)days {
-    return _entries;
+    return _items;
 }
 
 #pragma mark - Public
 
 - (GLBDataViewCalendarDayItem*)dayItemForDate:(NSDate*)date {
-    for(GLBDataViewCalendarDayItem* calendarDay in _entries) {
+    for(GLBDataViewCalendarDayItem* calendarDay in _items) {
         if([date isEqualToDate:calendarDay.date] == YES) {
             return calendarDay;
         }
@@ -89,7 +89,7 @@
 
 - (GLBDataViewCalendarDayItem*)nearestDayItemForDate:(NSDate*)date {
     GLBDataViewCalendarDayItem* prevCalendarDay = nil;
-    for(GLBDataViewCalendarDayItem* calendarDay in _entries) {
+    for(GLBDataViewCalendarDayItem* calendarDay in _items) {
         switch([date compare:calendarDay.date]) {
             case NSOrderedDescending: prevCalendarDay = calendarDay; break;
             case NSOrderedSame: return calendarDay;
@@ -110,44 +110,44 @@
         }
         timeInterval += interval;
     }
-    [_entries sortUsingComparator:^NSComparisonResult(GLBDataViewCalendarDayItem* calendarDay1, GLBDataViewCalendarDayItem* calendarDay2) {
+    [_items sortUsingComparator:^NSComparisonResult(GLBDataViewCalendarDayItem* calendarDay1, GLBDataViewCalendarDayItem* calendarDay2) {
         return [calendarDay1.date compare:calendarDay2.date];
     }];
 }
 
 - (void)prependToDate:(NSDate*)date interval:(NSTimeInterval)interval data:(id)data {
-    [self prepareBeginDate:date endDate:(_entries.count > 0) ? [_entries.firstObject date] : [NSDate date] interval:interval data:data];
+    [self prepareBeginDate:date endDate:(_items.count > 0) ? [_items.firstObject date] : [NSDate date] interval:interval data:data];
 }
 
 - (void)prependDate:(NSDate*)date data:(id)data {
-    [super prependEntry:[GLBDataViewCalendarDayItem itemWithCalendar:_calendar date:date data:data]];
+    [super prependItem:[GLBDataViewCalendarDayItem itemWithCalendar:_calendar date:date data:data]];
 }
 
 - (void)appendToDate:(NSDate*)date interval:(NSTimeInterval)interval data:(id)data {
-    [self prepareBeginDate:(_entries.count > 0) ? [_entries.lastObject date] : [NSDate date] endDate:date interval:interval data:data];
+    [self prepareBeginDate:(_items.count > 0) ? [_items.lastObject date] : [NSDate date] endDate:date interval:interval data:data];
 }
 
 - (void)appendDate:(NSDate*)date data:(id)data {
-    [super appendEntry:[GLBDataViewCalendarDayItem itemWithCalendar:_calendar date:date data:data]];
+    [super appendItem:[GLBDataViewCalendarDayItem itemWithCalendar:_calendar date:date data:data]];
 }
 
 - (void)insertDate:(NSDate*)date data:(id)data atIndex:(NSUInteger)index {
-    [super insertEntry:[GLBDataViewCalendarDayItem itemWithCalendar:_calendar date:date data:data] atIndex:index];
+    [super insertItem:[GLBDataViewCalendarDayItem itemWithCalendar:_calendar date:date data:data] atIndex:index];
 }
 
 - (void)replaceDate:(NSDate*)date data:(id)data {
-    NSUInteger entryIndex = [_entries indexOfObjectPassingTest:^BOOL(GLBDataViewCalendarDayItem* calendarDay, NSUInteger index, BOOL* stop) {
+    NSUInteger entryIndex = [_items indexOfObjectPassingTest:^BOOL(GLBDataViewCalendarDayItem* calendarDay, NSUInteger index, BOOL* stop) {
         return [calendarDay.date isEqualToDate:date];
     }];
     if(entryIndex != NSNotFound) {
-        [super replaceOriginEntry:_entries[entryIndex] withEntry:[GLBDataViewCalendarDayItem itemWithCalendar:_calendar date:date data:data]];
+        [super replaceOriginItem:_items[entryIndex] withItem:[GLBDataViewCalendarDayItem itemWithCalendar:_calendar date:date data:data]];
     }
 }
 
 - (void)deleteBeginDate:(NSDate*)beginDate endDate:(NSDate*)endDate {
     NSTimeInterval beginTimeInterval = beginDate.timeIntervalSince1970;
     NSTimeInterval endTimeInterval = endDate.timeIntervalSince1970;
-    NSIndexSet* indexSet = [_entries indexesOfObjectsPassingTest:^BOOL(GLBDataViewCalendarDayItem* calendarDay, NSUInteger index, BOOL* stop) {
+    NSIndexSet* indexSet = [_items indexesOfObjectsPassingTest:^BOOL(GLBDataViewCalendarDayItem* calendarDay, NSUInteger index, BOOL* stop) {
         NSComparisonResult timeInterval = calendarDay.date.timeIntervalSince1970;
         if((timeInterval >= beginTimeInterval) || (timeInterval <= endTimeInterval)) {
             return YES;
@@ -155,21 +155,21 @@
         return NO;
     }];
     if(indexSet.count > 0) {
-        [super deleteEntries:[_entries objectsAtIndexes:indexSet]];
+        [super deleteItems:[_items objectsAtIndexes:indexSet]];
     }
 }
 
 - (void)deleteDate:(NSDate*)date {
-    NSUInteger entryIndex = [_entries indexOfObjectPassingTest:^BOOL(GLBDataViewCalendarDayItem* calendarDay, NSUInteger index, BOOL* stop) {
+    NSUInteger entryIndex = [_items indexOfObjectPassingTest:^BOOL(GLBDataViewCalendarDayItem* calendarDay, NSUInteger index, BOOL* stop) {
         return [calendarDay.date isEqualToDate:date];
     }];
     if(entryIndex != NSNotFound) {
-        [super deleteEntry:_entries[entryIndex]];
+        [super deleteItem:_items[entryIndex]];
     }
 }
 
 - (void)deleteAllDates {
-    [super deleteAllEntries];
+    [super deleteAllItems];
 }
 
 - (void)scrollToDate:(NSDate*)date scrollPosition:(GLBDataViewPosition)scrollPosition animated:(BOOL)animated {
@@ -181,14 +181,14 @@
 
 #pragma mark - Private override
 
-- (CGRect)frameEntriesForAvailableFrame:(CGRect)frame {
+- (CGRect)frameItemsForAvailableFrame:(CGRect)frame {
     CGPoint offset = CGPointMake(frame.origin.x + _margin.left, frame.origin.y + _margin.top);
     CGSize restriction = CGSizeMake(frame.size.width - (_margin.left + _margin.right), frame.size.height - (_margin.top + _margin.bottom));
     CGSize cumulative = CGSizeZero;
     switch(_orientation) {
         case GLBDataViewContainerOrientationVertical: {
             cumulative.width = restriction.width;
-            for(GLBDataViewCalendarDayItem* calendarDay in _entries) {
+            for(GLBDataViewCalendarDayItem* calendarDay in _items) {
                 if(calendarDay.hidden == YES) {
                     continue;
                 }
@@ -201,7 +201,7 @@
         }
         case GLBDataViewContainerOrientationHorizontal: {
             cumulative.height = restriction.height;
-            for(GLBDataViewCalendarDayItem* calendarDay in _entries) {
+            for(GLBDataViewCalendarDayItem* calendarDay in _items) {
                 if(calendarDay.hidden == YES) {
                     continue;
                 }
@@ -216,14 +216,14 @@
     return CGRectMake(frame.origin.x, frame.origin.y, _margin.left + cumulative.width + _margin.right, _margin.top + cumulative.height + _margin.bottom);
 }
 
-- (void)layoutEntriesForFrame:(CGRect)frame {
+- (void)layoutItemsForFrame:(CGRect)frame {
     CGPoint offset = CGPointMake(frame.origin.x + _margin.left, frame.origin.y + _margin.top);
     CGSize restriction = CGSizeMake(frame.size.width - (_margin.left + _margin.right), frame.size.height - (_margin.top + _margin.bottom));
     CGSize cumulative = CGSizeZero;
     switch(_orientation) {
         case GLBDataViewContainerOrientationVertical: {
             cumulative.width = restriction.width;
-            for(GLBDataViewCalendarDayItem* calendarDay in _entries) {
+            for(GLBDataViewCalendarDayItem* calendarDay in _items) {
                 if(calendarDay.hidden == YES) {
                     continue;
                 }
@@ -236,7 +236,7 @@
         }
         case GLBDataViewContainerOrientationHorizontal: {
             cumulative.height = restriction.height;
-            for(GLBDataViewCalendarDayItem* calendarDay in _entries) {
+            for(GLBDataViewCalendarDayItem* calendarDay in _items) {
                 if(calendarDay.hidden == YES) {
                     continue;
                 }

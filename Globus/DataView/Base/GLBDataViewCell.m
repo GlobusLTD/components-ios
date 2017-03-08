@@ -153,6 +153,9 @@
             }
             [self setNeedsLayout];
             [self willShow];
+            if((_dataView.isAnimating == YES) || (_dataView.isTransiting == YES)) {
+                [self layoutIfNeeded];
+            }
         }
     }
 }
@@ -293,8 +296,6 @@
 
 - (void)didHide {
 }
-
-
 
 - (void)refreshConstraints {
     if(_rootView != nil) {

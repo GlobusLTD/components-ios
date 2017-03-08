@@ -74,13 +74,13 @@ typedef NS_ENUM(NSInteger, GLBButtonBadgeVerticalAlignment) {
 @property(nonatomic) IBInspectable CGFloat selectedBorderWidth;
 @property(nonatomic) IBInspectable CGFloat highlightedBorderWidth;
 @property(nonatomic) IBInspectable CGFloat disabledBorderWidth;
-@property(nonatomic, readonly, assign) CGFloat currentBorderWidth;
+@property(nonatomic, readonly) CGFloat currentBorderWidth;
 
 @property(nonatomic) IBInspectable CGFloat normalCornerRadius;
 @property(nonatomic) IBInspectable CGFloat selectedCornerRadius;
 @property(nonatomic) IBInspectable CGFloat highlightedCornerRadius;
 @property(nonatomic) IBInspectable CGFloat disabledCornerRadius;
-@property(nonatomic, readonly, assign) CGFloat currentCornerRadius;
+@property(nonatomic, readonly) CGFloat currentCornerRadius;
 
 @property(nonatomic, nullable, readonly, strong) GLBBadgeView* badgeView;
 @property(nonatomic) IBInspectable GLBButtonBadgeAlias badgeAlias;

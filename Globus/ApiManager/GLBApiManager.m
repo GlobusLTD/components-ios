@@ -5,6 +5,10 @@
 
 /*--------------------------------------------------*/
 
+#import "NSArray+GLBNS.h"
+
+/*--------------------------------------------------*/
+
 @interface GLBApiManager () {
 @protected
     NSMutableArray* _providers;
@@ -34,13 +38,9 @@
 - (instancetype)init {
     self = [super init];
     if(self != nil) {
-        [self setup];
+        _providers = [NSMutableArray array];
     }
     return self;
-}
-
-- (void)setup {
-    _providers = [NSMutableArray array];
 }
 
 #pragma mark - Property

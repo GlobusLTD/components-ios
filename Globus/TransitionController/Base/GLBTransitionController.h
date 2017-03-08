@@ -24,10 +24,10 @@ typedef NS_ENUM(NSUInteger, GLBTransitionOperation) {
 @property(nonatomic, nullable, readonly, weak) id< UIViewControllerContextTransitioning > transitionContext;
 @property(nonatomic) GLBTransitionOperation operation;
 @property(nonatomic) NSTimeInterval duration;
-@property(nonatomic, readonly, assign) CGFloat percentComplete;
-@property(nonatomic, readonly, assign) CGFloat completionSpeed;
-@property(nonatomic, readonly, assign) UIViewAnimationCurve completionCurve;
-@property(nonatomic, readonly, assign, getter=isInteractive) BOOL interactive;
+@property(nonatomic, readonly) CGFloat percentComplete;
+@property(nonatomic, readonly) CGFloat completionSpeed;
+@property(nonatomic, readonly) UIViewAnimationCurve completionCurve;
+@property(nonatomic, readonly, getter=isInteractive) BOOL interactive;
 
 - (void)setup NS_REQUIRES_SUPER;
 

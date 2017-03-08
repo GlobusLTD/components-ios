@@ -7,6 +7,15 @@
 
 /*--------------------------------------------------*/
 
+#import "NSDictionary+GLBNS.h"
+#import "NSArray+GLBNS.h"
+#import "NSString+GLBNS.h"
+#import "NSData+GLBNS.h"
+#import "NSError+GLBNS.h"
+#import "NSURL+GLBNS.h"
+
+/*--------------------------------------------------*/
+
 @class GLBApiProviderQuery;
 
 /*--------------------------------------------------*/
@@ -32,7 +41,7 @@
 @interface GLBApiProviderQuery : NSObject
 
 @property(nonatomic, readonly, strong) GLBApiProvider* provider;
-@property(nonatomic, readonly, assign) NSTimeInterval createTime;
+@property(nonatomic, readonly) NSTimeInterval createTime;
 @property(nonatomic, readonly, strong) GLBApiRequest* request;
 @property(nonatomic, readonly, weak) id target;
 @property(nonatomic, readonly, copy) GLBApiProviderProgressBlock uploadBlock;
@@ -105,36 +114,27 @@
         if(url != nil) {
             _url = url.copy;
         }
+        _urlParams = [NSMutableDictionary dictionary];
         if(headers != nil) {
             _headers = [NSMutableDictionary dictionaryWithDictionary:headers];
+        } else {
+            _headers = [NSMutableDictionary dictionary];
         }
-        [self setup];
+        _bodyParams = [NSMutableDictionary dictionary];
+        
+        _timeoutIntervalForRequest = 30.0;
+        _timeoutIntervalForResource = 60.0;
+        _networkServiceType = NSURLNetworkServiceTypeDefault;
+        _allowsCellularAccess = YES;
+        _minimumTLSProtocol = kSSLProtocolUnknown;
+        _maximumTLSProtocol = kSSLProtocolUnknown;
+        _shouldPipelining = YES;
+        _shouldCookies = YES;
+        _cookieAcceptPolicy = NSHTTPCookieAcceptPolicyNever;
+        _maximumConnectionsPerHost = 1;
+        _cachePolicy = NSURLRequestUseProtocolCachePolicy;
     }
     return self;
-}
-
-- (void)setup {
-    if(_urlParams == nil) {
-        _urlParams = [NSMutableDictionary dictionary];
-    }
-    if(_headers == nil) {
-        _headers = [NSMutableDictionary dictionary];
-    }
-    if(_bodyParams == nil) {
-        _bodyParams = [NSMutableDictionary dictionary];
-    }
-    
-    _timeoutIntervalForRequest = 30.0;
-    _timeoutIntervalForResource = 60.0;
-    _networkServiceType = NSURLNetworkServiceTypeDefault;
-    _allowsCellularAccess = YES;
-    _minimumTLSProtocol = kSSLProtocolUnknown;
-    _maximumTLSProtocol = kSSLProtocolUnknown;
-    _shouldPipelining = YES;
-    _shouldCookies = YES;
-    _cookieAcceptPolicy = NSHTTPCookieAcceptPolicyNever;
-    _maximumConnectionsPerHost = 1;
-    _cachePolicy = NSURLRequestUseProtocolCachePolicy;
 }
 
 #pragma mark - Property

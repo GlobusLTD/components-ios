@@ -35,8 +35,6 @@
 - (nonnull instancetype)initWithTitle:(nonnull NSString*)title value:(nullable id)value;
 - (nonnull instancetype)initWithTitle:(nonnull NSString*)title style:(nullable GLBTextStyle*)style value:(nullable id)value NS_DESIGNATED_INITIALIZER;
 
-- (void)setup NS_REQUIRES_SUPER;
-
 @end
 
 /*--------------------------------------------------*/

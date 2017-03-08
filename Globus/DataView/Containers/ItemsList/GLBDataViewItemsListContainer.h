@@ -24,10 +24,9 @@ typedef NS_ENUM(NSUInteger, GLBDataViewItemsListContainerMode) {
 @property(nonatomic) CGSize defaultSize;
 @property(nonatomic) CGFloat defaultWidth;
 @property(nonatomic) CGFloat defaultHeight;
-@property(nonatomic) NSUInteger defaultOrder;
 @property(nonatomic, nullable, strong) __kindof GLBDataViewItem* header;
 @property(nonatomic, nullable, strong) __kindof GLBDataViewItem* footer;
-@property(nonatomic, nonnull, readonly, strong) NSArray< __kindof GLBDataViewItem* >* items;
+@property(nonatomic, nonnull, readonly, strong) NSArray< __kindof GLBDataViewItem* >* contentItems;
 
 + (nonnull instancetype)containerWithOrientation:(GLBDataViewContainerOrientation)orientation NS_SWIFT_UNAVAILABLE("Use init(orientation:)");
 
@@ -64,28 +63,6 @@ typedef NS_ENUM(NSUInteger, GLBDataViewItemsListContainerMode) {
 - (void)deleteItem:(nonnull GLBDataViewItem*)item;
 - (void)deleteItems:(nonnull NSArray*)items;
 - (void)deleteAllItems;
-
-@end
-
-/*--------------------------------------------------*/
-
-@interface GLBDataViewItemsListContainer (Unavailable)
-
-- (void)prependEntry:(nonnull GLBDataViewItem*)entry NS_UNAVAILABLE;
-- (void)prependEntries:(nonnull NSArray*)entries NS_UNAVAILABLE;
-- (void)appendEntry:(nonnull GLBDataViewItem*)entry NS_UNAVAILABLE;
-- (void)appendEntries:(nonnull NSArray*)entries NS_UNAVAILABLE;
-- (void)insertEntry:(nonnull GLBDataViewItem*)entry atIndex:(NSUInteger)index NS_UNAVAILABLE;
-- (void)insertEntries:(nonnull NSArray*)entries atIndex:(NSUInteger)index NS_UNAVAILABLE;
-- (void)insertEntry:(nonnull GLBDataViewItem*)entry aboveEntry:(nonnull GLBDataViewItem*)aboveEntry NS_UNAVAILABLE;
-- (void)insertEntries:(nonnull NSArray*)entries aboveEntry:(nonnull GLBDataViewItem*)aboveEntry NS_UNAVAILABLE;
-- (void)insertEntry:(nonnull GLBDataViewItem*)entry belowEntry:(nonnull GLBDataViewItem*)belowEntry NS_UNAVAILABLE;
-- (void)insertEntries:(nonnull NSArray*)entries belowEntry:(nonnull GLBDataViewItem*)belowEntry NS_UNAVAILABLE;
-- (void)replaceOriginEntry:(nonnull GLBDataViewItem*)originEntry withEntry:(nonnull GLBDataViewItem*)entry NS_UNAVAILABLE;
-- (void)replaceOriginEntries:(nonnull NSArray*)originEntries withEntries:(nonnull NSArray*)entries NS_UNAVAILABLE;
-- (void)deleteEntry:(nonnull GLBDataViewItem*)entry NS_UNAVAILABLE;
-- (void)deleteEntries:(nonnull NSArray*)entries NS_UNAVAILABLE;
-- (void)deleteAllEntries NS_UNAVAILABLE;
 
 @end
 

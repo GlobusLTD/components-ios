@@ -18,7 +18,7 @@
 
 @property(nonatomic, strong) IBOutletCollection(NSObject) NSArray< id< GLBInputField > >* fields;
 @property(nonatomic, strong) GLBAction* actionChangeState;
-@property(nonatomic, readonly, assign, getter=isValid) BOOL valid;
+@property(nonatomic, readonly, getter=isValid) BOOL valid;
 
 - (void)addField:(id< GLBInputField >)field;
 - (void)removeField:(id< GLBInputField >)field;

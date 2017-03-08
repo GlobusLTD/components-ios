@@ -147,13 +147,13 @@ infix operator <<<
 // MARK: Any
 /*--------------------------------------------------*/
 
-public func >>> < Type:GLBJsonValueProrocol >(left: Type, right: (GLBJson, String)) {
+public func >>> < Type: GLBJsonValueProrocol >(left: Type, right: (GLBJson, String)) {
     if let object = left.to(json: right.0) {
         right.0.set(object: object, forPath: right.1)
     }
 }
 
-public func >>> < Type:GLBJsonValueProrocol >(left: Type?, right: (GLBJson, String)) {
+public func >>> < Type: GLBJsonValueProrocol >(left: Type?, right: (GLBJson, String)) {
     if let safe = left {
         safe >>> right
     } else {
@@ -161,7 +161,7 @@ public func >>> < Type:GLBJsonValueProrocol >(left: Type?, right: (GLBJson, Stri
     }
 }
 
-public func <<< < Type:GLBJsonValueProrocol >(left: inout Type, right: (GLBJson, String)) {
+public func <<< < Type: GLBJsonValueProrocol >(left: inout Type, right: (GLBJson, String)) {
     if let source = right.0.object(atPath: right.1) {
         if let object = Type.from(json: right.0, value: source) as? Type {
             left = object
@@ -169,13 +169,25 @@ public func <<< < Type:GLBJsonValueProrocol >(left: inout Type, right: (GLBJson,
     }
 }
 
-public func <<< < Type:GLBJsonValueProrocol >(left: inout Type?, right: (GLBJson, String)) {
+public func <<< < Type: GLBJsonValueProrocol >(left: inout Type?, right: (GLBJson, String)) {
     if let source = right.0.object(atPath: right.1) {
         left = Type.from(json: right.0, value: source) as? Type
     }
 }
 
-public func <<< < Type:GLBJsonValueProrocol >(left: inout Type?, right: (GLBJson, String, Type?)) {
+public func <<< < Type: GLBJsonValueProrocol >(left: inout Type, right: (GLBJson, String, Type)) {
+    if let source = right.0.object(atPath: right.1) {
+        if let object = Type.from(json: right.0, value: source) as? Type {
+            left = object
+        } else {
+            left = right.2
+        }
+    } else {
+        left = right.2
+    }
+}
+
+public func <<< < Type: GLBJsonValueProrocol >(left: inout Type?, right: (GLBJson, String, Type?)) {
     if let source = right.0.object(atPath: right.1) {
         if let object = Type.from(json: right.0, value: source) as? Type {
             left = object
@@ -191,7 +203,7 @@ public func <<< < Type:GLBJsonValueProrocol >(left: inout Type?, right: (GLBJson
 // MARK: Array
 /*--------------------------------------------------*/
 
-public func >>> < Type:GLBJsonValueProrocol >(left: [Type], right: (GLBJson, String)) {
+public func >>> < Type: GLBJsonValueProrocol >(left: [Type], right: (GLBJson, String)) {
     var array: [Any] = []
     left.forEach { (item: Type) in
         if let object = item.to(json: right.0) {
@@ -201,7 +213,7 @@ public func >>> < Type:GLBJsonValueProrocol >(left: [Type], right: (GLBJson, Str
     right.0.set(array: array, forPath: right.1)
 }
 
-public func >>> < Type:GLBJsonValueProrocol >(left: [Type]?, right: (GLBJson, String)) {
+public func >>> < Type: GLBJsonValueProrocol >(left: [Type]?, right: (GLBJson, String)) {
     if let safe = left {
         safe >>> right
     } else {
@@ -209,7 +221,7 @@ public func >>> < Type:GLBJsonValueProrocol >(left: [Type]?, right: (GLBJson, St
     }
 }
 
- public func >>> < Type:GLBJsonValueProrocol >(left: [Type], right: GLBJson) {
+ public func >>> < Type: GLBJsonValueProrocol >(left: [Type], right: GLBJson) {
     var array: [Any] = []
     left.forEach { (item: Type) in
         if let object = item.to(json: right) {
@@ -219,7 +231,7 @@ public func >>> < Type:GLBJsonValueProrocol >(left: [Type]?, right: (GLBJson, St
     right.set(rootArray: array)
 }
 
-public func >>> < Type:GLBJsonValueProrocol >(left: [Type]?, right: GLBJson) {
+public func >>> < Type: GLBJsonValueProrocol >(left: [Type]?, right: GLBJson) {
     if let safe = left {
         safe >>> right
     } else {
@@ -227,7 +239,7 @@ public func >>> < Type:GLBJsonValueProrocol >(left: [Type]?, right: GLBJson) {
     }
 }
 
-public func <<< < Type:GLBJsonValueProrocol >(left: inout [Type], right: (GLBJson, String)) {
+public func <<< < Type: GLBJsonValueProrocol >(left: inout [Type], right: (GLBJson, String)) {
     if let source = right.0.array(atPath: right.1) {
         left = source.flatMap({ (item: Any) -> Type? in
             return Type.from(json: right.0, value: item) as? Type
@@ -237,7 +249,7 @@ public func <<< < Type:GLBJsonValueProrocol >(left: inout [Type], right: (GLBJso
     }
 }
 
-public func <<< < Type:GLBJsonValueProrocol >(left: inout [Type]?, right: (GLBJson, String)) {
+public func <<< < Type: GLBJsonValueProrocol >(left: inout [Type]?, right: (GLBJson, String)) {
     if let source = right.0.array(atPath: right.1) {
         left = source.flatMap({ (item: Any) -> Type? in
             return Type.from(json: right.0, value: item) as? Type
@@ -247,7 +259,7 @@ public func <<< < Type:GLBJsonValueProrocol >(left: inout [Type]?, right: (GLBJs
     }
 }
 
-public func <<< < Type:GLBJsonValueProrocol >(left: inout [Type], right: GLBJson) {
+public func <<< < Type: GLBJsonValueProrocol >(left: inout [Type], right: GLBJson) {
     if let source = right.rootArray() {
         left = source.flatMap({ (item: Any) -> Type? in
             return Type.from(json: right, value: item) as? Type
@@ -257,7 +269,7 @@ public func <<< < Type:GLBJsonValueProrocol >(left: inout [Type], right: GLBJson
     }
 }
 
-public func <<< < Type:GLBJsonValueProrocol >(left: inout [Type]?, right: GLBJson) {
+public func <<< < Type: GLBJsonValueProrocol >(left: inout [Type]?, right: GLBJson) {
     if let source = right.rootArray() {
         left = source.flatMap({ (item: Any) -> Type? in
             return Type.from(json: right, value: item) as? Type
@@ -392,24 +404,32 @@ public func >>> < EnumType: RawRepresentable >(left: EnumType?, right: (GLBJson,
 }
 
 public func <<< < EnumType: RawRepresentable >(left: inout EnumType, right: (GLBJson, String, EnumType)) where EnumType.RawValue: GLBJsonValueProrocol {
-    var raw: EnumType.RawValue? = nil
-    raw <<< (right.0, right.1, right.2.rawValue)
-    if let safeRaw = raw {
-        left = EnumType.init(rawValue: safeRaw)!
+    var rawValue: EnumType.RawValue? = nil
+    rawValue <<< (right.0, right.1, right.2.rawValue)
+    if let safeRawValue = rawValue {
+        if let enumValue = EnumType(rawValue: safeRawValue) {
+            left = enumValue
+        } else {
+            left = right.2
+        }
     } else {
         left = right.2
     }
 }
 
 public func <<< < EnumType: RawRepresentable >(left: inout EnumType?, right: (GLBJson, String, EnumType?)) where EnumType.RawValue: GLBJsonValueProrocol {
-    var raw: EnumType.RawValue? = nil
-    if let safeOr = right.2 {
-        raw <<< (right.0, right.1, safeOr.rawValue)
+    var rawValue: EnumType.RawValue? = nil
+    if let safeOrValue = right.2 {
+        rawValue <<< (right.0, right.1, safeOrValue.rawValue)
     } else {
-        raw <<< (right.0, right.1)
+        rawValue <<< (right.0, right.1)
     }
-    if let safeRaw = raw {
-        left = EnumType.init(rawValue: safeRaw)!
+    if let safeRawValue = rawValue {
+        if let enumValue = EnumType(rawValue: safeRawValue) {
+            left = enumValue
+        } else {
+            left = right.2
+        }
     } else {
         left = right.2
     }

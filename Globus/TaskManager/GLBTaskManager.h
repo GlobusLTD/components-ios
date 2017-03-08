@@ -53,7 +53,7 @@ typedef void (^GLBTaskManagerEnumBlock)(id task, BOOL* stop);
 
 @property(nonatomic, getter=isRepeat) BOOL repeat;
 @property(nonatomic) NSTimeInterval repeatTimeout;
-@property(nonatomic, readonly, assign, getter=isCanceled) BOOL cancel;
+@property(nonatomic, readonly, getter=isCanceled) BOOL cancel;
 
 - (void)setup NS_REQUIRES_SUPER;
 

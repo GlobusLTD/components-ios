@@ -1,7 +1,6 @@
 /*--------------------------------------------------*/
 
-#import "NSDictionary+GLBNS.h"
-#import "NSArray+GLBNS.h"
+#include "GLBTargetConditionals.h"
 
 /*--------------------------------------------------*/
 
@@ -14,8 +13,6 @@
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
 - (nonnull instancetype)initWithIdentifier:(nonnull NSString*)identifier directory:(nonnull NSString*)directory NS_DESIGNATED_INITIALIZER;
-
-- (void)setup NS_REQUIRES_SUPER;
 
 - (void)postNotificationName:(nonnull NSString*)name object:(nullable id< NSCoding >)object;
 

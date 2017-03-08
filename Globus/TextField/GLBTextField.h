@@ -19,6 +19,7 @@
 
 @interface GLBTextField : UITextField< GLBInputField >
 
+@property(nonatomic) IBInspectable UIEdgeInsets textInsets;
 @property(nonatomic, nullable, strong) GLBTextStyle* textStyle;
 @property(nonatomic, nullable, strong) GLBTextStyle* placeholderStyle;
 @property(nonatomic) IBInspectable BOOL hiddenToolbar;

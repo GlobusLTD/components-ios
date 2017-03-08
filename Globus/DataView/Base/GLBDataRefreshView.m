@@ -88,30 +88,22 @@
         UIEdgeInsets refreshViewInset = _view.refreshViewInset;
         CGPoint contentOffset = _view.contentOffset;
         switch(_type) {
-                case GLBDataRefreshViewTypeTop:
-                refreshViewInset.top = _size;
-                if(_view.isTracking == NO) {
-                    contentOffset.y -= _size;
-                }
-                break;
-                case GLBDataRefreshViewTypeBottom:
-                refreshViewInset.bottom = _size;
-                if(_view.isTracking == NO) {
-                    contentOffset.y += _size;
-                }
-                break;
-                case GLBDataRefreshViewTypeLeft:
-                refreshViewInset.left = _size;
-                if(_view.isTracking == NO) {
-                    contentOffset.x -= _size;
-                }
-                break;
-                case GLBDataRefreshViewTypeRight:
-                refreshViewInset.right = _size;
-                if(_view.isTracking == NO) {
-                    contentOffset.x += _size;
-                }
-                break;
+        case GLBDataRefreshViewTypeTop:
+            refreshViewInset.top = _size;
+            contentOffset.y -= _size;
+            break;
+        case GLBDataRefreshViewTypeBottom:
+            refreshViewInset.bottom = _size;
+            contentOffset.y += _size;
+            break;
+        case GLBDataRefreshViewTypeLeft:
+            refreshViewInset.left = _size;
+            contentOffset.x -= _size;
+            break;
+        case GLBDataRefreshViewTypeRight:
+            refreshViewInset.right = _size;
+            contentOffset.x += _size;
+            break;
         }
         if(animated == YES) {
             UIView* rootView = _view.superview;
@@ -151,18 +143,18 @@
         
         UIEdgeInsets refreshViewInset = _view.refreshViewInset;
         switch(_type) {
-                case GLBDataRefreshViewTypeTop:
-                refreshViewInset.top = 0.0f;
-                break;
-                case GLBDataRefreshViewTypeBottom:
-                refreshViewInset.bottom = 0.0f;
-                break;
-                case GLBDataRefreshViewTypeLeft:
-                refreshViewInset.left = 0.0f;
-                break;
-                case GLBDataRefreshViewTypeRight:
-                refreshViewInset.right = 0.0f;
-                break;
+        case GLBDataRefreshViewTypeTop:
+            refreshViewInset.top = 0.0f;
+            break;
+        case GLBDataRefreshViewTypeBottom:
+            refreshViewInset.bottom = 0.0f;
+            break;
+        case GLBDataRefreshViewTypeLeft:
+            refreshViewInset.left = 0.0f;
+            break;
+        case GLBDataRefreshViewTypeRight:
+            refreshViewInset.right = 0.0f;
+            break;
         }
         if(animated == YES) {
             UIView* rootView = _view.superview;

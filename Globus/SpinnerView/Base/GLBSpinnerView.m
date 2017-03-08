@@ -19,7 +19,15 @@
 #pragma mark -
 /*--------------------------------------------------*/
 
+const static CGFloat DefaultSize = 42;
+
+/*--------------------------------------------------*/
+
 @implementation GLBSpinnerView
+
+- (instancetype)init {
+    return [self initWithFrame:CGRectMake(0, 0, DefaultSize, DefaultSize)];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -38,7 +46,7 @@
 }
 
 - (void)setup {
-    _size = 42.0;
+    _size = DefaultSize;
     _color = [UIColor colorWithWhite:1.0 alpha:0.8f];
     _hidesWhenStopped = NO;
     

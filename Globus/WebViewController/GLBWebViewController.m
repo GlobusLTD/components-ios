@@ -503,39 +503,17 @@
         [self.view insertSubview:webView atIndex:0];
         
         if(self.topLayoutGuide != nil) {
-            [webView glb_addConstraintAttribute:NSLayoutAttributeTop
-                                       relation:NSLayoutRelationEqual
-                                           view:self.topLayoutGuide
-                                      attribute:NSLayoutAttributeBottom
-                                       constant:0.0
-                                       priority:UILayoutPriorityRequired];
+            [webView glb_addConstraintTop:0.0f bottomItem:self.topLayoutGuide];
         } else {
-            [webView glb_addConstraintAttribute:NSLayoutAttributeTop
-                                       relation:NSLayoutRelationEqual
-                                      attribute:NSLayoutAttributeTop
-                                       constant:0.0];
+            [webView glb_addConstraintTop:0.0f];
         }
         if(self.bottomLayoutGuide != nil) {
-            [webView glb_addConstraintAttribute:NSLayoutAttributeBottom
-                                       relation:NSLayoutRelationEqual
-                                           view:self.bottomLayoutGuide
-                                      attribute:NSLayoutAttributeTop
-                                       constant:0.0
-                                       priority:UILayoutPriorityRequired];
+            [webView glb_addConstraintBottom:0.0f topItem:self.bottomLayoutGuide];
         } else {
-            [webView glb_addConstraintAttribute:NSLayoutAttributeBottom
-                                       relation:NSLayoutRelationEqual
-                                      attribute:NSLayoutAttributeBottom
-                                       constant:0.0];
+            [webView glb_addConstraintBottom:0.0f];
         }
-        [webView glb_addConstraintAttribute:NSLayoutAttributeLeft
-                                   relation:NSLayoutRelationEqual
-                                  attribute:NSLayoutAttributeLeft
-                                   constant:0.0];
-        [webView glb_addConstraintAttribute:NSLayoutAttributeRight
-                                   relation:NSLayoutRelationEqual
-                                  attribute:NSLayoutAttributeRight
-                                   constant:0.0];
+        [webView glb_addConstraintLeft:0.0f];
+        [webView glb_addConstraintRight:0.0f];
     }
     [self updateNavigationItems];
 }
@@ -564,22 +542,10 @@
     }
     [self.view insertSubview:_progressView aboveSubview:webView];
     
-    [_progressView glb_addConstraintAttribute:NSLayoutAttributeTop
-                                     relation:NSLayoutRelationEqual
-                                         view:self.topLayoutGuide
-                                    attribute:NSLayoutAttributeBottom
-                                     constant:0.0];
-    [_progressView glb_addConstraintAttribute:NSLayoutAttributeLeft
-                                     relation:NSLayoutRelationEqual
-                                    attribute:NSLayoutAttributeLeft
-                                     constant:0.0];
-    [_progressView glb_addConstraintAttribute:NSLayoutAttributeRight
-                                     relation:NSLayoutRelationEqual
-                                    attribute:NSLayoutAttributeRight
-                                     constant:0.0];
-    [_progressView glb_addConstraintAttribute:NSLayoutAttributeHeight
-                                     relation:NSLayoutRelationEqual
-                                     constant:1.0];
+    [_progressView glb_addConstraintTop:0.0f bottomItem:self.topLayoutGuide];
+    [_progressView glb_addConstraintLeft:0.0f];
+    [_progressView glb_addConstraintRight:0.0f];
+    [_progressView glb_addConstraintHeight:1.0f];
 }
 
 - (void)_dettachProgressView {

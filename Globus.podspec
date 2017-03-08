@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.3.22'
+  s.version = '0.4.0'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -617,11 +617,26 @@ Pod::Spec.new do |s|
     ss.source_files = 'Globus/ViewController/**/*.{h,m}'
     ss.dependency 'Globus/BaseViewController'
   end
+  s.subspec 'DataProvider' do |ss|
+    ss.source_files = 'Globus/DataProvider/**/*.{h,m}'
+    ss.dependency 'Globus/CoreFoundation/Base'
+    ss.dependency 'Globus/Timer'
+  end
   s.subspec 'DataViewController' do |ss|
     ss.subspec 'Base' do |sss|
-      sss.source_files = 'Globus/DataViewController/**/*.{h,m}'
+      sss.source_files = 'Globus/DataViewController/Base/**/*.{h,m}'
       sss.dependency 'Globus/ViewController'
       sss.dependency 'Globus/DataView/Base'
+    end
+    ss.subspec 'Simple' do |sss|
+      sss.source_files = 'Globus/DataViewController/Simple/**/*.{h,m}'
+      sss.dependency 'Globus/DataViewController/Base'
+      sss.dependency 'Globus/DataProvider'
+    end
+    ss.subspec 'List' do |sss|
+      sss.source_files = 'Globus/DataViewController/List/**/*.{h,m}'
+      sss.dependency 'Globus/DataViewController/Base'
+      sss.dependency 'Globus/DataProvider'
     end
   end
   s.subspec 'PopoverController' do |ss|

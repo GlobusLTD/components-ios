@@ -12,9 +12,9 @@
 
 @interface GLBBaseViewController : UIViewController< GLBWindowExtension >
 
-@property(nonatomic, readonly, assign, getter=isAppeared) BOOL appeared;
-@property(nonatomic, assign) BOOL clearWhenDisapper;
-@property(nonatomic, assign) BOOL unloadWhenMemoryWarning;
+@property(nonatomic, readonly, getter=isAppeared) BOOL appeared;
+@property(nonatomic) BOOL clearWhenDisapper;
+@property(nonatomic) BOOL unloadWhenMemoryWarning;
 
 @property(nonatomic, getter=isStatusBarHidden) BOOL statusBarHidden;
 @property(nonatomic) UIStatusBarStyle statusBarStyle;

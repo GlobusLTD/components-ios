@@ -22,7 +22,8 @@
     CGRect _originFrame;
     CGRect _updateFrame;
     CGRect _displayFrame;
-    CGRect _frame;
+    CGFloat _alpha;
+    CATransform3D _transform3D;
     BOOL _hidden;
     BOOL _allowsAlign;
     BOOL _allowsPressed;

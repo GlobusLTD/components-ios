@@ -143,7 +143,7 @@
 
 @interface GLBModelJsonBool : GLBModelJson
 
-@property(nonatomic, readonly, assign) BOOL defaultValue;
+@property(nonatomic, readonly) BOOL defaultValue;
 
 + (nonnull instancetype)jsonWithDefaultValue:(BOOL)defaultValue NS_SWIFT_UNAVAILABLE("Use init(defaultValue:)");
 + (nonnull instancetype)jsonWithPath:(nonnull NSString*)path defaultValue:(BOOL)defaultValue NS_SWIFT_UNAVAILABLE("Use init(path:defaultValue:)");
@@ -293,7 +293,7 @@
 @interface GLBModelJsonModel : GLBModelJson
 
 @property(nonatomic, nonnull, readonly, strong) Class modelClass GLB_DEPRECATED;
-@property(nonatomic, nonnull, readonly, assign) Class model;
+@property(nonatomic, nonnull, readonly) Class model;
 
 + (nonnull instancetype)json NS_UNAVAILABLE;
 + (nonnull instancetype)jsonWithModel:(nonnull Class)model NS_SWIFT_UNAVAILABLE("Use init(model:)");

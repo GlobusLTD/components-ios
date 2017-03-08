@@ -20,12 +20,12 @@
 
 @interface GLBTextView : UITextView< GLBInputField, UITextViewDelegate >
 
-@property(nonatomic, readonly, assign, getter=isEditing) BOOL editing;
-@property(nonatomic, assign) IBInspectable NSUInteger maximumNumberOfCharecters;
-@property(nonatomic, assign) IBInspectable NSUInteger maximumNumberOfLines;
+@property(nonatomic, readonly, getter=isEditing) BOOL editing;
+@property(nonatomic) IBInspectable NSUInteger maximumNumberOfCharecters;
+@property(nonatomic) IBInspectable NSUInteger maximumNumberOfLines;
 
-@property(nonatomic, assign) IBInspectable CGFloat minimumHeight;
-@property(nonatomic, assign) IBInspectable CGFloat maximumHeight;
+@property(nonatomic) IBInspectable CGFloat minimumHeight;
+@property(nonatomic) IBInspectable CGFloat maximumHeight;
 @property(nonatomic, nullable, weak) IBOutlet NSLayoutConstraint* constraintHeight;
 
 @property(nonatomic, nullable, copy) IBInspectable NSString* placeholder;

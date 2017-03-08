@@ -145,6 +145,9 @@
         [GLBAudioSession activateWithOptions:_sessionActiveOptions category:_sessionCategory categoryOptions:_sessionCategoryOptions mode:_sessionMode block:^(NSError* error) {
             if(error != nil) {
                 _error = error;
+                if(_blockError != nil) {
+                    _blockError(self, _error);
+                }
                 if(_actionError != nil) {
                     [_actionError performWithArguments:@[ self, _error ]];
                 }
@@ -154,6 +157,9 @@
                     _player.delegate = self;
                     if([_player prepareToPlay] == YES) {
                         _prepared = YES;
+                        if(_blockPrepared != nil) {
+                            _blockPrepared(self);
+                        }
                         if(_actionPrepared != nil) {
                             [_actionPrepared performWithArguments:@[ self ]];
                         }
@@ -163,6 +169,9 @@
                     }
                 } else if(error != nil) {
                     _error = error;
+                    if(_blockError != nil) {
+                        _blockError(self, _error);
+                    }
                     if(_actionError != nil) {
                         [_actionError performWithArguments:@[ self, _error ]];
                     }
@@ -186,6 +195,9 @@
         [GLBAudioSession activateWithOptions:_sessionActiveOptions category:_sessionCategory categoryOptions:_sessionCategoryOptions mode:_sessionMode block:^(NSError* error) {
             if(error != nil) {
                 _error = error;
+                if(_blockError != nil) {
+                    _blockError(self, _error);
+                }
                 if(_actionError != nil) {
                     [_actionError performWithArguments:@[ self, _error ]];
                 }
@@ -197,6 +209,9 @@
                     if([_player prepareToPlay] == YES) {
                         _prepared = YES;
                         _url = url;
+                        if(_blockPrepared != nil) {
+                            _blockPrepared(self);
+                        }
                         if(_actionPrepared != nil) {
                             [_actionPrepared performWithArguments:@[ self ]];
                         }
@@ -205,6 +220,9 @@
                     }
                 } else if(error != nil) {
                     _error = error;
+                    if(_blockError != nil) {
+                        _blockError(self, _error);
+                    }
                     if(_actionError != nil) {
                         [_actionError performWithArguments:@[ self, _error ]];
                     }
@@ -224,6 +242,9 @@
             [_player stop];
         }
         _player = nil;
+        if(_blockCleaned != nil) {
+            _blockCleaned(self);
+        }
         if(_actionCleaned != nil) {
             [_actionCleaned performWithArguments:@[ self ]];
         }
@@ -234,6 +255,9 @@
     if((_prepared == YES) && (_playing == NO)) {
         if([_player play] == YES) {
             _playing = YES;
+            if(_blockPlaying != nil) {
+                _blockPlaying(self);
+            }
             if(_actionPlaying != nil) {
                 [_actionPlaying performWithArguments:@[ self ]];
             }
@@ -248,6 +272,9 @@
         _paused = NO;
         _player.currentTime = 0.0;
         [_player stop];
+        if(_blockStoped != nil) {
+            _blockStoped(self);
+        }
         if(_actionStoped != nil) {
             [_actionStoped performWithArguments:@[ self ]];
         }
@@ -258,6 +285,9 @@
     if((_prepared == YES) && (_playing == YES) && (_paused == YES)) {
         if([_player play] == YES) {
             _paused = NO;
+            if(_blockResumed != nil) {
+                _blockResumed(self);
+            }
             if(_actionResumed != nil) {
                 [_actionResumed performWithArguments:@[ self ]];
             }
@@ -269,6 +299,9 @@
     if((_prepared == YES) && (_playing == YES) && (_paused == NO)) {
         _paused = YES;
         [_player pause];
+        if(_blockPaused != nil) {
+            _blockPaused(self);
+        }
         if(_actionPaused != nil) {
             [_actionPaused performWithArguments:@[ self ]];
         }
@@ -301,6 +334,9 @@
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer* __unused)player successfully:(BOOL __unused)successfully {
     _playing = NO;
+    if(_blockFinished != nil) {
+        _blockFinished(self);
+    }
     if(_actionFinished != nil) {
         [_actionFinished performWithArguments:@[ self ]];
     }
@@ -308,6 +344,9 @@
 
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer* __unused)player error:(NSError*)error {
     _error = error;
+    if(_blockError != nil) {
+        _blockError(self, _error);
+    }
     if(_actionError != nil) {
         [_actionError performWithArguments:@[ self, _error ]];
     }

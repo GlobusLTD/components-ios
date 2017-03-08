@@ -33,7 +33,7 @@
 @property(nonatomic) CGFloat glb_scrollIndicatorInsetRight;
 @property(nonatomic) CGFloat glb_scrollIndicatorInsetBottom;
 @property(nonatomic) CGFloat glb_scrollIndicatorInsetLeft;
-@property(nonatomic, readonly, assign) CGRect glb_visibleBounds;
+@property(nonatomic, readonly) CGRect glb_visibleBounds;
 
 - (void)glb_setContentOffsetX:(CGFloat)glb_contentOffsetX animated:(BOOL)animated;
 - (void)glb_setContentOffsetY:(CGFloat)glb_contentOffsetY animated:(BOOL)animated;

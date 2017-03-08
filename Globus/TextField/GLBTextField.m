@@ -47,6 +47,7 @@ static const CGFloat GLBTextField_ToolbarHeight = 44;
 }
 
 - (void)setup {
+    _textInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     _attributedPlaceholder = [NSMutableAttributedString new];
     _toolbarHeight = GLBTextField_ToolbarHeight;
     
@@ -233,6 +234,16 @@ static const CGFloat GLBTextField_ToolbarHeight = 44;
 - (void)didEndEditing {
     _prevInputResponder = nil;
     _nextInputResponder = nil;
+}
+
+#pragma mark - Public override
+
+- (CGRect)textRectForBounds:(CGRect)bounds {
+    return UIEdgeInsetsInsetRect(bounds, _textInsets);
+}
+
+- (CGRect)editingRectForBounds:(CGRect)bounds {
+    return UIEdgeInsetsInsetRect(bounds, _textInsets);
 }
 
 #pragma mark - GLBInputField

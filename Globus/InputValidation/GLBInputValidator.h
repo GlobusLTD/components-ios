@@ -24,7 +24,7 @@
 @interface GLBInputEmptyValidator : NSObject < GLBInputValidator >
 
 @property(nonatomic, strong) IBInspectable NSString* message;
-@property(nonatomic, readonly, assign, getter=isRequired) IBInspectable BOOL required;
+@property(nonatomic, readonly, getter=isRequired) IBInspectable BOOL required;
 
 - (instancetype)initWithMessage:(NSString*)message;
 
@@ -35,7 +35,7 @@
 @interface GLBInputEmailValidator : NSObject < GLBInputValidator >
 
 @property(nonatomic, strong) IBInspectable NSString* message;
-@property(nonatomic, readonly, assign, getter=isRequired) IBInspectable BOOL required;
+@property(nonatomic, readonly, getter=isRequired) IBInspectable BOOL required;
 
 - (instancetype)initWithMessage:(NSString*)message;
 
@@ -47,7 +47,7 @@
 
 @property(nonatomic, strong) IBInspectable NSString* message;
 @property(nonatomic, strong) IBInspectable NSString* regExp;
-@property(nonatomic, readonly, assign, getter=isRequired) IBInspectable BOOL required;
+@property(nonatomic, readonly, getter=isRequired) IBInspectable BOOL required;
 
 - (instancetype)initWithRegExp:(NSString*)regExp andMessage:(NSString*)message;
 
@@ -59,7 +59,7 @@
 
 @property(nonatomic, strong) IBInspectable NSString* message;
 @property(nonatomic) IBInspectable NSUInteger minLength;
-@property(nonatomic, readonly, assign, getter=isRequired) IBInspectable BOOL required;
+@property(nonatomic, readonly, getter=isRequired) IBInspectable BOOL required;
 
 - (instancetype)initWithMessage:(NSString*)message minLength:(NSUInteger)minLength;
 
@@ -71,7 +71,7 @@
 
 @property(nonatomic, strong) IBInspectable NSString* message;
 @property(nonatomic) IBInspectable NSUInteger maxLength;
-@property(nonatomic, readonly, assign, getter=isRequired) IBInspectable BOOL required;
+@property(nonatomic, readonly, getter=isRequired) IBInspectable BOOL required;
 
 - (instancetype)initWithMessage:(NSString*)message maxLength:(NSUInteger)maxLength;
 
@@ -82,7 +82,7 @@
 @interface GLBInputDigitValidator : NSObject < GLBInputValidator >
 
 @property(nonatomic, strong) IBInspectable NSString* message;
-@property(nonatomic, readonly, assign, getter=isRequired) IBInspectable BOOL required;
+@property(nonatomic, readonly, getter=isRequired) IBInspectable BOOL required;
 
 - (instancetype)initWithMessage:(NSString*)message;
 

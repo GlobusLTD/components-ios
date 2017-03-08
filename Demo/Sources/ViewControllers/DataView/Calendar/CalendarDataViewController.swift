@@ -49,7 +49,7 @@ class CalendarDataViewController: GLBDataViewController {
     
     // MARK: - GLBDataViewController
     
-    override func prepareDataView() {
+    override func configureDataView() {
         self.dataViewContainer = GLBDataViewCalendarContainer.init(calendar: Calendar.current)
         
         self.dataView?.registerIdentifier(GLBDataViewCalendarMonthIdentifier, withViewClass: CalendarMonthDataViewCell.self)
@@ -60,9 +60,8 @@ class CalendarDataViewController: GLBDataViewController {
     }
     
     override func cleanupDataView() {
-        self.dataView?.container = nil;
-        self.dataView?.unregisterAllIdentifiers()
-        self.dataView?.unregisterAllActions()
+        super.cleanupDataView();
+        
         self.dataViewContainer = nil;
     }
     

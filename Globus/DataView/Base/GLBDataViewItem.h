@@ -27,6 +27,9 @@
 @property(nonatomic) CGRect updateFrame;
 @property(nonatomic) CGRect displayFrame;
 @property(nonatomic, readonly, assign) CGRect frame;
+@property(nonatomic, assign) CGFloat alpha;
+@property(nonatomic, assign) CGAffineTransform transform;
+@property(nonatomic, assign) CATransform3D transform3D;
 @property(nonatomic, readonly) BOOL needResize;
 @property(nonatomic, getter=isHidden) BOOL hidden;
 @property(nonatomic, readonly, assign, getter=isHiddenInHierarchy) BOOL hiddenInHierarchy;
@@ -92,7 +95,6 @@
 - (CGSize)sizeForAvailableSize:(CGSize)size;
 
 - (void)setNeedUpdate;
-- (void)setNeedReload GLB_DEPRECATED;
 
 - (void)validateLayoutForBounds:(CGRect)bounds;
 - (void)invalidateLayoutForBounds:(CGRect)bounds;

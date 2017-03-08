@@ -33,7 +33,7 @@
 @protocol GLBWindowExtension < NSObject >
 
 @required
-@property(nonatomic, readonly, assign) BOOL hideKeyboardIfTouched;
+@property(nonatomic, readonly) BOOL hideKeyboardIfTouched;
 
 @end
 

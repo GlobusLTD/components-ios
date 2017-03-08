@@ -3,7 +3,7 @@
 //
 
 #import "ListDataViewCell.h"
-#import "ListDataViewModel.h"
+#import "ListDataProvider.h"
 
 @interface ListDataViewCell ()
 
@@ -14,7 +14,7 @@
 @implementation ListDataViewCell
 
 - (CGSize)sizeForAvailableSize:(CGSize)size {
-    return CGSizeMake(size.width, 88.0f);
+    return CGSizeMake(size.width, 100.0f);
 }
 
 - (void)setup {
@@ -24,7 +24,7 @@
 }
 
 - (void)willShow {
-    ListDataViewModel* viewModel = self.item.data;
+    ListDataProviderModel* viewModel = self.item.data;
     _displayLabel.text = viewModel.title;
 }
 

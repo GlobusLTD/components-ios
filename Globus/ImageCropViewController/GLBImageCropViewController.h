@@ -34,8 +34,8 @@ typedef NS_ENUM(NSUInteger, GLBImageCropMode) {
 
 @interface GLBImageCropViewController : GLBViewController
 
-@property(nonatomic, nonnull, readwrite, strong) UIImage* image;
-@property(nonatomic, nullable, readwrite, strong) UIColor* maskColor;
+@property(nonatomic, nonnull, strong) UIImage* image;
+@property(nonatomic, nullable, strong) UIColor* maskColor;
 @property(nonatomic, nullable, readonly, strong) UIBezierPath* maskPath;
 @property(nonatomic, readonly) CGRect maskRect;
 
@@ -43,10 +43,10 @@ typedef NS_ENUM(NSUInteger, GLBImageCropMode) {
 @property(nonatomic, readonly) CGRect cropRect;
 @property(nonatomic, readonly) CGFloat scale;
 
-@property(nonatomic, readwrite) BOOL avoidEmptySpaceAroundImage;
+@property(nonatomic) BOOL avoidEmptySpaceAroundImage;
 
-@property(nonatomic, nullable, readwrite, copy) GLBImageCropViewControllerChoiceBlock choiceBlock;
-@property(nonatomic, nullable, readwrite, copy) GLBImageCropViewControllerBlock cancelBlock;
+@property(nonatomic, nullable, copy) GLBImageCropViewControllerChoiceBlock choiceBlock;
+@property(nonatomic, nullable, copy) GLBImageCropViewControllerBlock cancelBlock;
 
 @property(nonatomic, nonnull, readonly, strong) GLBImageCropContentView* contentView;
 @property(nonatomic, nonnull, readonly, strong) GLBLabel* titleLabel;
@@ -66,7 +66,7 @@ typedef NS_ENUM(NSUInteger, GLBImageCropMode) {
 @interface GLBImageCropContentView : UIView
 
 @property(nonatomic, nullable, weak) GLBImageCropViewController* viewController;
-@property(nonatomic, assign) UIEdgeInsets edgeInsets;
+@property(nonatomic) UIEdgeInsets edgeInsets;
 @property(nonatomic, nonnull, strong) GLBLabel* titleLabel;
 @property(nonatomic, nonnull, strong) GLBButton* cancelButton;
 @property(nonatomic, nonnull, strong) GLBButton* choiceButton;

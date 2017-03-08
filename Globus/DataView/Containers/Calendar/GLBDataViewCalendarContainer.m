@@ -322,7 +322,7 @@
         if(_canShowMonth == YES) {
             _monthItem = [GLBDataViewCalendarMonthItem itemWithCalendar:_calendar beginDate:_beginDate endDate:_endDate displayBeginDate:_displayBeginDate displayEndDate:_displayEndDate data:monthBlock(_beginDate, _endDate)];
             _monthItem.allowsSelection = _canSelectMonth;
-            [super appendEntry:_monthItem];
+            [super appendItem:_monthItem];
         }
         if(_canShowWeekdays == YES) {
             NSDate* weekdayDate = _beginDate.glb_beginningOfWeek;
@@ -335,7 +335,7 @@
                 }
                 weekdayItem.allowsSelection = _canSelectWeekdays;
                 [_weekdayItems addObject:weekdayItem];
-                [super appendEntry:weekdayItem];
+                [super appendItem:weekdayItem];
                 weekdayDate = weekdayDate.glb_nextDay;
             }
         }
@@ -368,7 +368,7 @@
                             }
                         }
                         [_dayItems setObject:dayItem atColumn:weekdayIndex atRow:weekIndex];
-                        [super appendEntry:dayItem];
+                        [super appendItem:dayItem];
                         beginDayDate = beginDayDate.glb_nextDay;
                     }
                 }
@@ -397,21 +397,21 @@
         }
         newDayItem.allowsSelection = oldDayItem.allowsSelection;
         [_dayItems setObject:newDayItem atColumn:foundColumn atRow:foundRow];
-        [super replaceOriginEntry:oldDayItem withEntry:newDayItem];
+        [super replaceOriginItem:oldDayItem withItem:newDayItem];
     }
 }
 
 - (void)cleanup {
     if(_monthItem != nil) {
-        [super deleteEntry:_monthItem];
+        [super deleteItem:_monthItem];
         _monthItem = nil;
     }
     if(_weekdayItems.count > 0) {
-        [super deleteEntries:_weekdayItems];
+        [super deleteItems:_weekdayItems];
         [_weekdayItems removeAllObjects];
     }
     if(_dayItems.count > 0) {
-        [super deleteEntries:_dayItems.objects];
+        [super deleteItems:_dayItems.objects];
         [_dayItems removeAllObjects];
     }
     _beginDate = nil;
@@ -453,7 +453,7 @@
 
 #pragma mark - Public override
 
-- (CGRect)frameEntriesForAvailableFrame:(CGRect)frame {
+- (CGRect)frameItemsForAvailableFrame:(CGRect)frame {
     BOOL canShowMonth = _canShowMonth;
     UIEdgeInsets monthMargin = (canShowMonth == YES) ? _monthMargin : UIEdgeInsetsZero;
     CGFloat monthHeight = (canShowMonth == YES) ? _monthHeight - (monthMargin.top + monthMargin.bottom) : 0.0f;
@@ -498,7 +498,7 @@
     return CGRectMake(frame.origin.x, frame.origin.y, monthMargin.left + cumulative.width + monthMargin.right, monthMargin.top + cumulative.height + monthMargin.bottom);
 }
 
-- (void)layoutEntriesForFrame:(CGRect)frame {
+- (void)layoutItemsForFrame:(CGRect)frame {
     BOOL canShowMonth = _canShowMonth;
     UIEdgeInsets monthMargin = (canShowMonth == YES) ? _monthMargin : UIEdgeInsetsZero;
     CGFloat monthHeight = (canShowMonth == YES) ? _monthHeight - (monthMargin.top + monthMargin.bottom) : 0.0f;

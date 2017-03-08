@@ -4,9 +4,15 @@
 
 /*--------------------------------------------------*/
 
-@interface GLBAction ()
+#import "NSDictionary+GLBNS.h"
+#import "NSArray+GLBNS.h"
+#import "NSString+GLBNS.h"
 
-@property(nonatomic, strong) NSMethodSignature* signature;
+/*--------------------------------------------------*/
+
+@interface GLBAction () {
+    NSMethodSignature* _signature;
+}
 
 @end
 
@@ -38,13 +44,9 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
         _target = target;
         _action = action;
         _thread = thread;
-        [self setup];
+        _signature = [_target methodSignatureForSelector:_action];
     }
     return self;
-}
-
-- (void)setup {
-    _signature = [_target methodSignatureForSelector:_action];
 }
 
 #pragma mark - Public
@@ -123,14 +125,10 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
 - (instancetype)init {
     self = [super init];
     if(self != nil) {
-        [self setup];
+        _defaultGroup = NSNull.null;
+        _actions = NSMutableDictionary.dictionary;
     }
     return self;
-}
-
-- (void)setup {
-    _defaultGroup = NSNull.null;
-    _actions = NSMutableDictionary.dictionary;
 }
 
 - (void)dealloc {

@@ -15,8 +15,8 @@ typedef void (^GLBCacheComplete)();
 
 @property(nonatomic, nonnull, readonly, copy) NSString* name;
 @property(nonatomic) NSUInteger capacity;
-@property(nonatomic, readonly, assign) NSTimeInterval storageInterval;
-@property(nonatomic, readonly, assign) NSUInteger currentUsage;
+@property(nonatomic, readonly) NSTimeInterval storageInterval;
+@property(nonatomic, readonly) NSUInteger currentUsage;
 
 + (nullable instancetype)shared;
 

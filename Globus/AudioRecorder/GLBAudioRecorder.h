@@ -8,6 +8,15 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+@class GLBAudioRecorder;
+
+/*--------------------------------------------------*/
+
+typedef void(^GLBAudioRecorderBlock)(GLBAudioRecorder* _Nonnull audioRecorder);
+typedef void(^GLBAudioRecorderErrorBlock)(GLBAudioRecorder* _Nonnull audioRecorder, NSError* _Nonnull error);
+
+/*--------------------------------------------------*/
+
 @interface GLBAudioRecorder : NSObject
 
 @property(nonatomic) AVAudioSessionSetActiveOptions sessionActiveOptions;
@@ -23,15 +32,24 @@
 @property(nonatomic, nullable, readonly, strong) NSURL* url;
 @property(nonatomic, nullable, readonly, strong) NSError* error;
 
-@property(nonatomic, readonly, assign) NSTimeInterval duration;
+@property(nonatomic, readonly) NSTimeInterval duration;
 @property(nonatomic, getter=isMeteringEnabled) BOOL meteringEnabled;
-@property(nonatomic, readonly, assign) CGFloat peakPower;
-@property(nonatomic, readonly, assign) CGFloat averagePower;
+@property(nonatomic, readonly) CGFloat peakPower;
+@property(nonatomic, readonly) CGFloat averagePower;
 
-@property(nonatomic, readonly, assign, getter=isPrepared) BOOL prepared;
-@property(nonatomic, readonly, assign, getter=isStarted) BOOL started;
-@property(nonatomic, readonly, assign, getter=isRecording) BOOL recording;
-@property(nonatomic, readonly, assign, getter=isPaused) BOOL paused;
+@property(nonatomic, readonly, getter=isPrepared) BOOL prepared;
+@property(nonatomic, readonly, getter=isStarted) BOOL started;
+@property(nonatomic, readonly, getter=isRecording) BOOL recording;
+@property(nonatomic, readonly, getter=isPaused) BOOL paused;
+
+@property(nonatomic, nullable, copy) GLBAudioRecorderBlock blockPrepared;
+@property(nonatomic, nullable, copy) GLBAudioRecorderBlock blockCleaned;
+@property(nonatomic, nullable, copy) GLBAudioRecorderBlock blockStarted;
+@property(nonatomic, nullable, copy) GLBAudioRecorderBlock blockStoped;
+@property(nonatomic, nullable, copy) GLBAudioRecorderBlock blockFinished;
+@property(nonatomic, nullable, copy) GLBAudioRecorderBlock blockResumed;
+@property(nonatomic, nullable, copy) GLBAudioRecorderBlock blockPaused;
+@property(nonatomic, nullable, copy) GLBAudioRecorderErrorBlock blockError;
 
 @property(nonatomic, nullable, strong) GLBAction* actionPrepared;
 @property(nonatomic, nullable, strong) GLBAction* actionCleaned;

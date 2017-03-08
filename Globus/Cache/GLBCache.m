@@ -10,7 +10,7 @@
 }
 
 @property(nonatomic, readonly, strong) NSString* filePath;
-@property(nonatomic, assign) NSUInteger currentUsage;
+@property(nonatomic) NSUInteger currentUsage;
 
 - (void)_removeObsoleteItemsInViewOfReserveSize:(NSUInteger)reserveSize;
 - (void)_removeObsoleteItems;
@@ -27,7 +27,7 @@
 @property(nonatomic, readonly, strong) NSString* fileName;
 @property(nonatomic, readonly, strong) NSString* filePath;
 @property(nonatomic, readonly, strong) NSData* data;
-@property(nonatomic, readonly, assign) NSUInteger size;
+@property(nonatomic, readonly) NSUInteger size;
 @property(nonatomic, readonly, strong) NSDate* updateDate;
 
 - (instancetype)initWithCache:(GLBCache*)cache fileName:(NSString*)fileName data:(NSData*)data;

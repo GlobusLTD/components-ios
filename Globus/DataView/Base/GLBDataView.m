@@ -176,7 +176,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
     
     _searchBarIteractionEnabled = YES;
     _showedSearchBar = NO;
-    _searchBarStyle = GLBDataViewSearchBarStyleOverlay;
+    _searchBarStyle = GLBDataViewSearchBarStyleInside;
     _topRefreshIteractionEnabled = YES;
     _topRefreshBelowDataView = YES;
     _bottomRefreshIteractionEnabled = YES;
@@ -1500,31 +1500,23 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 #pragma mark - Internal
 
 - (void)setEdgeInset:(UIEdgeInsets)edgeInsets force:(BOOL)force {
-    if(UIEdgeInsetsEqualToEdgeInsets(_edgeInset, edgeInsets) == NO) {
-        _edgeInset = edgeInsets;
-        [self _updateInsets:force];
-    }
+    _edgeInset = edgeInsets;
+    [self _updateInsets:force];
 }
 
 - (void)setContainerInset:(UIEdgeInsets)containerInset force:(BOOL)force {
-    if(UIEdgeInsetsEqualToEdgeInsets(_containerInset, containerInset) == NO) {
-        _containerInset = containerInset;
-        [self _updateInsets:force];
-    }
+    _containerInset = containerInset;
+    [self _updateInsets:force];
 }
 
 - (void)setSearchBarInset:(CGFloat)searchBarInset force:(BOOL)force {
-    if(_searchBarInset != searchBarInset) {
-        _searchBarInset = searchBarInset;
-        [self _updateInsets:force];
-    }
+    _searchBarInset = searchBarInset;
+    [self _updateInsets:force];
 }
 
 - (void)setRefreshViewInset:(UIEdgeInsets)refreshViewInset force:(BOOL)force {
-    if(UIEdgeInsetsEqualToEdgeInsets(_refreshViewInset, refreshViewInset) == NO) {
-        _refreshViewInset = refreshViewInset;
-        [self _updateInsets:force];
-    }
+    _refreshViewInset = refreshViewInset;
+    [self _updateInsets:force];
 }
 
 - (void)pressedItem:(GLBDataViewItem*)item animated:(BOOL)animated {
@@ -2426,64 +2418,52 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 - (void)_willEndDraggingWithVelocity:(CGPoint)velocity contentOffset:(inout CGPoint*)contentOffset contentSize:(CGSize)contentSize visibleSize:(CGSize)visibleSize {
     if(self.pagingEnabled == NO) {
         if(_canDraggingSearchBar == YES) {
+            _canDraggingSearchBar = NO;
             CGFloat searchBarHeight = _searchBar.glb_frameHeight;
             switch(_searchBarStyle) {
                 case GLBDataViewSearchBarStyleStatic:
-                    _canDraggingSearchBar = NO;
                     break;
                 case GLBDataViewSearchBarStyleInside: {
                     if(_searchBarInset >= (searchBarHeight * 0.33f)) {
-                        [self _showSearchBarAnimated:YES velocity:velocity.y complete:^{
-                            _canDraggingSearchBar = NO;
-                        }];
+                        [self _showSearchBarAnimated:YES velocity:velocity.y complete:nil];
                     } else {
-                        [self _hideSearchBarAnimated:YES velocity:velocity.y complete:^{
-                            _canDraggingSearchBar = NO;
-                        }];
+                        [self _hideSearchBarAnimated:YES velocity:velocity.y complete:nil];
                     }
                     break;
                 }
                 case GLBDataViewSearchBarStyleOverlay: {
                     if(_searchBarInset >= (searchBarHeight * 0.33f)) {
-                        [self _showSearchBarAnimated:YES velocity:velocity.y complete:^{
-                            _canDraggingSearchBar = NO;
-                        }];
+                        [self _showSearchBarAnimated:YES velocity:velocity.y complete:nil];
                     } else {
-                        [self _hideSearchBarAnimated:YES velocity:velocity.y complete:^{
-                            _canDraggingSearchBar = NO;
-                        }];
+                        [self _hideSearchBarAnimated:YES velocity:velocity.y complete:nil];
                     }
                     break;
                 }
             }
         }
         if(_canDraggingTopRefresh == YES) {
+            _canDraggingTopRefresh = NO;
             switch(_topRefreshView.state) {
                 case GLBDataRefreshViewStateRelease: {
                     if([self containsActionForKey:GLBDataViewTopRefreshTriggered] == YES) {
                         [self _showTopRefreshAnimated:YES velocity:velocity.y complete:^{
                             [self performActionForKey:GLBDataViewTopRefreshTriggered withArguments:@[ self, _topRefreshView ]];
-                            _canDraggingTopRefresh = NO;
                         }];
                     } else {
-                        [self _hideTopRefreshAnimated:YES velocity:velocity.y complete:^{
-                            _canDraggingTopRefresh = NO;
-                        }];
+                        [self _hideTopRefreshAnimated:YES velocity:velocity.y complete:nil];
                     }
                     break;
                 }
                 case GLBDataRefreshViewStatePull: {
-                    [self _hideTopRefreshAnimated:YES velocity:velocity.y complete:^{
-                        _canDraggingTopRefresh = NO;
-                    }];
+                    [self _hideTopRefreshAnimated:YES velocity:velocity.y complete:nil];
                     break;
                 }
                 default:
-                    _canDraggingTopRefresh = NO;
                     break;
             }
         }
         if(_canDraggingBottomRefresh == YES) {
+            _canDraggingBottomRefresh = NO;
             switch(_bottomRefreshView.state) {
                 case GLBDataRefreshViewStateRelease: {
                     if([self containsActionForKey:GLBDataViewBottomRefreshTriggered] == YES) {
@@ -2492,24 +2472,20 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                             _canDraggingBottomRefresh = NO;
                         }];
                     } else {
-                        [self _hideBottomRefreshAnimated:YES velocity:velocity.y complete:^{
-                            _canDraggingBottomRefresh = NO;
-                        }];
+                        [self _hideBottomRefreshAnimated:YES velocity:velocity.y complete:nil];
                     }
                     break;
                 }
                 case GLBDataRefreshViewStatePull: {
-                    [self _hideBottomRefreshAnimated:YES velocity:velocity.y complete:^{
-                        _canDraggingBottomRefresh = NO;
-                    }];
+                    [self _hideBottomRefreshAnimated:YES velocity:velocity.y complete:nil];
                     break;
                 }
                 default:
-                    _canDraggingBottomRefresh = NO;
                     break;
             }
         }
         if(_canDraggingLeftRefresh == YES) {
+            _canDraggingLeftRefresh = NO;
             switch(_leftRefreshView.state) {
                 case GLBDataRefreshViewStateRelease: {
                     if([self containsActionForKey:GLBDataViewLeftRefreshTriggered] == YES) {
@@ -2518,24 +2494,20 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                             _canDraggingLeftRefresh = NO;
                         }];
                     } else {
-                        [self _hideLeftRefreshAnimated:YES velocity:velocity.x complete:^{
-                            _canDraggingLeftRefresh = NO;
-                        }];
+                        [self _hideLeftRefreshAnimated:YES velocity:velocity.x complete:nil];
                     }
                     break;
                 }
                 case GLBDataRefreshViewStatePull: {
-                    [self _hideLeftRefreshAnimated:YES velocity:velocity.x complete:^{
-                        _canDraggingLeftRefresh = NO;
-                    }];
+                    [self _hideLeftRefreshAnimated:YES velocity:velocity.x complete:nil];
                     break;
                 }
                 default:
-                    _canDraggingLeftRefresh = NO;
                     break;
             }
         }
         if(_canDraggingRightRefresh == YES) {
+            _canDraggingRightRefresh = NO;
             switch(_rightRefreshView.state) {
                 case GLBDataRefreshViewStateRelease: {
                     if([self containsActionForKey:GLBDataViewRightRefreshTriggered] == YES) {
@@ -2544,20 +2516,15 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                             _canDraggingRightRefresh = NO;
                         }];
                     } else {
-                        [self _hideRightRefreshAnimated:YES velocity:velocity.x complete:^{
-                            _canDraggingRightRefresh = NO;
-                        }];
+                        [self _hideRightRefreshAnimated:YES velocity:velocity.x complete:nil];
                     }
                     break;
                 }
                 case GLBDataRefreshViewStatePull: {
-                    [self _hideRightRefreshAnimated:YES velocity:velocity.x complete:^{
-                        _canDraggingRightRefresh = NO;
-                    }];
+                    [self _hideRightRefreshAnimated:YES velocity:velocity.x complete:nil];
                     break;
                 }
                 default:
-                    _canDraggingRightRefresh = NO;
                     break;
             }
         }
@@ -2595,16 +2562,14 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 - (void)_showSearchBarAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete {
     _showedSearchBar = YES;
     
-    CGFloat from = _searchBarInset;
-    CGFloat to = _searchBar.glb_frameHeight;
     [self _updateSuperviewConstraints];
     
     if(animated == YES) {
-        [UIView animateWithDuration:ABS(from - to) / ABS(velocity)
+        [UIView animateWithDuration:_searchBar.glb_frameHeight / ABS(velocity)
                               delay:0.01f
                             options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut)
                          animations:^{
-                             [self setSearchBarInset:to force:YES];
+                             [self setSearchBarInset:_searchBar.glb_frameHeight force:YES];
                              [self.superview layoutIfNeeded];
                          } completion:^(BOOL finished) {
                              if(complete != nil) {
@@ -2612,7 +2577,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                              }
                          }];
     } else {
-        [self setSearchBarInset:to force:YES];
+        [self setSearchBarInset:_searchBar.glb_frameHeight force:YES];
         if(complete != nil) {
             complete();
         }
@@ -2622,16 +2587,14 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
 - (void)_hideSearchBarAnimated:(BOOL)animated velocity:(CGFloat)velocity complete:(GLBSimpleBlock)complete {
     _showedSearchBar = NO;
     
-    CGFloat from = _searchBarInset;
-    CGFloat to = 0.0f;
     [self _updateSuperviewConstraints];
     
     if(animated == YES) {
-        [UIView animateWithDuration:ABS(from - to) / ABS(velocity)
+        [UIView animateWithDuration:_searchBar.glb_frameHeight / ABS(velocity)
                               delay:0.01f
                             options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut)
                          animations:^{
-                             [self setSearchBarInset:to force:YES];
+                             [self setSearchBarInset:0 force:YES];
                              [self.superview layoutIfNeeded];
                          } completion:^(BOOL finished) {
                              if(complete != nil) {
@@ -2639,7 +2602,7 @@ double GLBDataViewTimingFunctionValue(CAMediaTimingFunction* function, double x)
                              }
                          }];
     } else {
-        [self setSearchBarInset:to force:YES];
+        [self setSearchBarInset:0 force:YES];
         if(complete != nil) {
             complete();
         }

@@ -4,6 +4,10 @@
 
 /*--------------------------------------------------*/
 
+#import "NSObject+GLBNS.h"
+
+/*--------------------------------------------------*/
+
 static void* GLBKVOContext = &GLBKVOContext;
 
 /*--------------------------------------------------*/
@@ -28,24 +32,13 @@ static void* GLBKVOContext = &GLBKVOContext;
         _keyPath = keyPath;
         _block = block;
         
-		[subject addObserver:self forKeyPath:keyPath options:(NSKeyValueObservingOptions)(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:GLBKVOContext];
-        
-        [self setup];
+		[_subject addObserver:self forKeyPath:keyPath options:(NSKeyValueObservingOptions)(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:GLBKVOContext];
 	}
     return self;
 }
 
-- (void)setup {
-}
-
 - (void)dealloc {
-	[self stopObservation];
-}
-
-#pragma mark - Public
-
-- (void)stopObservation {
-	[_subject removeObserver:self forKeyPath:_keyPath context:GLBKVOContext];
+    [_subject removeObserver:self forKeyPath:_keyPath context:GLBKVOContext];
     _subject = nil;
 }
 
@@ -55,11 +48,11 @@ static void* GLBKVOContext = &GLBKVOContext;
 	if(context == GLBKVOContext) {
 		if(_block != nil) {
 			id oldValue = change[NSKeyValueChangeOldKey];
-			if(oldValue == [NSNull null]) {
+			if([oldValue glb_isNull] == YES) {
 				oldValue = nil;
             }
-			id newValue = change[NSKeyValueChangeNewKey];
-			if(newValue == [NSNull null]) {
+            id newValue = change[NSKeyValueChangeNewKey];
+            if([newValue glb_isNull] == YES) {
 				newValue = nil;
             }
 			_block(self, oldValue, newValue);

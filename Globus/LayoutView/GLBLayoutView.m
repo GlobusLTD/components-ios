@@ -159,7 +159,6 @@
 - (void)willRemoveSubview:(UIView*)subview {
     [self.hiddenObservers glb_each:^(GLBKVO* kvo) {
         if(kvo.subject == subview) {
-            [kvo stopObservation];
             [self.hiddenObservers removeObject:kvo];
         }
     }];
@@ -192,7 +191,7 @@
                 if(prevSubview == nil) {
                     [self.leftConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeLeft relation:NSLayoutRelationEqual attribute:NSLayoutAttributeLeft constant:_margins.left]];
                 } else {
-                    [self.spacingConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeLeft relation:NSLayoutRelationEqual view:prevSubview attribute:NSLayoutAttributeRight constant:_spacing]];
+                    [self.spacingConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeLeft relation:NSLayoutRelationEqual item:prevSubview attribute:NSLayoutAttributeRight constant:_spacing]];
                 }
                 switch(_alignment) {
                     case GLBLayoutViewAlignmentFill:
@@ -218,7 +217,7 @@
                 if(prevSubview == nil) {
                     [self.topConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeTop relation:NSLayoutRelationEqual attribute:NSLayoutAttributeTop constant:_margins.top]];
                 } else {
-                    [self.spacingConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeTop relation:NSLayoutRelationEqual view:prevSubview attribute:NSLayoutAttributeBottom constant:_spacing]];
+                    [self.spacingConstraints addObject:[subview glb_addConstraintAttribute:NSLayoutAttributeTop relation:NSLayoutRelationEqual item:prevSubview attribute:NSLayoutAttributeBottom constant:_spacing]];
                 }
                 switch(_alignment) {
                     case GLBLayoutViewAlignmentFill:

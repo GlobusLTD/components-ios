@@ -13,7 +13,7 @@
 
 @interface GLBSplitViewController : UISplitViewController< GLBViewControllerExtension >
 
-@property(nonatomic, readonly, assign, getter=isAppeared) BOOL appeared;
+@property(nonatomic, readonly, getter=isAppeared) BOOL appeared;
 @property(nonatomic, nullable, strong) __kindof GLBTransitionController* transitionModal;
 @property(nonatomic, nullable, strong) __kindof UIViewController* masterViewController;
 @property(nonatomic, nullable, strong) __kindof UIViewController* detailViewController;

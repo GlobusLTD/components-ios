@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, GLBPageViewControllerDirection) {
 
 @property(nonatomic) IBInspectable GLBPageViewControllerOrientation orientation;
 @property(nonatomic, nullable, strong) UIViewController< GLBPageViewControllerDelegate >* viewController;
-@property(nonatomic, readonly, assign, getter = isAnimating) BOOL animating;
+@property(nonatomic, readonly, getter = isAnimating) BOOL animating;
 @property(nonatomic) IBInspectable BOOL userInteractionEnabled;
 @property(nonatomic) IBInspectable CGFloat draggingRate;
 @property(nonatomic) IBInspectable CGFloat bounceRate;

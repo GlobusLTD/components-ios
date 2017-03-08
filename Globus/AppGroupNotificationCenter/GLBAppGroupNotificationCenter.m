@@ -5,6 +5,11 @@
 
 /*--------------------------------------------------*/
 
+#import "NSDictionary+GLBNS.h"
+#import "NSArray+GLBNS.h"
+
+/*--------------------------------------------------*/
+
 static NSString* const GLBAppGroupNotificationCenterNotification = @"GLBAppGroupNotificationCenterNotification";
 
 /*--------------------------------------------------*/
@@ -52,17 +57,13 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
     if(self != nil) {
         _identifier = identifier.copy;
         _directory = directory.copy;
-        [self setup];
+        _fileManager = [NSFileManager new];
+        _processId = @(NSProcessInfo.processInfo.processIdentifier);
+        _observers = [NSMutableDictionary dictionary];
+        
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_receiveNotification:) name:GLBAppGroupNotificationCenterNotification object:nil];
     }
     return self;
-}
-
-- (void)setup {
-    _fileManager = [NSFileManager new];
-    _processId = @(NSProcessInfo.processInfo.processIdentifier);
-    _observers = [NSMutableDictionary dictionary];
-    
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_receiveNotification:) name:GLBAppGroupNotificationCenterNotification object:nil];
 }
 
 - (void)dealloc {

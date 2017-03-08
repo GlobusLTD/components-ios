@@ -28,13 +28,9 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
     self = [super init];
     if(self != nil) {
         _protocol = protocol;
-        [self setup];
+        _observers = [NSPointerArray weakObjectsPointerArray];
     }
     return self;
-}
-
-- (void)setup {
-    _observers = [NSPointerArray weakObjectsPointerArray];
 }
 
 #pragma mark - Property

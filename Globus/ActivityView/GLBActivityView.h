@@ -4,11 +4,6 @@
 #import "GLBLabel.h"
 
 /*--------------------------------------------------*/
-
-#import "UIView+GLBUI.h"
-#import "UILabel+GLBUI.h"
-
-/*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
@@ -16,13 +11,13 @@
 
 @property(nonatomic) UIEdgeInsets margin;
 @property(nonatomic) CGFloat spacing;
-@property(nonatomic, assign) CGSize panelMaximumSize;
+@property(nonatomic) CGSize panelMaximumSize;
 
 @property(nonatomic, nullable, strong) UIView* panelView;
 @property(nonatomic, nullable, strong) GLBSpinnerView* spinnerView;
 @property(nonatomic, nullable, strong) GLBLabel* textLabel;
 
-@property(nonatomic, readonly, assign, getter=isShowed) BOOL showed;
+@property(nonatomic, readonly, getter=isShowed) BOOL showed;
 
 @property(nonatomic) NSTimeInterval showDuration;
 @property(nonatomic) NSTimeInterval showDelay;
@@ -30,6 +25,10 @@
 @property(nonatomic) NSTimeInterval hideDelay;
 
 - (void)setup NS_REQUIRES_SUPER;
+
+- (nullable UIView*)preparePanelView;
+- (nullable GLBSpinnerView*)prepareSpinnerView;
+- (nullable GLBLabel*)prepareTextLabel;
 
 - (void)show;
 - (void)showComplete:(nullable GLBSimpleBlock)complete;

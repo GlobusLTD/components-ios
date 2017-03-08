@@ -183,12 +183,8 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
         _title = title;
         _style = style;
         _value = value;
-        [self setup];
     }
     return self;
-}
-
-- (void)setup {
 }
 
 @end

@@ -69,21 +69,21 @@ typedef void (^GLBDataContainerCalendarEachDayItemsBlock)(GLBDataViewCalendarDay
 
 @interface GLBDataViewCalendarContainer (Unavailable)
 
-- (void)prependEntry:(nonnull GLBDataViewItem*)entry NS_UNAVAILABLE;
-- (void)prependEntries:(nonnull NSArray*)entries NS_UNAVAILABLE;
-- (void)appendEntry:(nonnull GLBDataViewItem*)entry NS_UNAVAILABLE;
-- (void)appendEntries:(nonnull NSArray*)entries NS_UNAVAILABLE;
-- (void)insertEntry:(nonnull GLBDataViewItem*)entry atIndex:(NSUInteger)index NS_UNAVAILABLE;
-- (void)insertEntries:(nonnull NSArray*)entries atIndex:(NSUInteger)index NS_UNAVAILABLE;
-- (void)insertEntry:(nonnull GLBDataViewItem*)entry aboveEntry:(nonnull GLBDataViewItem*)aboveEntry NS_UNAVAILABLE;
-- (void)insertEntries:(nonnull NSArray*)entries aboveEntry:(nonnull GLBDataViewItem*)aboveEntry NS_UNAVAILABLE;
-- (void)insertEntry:(nonnull GLBDataViewItem*)entry belowEntry:(nonnull GLBDataViewItem*)belowEntry NS_UNAVAILABLE;
-- (void)insertEntries:(nonnull NSArray*)entries belowEntry:(nonnull GLBDataViewItem*)belowEntry NS_UNAVAILABLE;
-- (void)replaceOriginEntry:(nonnull GLBDataViewItem*)originEntry withEntry:(nonnull GLBDataViewItem*)entry NS_UNAVAILABLE;
-- (void)replaceOriginEntries:(nonnull NSArray*)originEntries withEntries:(nonnull NSArray*)entries NS_UNAVAILABLE;
-- (void)deleteEntry:(nonnull GLBDataViewItem*)entry NS_UNAVAILABLE;
-- (void)deleteEntries:(nonnull NSArray*)entries NS_UNAVAILABLE;
-- (void)deleteAllEntries NS_UNAVAILABLE;
+- (void)prependItem:(nonnull GLBDataViewItem*)item NS_UNAVAILABLE;
+- (void)prependItems:(nonnull NSArray*)items NS_UNAVAILABLE;
+- (void)appendItem:(nonnull GLBDataViewItem*)item NS_UNAVAILABLE;
+- (void)appendItems:(nonnull NSArray*)items NS_UNAVAILABLE;
+- (void)insertItem:(nonnull GLBDataViewItem*)item atIndex:(NSUInteger)index NS_UNAVAILABLE;
+- (void)insertItems:(nonnull NSArray*)items atIndex:(NSUInteger)index NS_UNAVAILABLE;
+- (void)insertItem:(nonnull GLBDataViewItem*)item aboveItem:(nonnull GLBDataViewItem*)aboveItem NS_UNAVAILABLE;
+- (void)insertItems:(nonnull NSArray*)items aboveItem:(nonnull GLBDataViewItem*)aboveItem NS_UNAVAILABLE;
+- (void)insertItem:(nonnull GLBDataViewItem*)item belowItem:(nonnull GLBDataViewItem*)belowItem NS_UNAVAILABLE;
+- (void)insertItems:(nonnull NSArray*)items belowItem:(nonnull GLBDataViewItem*)belowItem NS_UNAVAILABLE;
+- (void)replaceOriginItem:(nonnull GLBDataViewItem*)originItem withItem:(nonnull GLBDataViewItem*)item NS_UNAVAILABLE;
+- (void)replaceOriginItems:(nonnull NSArray*)originItems withItems:(nonnull NSArray*)items NS_UNAVAILABLE;
+- (void)deleteItem:(nonnull GLBDataViewItem*)item NS_UNAVAILABLE;
+- (void)deleteItems:(nonnull NSArray*)items NS_UNAVAILABLE;
+- (void)deleteAllItems NS_UNAVAILABLE;
 
 @end
 

@@ -32,13 +32,13 @@ typedef NS_ENUM(NSInteger, GLBVideoPlayerViewDisplayMode) {
 @property(nonatomic, nullable, readonly, strong) AVPlayerItem* playerItem;
 
 @property(nonatomic, nullable, readonly, copy) NSURL* url;
-@property(nonatomic, readonly, assign) CGFloat buffer;
-@property(nonatomic, readonly, assign) CGFloat rate;
-@property(nonatomic, readonly, assign) CGFloat duration;
+@property(nonatomic, readonly) CGFloat buffer;
+@property(nonatomic, readonly) CGFloat rate;
+@property(nonatomic, readonly) CGFloat duration;
 
-@property(nonatomic, readonly, assign, getter=isPrepared) BOOL prepared;
-@property(nonatomic, readonly, assign, getter=isPlaying) BOOL playing;
-@property(nonatomic, readonly, assign, getter=isPaused) BOOL paused;
+@property(nonatomic, readonly, getter=isPrepared) BOOL prepared;
+@property(nonatomic, readonly, getter=isPlaying) BOOL playing;
+@property(nonatomic, readonly, getter=isPaused) BOOL paused;
 
 @property(nonatomic, nullable, strong) GLBAction* actionPrepared;
 @property(nonatomic, nullable, strong) GLBAction* actionCleaned;

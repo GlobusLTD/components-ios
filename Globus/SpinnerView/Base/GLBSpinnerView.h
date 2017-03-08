@@ -11,7 +11,7 @@
 @property(nonatomic, nullable, strong) IBInspectable UIColor* color;
 @property(nonatomic) IBInspectable CGFloat size;
 @property(nonatomic) IBInspectable BOOL hidesWhenStopped;
-@property(nonatomic, readonly, assign, getter=isAnimating) BOOL animating;
+@property(nonatomic, readonly, getter=isAnimating) BOOL animating;
 
 - (void)setup NS_REQUIRES_SUPER;
 

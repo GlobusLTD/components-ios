@@ -88,7 +88,7 @@
 
 @interface GLBModelPackBool : GLBModelPack
 
-@property(nonatomic, readonly, assign) BOOL defaultValue;
+@property(nonatomic, readonly) BOOL defaultValue;
 
 + (nonnull instancetype)packWithDefaultValue:(BOOL)defaultValue NS_SWIFT_UNAVAILABLE("Use init(defaultValue:)");
 
@@ -187,7 +187,7 @@
 
 @interface GLBModelPackModel : GLBModelPack
 
-@property(nonatomic, nullable, readonly, assign) Class model;
+@property(nonatomic, nullable, readonly) Class model;
 
 + (nonnull instancetype)pack NS_UNAVAILABLE;
 + (nonnull instancetype)packWithModel:(nonnull Class)model NS_SWIFT_UNAVAILABLE("Use init(model:)");

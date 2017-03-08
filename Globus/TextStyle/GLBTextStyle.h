@@ -20,8 +20,8 @@
 @property(nonatomic, nullable, strong) UIColor* underlineColor;
 @property(nonatomic) NSUnderlineStyle underlineStyle;
 @property(nonatomic, nullable, strong) NSShadow* shadow GLB_UNAVAILABLE_WATCHOS;
-@property(nonatomic, assign) CGSize shadowOffset GLB_UNAVAILABLE_WATCHOS;
-@property(nonatomic, assign) CGFloat shadowBlurRadius GLB_UNAVAILABLE_WATCHOS;
+@property(nonatomic) CGSize shadowOffset GLB_UNAVAILABLE_WATCHOS;
+@property(nonatomic) CGFloat shadowBlurRadius GLB_UNAVAILABLE_WATCHOS;
 @property(nonatomic, nullable, strong) UIColor* shadowColor GLB_UNAVAILABLE_WATCHOS;
 @property(nonatomic) NSInteger ligature;
 @property(nonatomic) CGFloat kerning;

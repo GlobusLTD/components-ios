@@ -12,12 +12,25 @@
 
 /*--------------------------------------------------*/
 
+@interface GLBTabBarViewControllerDelegate : NSObject< UITabBarControllerDelegate >
+
+@property(nonatomic, nullable, weak) GLBTabBarViewController* viewController;
+@property(nonatomic, nullable, weak) id< UITabBarControllerDelegate > delegate;
+
+- (nonnull instancetype)initWithViewController:(nonnull GLBTabBarViewController*)viewController;
+
+@end
+
+/*--------------------------------------------------*/
+
 @interface GLBTabBarViewController () <
-    UIViewControllerTransitioningDelegate, UITabBarControllerDelegate
+    UIViewControllerTransitioningDelegate
 #if __has_include("GLBSlideViewController.h")
     , GLBSlideViewControllerDelegate
 #endif
 >
+
+@property(nonatomic, nullable, strong) GLBTabBarViewControllerDelegate* delegateProxy;
 
 @end
 
@@ -54,7 +67,7 @@
 }
 
 - (void)setup {
-    self.delegate = self;
+    self.delegateProxy = [GLBTabBarViewControllerDelegate new];
     self.transitioningDelegate = self;
     
     _toolbarHidden = YES;
@@ -65,6 +78,28 @@
 }
 
 #pragma mark - Property
+
+- (void)setDelegateProxy:(GLBTabBarViewControllerDelegate*)delegateProxy {
+    if(_delegateProxy != delegateProxy) {
+        _delegateProxy.viewController = nil;
+        super.delegate = nil;
+        _delegateProxy = delegateProxy;
+        super.delegate = _delegateProxy;
+        _delegateProxy.viewController = self;
+    }
+}
+
+- (void)setDelegate:(id< UITabBarControllerDelegate >)delegate {
+    if(_delegateProxy.delegate != delegate) {
+        super.delegate = nil;
+        _delegateProxy.delegate = delegate;
+        super.delegate = _delegateProxy;
+    }
+}
+
+- (id< UITabBarControllerDelegate >)delegate {
+    return _delegateProxy.delegate;
+}
 
 - (void)setView:(UIView*)view {
     super.view = view;
@@ -264,33 +299,6 @@
         _transitionModal.operation = GLBTransitionOperationDismiss;
     }
     return _transitionModal;
-}
-
-#pragma mark - UITabBarControllerDelegate
-
-- (UIInterfaceOrientationMask)tabBarControllerSupportedInterfaceOrientations:(UITabBarController*)tabBarController {
-    return self.selectedViewController.supportedInterfaceOrientations;
-}
-
-- (UIInterfaceOrientation)tabBarControllerPreferredInterfaceOrientationForPresentation:(UITabBarController*)tabBarController {
-    return [self.selectedViewController preferredInterfaceOrientationForPresentation];
-}
-
-- (id< UIViewControllerInteractiveTransitioning >)tabBarController:(UITabBarController*)tabBarController interactionControllerForAnimationController:(id< UIViewControllerAnimatedTransitioning >)animationController {
-    return _transitionNavigation;
-}
-
-- (id< UIViewControllerAnimatedTransitioning >)tabBarController:(UITabBarController*)tabBarController animationControllerForTransitionFromViewController:(UIViewController*)fromViewController toViewController:(UIViewController*)toViewController {
-    if(_transitionNavigation != nil) {
-        NSArray* viewControllers = tabBarController.viewControllers;
-        if([viewControllers indexOfObject:fromViewController] > [viewControllers indexOfObject:toViewController]) {
-            _transitionModal.operation = GLBTransitionOperationPush;
-        } else {
-            _transitionModal.operation = GLBTransitionOperationPop;
-        }
-        return _transitionNavigation;
-    }
-    return nil;
 }
 
 #pragma mark - GLBViewControllerExtension
@@ -537,6 +545,73 @@
 }
 
 #endif
+
+@end
+
+/*--------------------------------------------------*/
+#pragma mark -
+/*--------------------------------------------------*/
+
+@implementation GLBTabBarViewControllerDelegate
+
+#pragma mark - Init / Free
+
+- (instancetype)initWithViewController:(GLBTabBarViewController*)viewController {
+    self = [super init];
+    if(self != nil) {
+        _viewController = viewController;
+    }
+    return self;
+}
+
+#pragma mark - NSObject
+
+- (BOOL)respondsToSelector:(SEL)selector {
+    return (([_delegate respondsToSelector:selector] == YES) || ([super respondsToSelector:selector] == YES));
+}
+
+- (void)forwardInvocation:(NSInvocation*)invocation {
+    [invocation invokeWithTarget:_delegate];
+}
+
+#pragma mark - UITabBarControllerDelegate
+
+- (UIInterfaceOrientationMask)tabBarControllerSupportedInterfaceOrientations:(UITabBarController*)tabBarController {
+    if([_delegate respondsToSelector:@selector(tabBarControllerSupportedInterfaceOrientations:)] == YES) {
+        return [_delegate tabBarControllerSupportedInterfaceOrientations:tabBarController];
+    }
+    return _viewController.selectedViewController.supportedInterfaceOrientations;
+}
+
+- (UIInterfaceOrientation)tabBarControllerPreferredInterfaceOrientationForPresentation:(UITabBarController*)tabBarController {
+    if([_delegate respondsToSelector:@selector(tabBarControllerPreferredInterfaceOrientationForPresentation:)] == YES) {
+        return [_delegate tabBarControllerPreferredInterfaceOrientationForPresentation:tabBarController];
+    }
+    return [_viewController.selectedViewController preferredInterfaceOrientationForPresentation];
+}
+
+- (id< UIViewControllerInteractiveTransitioning >)tabBarController:(UITabBarController*)tabBarController interactionControllerForAnimationController:(id< UIViewControllerAnimatedTransitioning >)animationController {
+    if([_delegate respondsToSelector:@selector(tabBarController:interactionControllerForAnimationController:)] == YES) {
+        return [_delegate tabBarController:tabBarController interactionControllerForAnimationController:animationController];
+    }
+    return _viewController.transitionNavigation;
+}
+
+- (id< UIViewControllerAnimatedTransitioning >)tabBarController:(UITabBarController*)tabBarController animationControllerForTransitionFromViewController:(UIViewController*)fromViewController toViewController:(UIViewController*)toViewController {
+    if([_delegate respondsToSelector:@selector(tabBarController:animationControllerForTransitionFromViewController:toViewController:)] == YES) {
+        return [_delegate tabBarController:tabBarController animationControllerForTransitionFromViewController:fromViewController toViewController:toViewController];
+    }
+    if(_viewController.transitionNavigation != nil) {
+        NSArray* viewControllers = _viewController.viewControllers;
+        if([viewControllers indexOfObject:fromViewController] > [viewControllers indexOfObject:toViewController]) {
+            _viewController.transitionModal.operation = GLBTransitionOperationPush;
+        } else {
+            _viewController.transitionModal.operation = GLBTransitionOperationPop;
+        }
+        return _viewController.transitionNavigation;
+    }
+    return nil;
+}
 
 @end
 

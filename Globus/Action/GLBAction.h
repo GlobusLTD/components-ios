@@ -1,16 +1,17 @@
 /*--------------------------------------------------*/
 
+#include "GLBTargetConditionals.h"
+
+/*--------------------------------------------------*/
+
 #import "NSObject+GLBDebug.h"
-#import "NSDictionary+GLBNS.h"
-#import "NSArray+GLBNS.h"
-#import "NSString+GLBNS.h"
 
 /*--------------------------------------------------*/
 
 @interface GLBAction : NSObject < GLBObjectDebugProtocol >
 
 @property(nonatomic, nullable, readonly, weak) id target;
-@property(nonatomic, nonnull, readonly, assign) SEL action;
+@property(nonatomic, nonnull, readonly) SEL action;
 @property(nonatomic, nullable, readonly, weak) NSThread* thread;
 
 + (nonnull instancetype)actionWithTarget:(nonnull id)target action:(nonnull SEL)action NS_SWIFT_UNAVAILABLE("Use init(target:action:)");
@@ -19,8 +20,6 @@
 - (nonnull instancetype)init NS_UNAVAILABLE;
 - (nonnull instancetype)initWithTarget:(nonnull id)target action:(nonnull SEL)action;
 - (nonnull instancetype)initWithTarget:(nonnull id)target action:(nonnull SEL)action inThread:(nullable NSThread*)thread NS_DESIGNATED_INITIALIZER;
-
-- (void)setup NS_REQUIRES_SUPER;
 
 - (nullable id)performWithArguments:(nullable NSArray*)arguments;
 
@@ -31,8 +30,6 @@
 @interface GLBActions: NSObject < GLBObjectDebugProtocol >
 
 @property(nonatomic, nonnull, strong) id defaultGroup;
-
-- (void)setup NS_REQUIRES_SUPER;
 
 - (nonnull GLBAction*)addActionWithTarget:(nonnull id)target action:(nonnull SEL)action forKey:(nonnull id)key;
 - (nonnull GLBAction*)addActionWithTarget:(nonnull id)target action:(nonnull SEL)action inGroup:(nonnull id)group forKey:(nonnull id)key;

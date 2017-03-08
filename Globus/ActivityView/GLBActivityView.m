@@ -46,16 +46,16 @@
 - (void)setup {
     _showCount = NSNotFound;
     
-    _margin = UIEdgeInsetsMake(16.0f, 16.0f, 16.0f, 16.0f);
-    _spacing = 8.0f;
-    _panelMaximumSize = CGSizeMake(256.0f, 256.0f);
-    _showDuration = 0.2f;
-    _showDelay = 0.1f;
-    _hideDuration = 0.2f;
-    _hideDelay = 0.1f;
+    _margin = UIEdgeInsetsMake(16, 16, 16, 16);
+    _spacing = 8;
+    _panelMaximumSize = CGSizeMake(256, 256);
+    _showDuration = 0.2;
+    _showDelay = 0.1;
+    _hideDuration = 0.2;
+    _hideDelay = 0.1;
     
     self.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-    self.backgroundColor = [UIColor colorWithWhite:0.1f alpha:0.2f];
+    self.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.2];
     self.alpha = 0.0;
 }
 
@@ -81,13 +81,13 @@
         [spinnerView glb_addConstraintTop:_margin.top];
         [spinnerView glb_addConstraintLeft:_margin.left relation:NSLayoutRelationGreaterThanOrEqual];
         [spinnerView glb_addConstraintRight:_margin.right relation:NSLayoutRelationGreaterThanOrEqual];
-        [spinnerView glb_addConstraintHorizontal:0.0f];
+        [spinnerView glb_addConstraintHorizontal:0];
         
-        [spinnerView glb_addConstraintBottom:_spacing topView:textLabel];
+        [spinnerView glb_addConstraintBottom:_spacing topItem:textLabel];
         
         [textLabel glb_addConstraintLeft:_margin.left relation:NSLayoutRelationGreaterThanOrEqual];
         [textLabel glb_addConstraintRight:_margin.right relation:NSLayoutRelationGreaterThanOrEqual];
-        [textLabel glb_addConstraintHorizontal:0.0f];
+        [textLabel glb_addConstraintHorizontal:0];
         [textLabel glb_addConstraintBottom:_margin.bottom];
     } else {
         [spinnerView glb_addConstraintEdgeInsets:_margin];
@@ -139,11 +139,7 @@
 
 - (UIView*)panelView {
     if(_panelView == nil) {
-        UIView* panelView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 100.0f)];
-        panelView.backgroundColor = [UIColor colorWithWhite:0.2f alpha:0.8f];
-        panelView.glb_cornerRadius = 8.0f;
-        panelView.clipsToBounds = YES;
-        self.panelView = panelView;
+        self.panelView = [self preparePanelView];
     }
     return _panelView;
 }
@@ -164,9 +160,7 @@
 
 - (GLBSpinnerView*)spinnerView {
     if(_spinnerView == nil) {
-        GLBSpinnerView* spinnerView = [GLBArcSpinnerView new];
-        spinnerView.color = UIColor.whiteColor;
-        self.spinnerView = spinnerView;
+        self.spinnerView = [self prepareSpinnerView];
     }
     return _spinnerView;
 }
@@ -187,13 +181,7 @@
 
 - (GLBLabel*)textLabel {
     if(_textLabel == nil) {
-        GLBLabel* textLabel = [GLBLabel new];
-        textLabel.backgroundColor = UIColor.clearColor;
-        textLabel.textColor = [UIColor colorWithWhite:1.0 alpha:0.8f];
-        textLabel.font = [UIFont boldSystemFontOfSize:UIFont.systemFontSize];
-        textLabel.textAlignment = NSTextAlignmentCenter;
-        textLabel.numberOfLines = 0;
-        self.textLabel = textLabel;
+        self.textLabel = [self prepareTextLabel];
     }
     return _textLabel;
 }
@@ -203,6 +191,30 @@
 }
 
 #pragma mark - Public
+
+- (UIView*)preparePanelView {
+    UIView* panelView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    panelView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.8];
+    panelView.glb_cornerRadius = 8;
+    panelView.clipsToBounds = YES;
+    return panelView;
+}
+
+- (GLBSpinnerView*)prepareSpinnerView {
+    GLBSpinnerView* spinnerView = [GLBArcSpinnerView new];
+    spinnerView.color = UIColor.whiteColor;
+    return spinnerView;
+}
+
+- (GLBLabel*)prepareTextLabel {
+    GLBLabel* textLabel = [GLBLabel new];
+    textLabel.backgroundColor = UIColor.clearColor;
+    textLabel.textColor = [UIColor colorWithWhite:1.0 alpha:0.8];
+    textLabel.font = [UIFont boldSystemFontOfSize:UIFont.systemFontSize];
+    textLabel.textAlignment = NSTextAlignmentCenter;
+    textLabel.numberOfLines = 0;
+    return textLabel;
+}
 
 - (void)show {
     [self showPrepare:nil complete:nil];

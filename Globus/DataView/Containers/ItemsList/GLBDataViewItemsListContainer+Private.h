@@ -17,7 +17,7 @@
     NSUInteger _defaultOrder;
     __kindof GLBDataViewItem* _header;
     __kindof GLBDataViewItem* _footer;
-    NSMutableArray< __kindof GLBDataViewItem* >* _items;
+    NSMutableArray< __kindof GLBDataViewItem* >* _contentItems;
     CGRect _movingFrame;
 }
 

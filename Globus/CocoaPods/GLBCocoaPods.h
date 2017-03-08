@@ -658,11 +658,43 @@
 #endif
 
 /*--------------------------------------------------*/
+#pragma mark - DataProvider
+/*--------------------------------------------------*/
+
+#if __has_include("GLBDataProvider.h")
+#import "GLBDataProvider.h"
+#endif
+
+#if __has_include("GLBListDataProvider.h")
+#import "GLBListDataProvider.h"
+#endif
+
+#if __has_include("GLBSimpleDataProvider.h")
+#import "GLBSimpleDataProvider.h"
+#endif
+
+#if __has_include("GLBLocalListDataProvider.h")
+#import "GLBLocalListDataProvider.h"
+#endif
+
+#if __has_include("GLBLocalSimpleDataProvider.h")
+#import "GLBLocalSimpleDataProvider.h"
+#endif
+
+/*--------------------------------------------------*/
 #pragma mark - DataViewController
 /*--------------------------------------------------*/
 
 #if __has_include("GLBDataViewController.h")
 #import "GLBDataViewController.h"
+#endif
+
+#if __has_include("GLBListDataViewController.h")
+#import "GLBListDataViewController.h"
+#endif
+
+#if __has_include("GLBSimpleDataViewController.h")
+#import "GLBSimpleDataViewController.h"
 #endif
 
 /*--------------------------------------------------*/

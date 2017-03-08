@@ -24,8 +24,8 @@
     CGFloat _scaleToRestoreAfterResize;
 }
 
-@property(nonatomic, readwrite, strong) UIImageView* zoomView;
-@property(nonatomic, readwrite, assign) BOOL aspectFill;
+@property(nonatomic, strong) UIImageView* zoomView;
+@property(nonatomic) BOOL aspectFill;
 
 - (void)__displayImage:(UIImage*)image;
 - (void)__centerZoomView;
@@ -746,7 +746,7 @@ static const CGFloat GLBImageCropContentView_LandscapeButtonsVerticalMargin = 12
     
     CGRect maskRect = _viewController.maskRect;
     
-    [_titleLabel glb_addConstraintVertical:_edgeInsets.top + ((maskRect.origin.y - _edgeInsets.top) / 2.0f) topView:self];
+    [_titleLabel glb_addConstraintVertical:_edgeInsets.top + ((maskRect.origin.y - _edgeInsets.top) / 2.0f) topItem:self];
     [_titleLabel glb_addConstraintHorizontal:0.0f];
     
     if([_viewController __isPortrait] == YES) {

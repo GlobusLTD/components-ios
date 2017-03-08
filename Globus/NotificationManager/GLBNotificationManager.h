@@ -73,7 +73,7 @@ typedef void(^GLBNotificationViewBlock)(GLBNotificationView* _Nonnull notificati
 @interface GLBNotificationView : UIView
 
 @property(nonatomic, nonnull, readonly, strong) UIView< GLBNotificationViewProtocol >* view;
-@property(nonatomic, readonly, assign) NSTimeInterval duration;
+@property(nonatomic, readonly) NSTimeInterval duration;
 @property(nonatomic, nullable, readonly, copy) GLBNotificationViewBlock pressed;
 
 - (void)hideAnimated:(BOOL)animated;
@@ -90,7 +90,7 @@ typedef void(^GLBNotificationViewBlock)(GLBNotificationView* _Nonnull notificati
 
 @protocol GLBNotificationDecorViewProtocol < NSObject >
 
-@property(nonatomic, readonly, assign) CGFloat height;
+@property(nonatomic, readonly) CGFloat height;
 
 @end
 

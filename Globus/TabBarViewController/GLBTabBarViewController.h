@@ -13,7 +13,7 @@
 
 @interface GLBTabBarViewController : UITabBarController< GLBViewControllerExtension >
 
-@property(nonatomic, readonly, assign, getter=isAppeared) BOOL appeared;
+@property(nonatomic, readonly, getter=isAppeared) BOOL appeared;
 @property(nonatomic, getter=isNavigationBarHidden) BOOL navigationBarHidden;
 @property(nonatomic, getter=isToolbarHidden) BOOL toolbarHidden;
 @property(nonatomic) BOOL hidesBarsWhenKeyboardAppears;

@@ -7,8 +7,8 @@
 @interface GLBStructedObject : NSObject
 
 @property(nonatomic, nullable, readonly, strong) id rootObject;
-@property(nonatomic, readonly, assign) BOOL isRootObjectDictionary;
-@property(nonatomic, readonly, assign) BOOL isRootObjectArray;
+@property(nonatomic, readonly) BOOL isRootObjectDictionary;
+@property(nonatomic, readonly) BOOL isRootObjectArray;
 
 - (nonnull instancetype)init NS_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithRootObject:(nullable id)rootObject NS_SWIFT_NAME(init(rootObject:)) NS_DESIGNATED_INITIALIZER;

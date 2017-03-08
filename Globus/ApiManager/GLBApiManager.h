@@ -1,6 +1,6 @@
 /*--------------------------------------------------*/
 
-#import "NSArray+GLBNS.h"
+#include "GLBTargetConditionals.h"
 
 /*--------------------------------------------------*/
 
@@ -14,8 +14,6 @@
 @property(nonatomic, nonnull, readonly, copy) NSArray< GLBApiProvider* >* providers;
 
 + (nonnull instancetype)shared;
-
-- (void)setup NS_REQUIRES_SUPER;
 
 - (void)registerProvider:(nonnull GLBApiProvider*)provider;
 - (void)unregisterProvider:(nonnull GLBApiProvider*)provider;

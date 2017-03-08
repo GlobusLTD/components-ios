@@ -8,25 +8,10 @@
 
 @interface GLBSearchBar () < UITextFieldDelegate > {
 @protected
-    __weak id< GLBSearchBarDelegate > _delegate;
-    BOOL _searching;
-    BOOL _editing;
-    CGFloat _minimalHeight;
-    UIEdgeInsets _margin;
-    CGFloat _spacing;
-    BOOL _alwaysShowCancelButton;
-    __weak UIView* _separatorView;
-    __weak GLBTextField* _searchField;
-    BOOL _showCancelButton;
-    __weak GLBButton* _cancelButton;
     NSMutableArray* _contentConstraints;
 }
 
-@property(nonatomic, weak) UIView* separatorView;
-@property(nonatomic, weak) GLBTextField* searchField;
-@property(nonatomic, weak) GLBButton* cancelButton;
-
-- (void)updateAnimated:(BOOL)animated complete:(GLBSimpleBlock)complete;
+- (void)__updateAnimated:(BOOL)animated complete:(GLBSimpleBlock)complete;
 
 @end
 
@@ -34,7 +19,10 @@
 #pragma mark -
 /*--------------------------------------------------*/
 
-static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
+static CGFloat DefaultHeight = 44;
+static CGFloat DefaultMargin = 8;
+static CGFloat DefaultSpacing = 6;
+static CGFloat DefaultSeparatorHeight = 0.5f;
 
 /*--------------------------------------------------*/
 
@@ -45,7 +33,6 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
 @synthesize delegate = _delegate;
 @synthesize searching = _searching;
 @synthesize editing = _editing;
-@synthesize minimalHeight = _minimalHeight;
 @synthesize margin = _margin;
 @synthesize spacing = _spacing;
 @synthesize alwaysShowCancelButton = _alwaysShowCancelButton;
@@ -55,6 +42,10 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
 @synthesize cancelButton = _cancelButton;
 
 #pragma mark - Init / Free
+
+- (instancetype)init {
+    return [self initWithFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, DefaultHeight)];
+}
 
 - (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super initWithCoder:coder];
@@ -80,9 +71,8 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
                                                alpha:1];
     }
 
-    _minimalHeight = 28;
-    _margin = UIEdgeInsetsMake(8, 8, 8, 8);
-    _spacing = 6;
+    _margin = UIEdgeInsetsMake(DefaultMargin, DefaultMargin, DefaultMargin, DefaultMargin);
+    _spacing = DefaultSpacing;
     _alwaysShowCancelButton = NO;
     _showCancelButton = YES;
     _contentConstraints = NSMutableArray.array;
@@ -102,11 +92,11 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
         _searching = searching;
         if(_searching == NO) {
             _editing = NO;
-            self.searchField.clearButtonMode = UITextFieldViewModeNever;
-            self.searchField.text = @"";
-            [self.searchField endEditing:NO];
         }
-        [self updateAnimated:animated complete:complete];
+        [self __updateAnimated:animated complete:complete];
+    } else if((_searching == NO) && (_editing == YES)) {
+        _editing = NO;
+        [self __updateAnimated:animated complete:complete];
     } else {
         if(complete != nil) {
             complete();
@@ -121,12 +111,7 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated complete:(GLBSimpleBlock)complete {
     if(_editing != editing) {
         _editing = editing;
-        if(_editing == YES) {
-            [self.searchField becomeFirstResponder];
-        } else {
-            [self.searchField endEditing:NO];
-        }
-        [self updateAnimated:animated complete:complete];
+        [self __updateAnimated:animated complete:complete];
     } else {
         if(complete != nil) {
             complete();
@@ -170,7 +155,7 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
     return _separatorView;
 }
 
-- (void)setSearchField:(GLBTextField*)searchField {
+- (void)setSearchField:(GLBSearchBarTextField*)searchField {
     if(_searchField != searchField) {
         if(_searchField != nil) {
             [_searchField removeFromSuperview];
@@ -189,14 +174,14 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
     }
 }
 
-- (GLBTextField*)searchField {
+- (GLBSearchBarTextField*)searchField {
     if(_searchField == nil) {
-        GLBTextField* textField = [[GLBTextField alloc] initWithFrame:CGRectZero];
+        GLBSearchBarTextField* textField = [[GLBSearchBarTextField alloc] initWithFrame:CGRectZero];
         textField.placeholder = NSLocalizedStringFromTable(@"Search", @"GLBSearchBar", @"SearchBar placeholder");
         textField.borderStyle = UITextBorderStyleNone;
-        textField.backgroundColor = [UIColor whiteColor];
-        textField.textColor = [UIColor darkGrayColor];
-        textField.tintColor = [UIColor blackColor];
+        textField.backgroundColor = UIColor.whiteColor;
+        textField.textColor = UIColor.darkGrayColor;
+        textField.tintColor = UIColor.blackColor;
         textField.glb_cornerRadius = 4;
         textField.hiddenToolbar = YES;
         textField.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
@@ -244,56 +229,11 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
     return _cancelButton;
 }
 
-#pragma mark - Property depricated
-
-- (void)setBlurEnabled:(BOOL)blurEnabled {
-}
-
-- (BOOL)isBlurEnabled {
-    return NO;
-}
-
-- (void)setBlurRadius:(CGFloat)blurRadius {
-}
-
-- (CGFloat)blurRadius {
-    return 0;
-}
-
-- (void)setBlurIterations:(NSUInteger)blurIterations {
-}
-
-- (NSUInteger)blurIterations {
-    return 0;
-}
-
-- (void)setDynamic:(BOOL)dynamic {
-}
-
-- (BOOL)isDynamic {
-    return NO;
-}
-
-- (void)setUpdateInterval:(NSTimeInterval)updateInterval {
-}
-
-- (NSTimeInterval)updateInterval {
-    return 0;
-}
-
-- (void)setUnderlyingView:(UIView*)underlyingView {
-}
-
-- (UIView*)underlyingView {
-    return nil;
-}
-
 #pragma mark - Public override
 
 - (void)updateConstraints {
     NSDictionary* metrics = @{
-        @"separatorHeight": @(GLBSearchBarSeparatorHeight),
-        @"contentHeight": @(_minimalHeight),
+        @"separatorHeight": @(DefaultSeparatorHeight),
         @"marginTop": @(_margin.top),
         @"marginBottom": @(_margin.bottom),
         @"marginLeft": @(_margin.left),
@@ -309,13 +249,13 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
     [_contentConstraints removeAllObjects];
     if((((_searching == YES) || (_editing == YES)) && (_showCancelButton == YES)) || (_alwaysShowCancelButton == YES)) {
         [_contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(marginLeft)-[searchField]-(spacing)-[cancelButton]-(marginRight)-|" options:0 metrics:metrics views:views]];
-        [_contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=marginTop)-[searchField(>=contentHeight)]-(marginBottom)-|" options:0 metrics:metrics views:views]];
-        [_contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=marginTop)-[cancelButton(>=contentHeight)]-(marginBottom)-|" options:0 metrics:metrics views:views]];
+        [_contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(marginTop)-[searchField]-(marginBottom)-|" options:0 metrics:metrics views:views]];
+        [_contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(marginTop)-[cancelButton]-(marginBottom)-|" options:0 metrics:metrics views:views]];
     } else {
         [_contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(marginLeft)-[searchField]-(marginRight)-|" options:0 metrics:metrics views:views]];
         [_contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[searchField]-(marginRight)-[cancelButton]" options:0 metrics:metrics views:views]];
-        [_contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=marginTop)-[searchField(>=contentHeight)]-(marginBottom)-|" options:0 metrics:metrics views:views]];
-        [_contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=marginTop)-[cancelButton(>=contentHeight)]-(marginBottom)-|" options:0 metrics:metrics views:views]];
+        [_contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(marginTop)-[searchField]-(marginBottom)-|" options:0 metrics:metrics views:views]];
+        [_contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(marginTop)-[cancelButton]-(marginBottom)-|" options:0 metrics:metrics views:views]];
     }
     [_contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[separatorView]-0-|" options:0 metrics:metrics views:views]];
     [_contentConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[separatorView(==separatorHeight)]-0-|" options:0 metrics:metrics views:views]];
@@ -327,18 +267,31 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
 
 #pragma mark - Private
 
-- (void)updateAnimated:(BOOL)animated complete:(GLBSimpleBlock)complete {
+- (void)__updateAnimated:(BOOL)animated complete:(GLBSimpleBlock)complete {
     if(_searching == _editing) {
         [self setNeedsUpdateConstraints];
-        [self updateConstraintsIfNeeded];
     }
     if(animated == YES) {
         if((((_searching == YES) || (_editing == YES)) && (_showCancelButton == YES)) || (_alwaysShowCancelButton == YES)) {
             self.cancelButton.hidden = NO;
         }
         [UIView animateWithDuration:0.2f animations:^{
+            if(_searching == NO) {
+                self.searchField.clearButtonMode = UITextFieldViewModeNever;
+                self.searchField.text = @"";
+            }
+            if(self.searchField.text.length > 0) {
+                self.searchField.clearButtonMode = UITextFieldViewModeAlways;
+            } else {
+                self.searchField.clearButtonMode = UITextFieldViewModeNever;
+            }
             [self layoutIfNeeded];
         } completion:^(BOOL finished) {
+            if(_editing == YES) {
+                [self.searchField becomeFirstResponder];
+            } else {
+                [self.searchField endEditing:NO];
+            }
             if((_searching == NO) && (_editing == NO) && (_alwaysShowCancelButton == NO)) {
                 self.cancelButton.hidden = YES;
             }
@@ -347,6 +300,20 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
             }
         }];
     } else {
+        if(_searching == NO) {
+            self.searchField.clearButtonMode = UITextFieldViewModeNever;
+            self.searchField.text = @"";
+        }
+        if(_editing == YES) {
+            [self.searchField becomeFirstResponder];
+        } else {
+            [self.searchField endEditing:NO];
+        }
+        if(self.searchField.text.length > 0) {
+            self.searchField.clearButtonMode = UITextFieldViewModeAlways;
+        } else {
+            self.searchField.clearButtonMode = UITextFieldViewModeNever;
+        }
         if((((_searching == YES) || (_editing == YES)) && (_showCancelButton == YES)) || (_alwaysShowCancelButton == YES)) {
             self.cancelButton.hidden = NO;
         } else {
@@ -361,18 +328,19 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
 #pragma mark - Action
 
 - (void)changeTextField {
-    if((_searching == NO) && (self.searchField.text.length > 0)) {
-        if([_delegate respondsToSelector:@selector(searchBarBeginSearch:)]) {
-            [_delegate searchBarBeginSearch:self];
-        }
-        [self setSearching:YES animated:YES complete:nil];
-    }
     NSString* text = self.searchField.text;
     if(text == nil) {
         text = @"";
     }
     if(text.length > 0) {
-        _searchField.clearButtonMode = UITextFieldViewModeAlways;
+        if(_searching == NO) {
+            [self setSearching:YES animated:YES complete:nil];
+            if([_delegate respondsToSelector:@selector(searchBarBeginSearch:)]) {
+                [_delegate searchBarBeginSearch:self];
+            }
+        } else {
+            _searchField.clearButtonMode = UITextFieldViewModeAlways;
+        }
     } else {
         _searchField.clearButtonMode = UITextFieldViewModeNever;
     }
@@ -400,16 +368,20 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
 }
 
 - (void)textFieldDidEndEditing:(UITextField*)textField {
-    if([_delegate respondsToSelector:@selector(searchBarEndEditing:)]) {
-        [_delegate searchBarEndEditing:self];
-    }
     if(self.searchField.text.length < 1) {
+        [self setSearching:NO animated:YES complete:nil];
+        if([_delegate respondsToSelector:@selector(searchBarEndEditing:)]) {
+            [_delegate searchBarEndEditing:self];
+        }
         if([_delegate respondsToSelector:@selector(searchBarEndSearch:)]) {
             [_delegate searchBarEndSearch:self];
         }
-        [self setSearching:NO animated:YES complete:nil];
+    } else {
+        if([_delegate respondsToSelector:@selector(searchBarEndEditing:)]) {
+            [_delegate searchBarEndEditing:self];
+        }
+        [self setEditing:NO animated:YES complete:nil];
     }
-    [self setEditing:NO animated:YES complete:nil];
 }
 
 - (BOOL)textFieldShouldClear:(UITextField*)textField {
@@ -424,6 +396,18 @@ static CGFloat GLBSearchBarSeparatorHeight = 0.5f;
         [_delegate searchBarPressedReturn:self];
     }
     return YES;
+}
+
+@end
+
+/*--------------------------------------------------*/
+
+@implementation GLBSearchBarTextField
+
+- (void)setup {
+    [super setup];
+    
+    self.textInsets = UIEdgeInsetsMake(0, 10, 0, 10);
 }
 
 @end

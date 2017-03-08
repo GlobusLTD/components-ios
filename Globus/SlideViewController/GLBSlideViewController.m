@@ -1403,7 +1403,7 @@ typedef NS_ENUM(NSUInteger, GLBSlideViewControllerSwipeCellDirection) {
 
 - (void)_disappearBackgroundViewController {
     _backgroundViewController.glb_slideViewController = nil;
-    
+
     [_backgroundViewController willMoveToParentViewController:nil];
     [_backgroundViewController.view removeFromSuperview];
     [_backgroundViewController removeFromParentViewController];

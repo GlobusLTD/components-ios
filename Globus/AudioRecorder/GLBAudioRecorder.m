@@ -109,6 +109,9 @@
             [GLBAudioSession activateWithOptions:_sessionActiveOptions category:_sessionCategory categoryOptions:_sessionCategoryOptions mode:_sessionMode block:^(NSError* error) {
                 if(_error != nil) {
                     _error = error;
+                    if(_blockError != nil) {
+                        _blockError(self, _error);
+                    }
                     if(_actionError != nil) {
                         [_actionError performWithArguments:@[ self, _error ]];
                     }
@@ -118,6 +121,9 @@
                         if([_recorder prepareToRecord] == YES) {
                             _recorder.delegate = self;
                             _prepared = YES;
+                            if(_blockPrepared != nil) {
+                                _blockPrepared(self);
+                            }
                             if(_actionPrepared != nil) {
                                 [_actionPrepared performWithArguments:@[ self, _error ]];
                             }
@@ -127,6 +133,9 @@
                         }
                     } else if(error != nil) {
                         _error = error;
+                        if(_blockError != nil) {
+                            _blockError(self, _error);
+                        }
                         if(_actionError != nil) {
                             [_actionError performWithArguments:@[ self, _error ]];
                         }
@@ -147,6 +156,9 @@
             [_recorder stop];
         }
         _recorder = nil;
+        if(_blockCleaned != nil) {
+            _blockCleaned(self);
+        }
         if(_actionCleaned != nil) {
             [_actionCleaned performWithArguments:@[ self ]];
         }
@@ -157,6 +169,9 @@
     if((_prepared == YES) && (_started == NO)) {
         if([_recorder record] == YES) {
             _started = YES;
+            if(_blockStarted != nil) {
+                _blockStarted(self);
+            }
             if(_actionStarted != nil) {
                 [_actionStarted performWithArguments:@[ self ]];
             }
@@ -170,6 +185,9 @@
         _duration = _recorder.currentTime;
         _waitFinished = YES;
         [_recorder stop];
+        if(_blockStoped != nil) {
+            _blockStoped(self);
+        }
         if(_actionStoped != nil) {
             [_actionStoped performWithArguments:@[ self ]];
         }
@@ -181,6 +199,9 @@
         _paused = YES;
         _duration = _recorder.currentTime;
         [_recorder pause];
+        if(_blockPaused != nil) {
+            _blockPaused(self);
+        }
         if(_actionPaused != nil) {
             [_actionPaused performWithArguments:@[ self ]];
         }
@@ -191,6 +212,9 @@
     if((_prepared == YES) && (_started == YES) && (_paused == YES)) {
         _paused = NO;
         [_recorder record];
+        if(_blockResumed != nil) {
+            _blockResumed(self);
+        }
         if(_actionResumed != nil) {
             [_actionResumed performWithArguments:@[ self ]];
         }
@@ -237,6 +261,9 @@
     _waitFinished = NO;
     _started = NO;
     _paused = NO;
+    if(_blockFinished != nil) {
+        _blockFinished(self);
+    }
     if(_actionFinished != nil) {
         [_actionFinished performWithArguments:@[ self ]];
     }
@@ -244,6 +271,9 @@
 
 - (void)audioRecorderEncodeErrorDidOccur:(AVAudioRecorder*)recorder error:(NSError*)error {
     _error = error;
+    if(_blockError != nil) {
+        _blockError(self, _error);
+    }
     if(_actionError != nil) {
         [_actionError performWithArguments:@[ self, _error ]];
     }

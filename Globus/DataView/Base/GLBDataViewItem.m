@@ -10,7 +10,7 @@
 
 #pragma mark - Not designated initializer
 
-GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(item)
+GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
 
 #pragma mark - Synthesize
 
@@ -23,6 +23,8 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(item)
 @synthesize originFrame = _originFrame;
 @synthesize updateFrame = _updateFrame;
 @synthesize displayFrame = _displayFrame;
+@synthesize alpha = _alpha;
+@synthesize transform3D = _transform3D;
 @synthesize order = _order;
 @synthesize accessibilityOrder = _accessibilityOrder;
 @synthesize hidden = _hidden;
@@ -67,6 +69,8 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(item)
         _originFrame = CGRectNull;
         _updateFrame = CGRectNull;
         _displayFrame = CGRectNull;
+        _alpha = 1;
+        _transform3D = CATransform3DIdentity;
         _allowsPressed = YES;
         _allowsLongPressed = NO;
         _allowsSelection = YES;
@@ -158,6 +162,8 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(item)
                 } else {
                     _cell.frame = _originFrame;
                 }
+                _cell.alpha = _alpha;
+                _cell.layer.transform = _transform3D;
                 _cell.item = self;
             }];
         }
@@ -215,6 +221,32 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(item)
         return _updateFrame;
     }
     return _originFrame;
+}
+
+- (void)setAlpha:(CGFloat)alpha {
+    if(_alpha != alpha) {
+        _alpha = alpha;
+        if(_cell != nil) {
+            _cell.alpha = _alpha;
+        }
+    }
+}
+
+- (void)setTransform:(CGAffineTransform)transform {
+    [self setTransform3D:CATransform3DMakeAffineTransform(transform)];
+}
+
+- (CGAffineTransform)transform {
+    return CATransform3DGetAffineTransform(_transform3D);
+}
+
+- (void)setTransform3D:(CATransform3D)transform3D {
+    if(CATransform3DEqualToTransform(_transform3D, transform3D) == NO) {
+        _transform3D = transform3D;
+        if(_cell != nil) {
+            _cell.layer.transform = _transform3D;
+        }
+    }
 }
 
 - (void)setHidden:(BOOL)hidden {

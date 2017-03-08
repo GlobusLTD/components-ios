@@ -6,24 +6,6 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@interface GLBBadgeView ()
-
-@property(nonatomic, strong) UILabel* label;
-@property(nonatomic, strong) NSLayoutConstraint* constraintLabelTop;
-@property(nonatomic, strong) NSLayoutConstraint* constraintLabelBottom;
-@property(nonatomic, strong) NSLayoutConstraint* constraintLabelLeft;
-@property(nonatomic, strong) NSLayoutConstraint* constraintLabelRight;
-@property(nonatomic, strong) NSLayoutConstraint* constraintMinWidth;
-@property(nonatomic, strong) NSLayoutConstraint* constraintMinHeight;
-@property(nonatomic, strong) NSLayoutConstraint* constraintMaxWidth;
-@property(nonatomic, strong) NSLayoutConstraint* constraintMaxHeight;
-
-@end
-
-/*--------------------------------------------------*/
-#pragma mark -
-/*--------------------------------------------------*/
-
 @implementation GLBBadgeView
 
 #pragma mark - Init / Free
@@ -46,17 +28,22 @@
 
 - (void)setup {
     self.userInteractionEnabled = NO;
-    self.backgroundColor = [UIColor redColor];
-    self.glb_cornerRadius = 9.0;
+    self.backgroundColor = UIColor.redColor;
+    self.glb_cornerRadius = 9;
     self.clipsToBounds = YES;
-    [self setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-    [self setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+    self.glb_horizontalContentHuggingPriority = UILayoutPriorityRequired;
+    self.glb_verticalContentHuggingPriority = UILayoutPriorityRequired;
     
     _textInsets = UIEdgeInsetsMake(0, 4, 0, 4);
     _minimumSize = CGSizeMake(18, 18);
     _maximumSize = CGSizeMake((_minimumSize.width * 3), _minimumSize.height);
     
-    self.label = [[UILabel alloc] initWithFrame:UIEdgeInsetsInsetRect(self.bounds, _textInsets)];
+    _textLabel = [[GLBLabel alloc] initWithFrame:UIEdgeInsetsInsetRect(self.bounds, _textInsets)];
+    _textLabel.translatesAutoresizingMaskIntoConstraints = self.translatesAutoresizingMaskIntoConstraints;
+    _textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _textLabel.textAlignment = NSTextAlignmentCenter;
+    _textLabel.backgroundColor = UIColor.clearColor;
+    [self addSubview:_textLabel];
 }
 
 #pragma mark - Public override
@@ -66,32 +53,32 @@
         return [super sizeThatFits:size];
     }
     CGSize available = CGSizeMake(size.width, size.height);
-    if(self.minimumSize.width > 0.0) {
-        available.width = MAX(self.minimumSize.width, available.width);
+    if(_minimumSize.width > 0.0) {
+        available.width = MAX(_minimumSize.width, available.width);
     }
-    if(self.minimumSize.height > 0.0) {
-        available.height = MAX(self.minimumSize.height, available.height);
+    if(_minimumSize.height > 0.0) {
+        available.height = MAX(_minimumSize.height, available.height);
     }
-    if(self.maximumSize.width > 0.0) {
-        available.width = MIN(self.maximumSize.width, available.width);
+    if(_maximumSize.width > 0.0) {
+        available.width = MIN(_maximumSize.width, available.width);
     }
-    if(self.maximumSize.height > 0.0) {
-        available.height = MIN(self.maximumSize.height, available.height);
+    if(_maximumSize.height > 0.0) {
+        available.height = MIN(_maximumSize.height, available.height);
     }
-    CGSize result = [self.label sizeThatFits:CGSizeMake(available.width - (self.textInsets.left + self.textInsets.right), available.height - (self.textInsets.top + self.textInsets.bottom))];
-    result.width += (self.textInsets.left + self.textInsets.right);
-    result.height += (self.textInsets.top + self.textInsets.bottom);
-    if(self.minimumSize.width > 0.0) {
-        result.width = MAX(self.minimumSize.width, result.width);
+    CGSize result = [_textLabel sizeThatFits:CGSizeMake(available.width - (_textInsets.left + _textInsets.right), available.height - (_textInsets.top + _textInsets.bottom))];
+    result.width += (_textInsets.left + _textInsets.right);
+    result.height += (_textInsets.top + _textInsets.bottom);
+    if(_minimumSize.width > 0.0) {
+        result.width = MAX(_minimumSize.width, result.width);
     }
-    if(self.minimumSize.height > 0.0) {
-        result.height = MAX(self.minimumSize.height, result.height);
+    if(_minimumSize.height > 0.0) {
+        result.height = MAX(_minimumSize.height, result.height);
     }
-    if(self.maximumSize.width > 0.0) {
-        result.width = MIN(self.maximumSize.width, result.width);
+    if(_maximumSize.width > 0.0) {
+        result.width = MIN(_maximumSize.width, result.width);
     }
-    if(self.maximumSize.height > 0.0) {
-        result.height = MIN(self.maximumSize.height, result.height);
+    if(_maximumSize.height > 0.0) {
+        result.height = MIN(_maximumSize.height, result.height);
     }
     return result;
 }
@@ -100,115 +87,48 @@
     [super layoutSubviews];
     
     if(self.translatesAutoresizingMaskIntoConstraints == YES) {
-        self.label.frame = UIEdgeInsetsInsetRect(self.bounds, self.textInsets);
+        _textLabel.frame = UIEdgeInsetsInsetRect(self.bounds, _textInsets);
     }
 }
 
 - (void)updateConstraints {
+    [self glb_removeAllConstraints];
+    
     if(self.translatesAutoresizingMaskIntoConstraints == NO) {
-        if(self.label != nil) {
-            if(self.constraintLabelTop == nil) {
-                self.constraintLabelTop = [self.label glb_addConstraintAttribute:NSLayoutAttributeTop
-                                                                        relation:NSLayoutRelationEqual
-                                                                       attribute:NSLayoutAttributeTop
-                                                                        constant:self.textInsets.top];
-            } else {
-                self.constraintLabelTop.constant = self.textInsets.top;
-            }
-            if(self.constraintLabelBottom == nil) {
-                self.constraintLabelBottom = [self.label glb_addConstraintAttribute:NSLayoutAttributeBottom
-                                                                           relation:NSLayoutRelationEqual
-                                                                          attribute:NSLayoutAttributeBottom
-                                                                           constant:-self.textInsets.bottom];
-            } else {
-                self.constraintLabelBottom.constant = -self.textInsets.bottom;
-            }
-            if(self.constraintLabelLeft == nil) {
-                self.constraintLabelLeft = [self.label glb_addConstraintAttribute:NSLayoutAttributeLeft
-                                                                         relation:NSLayoutRelationEqual
-                                                                        attribute:NSLayoutAttributeLeft
-                                                                         constant:self.textInsets.left];
-            } else {
-                self.constraintLabelLeft.constant = self.textInsets.left;
-            }
-            if(self.constraintLabelRight == nil) {
-                self.constraintLabelRight = [self.label glb_addConstraintAttribute:NSLayoutAttributeRight
-                                                                          relation:NSLayoutRelationEqual
-                                                                         attribute:NSLayoutAttributeRight
-                                                                          constant:-self.textInsets.right];
-            } else {
-                self.constraintLabelRight.constant = -self.textInsets.right;
-            }
-        } else {
-            self.constraintLabelTop = nil;
-            self.constraintLabelBottom = nil;
-            self.constraintLabelLeft = nil;
-            self.constraintLabelRight = nil;
+        [_textLabel glb_addConstraintEdgeInsets:_textInsets];
+        if(_minimumSize.width > 0.0) {
+            [_textLabel glb_addConstraintWidth:_minimumSize.width relation:NSLayoutRelationGreaterThanOrEqual];
         }
-        if(self.minimumSize.width > 0.0) {
-            if(self.constraintMinWidth == nil) {
-                self.constraintMinWidth = [self glb_addConstraintAttribute:NSLayoutAttributeWidth
-                                                                  relation:NSLayoutRelationGreaterThanOrEqual
-                                                                  constant:self.minimumSize.width];
-            } else {
-                self.constraintMinWidth.constant = self.minimumSize.width;
-            }
-        } else {
-            self.constraintMinWidth = nil;
+        if(_maximumSize.width > 0.0) {
+            [_textLabel glb_addConstraintWidth:_maximumSize.width relation:NSLayoutRelationLessThanOrEqual];
         }
-        if(self.maximumSize.width > 0.0) {
-            if(self.constraintMaxWidth == nil) {
-                self.constraintMaxWidth = [self glb_addConstraintAttribute:NSLayoutAttributeWidth
-                                                                  relation:NSLayoutRelationLessThanOrEqual
-                                                                  constant:self.maximumSize.width];
-            } else {
-                self.constraintMaxWidth.constant = self.maximumSize.width;
-            }
-        } else {
-            self.constraintMaxWidth = nil;
+        if(_minimumSize.height > 0.0) {
+            [_textLabel glb_addConstraintHeight:_minimumSize.height relation:NSLayoutRelationGreaterThanOrEqual];
         }
-        if(self.minimumSize.height > 0.0) {
-            if(self.constraintMinHeight == nil) {
-                self.constraintMinHeight = [self glb_addConstraintAttribute:NSLayoutAttributeHeight
-                                                                   relation:NSLayoutRelationGreaterThanOrEqual
-                                                                   constant:self.minimumSize.height];
-            } else {
-                self.constraintMinHeight.constant = self.minimumSize.height;
-            }
-        } else {
-            self.constraintMinHeight = nil;
+        if(_maximumSize.height > 0.0) {
+            [_textLabel glb_addConstraintHeight:_maximumSize.height relation:NSLayoutRelationLessThanOrEqual];
         }
-        if(self.maximumSize.height > 0.0) {
-            if(self.constraintMaxHeight == nil) {
-                self.constraintMaxHeight = [self glb_addConstraintAttribute:NSLayoutAttributeHeight
-                                                                   relation:NSLayoutRelationLessThanOrEqual
-                                                                   constant:self.maximumSize.height];
-            } else {
-                self.constraintMaxHeight.constant = self.maximumSize.height;
-            }
-        } else {
-            self.constraintMaxHeight = nil;
-        }
-    } else {
-        self.constraintLabelTop = nil;
-        self.constraintLabelBottom = nil;
-        self.constraintLabelLeft = nil;
-        self.constraintLabelRight = nil;
-        self.constraintMinWidth = nil;
-        self.constraintMaxWidth = nil;
-        self.constraintMinHeight = nil;
-        self.constraintMaxHeight = nil;
     }
     [super updateConstraints];
 }
 
 #pragma mark - Property override
 
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    [self _updateCorners];
+}
+
+- (void)setBounds:(CGRect)bounds {
+    [super setBounds:bounds];
+    [self _updateCorners];
+}
+
 - (void)setTranslatesAutoresizingMaskIntoConstraints:(BOOL)translatesAutoresizingMaskIntoConstraints {
     if(self.translatesAutoresizingMaskIntoConstraints != translatesAutoresizingMaskIntoConstraints) {
         [super setTranslatesAutoresizingMaskIntoConstraints:translatesAutoresizingMaskIntoConstraints];
-        if(_label != nil) {
-            _label.translatesAutoresizingMaskIntoConstraints = self.translatesAutoresizingMaskIntoConstraints;
+        if(_textLabel != nil) {
+            _textLabel.translatesAutoresizingMaskIntoConstraints = self.translatesAutoresizingMaskIntoConstraints;
         }
         [self setNeedsUpdateConstraints];
         [self setNeedsLayout];
@@ -217,60 +137,13 @@
 
 #pragma mark - Property public
 
-- (void)setText:(NSString*)text {
-    self.label.text = text;
-    self.hidden = (text == nil);
-}
-
-- (NSString*)text {
-    return self.label.text;
-}
-
 - (void)setTextInsets:(UIEdgeInsets)textInsets {
     if(UIEdgeInsetsEqualToEdgeInsets(_textInsets, textInsets) == NO) {
         _textInsets = textInsets;
-        [self setNeedsUpdateConstraints];
+        if(self.translatesAutoresizingMaskIntoConstraints == NO) {
+            [self setNeedsUpdateConstraints];
+        }
     }
-}
-
-- (void)setTextColor:(UIColor*)textColor {
-    self.label.textColor = textColor;
-}
-
-- (UIColor*)textColor {
-    return self.label.textColor;
-}
-
-- (void)setTextFont:(UIFont*)textFont {
-    self.label.font = textFont;
-}
-
-- (UIFont*)textFont {
-    return self.label.font;
-}
-
-- (void)setTextShadowColor:(UIColor*)textShadowColor {
-    self.label.glb_shadowColor = textShadowColor;
-}
-
-- (UIColor*)textShadowColor {
-    return self.label.glb_shadowColor;
-}
-
-- (void)setTextShadowRadius:(CGFloat)textShadowRadius {
-    self.label.glb_shadowRadius = textShadowRadius;
-}
-
-- (CGFloat)textShadowRadius {
-    return self.label.glb_shadowRadius;
-}
-
-- (void)setTextShadowOffset:(CGSize)textShadowOffset {
-    self.label.glb_shadowOffset = textShadowOffset;
-}
-
-- (CGSize)textShadowOffset {
-    return self.label.glb_shadowOffset;
 }
 
 - (void)setMinimumSize:(CGSize)minimumSize {
@@ -287,24 +160,11 @@
     }
 }
 
-#pragma mark - Property private
+#pragma mark - Private
 
-- (void)setLabel:(UILabel*)label {
-    if(_label != label) {
-        if(_label != nil) {
-            [_label removeFromSuperview];
-        }
-        _label = label;
-        if(_label != nil) {
-            _label.translatesAutoresizingMaskIntoConstraints = self.translatesAutoresizingMaskIntoConstraints;
-            _label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            _label.textAlignment = NSTextAlignmentCenter;
-            _label.font = [UIFont systemFontOfSize:12.0];
-            _label.textColor = [UIColor whiteColor];
-            [self addSubview:_label];
-        }
-        [self setNeedsUpdateConstraints];
-    }
+- (void)_updateCorners {
+    CGRect bounds = self.bounds;
+    self.glb_cornerRadius = GLB_CEIL(MIN(bounds.size.width - 1, bounds.size.height - 1) / 2);
 }
 
 @end

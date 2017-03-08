@@ -44,7 +44,6 @@
     self = [super init];
     if(self != nil) {
         _needApplyParser = NO;
-        [self setup];
     }
     return self;
 }
@@ -55,7 +54,6 @@
         _expression = expression;
         _pattern = pattern;
         _needApplyParser = NO;
-        [self setup];
     }
     return self;
 }
@@ -67,12 +65,8 @@
         _expression = expression;
         _pattern = pattern;
         _needApplyParser = YES;
-        [self setup];
     }
     return self;
-}
-
-- (void)setup {
 }
 
 #pragma mark - Property

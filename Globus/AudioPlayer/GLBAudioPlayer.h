@@ -7,6 +7,15 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
+@class GLBAudioPlayer;
+
+/*--------------------------------------------------*/
+
+typedef void(^GLBAudioPlayerBlock)(GLBAudioPlayer* _Nonnull audioPlayer);
+typedef void(^GLBAudioPlayerErrorBlock)(GLBAudioPlayer* _Nonnull audioPlayer, NSError* _Nonnull error);
+
+/*--------------------------------------------------*/
+
 @interface GLBAudioPlayer : NSObject
 
 @property(nonatomic) AVAudioSessionSetActiveOptions sessionActiveOptions;
@@ -17,21 +26,30 @@
 @property(nonatomic, nullable, readonly, strong) NSURL* url;
 @property(nonatomic, nullable, readonly, strong) NSError* error;
 
-@property(nonatomic, readonly, assign) NSUInteger numberOfChannels;
+@property(nonatomic, readonly) NSUInteger numberOfChannels;
 @property(nonatomic) NSTimeInterval currentTime;
-@property(nonatomic, readonly, assign) NSTimeInterval duration;
+@property(nonatomic, readonly) NSTimeInterval duration;
 @property(nonatomic) CGFloat volume;
 @property(nonatomic) CGFloat pan;
 @property(nonatomic) BOOL enableRate;
 @property(nonatomic) CGFloat rate;
 @property(nonatomic) NSInteger numberOfLoops;
 @property(nonatomic, getter=isMeteringEnabled) BOOL meteringEnabled;
-@property(nonatomic, readonly, assign) CGFloat peakPower;
-@property(nonatomic, readonly, assign) CGFloat averagePower;
+@property(nonatomic, readonly) CGFloat peakPower;
+@property(nonatomic, readonly) CGFloat averagePower;
 
-@property(nonatomic, readonly, assign, getter=isPrepared) BOOL prepared;
-@property(nonatomic, readonly, assign, getter=isPlaying) BOOL playing;
-@property(nonatomic, readonly, assign, getter=isPaused) BOOL paused;
+@property(nonatomic, readonly, getter=isPrepared) BOOL prepared;
+@property(nonatomic, readonly, getter=isPlaying) BOOL playing;
+@property(nonatomic, readonly, getter=isPaused) BOOL paused;
+
+@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockPrepared;
+@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockCleaned;
+@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockPlaying;
+@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockStoped;
+@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockFinished;
+@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockResumed;
+@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockPaused;
+@property(nonatomic, nullable, copy) GLBAudioPlayerErrorBlock blockError;
 
 @property(nonatomic, nullable, strong) GLBAction* actionPrepared;
 @property(nonatomic, nullable, strong) GLBAction* actionCleaned;

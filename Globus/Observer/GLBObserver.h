@@ -16,15 +16,13 @@ typedef void(^GLBObserverPerformBlock)(_Nonnull id< GLBObserverProtocol > observ
 
 @interface GLBObserver : NSObject < GLBObjectDebugProtocol >
 
-@property(nonatomic, nonnull, assign) Protocol* protocol;
-@property(nonatomic, readonly, assign) NSUInteger count;
+@property(nonatomic, nonnull) Protocol* protocol;
+@property(nonatomic, readonly) NSUInteger count;
 
 + (nonnull instancetype)observerWithProtocol:(nonnull Protocol*)protocol NS_SWIFT_UNAVAILABLE("Use init(protocol:)");
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
 - (nonnull instancetype)initWithProtocol:(nonnull Protocol*)protocol NS_DESIGNATED_INITIALIZER;
-
-- (void)setup NS_REQUIRES_SUPER;
 
 - (BOOL)containsObserver:(nonnull id< GLBObserverProtocol >)observer;
 

@@ -9,6 +9,8 @@
 
 @protocol GLBSearchBarDelegate;
 
+@class GLBSearchBarTextField;
+
 /*--------------------------------------------------*/
 
 @interface GLBSearchBar : UIView
@@ -16,13 +18,12 @@
 @property(nonatomic, nullable, weak) IBOutlet id< GLBSearchBarDelegate > delegate;
 @property(nonatomic, getter=isSearching) IBInspectable BOOL searching;
 @property(nonatomic, getter=isEditing) BOOL editing;
-@property(nonatomic) IBInspectable CGFloat minimalHeight;
 @property(nonatomic) IBInspectable UIEdgeInsets margin;
 @property(nonatomic) IBInspectable CGFloat spacing;
 @property(nonatomic, nullable, strong) IBInspectable UIColor* separatorColor;
 @property(nonatomic) IBInspectable BOOL alwaysShowCancelButton;
 @property(nonatomic, nullable, readonly, weak) UIView* separatorView;
-@property(nonatomic, nullable, readonly, weak) IBOutlet GLBTextField* searchField;
+@property(nonatomic, nullable, readonly, weak) IBOutlet GLBSearchBarTextField* searchField;
 @property(nonatomic) BOOL showCancelButton;
 @property(nonatomic, nullable, readonly, weak) IBOutlet GLBButton* cancelButton;
 
@@ -38,6 +39,11 @@
 - (void)setSearching:(BOOL)searching animated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated complete:(nullable GLBSimpleBlock)complete;
 
+@end
+
+/*--------------------------------------------------*/
+
+@interface GLBSearchBarTextField : GLBTextField
 @end
 
 /*--------------------------------------------------*/

@@ -6,9 +6,9 @@
 
 @interface GLBGrid< __covariant ObjectType > : NSObject< NSCopying >
 
-@property(nonatomic, readonly, assign) NSUInteger numberOfColumns;
-@property(nonatomic, readonly, assign) NSUInteger numberOfRows;
-@property(nonatomic, readonly, assign) NSUInteger count;
+@property(nonatomic, readonly) NSUInteger numberOfColumns;
+@property(nonatomic, readonly) NSUInteger numberOfRows;
+@property(nonatomic, readonly) NSUInteger count;
 
 + (nonnull instancetype)grid NS_SWIFT_UNAVAILABLE("Use init()");
 + (nonnull instancetype)gridWithColumns:(NSUInteger)columns rows:(NSUInteger)rows NS_SWIFT_UNAVAILABLE("Use init(columns:rows:)");

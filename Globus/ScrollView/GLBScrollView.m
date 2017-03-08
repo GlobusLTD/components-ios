@@ -86,25 +86,25 @@
         }
         switch(_direction) {
             case GLBScrollViewDirectionStretch: {
-                NSLayoutConstraint* widthConstraint = [_rootView glb_addConstraintWidthView:self];
+                NSLayoutConstraint* widthConstraint = [_rootView glb_addConstraintWidthItem:self];
                 if(widthConstraint != nil) {
                     [_constraints addObject:widthConstraint];
                 }
-                NSLayoutConstraint* heightConstraint = [_rootView glb_addConstraintHeightView:self];
+                NSLayoutConstraint* heightConstraint = [_rootView glb_addConstraintHeightItem:self];
                 if(heightConstraint != nil) {
                     [_constraints addObject:heightConstraint];
                 }
                 break;
             }
             case GLBScrollViewDirectionVertical: {
-                NSLayoutConstraint* widthConstraint = [_rootView glb_addConstraintWidthView:self];
+                NSLayoutConstraint* widthConstraint = [_rootView glb_addConstraintWidthItem:self];
                 if(widthConstraint != nil) {
                     [_constraints addObject:widthConstraint];
                 }
                 break;
             }
             case GLBScrollViewDirectionHorizontal: {
-                NSLayoutConstraint* heightConstraint = [_rootView glb_addConstraintHeightView:self];
+                NSLayoutConstraint* heightConstraint = [_rootView glb_addConstraintHeightItem:self];
                 if(heightConstraint != nil) {
                     [_constraints addObject:heightConstraint];
                 }

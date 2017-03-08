@@ -10,8 +10,9 @@
 
 @interface GLBDataViewItemsContainer () {
 @protected
-    NSMutableArray< __kindof GLBDataViewItem* >* _entries;
-    NSArray* _accessibilityEntries;
+    NSUInteger _defaultOrder;
+    NSMutableArray< __kindof GLBDataViewItem* >* _items;
+    NSArray* _accessibilityItems;
 }
 
 @end

@@ -46,13 +46,13 @@ typedef NS_ENUM(NSInteger, GLBGeoLocationStatus) {
 @interface GLBGeoLocationManager : NSObject
 
 #if defined(GLB_TARGET_IOS)
-@property(nonatomic, assign) BOOL allowsBackgroundUpdates;
+@property(nonatomic) BOOL allowsBackgroundUpdates;
 #endif
-@property(nonatomic, assign) BOOL useMonitoringSignificantChanges __WATCHOS_UNAVAILABLE;
-@property(nonatomic, assign) BOOL useUpdatingLocation;
-@property(nonatomic, assign) NSTimeInterval timeAccuracy;
+@property(nonatomic) BOOL useMonitoringSignificantChanges __WATCHOS_UNAVAILABLE;
+@property(nonatomic) BOOL useUpdatingLocation;
+@property(nonatomic) NSTimeInterval timeAccuracy;
 @property(nonatomic, nonnull, readonly, copy) NSArray* requests;
-@property(nonatomic, readonly, assign, getter=isUpdatingLocation) BOOL updatingLocation;
+@property(nonatomic, readonly, getter=isUpdatingLocation) BOOL updatingLocation;
 
 + (GLBGeoLocationServicesState)servicesState;
 + (BOOL)availableSignificantMonitoringChanges __WATCHOS_UNAVAILABLE;
@@ -96,11 +96,11 @@ extern NSString* _Nonnull GLBGeoLocationManagerUserDenied;
 @interface GLBGeoLocationRequest : NSObject
 
 @property(nonatomic, nullable, strong) NSDictionary* userInfo;
-@property(nonatomic, readonly, assign) CLLocationAccuracy desiredAccuracy;
-@property(nonatomic, readonly, assign) NSTimeInterval timeoutInterval;
-@property(nonatomic, readonly, assign) NSTimeInterval updateInterval;
-@property(nonatomic, readonly, assign, getter=isSubscription) BOOL subscription;
-@property(nonatomic, readonly, assign, getter=isCanceled) BOOL canceled;
+@property(nonatomic, readonly) CLLocationAccuracy desiredAccuracy;
+@property(nonatomic, readonly) NSTimeInterval timeoutInterval;
+@property(nonatomic, readonly) NSTimeInterval updateInterval;
+@property(nonatomic, readonly, getter=isSubscription) BOOL subscription;
+@property(nonatomic, readonly, getter=isCanceled) BOOL canceled;
 
 - (BOOL)hasTimedOut;
 - (void)cancel;

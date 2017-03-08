@@ -28,9 +28,9 @@
 @property(nonatomic, nullable, strong) NSBundle* resourcesBundle;
 
 @property(nonatomic, nullable, strong) NSURL* URL;
-@property(nonatomic, readonly, assign, getter=isLoading) BOOL loading;
-@property(nonatomic, readonly, assign) BOOL canGoBack;
-@property(nonatomic, readonly, assign) BOOL canGoForward;
+@property(nonatomic, readonly, getter=isLoading) BOOL loading;
+@property(nonatomic, readonly) BOOL canGoBack;
+@property(nonatomic, readonly) BOOL canGoForward;
 
 + (nullable instancetype)webViewControllerWithURL:(nonnull NSURL*)URL GLB_DEPRECATED_MSG("Use viewControllerWithURL:");
 

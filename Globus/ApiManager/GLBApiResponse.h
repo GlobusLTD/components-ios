@@ -1,7 +1,7 @@
 /*--------------------------------------------------*/
 
+#include "GLBTargetConditionals.h"
 #import "NSObject+GLBDebug.h"
-#import "NSString+GLBNS.h"
 
 /*--------------------------------------------------*/
 
@@ -13,7 +13,7 @@
 
 @property(nonatomic, nullable, readonly, strong) __kindof GLBApiRequest* request;
 @property(nonatomic, nullable, readonly, strong) NSURLResponse* urlResponse;
-@property(nonatomic, readonly, assign) NSInteger statusCode;
+@property(nonatomic, readonly) NSInteger statusCode;
 @property(nonatomic, nullable, readonly, strong) NSString* mimetype;
 @property(nonatomic, nullable, readonly, strong) NSString* textEncoding;
 @property(nonatomic, nullable, readonly, strong) NSDictionary* headers;

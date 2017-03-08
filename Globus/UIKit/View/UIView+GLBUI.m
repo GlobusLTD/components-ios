@@ -404,49 +404,49 @@
 }
 
 - (NSLayoutConstraint*)glb_addConstraintAttribute:(NSLayoutAttribute)constraintAttribute relation:(NSLayoutRelation)relation attribute:(NSLayoutAttribute)attribute constant:(CGFloat)constant {
-    return [self glb_addConstraintAttribute:constraintAttribute relation:relation view:self.superview attribute:attribute constant:constant priority:UILayoutPriorityRequired multiplier:1.0];
+    return [self glb_addConstraintAttribute:constraintAttribute relation:relation item:self.superview attribute:attribute constant:constant priority:UILayoutPriorityRequired multiplier:1.0];
 }
 
 - (NSLayoutConstraint*)glb_addConstraintAttribute:(NSLayoutAttribute)constraintAttribute relation:(NSLayoutRelation)relation attribute:(NSLayoutAttribute)attribute constant:(CGFloat)constant priority:(UILayoutPriority)priority {
-    return [self glb_addConstraintAttribute:constraintAttribute relation:relation view:self.superview attribute:attribute constant:constant priority:priority multiplier:1.0];
+    return [self glb_addConstraintAttribute:constraintAttribute relation:relation item:self.superview attribute:attribute constant:constant priority:priority multiplier:1.0];
 }
 
 - (NSLayoutConstraint*)glb_addConstraintAttribute:(NSLayoutAttribute)constraintAttribute relation:(NSLayoutRelation)relation attribute:(NSLayoutAttribute)attribute constant:(CGFloat)constant priority:(UILayoutPriority)priority multiplier:(CGFloat)multiplier {
-    return [self glb_addConstraintAttribute:constraintAttribute relation:relation view:self.superview attribute:attribute constant:constant priority:priority multiplier:multiplier];
+    return [self glb_addConstraintAttribute:constraintAttribute relation:relation item:self.superview attribute:attribute constant:constant priority:priority multiplier:multiplier];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintAttribute:(NSLayoutAttribute)constraintAttribute relation:(NSLayoutRelation)relation view:(id)view attribute:(NSLayoutAttribute)attribute constant:(CGFloat)constant {
-    return [self glb_addConstraintAttribute:constraintAttribute relation:relation view:view attribute:attribute constant:constant priority:UILayoutPriorityRequired multiplier:1.0];
+- (NSLayoutConstraint*)glb_addConstraintAttribute:(NSLayoutAttribute)constraintAttribute relation:(NSLayoutRelation)relation item:(id)item attribute:(NSLayoutAttribute)attribute constant:(CGFloat)constant {
+    return [self glb_addConstraintAttribute:constraintAttribute relation:relation item:item attribute:attribute constant:constant priority:UILayoutPriorityRequired multiplier:1.0];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintAttribute:(NSLayoutAttribute)constraintAttribute relation:(NSLayoutRelation)relation view:(id)view attribute:(NSLayoutAttribute)attribute constant:(CGFloat)constant priority:(UILayoutPriority)priority {
-    return [self glb_addConstraintAttribute:constraintAttribute relation:relation view:view attribute:attribute constant:constant priority:priority multiplier:1.0];
+- (NSLayoutConstraint*)glb_addConstraintAttribute:(NSLayoutAttribute)constraintAttribute relation:(NSLayoutRelation)relation item:(id)item attribute:(NSLayoutAttribute)attribute constant:(CGFloat)constant priority:(UILayoutPriority)priority {
+    return [self glb_addConstraintAttribute:constraintAttribute relation:relation item:item attribute:attribute constant:constant priority:priority multiplier:1.0];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintAttribute:(NSLayoutAttribute)constraintAttribute relation:(NSLayoutRelation)relation view:(id)view attribute:(NSLayoutAttribute)attribute constant:(CGFloat)constant priority:(UILayoutPriority)priority multiplier:(CGFloat)multiplier {
-    NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self attribute:constraintAttribute relatedBy:relation toItem:view attribute:attribute multiplier:multiplier constant:constant];
+- (NSLayoutConstraint*)glb_addConstraintAttribute:(NSLayoutAttribute)constraintAttribute relation:(NSLayoutRelation)relation item:(id)item attribute:(NSLayoutAttribute)attribute constant:(CGFloat)constant priority:(UILayoutPriority)priority multiplier:(CGFloat)multiplier {
+    NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self attribute:constraintAttribute relatedBy:relation toItem:item attribute:attribute multiplier:multiplier constant:constant];
     constraint.priority = priority;
     [self.superview addConstraint:constraint];
     return constraint;
 }
 
 - (NSLayoutConstraint*)glb_addConstraintFirstBaseline:(CGFloat)offset {
-    return [self glb_addConstraintFirstBaseline:offset relation:NSLayoutRelationEqual topView:self.superview];
+    return [self glb_addConstraintFirstBaseline:offset relation:NSLayoutRelationEqual topItem:self.superview];
 }
 
 - (NSLayoutConstraint*)glb_addConstraintFirstBaseline:(CGFloat)offset relation:(NSLayoutRelation)relation {
-    return [self glb_addConstraintFirstBaseline:offset relation:relation topView:self.superview];
+    return [self glb_addConstraintFirstBaseline:offset relation:relation topItem:self.superview];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintFirstBaseline:(CGFloat)offset topView:(UIView*)topView {
-    return [self glb_addConstraintFirstBaseline:offset relation:NSLayoutRelationEqual topView:topView];
+- (NSLayoutConstraint*)glb_addConstraintFirstBaseline:(CGFloat)offset topItem:(id)topItem {
+    return [self glb_addConstraintFirstBaseline:offset relation:NSLayoutRelationEqual topItem:topItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintFirstBaseline:(CGFloat)offset relation:(NSLayoutRelation)relation topView:(UIView*)topView {
+- (NSLayoutConstraint*)glb_addConstraintFirstBaseline:(CGFloat)offset relation:(NSLayoutRelation)relation topItem:(id)topItem {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeFirstBaseline
                                                                   relatedBy:relation
-                                                                     toItem:topView
+                                                                     toItem:topItem
                                                                   attribute:NSLayoutAttributeTop
                                                                  multiplier:1.0f
                                                                    constant:offset];
@@ -454,15 +454,15 @@
     return constraint;
 }
 
-- (NSLayoutConstraint*)glb_addConstraintFirstBaseline:(CGFloat)offset centerView:(UIView*)centerView {
-    return [self glb_addConstraintFirstBaseline:offset relation:NSLayoutRelationEqual centerView:centerView];
+- (NSLayoutConstraint*)glb_addConstraintFirstBaseline:(CGFloat)offset centerItem:(id)centerItem {
+    return [self glb_addConstraintFirstBaseline:offset relation:NSLayoutRelationEqual centerItem:centerItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintFirstBaseline:(CGFloat)offset relation:(NSLayoutRelation)relation centerView:(UIView*)centerView {
+- (NSLayoutConstraint*)glb_addConstraintFirstBaseline:(CGFloat)offset relation:(NSLayoutRelation)relation centerItem:(id)centerItem {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeFirstBaseline
                                                                   relatedBy:relation
-                                                                     toItem:centerView
+                                                                     toItem:centerItem
                                                                   attribute:NSLayoutAttributeCenterY
                                                                  multiplier:1.0f
                                                                    constant:offset];
@@ -470,15 +470,15 @@
     return constraint;
 }
 
-- (NSLayoutConstraint*)glb_addConstraintFirstBaseline:(CGFloat)offset bottomView:(UIView*)bottomView {
-    return [self glb_addConstraintFirstBaseline:offset relation:NSLayoutRelationEqual bottomView:bottomView];
+- (NSLayoutConstraint*)glb_addConstraintFirstBaseline:(CGFloat)offset bottomItem:(id)bottomItem {
+    return [self glb_addConstraintFirstBaseline:offset relation:NSLayoutRelationEqual bottomItem:bottomItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintFirstBaseline:(CGFloat)offset relation:(NSLayoutRelation)relation bottomView:(UIView*)bottomView {
+- (NSLayoutConstraint*)glb_addConstraintFirstBaseline:(CGFloat)offset relation:(NSLayoutRelation)relation bottomItem:(id)bottomItem {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeFirstBaseline
                                                                   relatedBy:relation
-                                                                     toItem:bottomView
+                                                                     toItem:bottomItem
                                                                   attribute:NSLayoutAttributeBottom
                                                                  multiplier:1.0f
                                                                    constant:offset];
@@ -487,22 +487,22 @@
 }
 
 - (NSLayoutConstraint*)glb_addConstraintLastBaseline:(CGFloat)offset {
-    return [self glb_addConstraintLastBaseline:offset relation:NSLayoutRelationEqual topView:self.superview];
+    return [self glb_addConstraintLastBaseline:offset relation:NSLayoutRelationEqual topItem:self.superview];
 }
 
 - (NSLayoutConstraint*)glb_addConstraintLastBaseline:(CGFloat)offset relation:(NSLayoutRelation)relation {
-    return [self glb_addConstraintLastBaseline:offset relation:relation topView:self.superview];
+    return [self glb_addConstraintLastBaseline:offset relation:relation topItem:self.superview];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintLastBaseline:(CGFloat)offset topView:(UIView*)topView {
-    return [self glb_addConstraintLastBaseline:offset relation:NSLayoutRelationEqual topView:topView];
+- (NSLayoutConstraint*)glb_addConstraintLastBaseline:(CGFloat)offset topItem:(id)topItem {
+    return [self glb_addConstraintLastBaseline:offset relation:NSLayoutRelationEqual topItem:topItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintLastBaseline:(CGFloat)offset relation:(NSLayoutRelation)relation topView:(UIView*)topView {
+- (NSLayoutConstraint*)glb_addConstraintLastBaseline:(CGFloat)offset relation:(NSLayoutRelation)relation topItem:(id)topItem {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeLastBaseline
                                                                   relatedBy:relation
-                                                                     toItem:topView
+                                                                     toItem:topItem
                                                                   attribute:NSLayoutAttributeTop
                                                                  multiplier:1.0f
                                                                    constant:offset];
@@ -510,15 +510,15 @@
     return constraint;
 }
 
-- (NSLayoutConstraint*)glb_addConstraintLastBaseline:(CGFloat)offset centerView:(UIView*)centerView {
-    return [self glb_addConstraintLastBaseline:offset relation:NSLayoutRelationEqual centerView:centerView];
+- (NSLayoutConstraint*)glb_addConstraintLastBaseline:(CGFloat)offset centerItem:(id)centerItem {
+    return [self glb_addConstraintLastBaseline:offset relation:NSLayoutRelationEqual centerItem:centerItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintLastBaseline:(CGFloat)offset relation:(NSLayoutRelation)relation centerView:(UIView*)centerView {
+- (NSLayoutConstraint*)glb_addConstraintLastBaseline:(CGFloat)offset relation:(NSLayoutRelation)relation centerItem:(id)centerItem {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeLastBaseline
                                                                   relatedBy:relation
-                                                                     toItem:centerView
+                                                                     toItem:centerItem
                                                                   attribute:NSLayoutAttributeCenterY
                                                                  multiplier:1.0f
                                                                    constant:offset];
@@ -526,15 +526,15 @@
     return constraint;
 }
 
-- (NSLayoutConstraint*)glb_addConstraintLastBaseline:(CGFloat)offset bottomView:(UIView*)bottomView {
-    return [self glb_addConstraintLastBaseline:offset relation:NSLayoutRelationEqual bottomView:bottomView];
+- (NSLayoutConstraint*)glb_addConstraintLastBaseline:(CGFloat)offset bottomItem:(id)bottomItem {
+    return [self glb_addConstraintLastBaseline:offset relation:NSLayoutRelationEqual bottomItem:bottomItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintLastBaseline:(CGFloat)offset relation:(NSLayoutRelation)relation bottomView:(UIView*)bottomView {
+- (NSLayoutConstraint*)glb_addConstraintLastBaseline:(CGFloat)offset relation:(NSLayoutRelation)relation bottomItem:(id)bottomItem {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeLastBaseline
                                                                   relatedBy:relation
-                                                                     toItem:bottomView
+                                                                     toItem:bottomItem
                                                                   attribute:NSLayoutAttributeBottom
                                                                  multiplier:1.0f
                                                                    constant:offset];
@@ -543,22 +543,22 @@
 }
 
 - (NSLayoutConstraint*)glb_addConstraintTop:(CGFloat)offset {
-    return [self glb_addConstraintTop:offset relation:NSLayoutRelationEqual topView:self.superview];
+    return [self glb_addConstraintTop:offset relation:NSLayoutRelationEqual topItem:self.superview];
 }
 
 - (NSLayoutConstraint*)glb_addConstraintTop:(CGFloat)offset relation:(NSLayoutRelation)relation {
-    return [self glb_addConstraintTop:offset relation:relation topView:self.superview];
+    return [self glb_addConstraintTop:offset relation:relation topItem:self.superview];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintTop:(CGFloat)offset topView:(UIView*)topView {
-    return [self glb_addConstraintTop:offset relation:NSLayoutRelationEqual topView:topView];
+- (NSLayoutConstraint*)glb_addConstraintTop:(CGFloat)offset topItem:(id)topItem {
+    return [self glb_addConstraintTop:offset relation:NSLayoutRelationEqual topItem:topItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintTop:(CGFloat)offset relation:(NSLayoutRelation)relation topView:(UIView*)topView {
+- (NSLayoutConstraint*)glb_addConstraintTop:(CGFloat)offset relation:(NSLayoutRelation)relation topItem:(id)topItem {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeTop
                                                                   relatedBy:relation
-                                                                     toItem:topView
+                                                                     toItem:topItem
                                                                   attribute:NSLayoutAttributeTop
                                                                  multiplier:1.0f
                                                                    constant:offset];
@@ -566,15 +566,15 @@
     return constraint;
 }
 
-- (NSLayoutConstraint*)glb_addConstraintTop:(CGFloat)offset centerView:(UIView*)centerView {
-    return [self glb_addConstraintTop:offset relation:NSLayoutRelationEqual centerView:centerView];
+- (NSLayoutConstraint*)glb_addConstraintTop:(CGFloat)offset centerItem:(id)centerItem {
+    return [self glb_addConstraintTop:offset relation:NSLayoutRelationEqual centerItem:centerItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintTop:(CGFloat)offset relation:(NSLayoutRelation)relation centerView:(UIView*)centerView {
+- (NSLayoutConstraint*)glb_addConstraintTop:(CGFloat)offset relation:(NSLayoutRelation)relation centerItem:(id)centerItem {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeTop
                                                                   relatedBy:relation
-                                                                     toItem:centerView
+                                                                     toItem:centerItem
                                                                   attribute:NSLayoutAttributeCenterY
                                                                  multiplier:1.0f
                                                                    constant:offset];
@@ -582,15 +582,15 @@
     return constraint;
 }
 
-- (NSLayoutConstraint*)glb_addConstraintTop:(CGFloat)offset bottomView:(UIView*)bottomView {
-    return [self glb_addConstraintTop:offset relation:NSLayoutRelationEqual bottomView:bottomView];
+- (NSLayoutConstraint*)glb_addConstraintTop:(CGFloat)offset bottomItem:(id)bottomItem {
+    return [self glb_addConstraintTop:offset relation:NSLayoutRelationEqual bottomItem:bottomItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintTop:(CGFloat)offset relation:(NSLayoutRelation)relation bottomView:(UIView*)bottomView {
+- (NSLayoutConstraint*)glb_addConstraintTop:(CGFloat)offset relation:(NSLayoutRelation)relation bottomItem:(id)bottomItem {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeTop
                                                                   relatedBy:relation
-                                                                     toItem:bottomView
+                                                                     toItem:bottomItem
                                                                   attribute:NSLayoutAttributeBottom
                                                                  multiplier:1.0f
                                                                    constant:offset];
@@ -599,19 +599,19 @@
 }
 
 - (NSLayoutConstraint*)glb_addConstraintRight:(CGFloat)offset {
-    return [self glb_addConstraintRight:offset relation:NSLayoutRelationEqual rightView:self.superview];
+    return [self glb_addConstraintRight:offset relation:NSLayoutRelationEqual rightItem:self.superview];
 }
 
 - (NSLayoutConstraint*)glb_addConstraintRight:(CGFloat)offset relation:(NSLayoutRelation)relation {
-    return [self glb_addConstraintRight:offset relation:relation rightView:self.superview];
+    return [self glb_addConstraintRight:offset relation:relation rightItem:self.superview];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintRight:(CGFloat)offset rightView:(UIView*)rightView {
-    return [self glb_addConstraintRight:offset relation:NSLayoutRelationEqual rightView:rightView];
+- (NSLayoutConstraint*)glb_addConstraintRight:(CGFloat)offset rightItem:(id)rightItem {
+    return [self glb_addConstraintRight:offset relation:NSLayoutRelationEqual rightItem:rightItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintRight:(CGFloat)offset relation:(NSLayoutRelation)relation rightView:(UIView*)rightView {
-    NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:rightView
+- (NSLayoutConstraint*)glb_addConstraintRight:(CGFloat)offset relation:(NSLayoutRelation)relation rightItem:(id)rightItem {
+    NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:rightItem
                                                                   attribute:NSLayoutAttributeTrailing
                                                                   relatedBy:relation
                                                                      toItem:self
@@ -622,12 +622,12 @@
     return constraint;
 }
 
-- (NSLayoutConstraint*)glb_addConstraintRight:(CGFloat)offset centerView:(UIView*)centerView {
-    return [self glb_addConstraintRight:offset relation:NSLayoutRelationEqual centerView:centerView];
+- (NSLayoutConstraint*)glb_addConstraintRight:(CGFloat)offset centerItem:(id)centerItem {
+    return [self glb_addConstraintRight:offset relation:NSLayoutRelationEqual centerItem:centerItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintRight:(CGFloat)offset relation:(NSLayoutRelation)relation centerView:(UIView*)centerView {
-    NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:centerView
+- (NSLayoutConstraint*)glb_addConstraintRight:(CGFloat)offset relation:(NSLayoutRelation)relation centerItem:(id)centerItem {
+    NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:centerItem
                                                                   attribute:NSLayoutAttributeCenterX
                                                                   relatedBy:relation
                                                                      toItem:self
@@ -638,12 +638,12 @@
     return constraint;
 }
 
-- (NSLayoutConstraint*)glb_addConstraintRight:(CGFloat)offset leftView:(UIView*)leftView {
-    return [self glb_addConstraintRight:offset relation:NSLayoutRelationEqual leftView:leftView];
+- (NSLayoutConstraint*)glb_addConstraintRight:(CGFloat)offset leftItem:(id)leftItem {
+    return [self glb_addConstraintRight:offset relation:NSLayoutRelationEqual leftItem:leftItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintRight:(CGFloat)offset relation:(NSLayoutRelation)relation leftView:(UIView*)leftView {
-    NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:leftView
+- (NSLayoutConstraint*)glb_addConstraintRight:(CGFloat)offset relation:(NSLayoutRelation)relation leftItem:(id)leftItem {
+    NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:leftItem
                                                                   attribute:NSLayoutAttributeLeading
                                                                   relatedBy:relation
                                                                      toItem:self
@@ -655,19 +655,19 @@
 }
 
 - (NSLayoutConstraint*)glb_addConstraintBottom:(CGFloat)offset {
-    return [self glb_addConstraintBottom:offset relation:NSLayoutRelationEqual bottomView:self.superview];
+    return [self glb_addConstraintBottom:offset relation:NSLayoutRelationEqual bottomItem:self.superview];
 }
 
 - (NSLayoutConstraint*)glb_addConstraintBottom:(CGFloat)offset relation:(NSLayoutRelation)relation {
-    return [self glb_addConstraintBottom:offset relation:relation bottomView:self.superview];
+    return [self glb_addConstraintBottom:offset relation:relation bottomItem:self.superview];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintBottom:(CGFloat)offset bottomView:(UIView*)bottomView {
-    return [self glb_addConstraintBottom:offset relation:NSLayoutRelationEqual bottomView:bottomView];
+- (NSLayoutConstraint*)glb_addConstraintBottom:(CGFloat)offset bottomItem:(id)bottomItem {
+    return [self glb_addConstraintBottom:offset relation:NSLayoutRelationEqual bottomItem:bottomItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintBottom:(CGFloat)offset relation:(NSLayoutRelation)relation bottomView:(UIView*)bottomView {
-    NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:bottomView
+- (NSLayoutConstraint*)glb_addConstraintBottom:(CGFloat)offset relation:(NSLayoutRelation)relation bottomItem:(id)bottomItem {
+    NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:bottomItem
                                                                   attribute:NSLayoutAttributeBottom
                                                                   relatedBy:relation
                                                                      toItem:self
@@ -678,12 +678,12 @@
     return constraint;
 }
 
-- (NSLayoutConstraint*)glb_addConstraintBottom:(CGFloat)offset centerView:(UIView*)centerView {
-    return [self glb_addConstraintBottom:offset relation:NSLayoutRelationEqual centerView:centerView];
+- (NSLayoutConstraint*)glb_addConstraintBottom:(CGFloat)offset centerItem:(id)centerItem {
+    return [self glb_addConstraintBottom:offset relation:NSLayoutRelationEqual centerItem:centerItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintBottom:(CGFloat)offset relation:(NSLayoutRelation)relation centerView:(UIView*)centerView {
-    NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:centerView
+- (NSLayoutConstraint*)glb_addConstraintBottom:(CGFloat)offset relation:(NSLayoutRelation)relation centerItem:(id)centerItem {
+    NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:centerItem
                                                                   attribute:NSLayoutAttributeCenterY
                                                                   relatedBy:relation
                                                                      toItem:self
@@ -694,12 +694,12 @@
     return constraint;
 }
 
-- (NSLayoutConstraint*)glb_addConstraintBottom:(CGFloat)offset topView:(UIView*)topView {
-    return [self glb_addConstraintBottom:offset relation:NSLayoutRelationEqual topView:topView];
+- (NSLayoutConstraint*)glb_addConstraintBottom:(CGFloat)offset topItem:(id)topItem {
+    return [self glb_addConstraintBottom:offset relation:NSLayoutRelationEqual topItem:topItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintBottom:(CGFloat)offset relation:(NSLayoutRelation)relation topView:(UIView*)topView {
-    NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:topView
+- (NSLayoutConstraint*)glb_addConstraintBottom:(CGFloat)offset relation:(NSLayoutRelation)relation topItem:(id)topItem {
+    NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:topItem
                                                                   attribute:NSLayoutAttributeTop
                                                                   relatedBy:relation
                                                                      toItem:self
@@ -711,22 +711,22 @@
 }
 
 - (NSLayoutConstraint*)glb_addConstraintLeft:(CGFloat)offset {
-    return [self glb_addConstraintLeft:offset relation:NSLayoutRelationEqual leftView:self.superview];
+    return [self glb_addConstraintLeft:offset relation:NSLayoutRelationEqual leftItem:self.superview];
 }
 
 - (NSLayoutConstraint*)glb_addConstraintLeft:(CGFloat)offset relation:(NSLayoutRelation)relation {
-    return [self glb_addConstraintLeft:offset relation:relation leftView:self.superview];
+    return [self glb_addConstraintLeft:offset relation:relation leftItem:self.superview];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintLeft:(CGFloat)offset leftView:(UIView*)leftView {
-    return [self glb_addConstraintLeft:offset relation:NSLayoutRelationEqual leftView:leftView];
+- (NSLayoutConstraint*)glb_addConstraintLeft:(CGFloat)offset leftItem:(id)leftItem {
+    return [self glb_addConstraintLeft:offset relation:NSLayoutRelationEqual leftItem:leftItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintLeft:(CGFloat)offset relation:(NSLayoutRelation)relation leftView:(UIView*)leftView {
+- (NSLayoutConstraint*)glb_addConstraintLeft:(CGFloat)offset relation:(NSLayoutRelation)relation leftItem:(id)leftItem {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeLeading
                                                                   relatedBy:relation
-                                                                     toItem:leftView
+                                                                     toItem:leftItem
                                                                   attribute:NSLayoutAttributeLeading
                                                                  multiplier:1.0f
                                                                    constant:offset];
@@ -734,15 +734,15 @@
     return constraint;
 }
 
-- (NSLayoutConstraint*)glb_addConstraintLeft:(CGFloat)offset centerView:(UIView*)centerView {
-    return [self glb_addConstraintLeft:offset relation:NSLayoutRelationEqual centerView:centerView];
+- (NSLayoutConstraint*)glb_addConstraintLeft:(CGFloat)offset centerItem:(id)centerItem {
+    return [self glb_addConstraintLeft:offset relation:NSLayoutRelationEqual centerItem:centerItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintLeft:(CGFloat)offset relation:(NSLayoutRelation)relation centerView:(UIView*)centerView {
+- (NSLayoutConstraint*)glb_addConstraintLeft:(CGFloat)offset relation:(NSLayoutRelation)relation centerItem:(id)centerItem {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeLeading
                                                                   relatedBy:relation
-                                                                     toItem:centerView
+                                                                     toItem:centerItem
                                                                   attribute:NSLayoutAttributeCenterX
                                                                  multiplier:1.0f
                                                                    constant:offset];
@@ -750,15 +750,15 @@
     return constraint;
 }
 
-- (NSLayoutConstraint*)glb_addConstraintLeft:(CGFloat)offset rightView:(UIView*)rightView {
-    return [self glb_addConstraintLeft:offset relation:NSLayoutRelationEqual rightView:rightView];
+- (NSLayoutConstraint*)glb_addConstraintLeft:(CGFloat)offset rightItem:(id)rightItem {
+    return [self glb_addConstraintLeft:offset relation:NSLayoutRelationEqual rightItem:rightItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintLeft:(CGFloat)offset relation:(NSLayoutRelation)relation rightView:(UIView*)rightView {
+- (NSLayoutConstraint*)glb_addConstraintLeft:(CGFloat)offset relation:(NSLayoutRelation)relation rightItem:(id)rightItem {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeLeading
                                                                   relatedBy:relation
-                                                                     toItem:rightView
+                                                                     toItem:rightItem
                                                                   attribute:NSLayoutAttributeTrailing
                                                                  multiplier:1.0f
                                                                    constant:offset];
@@ -767,22 +767,22 @@
 }
 
 - (NSLayoutConstraint*)glb_addConstraintVertical:(CGFloat)offset {
-    return [self glb_addConstraintVertical:offset relation:NSLayoutRelationEqual centerView:self.superview];
+    return [self glb_addConstraintVertical:offset relation:NSLayoutRelationEqual centerItem:self.superview];
 }
 
 - (NSLayoutConstraint*)glb_addConstraintVertical:(CGFloat)offset relation:(NSLayoutRelation)relation {
-    return [self glb_addConstraintVertical:offset relation:relation centerView:self.superview];
+    return [self glb_addConstraintVertical:offset relation:relation centerItem:self.superview];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintVertical:(CGFloat)offset topView:(UIView*)topView {
-    return [self glb_addConstraintVertical:offset relation:NSLayoutRelationEqual topView:topView];
+- (NSLayoutConstraint*)glb_addConstraintVertical:(CGFloat)offset topItem:(id)topItem {
+    return [self glb_addConstraintVertical:offset relation:NSLayoutRelationEqual topItem:topItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintVertical:(CGFloat)offset relation:(NSLayoutRelation)relation topView:(UIView*)topView {
+- (NSLayoutConstraint*)glb_addConstraintVertical:(CGFloat)offset relation:(NSLayoutRelation)relation topItem:(id)topItem {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeCenterY
                                                                   relatedBy:relation
-                                                                     toItem:topView
+                                                                     toItem:topItem
                                                                   attribute:NSLayoutAttributeTop
                                                                  multiplier:1.0f
                                                                    constant:offset];
@@ -790,15 +790,15 @@
     return constraint;
 }
 
-- (NSLayoutConstraint*)glb_addConstraintVertical:(CGFloat)offset centerView:(UIView*)centerView {
-    return [self glb_addConstraintVertical:offset relation:NSLayoutRelationEqual centerView:centerView];
+- (NSLayoutConstraint*)glb_addConstraintVertical:(CGFloat)offset centerItem:(id)centerItem {
+    return [self glb_addConstraintVertical:offset relation:NSLayoutRelationEqual centerItem:centerItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintVertical:(CGFloat)offset relation:(NSLayoutRelation)relation centerView:(UIView*)centerView {
+- (NSLayoutConstraint*)glb_addConstraintVertical:(CGFloat)offset relation:(NSLayoutRelation)relation centerItem:(id)centerItem {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeCenterY
                                                                   relatedBy:relation
-                                                                     toItem:centerView
+                                                                     toItem:centerItem
                                                                   attribute:NSLayoutAttributeCenterY
                                                                  multiplier:1.0f
                                                                    constant:offset];
@@ -806,15 +806,15 @@
     return constraint;
 }
 
-- (NSLayoutConstraint*)glb_addConstraintVertical:(CGFloat)offset bottomView:(UIView*)bottomView {
-    return [self glb_addConstraintVertical:offset relation:NSLayoutRelationEqual bottomView:bottomView];
+- (NSLayoutConstraint*)glb_addConstraintVertical:(CGFloat)offset bottomItem:(id)bottomItem {
+    return [self glb_addConstraintVertical:offset relation:NSLayoutRelationEqual bottomItem:bottomItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintVertical:(CGFloat)offset relation:(NSLayoutRelation)relation bottomView:(UIView*)bottomView {
+- (NSLayoutConstraint*)glb_addConstraintVertical:(CGFloat)offset relation:(NSLayoutRelation)relation bottomItem:(id)bottomItem {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeCenterY
                                                                   relatedBy:relation
-                                                                     toItem:bottomView
+                                                                     toItem:bottomItem
                                                                   attribute:NSLayoutAttributeBottom
                                                                  multiplier:1.0f
                                                                    constant:offset];
@@ -823,22 +823,22 @@
 }
 
 - (NSLayoutConstraint*)glb_addConstraintHorizontal:(CGFloat)offset {
-    return [self glb_addConstraintHorizontal:offset relation:NSLayoutRelationEqual centerView:self.superview];
+    return [self glb_addConstraintHorizontal:offset relation:NSLayoutRelationEqual centerItem:self.superview];
 }
 
 - (NSLayoutConstraint*)glb_addConstraintHorizontal:(CGFloat)offset relation:(NSLayoutRelation)relation {
-    return [self glb_addConstraintHorizontal:offset relation:relation centerView:self.superview];
+    return [self glb_addConstraintHorizontal:offset relation:relation centerItem:self.superview];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintHorizontal:(CGFloat)offset leftView:(UIView*)leftView {
-    return [self glb_addConstraintHorizontal:offset relation:NSLayoutRelationEqual leftView:leftView];
+- (NSLayoutConstraint*)glb_addConstraintHorizontal:(CGFloat)offset leftItem:(id)leftItem {
+    return [self glb_addConstraintHorizontal:offset relation:NSLayoutRelationEqual leftItem:leftItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintHorizontal:(CGFloat)offset relation:(NSLayoutRelation)relation leftView:(UIView*)leftView {
+- (NSLayoutConstraint*)glb_addConstraintHorizontal:(CGFloat)offset relation:(NSLayoutRelation)relation leftItem:(id)leftItem {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeCenterX
                                                                   relatedBy:relation
-                                                                     toItem:leftView
+                                                                     toItem:leftItem
                                                                   attribute:NSLayoutAttributeLeading
                                                                  multiplier:1.0f
                                                                    constant:offset];
@@ -846,15 +846,15 @@
     return constraint;
 }
 
-- (NSLayoutConstraint*)glb_addConstraintHorizontal:(CGFloat)offset centerView:(UIView*)centerView {
-    return [self glb_addConstraintHorizontal:offset relation:NSLayoutRelationEqual centerView:centerView];
+- (NSLayoutConstraint*)glb_addConstraintHorizontal:(CGFloat)offset centerItem:(id)centerItem {
+    return [self glb_addConstraintHorizontal:offset relation:NSLayoutRelationEqual centerItem:centerItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintHorizontal:(CGFloat)offset relation:(NSLayoutRelation)relation centerView:(UIView*)centerView {
+- (NSLayoutConstraint*)glb_addConstraintHorizontal:(CGFloat)offset relation:(NSLayoutRelation)relation centerItem:(id)centerItem {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeCenterX
                                                                   relatedBy:relation
-                                                                     toItem:centerView
+                                                                     toItem:centerItem
                                                                   attribute:NSLayoutAttributeCenterX
                                                                  multiplier:1.0f
                                                                    constant:offset];
@@ -862,15 +862,15 @@
     return constraint;
 }
 
-- (NSLayoutConstraint*)glb_addConstraintHorizontal:(CGFloat)offset rightView:(UIView*)rightView {
-    return [self glb_addConstraintHorizontal:offset relation:NSLayoutRelationEqual rightView:rightView];
+- (NSLayoutConstraint*)glb_addConstraintHorizontal:(CGFloat)offset rightItem:(id)rightItem {
+    return [self glb_addConstraintHorizontal:offset relation:NSLayoutRelationEqual rightItem:rightItem];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintHorizontal:(CGFloat)offset relation:(NSLayoutRelation)relation rightView:(UIView*)rightView {
+- (NSLayoutConstraint*)glb_addConstraintHorizontal:(CGFloat)offset relation:(NSLayoutRelation)relation rightItem:(id)rightItem {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeCenterX
                                                                   relatedBy:relation
-                                                                     toItem:rightView
+                                                                     toItem:rightItem
                                                                   attribute:NSLayoutAttributeTrailing
                                                                  multiplier:1.0f
                                                                    constant:offset];
@@ -894,19 +894,19 @@
     return constraint;
 }
 
-- (NSLayoutConstraint*)glb_addConstraintWidthView:(UIView*)view {
-    return [self glb_addConstraintWidth:0 relation:NSLayoutRelationEqual view:view];
+- (NSLayoutConstraint*)glb_addConstraintWidthItem:(id)item {
+    return [self glb_addConstraintWidth:0 relation:NSLayoutRelationEqual item:item];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintWidth:(CGFloat)width view:(UIView*)view {
-    return [self glb_addConstraintWidth:width relation:NSLayoutRelationEqual view:view];
+- (NSLayoutConstraint*)glb_addConstraintWidth:(CGFloat)width item:(id)item {
+    return [self glb_addConstraintWidth:width relation:NSLayoutRelationEqual item:item];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintWidth:(CGFloat)width relation:(NSLayoutRelation)relation view:(UIView*)view {
+- (NSLayoutConstraint*)glb_addConstraintWidth:(CGFloat)width relation:(NSLayoutRelation)relation item:(id)item {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeWidth
                                                                   relatedBy:relation
-                                                                     toItem:view
+                                                                     toItem:item
                                                                   attribute:NSLayoutAttributeWidth
                                                                  multiplier:1.0f
                                                                    constant:width];
@@ -930,19 +930,19 @@
     return constraint;
 }
 
-- (NSLayoutConstraint*)glb_addConstraintHeightView:(UIView*)view {
-    return [self glb_addConstraintHeight:0 relation:NSLayoutRelationEqual view:view];
+- (NSLayoutConstraint*)glb_addConstraintHeightItem:(id)item {
+    return [self glb_addConstraintHeight:0 relation:NSLayoutRelationEqual item:item];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintHeight:(CGFloat)height view:(UIView*)view {
-    return [self glb_addConstraintHeight:height relation:NSLayoutRelationEqual view:view];
+- (NSLayoutConstraint*)glb_addConstraintHeight:(CGFloat)height item:(id)item {
+    return [self glb_addConstraintHeight:height relation:NSLayoutRelationEqual item:item];
 }
 
-- (NSLayoutConstraint*)glb_addConstraintHeight:(CGFloat)height relation:(NSLayoutRelation)relation view:(UIView*)view {
+- (NSLayoutConstraint*)glb_addConstraintHeight:(CGFloat)height relation:(NSLayoutRelation)relation item:(id)item {
     NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeHeight
                                                                   relatedBy:relation
-                                                                     toItem:view
+                                                                     toItem:item
                                                                   attribute:NSLayoutAttributeHeight
                                                                  multiplier:1.0f
                                                                    constant:height];
@@ -951,37 +951,37 @@
 }
 
 - (NSArray< NSLayoutConstraint* >*)glb_addConstraintCenter {
-    return [self glb_addConstraintCenter:UIOffsetZero relation:NSLayoutRelationEqual view:self.superview];
+    return [self glb_addConstraintCenter:UIOffsetZero relation:NSLayoutRelationEqual item:self.superview];
 }
 
 - (NSArray< NSLayoutConstraint* >*)glb_addConstraintCenterRelation:(NSLayoutRelation)relation {
-    return [self glb_addConstraintCenter:UIOffsetZero relation:relation view:self.superview];
+    return [self glb_addConstraintCenter:UIOffsetZero relation:relation item:self.superview];
 }
 
 - (NSArray< NSLayoutConstraint* >*)glb_addConstraintCenter:(UIOffset)offset {
-    return [self glb_addConstraintCenter:offset relation:NSLayoutRelationEqual view:self.superview];
+    return [self glb_addConstraintCenter:offset relation:NSLayoutRelationEqual item:self.superview];
 }
 
 - (NSArray< NSLayoutConstraint* >*)glb_addConstraintCenter:(UIOffset)offset relation:(NSLayoutRelation)relation {
-    return [self glb_addConstraintCenter:offset relation:relation view:self.superview];
+    return [self glb_addConstraintCenter:offset relation:relation item:self.superview];
 }
 
-- (NSArray< NSLayoutConstraint* >*)glb_addConstraintCenter:(UIOffset)offset view:(UIView*)view {
-    return [self glb_addConstraintCenter:offset relation:NSLayoutRelationEqual view:view];
+- (NSArray< NSLayoutConstraint* >*)glb_addConstraintCenter:(UIOffset)offset item:(id)item {
+    return [self glb_addConstraintCenter:offset relation:NSLayoutRelationEqual item:item];
 }
 
-- (NSArray< NSLayoutConstraint* >*)glb_addConstraintCenter:(UIOffset)offset relation:(NSLayoutRelation)relation view:(UIView*)view {
+- (NSArray< NSLayoutConstraint* >*)glb_addConstraintCenter:(UIOffset)offset relation:(NSLayoutRelation)relation item:(id)item {
     NSLayoutConstraint* horizontal = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeCenterY
                                                                   relatedBy:relation
-                                                                     toItem:view
+                                                                     toItem:item
                                                                   attribute:NSLayoutAttributeCenterY
                                                                  multiplier:1.0f
                                                                    constant:offset.vertical];
     NSLayoutConstraint* vertical = [NSLayoutConstraint constraintWithItem:self
                                                                   attribute:NSLayoutAttributeCenterX
                                                                   relatedBy:relation
-                                                                     toItem:view
+                                                                     toItem:item
                                                                   attribute:NSLayoutAttributeCenterX
                                                                  multiplier:1.0f
                                                                    constant:offset.horizontal];
@@ -991,41 +991,41 @@
 }
 
 - (NSArray< NSLayoutConstraint* >*)glb_addConstraintEdgeInsets {
-    return [self glb_addConstraintEdgeInsets:UIEdgeInsetsZero relation:NSLayoutRelationEqual view:self.superview];
+    return [self glb_addConstraintEdgeInsets:UIEdgeInsetsZero relation:NSLayoutRelationEqual item:self.superview];
 }
 
 - (NSArray< NSLayoutConstraint* >*)glb_addConstraintEdgeInsetsRelation:(NSLayoutRelation)relation {
-    return [self glb_addConstraintEdgeInsets:UIEdgeInsetsZero relation:relation view:self.superview];
+    return [self glb_addConstraintEdgeInsets:UIEdgeInsetsZero relation:relation item:self.superview];
 }
 
 - (NSArray< NSLayoutConstraint* >*)glb_addConstraintEdgeInsets:(UIEdgeInsets)edgeInsets {
-    return [self glb_addConstraintEdgeInsets:edgeInsets relation:NSLayoutRelationEqual view:self.superview];
+    return [self glb_addConstraintEdgeInsets:edgeInsets relation:NSLayoutRelationEqual item:self.superview];
 }
 
 - (NSArray< NSLayoutConstraint* >*)glb_addConstraintEdgeInsets:(UIEdgeInsets)edgeInsets relation:(NSLayoutRelation)relation {
-    return [self glb_addConstraintEdgeInsets:edgeInsets relation:relation view:self.superview];
+    return [self glb_addConstraintEdgeInsets:edgeInsets relation:relation item:self.superview];
 }
 
-- (NSArray< NSLayoutConstraint* >*)glb_addConstraintEdgeInsets:(UIEdgeInsets)edgeInsets view:(UIView*)view {
-    return [self glb_addConstraintEdgeInsets:edgeInsets relation:NSLayoutRelationEqual view:view];
+- (NSArray< NSLayoutConstraint* >*)glb_addConstraintEdgeInsets:(UIEdgeInsets)edgeInsets item:(id)item {
+    return [self glb_addConstraintEdgeInsets:edgeInsets relation:NSLayoutRelationEqual item:item];
 }
 
-- (NSArray< NSLayoutConstraint* >*)glb_addConstraintEdgeInsets:(UIEdgeInsets)edgeInsets relation:(NSLayoutRelation)relation view:(UIView*)view {
+- (NSArray< NSLayoutConstraint* >*)glb_addConstraintEdgeInsets:(UIEdgeInsets)edgeInsets relation:(NSLayoutRelation)relation item:(id)item {
     NSLayoutConstraint* top = [NSLayoutConstraint constraintWithItem:self
                                                            attribute:NSLayoutAttributeTop
                                                            relatedBy:relation
-                                                              toItem:view
+                                                              toItem:item
                                                            attribute:NSLayoutAttributeTop
                                                           multiplier:1.0f
                                                             constant:edgeInsets.top];
-    NSLayoutConstraint* right = [NSLayoutConstraint constraintWithItem:view
+    NSLayoutConstraint* right = [NSLayoutConstraint constraintWithItem:item
                                                              attribute:NSLayoutAttributeTrailing
                                                              relatedBy:relation
                                                                 toItem:self
                                                              attribute:NSLayoutAttributeTrailing
                                                             multiplier:1.0f
                                                               constant:edgeInsets.right];
-    NSLayoutConstraint* bottom = [NSLayoutConstraint constraintWithItem:view
+    NSLayoutConstraint* bottom = [NSLayoutConstraint constraintWithItem:item
                                                               attribute:NSLayoutAttributeBottom
                                                               relatedBy:relation
                                                                  toItem:self
@@ -1035,7 +1035,7 @@
     NSLayoutConstraint* left = [NSLayoutConstraint constraintWithItem:self
                                                            attribute:NSLayoutAttributeLeading
                                                            relatedBy:relation
-                                                              toItem:view
+                                                              toItem:item
                                                            attribute:NSLayoutAttributeLeading
                                                           multiplier:1.0f
                                                             constant:edgeInsets.left];

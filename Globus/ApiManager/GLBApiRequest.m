@@ -5,6 +5,16 @@
 #import "GLBApiProvider.h"
 
 /*--------------------------------------------------*/
+
+#import "NSDictionary+GLBNS.h"
+#import "NSArray+GLBNS.h"
+#import "NSOrderedSet+GLBNS.h"
+#import "NSSet+GLBNS.h"
+#import "NSString+GLBNS.h"
+#import "NSData+GLBNS.h"
+#import "NSURL+GLBNS.h"
+
+/*--------------------------------------------------*/
 #pragma mark -
 /*--------------------------------------------------*/
 
@@ -128,12 +138,13 @@
                 if(queryString.length > 0) {
                     [queryString appendString:@"&"];
                 }
-                NSString* tempValue = (_encodeUrlParams == YES) ? value.description.glb_stringByEncodingURLFormat : value.description;
                 if(_includeArraySymbolsUrlParams == NO) {
                     key = [trimArraySymbolsRegexp stringByReplacingMatchesInString:key options:(NSMatchingOptions)0 range:NSMakeRange(0, key.length) withTemplate:@""];
                 }
+                NSString* tempKey = (_encodeBodyParams == YES) ? [key.description stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet] : key.description;
+                NSString* tempValue = (_encodeUrlParams == YES) ? [value.description stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet] : value.description;
                 if(key != nil) {
-                    [queryString appendFormat:@"%@=%@", key, tempValue];
+                    [queryString appendFormat:@"%@=%@", tempKey, tempValue];
                 }
             }];
             urlComponents.percentEncodedQuery = queryString;
@@ -163,8 +174,8 @@
                     bodyBoundary = NSUUID.UUID.UUIDString;
                 }
                 [formData glb_each:^(NSString* key, id< NSObject > value) {
-                    NSString* tempKey = (_encodeBodyParams == YES) ? key.glb_stringByEncodingURLFormat : key;
-                    NSString* tempValue = (_encodeBodyParams == YES) ? value.description.glb_stringByEncodingURLFormat : value.description;
+                    NSString* tempKey = (_encodeBodyParams == YES) ? [key.description stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet] : key.description;
+                    NSString* tempValue = (_encodeBodyParams == YES) ? [value.description stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet] : value.description;
                     [bodyData appendData:[[NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-data; name=\"%@\"\r\n\r\n%@\r\n", bodyBoundary, tempKey, tempValue] dataUsingEncoding:NSUTF8StringEncoding]];
                 }];
                 for(GLBApiRequestUploadItem* uploadItem in _uploadItems) {
@@ -175,8 +186,8 @@
                         uploadData = [NSData dataWithContentsOfFile:uploadItem.localFilePath];
                     }
                     if(uploadData != nil) {
-                        NSString* tempName = (_encodeBodyParams == YES) ? uploadItem.name.glb_stringByEncodingURLFormat : uploadItem.name;
-                        NSString* tempFilename = (_encodeBodyParams == YES) ? uploadItem.filename.glb_stringByEncodingURLFormat : uploadItem.filename;
+                        NSString* tempName = (_encodeBodyParams == YES) ? [uploadItem.name stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet] : uploadItem.name;
+                        NSString* tempFilename = (_encodeBodyParams == YES) ? [uploadItem.filename stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet] : uploadItem.filename;
                         NSString* tempMimetype = uploadItem.mimetype;
                         [bodyData appendData:[[NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\nContent-Type: %@\r\n\r\n", bodyBoundary, tempName, tempFilename, tempMimetype] dataUsingEncoding:NSUTF8StringEncoding]];
                         [bodyData appendData:uploadData];
@@ -190,8 +201,8 @@
                     if(bodyString.length > 0) {
                         [bodyString appendString:@"&"];
                     }
-                    NSString* tempKey = (_encodeBodyParams == YES) ? key.glb_stringByEncodingURLFormat : key;
-                    NSString* tempValue = (_encodeBodyParams == YES) ? value.description.glb_stringByEncodingURLFormat : value.description;
+                    NSString* tempKey = (_encodeBodyParams == YES) ? [key.description stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet] : key.description;
+                    NSString* tempValue = (_encodeBodyParams == YES) ? [value.description stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet] : value.description;
                     [bodyString appendFormat:@"%@=%@", tempKey, tempValue];
                 }];
                 [bodyData appendData:[bodyString dataUsingEncoding:NSUTF8StringEncoding]];

@@ -1,11 +1,6 @@
 /*--------------------------------------------------*/
 
-#import "NSDictionary+GLBNS.h"
-#import "NSArray+GLBNS.h"
-#import "NSString+GLBNS.h"
-#import "NSData+GLBNS.h"
-#import "NSError+GLBNS.h"
-#import "NSURL+GLBNS.h"
+#include "GLBTargetConditionals.h"
 
 /*--------------------------------------------------*/
 
@@ -52,8 +47,6 @@ typedef void (^GLBApiProviderCompleteBlock)(_Nonnull id request, _Nonnull id res
 - (nonnull instancetype)initWithName:(nonnull NSString*)name;
 - (nonnull instancetype)initWithName:(nonnull NSString*)name url:(nullable NSURL*)url;
 - (nonnull instancetype)initWithName:(nonnull NSString*)name url:(nullable NSURL*)url headers:(nullable NSDictionary< NSString*, NSString* >*)headers NS_DESIGNATED_INITIALIZER;
-
-- (void)setup NS_REQUIRES_SUPER;
 
 - (void)setUrlParam:(nonnull NSString*)urlParam value:(nullable NSString*)value;
 - (void)setHeader:(nonnull NSString*)header value:(nullable NSString*)value;

@@ -44,39 +44,39 @@
 #pragma mark - Getters
 
 - (nullable NSDate*)dateAtPath:(nonnull NSString*)path
-                             or:(nullable NSDate*)or NS_SWIFT_NAME(date(atPath:or:));
+                            or:(nullable NSDate*)or NS_SWIFT_NAME(date(atPath:or:));
 
 - (nullable NSDate*)dateAtPath:(nonnull NSString*)path
-                        formats:(nonnull NSArray< NSString* >*)formats
-                             or:(nullable NSDate*)or NS_SWIFT_NAME(date(atPath:formats:or:));
+                       formats:(nonnull NSArray< NSString* >*)formats
+                            or:(nullable NSDate*)or NS_SWIFT_NAME(date(atPath:formats:or:));
 
 - (nullable id)valueAtPath:(nonnull NSString*)path
-                        map:(nonnull NSDictionary*)map
-                         or:(nullable id)or NS_SWIFT_NAME(value(atPath:map:or:));
+                       map:(nonnull NSDictionary*)map
+                        or:(nullable id)or NS_SWIFT_NAME(value(atPath:map:or:));
 
 - (nullable UIColor*)colorAtPath:(nonnull NSString*)path
-                               or:(nullable UIColor*)or NS_SWIFT_NAME(color(atPath:or:));
+                              or:(nullable UIColor*)or NS_SWIFT_NAME(color(atPath:or:));
 
 #pragma mark - To object
 
 - (nullable id)objectFromDate:(nullable NSDate*)date NS_SWIFT_NAME(object(date:));
 
 - (nullable id)objectFromDate:(nullable NSDate*)date
-                        format:(nonnull NSString*)format NS_SWIFT_NAME(object(date:format:));
+                       format:(nonnull NSString*)format NS_SWIFT_NAME(object(date:format:));
 
 - (nullable id)objectFromColor:(nullable UIColor*)color NS_SWIFT_NAME(object(color:));
 
 #pragma mark - From object
 
 - (nullable NSDate*)dateFromObject:(nullable id)object
-                                 or:(nullable NSDate*)or NS_SWIFT_NAME(date(from:or:));
+                                or:(nullable NSDate*)or NS_SWIFT_NAME(date(from:or:));
 
 - (nullable NSDate*)dateFromObject:(nullable id)object
-                            formats:(nonnull NSArray< NSString* >*)formats
-                                 or:(nullable NSDate*)or NS_SWIFT_NAME(date(from:formats:or:));
+                           formats:(nonnull NSArray< NSString* >*)formats
+                                or:(nullable NSDate*)or NS_SWIFT_NAME(date(from:formats:or:));
 
 - (nullable UIColor*)colorFromObject:(nullable id)object
-                                   or:(nullable UIColor*)or NS_SWIFT_NAME(color(from:or:));
+                                  or:(nullable UIColor*)or NS_SWIFT_NAME(color(from:or:));
 
 @end
 

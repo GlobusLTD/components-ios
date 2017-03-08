@@ -4,7 +4,7 @@
 
 #import "GLBCocoaPods.h"
 
-@interface ListDataViewController : GLBDataViewController
+@interface ListDataViewController : GLBListDataViewController
 
 
 

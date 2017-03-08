@@ -4,12 +4,9 @@
 
 #import "ListDataViewController.h"
 #import "ListDataViewCell.h"
-#import "ListDataViewModel.h"
+#import "ListDataProvider.h"
 
-@interface ListDataViewController () {
-    GLBDataViewItemsListContainer* _dataViewContainer;
-}
-
+@interface ListDataViewController ()
 @end
 
 static NSString* ListCellIdentifier = @"List";
@@ -23,6 +20,10 @@ static NSString* ListCellIdentifier = @"List";
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.title = @"ListDataView";
+    
+    self.provider = [ListDataProvider dataProvider];
+    self.spinnerView = [GLBArcSpinnerView new];
+    self.spinnerView.color = UIColor.blueColor;
 }
 
 #pragma mark - UIViewController
@@ -34,43 +35,45 @@ static NSString* ListCellIdentifier = @"List";
     [self.navigationItem glb_addLeftBarButtonNormalImage:[UIImage imageNamed:@"MenuButton"] target:self action:@selector(pressedMenu:) animated:NO];
 }
 
-#pragma mark - GLBViewController
+#pragma mark - GLBListDataViewController
 
-- (void)update {
-    [super update];
+- (void)configureDataView {
+    [super configureDataView];
     
-    [self.dataView batchUpdate:^{
-        for(NSUInteger index = 0; index < 1000; index++) {
-            NSString* title = [NSString stringWithFormat:@"Item #%d", (int)index];
-            [_dataViewContainer appendIdentifier:ListCellIdentifier
-                                          byData:[ListDataViewModel viewModelWithTitle:title]];
-        }
-    }];
+    [self registerIdentifier:ListCellIdentifier withViewClass:ListDataViewCell.class];
 }
 
-- (void)clear {
-    [self.dataView batchUpdate:^{
-        [_dataViewContainer deleteAllItems];
-    }];
-    
-    [super clear];
+- (GLBDataViewSectionsContainer*)prepareRootContainer {
+    return [GLBDataViewSectionsListContainer containerWithOrientation:GLBDataViewContainerOrientationVertical];
 }
 
-#pragma mark - GLBDataViewController
-
-- (void)prepareDataView {
-    _dataViewContainer = [GLBDataViewItemsListContainer containerWithOrientation:GLBDataViewContainerOrientationVertical];
-    
-    [self.dataView registerIdentifier:ListCellIdentifier withViewClass:ListDataViewCell.class];
-    
-    self.dataView.container = _dataViewContainer;
+- (GLBDataViewSectionsContainer*)prepareContentContainer {
+    return [GLBDataViewSectionsListContainer containerWithOrientation:GLBDataViewContainerOrientationVertical];
 }
 
-- (void)cleanupDataView {
-    self.dataView.container = nil;
-    [self.dataView unregisterAllIdentifiers];
-    [self.dataView unregisterAllActions];
-    _dataViewContainer = nil;
+- (GLBDataViewContainer*)preparePreloadContainer {
+    return nil;
+}
+
+- (GLBDataViewContainer*)prepareEmptyContainer {
+    return nil;
+}
+
+- (GLBDataViewContainer*)prepareErrorContainerWithError:(nullable id)error {
+    return nil;
+}
+
+- (GLBDataViewContainer*)prepareSectionContainerWithModel:(id< GLBListDataProviderModel >)model {
+    return [GLBDataViewItemsListContainer containerWithOrientation:GLBDataViewContainerOrientationVertical];
+}
+
+- (GLBDataViewItem*)prepareItemWithModel:(id)model {
+    return [GLBDataViewItem itemWithIdentifier:ListCellIdentifier order:0 data:model];
+}
+
+- (void)sectionContainer:(GLBDataViewContainer*)sectionContainer appendItem:(GLBDataViewItem*)item {
+    GLBDataViewItemsListContainer* itemsListContainer = (GLBDataViewItemsListContainer*)sectionContainer;
+    [itemsListContainer appendItem:item];
 }
 
 #pragma mark - Actions

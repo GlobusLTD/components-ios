@@ -20,8 +20,6 @@
 
 - (nullable instancetype)initWithSting:(nonnull NSString*)string expression:(nonnull NSString*)expression pattern:(nonnull NSString*)pattern;
 
-- (void)setup NS_REQUIRES_SUPER;
-
 @end
 
 /*--------------------------------------------------*/
@@ -30,10 +28,10 @@
 
 @property(nonatomic, nullable, readonly, strong) NSString* originalString;
 @property(nonatomic, nullable, readonly, strong) NSArray* originalSubStrings;
-@property(nonatomic, readonly, assign) NSRange originalRange;
+@property(nonatomic, readonly) NSRange originalRange;
 
 @property(nonatomic, nullable, readonly, strong) NSString* resultString;
-@property(nonatomic, readonly, assign) NSRange resultRange;
+@property(nonatomic, readonly) NSRange resultRange;
 
 @end
 

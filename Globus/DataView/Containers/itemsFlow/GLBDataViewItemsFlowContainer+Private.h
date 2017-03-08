@@ -13,7 +13,7 @@
     UIOffset _spacing;
     CGSize _defaultSize;
     NSUInteger _defaultOrder;
-    NSMutableArray< __kindof GLBDataViewItem* >* _items;
+    NSMutableArray< __kindof GLBDataViewItem* >* _contentItems;
 }
 
 @end

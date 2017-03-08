@@ -5,26 +5,51 @@
 /*--------------------------------------------------*/
 
 #import "GLBDataView.h"
+#import "GLBDataRefreshView.h"
 #import "GLBDataViewContainer.h"
+#import "GLBDataViewItem.h"
+
+#import "GLBSearchBar.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@interface GLBDataViewController : GLBViewController
+@class GLBSpinnerView;
 
-@property(nonatomic, nullable, readwrite, strong) IBOutlet GLBDataView* dataView;
-@property(nonatomic, nullable, readwrite, strong) IBOutlet NSLayoutConstraint* constraintDataViewTop;
-@property(nonatomic, nullable, readwrite, strong) IBOutlet NSLayoutConstraint* constraintDataViewLeft;
-@property(nonatomic, nullable, readwrite, strong) IBOutlet NSLayoutConstraint* constraintDataViewRight;
-@property(nonatomic, nullable, readwrite, strong) IBOutlet NSLayoutConstraint* constraintDataViewBottom;
+/*--------------------------------------------------*/
 
-+ (BOOL)useNibForInstantiate NS_SWIFT_NAME(useNibForInstantiate());
+@interface GLBDataViewController : GLBViewController< UIScrollViewDelegate >
 
-- (void)prepareDataView;
-- (void)cleanupDataView;
+@property(nonatomic, nullable, strong) UIView* topView;
+@property(nonatomic, nullable, strong) UIView* leftView;
+@property(nonatomic, nullable, strong) UIView* rightView;
+@property(nonatomic, nullable, strong) UIView* bottomView;
+@property(nonatomic, nullable, readonly, strong) GLBDataView* dataView;
+@property(nonatomic, nullable, strong) GLBSpinnerView* spinnerView;
 
-- (void)updateConstraintsDataView;
+- (void)configureDataView;
+- (void)cleanupDataView NS_REQUIRES_SUPER;
+
+- (void)registerIdentifier:(nonnull NSString*)identifier withViewClass:(nonnull Class)viewClass;
+- (void)unregisterIdentifier:(nonnull NSString*)identifier;
+- (void)unregisterAllIdentifiers;
+
+- (void)registerAction:(nonnull SEL)action forKey:(nonnull id)key;
+- (void)registerAction:(nonnull SEL)action forIdentifier:(nonnull id)identifier forKey:(nonnull id)key;
+- (void)unregisterActionForKey:(nonnull id)key;
+- (void)unregisterActionForIdentifier:(nonnull id)identifier forKey:(nonnull id)key;
+- (void)unregisterAllActions;
+
+- (BOOL)containsActionForKey:(nonnull id)key;
+- (BOOL)containsActionForIdentifier:(nonnull id)identifier forKey:(nonnull id)key;
+
+- (void)performActionForKey:(nonnull id)key withArguments:(nullable NSArray*)arguments;
+- (void)performActionForIdentifier:(nonnull id)identifier forKey:(nonnull id)key withArguments:(nullable NSArray*)arguments;
+
+- (BOOL)isLoading;
+- (void)showLoading;
+- (void)hideLoading;
 
 @end
 
