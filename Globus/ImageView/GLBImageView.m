@@ -137,7 +137,21 @@
 }
 
 - (void)_applyImage:(UIImage*)image {
-    super.image = image;
+    if(image.images.count > 0) {
+        self.animationImages = image.images;
+        self.animationDuration = image.duration;
+        if(self.animationRepeatCount > 0) {
+            super.image = image.images.lastObject;
+        } else {
+            super.image = image;
+        }
+        [self startAnimating];
+    } else {
+        [self stopAnimating];
+        self.animationImages = nil;
+        self.animationDuration = 0;
+        super.image = image;
+    }
 }
 
 - (void)_applyImageUrl:(NSURL*)imageUrl processing:(NSString*)processing {

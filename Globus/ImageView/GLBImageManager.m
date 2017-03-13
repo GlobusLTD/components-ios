@@ -31,8 +31,6 @@
 
 - (instancetype)initWithManager:(GLBImageManager*)manager target:(id< GLBImageManagerTarget >)target url:(NSURL*)url processing:(NSString*)processing;
 
-- (void)setup NS_REQUIRES_SUPER;
-
 - (void)addTarget:(id< GLBImageManagerTarget >)target;
 - (void)removeTarget:(id< GLBImageManagerTarget >)target;
 - (BOOL)containsTarget:(id< GLBImageManagerTarget >)target;
@@ -293,8 +291,10 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
 - (void)cancelByTarget:(id< GLBImageManagerTarget >)target {
     @synchronized(self) {
         _operationQueue.suspended = YES;
-        for(GLBImageManagerOperation* op in _operationQueue.operations) {
-            [op removeTarget:target];
+        for(GLBImageManagerOperation* operation in _operationQueue.operations) {
+            if([operation containsTarget:target] == YES) {
+                [operation removeTarget:target];
+            }
         }
         _operationQueue.suspended = NO;
     }
@@ -401,13 +401,11 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
         _targets = [NSMutableArray arrayWithObject:target];
         _url = url;
         _processing = processing;
-        [self setup];
     }
     return self;
 }
 
-- (void)setup {
-}
+#pragma mark - Public
 
 - (void)addTarget:(id< GLBImageManagerTarget >)target {
     @synchronized(self) {
@@ -417,11 +415,9 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
 
 - (void)removeTarget:(id< GLBImageManagerTarget >)target {
     @synchronized(self) {
-        if([_targets containsObject:target] == YES) {
-            [_targets removeObject:target];
-            if(_targets.count < 1) {
-                [self cancel];
-            }
+        [_targets removeObject:target];
+        if(_targets.count < 1) {
+            [self cancel];
         }
     }
 }
@@ -433,7 +429,13 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
     }
     return result;
 }
+/*
+#pragma mark - Override property
 
+- (BOOL)isCancelled {
+    return (super.isCancelled == YES) || (_targets.count == 0);
+}
+*/
 @end
 
 /*--------------------------------------------------*/
@@ -483,9 +485,6 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
 #pragma mark - Private
 
 - (UIImage*)_processingImage:(UIImage*)image {
-    if(self.isCancelled == YES) {
-        return nil;
-    }
     UIImage* processingImage = [_targets.firstObject imageManager:_manager processing:_processing image:image];
     if(processingImage != nil) {
         NSData* processingData = [_manager _dataWithImage:processingImage];
@@ -502,10 +501,12 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
 
 #pragma mark - Init / Free
 
-- (void)setup {
-    [super setup];
-    
-    _semaphore = dispatch_semaphore_create(0);
+- (instancetype)initWithManager:(GLBImageManager*)manager target:(id< GLBImageManagerTarget >)target url:(NSURL*)url processing:(NSString*)processing {
+    self = [super initWithManager:manager target:target url:url processing:processing];
+    if(self != nil) {
+        _semaphore = dispatch_semaphore_create(0);
+    }
+    return self;
 }
 
 #pragma mark - Public
@@ -530,30 +531,21 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
             }
         } completeBlock:^(GLBImageDownloadRequest* request, GLBImageDownloadResponse* response) {
             _request = nil;
-            if((response.isValid == YES) && (response.data != nil) && (response.image != nil)) {
-                data = response.data;
-                image = response.image;
-            } else {
-                error = response.error;
-            }
+            data = response.data;
+            image = response.image;
+            error = response.error;
             dispatch_semaphore_signal(_semaphore);
         }];
         dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
         if(self.isCancelled == YES) {
             return;
         }
-        if(error == nil) {
+        if((error == nil) && (image != nil) && (data != nil)) {
             [_manager _setImage:image data:data url:_url];
-            if(self.isCancelled == YES) {
-                return;
-            }
             if(_processing != nil) {
                 UIImage* processingImage = [self _processingImage:image];
                 if(processingImage == nil) {
                     processingImage = image;
-                }
-                if(self.isCancelled == YES) {
-                    return;
                 }
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     if(self.isCancelled == YES) {
@@ -590,16 +582,16 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
 }
 
 - (void)cancel {
+    [super cancel];
+    
     [_manager.provider cancelRequest:_request];
+    _request = nil;
     dispatch_semaphore_signal(_semaphore);
 }
 
 #pragma mark - Private
 
 - (UIImage*)_processingImage:(UIImage*)image {
-    if(self.isCancelled == YES) {
-        return nil;
-    }
     UIImage* processingImage = [_targets.firstObject imageManager:_manager processing:_processing image:image];
     if(processingImage != nil) {
         NSData* processingData = [_manager _dataWithImage:processingImage];
