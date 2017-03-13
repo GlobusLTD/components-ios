@@ -16,6 +16,9 @@
 }
 
 - (UIImage*)imageWithData:(NSData*)data mimetype:(NSString*)mimetype {
+    if(GLBImageIsGifData(data) == YES) {
+        return GLBImageWithGIFDataDefault(data);
+    }
     return [UIImage glb_imageWithData:data];
 }
 

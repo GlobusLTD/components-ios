@@ -255,6 +255,9 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
     @synchronized(self) {
         _operationQueue.suspended = YES;
         for(GLBImageManagerOperation* operation in _operationQueue.operations) {
+            if(operation.isCancelled == YES) {
+                continue;
+            }
             if(([operation.url isEqual:url] == YES) && ((operation.processing == processing) || ([operation.processing isEqualToString:processing] == YES))) {
                 existOperation = operation;
                 break;
@@ -414,9 +417,11 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
 
 - (void)removeTarget:(id< GLBImageManagerTarget >)target {
     @synchronized(self) {
-        [_targets removeObject:target];
-        if(_targets.count < 1) {
-            [self cancel];
+        if([_targets containsObject:target] == YES) {
+            [_targets removeObject:target];
+            if(_targets.count < 1) {
+                [self cancel];
+            }
         }
     }
 }
