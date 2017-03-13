@@ -20,19 +20,22 @@
 
 @interface GLBImageManagerOperation : NSOperation {
     __weak GLBImageManager* _manager;
-    id< GLBImageManagerTarget > _target;
+    NSMutableArray< id< GLBImageManagerTarget > >* _targets;
     NSURL* _url;
     NSString* _processing;
 }
 
 @property(nonatomic, weak) GLBImageManager* manager;
-@property(nonatomic, strong) id< GLBImageManagerTarget > target;
 @property(nonatomic, strong) NSURL* url;
 @property(nonatomic, strong) NSString* processing;
 
 - (instancetype)initWithManager:(GLBImageManager*)manager target:(id< GLBImageManagerTarget >)target url:(NSURL*)url processing:(NSString*)processing;
 
 - (void)setup NS_REQUIRES_SUPER;
+
+- (void)addTarget:(id< GLBImageManagerTarget >)target;
+- (void)removeTarget:(id< GLBImageManagerTarget >)target;
+- (BOOL)containsTarget:(id< GLBImageManagerTarget >)target;
 
 @end
 
@@ -248,24 +251,39 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
     if((url == nil) || (target == nil)) {
         return;
     }
-    GLBImageManagerOperation* op = nil;
-    if([self existImageByUrl:url] == YES) {
-        op = [[GLBImageManagerCacheOperation alloc] initWithManager:self
-                                                             target:target
-                                                                url:url
-                                                         processing:processing];
-    } else {
-        op = [[GLBImageManagerDownloadOperation alloc] initWithManager:self
-                                                                target:target
-                                                                   url:url
-                                                            processing:processing];
-    }
-    if(op != nil) {
-        @synchronized(self) {
-            _operationQueue.suspended = YES;
-            [_operationQueue addOperation:op];
-            _operationQueue.suspended = NO;
+    GLBImageManagerOperation* existOperation = nil;
+    @synchronized(self) {
+        _operationQueue.suspended = YES;
+        for(GLBImageManagerOperation* operation in _operationQueue.operations) {
+            if(([operation.url isEqual:url] == YES) && ((operation.processing == processing) || ([operation.processing isEqualToString:processing] == YES))) {
+                existOperation = operation;
+                break;
+            }
         }
+        _operationQueue.suspended = NO;
+    }
+    if(existOperation == nil) {
+        GLBImageManagerOperation* newOperation = nil;
+        if([self existImageByUrl:url] == YES) {
+            newOperation = [[GLBImageManagerCacheOperation alloc] initWithManager:self
+                                                                           target:target
+                                                                              url:url
+                                                                       processing:processing];
+        } else {
+            newOperation = [[GLBImageManagerDownloadOperation alloc] initWithManager:self
+                                                                              target:target
+                                                                                 url:url
+                                                                          processing:processing];
+        }
+        if(newOperation != nil) {
+            @synchronized(self) {
+                _operationQueue.suspended = YES;
+                [_operationQueue addOperation:newOperation];
+                _operationQueue.suspended = NO;
+            }
+        }
+    } else {
+        [existOperation addTarget:target];
     }
 }
 
@@ -273,9 +291,7 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
     @synchronized(self) {
         _operationQueue.suspended = YES;
         for(GLBImageManagerOperation* op in _operationQueue.operations) {
-            if(op.target == target) {
-                [op cancel];
-            }
+            [op removeTarget:target];
         }
         _operationQueue.suspended = NO;
     }
@@ -341,10 +357,16 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
 }
 
 - (NSData*)_dataWithImage:(UIImage*)image {
+    if(image.images.count > 0) {
+        return GLBImageGIFRepresentation(image, 0, nil);
+    }
     return UIImagePNGRepresentation(image);
 }
 
 - (UIImage*)_imageWithData:(NSData*)data {
+    if(GLBImageIsGifData(data) == YES) {
+        return GLBImageWithGIFDataDefault(data);
+    }
     return [UIImage glb_imageWithData:data];
 }
 
@@ -365,7 +387,6 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
 #pragma mark - Synthesize
 
 @synthesize manager = _manager;
-@synthesize target = _target;
 @synthesize url = _url;
 
 #pragma mark - Init / Free
@@ -374,7 +395,7 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
     self = [super init];
     if(self != nil) {
         _manager = manager;
-        _target = target;
+        _targets = [NSMutableArray arrayWithObject:target];
         _url = url;
         _processing = processing;
         [self setup];
@@ -383,6 +404,29 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
 }
 
 - (void)setup {
+}
+
+- (void)addTarget:(id< GLBImageManagerTarget >)target {
+    @synchronized(self) {
+        [_targets addObject:target];
+    }
+}
+
+- (void)removeTarget:(id< GLBImageManagerTarget >)target {
+    @synchronized(self) {
+        [_targets removeObject:target];
+        if(_targets.count < 1) {
+            [self cancel];
+        }
+    }
+}
+
+- (BOOL)containsTarget:(id< GLBImageManagerTarget >)target {
+    BOOL result = NO;
+    @synchronized(self) {
+        result =  [_targets containsObject:target];
+    }
+    return result;
 }
 
 @end
@@ -414,14 +458,18 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
                 if(self.isCancelled == YES) {
                     return;
                 }
-                [_target imageManager:_manager cacheImage:processingImage];
+                for(id< GLBImageManagerTarget > target in _targets) {
+                    [target imageManager:_manager cacheImage:processingImage];
+                }
             });
         } else {
             dispatch_sync(dispatch_get_main_queue(), ^{
                 if(self.isCancelled == YES) {
                     return;
                 }
-                [_target imageManager:_manager cacheImage:image];
+                for(id< GLBImageManagerTarget > target in _targets) {
+                    [target imageManager:_manager cacheImage:image];
+                }
             });
         }
     }
@@ -433,7 +481,7 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
     if(self.isCancelled == YES) {
         return nil;
     }
-    UIImage* processingImage = [_target imageManager:_manager processing:_processing image:image];
+    UIImage* processingImage = [_targets.firstObject imageManager:_manager processing:_processing image:image];
     if(processingImage != nil) {
         NSData* processingData = [_manager _dataWithImage:processingImage];
         [_manager _setImage:processingImage data:processingData url:_url processing:_processing];
@@ -463,14 +511,18 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
             return;
         }
         dispatch_sync(dispatch_get_main_queue(), ^{
-            [_target startDownloadInImageManager:_manager];
+            for(id< GLBImageManagerTarget > target in _targets) {
+                [target startDownloadInImageManager:_manager];
+            }
         });
         __block NSData* data = nil;
         __block UIImage* image = nil;
         __block NSError* error = nil;
         _request = [GLBImageDownloadRequest requestWithUrl:_url];
-        [_manager.provider sendRequest:_request byTarget:_target downloadBlock:^(NSProgress* progress) {
-            [_target imageManager:_manager downloadProgress:progress];
+        [_manager.provider sendRequest:_request byTarget:self downloadBlock:^(NSProgress* progress) {
+            for(id< GLBImageManagerTarget > target in _targets) {
+                [target imageManager:_manager downloadProgress:progress];
+            }
         } completeBlock:^(GLBImageDownloadRequest* request, GLBImageDownloadResponse* response) {
             _request = nil;
             if((response.isValid == YES) && (response.data != nil) && (response.image != nil)) {
@@ -502,16 +554,20 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
                     if(self.isCancelled == YES) {
                         return;
                     }
-                    [_target imageManager:_manager downloadImage:processingImage];
-                    [_target finishDownloadInImageManager:_manager];
+                    for(id< GLBImageManagerTarget > target in _targets) {
+                        [target imageManager:_manager downloadImage:processingImage];
+                        [target finishDownloadInImageManager:_manager];
+                    }
                 });
             } else {
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     if(self.isCancelled == YES) {
                         return;
                     }
-                    [_target imageManager:_manager downloadImage:image];
-                    [_target finishDownloadInImageManager:_manager];
+                    for(id< GLBImageManagerTarget > target in _targets) {
+                        [target imageManager:_manager downloadImage:image];
+                        [target finishDownloadInImageManager:_manager];
+                    }
                 });
             }
         } else {
@@ -519,8 +575,10 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
                 if(self.isCancelled == YES) {
                     return;
                 }
-                [_target imageManager:_manager downloadError:error];
-                [_target finishDownloadInImageManager:_manager];
+                for(id< GLBImageManagerTarget > target in _targets) {
+                    [target imageManager:_manager downloadError:error];
+                    [target finishDownloadInImageManager:_manager];
+                }
             });
         }
     }
@@ -537,7 +595,7 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
     if(self.isCancelled == YES) {
         return nil;
     }
-    UIImage* processingImage = [_target imageManager:_manager processing:_processing image:image];
+    UIImage* processingImage = [_targets.firstObject imageManager:_manager processing:_processing image:image];
     if(processingImage != nil) {
         NSData* processingData = [_manager _dataWithImage:processingImage];
         [_manager _setImage:processingImage data:processingData url:_url processing:_processing];

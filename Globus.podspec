@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.4.3'
+  s.version = '0.4.4'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -152,6 +152,12 @@ Pod::Spec.new do |s|
     end
     ss.subspec 'Image' do |sss|
       sss.source_files = 'Globus/UIKit/Image/**/*.{h,m}'
+      sss.ios.frameworks = 'ImageIO'
+      sss.ios.frameworks = 'MobileCoreServices'
+      sss.ios.frameworks = 'Accelerate'
+      sss.watchos.frameworks = 'ImageIO'
+      sss.watchos.frameworks = 'MobileCoreServices'
+      sss.watchos.frameworks = 'WatchKit'
       sss.dependency 'Globus/UIKit/Base'
       sss.dependency 'Globus/CoreGraphics'
     end

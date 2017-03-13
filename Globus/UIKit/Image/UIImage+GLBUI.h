@@ -7,8 +7,6 @@
 #include "GLBRect.h"
 
 /*--------------------------------------------------*/
-#if defined(GLB_TARGET_IOS)
-/*--------------------------------------------------*/
 
 typedef NS_OPTIONS(NSUInteger, GLBUIImageAlignment) {
     GLBUIImageAlignmentStretch,
@@ -20,8 +18,10 @@ typedef NS_OPTIONS(NSUInteger, GLBUIImageAlignment) {
 
 @interface UIImage (GLB_UI)
 
-+ (nullable instancetype)glb_imageNamed:(nonnull NSString*)name renderingMode:(UIImageRenderingMode)renderingMode;
-+ (nullable instancetype)glb_imageNamed:(nonnull NSString*)name capInsets:(UIEdgeInsets)capInsets;
++ (CGFloat)glb_scaleWithPath:(nonnull NSString*)path;
+
++ (nullable instancetype)glb_imageNamed:(nonnull NSString*)named renderingMode:(UIImageRenderingMode)renderingMode;
++ (nullable instancetype)glb_imageNamed:(nonnull NSString*)named capInsets:(UIEdgeInsets)capInsets;
 + (nullable instancetype)glb_imageWithColor:(nonnull UIColor*)color size:(CGSize)size;
 + (nullable instancetype)glb_imageWithColor:(nonnull UIColor*)color size:(CGSize)size cornerRadius:(CGFloat)cornerRadius;
 + (nullable instancetype)glb_imageWithData:(nonnull NSData*)data;
@@ -34,7 +34,7 @@ typedef NS_OPTIONS(NSUInteger, GLBUIImageAlignment) {
 - (nullable instancetype)glb_blackAndWhite;
 - (nullable instancetype)glb_invertColors;
 
-- (nullable instancetype)glb_blurredImageWithRadius:(CGFloat)radius iterations:(NSUInteger)iterations tintColor:(nullable UIColor*)tintColor;
+- (nullable instancetype)glb_blurredImageWithRadius:(CGFloat)radius iterations:(NSUInteger)iterations tintColor:(nullable UIColor*)tintColor GLB_UNAVAILABLE_WATCHOS;
 
 - (void)glb_drawInRect:(CGRect)rect alignment:(GLBUIImageAlignment)alignment;
 - (void)glb_drawInRect:(CGRect)rect alignment:(GLBUIImageAlignment)alignment blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha;
@@ -46,5 +46,13 @@ typedef NS_OPTIONS(NSUInteger, GLBUIImageAlignment) {
 @end
 
 /*--------------------------------------------------*/
-#endif
+
+extern BOOL GLBImageIsGifData(NSData* _Nonnull data);
+
+extern UIImage* _Nullable GLBImageWithGIFDataDefault(NSData* _Nonnull data);
+extern UIImage* _Nullable GLBImageWithGIFData(NSData* _Nonnull data, CGFloat scale, NSError* _Nullable * _Nullable error);
+
+extern NSData* _Nullable GLBImageGIFRepresentationDefault(UIImage* _Nonnull image);
+extern NSData* _Nullable GLBImageGIFRepresentation(UIImage* _Nonnull image, NSUInteger loopCount, NSError* _Nullable * _Nullable error);
+
 /*--------------------------------------------------*/

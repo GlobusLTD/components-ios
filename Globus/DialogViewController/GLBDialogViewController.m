@@ -460,6 +460,7 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(initWithNibName:(NSString*)nibName
             } else {
                 _dialogWindow.windowLevel = UIWindowLevelNormal + GLBDialogViewController_WindowLevelOffset;
             }
+            _dialogWindow.rootViewController = self;
             _dialogWindow.hidden = NO;
         }
 #if __has_include("GLBBlurView.h")
@@ -582,6 +583,7 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(initWithNibName:(NSString*)nibName
     }
     
     if(_dialogWindow != nil) {
+        _dialogWindow.rootViewController = nil;
         _dialogWindow.hidden = YES;
     }
     if(_ownerWindow != nil) {

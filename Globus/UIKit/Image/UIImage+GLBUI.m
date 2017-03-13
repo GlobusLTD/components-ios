@@ -3,25 +3,51 @@
 #import "UIImage+GLBUI.h"
 
 /*--------------------------------------------------*/
+
+#import <ImageIO/ImageIO.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <objc/runtime.h>
+
+/*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
 #import <Accelerate/Accelerate.h>
 
 /*--------------------------------------------------*/
+#elif defined(GLB_TARGET_WATCHOS)
+/*--------------------------------------------------*/
+
+#import <WatchKit/WatchKit.h>
+
+/*--------------------------------------------------*/
+#endif
+/*--------------------------------------------------*/
 
 @implementation UIImage (GLB_UI)
 
-+ (instancetype)glb_imageNamed:(NSString*)name renderingMode:(UIImageRenderingMode)renderingMode {
-    UIImage* result = [self imageNamed:name];
++ (CGFloat)glb_scaleWithPath:(NSString*)path {
+    NSRange range3 = [path.lastPathComponent rangeOfString:@"@3x" options:NSCaseInsensitiveSearch];
+    if((range3.location != NSNotFound) && (range3.length > 0)) {
+        return 3.0f;
+    }
+    NSRange range2 = [path.lastPathComponent rangeOfString:@"@2x" options:NSCaseInsensitiveSearch];
+    if((range2.location != NSNotFound) && (range2.length > 0)) {
+        return 2.0f;
+    }
+    return 1.0f;
+}
+
++ (instancetype)glb_imageNamed:(NSString*)named renderingMode:(UIImageRenderingMode)renderingMode {
+    UIImage* result = [self imageNamed:named];
     if(result != nil) {
         result = [result imageWithRenderingMode:renderingMode];
     }
     return result;
 }
 
-+ (instancetype)glb_imageNamed:(NSString*)name capInsets:(UIEdgeInsets)capInsets {
-    UIImage* result = [self imageNamed:name];
++ (instancetype)glb_imageNamed:(NSString*)named capInsets:(UIEdgeInsets)capInsets {
+    UIImage* result = [self imageNamed:named];
     if(result != nil) {
         result = [result resizableImageWithCapInsets:capInsets];
     }
@@ -285,6 +311,8 @@
     return result;
 }
 
+#if defined(GLB_TARGET_IOS)
+
 - (instancetype)glb_blurredImageWithRadius:(CGFloat)radius iterations:(NSUInteger)iterations tintColor:(UIColor*)tintColor {
     UIImage* image = nil;
     CGSize size = self.size;
@@ -355,6 +383,8 @@
     return image;
 }
 
+#endif
+
 - (void)glb_drawInRect:(CGRect)rect alignment:(GLBUIImageAlignment)alignment {
     return [self glb_drawInRect:rect alignment:alignment corners:UIRectCornerAllCorners radius:0 blendMode:kCGBlendModeNormal alpha:1];
 }
@@ -392,5 +422,234 @@
 @end
 
 /*--------------------------------------------------*/
+
+BOOL GLBImageIsGifData(NSData* data) {
+    if(data.length > 4) {
+        const unsigned char * bytes = data.bytes;
+        return ((bytes[0] == 0x47) && (bytes[1] == 0x49) && (bytes[2] == 0x46));
+    }
+    return NO;
+}
+
+UIImage* GLBImageWithGIFDataDefault(NSData* data) {
+#if defined(GLB_TARGET_IOS)
+    CGFloat scale = UIScreen.mainScreen.scale;
+#elif defined(GLB_TARGET_WATCHOS)
+    CGFloat scale = WKInterfaceDevice.currentDevice.screenScale;
 #endif
+    return GLBImageWithGIFData(data, scale, nil);
+}
+
+UIImage* GLBImageWithGIFData(NSData* data, CGFloat scale, NSError** error) {
+    UIImage* result = nil;
+    CFMutableDictionaryRef options = CFDictionaryCreateMutable(kCFAllocatorDefault, 2, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    if(options != NULL) {
+        CFDictionarySetValue(options, kCGImageSourceShouldCache, kCFBooleanTrue);
+        CFDictionarySetValue(options, kUTTypeGIF, kCGImageSourceTypeIdentifierHint);
+        CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)data, options);
+        if(imageSource != NULL) {
+            CFDictionaryRef imageSourceOptions = CGImageSourceCopyProperties(imageSource, options);
+            if(imageSourceOptions != NULL) {
+                UIImageOrientation imageOrientation = UIImageOrientationUp;
+                CFNumberRef imageSourceOrientation = CFDictionaryGetValue(imageSourceOptions, kCGImagePropertyOrientation);
+                if(imageSourceOrientation != NULL) {
+                    CFNumberGetValue(imageSourceOrientation, kCFNumberNSIntegerType, &imageOrientation);
+                }
+                size_t numberOfFrames = CGImageSourceGetCount(imageSource);
+                if(numberOfFrames > 1) {
+                    NSMutableArray* images = [NSMutableArray arrayWithCapacity:numberOfFrames];
+                    NSTimeInterval duration = 0.0f;
+                    for(size_t index = 0; index < numberOfFrames; index++) {
+                        CGImageRef image = CGImageSourceCreateImageAtIndex(imageSource, index, options);
+                        if(image != NULL) {
+                            [images addObject:[UIImage imageWithCGImage:image scale:scale orientation:imageOrientation]];
+                            
+                            CFDictionaryRef imageOptions = CGImageSourceCopyPropertiesAtIndex(imageSource, index, NULL);
+                            if(imageOptions != NULL) {
+                                CFDictionaryRef gifImageOptions = CFDictionaryGetValue(imageOptions, kCGImagePropertyGIFDictionary);
+                                if(gifImageOptions != NULL) {
+                                    NSTimeInterval imageDuration = 0.0f;
+                                    CFNumberRef gifImageDelayTime = CFDictionaryGetValue(gifImageOptions, kCGImagePropertyGIFDelayTime);
+                                    if(gifImageDelayTime != NULL) {
+                                        CFNumberGetValue(gifImageDelayTime, kCFNumberDoubleType, &imageDuration);
+                                    }
+                                    duration += imageDuration;
+                                }
+                                CFRelease(imageOptions);
+                            }
+                            CGImageRelease(image);
+                        }
+                    }
+                    result = [UIImage animatedImageWithImages:images duration:duration];
+                } else if(numberOfFrames > 0) {
+                    CGImageRef image = CGImageSourceCreateImageAtIndex(imageSource, 0, options);
+                    if(image != NULL) {
+                        result = [UIImage imageWithCGImage:image scale:scale orientation:imageOrientation];
+                        CGImageRelease(image);
+                    }
+                } else if(error != nil){
+                    // TODO
+                }
+                CFRelease(imageSourceOptions);
+            } else if(error != nil){
+                // TODO
+            }
+            CFRelease(imageSource);
+        } else if(error != nil) {
+            // TODO
+        }
+        CFRelease(options);
+    } else if(error != nil){
+        // TODO
+    }
+    return result;
+}
+
+NSData* GLBImageGIFRepresentationDefault(UIImage* image) {
+    return GLBImageGIFRepresentation(image, 0, nil);
+}
+
+NSData* GLBImageGIFRepresentation(UIImage* image, NSUInteger loopCount, NSError** error) {
+    CFMutableDataRef data = CFDataCreateMutable(kCFAllocatorDefault, 1024 * 1024);
+    if(data != NULL) {
+        NSArray< UIImage* >* images = image.images;
+        size_t numberOfFrames = images.count;
+        NSTimeInterval duration = image.duration;
+        NSTimeInterval durationPerFrame = duration / numberOfFrames;
+        CFMutableDictionaryRef options = CFDictionaryCreateMutable(kCFAllocatorDefault, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+        if(options != NULL) {
+            CFMutableDictionaryRef gifOptions = CFDictionaryCreateMutable(kCFAllocatorDefault, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+            if(gifOptions != NULL) {
+                CFDictionarySetValue(gifOptions, kCGImagePropertyGIFLoopCount, CFNumberCreate(kCFAllocatorDefault, kCFNumberNSIntegerType, &loopCount));
+                CFDictionarySetValue(options, kCGImagePropertyGIFDictionary, gifOptions);
+                CFRelease(gifOptions);
+            }
+            CFRelease(options);
+        }
+        CFMutableDictionaryRef frameOptions = CFDictionaryCreateMutable(kCFAllocatorDefault, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+        if(frameOptions != NULL) {
+            CFMutableDictionaryRef gifOptions = CFDictionaryCreateMutable(kCFAllocatorDefault, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+            if(gifOptions != NULL) {
+                CFDictionarySetValue(gifOptions, kCGImagePropertyGIFDelayTime, CFNumberCreate(kCFAllocatorDefault, kCFNumberDoubleType, &durationPerFrame));
+                CFDictionarySetValue(frameOptions, kCGImagePropertyGIFDictionary, gifOptions);
+                CFRelease(gifOptions);
+            }
+            CFRelease(frameOptions);
+        }
+        CGImageDestinationRef imageDest = CGImageDestinationCreateWithData(data, kUTTypeGIF, numberOfFrames, NULL);
+        if(imageDest != NULL) {
+            CGImageDestinationSetProperties(imageDest, options);
+            for(size_t index = 0; index < images.count; index++) {
+                CGImageRef image = [images[index] CGImage];
+                CGImageDestinationAddImage(imageDest, image, frameOptions);
+            }
+            if(CGImageDestinationFinalize(imageDest) == NO) {
+                CFRelease(data);
+                data = NULL;
+                if(error != nil) {
+                    // TODO
+                }
+            }
+            CFRelease(imageDest);
+        }
+    }
+    if((data != NULL) && (CFDataGetLength(data) < 1)) {
+        CFRelease(data);
+        data = NULL;
+    }
+    return (__bridge NSData*)(data);
+}
+
+/*--------------------------------------------------*/
+
+@interface UIImage (GLB_Image_Gif)
+@end
+
+/*--------------------------------------------------*/
+
+static inline void GLBImageSwizzleSelector(Class aClass, SEL originalSelector, SEL swizzledSelector) {
+    Method originalMethod = class_getInstanceMethod(aClass, originalSelector);
+    IMP originalImp = method_getImplementation(originalMethod);
+    const char* originalType = method_getTypeEncoding(originalMethod);
+    Method swizzledMethod = class_getInstanceMethod(aClass, swizzledSelector);
+    IMP swizzledImp = method_getImplementation(swizzledMethod);
+    const char* swizzledType = method_getTypeEncoding(swizzledMethod);
+    if(class_addMethod(aClass, originalSelector, swizzledImp, swizzledType) == YES) {
+        class_replaceMethod(aClass, swizzledSelector, originalImp, originalType);
+    } else {
+        method_exchangeImplementations(originalMethod, swizzledMethod);
+    }
+}
+
+/*--------------------------------------------------*/
+
+@implementation UIImage (GLB_Image_Gif)
+
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        @autoreleasepool {
+            Class selfClass = object_getClass((id)self);
+            GLBImageSwizzleSelector(selfClass, @selector(imageWithData:), @selector(glb_imageWithData:));
+            GLBImageSwizzleSelector(selfClass, @selector(imageWithData:scale:), @selector(glb_imageWithData:scale:));
+            GLBImageSwizzleSelector(selfClass, @selector(imageWithContentsOfFile:), @selector(glb_imageWithContentsOfFile:));
+            GLBImageSwizzleSelector(self, @selector(initWithContentsOfFile:), @selector(glb_initWithContentsOfFile:));
+            GLBImageSwizzleSelector(self, @selector(initWithData:), @selector(glb_initWithData:));
+            GLBImageSwizzleSelector(self, @selector(initWithData:scale:), @selector(glb_initWithData:scale:));
+        }
+    });
+}
+
++ (instancetype)glb_imageWithContentsOfFile:(NSString*)path {
+    if(path != nil) {
+        NSData* data = [NSData dataWithContentsOfFile:path];
+        if((data != nil) && (GLBImageIsGifData(data) == YES)) {
+            CGFloat scale = [self glb_scaleWithPath:path];
+            return GLBImageWithGIFData(data, scale, nil);
+        }
+    }
+    return [self glb_imageWithContentsOfFile:path];
+}
+
++ (instancetype)glb_imageWithData:(NSData*)data {
+    if((data != nil) && (GLBImageIsGifData(data) == YES)) {
+        return GLBImageWithGIFDataDefault(data);
+    }
+    return [self glb_imageWithData:data];
+}
+
++ (instancetype)glb_imageWithData:(NSData*)data scale:(CGFloat)scale {
+    if((data != nil) && (GLBImageIsGifData(data) == YES)) {
+        return GLBImageWithGIFData(data, scale, nil);
+    }
+    return [self glb_imageWithData:data scale:scale];
+}
+
+- (instancetype)glb_initWithContentsOfFile:(NSString *)path {
+    if(path != nil) {
+        NSData* data = [NSData dataWithContentsOfFile:path];
+        if((data != nil) && (GLBImageIsGifData(data) == YES)) {
+            CGFloat scale = [self.class glb_scaleWithPath:path];
+            return GLBImageWithGIFData(data, scale, nil);
+        }
+    }
+    return [self glb_initWithContentsOfFile:path];
+}
+
+- (instancetype)glb_initWithData:(NSData*)data {
+    if((data != nil) && (GLBImageIsGifData(data) == YES)) {
+        return GLBImageWithGIFDataDefault(data);
+    }
+    return [self glb_initWithData:data];
+}
+
+- (instancetype)glb_initWithData:(NSData*)data scale:(CGFloat)scale {
+    if((data != nil) && (GLBImageIsGifData(data) == YES)) {
+        return GLBImageWithGIFData(data, scale, nil);
+    }
+    return [self glb_initWithData:data scale:scale];
+}
+
+@end
+
 /*--------------------------------------------------*/
