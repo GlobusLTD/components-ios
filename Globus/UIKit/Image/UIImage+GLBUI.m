@@ -26,6 +26,15 @@
 
 @implementation UIImage (GLB_UI)
 
++ (CGFloat)glb_scale {
+#if defined(GLB_TARGET_IOS)
+    CGFloat scale = UIScreen.mainScreen.scale;
+#elif defined(GLB_TARGET_WATCHOS)
+    CGFloat scale = WKInterfaceDevice.currentDevice.screenScale;
+#endif
+    return scale;
+}
+
 + (CGFloat)glb_scaleWithPath:(NSString*)path {
     NSRange range3 = [path.lastPathComponent rangeOfString:@"@3x" options:NSCaseInsensitiveSearch];
     if((range3.location != NSNotFound) && (range3.length > 0)) {
@@ -60,7 +69,7 @@
 
 + (instancetype)glb_imageWithColor:(UIColor*)color size:(CGSize)size cornerRadius:(CGFloat)cornerRadius {
     UIImage* image = nil;
-    UIGraphicsBeginImageContextWithOptions(size, NO, UIScreen.mainScreen.scale);
+    UIGraphicsBeginImageContextWithOptions(size, NO, self.glb_scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
     if(context != NULL) {
         CGContextSetFillColorWithColor(context, [color CGColor]);
@@ -80,7 +89,7 @@
 
 + (instancetype)glb_imageWithData:(NSData*)data {
     @autoreleasepool {
-        UIImage* image = [UIImage imageWithData:data scale:UIScreen.mainScreen.scale];
+        UIImage* image = [UIImage imageWithData:data scale:self.glb_scale];
         if(image == nil) {
             return nil;
         }
@@ -189,7 +198,7 @@
                 break;
         }
         if((finalSize.width > FLT_EPSILON) && (finalSize.height > FLT_EPSILON)) {
-            UIGraphicsBeginImageContextWithOptions(finalSize, NO, UIScreen.mainScreen.scale);
+            UIGraphicsBeginImageContextWithOptions(finalSize, NO, self.class.glb_scale);
             CGContextRef context = UIGraphicsGetCurrentContext();
             if(context != NULL) {
                 switch(self.imageOrientation) {
@@ -300,7 +309,7 @@
 
 - (instancetype)glb_invertColors {
     UIImage* result = nil;
-    UIGraphicsBeginImageContextWithOptions(self.size, NO, UIScreen.mainScreen.scale);
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, self.class.glb_scale);
     CGContextSetBlendMode(UIGraphicsGetCurrentContext(), kCGBlendModeCopy);
     [self drawInRect:CGRectMake(0, 0, self.size.width, self.size.height)];
     CGContextSetBlendMode(UIGraphicsGetCurrentContext(), kCGBlendModeDifference);
@@ -432,12 +441,7 @@ BOOL GLBImageIsGifData(NSData* data) {
 }
 
 UIImage* GLBImageWithGIFDataDefault(NSData* data) {
-#if defined(GLB_TARGET_IOS)
-    CGFloat scale = UIScreen.mainScreen.scale;
-#elif defined(GLB_TARGET_WATCHOS)
-    CGFloat scale = WKInterfaceDevice.currentDevice.screenScale;
-#endif
-    return GLBImageWithGIFData(data, scale, nil);
+    return GLBImageWithGIFData(data, UIImage.glb_scale, nil);
 }
 
 UIImage* GLBImageWithGIFData(NSData* data, CGFloat scale, NSError** error) {

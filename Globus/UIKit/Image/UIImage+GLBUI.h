@@ -18,6 +18,7 @@ typedef NS_OPTIONS(NSUInteger, GLBUIImageAlignment) {
 
 @interface UIImage (GLB_UI)
 
++ (CGFloat)glb_scale;
 + (CGFloat)glb_scaleWithPath:(nonnull NSString*)path;
 
 + (nullable instancetype)glb_imageNamed:(nonnull NSString*)named renderingMode:(UIImageRenderingMode)renderingMode;
