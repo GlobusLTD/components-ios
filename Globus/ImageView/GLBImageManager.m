@@ -91,7 +91,10 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
 
 - (void)setup {
     _queue = dispatch_queue_create(nil, DISPATCH_QUEUE_SERIAL);
+    
     _operationQueue = [NSOperationQueue new];
+    _operationQueue.maxConcurrentOperationCount = 5;
+    
     _imagesCache = [NSMutableDictionary dictionary];
     
     [NSNotificationCenter.defaultCenter addObserver:self
@@ -429,13 +432,7 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
     }
     return result;
 }
-/*
-#pragma mark - Override property
 
-- (BOOL)isCancelled {
-    return (super.isCancelled == YES) || (_targets.count == 0);
-}
-*/
 @end
 
 /*--------------------------------------------------*/

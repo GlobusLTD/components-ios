@@ -44,10 +44,10 @@ CGRect GLBRectDiv(CGRect rect, CGFloat value) {
 }
 
 CGRect GLBRectLerp(CGRect from, CGRect to, CGFloat progress) {
-    return CGRectMake(GLBFloatLerp(from.origin.x, from.origin.x, progress),
-                      GLBFloatLerp(from.origin.y, from.origin.y, progress),
-                      GLBFloatLerp(from.size.width, from.size.width, progress),
-                      GLBFloatLerp(from.size.height, from.size.height, progress));
+    return CGRectMake(GLBFloatLerp(from.origin.x, to.origin.x, progress),
+                      GLBFloatLerp(from.origin.y, to.origin.y, progress),
+                      GLBFloatLerp(from.size.width, to.size.width, progress),
+                      GLBFloatLerp(from.size.height, to.size.height, progress));
 }
 
 CGRect GLBRectAspectFillFromBoundsAndSize(CGRect bounds, CGSize size) {

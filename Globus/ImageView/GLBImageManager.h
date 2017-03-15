@@ -50,8 +50,8 @@ typedef void(^GLBImageDownloadImageBlock)(UIImage* _Nonnull image);
 - (void)removeImageByUrl:(nonnull NSURL*)url processing:(nullable NSString*)processing complete:(nullable GLBSimpleBlock)complete;
 - (void)cleanupImagesComplete:(nullable GLBSimpleBlock)complete;
 
-- (void)imageByUrl:(nonnull NSURL*)url target:(nonnull id< GLBImageManagerTarget >)target;
-- (void)imageByUrl:(nonnull NSURL*)url processing:(nullable NSString*)processing target:(nonnull id< GLBImageManagerTarget >)target;
+- (void)imageByUrl:(nonnull NSURL*)url target:(nullable id< GLBImageManagerTarget >)target;
+- (void)imageByUrl:(nonnull NSURL*)url processing:(nullable NSString*)processing target:(nullable id< GLBImageManagerTarget >)target;
 - (void)cancelByTarget:(nonnull id< GLBImageManagerTarget >)target;
 
 @end

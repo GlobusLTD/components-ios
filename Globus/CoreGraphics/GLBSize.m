@@ -30,8 +30,8 @@ CGSize GLBSizeDiv(CGSize size, CGFloat value) {
 }
 
 CGSize GLBSizeLerp(CGSize from, CGSize to, CGFloat progress) {
-    return CGSizeMake(GLBFloatLerp(from.width, from.width, progress),
-                      GLBFloatLerp(from.height, from.height, progress));
+    return CGSizeMake(GLBFloatLerp(from.width, to.width, progress),
+                      GLBFloatLerp(from.height, to.height, progress));
 }
 
 /*--------------------------------------------------*/

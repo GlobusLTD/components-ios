@@ -197,9 +197,11 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
 - (void)setDisplayFrame:(CGRect)displayFrame {
     if(CGRectEqualToRect(_displayFrame, displayFrame) == NO) {
         _displayFrame = displayFrame;
-        if(CGRectIsNull(_displayFrame) == NO) {
-            if(_cell != nil) {
+        if(_cell != nil) {
+            if(CGRectIsNull(_displayFrame) == NO) {
                 _cell.frame = _displayFrame;
+            } else {
+                _cell.frame = _updateFrame;
             }
         }
     }
@@ -376,7 +378,6 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
         if((_dataView.isAnimating == NO) && (_dataView.isTransiting == NO)) {
             _originFrame = CGRectNull;
             _updateFrame = CGRectNull;
-            _displayFrame = CGRectNull;
         }
         [_dataView setNeedValidateLayout];
     }
