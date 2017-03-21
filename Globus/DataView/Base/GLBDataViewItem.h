@@ -96,6 +96,8 @@
 
 - (void)setNeedUpdate;
 
+- (BOOL)isVisibleForBounds:(CGRect)bounds;
+
 - (void)validateLayoutForBounds:(CGRect)bounds;
 - (void)invalidateLayoutForBounds:(CGRect)bounds;
 

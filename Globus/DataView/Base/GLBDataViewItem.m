@@ -419,12 +419,22 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
     [self setNeedUpdate];
 }
 
+- (BOOL)isVisibleForBounds:(CGRect)bounds {
+    if(_persistent == YES) {
+        return YES;
+    }
+    if((_dataView.isAnimating == YES) || (_dataView.isTransiting == YES)) {
+        CGRect unionFrame = CGRectUnion(_originFrame, self.frame);
+        return CGRectIntersectsRect(bounds, unionFrame);
+    } else {
+        return CGRectIntersectsRect(bounds, self.frame);
+    }
+    return NO;
+}
+
 - (void)validateLayoutForBounds:(CGRect)bounds {
     if(_cell == nil) {
-        if(_persistent == YES) {
-            [_dataView appearItem:self];
-            [_cell validateLayoutForBounds:bounds];
-        } else if((CGRectIntersectsRect(bounds, CGRectUnion(_originFrame, self.frame)) == YES)) {
+        if([self isVisibleForBounds:bounds] == YES) {
             [_dataView appearItem:self];
             [_cell validateLayoutForBounds:bounds];
         }
@@ -435,11 +445,9 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
 
 - (void)invalidateLayoutForBounds:(CGRect)bounds {
     if(_cell != nil) {
-        if(_persistent == YES) {
-            [_cell invalidateLayoutForBounds:bounds];
-        } else if(self.hiddenInHierarchy == YES) {
+        if([self isVisibleForBounds:bounds] == NO) {
             [_dataView disappearItem:self];
-        } else if(CGRectIntersectsRect(bounds, self.frame) == NO) {
+        } else if(self.hiddenInHierarchy == YES) {
             [_dataView disappearItem:self];
         } else {
             [_cell invalidateLayoutForBounds:bounds];
