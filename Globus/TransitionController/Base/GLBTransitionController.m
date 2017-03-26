@@ -140,6 +140,7 @@
 
 - (void)_completeTransition {
     [_transitionContext completeTransition:([_transitionContext transitionWasCancelled] == NO)];
+    self.transitionContext = nil;
 }
 
 - (void)_startInteractive {
@@ -159,6 +160,7 @@
 
 - (void)_completeInteractive {
     [_transitionContext completeTransition:([_transitionContext transitionWasCancelled] == NO)];
+    self.transitionContext = nil;
 }
 
 #pragma mark - UIViewControllerAnimatedTransitioning
