@@ -32,8 +32,8 @@
 @interface GLBWindowTransitionContext: NSObject < UIViewControllerContextTransitioning >
 
 @property(nonatomic, readonly, weak) GLBWindow* window;
-@property(nonatomic, readonly, weak) UIViewController* fromViewController;
-@property(nonatomic, readonly, weak) UIViewController* toViewController;
+@property(nonatomic, readonly, strong) UIViewController* fromViewController;
+@property(nonatomic, readonly, strong) UIViewController* toViewController;
 
 - (instancetype)initWithWindow:(GLBWindow*)window fromViewController:(UIViewController*)fromViewController toViewController:(UIViewController*)toViewController;
 
