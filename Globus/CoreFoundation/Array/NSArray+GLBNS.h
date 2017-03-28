@@ -363,10 +363,22 @@
  * @param The block with two objects.
  * @return A new array.
  * @code
- * array2 = [array1 glb_duplicates:^id (ObjectType* object1, ObjectType* object2){}];
+ * array2 = [array1 glb_duplicatesOne:^id (ObjectType* object1, ObjectType* object2){}];
  * @endcode
  */
-- (nonnull NSArray< ObjectType >*)glb_duplicates:(id _Nullable(^ _Nonnull)(ObjectType _Nonnull object1, ObjectType _Nonnull object2))block;
+- (nonnull NSArray< ObjectType >*)glb_duplicatesOne:(id _Nullable(^ _Nonnull)(ObjectType _Nonnull object1, ObjectType _Nonnull object2))block;
+
+
+/**
+ * @brief Looking for duplicates.
+ * @discussion In the block you will have two objects so you have to make comparison and return object if it's a duplicate or nil if it's not.
+ * @param The block with two objects.
+ * @return A new array.
+ * @code
+ * array2 = [array1 glb_duplicatesAll:^id (ObjectType* object1, ObjectType* object2){}];
+ * @endcode
+ */
+- (nonnull NSArray< ObjectType >*)glb_duplicatesAll:(id _Nullable(^ _Nonnull)(ObjectType _Nonnull object1, ObjectType _Nonnull object2))block;
 
 /**
  * @brief Compile a new array from given one.
