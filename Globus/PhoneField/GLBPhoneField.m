@@ -320,10 +320,12 @@
 #pragma mark - UITextField Delegate
 
 -(BOOL)textField:(GLBPhoneField*)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString*)string {
-    [self _logicTextField:textField shouldChangeCharactersInRange:range replacementString:string];
     if([_delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)] == YES) {
-        [_delegate textField:textField shouldChangeCharactersInRange:range replacementString:string];
+        if([_delegate textField:textField shouldChangeCharactersInRange:range replacementString:string] == NO) {
+            return NO;
+        }
     }
+    [self _logicTextField:textField shouldChangeCharactersInRange:range replacementString:string];
     return NO;
 }
 
