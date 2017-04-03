@@ -11,8 +11,8 @@
 
 @interface GLBDataViewItem () {
 @protected
-    __weak GLBDataView* _view;
-    __weak GLBDataViewContainer* _parent;
+    __weak GLBDataView* _dataView;
+    __weak GLBDataViewContainer* _container;
     NSString* _identifier;
     NSUInteger _order;
     NSUInteger _accessibilityOrder;

@@ -588,12 +588,13 @@
 - (void)_sendQuery:(GLBApiProviderQuery*)query {
     NSURLSessionTask* task = nil;
     query.request.provider = self;
+    NSURLRequest* urlRequest = query.request.urlRequest;
     if(query.downloadBlock != nil) {
-        task = [self.session downloadTaskWithRequest:query.request.urlRequest];
+        task = [self.session downloadTaskWithRequest:urlRequest];
     } else if(query.uploadBlock != nil) {
-        task = [self.session uploadTaskWithStreamedRequest:query.request.urlRequest];
+        task = [self.session uploadTaskWithStreamedRequest:urlRequest];
     } else {
-        task = [self.session dataTaskWithRequest:query.request.urlRequest];
+        task = [self.session dataTaskWithRequest:urlRequest];
     }
     if(task != nil) {
         query.request.task = task;
