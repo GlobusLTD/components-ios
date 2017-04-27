@@ -275,7 +275,7 @@
         if(context != NULL) {
             CGContextDrawImage(context, rect, [self CGImage]);
             CGImageRef grayscale = CGBitmapContextCreateImage(context);
-            if(context != NULL) {
+            if(grayscale != NULL) {
                 result = [UIImage imageWithCGImage:grayscale];
                 CGImageRelease(grayscale);
             }

@@ -61,9 +61,9 @@
 
 - (NSString*)_buildProcessingKey {
     if((_blurEnabled == YES) && (_blurRadius > FLT_EPSILON) && (_blurIterations > 0)) {
-        NSMutableString* key = [NSMutableString stringWithFormat:@"Blur;radius=%0.5f;iter=%d;", (float)_blurRadius, (int)_blurIterations];
+        NSMutableString* key = [NSMutableString stringWithFormat:@"Blur;r=%0.5f;i=%d;", (float)_blurRadius, (int)_blurIterations];
         if(_blurTintColor != nil) {
-            [key appendFormat:@"tint=%@", [_blurTintColor glb_stringValue]];
+            [key appendFormat:@"t=%@", [_blurTintColor glb_stringValue]];
         }
         return key;
     }

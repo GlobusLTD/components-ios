@@ -182,7 +182,7 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
 }
 
 - (void)imageByUrl:(NSURL*)url complete:(GLBImageDownloadImageBlock)complete {
-    [self imageByUrl:url complete:complete];
+    [self imageByUrl:url processing:nil complete:complete];
 }
 
 - (void)imageByUrl:(NSURL*)url processing:(NSString*)processing complete:(GLBImageDownloadImageBlock)complete {

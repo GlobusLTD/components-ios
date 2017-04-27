@@ -11,7 +11,7 @@
 
 @interface GLBApiResponse : NSObject < GLBObjectDebugProtocol >
 
-@property(nonatomic, nullable, readonly, strong) __kindof GLBApiRequest* request;
+@property(nonatomic, nullable, readonly, weak) __kindof GLBApiRequest* request;
 @property(nonatomic, nullable, readonly, strong) NSURLResponse* urlResponse;
 @property(nonatomic, readonly) NSInteger statusCode;
 @property(nonatomic, nullable, readonly, strong) NSString* mimetype;
