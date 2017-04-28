@@ -423,11 +423,11 @@ GLB_IMPLEMENTATION_NOT_DESIGNATED_INITIALIZER(init)
     if(_persistent == YES) {
         return YES;
     }
-    CGRect frame = _updateFrame;
+    CGRect frame = (CGRectIsNull(_displayFrame) == NO) ? _displayFrame : _updateFrame;
     if((_dataView.isAnimating == YES) || (_dataView.isTransiting == YES)) {
         frame = CGRectUnion(_originFrame, _updateFrame);
     }
-    return CGRectIntersectsRect(bounds, _updateFrame);
+    return CGRectIntersectsRect(bounds, frame);
 }
 
 - (void)validateLayoutForBounds:(CGRect)bounds {
