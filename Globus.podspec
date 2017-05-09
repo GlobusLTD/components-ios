@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.4.16'
+  s.version = '0.4.17'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -632,8 +632,13 @@ Pod::Spec.new do |s|
   s.subspec 'DataViewController' do |ss|
     ss.subspec 'Base' do |sss|
       sss.source_files = 'Globus/DataViewController/Base/**/*.{h,m}'
+      sss.dependency 'Globus/CoreFoundation/Array'
+      sss.dependency 'Globus/CoreFoundation/Dictionary'
+      sss.dependency 'Globus/CoreFoundation/Bundle'
       sss.dependency 'Globus/ViewController'
       sss.dependency 'Globus/DataView/Base'
+      sss.dependency 'Globus/RoundView'
+      sss.resources = 'Globus/DataViewController/Base/GLBDataViewController.bundle'
     end
     ss.subspec 'Simple' do |sss|
       sss.source_files = 'Globus/DataViewController/Simple/**/*.{h,m}'
@@ -685,6 +690,7 @@ Pod::Spec.new do |s|
     ss.source_files = 'Globus/WebViewController/**/*.{h,m}'
     ss.ios.weak_framework = 'WebKit'
     ss.resources = 'Globus/WebViewController/GLBWebViewController.bundle'
+    ss.dependency 'Globus/CoreFoundation/Bundle'
     ss.dependency 'Globus/ViewController'
   end
   s.subspec 'Moon' do |ss|

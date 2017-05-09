@@ -13,7 +13,13 @@
 }
 
 + (UINib*)glb_nibWithClass:(Class)aClass {
-    NSBundle* bundle = [NSBundle bundleForClass:aClass];
+    NSBundle* bundle = nil;
+    if([aClass conformsToProtocol:@protocol(GLBNibExtension)] == YES) {
+        bundle = [aClass nibBundle];
+    }
+    if(bundle == nil) {
+        bundle = [NSBundle bundleForClass:aClass];
+    }
     return [self glb_nibWithClass:aClass bundle:bundle];
 }
 

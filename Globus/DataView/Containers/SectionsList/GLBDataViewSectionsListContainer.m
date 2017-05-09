@@ -251,7 +251,7 @@
     return CGRectMake(frame.origin.x, frame.origin.y, _margin.left + cumulative.width + _margin.right, _margin.top + cumulative.height + _margin.bottom);
 }
 
-- (void)_layoutSectionsForFrame:(CGRect)frame {
+- (void)layoutSectionsForFrame:(CGRect)frame {
     CGPoint offset = CGPointMake(frame.origin.x + _margin.left, frame.origin.y + _margin.top);
     CGSize restriction = CGSizeMake(frame.size.width - (_margin.left + _margin.right), frame.size.height - (_margin.left + _margin.right));
     CGSize cumulative = CGSizeZero;

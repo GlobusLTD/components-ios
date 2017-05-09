@@ -1,6 +1,7 @@
 /*--------------------------------------------------*/
 
 #import "GLBWebViewController.h"
+#import "NSBundle+GLBNS.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
@@ -12,12 +13,8 @@
 
 @interface GLBWebViewController () < UIWebViewDelegate, WKUIDelegate, WKNavigationDelegate >
 
-- (UIImage*)_imageFromResourceBundle:(NSString*)imageName;
-- (void)_attachWebView;
-- (void)_dettachWebView;
-- (void)_attachProgressView;
-- (void)_dettachProgressView;
-- (void)_loadingWebView;
+@property(nonatomic, nonnull, strong) UIBarButtonItem* fixedSpaceItem;
+@property(nonatomic, nonnull, strong) UIBarButtonItem* flexibleSpaceItem;
 
 @end
 
@@ -112,12 +109,28 @@
 
 #pragma mark - Property
 
+- (UIBarButtonItem*)fixedSpaceItem {
+    if(_fixedSpaceItem == nil) {
+        _fixedSpaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        if(UIDevice.glb_isIPad == YES) {
+            _fixedSpaceItem.width = 35.0;
+        }
+    }
+    return _fixedSpaceItem;
+}
+
+- (UIBarButtonItem*)flexibleSpaceItem {
+    if(_flexibleSpaceItem == nil) {
+        _flexibleSpaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    }
+    return _flexibleSpaceItem;
+}
+
 - (void)setDoneBarButtonItem:(UIBarButtonItem*)doneBarButtonItem {
     if(_doneBarButtonItem != doneBarButtonItem) {
         _doneBarButtonItem = doneBarButtonItem;
-        if(self.isViewLoaded == YES) {
-            [self updateNavigationItems];
-        }
+        [self setNeedUpdateNavigationItem];
+        [self setNeedUpdateToolbarItems];
     }
 }
 
@@ -141,9 +154,8 @@
 - (void)setBackBarButtonItem:(UIBarButtonItem*)backBarButtonItem {
     if(_backBarButtonItem != backBarButtonItem) {
         _backBarButtonItem = backBarButtonItem;
-        if(self.isViewLoaded == YES) {
-            [self updateNavigationItems];
-        }
+        [self setNeedUpdateNavigationItem];
+        [self setNeedUpdateToolbarItems];
     }
 }
 
@@ -160,9 +172,8 @@
 - (void)setForwardBarButtonItem:(UIBarButtonItem*)forwardBarButtonItem {
     if(_forwardBarButtonItem != forwardBarButtonItem) {
         _forwardBarButtonItem = forwardBarButtonItem;
-        if(self.isViewLoaded == YES) {
-            [self updateNavigationItems];
-        }
+        [self setNeedUpdateNavigationItem];
+        [self setNeedUpdateToolbarItems];
     }
 }
 
@@ -179,9 +190,8 @@
 - (void)setRefreshBarButtonItem:(UIBarButtonItem*)refreshBarButtonItem {
     if(_refreshBarButtonItem != refreshBarButtonItem) {
         _refreshBarButtonItem = refreshBarButtonItem;
-        if(self.isViewLoaded == YES) {
-            [self updateNavigationItems];
-        }
+        [self setNeedUpdateNavigationItem];
+        [self setNeedUpdateToolbarItems];
     }
 }
 
@@ -205,9 +215,8 @@
 - (void)setStopBarButtonItem:(UIBarButtonItem*)stopBarButtonItem {
     if(_stopBarButtonItem != stopBarButtonItem) {
         _stopBarButtonItem = stopBarButtonItem;
-        if(self.isViewLoaded == YES) {
-            [self updateNavigationItems];
-        }
+        [self setNeedUpdateNavigationItem];
+        [self setNeedUpdateToolbarItems];
     }
 }
 
@@ -231,9 +240,8 @@
 - (void)setActionBarButtonItem:(UIBarButtonItem*)actionBarButtonItem {
     if(_actionBarButtonItem != actionBarButtonItem) {
         _actionBarButtonItem = actionBarButtonItem;
-        if(self.isViewLoaded == YES) {
-            [self updateNavigationItems];
-        }
+        [self setNeedUpdateNavigationItem];
+        [self setNeedUpdateToolbarItems];
     }
 }
 
@@ -273,21 +281,14 @@
         _refreshBarButtonItem = nil;
         _stopBarButtonItem = nil;
         _actionBarButtonItem = nil;
-        if(self.isViewLoaded == YES) {
-            [self updateNavigationItems];
-        }
+        [self setNeedUpdateNavigationItem];
+        [self setNeedUpdateToolbarItems];
     }
 }
 
 - (NSBundle*)resourcesBundle {
     if(_resourcesBundle == nil) {
-        NSString* mainBundlePath = NSBundle.mainBundle.bundlePath;
-        Class currentClass = self.class;
-        while((_resourcesBundle == nil) && (currentClass != nil)) {
-            NSString* bundlePath = [NSString stringWithFormat:@"%@/%@.bundle", mainBundlePath, NSStringFromClass(currentClass)];
-            _resourcesBundle = [NSBundle bundleWithPath:bundlePath];
-            currentClass = currentClass.superclass;
-        }
+        _resourcesBundle = [NSBundle glb_bundleWithClass:self.class];
         if(_resourcesBundle == nil) {
             _resourcesBundle = NSBundle.mainBundle;
         }
@@ -344,10 +345,12 @@
 - (void)stopLoading {
     if(_wkWebView != nil) {
         [_wkWebView stopLoading];
-        [self updateNavigationItems];
+        [self setNeedUpdateNavigationItem];
+        [self setNeedUpdateToolbarItems];
     } else if(_uiWebView != nil) {
         [_uiWebView stopLoading];
-        [self updateNavigationItems];
+        [self setNeedUpdateNavigationItem];
+        [self setNeedUpdateToolbarItems];
     }
 }
 
@@ -376,65 +379,70 @@
 - (void)didLoadingError:(NSError*)error {
 }
 
-- (void)updateNavigationItems {
-    self.backBarButtonItem.enabled = self.canGoBack;
-    self.forwardBarButtonItem.enabled = self.canGoForward;
-    UIBarButtonItem* refreshStopBarButtonItem = (self.isLoading == YES) ? self.stopBarButtonItem : self.refreshBarButtonItem;
-    UIBarButtonItem* fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    if(UIDevice.glb_isIPad == YES) {
-        fixedSpace.width = 35.0;
-    }
-    UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+- (NSArray< UIBarButtonItem* >*)prepareNavigationLeftBarButtons {
     if(UIDevice.glb_isIPad == YES) {
         if(self.navigationController.viewControllers.firstObject == self) {
-            self.navigationItem.leftBarButtonItems = @[
-                fixedSpace,
+            return @[
+                self.fixedSpaceItem,
                 self.actionBarButtonItem,
-                fixedSpace,
+                self.fixedSpaceItem,
                 self.forwardBarButtonItem,
-                fixedSpace,
+                self.fixedSpaceItem,
                 self.backBarButtonItem,
-                fixedSpace,
-                refreshStopBarButtonItem,
-                fixedSpace
-            ];
-            if(_allowsDoneBarButton == YES) {
-                self.navigationItem.rightBarButtonItems = @[
-                    self.doneBarButtonItem
-                ];
-            } else {
-                self.navigationItem.rightBarButtonItems = @[];
-            }
-        } else {
-            self.navigationItem.rightBarButtonItems = @[
-                self.actionBarButtonItem,
-                fixedSpace,
-                self.forwardBarButtonItem,
-                fixedSpace,
-                self.backBarButtonItem,
-                fixedSpace,
-                refreshStopBarButtonItem,
-                fixedSpace
+                self.fixedSpaceItem,
+                (self.isLoading == YES) ? self.stopBarButtonItem : self.refreshBarButtonItem,
+                self.fixedSpaceItem
             ];
         }
-    } else {
+    }
+    return self.navigationItem.leftBarButtonItems;
+}
+
+- (NSArray< UIBarButtonItem* >*)prepareNavigationRightBarButtons {
+    if(UIDevice.glb_isIPhone == YES) {
         if((self.navigationController.viewControllers.firstObject == self) && (_allowsDoneBarButton == YES)) {
-            self.navigationItem.rightBarButtonItems = @[
+            return @[
                 self.doneBarButtonItem
             ];
         }
-        self.toolbarItems = @[
-            fixedSpace,
+    } else if(UIDevice.glb_isIPad == YES) {
+        if(self.navigationController.viewControllers.firstObject == self) {
+            if(_allowsDoneBarButton == YES) {
+                return @[
+                    self.doneBarButtonItem
+                ];
+            }
+        } else {
+            return @[
+                self.actionBarButtonItem,
+                self.fixedSpaceItem,
+                self.forwardBarButtonItem,
+                self.fixedSpaceItem,
+                self.backBarButtonItem,
+                self.fixedSpaceItem,
+                (self.isLoading == YES) ? self.stopBarButtonItem : self.refreshBarButtonItem,
+                self.fixedSpaceItem
+            ];
+        }
+    }
+    return self.navigationItem.rightBarButtonItems;
+}
+
+- (NSArray< UIBarButtonItem* >*)prepareToolbarItems {
+    if(UIDevice.glb_isIPhone == YES) {
+        return @[
+            self.fixedSpaceItem,
             self.backBarButtonItem,
-            flexibleSpace,
+            self.flexibleSpaceItem,
             self.forwardBarButtonItem,
-            flexibleSpace,
-            refreshStopBarButtonItem,
-            flexibleSpace,
+            self.flexibleSpaceItem,
+            (self.isLoading == YES) ? self.stopBarButtonItem : self.refreshBarButtonItem,
+            self.flexibleSpaceItem,
             self.actionBarButtonItem,
-            fixedSpace
+            self.fixedSpaceItem
         ];
     }
+    return self.toolbarItems;
 }
 
 - (void)share:(id)sender {
@@ -515,7 +523,8 @@
         [webView glb_addConstraintLeft:0.0f];
         [webView glb_addConstraintRight:0.0f];
     }
-    [self updateNavigationItems];
+    [self setNeedUpdateNavigationItem];
+    [self setNeedUpdateToolbarItems];
 }
 
 - (void)_dettachWebView {
@@ -592,22 +601,26 @@
 #pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView*)webView didFailProvisionalNavigation:(WKNavigation*)navigation withError:(NSError*)error {
-    [self updateNavigationItems];
+    [self setNeedUpdateNavigationItem];
+    [self setNeedUpdateToolbarItems];
     [self didLoadingError:error];
 }
 
 - (void)webView:(WKWebView*)webView didCommitNavigation:(WKNavigation*)navigation {
-    [self updateNavigationItems];
+    [self setNeedUpdateNavigationItem];
+    [self setNeedUpdateToolbarItems];
     [self didStartLoading];
 }
 
 - (void)webView:(WKWebView*)webView didFinishNavigation:(WKNavigation*)navigation {
-    [self updateNavigationItems];
+    [self setNeedUpdateNavigationItem];
+    [self setNeedUpdateToolbarItems];
     [self didFinishLoading];
 }
 
 - (void)webView:(WKWebView*)webView didFailNavigation:(WKNavigation*)navigation withError:(NSError*)error {
-    [self updateNavigationItems];
+    [self setNeedUpdateNavigationItem];
+    [self setNeedUpdateToolbarItems];
     [self didLoadingError:error];
 }
 
@@ -618,17 +631,20 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView*)webView {
-    [self updateNavigationItems];
+    [self setNeedUpdateNavigationItem];
+    [self setNeedUpdateToolbarItems];
     [self didStartLoading];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView*)webView {
-    [self updateNavigationItems];
+    [self setNeedUpdateNavigationItem];
+    [self setNeedUpdateToolbarItems];
     [self didFinishLoading];
 }
 
 - (void)webView:(UIWebView*)webView didFailLoadWithError:(NSError*)error {
-    [self updateNavigationItems];
+    [self setNeedUpdateNavigationItem];
+    [self setNeedUpdateToolbarItems];
     [self didLoadingError:error];
 }
 

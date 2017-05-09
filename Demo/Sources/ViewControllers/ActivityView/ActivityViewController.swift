@@ -18,29 +18,29 @@ class ActivityViewController: GLBViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.timer = GLBTimer.init(interval: 5.0);
-        self.timer!.actionFinished = GLBAction.init(target: self, action: #selector(timerFinished));
+        self.timer = GLBTimer(interval: 5.0);
+        self.timer!.actionFinished = GLBAction(target: self, action: #selector(timerFinished));
 
         self.listField.items = [
-            GLBListFieldItem.init(title: GLBArcSpinnerView.glb_className(), value:GLBArcSpinnerView.self),
-            GLBListFieldItem.init(title: GLBArcAltSpinnerView.glb_className(), value:GLBArcAltSpinnerView.self),
-            GLBListFieldItem.init(title: GLBBounceSpinnerView.glb_className(), value:GLBBounceSpinnerView.self),
-            GLBListFieldItem.init(title: GLBChasingDotsSpinnerView.glb_className(), value:GLBChasingDotsSpinnerView.self),
-            GLBListFieldItem.init(title: GLBCircleSpinnerView.glb_className(), value:GLBCircleSpinnerView.self),
-            GLBListFieldItem.init(title: GLBCircleFlipSpinnerView.glb_className(), value:GLBCircleFlipSpinnerView.self),
-            GLBListFieldItem.init(title: GLBFadingCircleSpinnerView.glb_className(), value:GLBFadingCircleSpinnerView.self),
-            GLBListFieldItem.init(title: GLBFadingCircleAltSpinnerView.glb_className(), value:GLBFadingCircleAltSpinnerView.self),
-            GLBListFieldItem.init(title: GLBNineCubeGridSpinnerView.glb_className(), value:GLBNineCubeGridSpinnerView.self),
-            GLBListFieldItem.init(title: GLBPlaneSpinnerView.glb_className(), value:GLBPlaneSpinnerView.self),
-            GLBListFieldItem.init(title: GLBPulseSpinnerView.glb_className(), value:GLBPulseSpinnerView.self),
-            GLBListFieldItem.init(title: GLBThreeBounceSpinnerView.glb_className(), value:GLBThreeBounceSpinnerView.self),
-            GLBListFieldItem.init(title: GLBWanderingCubesSpinnerView.glb_className(), value:GLBWanderingCubesSpinnerView.self),
-            GLBListFieldItem.init(title: GLBWaveSpinnerView.glb_className(), value:GLBWaveSpinnerView.self),
-            GLBListFieldItem.init(title: GLBWordPressSpinnerView.glb_className(), value:GLBWordPressSpinnerView.self),
+            GLBListFieldItem(title: GLBArcSpinnerView.glb_className(), value:GLBArcSpinnerView.self),
+            GLBListFieldItem(title: GLBArcAltSpinnerView.glb_className(), value:GLBArcAltSpinnerView.self),
+            GLBListFieldItem(title: GLBBounceSpinnerView.glb_className(), value:GLBBounceSpinnerView.self),
+            GLBListFieldItem(title: GLBChasingDotsSpinnerView.glb_className(), value:GLBChasingDotsSpinnerView.self),
+            GLBListFieldItem(title: GLBCircleSpinnerView.glb_className(), value:GLBCircleSpinnerView.self),
+            GLBListFieldItem(title: GLBCircleFlipSpinnerView.glb_className(), value:GLBCircleFlipSpinnerView.self),
+            GLBListFieldItem(title: GLBFadingCircleSpinnerView.glb_className(), value:GLBFadingCircleSpinnerView.self),
+            GLBListFieldItem(title: GLBFadingCircleAltSpinnerView.glb_className(), value:GLBFadingCircleAltSpinnerView.self),
+            GLBListFieldItem(title: GLBNineCubeGridSpinnerView.glb_className(), value:GLBNineCubeGridSpinnerView.self),
+            GLBListFieldItem(title: GLBPlaneSpinnerView.glb_className(), value:GLBPlaneSpinnerView.self),
+            GLBListFieldItem(title: GLBPulseSpinnerView.glb_className(), value:GLBPulseSpinnerView.self),
+            GLBListFieldItem(title: GLBThreeBounceSpinnerView.glb_className(), value:GLBThreeBounceSpinnerView.self),
+            GLBListFieldItem(title: GLBWanderingCubesSpinnerView.glb_className(), value:GLBWanderingCubesSpinnerView.self),
+            GLBListFieldItem(title: GLBWaveSpinnerView.glb_className(), value:GLBWaveSpinnerView.self),
+            GLBListFieldItem(title: GLBWordPressSpinnerView.glb_className(), value:GLBWordPressSpinnerView.self),
         ]
         
-        self.activityView = GLBActivityView.init();
-        self.activityView!.spinnerView = GLBArcSpinnerView.init()
+        self.activityView = GLBActivityView();
+        self.activityView!.spinnerView = GLBArcSpinnerView()
         self.activityView!.textLabel!.text = "This is activity message"
     }
     

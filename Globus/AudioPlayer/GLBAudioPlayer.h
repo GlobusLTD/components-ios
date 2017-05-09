@@ -43,21 +43,27 @@ typedef void(^GLBAudioPlayerErrorBlock)(GLBAudioPlayer* _Nonnull audioPlayer, NS
 @property(nonatomic, readonly, getter=isPaused) BOOL paused;
 
 @property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockPrepared;
-@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockCleaned;
-@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockPlaying;
-@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockStoped;
-@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockFinished;
-@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockResumed;
-@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockPaused;
-@property(nonatomic, nullable, copy) GLBAudioPlayerErrorBlock blockError;
-
 @property(nonatomic, nullable, strong) GLBAction* actionPrepared;
+
+@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockCleaned;
 @property(nonatomic, nullable, strong) GLBAction* actionCleaned;
+
+@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockPlaying;
 @property(nonatomic, nullable, strong) GLBAction* actionPlaying;
+
+@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockStoped;
 @property(nonatomic, nullable, strong) GLBAction* actionStoped;
+
+@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockFinished;
 @property(nonatomic, nullable, strong) GLBAction* actionFinished;
+
+@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockResumed;
 @property(nonatomic, nullable, strong) GLBAction* actionResumed;
+
+@property(nonatomic, nullable, copy) GLBAudioPlayerBlock blockPaused;
 @property(nonatomic, nullable, strong) GLBAction* actionPaused;
+
+@property(nonatomic, nullable, copy) GLBAudioPlayerErrorBlock blockError;
 @property(nonatomic, nullable, strong) GLBAction* actionError;
 
 - (void)setup NS_REQUIRES_SUPER;

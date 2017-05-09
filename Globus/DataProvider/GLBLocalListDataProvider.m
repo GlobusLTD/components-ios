@@ -10,13 +10,13 @@
     
     NSUInteger _currentPageIndex;
     NSArray< NSURL* >* _fileUrls;
-    NSMutableArray< id< GLBListDataProviderModel > >* _models;
+    NSMutableArray* _models;
     
     BOOL _isSearching;
     NSString* _searchText;
     NSUInteger _searchCurrentPageIndex;
     NSArray< NSURL* >* _searchFileUrls;
-    NSMutableArray< id< GLBListDataProviderModel > >* _searchModels;
+    NSMutableArray* _searchModels;
     
     GLBTimer* _loadTimer;
     GLBTimer* _reloadTimer;
@@ -70,13 +70,13 @@
 
 #pragma mark - Public
 
-- (id< GLBListDataProviderModel >)modelWithJson:(id)json {
+- (id)modelWithJsonObject:(id)jsonObject {
     return nil;
 }
 
 #pragma mark - GLBListDataProvider
 
-- (NSArray< id< GLBListDataProviderModel > >*)models {
+- (NSArray*)models {
     return _models;
 }
 
@@ -109,7 +109,7 @@
     return (_cacheFileUrl != nil);
 }
 
-- (NSArray< id< GLBListDataProviderModel > >*)cacheModels {
+- (NSArray*)cacheModels {
     return [self __modelsWithFileUrl:_cacheFileUrl];
 }
 
@@ -138,7 +138,7 @@
     return _searchText;
 }
 
-- (NSArray< id< GLBListDataProviderModel > >*)searchModels {
+- (NSArray*)searchModels {
     return _searchModels;
 }
 
@@ -198,14 +198,14 @@
     return result;
 }
 
-- (NSArray< id< GLBListDataProviderModel > >*)__modelsWithFileUrl:(NSURL*)url {
-    NSMutableArray< id< GLBListDataProviderModel > >* result = [NSMutableArray array];
+- (NSArray*)__modelsWithFileUrl:(NSURL*)url {
+    NSMutableArray* result = [NSMutableArray array];
     NSData* data = [NSData dataWithContentsOfURL:url];
     if(data != nil) {
-        id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        if([json glb_isArray] == YES) {
-            for(id jsonItem in json) {
-                id model = [self modelWithJson:jsonItem];
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        if([jsonObject glb_isArray] == YES) {
+            for(id jsonItemObject in jsonObject) {
+                id model = [self modelWithJsonObject:jsonItemObject];
                 if(model != nil) {
                     [result addObject:model];
                 }

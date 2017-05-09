@@ -15,12 +15,12 @@ class TextFieldViewController: GLBViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let textStyle = GLBTextStyle.init()
+        let textStyle = GLBTextStyle()
         textStyle.font = UIFont.boldSystemFont(ofSize: 16)
         textStyle.color = UIColor.darkGray
         self.textField.textStyle = textStyle
         
-        let placeholderStyle = GLBTextStyle.init()
+        let placeholderStyle = GLBTextStyle()
         placeholderStyle.font = UIFont.boldSystemFont(ofSize: 16)
         placeholderStyle.color = UIColor.lightGray
         self.textField.placeholderStyle = placeholderStyle

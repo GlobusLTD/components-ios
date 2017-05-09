@@ -48,7 +48,6 @@
 
 - (void)setup {
     _canReload = YES;
-    _canSearch = NO;
     
     _cacheFileUrl = [self __fileUrlWithSuffix:@"Cache"];
     _fileUrl = [self __fileUrl];
@@ -62,7 +61,7 @@
 
 #pragma mark - Public
 
-- (id)modelWithJson:(id)json {
+- (id)modelWithJsonObject:(id)jsonObject {
     return nil;
 }
 
@@ -117,9 +116,9 @@
     id result = nil;
     NSData* data = [NSData dataWithContentsOfURL:url];
     if(data != nil) {
-        id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        if(json != nil) {
-            result = [self modelWithJson:json];
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        if(jsonObject != nil) {
+            result = [self modelWithJsonObject:jsonObject];
         }
     }
     return result;

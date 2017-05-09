@@ -18,7 +18,7 @@ class PhoneFieldViewController: GLBViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let textStyle = GLBTextStyle.init()
+        let textStyle = GLBTextStyle()
         textStyle.font = UIFont.boldSystemFont(ofSize: 16)
         textStyle.color = UIColor.darkGray
         self.phoneField.textStyle = textStyle

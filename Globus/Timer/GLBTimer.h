@@ -4,6 +4,14 @@
 
 /*--------------------------------------------------*/
 
+@class GLBTimer;
+
+/*--------------------------------------------------*/
+
+typedef void(^GLBTimerBlock)(GLBTimer* _Nonnull timer);
+
+/*--------------------------------------------------*/
+
 @interface GLBTimer : NSObject
 
 @property(nonatomic, readonly, getter=isDelaying) BOOL delaying;
@@ -16,11 +24,22 @@
 @property(nonatomic, readonly) NSTimeInterval elapsed;
 @property(nonatomic, readonly) NSUInteger repeated;
 
+@property(nonatomic, nullable, copy) GLBTimerBlock blockStarted;
 @property(nonatomic, nullable, strong) GLBAction* actionStarted;
+
+@property(nonatomic, nullable, copy) GLBTimerBlock blockRepeat;
 @property(nonatomic, nullable, strong) GLBAction* actionRepeat;
+
+@property(nonatomic, nullable, copy) GLBTimerBlock blockFinished;
 @property(nonatomic, nullable, strong) GLBAction* actionFinished;
+
+@property(nonatomic, nullable, copy) GLBTimerBlock blockStoped;
 @property(nonatomic, nullable, strong) GLBAction* actionStoped;
+
+@property(nonatomic, nullable, copy) GLBTimerBlock blockPaused;
 @property(nonatomic, nullable, strong) GLBAction* actionPaused;
+
+@property(nonatomic, nullable, copy) GLBTimerBlock blockResumed;
 @property(nonatomic, nullable, strong) GLBAction* actionResumed;
 
 + (nonnull instancetype)timerWithInterval:(NSTimeInterval)interval NS_SWIFT_UNAVAILABLE("Use init(interval:)");

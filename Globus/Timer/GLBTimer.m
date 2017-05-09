@@ -91,12 +91,12 @@
                                            repeats:((_delaying == YES) || (_repeat != 0))];
         if(_timer != nil) {
             if(_delaying == NO) {
-                // NSLog(@"Started:");
+                if(_blockStarted != nil) {
+                    _blockStarted(self);
+                }
                 if(_actionStarted != nil) {
                     [_actionStarted performWithArguments:@[ self ]];
                 }
-            } else {
-                // NSLog(@"Started:Delay:");
             }
             [NSRunLoop.mainRunLoop addTimer:_timer forMode:NSRunLoopCommonModes];
         }
@@ -115,7 +115,9 @@
             [_timer invalidate];
             _timer = nil;
         }
-        // NSLog(@"Stop:");
+        if(_blockStoped != nil) {
+            _blockStoped(self);
+        }
         if(_actionStoped != nil) {
             [_actionStoped performWithArguments:@[ self ]];
         }
@@ -130,7 +132,9 @@
             [_timer invalidate];
             _timer = nil;
         }
-        // NSLog(@"Pause:");
+        if(_blockPaused != nil) {
+            _blockPaused(self);
+        }
         if(_actionPaused != nil) {
             [_actionPaused performWithArguments:@[ self ]];
         }
@@ -150,7 +154,9 @@
                                           userInfo:nil
                                            repeats:(_repeat != 0)];
         if(_timer != nil) {
-            // NSLog(@"Resume:");
+            if(_blockResumed != nil) {
+                _blockResumed(self);
+            }
             if(_actionResumed != nil) {
                 [_actionResumed performWithArguments:@[ self ]];
             }
@@ -209,7 +215,9 @@
 - (void)timerHandler {
     if(_delaying == YES) {
         _delaying = NO;
-        // NSLog(@"Started:");
+        if(_blockStarted != nil) {
+            _blockStarted(self);
+        }
         if(_actionStarted != nil) {
             [_actionStarted performWithArguments:@[ self ]];
         }
@@ -217,10 +225,14 @@
         BOOL finished = NO;
         _repeated++;
         if(_repeat == NSNotFound) {
-            // NSLog(@"Repeat: %s (%d)", __PRETTY_FUNCTION__, _repeated);
+            if(_blockRepeat != nil) {
+                _blockRepeat(self);
+            }
             [_actionRepeat performWithArguments:@[ self ]];
         } else if(_repeat != 0) {
-            // NSLog(@"Repeat: %s (%d/%d)", __PRETTY_FUNCTION__, _repeated, _repeat);
+            if(_blockRepeat != nil) {
+                _blockRepeat(self);
+            }
             [_actionRepeat performWithArguments:@[ self ]];
             if(_repeated >= _repeat) {
                 finished = YES;
@@ -235,7 +247,9 @@
                 [_timer invalidate];
                 _timer = nil;
             }
-            // NSLog(@"Finished:");
+            if(_blockFinished != nil) {
+                _blockFinished(self);
+            }
             if(_actionFinished != nil) {
                 [_actionFinished performWithArguments:@[ self ]];
             }

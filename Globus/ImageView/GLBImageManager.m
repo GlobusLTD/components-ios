@@ -259,9 +259,14 @@ static NSUInteger GLBImageManagerDefaultDiscCapacity = (1024 * 1024) * 512;
             if(operation.isCancelled == YES) {
                 continue;
             }
-            if(([operation.url isEqual:url] == YES) && ((operation.processing == processing) || ([operation.processing isEqualToString:processing] == YES))) {
-                existOperation = operation;
-                break;
+            if([url isEqual:operation.url] == YES) {
+                if(processing == operation.processing) {
+                    existOperation = operation;
+                    break;
+                } else if([processing isEqualToString:operation.processing] == YES) {
+                    existOperation = operation;
+                    break;
+                }
             }
         }
         _operationQueue.suspended = NO;

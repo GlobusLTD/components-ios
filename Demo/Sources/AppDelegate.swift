@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Init property
     
     private func initPrimaryWindow() -> GLBWindow {
-        let result = GLBWindow.init()
+        let result = GLBWindow()
         self.window = result;
         return result
     }
@@ -29,16 +29,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Fabric.with([Crashlytics.self])
         
-        let navbarTextStyle = GLBTextStyle.init()
+        let navbarTextStyle = GLBTextStyle()
         navbarTextStyle.color = UIColor.darkGray
         
         let navbarAppearance = UINavigationBar.appearance()
         navbarAppearance.tintColor = UIColor.lightGray
         navbarAppearance.titleTextAttributes = navbarTextStyle.attributes
         
-        let svc = GLBSlideViewController.init();
-        svc.leftViewController = GLBNavigationViewController.init(rootViewController: ChoiseViewController.instantiate()!)
-        svc.centerViewController = GLBNavigationViewController.init(rootViewController: MainViewController.instantiate()!)
+        let svc = GLBSlideViewController();
+        svc.leftViewController = GLBNavigationViewController(rootViewController: ChoiseViewController.instantiate()!)
+        svc.centerViewController = GLBNavigationViewController(rootViewController: MainViewController.instantiate()!)
         self.primaryWindow.rootViewController = svc
         self.primaryWindow.makeKeyAndVisible()
         return true

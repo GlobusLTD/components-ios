@@ -28,6 +28,12 @@
  */
 @interface NSBundle (GLB_NS)
 
++ (nullable instancetype)glb_bundleWithName:(nonnull NSString*)name;
+
++ (nullable instancetype)glb_bundleWithName:(nonnull NSString*)name rootBundle:(nonnull NSBundle*)rootBundle;
+
++ (nullable instancetype)glb_bundleWithClass:(nonnull Class)aClass;
+
 /**
  * @brief Access to Info.plist fields. The value with key and default value for that.
  * @discussion Simpliest way to read from Info.plist file. If in the receiver's property list (Info.plist) no value for the given key will be returned default value.

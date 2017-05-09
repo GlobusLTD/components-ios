@@ -162,6 +162,14 @@ static NSString* GLBJsonDefaultDateFormat = @"yyyy-MM-dd'T'HH:mm:ssZZZZZ";
         if(date != nil) {
             return date;
         }
+    } else if([object glb_isString] == YES) {
+        NSNumber* number = [object glb_number];
+        if(number != nil) {
+            NSDate* date = [NSDate glb_dateWithUnixTimestamp:[number unsignedLongValue]];
+            if(date != nil) {
+                return date;
+            }
+        }
     }
     return or;
 }
@@ -176,9 +184,9 @@ static NSString* GLBJsonDefaultDateFormat = @"yyyy-MM-dd'T'HH:mm:ssZZZZZ";
                 return date;
             }
         }
-        NSNumber* ts = [object glb_number];
-        if(ts != nil) {
-            NSDate* date = [NSDate glb_dateWithUnixTimestamp:[ts unsignedLongValue]];
+        NSNumber* number = [object glb_number];
+        if(number != nil) {
+            NSDate* date = [NSDate glb_dateWithUnixTimestamp:[number unsignedLongValue]];
             if(date != nil) {
                 return date;
             }

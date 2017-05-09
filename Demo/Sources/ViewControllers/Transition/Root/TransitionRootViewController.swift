@@ -10,7 +10,7 @@ class TransitionRootViewController: TransitionViewController {
     
     @IBAction internal func pressedPresent(_ sender: Any) {
         let vc = TransitionChildViewController.instantiate()!
-        let nvc = GLBNavigationViewController.init(rootViewController: vc)
+        let nvc = GLBNavigationViewController(rootViewController: vc)
         nvc.transitionNavigation = self.transition
         nvc.transitionModal = self.transition
         self.present(nvc, animated: true, completion: nil)

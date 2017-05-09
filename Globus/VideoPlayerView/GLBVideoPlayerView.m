@@ -186,6 +186,9 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
         _buffer = 0.0;
         _rate = 0.0;
         self.playerItem = nil;
+        if(_blockCleaned != nil) {
+            _blockCleaned(self);
+        }
         if(_actionCleaned != nil) {
             [_actionCleaned performWithArguments:@[ self ]];
         }
@@ -196,6 +199,9 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
     if((_prepared == YES) && (_playing == NO)) {
         _playing = YES;
         [self.player play];
+        if(_blockPlaying != nil) {
+            _blockPlaying(self);
+        }
         if(_actionPlaying != nil) {
             [_actionPlaying performWithArguments:@[ self ]];
         }
@@ -215,6 +221,9 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
         _paused = NO;
         [self.player seekToTime:CMTimeMake(0, 1)];
         [self.player pause];
+        if(_blockStoped != nil) {
+            _blockStoped(self);
+        }
         if(_actionStoped != nil) {
             [_actionStoped performWithArguments:@[ self ]];
         }
@@ -225,6 +234,9 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
     if((_prepared == YES) && (_playing == YES) && (_paused == YES)) {
         _paused = NO;
         [self.player play];
+        if(_blockResumed != nil) {
+            _blockResumed(self);
+        }
         if(_actionResumed != nil) {
             [_actionResumed performWithArguments:@[ self ]];
         }
@@ -235,6 +247,9 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
     if((_prepared == YES) && (_playing == YES) && (_paused == NO)) {
         _paused = YES;
         [self.player pause];
+        if(_blockPaused != nil) {
+            _blockPaused(self);
+        }
         if(_actionPaused != nil) {
             [_actionPaused performWithArguments:@[ self ]];
         }
@@ -255,6 +270,9 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
 - (void)_notificationPeriodicTime:(CMTime)time {
     if(CMTIME_IS_INDEFINITE(_playerItem.duration) == NO) {
         _rate = (CGFloat)(CMTimeGetSeconds(time) / CMTimeGetSeconds(_playerItem.duration));
+        if(_blockUpdateRate != nil) {
+            _blockUpdateRate(self, _rate);
+        }
         if(_actionUpdateRate != nil) {
             [_actionUpdateRate performWithArguments:@[ self ]];
         }
@@ -264,6 +282,9 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
 - (void)_notificationDidPlayToEndTime {
     _rate = 1.0;
     _buffer = 1.0;
+    if(_blockFinished != nil) {
+        _blockFinished(self);
+    }
     if(_actionFinished != nil) {
         [_actionFinished performWithArguments:@[ self ]];
     }
@@ -277,10 +298,16 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
         if(status == AVPlayerStatusReadyToPlay) {
             _prepared = YES;
             _duration = (CGFloat)CMTimeGetSeconds(_playerItem.asset.duration);
+            if(_blockPrepared != nil) {
+                _blockPrepared(self);
+            }
             if(_actionPrepared != nil) {
                 [_actionPrepared performWithArguments:@[ self ]];
             }
         } else if(status == AVPlayerStatusFailed) {
+            if(_blockError != nil) {
+                _blockError(self);
+            }
             if(_actionError != nil) {
                 [_actionError performWithArguments:@[ self ]];
             }
@@ -291,12 +318,18 @@ static NSString* GLBVideoPlayerViewItemLoadedTimeRangesKeyPath = @"loadedTimeRan
             Float64 duration = CMTimeGetSeconds(_playerItem.asset.duration);
             Float64 current = CMTimeGetSeconds(timeRange.duration);
             _buffer = (CGFloat)(current / duration);
+            if(_blockUpdateBuffer != nil) {
+                _blockUpdateBuffer(self, _buffer);
+            }
             if(_actionUpdateBuffer != nil) {
                 [_actionUpdateBuffer performWithArguments:@[ self ]];
             }
         }
     } else if([keyPath isEqualToString:GLBVideoPlayerViewItemRateKeyPath] == YES) {
         _rate = [change[NSKeyValueChangeNewKey] floatValue];
+        if(_blockUpdateRate != nil) {
+            _blockUpdateRate(self, _rate);
+        }
         if(_actionUpdateRate != nil) {
             [_actionUpdateRate performWithArguments:@[ self ]];
         }

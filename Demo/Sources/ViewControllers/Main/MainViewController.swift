@@ -21,7 +21,7 @@ class MainViewController: GLBWebViewController {
         super.viewDidLoad()
         
         if self.url == nil {
-            self.url = URL.init(string: "http://globus-ltd.ru")
+            self.url = URL(string: "http://globus-ltd.ru")
         }
     }
     

@@ -18,14 +18,14 @@ class ImagePickerCropViewController: GLBViewController {
     }
     
     @IBAction internal func pressedChoice(_ sender: Any) {
-        let imagePicker = GLBImagePickerController.init(viewController: self)
+        let imagePicker = GLBImagePickerController(viewController: self)
         imagePicker.present(animated: true) { [unowned self] (image: UIImage?) in
             if (image != nil) {
                 self.pickedImageView.image = image
                 self.croppedImageView.image = nil
                 
                 GLBTimeout.execute({ [unowned self] in ()
-                    let cropViewController = GLBImageCropViewController.init(image: image!, cropMode: .circle)
+                    let cropViewController = GLBImageCropViewController(image: image!, cropMode: .circle)
                     cropViewController.supportedOrientationMask = .all
                     cropViewController.choiceBlock = { [unowned self] (cropViewController: GLBImageCropViewController, croppedImage: UIImage?) in ()
                         self.croppedImageView.image = croppedImage

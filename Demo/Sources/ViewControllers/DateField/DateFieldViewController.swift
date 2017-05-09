@@ -15,12 +15,12 @@ class DateFieldViewController: GLBViewController, GLBSlideViewControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let textStyle = GLBTextStyle.init()
+        let textStyle = GLBTextStyle()
         textStyle.font = UIFont.boldSystemFont(ofSize: 16)
         textStyle.color = UIColor.darkGray
         self.dateField.textStyle = textStyle
         
-        let placeholderStyle = GLBTextStyle.init()
+        let placeholderStyle = GLBTextStyle()
         placeholderStyle.font = UIFont.boldSystemFont(ofSize: 16)
         placeholderStyle.color = UIColor.lightGray
         self.dateField.placeholderStyle = placeholderStyle

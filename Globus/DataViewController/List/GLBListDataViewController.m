@@ -6,31 +6,12 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@interface GLBListDataViewController () {
-@protected
-    NSMutableDictionary< id< GLBListDataProviderModel >, GLBDataViewContainer* >* _sections;
-}
-
-@property(nonatomic, nonnull, readonly, strong) __kindof GLBDataViewSectionsContainer* rootContainer;
-@property(nonatomic, nullable, readonly, strong) __kindof GLBDataViewContainer* contentContainer;
-
-@end
-
-/*--------------------------------------------------*/
-
 @implementation GLBListDataViewController
 
-#pragma mark - Synthesize
+#pragma mark - Property
 
-@synthesize rootContainer = _rootContainer;
-@synthesize contentContainer = _contentContainer;
-
-#pragma mark - Init / Free
-
-- (void)setup {
-    [super setup];
-    
-    _sections = [NSMutableDictionary dictionary];
+- (GLBDataViewContainer< GLBListDataViewControllerContentContainerProtocol >*)contentContainer {
+    return (GLBDataViewContainer< GLBListDataViewControllerContentContainerProtocol >*)(super.contentContainer);
 }
 
 #pragma mark - GLBViewController
@@ -39,24 +20,15 @@
     [super update];
     
     if(_provider.canCache == YES) {
-        [self __showContentContainer:_provider.cacheModels first:YES];
+        [self showContentContainerWithModel:_provider.cacheModels first:YES];
     } else {
-        [self __showPreloadContainer];
+        [self showPreloadContainer];
     }
     [_provider load];
 }
 
 - (void)clear {
     [_provider cancel];
-    
-    _state = GLBListDataViewControllerStateNone;
-    [_sections removeAllObjects];
-    [self.dataView batchUpdate:^{
-        [_rootContainer deleteAllSections];
-    } complete:^{
-        _contentContainer = nil;
-    }];
-    
     [super clear];
 }
 
@@ -78,6 +50,7 @@
             [self.dataView registerActionWithTarget:self action:@selector(__actionPressedCancelForSearchBar:) forKey:GLBDataViewSearchPressedCancel];
         }
     }
+    
     if(_provider.canReload == YES) {
         GLBDataRefreshView* refreshView = [self prepareTopRefreshView];
         if(refreshView != nil) {
@@ -86,7 +59,10 @@
             [self.dataView registerActionWithTarget:self action:@selector(__actionTriggeredRefresh) forKey:GLBDataViewTopRefreshTriggered];
         }
     }
-    self.dataView.container = self.rootContainer;
+    
+    self.dataView.alwaysBounceVertical = YES;
+    
+    [super configureDataView];
 }
 
 - (void)cleanupDataView {
@@ -111,39 +87,9 @@
     }
 }
 
-- (GLBDataViewContainer*)rootContainer {
-    if(_rootContainer == nil) {
-        _rootContainer = [self prepareRootContainer];
-    }
-    return _rootContainer;
-}
-
-- (GLBDataViewContainer*)contentContainer {
-    if(_contentContainer == nil) {
-        _contentContainer = [self prepareContentContainer];
-    }
-    return _contentContainer;
-}
-
 #pragma mark - Public
 
-- (GLBDataViewSectionsContainer*)prepareRootContainer {
-    return nil;
-}
-
-- (GLBDataViewSectionsContainer*)prepareContentContainer {
-    return nil;
-}
-
-- (GLBDataViewContainer*)preparePreloadContainer {
-    return nil;
-}
-
-- (GLBDataViewContainer*)prepareEmptyContainer {
-    return nil;
-}
-
-- (GLBDataViewContainer*)prepareErrorContainerWithError:(id)error {
+- (id< GLBListDataViewControllerContentContainerProtocol >)prepareContentContainer {
     return nil;
 }
 
@@ -155,29 +101,14 @@
     return [GLBDataRefreshView new];
 }
 
-- (GLBDataViewContainer*)prepareSectionContainerWithModel:(id< GLBListDataProviderModel >)model {
-    return nil;
-}
-
-- (GLBDataViewItem*)prepareHeaderItemWithModel:(id)model {
-    return nil;
-}
-
-- (void)sectionContainer:(GLBDataViewContainer*)sectionContainer setHeaderItem:(GLBDataViewItem*)headerItem {
-}
-
-- (GLBDataViewItem*)prepareFooterItemWithModel:(id)model {
-    return nil;
-}
-
-- (void)sectionContainer:(GLBDataViewContainer*)sectionContainer setFooterItem:(GLBDataViewItem*)footerItem {
-}
-
-- (GLBDataViewItem*)prepareItemWithModel:(id)model {
-    return nil;
-}
-
-- (void)sectionContainer:(GLBDataViewContainer*)sectionContainer appendItem:(GLBDataViewItem*)item {
+- (void)showContentContainerWithModel:(NSArray*)models first:(BOOL)first {
+    [super showContentContainer:^{
+        if(first == YES) {
+            [self.contentContainer setModels:models];
+        } else {
+            [self.contentContainer appendModels:models];
+        }
+    }];
 }
 
 - (void)beginSearching {
@@ -188,29 +119,29 @@
 
 - (void)reloadData {
     if(self.isViewLoaded == YES) {
-        switch(_state) {
-            case GLBListDataViewControllerStateNone:
+        switch(self.state) {
+            case GLBDataViewControllerStateNone:
                 if(_provider.canCache == YES) {
-                    [self __showContentContainer:_provider.cacheModels first:YES];
+                    [self showContentContainerWithModel:_provider.cacheModels first:YES];
                 } else {
-                    [self __showPreloadContainer];
+                    [self showPreloadContainer];
                 }
                 break;
-            case GLBListDataViewControllerStatePreload:
-                [self __showPreloadContainer];
+            case GLBDataViewControllerStatePreload:
+                [self showPreloadContainer];
                 break;
-            case GLBListDataViewControllerStateContent:
+            case GLBDataViewControllerStateContent:
                 if((_provider.isSearching == YES) && (_provider.searchText.length > 0)) {
-                    [self __showContentContainer:_provider.searchModels first:YES];
+                    [self showContentContainerWithModel:_provider.searchModels first:YES];
                 } else {
-                    [self __showContentContainer:_provider.models first:YES];
+                    [self showContentContainerWithModel:_provider.models first:YES];
                 }
                 break;
-            case GLBListDataViewControllerStateEmpty:
-                [self __showEmptyContainer];
+            case GLBDataViewControllerStateEmpty:
+                [self showEmptyContainer];
                 break;
-            case GLBListDataViewControllerStateError:
-                [self __showErrorContainer:_provider.error];
+            case GLBDataViewControllerStateError:
+                [self showErrorContainer:_provider.error];
                 break;
         }
     }
@@ -255,23 +186,21 @@
 
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView {
     if(_provider.canLoadMore == YES) {
-        switch(_state) {
-            case GLBListDataViewControllerStateContent: {
+        switch(self.state) {
+            case GLBDataViewControllerStateContent: {
                 CGPoint contentOffset = self.dataView.contentOffset;
                 CGSize contentSize = self.dataView.contentSize;
                 CGSize frameSize = self.dataView.glb_frameSize;
-                CGFloat position, limit;
                 if(contentSize.height > frameSize.height) {
-                    position = contentOffset.y;
-                    limit = contentSize.height - frameSize.height;
+                    CGFloat limit = contentSize.height - frameSize.height;
+                    if((limit > GLB_EPSILON) && (contentOffset.y > limit)) {
+                        [_provider load];
+                    }
                 } else if(contentSize.width > frameSize.width) {
-                    position = contentOffset.x;
-                    limit = contentSize.width - frameSize.width;
-                } else {
-                    limit = 0.0f;
-                }
-                if((limit > GLB_EPSILON) && (position >= limit)) {
-                    [_provider load];
+                    CGFloat limit = contentSize.width - frameSize.width;
+                    if((limit > GLB_EPSILON) && (contentOffset.x > limit)) {
+                        [_provider load];
+                    }
                 }
                 break;
             }
@@ -289,135 +218,17 @@
 
 - (void)finishLoadingForDataProvider:(id< GLBListDataProvider >)dataProvider error:(id)error {
     [self hideLoading];
-    [self __showErrorContainer:error];
-}
-
-- (void)finishLoadingForDataProvider:(id< GLBListDataProvider >)dataProvider models:(NSArray< GLBListDataProviderModel >*)models first:(BOOL)first {
-    [self hideLoading];
-    [self __showContentContainer:models first:first];
+    [self showErrorContainer:error];
     if(self.dataView.topRefreshView.state != GLBDataRefreshViewStateIdle) {
         [self.dataView hideTopRefreshAnimated:YES complete:nil];
     }
 }
 
-#pragma mark - Internal
-
-- (void)__showPreloadContainer {
-    if(_sections.count > 0) {
-        [_sections removeAllObjects];
-    }
-    GLBDataViewContainer* preloadContainer = [self preparePreloadContainer];
-    if(preloadContainer != nil) {
-        _state = GLBListDataViewControllerStatePreload;
-        [self.dataView batchUpdate:^{
-            [_rootContainer deleteAllSections];
-            [_rootContainer appendSection:preloadContainer];
-        }];
-    } else {
-        [self __showEmptyContainer];
-    }
-}
-
-- (void)__showContentContainer:(NSArray< id< GLBListDataProviderModel > >*)models first:(BOOL)first {
-    if(first == YES) {
-        [_sections removeAllObjects];
-    }
-    if(_state == GLBListDataViewControllerStateContent) {
-        [self.dataView batchUpdate:^{
-            if(first == YES) {
-                [_contentContainer deleteAllSections];
-            }
-            [self __appendModels:models];
-        }];
-    } else if(models.count > 0) {
-        GLBDataViewSectionsContainer* contentContainer = self.contentContainer;
-        if(contentContainer != nil) {
-            _state = GLBListDataViewControllerStateContent;
-            if(first == YES) {
-                [contentContainer deleteAllSections];
-            }
-            [self.dataView batchUpdate:^{
-                [_rootContainer deleteAllSections];
-                [self __appendModels:models];
-                [_rootContainer appendSection:contentContainer];
-            }];
-        } else {
-            [self __showEmptyContainer];
-        }
-    } else {
-        [self __showEmptyContainer];
-    }
-}
-
-- (void)__showEmptyContainer {
-    if(_sections.count > 0) {
-        [_sections removeAllObjects];
-    }
-    _state = GLBListDataViewControllerStateEmpty;
-    GLBDataViewContainer* emptyContainer = [self prepareEmptyContainer];
-    [self.dataView batchUpdate:^{
-        if(emptyContainer != nil) {
-            [_rootContainer deleteAllSections];
-            [_rootContainer appendSection:emptyContainer];
-        } else {
-            [_rootContainer deleteAllSections];
-        }
-    } complete:^{
-        _contentContainer = nil;
-    }];
-}
-
-- (void)__showErrorContainer:(id)error {
-    if(_sections.count > 0) {
-        [_sections removeAllObjects];
-    }
-    if(error != nil) {
-        GLBDataViewContainer* errorContainer = [self prepareErrorContainerWithError:error];
-        if(errorContainer != nil) {
-            _state = GLBListDataViewControllerStateError;
-            [self.dataView batchUpdate:^{
-                [_rootContainer deleteAllSections];
-                [_rootContainer appendSection:errorContainer];
-            } complete:^{
-                _contentContainer = nil;
-            }];
-        }
-    } else {
-        [self __showEmptyContainer];
-    }
-}
-
-- (void)__appendModels:(NSArray< id< GLBListDataProviderModel > >*)models {
-    for(id< GLBListDataProviderModel > model in models) {
-        __kindof GLBDataViewContainer* sectionContainer = _sections[model];
-        if(sectionContainer == nil) {
-            sectionContainer = [self prepareSectionContainerWithModel:model];
-            if(sectionContainer != nil) {
-                id header = model.header;
-                if(header != nil) {
-                    GLBDataViewItem* headerItem = [self prepareHeaderItemWithModel:header];
-                    if(headerItem != nil) {
-                        [self sectionContainer:sectionContainer setHeaderItem:headerItem];
-                    }
-                }
-                id footer = model.footer;
-                if(footer != nil) {
-                    GLBDataViewItem* footerItem = [self prepareFooterItemWithModel:footer];
-                    if(footerItem != nil) {
-                        [self sectionContainer:sectionContainer setFooterItem:footerItem];
-                    }
-                }
-                [_contentContainer appendSection:sectionContainer];
-            }
-        }
-        if(sectionContainer != nil) {
-            for(id child in model.childs) {
-                GLBDataViewItem* item = [self prepareItemWithModel:child];
-                if(item != nil) {
-                    [self sectionContainer:sectionContainer appendItem:item];
-                }
-            }
-        }
+- (void)finishLoadingForDataProvider:(id< GLBListDataProvider >)dataProvider models:(NSArray*)models first:(BOOL)first {
+    [self hideLoading];
+    [self showContentContainerWithModel:models first:first];
+    if(self.dataView.topRefreshView.state != GLBDataRefreshViewStateIdle) {
+        [self.dataView hideTopRefreshAnimated:YES complete:nil];
     }
 }
 

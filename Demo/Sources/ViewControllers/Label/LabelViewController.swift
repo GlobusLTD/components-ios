@@ -15,7 +15,7 @@ class LabelViewController: GLBViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let textStyle = GLBTextStyle.init()
+        let textStyle = GLBTextStyle()
         textStyle.font = UIFont.systemFont(ofSize: 16)
         self.label.textStyle = textStyle
         
@@ -25,11 +25,11 @@ class LabelViewController: GLBViewController {
         self.label.lineBreakMode = .byWordWrapping
         self.label.numberOfLines = 0
         
-        let normalStyle = GLBTextStyle.init()
+        let normalStyle = GLBTextStyle()
         normalStyle.font = UIFont.systemFont(ofSize: 15)
         normalStyle.color = UIColor.darkGray
         
-        let highlightStyle = GLBTextStyle.init()
+        let highlightStyle = GLBTextStyle()
         highlightStyle.font = UIFont.systemFont(ofSize: 17.0)
         highlightStyle.color = UIColor.darkGray
         

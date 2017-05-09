@@ -1,20 +1,19 @@
 /*--------------------------------------------------*/
 
 #import "GLBSimpleDataViewController.h"
+#import "GLBSimpleDataViewControllerContentContainer.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@interface GLBSimpleDataViewController ()
-
-@property(nonatomic, nonnull, readonly, strong) __kindof GLBDataViewSectionsContainer* rootContainer;
-
-@end
-
-/*--------------------------------------------------*/
-
 @implementation GLBSimpleDataViewController
+
+#pragma mark - Property
+
+- (GLBDataViewContainer< GLBSimpleDataViewControllerContentContainerProtocol >*)contentContainer {
+    return (GLBDataViewContainer< GLBSimpleDataViewControllerContentContainerProtocol >*)(super.contentContainer);
+}
 
 #pragma mark - Synthesize
 
@@ -26,27 +25,15 @@
     [super update];
     
     if(_provider.canCache == YES) {
-        [self __applyModel:[_provider cacheModel]];
+        [self showContentContainerWithModel:[_provider cacheModel]];
     } else {
-        GLBDataViewContainer* preloadContainer = [self preparePreloadContainer];
-        if(preloadContainer != nil) {
-            _state = GLBSimpleDataViewControllerStatePreload;
-            [self.dataView batchUpdate:^{
-                [_rootContainer deleteAllSections];
-                [_rootContainer appendSection:preloadContainer];
-            }];
-        }
+        [self showPreloadContainer];
     }
     [_provider load];
 }
 
 - (void)clear {
     [_provider cancel];
-    
-    _state = GLBSimpleDataViewControllerStateNone;
-    [self.dataView batchUpdate:^{
-        [_rootContainer deleteAllSections];
-    }];
     
     [super clear];
 }
@@ -62,7 +49,10 @@
             [self.dataView registerActionWithTarget:self action:@selector(__actionTriggeredRefresh) forKey:GLBDataViewTopRefreshTriggered];
         }
     }
-    self.dataView.container = self.rootContainer;
+    
+    self.dataView.alwaysBounceVertical = YES;
+    
+    [super configureDataView];
 }
 
 - (void)cleanupDataView {
@@ -86,37 +76,20 @@
     }
 }
 
-- (GLBDataViewContainer*)rootContainer {
-    if(_rootContainer == nil) {
-        _rootContainer = [self prepareRootContainer];
-    }
-    return _rootContainer;
-}
-
 #pragma mark - Public
 
-- (GLBDataViewSectionsContainer*)prepareRootContainer {
-    return nil;
-}
-
-- (GLBDataViewContainer*)prepareContentContainerWithModel:(id)model {
-    return nil;
-}
-
-- (GLBDataViewContainer*)preparePreloadContainer {
-    return nil;
-}
-
-- (GLBDataViewContainer*)prepareEmptyContainer {
-    return nil;
-}
-
-- (GLBDataViewContainer*)prepareErrorContainerWithError:(id)error {
-    return nil;
+- (GLBDataViewContainer< GLBSimpleDataViewControllerContentContainerProtocol >*)prepareContentContainer {
+    return [GLBSimpleDataViewControllerContentContainer container];
 }
 
 - (GLBDataRefreshView*)prepareTopRefreshView {
     return [GLBDataRefreshView new];
+}
+
+- (void)showContentContainerWithModel:(id)model {
+    [super showContentContainer:^{
+        self.contentContainer.model = model;
+    }];
 }
 
 #pragma mark - Actions
@@ -133,67 +106,17 @@
 
 - (void)finishLoadingForDataProvider:(id< GLBSimpleDataProvider >)dataProvider error:(id)error {
     [self hideLoading];
-    [self __error:error];
+    [self showErrorContainer:error];
+    if(self.dataView.topRefreshView.state != GLBDataRefreshViewStateIdle) {
+        [self.dataView hideTopRefreshAnimated:YES complete:nil];
+    }
 }
 
 - (void)finishLoadingForDataProvider:(id< GLBSimpleDataProvider >)dataProvider model:(id)model {
     [self hideLoading];
-    [self __applyModel:model];
-}
-
-#pragma mark - Internal
-
-- (void)__error:(id)error {
-    GLBDataViewContainer* errorContainer = [self prepareErrorContainerWithError:error];
-    if(errorContainer != nil) {
-        _state = GLBSimpleDataViewControllerStateError;
-        [self.dataView batchUpdate:^{
-            [_rootContainer deleteAllSections];
-            [_rootContainer appendSection:errorContainer];
-        }];
-    } else {
-        _state = GLBSimpleDataViewControllerStateEmpty;
-        GLBDataViewContainer* emptyContainer = [self prepareEmptyContainer];
-        if(emptyContainer != nil) {
-            [self.dataView batchUpdate:^{
-                [_rootContainer deleteAllSections];
-                [_rootContainer appendSection:emptyContainer];
-            }];
-        } else {
-            [self.dataView batchUpdate:^{
-                [_rootContainer deleteAllSections];
-            }];
-        }
-    }
-}
-
-- (void)__applyModel:(id)model {
-    if(model != nil) {
-        _state = GLBSimpleDataViewControllerStateContent;
-        GLBDataViewSectionsContainer* contentContainer = [self prepareContentContainerWithModel:model];
-        if(contentContainer != nil) {
-            [self.dataView batchUpdate:^{
-                [_rootContainer deleteAllSections];
-                [_rootContainer appendSection:contentContainer];
-            }];
-        } else {
-            _state = GLBSimpleDataViewControllerStateEmpty;
-        }
-    } else {
-        _state = GLBSimpleDataViewControllerStateEmpty;
-    }
-    if(_state == GLBSimpleDataViewControllerStateEmpty) {
-        GLBDataViewContainer* emptyContainer = [self prepareEmptyContainer];
-        if(emptyContainer != nil) {
-            [self.dataView batchUpdate:^{
-                [_rootContainer deleteAllSections];
-                [_rootContainer appendSection:emptyContainer];
-            }];
-        } else {
-            [self.dataView batchUpdate:^{
-                [_rootContainer deleteAllSections];
-            }];
-        }
+    [self showContentContainerWithModel:model];
+    if(self.dataView.topRefreshView.state != GLBDataRefreshViewStateIdle) {
+        [self.dataView hideTopRefreshAnimated:YES complete:nil];
     }
 }
 

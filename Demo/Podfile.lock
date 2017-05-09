@@ -1,89 +1,89 @@
 PODS:
-  - Crashlytics (3.8.3):
+  - Crashlytics (3.8.4):
     - Fabric (~> 1.6.3)
   - Fabric (1.6.11)
-  - Globus (0.4.4):
-    - Globus/Action (= 0.4.4)
-    - Globus/ActivityView (= 0.4.4)
-    - Globus/ApiManager (= 0.4.4)
-    - Globus/AppGroupNotificationCenter (= 0.4.4)
-    - Globus/AudioPlayer (= 0.4.4)
-    - Globus/AudioRecorder (= 0.4.4)
-    - Globus/AudioSession (= 0.4.4)
-    - Globus/BadgeView (= 0.4.4)
-    - Globus/BaseViewController (= 0.4.4)
-    - Globus/BlurView (= 0.4.4)
-    - Globus/Button (= 0.4.4)
-    - Globus/Cache (= 0.4.4)
-    - Globus/CocoaPods (= 0.4.4)
-    - Globus/CoreAnimation (= 0.4.4)
-    - Globus/CoreFoundation (= 0.4.4)
-    - Globus/CoreGraphics (= 0.4.4)
-    - Globus/DataProvider (= 0.4.4)
-    - Globus/DataView (= 0.4.4)
-    - Globus/DataViewController (= 0.4.4)
-    - Globus/DateField (= 0.4.4)
-    - Globus/DialogAnimationController (= 0.4.4)
-    - Globus/DialogViewController (= 0.4.4)
-    - Globus/GeoLocationManager (= 0.4.4)
-    - Globus/Grid (= 0.4.4)
-    - Globus/ImageCropViewController (= 0.4.4)
-    - Globus/ImagePickerController (= 0.4.4)
-    - Globus/ImageView (= 0.4.4)
-    - Globus/InputValidation (= 0.4.4)
-    - Globus/Json (= 0.4.4)
-    - Globus/KVO (= 0.4.4)
-    - Globus/Label (= 0.4.4)
-    - Globus/LayoutView (= 0.4.4)
-    - Globus/ListField (= 0.4.4)
-    - Globus/LoadedView (= 0.4.4)
-    - Globus/ManagedModel (= 0.4.4)
-    - Globus/Model (= 0.4.4)
-    - Globus/Moon (= 0.4.4)
-    - Globus/NavigationViewController (= 0.4.4)
-    - Globus/NotificationManager (= 0.4.4)
-    - Globus/Observer (= 0.4.4)
-    - Globus/Pack (= 0.4.4)
-    - Globus/PageControl (= 0.4.4)
-    - Globus/PageViewController (= 0.4.4)
-    - Globus/PhoneField (= 0.4.4)
-    - Globus/PopoverController (= 0.4.4)
-    - Globus/PressAndHoldGestureRecognizer (= 0.4.4)
-    - Globus/RegExpParser (= 0.4.4)
-    - Globus/RoundView (= 0.4.4)
-    - Globus/ScrollView (= 0.4.4)
-    - Globus/SearchBar (= 0.4.4)
-    - Globus/SlideViewController (= 0.4.4)
-    - Globus/SpinnerView (= 0.4.4)
-    - Globus/SplitViewController (= 0.4.4)
-    - Globus/StructedObject (= 0.4.4)
-    - Globus/Style (= 0.4.4)
-    - Globus/TabBarViewController (= 0.4.4)
-    - Globus/TaskManager (= 0.4.4)
-    - Globus/TextField (= 0.4.4)
-    - Globus/TextStyle (= 0.4.4)
-    - Globus/TextView (= 0.4.4)
-    - Globus/Timeout (= 0.4.4)
-    - Globus/Timer (= 0.4.4)
-    - Globus/TouchView (= 0.4.4)
-    - Globus/TransitionController (= 0.4.4)
-    - Globus/UIKit (= 0.4.4)
-    - Globus/VideoPlayerView (= 0.4.4)
-    - Globus/ViewController (= 0.4.4)
-    - Globus/WatchKit (= 0.4.4)
-    - Globus/WatchManager (= 0.4.4)
-    - Globus/WebViewController (= 0.4.4)
-    - Globus/Window (= 0.4.4)
-  - Globus/Action (0.4.4):
+  - Globus (0.4.16):
+    - Globus/Action (= 0.4.16)
+    - Globus/ActivityView (= 0.4.16)
+    - Globus/ApiManager (= 0.4.16)
+    - Globus/AppGroupNotificationCenter (= 0.4.16)
+    - Globus/AudioPlayer (= 0.4.16)
+    - Globus/AudioRecorder (= 0.4.16)
+    - Globus/AudioSession (= 0.4.16)
+    - Globus/BadgeView (= 0.4.16)
+    - Globus/BaseViewController (= 0.4.16)
+    - Globus/BlurView (= 0.4.16)
+    - Globus/Button (= 0.4.16)
+    - Globus/Cache (= 0.4.16)
+    - Globus/CocoaPods (= 0.4.16)
+    - Globus/CoreAnimation (= 0.4.16)
+    - Globus/CoreFoundation (= 0.4.16)
+    - Globus/CoreGraphics (= 0.4.16)
+    - Globus/DataProvider (= 0.4.16)
+    - Globus/DataView (= 0.4.16)
+    - Globus/DataViewController (= 0.4.16)
+    - Globus/DateField (= 0.4.16)
+    - Globus/DialogAnimationController (= 0.4.16)
+    - Globus/DialogViewController (= 0.4.16)
+    - Globus/GeoLocationManager (= 0.4.16)
+    - Globus/Grid (= 0.4.16)
+    - Globus/ImageCropViewController (= 0.4.16)
+    - Globus/ImagePickerController (= 0.4.16)
+    - Globus/ImageView (= 0.4.16)
+    - Globus/InputValidation (= 0.4.16)
+    - Globus/Json (= 0.4.16)
+    - Globus/KVO (= 0.4.16)
+    - Globus/Label (= 0.4.16)
+    - Globus/LayoutView (= 0.4.16)
+    - Globus/ListField (= 0.4.16)
+    - Globus/LoadedView (= 0.4.16)
+    - Globus/ManagedModel (= 0.4.16)
+    - Globus/Model (= 0.4.16)
+    - Globus/Moon (= 0.4.16)
+    - Globus/NavigationViewController (= 0.4.16)
+    - Globus/NotificationManager (= 0.4.16)
+    - Globus/Observer (= 0.4.16)
+    - Globus/Pack (= 0.4.16)
+    - Globus/PageControl (= 0.4.16)
+    - Globus/PageViewController (= 0.4.16)
+    - Globus/PhoneField (= 0.4.16)
+    - Globus/PopoverController (= 0.4.16)
+    - Globus/PressAndHoldGestureRecognizer (= 0.4.16)
+    - Globus/RegExpParser (= 0.4.16)
+    - Globus/RoundView (= 0.4.16)
+    - Globus/ScrollView (= 0.4.16)
+    - Globus/SearchBar (= 0.4.16)
+    - Globus/SlideViewController (= 0.4.16)
+    - Globus/SpinnerView (= 0.4.16)
+    - Globus/SplitViewController (= 0.4.16)
+    - Globus/StructedObject (= 0.4.16)
+    - Globus/Style (= 0.4.16)
+    - Globus/TabBarViewController (= 0.4.16)
+    - Globus/TaskManager (= 0.4.16)
+    - Globus/TextField (= 0.4.16)
+    - Globus/TextStyle (= 0.4.16)
+    - Globus/TextView (= 0.4.16)
+    - Globus/Timeout (= 0.4.16)
+    - Globus/Timer (= 0.4.16)
+    - Globus/TouchView (= 0.4.16)
+    - Globus/TransitionController (= 0.4.16)
+    - Globus/UIKit (= 0.4.16)
+    - Globus/VideoPlayerView (= 0.4.16)
+    - Globus/ViewController (= 0.4.16)
+    - Globus/WatchKit (= 0.4.16)
+    - Globus/WatchManager (= 0.4.16)
+    - Globus/WebViewController (= 0.4.16)
+    - Globus/Window (= 0.4.16)
+  - Globus/Action (0.4.16):
     - Globus/CoreFoundation/Array
     - Globus/CoreFoundation/Debug
     - Globus/CoreFoundation/Dictionary
     - Globus/CoreFoundation/String
-  - Globus/ActivityView (0.4.4):
+  - Globus/ActivityView (0.4.16):
     - Globus/CoreGraphics
     - Globus/Label
     - Globus/SpinnerView/Arc
-  - Globus/ApiManager (0.4.4):
+  - Globus/ApiManager (0.4.16):
     - Globus/CoreFoundation/Array
     - Globus/CoreFoundation/Data
     - Globus/CoreFoundation/Date
@@ -94,121 +94,121 @@ PODS:
     - Globus/CoreFoundation/Set
     - Globus/CoreFoundation/String
     - Globus/CoreFoundation/URL
-  - Globus/AppGroupNotificationCenter (0.4.4):
+  - Globus/AppGroupNotificationCenter (0.4.16):
     - Globus/Action
     - Globus/CoreFoundation/Array
     - Globus/CoreFoundation/Dictionary
-  - Globus/AudioPlayer (0.4.4):
+  - Globus/AudioPlayer (0.4.16):
     - Globus/Action
     - Globus/AudioSession
-  - Globus/AudioRecorder (0.4.4):
+  - Globus/AudioRecorder (0.4.16):
     - Globus/Action
     - Globus/AudioSession
     - Globus/CoreFoundation/FileManager
-  - Globus/AudioSession (0.4.4):
+  - Globus/AudioSession (0.4.16):
     - Globus/CoreFoundation/Array
     - Globus/Observer
-  - Globus/BadgeView (0.4.4):
+  - Globus/BadgeView (0.4.16):
     - Globus/Label
     - Globus/UIKit/View
-  - Globus/BaseViewController (0.4.4):
+  - Globus/BaseViewController (0.4.16):
     - Globus/CoreFoundation/String
     - Globus/TransitionController/Base
     - Globus/UIKit/Device
     - Globus/UIKit/ViewController
     - Globus/Window
-  - Globus/BlurView (0.4.4):
+  - Globus/BlurView (0.4.16):
     - Globus/UIKit/Image
     - Globus/UIKit/View
-  - Globus/Button (0.4.4):
+  - Globus/Button (0.4.16):
     - Globus/TextStyle
     - Globus/UIKit/Button
     - Globus/UIKit/Color
-  - Globus/Cache (0.4.4):
+  - Globus/Cache (0.4.16):
     - Globus/CoreFoundation/Date
     - Globus/CoreFoundation/FileManager
     - Globus/CoreFoundation/String
-  - Globus/CocoaPods (0.4.4)
-  - Globus/CoreAnimation (0.4.4):
+  - Globus/CocoaPods (0.4.16)
+  - Globus/CoreAnimation (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/CoreFoundation (0.4.4):
-    - Globus/CoreFoundation/Array (= 0.4.4)
-    - Globus/CoreFoundation/AttributedString (= 0.4.4)
-    - Globus/CoreFoundation/Base (= 0.4.4)
-    - Globus/CoreFoundation/Bundle (= 0.4.4)
-    - Globus/CoreFoundation/Data (= 0.4.4)
-    - Globus/CoreFoundation/Date (= 0.4.4)
-    - Globus/CoreFoundation/DateFormatter (= 0.4.4)
-    - Globus/CoreFoundation/Debug (= 0.4.4)
-    - Globus/CoreFoundation/Dictionary (= 0.4.4)
-    - Globus/CoreFoundation/Error (= 0.4.4)
-    - Globus/CoreFoundation/FileManager (= 0.4.4)
-    - Globus/CoreFoundation/HTTPCookieStorage (= 0.4.4)
-    - Globus/CoreFoundation/Null (= 0.4.4)
-    - Globus/CoreFoundation/Number (= 0.4.4)
-    - Globus/CoreFoundation/OrderedSet (= 0.4.4)
-    - Globus/CoreFoundation/Pack (= 0.4.4)
-    - Globus/CoreFoundation/PointerArray (= 0.4.4)
-    - Globus/CoreFoundation/Set (= 0.4.4)
-    - Globus/CoreFoundation/Stream (= 0.4.4)
-    - Globus/CoreFoundation/String (= 0.4.4)
-    - Globus/CoreFoundation/URL (= 0.4.4)
-  - Globus/CoreFoundation/Array (0.4.4):
+  - Globus/CoreFoundation (0.4.16):
+    - Globus/CoreFoundation/Array (= 0.4.16)
+    - Globus/CoreFoundation/AttributedString (= 0.4.16)
+    - Globus/CoreFoundation/Base (= 0.4.16)
+    - Globus/CoreFoundation/Bundle (= 0.4.16)
+    - Globus/CoreFoundation/Data (= 0.4.16)
+    - Globus/CoreFoundation/Date (= 0.4.16)
+    - Globus/CoreFoundation/DateFormatter (= 0.4.16)
+    - Globus/CoreFoundation/Debug (= 0.4.16)
+    - Globus/CoreFoundation/Dictionary (= 0.4.16)
+    - Globus/CoreFoundation/Error (= 0.4.16)
+    - Globus/CoreFoundation/FileManager (= 0.4.16)
+    - Globus/CoreFoundation/HTTPCookieStorage (= 0.4.16)
+    - Globus/CoreFoundation/Null (= 0.4.16)
+    - Globus/CoreFoundation/Number (= 0.4.16)
+    - Globus/CoreFoundation/OrderedSet (= 0.4.16)
+    - Globus/CoreFoundation/Pack (= 0.4.16)
+    - Globus/CoreFoundation/PointerArray (= 0.4.16)
+    - Globus/CoreFoundation/Set (= 0.4.16)
+    - Globus/CoreFoundation/Stream (= 0.4.16)
+    - Globus/CoreFoundation/String (= 0.4.16)
+    - Globus/CoreFoundation/URL (= 0.4.16)
+  - Globus/CoreFoundation/Array (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/CoreFoundation/AttributedString (0.4.4):
+  - Globus/CoreFoundation/AttributedString (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/CoreFoundation/Base (0.4.4)
-  - Globus/CoreFoundation/Bundle (0.4.4):
+  - Globus/CoreFoundation/Base (0.4.16)
+  - Globus/CoreFoundation/Bundle (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/CoreFoundation/Data (0.4.4):
+  - Globus/CoreFoundation/Data (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/CoreFoundation/Date (0.4.4):
+  - Globus/CoreFoundation/Date (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/CoreFoundation/DateFormatter (0.4.4):
+  - Globus/CoreFoundation/DateFormatter (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/CoreFoundation/Debug (0.4.4):
+  - Globus/CoreFoundation/Debug (0.4.16):
     - Globus/CoreFoundation/Data
     - Globus/CoreFoundation/PointerArray
     - Globus/CoreFoundation/String
-  - Globus/CoreFoundation/Dictionary (0.4.4):
+  - Globus/CoreFoundation/Dictionary (0.4.16):
     - Globus/CoreFoundation/String
-  - Globus/CoreFoundation/Error (0.4.4):
+  - Globus/CoreFoundation/Error (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/CoreFoundation/FileManager (0.4.4):
+  - Globus/CoreFoundation/FileManager (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/CoreFoundation/HTTPCookieStorage (0.4.4):
+  - Globus/CoreFoundation/HTTPCookieStorage (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/CoreFoundation/Null (0.4.4):
+  - Globus/CoreFoundation/Null (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/CoreFoundation/Number (0.4.4):
+  - Globus/CoreFoundation/Number (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/CoreFoundation/OrderedSet (0.4.4):
+  - Globus/CoreFoundation/OrderedSet (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/CoreFoundation/Pack (0.4.4):
+  - Globus/CoreFoundation/Pack (0.4.16):
     - Globus/CoreFoundation/Stream
-  - Globus/CoreFoundation/PointerArray (0.4.4):
+  - Globus/CoreFoundation/PointerArray (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/CoreFoundation/Set (0.4.4):
+  - Globus/CoreFoundation/Set (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/CoreFoundation/Stream (0.4.4):
+  - Globus/CoreFoundation/Stream (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/CoreFoundation/String (0.4.4):
+  - Globus/CoreFoundation/String (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/CoreFoundation/URL (0.4.4):
+  - Globus/CoreFoundation/URL (0.4.16):
     - Globus/CoreFoundation/String
-  - Globus/CoreGraphics (0.4.4):
+  - Globus/CoreGraphics (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/DataProvider (0.4.4):
+  - Globus/DataProvider (0.4.16):
     - Globus/CoreFoundation/Base
     - Globus/Timer
-  - Globus/DataView (0.4.4):
-    - Globus/DataView/Base (= 0.4.4)
-    - Globus/DataView/Calendar (= 0.4.4)
-    - Globus/DataView/ItemsFlowContainer (= 0.4.4)
-    - Globus/DataView/ItemsListContainer (= 0.4.4)
-    - Globus/DataView/SectionsListContainer (= 0.4.4)
-    - Globus/DataView/SwipeCell (= 0.4.4)
-  - Globus/DataView/Base (0.4.4):
+  - Globus/DataView (0.4.16):
+    - Globus/DataView/Base (= 0.4.16)
+    - Globus/DataView/Calendar (= 0.4.16)
+    - Globus/DataView/ItemsFlowContainer (= 0.4.16)
+    - Globus/DataView/ItemsListContainer (= 0.4.16)
+    - Globus/DataView/SectionsListContainer (= 0.4.16)
+    - Globus/DataView/SwipeCell (= 0.4.16)
+  - Globus/DataView/Base (0.4.16):
     - Globus/Action
     - Globus/CoreFoundation/Array
     - Globus/CoreFoundation/Dictionary
@@ -220,51 +220,51 @@ PODS:
     - Globus/UIKit/Nib
     - Globus/UIKit/ScrollView
     - Globus/Window
-  - Globus/DataView/Calendar (0.4.4):
+  - Globus/DataView/Calendar (0.4.16):
     - Globus/CoreFoundation/Date
     - Globus/DataView/Base
     - Globus/Grid
-  - Globus/DataView/ItemsFlowContainer (0.4.4):
+  - Globus/DataView/ItemsFlowContainer (0.4.16):
     - Globus/DataView/Base
-  - Globus/DataView/ItemsListContainer (0.4.4):
+  - Globus/DataView/ItemsListContainer (0.4.16):
     - Globus/DataView/Base
-  - Globus/DataView/SectionsListContainer (0.4.4):
+  - Globus/DataView/SectionsListContainer (0.4.16):
     - Globus/DataView/Base
-  - Globus/DataView/SwipeCell (0.4.4):
+  - Globus/DataView/SwipeCell (0.4.16):
     - Globus/DataView/Base
-  - Globus/DataViewController (0.4.4):
-    - Globus/DataViewController/Base (= 0.4.4)
-    - Globus/DataViewController/List (= 0.4.4)
-    - Globus/DataViewController/Simple (= 0.4.4)
-  - Globus/DataViewController/Base (0.4.4):
+  - Globus/DataViewController (0.4.16):
+    - Globus/DataViewController/Base (= 0.4.16)
+    - Globus/DataViewController/List (= 0.4.16)
+    - Globus/DataViewController/Simple (= 0.4.16)
+  - Globus/DataViewController/Base (0.4.16):
     - Globus/DataView/Base
     - Globus/ViewController
-  - Globus/DataViewController/List (0.4.4):
+  - Globus/DataViewController/List (0.4.16):
     - Globus/DataProvider
     - Globus/DataViewController/Base
-  - Globus/DataViewController/Simple (0.4.4):
+  - Globus/DataViewController/Simple (0.4.16):
     - Globus/DataProvider
     - Globus/DataViewController/Base
-  - Globus/DateField (0.4.4):
+  - Globus/DateField (0.4.16):
     - Globus/TextField
-  - Globus/DialogAnimationController (0.4.4):
-    - Globus/DialogAnimationController/Base (= 0.4.4)
-    - Globus/DialogAnimationController/Push (= 0.4.4)
-  - Globus/DialogAnimationController/Base (0.4.4):
+  - Globus/DialogAnimationController (0.4.16):
+    - Globus/DialogAnimationController/Base (= 0.4.16)
+    - Globus/DialogAnimationController/Push (= 0.4.16)
+  - Globus/DialogAnimationController/Base (0.4.16):
     - Globus/DialogViewController
-  - Globus/DialogAnimationController/Push (0.4.4):
+  - Globus/DialogAnimationController/Push (0.4.16):
     - Globus/DialogAnimationController/Base
-  - Globus/DialogViewController (0.4.4):
+  - Globus/DialogViewController (0.4.16):
     - Globus/UIKit/Application
     - Globus/UIKit/ViewController
     - Globus/UIKit/Window
-  - Globus/GeoLocationManager (0.4.4):
+  - Globus/GeoLocationManager (0.4.16):
     - Globus/Action
     - Globus/CoreFoundation/String
     - Globus/UIKit/Device
-  - Globus/Grid (0.4.4):
+  - Globus/Grid (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/ImageCropViewController (0.4.4):
+  - Globus/ImageCropViewController (0.4.16):
     - Globus/Action
     - Globus/Button
     - Globus/CoreGraphics
@@ -273,44 +273,44 @@ PODS:
     - Globus/UIKit/Device
     - Globus/UIKit/Image
     - Globus/ViewController
-  - Globus/ImagePickerController (0.4.4):
+  - Globus/ImagePickerController (0.4.16):
     - Globus/Action
     - Globus/UIKit/Base
     - Globus/UIKit/Image
-  - Globus/ImageView (0.4.4):
+  - Globus/ImageView (0.4.16):
     - Globus/ApiManager
     - Globus/Cache
     - Globus/UIKit/Color
     - Globus/UIKit/Image
     - Globus/UIKit/View
-  - Globus/InputValidation (0.4.4):
+  - Globus/InputValidation (0.4.16):
     - Globus/Action
     - Globus/CoreFoundation/Array
     - Globus/CoreFoundation/String
-  - Globus/Json (0.4.4):
+  - Globus/Json (0.4.16):
     - Globus/CoreFoundation/Date
     - Globus/CoreFoundation/Number
     - Globus/StructedObject
     - Globus/UIKit/Color
-  - Globus/KVO (0.4.4):
+  - Globus/KVO (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/Label (0.4.4):
+  - Globus/Label (0.4.16):
     - Globus/TextStyle
     - Globus/UIKit/Label
     - Globus/UIKit/Responder
     - Globus/UIKit/View
-  - Globus/LayoutView (0.4.4):
+  - Globus/LayoutView (0.4.16):
     - Globus/CoreFoundation/Array
     - Globus/KVO
     - Globus/UIKit/View
-  - Globus/ListField (0.4.4):
+  - Globus/ListField (0.4.16):
     - Globus/TextField
-  - Globus/LoadedView (0.4.4):
+  - Globus/LoadedView (0.4.16):
     - Globus/UIKit/Nib
     - Globus/UIKit/View
-  - Globus/ManagedModel (0.4.4):
+  - Globus/ManagedModel (0.4.16):
     - Globus/Model
-  - Globus/Model (0.4.4):
+  - Globus/Model (0.4.16):
     - Globus/CoreFoundation/Array
     - Globus/CoreFoundation/Bundle
     - Globus/CoreFoundation/Date
@@ -322,30 +322,30 @@ PODS:
     - Globus/CoreFoundation/String
     - Globus/UIKit/Color
     - Globus/UIKit/Device
-  - Globus/Moon (0.4.4):
+  - Globus/Moon (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/NavigationViewController (0.4.4):
+  - Globus/NavigationViewController (0.4.16):
     - Globus/TransitionController/Base
     - Globus/UIKit/Device
     - Globus/UIKit/NavigationController
-  - Globus/NotificationManager (0.4.4):
+  - Globus/NotificationManager (0.4.16):
     - Globus/CoreFoundation/Array
     - Globus/UIKit/Application
     - Globus/UIKit/View
     - Globus/UIKit/Window
-  - Globus/Observer (0.4.4):
+  - Globus/Observer (0.4.16):
     - Globus/CoreFoundation/Debug
     - Globus/CoreFoundation/PointerArray
     - Globus/CoreFoundation/String
-  - Globus/Pack (0.4.4):
+  - Globus/Pack (0.4.16):
     - Globus/CoreFoundation/Date
     - Globus/CoreFoundation/Number
     - Globus/CoreFoundation/Pack
     - Globus/StructedObject
     - Globus/UIKit/Color
-  - Globus/PageControl (0.4.4):
+  - Globus/PageControl (0.4.16):
     - Globus/UIKit/View
-  - Globus/PageViewController (0.4.4):
+  - Globus/PageViewController (0.4.16):
     - Globus/CoreFoundation/Array
     - Globus/CoreFoundation/String
     - Globus/CoreGraphics
@@ -354,24 +354,24 @@ PODS:
     - Globus/UIKit/ScrollView
     - Globus/UIKit/ViewController
     - Globus/Window
-  - Globus/PhoneField (0.4.4):
+  - Globus/PhoneField (0.4.16):
     - Globus/TextField
-  - Globus/PopoverController (0.4.4):
+  - Globus/PopoverController (0.4.16):
     - Globus/UIKit/Base
-  - Globus/PressAndHoldGestureRecognizer (0.4.4):
+  - Globus/PressAndHoldGestureRecognizer (0.4.16):
     - Globus/Action
     - Globus/CoreFoundation/Array
     - Globus/UIKit/Base
-  - Globus/RegExpParser (0.4.4):
+  - Globus/RegExpParser (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/RoundView (0.4.4):
+  - Globus/RoundView (0.4.16):
     - Globus/UIKit/View
-  - Globus/ScrollView (0.4.4):
+  - Globus/ScrollView (0.4.16):
     - Globus/UIKit/ScrollView
-  - Globus/SearchBar (0.4.4):
+  - Globus/SearchBar (0.4.16):
     - Globus/Button
     - Globus/TextField
-  - Globus/SlideViewController (0.4.4):
+  - Globus/SlideViewController (0.4.16):
     - Globus/CoreFoundation/Array
     - Globus/CoreFoundation/String
     - Globus/CoreGraphics
@@ -379,216 +379,216 @@ PODS:
     - Globus/UIKit/Device
     - Globus/UIKit/ViewController
     - Globus/Window
-  - Globus/SpinnerView (0.4.4):
-    - Globus/SpinnerView/Arc (= 0.4.4)
-    - Globus/SpinnerView/ArcAlt (= 0.4.4)
-    - Globus/SpinnerView/Base (= 0.4.4)
-    - Globus/SpinnerView/Bounce (= 0.4.4)
-    - Globus/SpinnerView/ChasingDots (= 0.4.4)
-    - Globus/SpinnerView/Circle (= 0.4.4)
-    - Globus/SpinnerView/CircleFlip (= 0.4.4)
-    - Globus/SpinnerView/FadingCircle (= 0.4.4)
-    - Globus/SpinnerView/FadingCircleAlt (= 0.4.4)
-    - Globus/SpinnerView/NineCubeGrid (= 0.4.4)
-    - Globus/SpinnerView/Plane (= 0.4.4)
-    - Globus/SpinnerView/Pulse (= 0.4.4)
-    - Globus/SpinnerView/ThreeBounce (= 0.4.4)
-    - Globus/SpinnerView/WanderingCubes (= 0.4.4)
-    - Globus/SpinnerView/Wave (= 0.4.4)
-    - Globus/SpinnerView/WordPress (= 0.4.4)
-  - Globus/SpinnerView/Arc (0.4.4):
+  - Globus/SpinnerView (0.4.16):
+    - Globus/SpinnerView/Arc (= 0.4.16)
+    - Globus/SpinnerView/ArcAlt (= 0.4.16)
+    - Globus/SpinnerView/Base (= 0.4.16)
+    - Globus/SpinnerView/Bounce (= 0.4.16)
+    - Globus/SpinnerView/ChasingDots (= 0.4.16)
+    - Globus/SpinnerView/Circle (= 0.4.16)
+    - Globus/SpinnerView/CircleFlip (= 0.4.16)
+    - Globus/SpinnerView/FadingCircle (= 0.4.16)
+    - Globus/SpinnerView/FadingCircleAlt (= 0.4.16)
+    - Globus/SpinnerView/NineCubeGrid (= 0.4.16)
+    - Globus/SpinnerView/Plane (= 0.4.16)
+    - Globus/SpinnerView/Pulse (= 0.4.16)
+    - Globus/SpinnerView/ThreeBounce (= 0.4.16)
+    - Globus/SpinnerView/WanderingCubes (= 0.4.16)
+    - Globus/SpinnerView/Wave (= 0.4.16)
+    - Globus/SpinnerView/WordPress (= 0.4.16)
+  - Globus/SpinnerView/Arc (0.4.16):
     - Globus/SpinnerView/Base
-  - Globus/SpinnerView/ArcAlt (0.4.4):
+  - Globus/SpinnerView/ArcAlt (0.4.16):
     - Globus/SpinnerView/Base
-  - Globus/SpinnerView/Base (0.4.4):
+  - Globus/SpinnerView/Base (0.4.16):
     - Globus/UIKit/View
-  - Globus/SpinnerView/Bounce (0.4.4):
+  - Globus/SpinnerView/Bounce (0.4.16):
     - Globus/SpinnerView/Base
-  - Globus/SpinnerView/ChasingDots (0.4.4):
+  - Globus/SpinnerView/ChasingDots (0.4.16):
     - Globus/SpinnerView/Base
-  - Globus/SpinnerView/Circle (0.4.4):
+  - Globus/SpinnerView/Circle (0.4.16):
     - Globus/SpinnerView/Base
-  - Globus/SpinnerView/CircleFlip (0.4.4):
+  - Globus/SpinnerView/CircleFlip (0.4.16):
     - Globus/CoreAnimation
     - Globus/SpinnerView/Base
-  - Globus/SpinnerView/FadingCircle (0.4.4):
+  - Globus/SpinnerView/FadingCircle (0.4.16):
     - Globus/SpinnerView/Base
-  - Globus/SpinnerView/FadingCircleAlt (0.4.4):
+  - Globus/SpinnerView/FadingCircleAlt (0.4.16):
     - Globus/SpinnerView/Base
-  - Globus/SpinnerView/NineCubeGrid (0.4.4):
+  - Globus/SpinnerView/NineCubeGrid (0.4.16):
     - Globus/SpinnerView/Base
-  - Globus/SpinnerView/Plane (0.4.4):
+  - Globus/SpinnerView/Plane (0.4.16):
     - Globus/CoreAnimation
     - Globus/SpinnerView/Base
-  - Globus/SpinnerView/Pulse (0.4.4):
+  - Globus/SpinnerView/Pulse (0.4.16):
     - Globus/SpinnerView/Base
-  - Globus/SpinnerView/ThreeBounce (0.4.4):
+  - Globus/SpinnerView/ThreeBounce (0.4.16):
     - Globus/SpinnerView/Base
-  - Globus/SpinnerView/WanderingCubes (0.4.4):
+  - Globus/SpinnerView/WanderingCubes (0.4.16):
     - Globus/SpinnerView/Base
-  - Globus/SpinnerView/Wave (0.4.4):
+  - Globus/SpinnerView/Wave (0.4.16):
     - Globus/SpinnerView/Base
-  - Globus/SpinnerView/WordPress (0.4.4):
+  - Globus/SpinnerView/WordPress (0.4.16):
     - Globus/SpinnerView/Base
-  - Globus/SplitViewController (0.4.4):
+  - Globus/SplitViewController (0.4.16):
     - Globus/TransitionController/Base
     - Globus/UIKit/Device
     - Globus/UIKit/ViewController
-  - Globus/StructedObject (0.4.4):
+  - Globus/StructedObject (0.4.16):
     - Globus/CoreFoundation/String
-  - Globus/Style (0.4.4):
+  - Globus/Style (0.4.16):
     - Globus/UIKit/Base
-  - Globus/TabBarViewController (0.4.4):
+  - Globus/TabBarViewController (0.4.16):
     - Globus/TransitionController/Base
     - Globus/UIKit/Device
     - Globus/UIKit/ViewController
-  - Globus/TaskManager (0.4.4):
+  - Globus/TaskManager (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/TextField (0.4.4):
+  - Globus/TextField (0.4.16):
     - Globus/InputValidation
     - Globus/TextStyle
     - Globus/UIKit/Responder
     - Globus/UIKit/View
-  - Globus/TextStyle (0.4.4):
+  - Globus/TextStyle (0.4.16):
     - Globus/CoreFoundation/AttributedString
     - Globus/CoreFoundation/Dictionary
     - Globus/UIKit/Base
-  - Globus/TextView (0.4.4):
+  - Globus/TextView (0.4.16):
     - Globus/Action
     - Globus/InputValidation
     - Globus/TextStyle
     - Globus/UIKit/Responder
     - Globus/UIKit/View
-  - Globus/Timeout (0.4.4):
+  - Globus/Timeout (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/Timer (0.4.4):
+  - Globus/Timer (0.4.16):
     - Globus/Action
-  - Globus/TouchView (0.4.4):
+  - Globus/TouchView (0.4.16):
     - Globus/UIKit/View
-  - Globus/TransitionController (0.4.4):
-    - Globus/TransitionController/Base (= 0.4.4)
-    - Globus/TransitionController/Cards (= 0.4.4)
-    - Globus/TransitionController/CrossFade (= 0.4.4)
-    - Globus/TransitionController/Material (= 0.4.4)
-    - Globus/TransitionController/Slide (= 0.4.4)
-  - Globus/TransitionController/Base (0.4.4):
+  - Globus/TransitionController (0.4.16):
+    - Globus/TransitionController/Base (= 0.4.16)
+    - Globus/TransitionController/Cards (= 0.4.16)
+    - Globus/TransitionController/CrossFade (= 0.4.16)
+    - Globus/TransitionController/Material (= 0.4.16)
+    - Globus/TransitionController/Slide (= 0.4.16)
+  - Globus/TransitionController/Base (0.4.16):
     - Globus/UIKit/Device
-  - Globus/TransitionController/Cards (0.4.4):
+  - Globus/TransitionController/Cards (0.4.16):
     - Globus/TransitionController/Base
-  - Globus/TransitionController/CrossFade (0.4.4):
+  - Globus/TransitionController/CrossFade (0.4.16):
     - Globus/TransitionController/Base
-  - Globus/TransitionController/Material (0.4.4):
+  - Globus/TransitionController/Material (0.4.16):
     - Globus/TransitionController/Base
     - Globus/UIKit/View
-  - Globus/TransitionController/Slide (0.4.4):
+  - Globus/TransitionController/Slide (0.4.16):
     - Globus/CoreGraphics
     - Globus/TransitionController/Base
-  - Globus/UIKit (0.4.4):
-    - Globus/UIKit/Application (= 0.4.4)
-    - Globus/UIKit/Base (= 0.4.4)
-    - Globus/UIKit/Button (= 0.4.4)
-    - Globus/UIKit/CollectionView (= 0.4.4)
-    - Globus/UIKit/Color (= 0.4.4)
-    - Globus/UIKit/Device (= 0.4.4)
-    - Globus/UIKit/GestureRecognizer (= 0.4.4)
-    - Globus/UIKit/Image (= 0.4.4)
-    - Globus/UIKit/Label (= 0.4.4)
-    - Globus/UIKit/NavigationController (= 0.4.4)
-    - Globus/UIKit/Nib (= 0.4.4)
-    - Globus/UIKit/Responder (= 0.4.4)
-    - Globus/UIKit/ScrollView (= 0.4.4)
-    - Globus/UIKit/TabBar (= 0.4.4)
-    - Globus/UIKit/TableView (= 0.4.4)
-    - Globus/UIKit/View (= 0.4.4)
-    - Globus/UIKit/ViewController (= 0.4.4)
-    - Globus/UIKit/Window (= 0.4.4)
-  - Globus/UIKit/Application (0.4.4):
+  - Globus/UIKit (0.4.16):
+    - Globus/UIKit/Application (= 0.4.16)
+    - Globus/UIKit/Base (= 0.4.16)
+    - Globus/UIKit/Button (= 0.4.16)
+    - Globus/UIKit/CollectionView (= 0.4.16)
+    - Globus/UIKit/Color (= 0.4.16)
+    - Globus/UIKit/Device (= 0.4.16)
+    - Globus/UIKit/GestureRecognizer (= 0.4.16)
+    - Globus/UIKit/Image (= 0.4.16)
+    - Globus/UIKit/Label (= 0.4.16)
+    - Globus/UIKit/NavigationController (= 0.4.16)
+    - Globus/UIKit/Nib (= 0.4.16)
+    - Globus/UIKit/Responder (= 0.4.16)
+    - Globus/UIKit/ScrollView (= 0.4.16)
+    - Globus/UIKit/TabBar (= 0.4.16)
+    - Globus/UIKit/TableView (= 0.4.16)
+    - Globus/UIKit/View (= 0.4.16)
+    - Globus/UIKit/ViewController (= 0.4.16)
+    - Globus/UIKit/Window (= 0.4.16)
+  - Globus/UIKit/Application (0.4.16):
     - Globus/UIKit/Base
-  - Globus/UIKit/Base (0.4.4):
+  - Globus/UIKit/Base (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/UIKit/Button (0.4.4):
+  - Globus/UIKit/Button (0.4.16):
     - Globus/UIKit/View
-  - Globus/UIKit/CollectionView (0.4.4):
+  - Globus/UIKit/CollectionView (0.4.16):
     - Globus/UIKit/Nib
     - Globus/UIKit/View
-  - Globus/UIKit/Color (0.4.4):
+  - Globus/UIKit/Color (0.4.16):
     - Globus/UIKit/Base
-  - Globus/UIKit/Device (0.4.4):
+  - Globus/UIKit/Device (0.4.16):
     - Globus/UIKit/Base
-  - Globus/UIKit/GestureRecognizer (0.4.4):
+  - Globus/UIKit/GestureRecognizer (0.4.16):
     - Globus/UIKit/Base
-  - Globus/UIKit/Image (0.4.4):
+  - Globus/UIKit/Image (0.4.16):
     - Globus/CoreGraphics
     - Globus/UIKit/Base
-  - Globus/UIKit/Label (0.4.4):
+  - Globus/UIKit/Label (0.4.16):
     - Globus/UIKit/Base
-  - Globus/UIKit/NavigationController (0.4.4):
+  - Globus/UIKit/NavigationController (0.4.16):
     - Globus/CoreFoundation/Array
     - Globus/UIKit/Button
     - Globus/UIKit/ViewController
-  - Globus/UIKit/Nib (0.4.4):
+  - Globus/UIKit/Nib (0.4.16):
     - Globus/UIKit/Device
-  - Globus/UIKit/Responder (0.4.4):
+  - Globus/UIKit/Responder (0.4.16):
     - Globus/UIKit/View
-  - Globus/UIKit/ScrollView (0.4.4):
+  - Globus/UIKit/ScrollView (0.4.16):
     - Globus/UIKit/Responder
-  - Globus/UIKit/TabBar (0.4.4):
+  - Globus/UIKit/TabBar (0.4.16):
     - Globus/UIKit/View
-  - Globus/UIKit/TableView (0.4.4):
+  - Globus/UIKit/TableView (0.4.16):
     - Globus/UIKit/Nib
     - Globus/UIKit/View
-  - Globus/UIKit/View (0.4.4):
+  - Globus/UIKit/View (0.4.16):
     - Globus/UIKit/Base
-  - Globus/UIKit/ViewController (0.4.4):
+  - Globus/UIKit/ViewController (0.4.16):
     - Globus/UIKit/Nib
     - Globus/UIKit/View
-  - Globus/UIKit/Window (0.4.4):
+  - Globus/UIKit/Window (0.4.16):
     - Globus/UIKit/ViewController
-  - Globus/VideoPlayerView (0.4.4):
+  - Globus/VideoPlayerView (0.4.16):
     - Globus/Action
     - Globus/UIKit/View
-  - Globus/ViewController (0.4.4):
+  - Globus/ViewController (0.4.16):
     - Globus/BaseViewController
-  - Globus/WatchKit (0.4.4):
-    - Globus/WatchKit/Base (= 0.4.4)
-    - Globus/WatchKit/Device (= 0.4.4)
-  - Globus/WatchKit/Base (0.4.4):
+  - Globus/WatchKit (0.4.16):
+    - Globus/WatchKit/Base (= 0.4.16)
+    - Globus/WatchKit/Device (= 0.4.16)
+  - Globus/WatchKit/Base (0.4.16):
     - Globus/CoreFoundation/Base
-  - Globus/WatchKit/Device (0.4.4):
+  - Globus/WatchKit/Device (0.4.16):
     - Globus/WatchKit/Base
-  - Globus/WatchManager (0.4.4):
+  - Globus/WatchManager (0.4.16):
     - Globus/CoreFoundation/Array
     - Globus/CoreFoundation/Dictionary
     - Globus/CoreFoundation/FileManager
     - Globus/Observer
     - Globus/UIKit/Device
     - Globus/WatchKit/Device
-  - Globus/WebViewController (0.4.4):
+  - Globus/WebViewController (0.4.16):
     - Globus/ViewController
-  - Globus/Window (0.4.4):
+  - Globus/Window (0.4.16):
     - Globus/TransitionController/Base
     - Globus/UIKit/Application
     - Globus/UIKit/Responder
     - Globus/UIKit/Window
-  - GlobusSwifty (0.4.4):
-    - GlobusSwifty/ApiManager (= 0.4.4)
-    - GlobusSwifty/Json (= 0.4.4)
-    - GlobusSwifty/Model (= 0.4.4)
-    - GlobusSwifty/Pack (= 0.4.4)
-    - GlobusSwifty/StructedObject (= 0.4.4)
-  - GlobusSwifty/ApiManager (0.4.4):
+  - GlobusSwifty (0.4.16):
+    - GlobusSwifty/ApiManager (= 0.4.16)
+    - GlobusSwifty/Json (= 0.4.16)
+    - GlobusSwifty/Model (= 0.4.16)
+    - GlobusSwifty/Pack (= 0.4.16)
+    - GlobusSwifty/StructedObject (= 0.4.16)
+  - GlobusSwifty/ApiManager (0.4.16):
     - Globus/ApiManager
-  - GlobusSwifty/Json (0.4.4):
+  - GlobusSwifty/Json (0.4.16):
     - Globus/Json
     - GlobusSwifty/StructedObject
-  - GlobusSwifty/Model (0.4.4):
+  - GlobusSwifty/Model (0.4.16):
     - Globus/CoreFoundation/FileManager
     - GlobusSwifty/Json
     - GlobusSwifty/Pack
-  - GlobusSwifty/Pack (0.4.4):
+  - GlobusSwifty/Pack (0.4.16):
     - Globus/Pack
     - GlobusSwifty/StructedObject
-  - GlobusSwifty/StructedObject (0.4.4):
+  - GlobusSwifty/StructedObject (0.4.16):
     - Globus/StructedObject
 
 DEPENDENCIES:
@@ -604,10 +604,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Crashlytics: 2b6dbe138a42395577cfa73dfa1aa7248cadf39e
+  Crashlytics: 79e236942ca1e7fc641df1feb9a275360a78ab6a
   Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
-  Globus: 0e7dbacf57d8d0845c485066890ff2221640bdc5
-  GlobusSwifty: 577dcc7b6dc20439a4425595161778e52504edc1
+  Globus: 0e326506c8edb9ae79f292625f5f811d40a94ec3
+  GlobusSwifty: e611474ea493667eea7bd93eddbee8c90a032863
 
 PODFILE CHECKSUM: 82140a7872f00d11c320b4f66a5e05f47e50b222
 

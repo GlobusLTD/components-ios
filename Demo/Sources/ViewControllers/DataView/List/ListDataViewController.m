@@ -26,60 +26,38 @@ static NSString* ListCellIdentifier = @"List";
     self.spinnerView.color = UIColor.blueColor;
 }
 
-#pragma mark - UIViewController
+#pragma mark - GLBViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    [self.navigationItem glb_removeAllLeftBarButtonItemsAnimated:NO];
-    [self.navigationItem glb_addLeftBarButtonNormalImage:[UIImage imageNamed:@"MenuButton"] target:self action:@selector(pressedMenu:) animated:NO];
+- (NSArray< UIBarButtonItem* >*)prepareNavigationLeftBarButtons {
+    return @[
+        [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"MenuButton"] style:UIBarButtonItemStylePlain target:self action:@selector(pressedMenu:)]
+    ];
 }
 
 #pragma mark - GLBListDataViewController
 
-- (void)configureDataView {
-    [super configureDataView];
-    
-    [self registerIdentifier:ListCellIdentifier withViewClass:ListDataViewCell.class];
-}
-
-- (GLBDataViewSectionsContainer*)prepareRootContainer {
-    return [GLBDataViewSectionsListContainer containerWithOrientation:GLBDataViewContainerOrientationVertical];
-}
-
-- (GLBDataViewSectionsContainer*)prepareContentContainer {
-    return [GLBDataViewSectionsListContainer containerWithOrientation:GLBDataViewContainerOrientationVertical];
-}
-
-- (GLBDataViewContainer*)preparePreloadContainer {
-    return nil;
-}
-
-- (GLBDataViewContainer*)prepareEmptyContainer {
-    return nil;
-}
-
-- (GLBDataViewContainer*)prepareErrorContainerWithError:(nullable id)error {
-    return nil;
-}
-
-- (GLBDataViewContainer*)prepareSectionContainerWithModel:(id< GLBListDataProviderModel >)model {
-    return [GLBDataViewItemsListContainer containerWithOrientation:GLBDataViewContainerOrientationVertical];
-}
-
-- (GLBDataViewItem*)prepareItemWithModel:(id)model {
-    return [GLBDataViewItem itemWithIdentifier:ListCellIdentifier order:0 data:model];
-}
-
-- (void)sectionContainer:(GLBDataViewContainer*)sectionContainer appendItem:(GLBDataViewItem*)item {
-    GLBDataViewItemsListContainer* itemsListContainer = (GLBDataViewItemsListContainer*)sectionContainer;
-    [itemsListContainer appendItem:item];
+- (GLBDataViewContainer< GLBListDataViewControllerContentContainerProtocol >*)prepareContentContainer {
+    return [ListDataViewControllerContentContainer container];
 }
 
 #pragma mark - Actions
 
 - (IBAction)pressedMenu:(id)sender {
     [self.glb_slideViewController showLeftViewControllerAnimated:YES complete:nil];
+}
+
+@end
+
+@implementation ListDataViewControllerContentContainer
+
++ (NSDictionary< NSString*, Class >*)mapCells {
+    return @{
+        ListCellIdentifier: ListDataViewCell.class
+    };
+}
+
+- (GLBDataViewItem*)prepareItemWithModel:(id)model {
+    return [GLBDataViewItem itemWithIdentifier:ListCellIdentifier order:0 data:model];
 }
 
 @end

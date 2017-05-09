@@ -16,14 +16,14 @@ class DialogRootViewController: GLBViewController {
         return DialogContentViewController.instantiate()!
     }()
     internal lazy var dialogViewController: GLBDialogViewController = {
-        let vc = GLBDialogViewController.init(contentViewController: self.contentViewController)
+        let vc = GLBDialogViewController(contentViewController: self.contentViewController)
         vc.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         vc.isBackgroundBlurred = false
         vc.contentVerticalAlignment = .center
         vc.contentHorizontalAlignment = .center
         vc.contentWidthBehaviour = .fill
         vc.contentHeightBehaviour = .fit
-        vc.contentInset = UIEdgeInsets.init(top: 16, left: 16, bottom: 16, right: 16)
+        vc.contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         return vc
     }()
     
@@ -33,8 +33,8 @@ class DialogRootViewController: GLBViewController {
         super.viewDidLoad()
         
         self.listField.items = [
-            GLBListFieldItem.init(title: "Default", value:nil),
-            GLBListFieldItem.init(title: GLBDialogPushAnimationController.glb_className(), value:GLBDialogPushAnimationController.self),
+            GLBListFieldItem(title: "Default", value:nil),
+            GLBListFieldItem(title: GLBDialogPushAnimationController.glb_className(), value:GLBDialogPushAnimationController.self),
         ]
     }
     

@@ -23,7 +23,7 @@ class ListDataViewCell: GLBDataViewCell {
     }
     
     public override func willShow() {
-        if let viewModel = self.item!.data as? ListDataProviderItemModel {
+        if let viewModel = self.item!.data as? ListDataProviderModel {
             self.displayLabel.text = viewModel.title;
         }
     }

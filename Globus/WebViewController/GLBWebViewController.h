@@ -16,12 +16,12 @@
 @property(nonatomic, nullable, readonly, strong) UIWebView* uiWebView;
 @property(nonatomic, nullable, readonly, strong) WKWebView* wkWebView;
 @property(nonatomic) BOOL allowsDoneBarButton;
-@property(nonatomic, nullable, strong) UIBarButtonItem* doneBarButtonItem;
-@property(nonatomic, nullable, strong) UIBarButtonItem* backBarButtonItem;
-@property(nonatomic, nullable, strong) UIBarButtonItem* forwardBarButtonItem;
-@property(nonatomic, nullable, strong) UIBarButtonItem* refreshBarButtonItem;
-@property(nonatomic, nullable, strong) UIBarButtonItem* stopBarButtonItem;
-@property(nonatomic, nullable, strong) UIBarButtonItem* actionBarButtonItem;
+@property(nonatomic, nonnull, strong) UIBarButtonItem* doneBarButtonItem;
+@property(nonatomic, nonnull, strong) UIBarButtonItem* backBarButtonItem;
+@property(nonatomic, nonnull, strong) UIBarButtonItem* forwardBarButtonItem;
+@property(nonatomic, nonnull, strong) UIBarButtonItem* refreshBarButtonItem;
+@property(nonatomic, nonnull, strong) UIBarButtonItem* stopBarButtonItem;
+@property(nonatomic, nonnull, strong) UIBarButtonItem* actionBarButtonItem;
 @property(nonatomic, nullable, readonly, strong) UIProgressView* progressView;
 
 @property(nonatomic) BOOL allowsWebKit;
@@ -46,8 +46,6 @@
 - (void)didStartLoading;
 - (void)didFinishLoading;
 - (void)didLoadingError:(nullable NSError*)error;
-
-- (void)updateNavigationItems;
 
 - (void)share:(nullable id)sender;
 

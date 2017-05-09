@@ -12,13 +12,6 @@
 
 @class ListDataProviderModel;
 
-@interface ListDataProviderGroupModel : GLBModel< GLBListDataProviderModel >
-
-@property(nonatomic, nullable, strong) NSString* uid;
-@property(nonatomic, nullable, strong) NSArray< ListDataProviderModel* >* childs;
-
-@end
-
 @interface ListDataProviderModel : GLBModel
 
 @property(nonatomic, nullable, strong) NSString* uid;

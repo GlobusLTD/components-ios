@@ -15,7 +15,7 @@ class ButtonBadgeViewController: GLBViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.button.glb_normalImage = UIImage.init(named: "ButtonIcon")
+        self.button.glb_normalImage = UIImage(named: "ButtonIcon")
         self.button.normalBackgroundColor = UIColor.lightGray
         self.button.highlightedBackgroundColor = UIColor.lightGray
         self.button.normalCornerRadius = 4.0

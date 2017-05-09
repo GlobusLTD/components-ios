@@ -26,11 +26,11 @@ class TransitionViewController: GLBViewController {
         super.viewDidLoad()
         
         self.listField.items = [
-            GLBListFieldItem.init(title: "Default", value:nil),
-            GLBListFieldItem.init(title: GLBCrossFadeTransitionController.glb_className(), value:GLBCrossFadeTransitionController.self),
-            GLBListFieldItem.init(title: GLBMaterialTransitionController.glb_className(), value:GLBMaterialTransitionController.self),
-            GLBListFieldItem.init(title: GLBSlideTransitionController.glb_className(), value:GLBSlideTransitionController.self),
-            GLBListFieldItem.init(title: GLBCardsTransitionController.glb_className(), value:GLBCardsTransitionController.self),
+            GLBListFieldItem(title: "Default", value:nil),
+            GLBListFieldItem(title: GLBCrossFadeTransitionController.glb_className(), value:GLBCrossFadeTransitionController.self),
+            GLBListFieldItem(title: GLBMaterialTransitionController.glb_className(), value:GLBMaterialTransitionController.self),
+            GLBListFieldItem(title: GLBSlideTransitionController.glb_className(), value:GLBSlideTransitionController.self),
+            GLBListFieldItem(title: GLBCardsTransitionController.glb_className(), value:GLBCardsTransitionController.self),
         ]
     }
     

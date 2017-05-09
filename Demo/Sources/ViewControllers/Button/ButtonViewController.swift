@@ -43,7 +43,7 @@ class ButtonViewController: GLBViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.fillButton.contentEdgeInsets = UIEdgeInsets.init(top: 4, left: 4, bottom: 4, right: 4)
+        self.fillButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         self.fillButton.normalTitleStyle = self.fillNormalStyle
         self.fillButton.normalBackgroundColor = UIColor.lightGray
         self.fillButton.normalCornerRadius = 4.0
@@ -51,7 +51,7 @@ class ButtonViewController: GLBViewController {
         self.fillButton.highlightedBackgroundColor = UIColor.darkGray
         self.fillButton.highlightedCornerRadius = 8.0
         
-        self.strokeButton.contentEdgeInsets = UIEdgeInsets.init(top: 4, left: 4, bottom: 4, right: 4)
+        self.strokeButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         self.strokeButton.normalTitleStyle = self.strokeNormalStyle
         self.strokeButton.normalBorderWidth = 1.0
         self.strokeButton.normalBorderColor = UIColor.lightGray
@@ -61,7 +61,7 @@ class ButtonViewController: GLBViewController {
         self.strokeButton.highlightedBorderWidth = 2.0
         self.strokeButton.highlightedCornerRadius = 8.0
         
-        self.tintFillButton.contentEdgeInsets = UIEdgeInsets.init(top: 4, left: 4, bottom: 4, right: 4)
+        self.tintFillButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         self.tintFillButton.glb_normalImage = UIImage.glb_imageNamed("ButtonIcon", renderingMode: .alwaysTemplate)
         self.tintFillButton.normalTitleStyle = self.fillNormalStyle
         self.tintFillButton.normalBackgroundColor = UIColor.lightGray
@@ -72,7 +72,7 @@ class ButtonViewController: GLBViewController {
         self.tintFillButton.highlightedCornerRadius = 8.0
         self.tintFillButton.highlightedTintColor = UIColor.black
         
-        self.tintStrokeButton.contentEdgeInsets = UIEdgeInsets.init(top: 4, left: 4, bottom: 4, right: 4)
+        self.tintStrokeButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         self.tintStrokeButton.glb_normalImage = UIImage.glb_imageNamed("ButtonIcon", renderingMode: .alwaysTemplate)
         self.tintStrokeButton.normalTitleStyle = self.strokeNormalStyle
         self.tintStrokeButton.normalBorderWidth = 1.0

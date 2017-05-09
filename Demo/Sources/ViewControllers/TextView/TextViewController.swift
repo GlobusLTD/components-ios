@@ -22,12 +22,12 @@ class TextViewController: GLBViewController {
         self.textView.minimumHeight = 48
         self.textView.maximumHeight = 96
 
-        let placeholderStyle = GLBTextStyle.init()
+        let placeholderStyle = GLBTextStyle()
         placeholderStyle.font = UIFont.boldSystemFont(ofSize: 16)
         placeholderStyle.color = UIColor.lightGray
         self.textView.placeholderStyle = placeholderStyle
         self.textView.placeholder = "Placeholder"
-        self.textView.actionValueChanged = GLBAction.init(target: self, action: #selector(changedText(_:)))
+        self.textView.actionValueChanged = GLBAction(target: self, action: #selector(changedText(_:)))
     }
     
     override func viewDidAppear(_ animated: Bool) {

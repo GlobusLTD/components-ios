@@ -17,9 +17,9 @@ class ScrollViewController: GLBViewController {
         super.viewDidLoad()
         
         self.listField.items = [
-            GLBListFieldItem.init(title: "Stretch", value:GLBScrollViewDirection.stretch),
-            GLBListFieldItem.init(title: "Horizontal", value:GLBScrollViewDirection.horizontal),
-            GLBListFieldItem.init(title: "Vertical", value:GLBScrollViewDirection.vertical)
+            GLBListFieldItem(title: "Stretch", value:GLBScrollViewDirection.stretch),
+            GLBListFieldItem(title: "Horizontal", value:GLBScrollViewDirection.horizontal),
+            GLBListFieldItem(title: "Vertical", value:GLBScrollViewDirection.vertical)
         ]
         self.scrollView.direction = .stretch
     }

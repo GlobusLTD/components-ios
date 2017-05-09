@@ -15,7 +15,7 @@ class CalendarDataViewController: GLBDataViewController {
     override func setup() {
         super.setup()
         
-        self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0);
+        self.edgesForExtendedLayout = UIRectEdge(rawValue: 0);
         self.title = "CalendarDataView"
     }
     
@@ -25,7 +25,7 @@ class CalendarDataViewController: GLBDataViewController {
         super.viewDidLoad()
         
         self.navigationItem.glb_removeAllLeftBarButtonItems(animated: false)
-        self.navigationItem.glb_addLeftBarButtonNormalImage(UIImage.init(named: "MenuButton"), target: self, action: #selector(pressedMenu(_ :)), animated: false)
+        self.navigationItem.glb_addLeftBarButtonNormalImage(UIImage(named: "MenuButton"), target: self, action: #selector(pressedMenu(_ :)), animated: false)
     }
     
     // MARK: - GLBViewController
@@ -34,7 +34,7 @@ class CalendarDataViewController: GLBDataViewController {
         super.update()
         
         self.dataView?.batchUpdate({
-            let now = NSDate.init()
+            let now = NSDate()
             self.dataViewContainer?.prepareBegin(now.glb_beginningOfMonth()!, end: now.glb_endOfMonth()!)
         })
     }
@@ -50,7 +50,7 @@ class CalendarDataViewController: GLBDataViewController {
     // MARK: - GLBDataViewController
     
     override func configureDataView() {
-        self.dataViewContainer = GLBDataViewCalendarContainer.init(calendar: Calendar.current)
+        self.dataViewContainer = GLBDataViewCalendarContainer(calendar: Calendar.current)
         
         self.dataView?.registerIdentifier(GLBDataViewCalendarMonthIdentifier, withViewClass: CalendarMonthDataViewCell.self)
         self.dataView?.registerIdentifier(GLBDataViewCalendarWeekdayIdentifier, withViewClass: CalendarWeekdayDataViewCell.self)

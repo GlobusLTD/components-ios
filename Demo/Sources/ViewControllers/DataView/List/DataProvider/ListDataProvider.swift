@@ -19,47 +19,13 @@ class ListDataProvider: GLBLocalListDataProvider {
         self.canSearch = true
     }
     
-    public override func model(withJson json: Any) -> GLBListDataProviderModel? {
-        return ListDataProviderGroupModel.model(jsonObject: json)
+    public override func model(withJsonObject jsonObject: Any) -> Any? {
+        return ListDataProviderModel.model(jsonObject: jsonObject)
     }
     
 }
 
-class ListDataProviderGroupModel : GLBSwiftyModel {
-    
-    public var uid: String = ""
-    public var items: [ ListDataProviderItemModel ] = []
-    
-    override func fromJson(json: GLBJson) {
-        self.uid <<< (json, "id")
-        self.items <<< (json, "childs")
-    }
-    
-}
-
-extension ListDataProviderGroupModel: GLBListDataProviderModel {
-    
-    public var header: Any? {
-        get {
-            return nil
-        }
-    }
-    
-    public var footer: Any? {
-        get {
-            return nil
-        }
-    }
-    
-    public var childs: [ Any ]? {
-        get {
-            return self.items as [ Any ]
-        }
-    }
-    
-}
-
-class ListDataProviderItemModel : GLBSwiftyModel {
+class ListDataProviderModel : GLBSwiftyModel {
     
     public var uid: String = ""
     public var title: String = ""

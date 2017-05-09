@@ -16,7 +16,7 @@
 
 - (void)setup NS_REQUIRES_SUPER;
 
-- (nullable id< GLBListDataProviderModel >)modelWithJson:(nonnull id)json;
+- (nullable id)modelWithJsonObject:(nonnull id)jsonObject;
 
 @end
 

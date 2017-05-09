@@ -16,7 +16,11 @@
 
 /*--------------------------------------------------*/
 
-@interface GLBViewController ()
+@interface GLBViewController () {
+    BOOL _needUpdateNavigationItem;
+    BOOL _needUpdateToolbarItems;
+}
+
 @end
 
 /*--------------------------------------------------*/
@@ -34,7 +38,7 @@
 + (instancetype)instantiateWithOptions:(NSDictionary*)options {
     UINib* nib = self.glb_nib;
     if(nib != nil) {
-        return [nib glb_instantiateWithClass:self.class owner:nil options:nil];
+        return [nib glb_instantiateWithClass:self.class owner:nil options:options];
     }
     return nil;
 }
@@ -47,6 +51,7 @@
     } else {
         _supportedOrientationMask = UIInterfaceOrientationMaskLandscape;
     }
+    _needUpdateNavigationItem = YES;
 }
 
 - (void)dealloc {
@@ -126,6 +131,21 @@
 #endif
 }
 
+#pragma mark - UIViewController
+
+- (void)update {
+    [super update];
+    
+    if(_needUpdateNavigationItem == YES) {
+        _needUpdateNavigationItem = NO;
+        [self updateNavigationItem];
+    }
+    if(_needUpdateToolbarItems == YES) {
+        _needUpdateToolbarItems = NO;
+        [self updateToolbarItems];
+    }
+}
+
 #pragma mark - Property
 
 #if __has_include("GLBActivityView.h")
@@ -143,6 +163,50 @@
     }
 }
 #endif
+
+#pragma mark - Public
+
+- (void)setNeedUpdateNavigationItem {
+    if(self.isAppeared == YES) {
+        _needUpdateNavigationItem = NO;
+        [self updateNavigationItem];
+    } else {
+        _needUpdateNavigationItem = YES;
+    }
+}
+
+- (void)updateNavigationItem {
+    self.navigationItem.leftBarButtonItems = [self prepareNavigationLeftBarButtons];
+    self.navigationItem.rightBarButtonItems = [self prepareNavigationRightBarButtons];
+}
+
+- (void)updateNavigationItem:(UINavigationItem*)navigationItem {
+}
+
+- (NSArray< UIBarButtonItem* >*)prepareNavigationLeftBarButtons {
+    return self.navigationItem.leftBarButtonItems;
+}
+
+- (NSArray< UIBarButtonItem* >*)prepareNavigationRightBarButtons {
+    return self.navigationItem.rightBarButtonItems;
+}
+
+- (void)setNeedUpdateToolbarItems {
+    if(self.isAppeared == YES) {
+        _needUpdateToolbarItems = NO;
+        [self updateToolbarItems];
+    } else {
+        _needUpdateToolbarItems = YES;
+    }
+}
+
+- (void)updateToolbarItems {
+    self.toolbarItems = [self prepareToolbarItems];
+}
+
+- (NSArray< UIBarButtonItem* >*)prepareToolbarItems {
+    return self.toolbarItems;
+}
 
 #pragma mark - GLBNibExtension
 

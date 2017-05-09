@@ -6,12 +6,11 @@
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@interface GLBBaseViewController () < UIViewControllerTransitioningDelegate >
-
-@property(nonatomic, getter=isAppeared) BOOL appeared;
-@property(nonatomic, getter=isNeedUpdate) BOOL needUpdate;
-@property(nonatomic, getter=isNeedClear) BOOL needClear;
-@property(nonatomic) BOOL updating;
+@interface GLBBaseViewController () < UIViewControllerTransitioningDelegate > {
+    BOOL _needUpdate;
+    BOOL _needClear;
+    BOOL _updating;
+}
 
 @end
 

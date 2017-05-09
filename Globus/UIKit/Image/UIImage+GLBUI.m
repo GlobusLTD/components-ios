@@ -524,7 +524,11 @@ NSData* GLBImageGIFRepresentation(UIImage* image, NSUInteger loopCount, NSError*
         if(options != NULL) {
             CFMutableDictionaryRef gifOptions = CFDictionaryCreateMutable(kCFAllocatorDefault, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
             if(gifOptions != NULL) {
-                CFDictionarySetValue(gifOptions, kCGImagePropertyGIFLoopCount, CFNumberCreate(kCFAllocatorDefault, kCFNumberNSIntegerType, &loopCount));
+                CFNumberRef gifLoopCount = CFNumberCreate(kCFAllocatorDefault, kCFNumberNSIntegerType, &loopCount);
+                if(gifLoopCount != NULL) {
+                    CFDictionarySetValue(gifOptions, kCGImagePropertyGIFLoopCount, gifLoopCount);
+                    CFRelease(gifLoopCount);
+                }
                 CFDictionarySetValue(options, kCGImagePropertyGIFDictionary, gifOptions);
                 CFRelease(gifOptions);
             }
@@ -534,7 +538,11 @@ NSData* GLBImageGIFRepresentation(UIImage* image, NSUInteger loopCount, NSError*
         if(frameOptions != NULL) {
             CFMutableDictionaryRef gifOptions = CFDictionaryCreateMutable(kCFAllocatorDefault, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
             if(gifOptions != NULL) {
-                CFDictionarySetValue(gifOptions, kCGImagePropertyGIFDelayTime, CFNumberCreate(kCFAllocatorDefault, kCFNumberDoubleType, &durationPerFrame));
+                CFNumberRef gifDelayTime = CFNumberCreate(kCFAllocatorDefault, kCFNumberDoubleType, &durationPerFrame);
+                if(gifDelayTime != NULL) {
+                    CFDictionarySetValue(gifOptions, kCGImagePropertyGIFDelayTime, gifDelayTime);
+                    CFRelease(gifDelayTime);
+                }
                 CFDictionarySetValue(frameOptions, kCGImagePropertyGIFDictionary, gifOptions);
                 CFRelease(gifOptions);
             }
