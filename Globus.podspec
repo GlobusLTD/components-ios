@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Globus'
-  s.version = '0.4.17'
+  s.version = '0.4.18'
   s.homepage = 'http://www.globus-ltd.com'
   s.summary = 'Globus components for iOS'
   s.license = { :type => 'MIT', :file => 'LICENSE' }
@@ -637,6 +637,8 @@ Pod::Spec.new do |s|
       sss.dependency 'Globus/CoreFoundation/Bundle'
       sss.dependency 'Globus/ViewController'
       sss.dependency 'Globus/DataView/Base'
+      sss.dependency 'Globus/DataView/SectionsListContainer'
+      sss.dependency 'Globus/DataView/ItemsListContainer'
       sss.dependency 'Globus/RoundView'
       sss.resources = 'Globus/DataViewController/Base/GLBDataViewController.bundle'
     end
