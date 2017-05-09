@@ -1,354 +1,163 @@
 /*--------------------------------------------------*/
 
 #import "GLBDataViewController.h"
-
-/*--------------------------------------------------*/
-
-#if __has_include("GLBSpinnerView.h")
-#import "GLBSpinnerView.h"
-#endif
+#import "GLBDataViewControllerRootContainer.h"
+#import "GLBDataViewControllerPreloadContainer.h"
+#import "GLBDataViewControllerEmptyContainer.h"
+#import "GLBDataViewControllerErrorContainer.h"
+#import "NSBundle+GLBNS.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@interface GLBDataViewController () {
-    UIView* _contentView;
-    NSMutableArray< NSLayoutConstraint* >* _constraints;
-}
-
-@end
-
-/*--------------------------------------------------*/
-
 @implementation GLBDataViewController
 
-#pragma mark - Init / Free
+#pragma mark - GLBViewController
 
-+ (instancetype)instantiate {
-    return [self new];
-}
-
-+ (instancetype)instantiateWithOptions:(NSDictionary*)options {
-    return [self new];
-}
-
-- (void)setup {
-    [super setup];
+- (void)clear {
+    _state = GLBDataViewControllerStateNone;
+    [self.dataView batchUpdate:^{
+        [_rootContainer hideCurrentContainer];
+    } complete:^{
+        _contentContainer = nil;
+        _preloadContainer = nil;
+        _emptyContainer = nil;
+        _errorContainer = nil;
+    }];
     
-    _constraints = [NSMutableArray array];
-    
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    [super clear];
 }
 
-#pragma mark - UIViewController
+#pragma mark - GLBDataViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    self.view.backgroundColor = UIColor.whiteColor;
-    
-    CGRect screenRect = UIScreen.mainScreen.bounds;
-    
-    _contentView = [[UIView alloc] initWithFrame:screenRect];
-    _contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:_contentView];
-    
-    _dataView = [[GLBDataView alloc] initWithFrame:screenRect];
-    _dataView.translatesAutoresizingMaskIntoConstraints = NO;
-    _dataView.delegate = self;
-    [_contentView addSubview:_dataView];
-    [_dataView glb_addConstraintEdgeInsets];
-
-#if __has_include("GLBSpinnerView.h")
-    if(_spinnerView.superview == nil) {
-        [self.view addSubview:_spinnerView];
+- (void)configureDataView {
+    if(_rootContainer == nil) {
+        _rootContainer = [self prepareRootContainer];
+        _rootContainer.viewController = self;
     }
-#endif
-    
-    [self configureDataView];
+    self.dataView.container = _rootContainer;
 }
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-- (void)viewDidUnload {
-    if(_dataView != nil) {
-        [self cleanupDataView];
-        
-        [_dataView removeFromSuperview];
-        _dataView = nil;
-    }
-#if __has_include("GLBSpinnerView.h")
-    if(_spinnerView != nil) {
-        [_spinnerView removeFromSuperview];
-    }
-#endif
-    if(_contentView != nil) {
-        [_contentView removeFromSuperview];
-        _contentView = nil;
-    }
-    self.bottomView = nil;
-    self.rightView = nil;
-    self.leftView = nil;
-    self.topView = nil;
-    
-    [super viewDidUnload];
-}
-
-#pragma clang diagnostic pop
-
-- (void)updateViewConstraints {
-    if(_constraints.count > 0) {
-        [self.view removeConstraints:_constraints];
-        [_constraints removeAllObjects];
-    }
-    [super updateViewConstraints];
-    BOOL assignTopLayout = (((self.edgesForExtendedLayout & UIRectEdgeTop) != 0) && (self.automaticallyAdjustsScrollViewInsets == NO) && (self.topLayoutGuide != nil));
-    BOOL assignBottomLayout = (((self.edgesForExtendedLayout & UIRectEdgeBottom) != 0) && (self.automaticallyAdjustsScrollViewInsets == NO) && (self.bottomLayoutGuide != nil));
-    if(assignTopLayout == YES) {
-        if(_topView != nil) {
-            [_constraints addObject:[_topView glb_addConstraintTop:0.0f bottomItem:self.topLayoutGuide]];
-            [_constraints addObject:[_contentView glb_addConstraintTop:0.0f bottomItem:_topView]];
-        } else {
-            [_constraints addObject:[_contentView glb_addConstraintTop:0.0f bottomItem:self.topLayoutGuide]];
-        }
-    } else {
-        if(_topView != nil) {
-            [_constraints addObject:[_topView glb_addConstraintTop:0.0f]];
-            [_constraints addObject:[_contentView glb_addConstraintTop:0.0f bottomItem:_topView]];
-        } else {
-            [_constraints addObject:[_contentView glb_addConstraintTop:0.0f]];
-        }
-    }
-    if(_leftView != nil) {
-        [_constraints addObject:[_leftView glb_addConstraintLeft:0.0f]];
-        [_constraints addObject:[_contentView glb_addConstraintLeft:0.0f rightItem:_leftView]];
-    } else {
-        [_constraints addObject:[_contentView glb_addConstraintLeft:0.0f]];
-    }
-    if(_rightView != nil) {
-        [_constraints addObject:[_rightView glb_addConstraintRight:0.0f]];
-        [_constraints addObject:[_contentView glb_addConstraintRight:0.0f leftItem:_rightView]];
-    } else {
-        [_constraints addObject:[_contentView glb_addConstraintRight:0.0f]];
-    }
-    if(assignBottomLayout == YES) {
-        if(_bottomView != nil) {
-            [_constraints addObject:[_bottomView glb_addConstraintBottom:0.0f topItem:self.bottomLayoutGuide]];
-            [_constraints addObject:[_contentView glb_addConstraintBottom:0.0f topItem:_bottomView]];
-        } else {
-            [_constraints addObject:[_contentView glb_addConstraintBottom:0.0f topItem:self.bottomLayoutGuide]];
-        }
-    } else {
-        if(_bottomView != nil) {
-            [_constraints addObject:[_bottomView glb_addConstraintBottom:0.0f]];
-            [_constraints addObject:[_contentView glb_addConstraintBottom:0.0f topItem:_bottomView]];
-        } else {
-            [_constraints addObject:[_contentView glb_addConstraintBottom:0.0f]];
-        }
-    }
-#if __has_include("GLBSpinnerView.h")
-    if(_spinnerView != nil) {
-        [_constraints addObjectsFromArray:[_spinnerView glb_addConstraintCenter:UIOffsetZero item:_contentView] ];
-    }
-#endif
-}
-
-#pragma mark - Property override
-
-- (void)setEdgesForExtendedLayout:(UIRectEdge)edgesForExtendedLayout {
-    [super setEdgesForExtendedLayout:edgesForExtendedLayout];
-    if(self.isViewLoaded == YES) {
-        [self.view setNeedsUpdateConstraints];
-    }
-}
-
-- (void)setAutomaticallyAdjustsScrollViewInsets:(BOOL)automaticallyAdjustsScrollViewInsets {
-    [super setAutomaticallyAdjustsScrollViewInsets:automaticallyAdjustsScrollViewInsets];
-    if(self.isViewLoaded == YES) {
-        [self.view setNeedsUpdateConstraints];
-    }
-}
-
-#pragma mark - Property
-
-- (void)setTopView:(UIView*)topView {
-    if(_topView != topView) {
-        if(_topView != nil) {
-            [_topView removeFromSuperview];
-        }
-        _topView = topView;
-        if(_topView != nil) {
-            _topView.translatesAutoresizingMaskIntoConstraints = NO;
-            
-            if(self.isViewLoaded == YES) {
-                [self.view addSubview:_topView];
-                [self.view setNeedsUpdateConstraints];
-            }
-        }
-    }
-}
-
-- (void)setLeftView:(UIView*)leftView {
-    if(_leftView != leftView) {
-        if(_leftView != nil) {
-            [_leftView removeFromSuperview];
-        }
-        _leftView = leftView;
-        if(_leftView != nil) {
-            _leftView.translatesAutoresizingMaskIntoConstraints = NO;
-            
-            if(self.isViewLoaded == YES) {
-                [self.view addSubview:_leftView];
-                [self.view setNeedsUpdateConstraints];
-            }
-        }
-    }
-}
-
-- (void)setRightView:(UIView*)rightView {
-    if(_rightView != rightView) {
-        if(_rightView != nil) {
-            [_rightView removeFromSuperview];
-        }
-        _rightView = rightView;
-        if(_rightView != nil) {
-            _rightView.translatesAutoresizingMaskIntoConstraints = NO;
-            
-            if(self.isViewLoaded == YES) {
-                [self.view addSubview:_rightView];
-                [self.view setNeedsUpdateConstraints];
-            }
-        }
-    }
-}
-
-- (void)setBottomView:(UIView*)bottomView {
-    if(_bottomView != bottomView) {
-        if(_bottomView != nil) {
-            [_bottomView removeFromSuperview];
-        }
-        _bottomView = bottomView;
-        if(_bottomView != nil) {
-            _bottomView.translatesAutoresizingMaskIntoConstraints = NO;
-            
-            if(self.isViewLoaded == YES) {
-                [self.view addSubview:_bottomView];
-                [self.view setNeedsUpdateConstraints];
-            }
-        }
-    }
-}
-
-#if __has_include("GLBSpinnerView.h")
-
-- (void)setSpinnerView:(GLBSpinnerView*)spinnerView {
-    if(_spinnerView != spinnerView) {
-        if(_spinnerView != nil) {
-            [_spinnerView removeFromSuperview];
-        }
-        _spinnerView = spinnerView;
-        if(_spinnerView != nil) {
-            _spinnerView.translatesAutoresizingMaskIntoConstraints = NO;
-            _spinnerView.hidesWhenStopped = YES;
-            
-            if(self.isViewLoaded == YES) {
-                if(_dataView != nil) {
-                    [self.view insertSubview:_spinnerView aboveSubview:_dataView];
-                } else {
-                    [self.view addSubview:_spinnerView];
-                }
-                [self.view setNeedsUpdateConstraints];
-            }
-        }
-    }
-}
-
-#endif
 
 #pragma mark - Public
 
-- (void)configureDataView {
++ (NSBundle*)defaultNibBundle {
+    static NSBundle* defaultNibBundle = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSBundle* rootBundle = [NSBundle bundleForClass:self.class];
+        defaultNibBundle = [NSBundle glb_bundleWithName:self.glb_className rootBundle:rootBundle];
+    });
+    return defaultNibBundle;
 }
 
-- (void)cleanupDataView {
-    self.dataView.container = nil;
-    [self.dataView unregisterAllIdentifiers];
-    [self.dataView unregisterAllActions];
+- (GLBDataViewContainer< GLBDataViewControllerRootContainerProtocol >*)prepareRootContainer {
+    return [GLBDataViewControllerRootContainer container];
 }
 
-- (void)registerIdentifier:(NSString*)identifier withViewClass:(Class)viewClass {
-    [self.dataView registerIdentifier:identifier withViewClass:viewClass];
+- (id< GLBDataViewControllerContentContainerProtocol >)prepareContentContainer {
+    return nil;
 }
 
-- (void)unregisterIdentifier:(NSString*)identifier {
-    [self.dataView unregisterIdentifier:identifier];
+- (id< GLBDataViewControllerPreloadContainerProtocol >)preparePreloadContainer {
+    return [GLBDataViewControllerPreloadContainer container];
 }
 
-- (void)unregisterAllIdentifiers {
-    [self.dataView unregisterAllIdentifiers];
+- (id< GLBDataViewControllerEmptyContainerProtocol >)prepareEmptyContainer {
+    return [GLBDataViewControllerEmptyContainer container];
 }
 
-- (void)registerAction:(SEL)action forKey:(id)key {
-    [self.dataView registerActionWithTarget:self action:action forKey:key];
+- (id< GLBDataViewControllerErrorContainerProtocol >)prepareErrorContainerWithError:(id)error {
+    return [GLBDataViewControllerErrorContainer containerWithError:error];
 }
 
-- (void)registerAction:(SEL)action forIdentifier:(id)identifier forKey:(id)key {
-    [self.dataView registerActionWithTarget:self action:action forIdentifier:identifier forKey:key];
-}
+#pragma mark - Public
 
-- (void)unregisterActionForKey:(id)key {
-    [self.dataView unregisterActionWithTarget:self forKey:key];
-}
-
-- (void)unregisterActionForIdentifier:(id)identifier forKey:(id)key {
-    [self.dataView unregisterActionWithTarget:self forIdentifier:identifier forKey:key];
-}
-
-- (void)unregisterAllActions {
-    [self.dataView unregisterAllActions];
-}
-
-- (BOOL)containsActionForKey:(id)key {
-    return [self.dataView containsActionForKey:key];
-}
-
-- (BOOL)containsActionForIdentifier:(id)identifier forKey:(id)key {
-    return [self.dataView containsActionForIdentifier:identifier forKey:key];
-}
-
-- (void)performActionForKey:(id)key withArguments:(NSArray*)arguments {
-    [self.dataView performActionForKey:key withArguments:arguments];
-}
-
-- (void)performActionForIdentifier:(id)identifier forKey:(id)key withArguments:(NSArray*)arguments {
-    [self.dataView performActionForIdentifier:identifier forKey:key withArguments:arguments];
-}
-
-- (BOOL)isLoading {
-#if __has_include("GLBSpinnerView.h")
-    if(_spinnerView != nil) {
-        return _spinnerView.isAnimating;
+- (void)showPreloadContainer {
+    if(_preloadContainer == nil) {
+        _preloadContainer = [self preparePreloadContainer];
+        _preloadContainer.viewController = self;
     }
-#endif
-    return NO;
+    if(_preloadContainer != nil) {
+        _state = GLBDataViewControllerStatePreload;
+        [self.dataView batchUpdate:^{
+            [_rootContainer showPreloadContainer:_preloadContainer];
+        } complete:^{
+            _contentContainer = nil;
+            _emptyContainer = nil;
+            _errorContainer = nil;
+        }];
+    } else {
+        [self showEmptyContainer];
+    }
 }
 
-- (void)showLoading {
-#if __has_include("GLBSpinnerView.h")
-    if(_spinnerView != nil) {
-        [_spinnerView startAnimating];
+- (void)showContentContainer:(GLBSimpleBlock)update {
+    if(_state == GLBDataViewControllerStateContent) {
+        [self.dataView batchUpdate:update];
+    } else {
+        if(_contentContainer == nil) {
+            _contentContainer = [self prepareContentContainer];
+            _contentContainer.viewController = self;
+        }
+        if(_contentContainer != nil) {
+            _state = GLBDataViewControllerStateContent;
+            [self.dataView batchUpdate:^{
+                [_rootContainer showContentContainer:_contentContainer];
+                if(update != nil) {
+                    update();
+                }
+            } complete:^{
+                _preloadContainer = nil;
+                _emptyContainer = nil;
+                _errorContainer = nil;
+            }];
+        } else {
+            [self showEmptyContainer];
+        }
     }
-#endif
 }
 
-- (void)hideLoading {
-#if __has_include("GLBSpinnerView.h")
-    if(_spinnerView != nil) {
-        [_spinnerView stopAnimating];
+- (void)showEmptyContainer {
+    if(_emptyContainer == nil) {
+        _emptyContainer = [self prepareEmptyContainer];
+        _emptyContainer.viewController = self;
     }
-#endif
+    if(_emptyContainer != nil) {
+        _state = GLBDataViewControllerStateEmpty;
+        [self.dataView batchUpdate:^{
+            [_rootContainer showEmptyContainer:_emptyContainer];
+        } complete:^{
+            _contentContainer = nil;
+            _preloadContainer = nil;
+            _errorContainer = nil;
+        }];
+    } else {
+        _state = GLBDataViewControllerStateNone;
+    }
+}
+
+- (void)showErrorContainer:(id)error {
+    if(error != nil) {
+        if(_errorContainer == nil) {
+            _errorContainer = [self prepareErrorContainerWithError:error];
+            _errorContainer.viewController = self;
+        }
+        if(_errorContainer != nil) {
+            _state = GLBDataViewControllerStateError;
+            [self.dataView batchUpdate:^{
+                [_rootContainer showErrorContainer:_errorContainer];
+            } complete:^{
+                _contentContainer = nil;
+                _preloadContainer = nil;
+                _emptyContainer = nil;
+            }];
+        } else {
+            _state = GLBDataViewControllerStateNone;
+        }
+    } else {
+        [self showEmptyContainer];
+    }
 }
 
 @end

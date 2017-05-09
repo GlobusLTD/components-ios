@@ -1,55 +1,95 @@
 /*--------------------------------------------------*/
 
-#import "GLBViewController.h"
-
-/*--------------------------------------------------*/
-
-#import "GLBDataView.h"
-#import "GLBDataRefreshView.h"
-#import "GLBDataViewContainer.h"
-#import "GLBDataViewItem.h"
-
-#import "GLBSearchBar.h"
+#import "GLBBaseDataViewController.h"
 
 /*--------------------------------------------------*/
 #if defined(GLB_TARGET_IOS)
 /*--------------------------------------------------*/
 
-@class GLBSpinnerView;
+typedef NS_ENUM(NSUInteger, GLBDataViewControllerState) {
+    GLBDataViewControllerStateNone,
+    GLBDataViewControllerStateContent,
+    GLBDataViewControllerStatePreload,
+    GLBDataViewControllerStateEmpty,
+    GLBDataViewControllerStateError
+};
 
 /*--------------------------------------------------*/
 
-@interface GLBDataViewController : GLBViewController< UIScrollViewDelegate >
+@protocol GLBDataViewControllerRootContainerProtocol;
+@protocol GLBDataViewControllerContentContainerProtocol;
+@protocol GLBDataViewControllerPreloadContainerProtocol;
+@protocol GLBDataViewControllerEmptyContainerProtocol;
+@protocol GLBDataViewControllerErrorContainerProtocol;
 
-@property(nonatomic, nullable, strong) UIView* topView;
-@property(nonatomic, nullable, strong) UIView* leftView;
-@property(nonatomic, nullable, strong) UIView* rightView;
-@property(nonatomic, nullable, strong) UIView* bottomView;
-@property(nonatomic, nullable, readonly, strong) GLBDataView* dataView;
-@property(nonatomic, nullable, strong) GLBSpinnerView* spinnerView;
+/*--------------------------------------------------*/
 
-- (void)configureDataView;
-- (void)cleanupDataView NS_REQUIRES_SUPER;
+@interface GLBDataViewController : GLBBaseDataViewController
 
-- (void)registerIdentifier:(nonnull NSString*)identifier withViewClass:(nonnull Class)viewClass;
-- (void)unregisterIdentifier:(nonnull NSString*)identifier;
-- (void)unregisterAllIdentifiers;
+@property(nonatomic, readonly) GLBDataViewControllerState state;
+@property(nonatomic, readonly, nullable, strong) __kindof GLBDataViewContainer< GLBDataViewControllerRootContainerProtocol >* rootContainer;
+@property(nonatomic, readonly, nullable, strong) __kindof GLBDataViewContainer< GLBDataViewControllerContentContainerProtocol >* contentContainer;
+@property(nonatomic, readonly, nullable, strong) __kindof GLBDataViewContainer< GLBDataViewControllerPreloadContainerProtocol >* preloadContainer;
+@property(nonatomic, readonly, nullable, strong) __kindof GLBDataViewContainer< GLBDataViewControllerEmptyContainerProtocol >* emptyContainer;
+@property(nonatomic, readonly, nullable, strong) __kindof GLBDataViewContainer< GLBDataViewControllerErrorContainerProtocol >* errorContainer;
 
-- (void)registerAction:(nonnull SEL)action forKey:(nonnull id)key;
-- (void)registerAction:(nonnull SEL)action forIdentifier:(nonnull id)identifier forKey:(nonnull id)key;
-- (void)unregisterActionForKey:(nonnull id)key;
-- (void)unregisterActionForIdentifier:(nonnull id)identifier forKey:(nonnull id)key;
-- (void)unregisterAllActions;
++ (nonnull NSBundle*)defaultNibBundle;
 
-- (BOOL)containsActionForKey:(nonnull id)key;
-- (BOOL)containsActionForIdentifier:(nonnull id)identifier forKey:(nonnull id)key;
+- (nullable __kindof GLBDataViewContainer< GLBDataViewControllerRootContainerProtocol >*)prepareRootContainer;
+- (nullable __kindof GLBDataViewContainer< GLBDataViewControllerContentContainerProtocol >*)prepareContentContainer;
+- (nullable __kindof GLBDataViewContainer< GLBDataViewControllerPreloadContainerProtocol >*)preparePreloadContainer;
+- (nullable __kindof GLBDataViewContainer< GLBDataViewControllerEmptyContainerProtocol >*)prepareEmptyContainer;
+- (nullable __kindof GLBDataViewContainer< GLBDataViewControllerErrorContainerProtocol >*)prepareErrorContainerWithError:(nullable id)error;
 
-- (void)performActionForKey:(nonnull id)key withArguments:(nullable NSArray*)arguments;
-- (void)performActionForIdentifier:(nonnull id)identifier forKey:(nonnull id)key withArguments:(nullable NSArray*)arguments;
+- (void)showPreloadContainer;
+- (void)showContentContainer:(nonnull GLBSimpleBlock)update;
+- (void)showEmptyContainer;
+- (void)showErrorContainer:(nonnull id)error;
 
-- (BOOL)isLoading;
-- (void)showLoading;
-- (void)hideLoading;
+@end
+
+/*--------------------------------------------------*/
+
+@protocol GLBDataViewControllerContainerProtocol < NSObject >
+
+@property(nonatomic, nullable, weak) GLBDataViewController* viewController;
+
+@end
+
+/*--------------------------------------------------*/
+
+@protocol GLBDataViewControllerRootContainerProtocol < GLBDataViewControllerContainerProtocol >
+
+@property(nonatomic, readonly, nullable, strong) GLBDataViewContainer< GLBDataViewControllerContainerProtocol >* currentContainer;
+
+- (void)showContentContainer:(nullable GLBDataViewContainer< GLBDataViewControllerContentContainerProtocol >*)container;
+- (void)showPreloadContainer:(nullable GLBDataViewContainer< GLBDataViewControllerPreloadContainerProtocol >*)container;
+- (void)showEmptyContainer:(nullable GLBDataViewContainer< GLBDataViewControllerEmptyContainerProtocol >*)container;
+- (void)showErrorContainer:(nullable GLBDataViewContainer< GLBDataViewControllerErrorContainerProtocol >*)container;
+- (void)hideCurrentContainer;
+
+@end
+
+/*--------------------------------------------------*/
+
+@protocol GLBDataViewControllerContentContainerProtocol < GLBDataViewControllerContainerProtocol >
+@end
+
+/*--------------------------------------------------*/
+
+@protocol GLBDataViewControllerPreloadContainerProtocol < GLBDataViewControllerContainerProtocol >
+@end
+
+/*--------------------------------------------------*/
+
+@protocol GLBDataViewControllerEmptyContainerProtocol < GLBDataViewControllerContainerProtocol >
+@end
+
+/*--------------------------------------------------*/
+
+@protocol GLBDataViewControllerErrorContainerProtocol < GLBDataViewControllerContainerProtocol >
+
+@property(nonatomic, readonly, nullable, strong) id error;
 
 @end
 
