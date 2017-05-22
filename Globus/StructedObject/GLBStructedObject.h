@@ -85,8 +85,8 @@
 - (nullable NSNumber*)numberAtPath:(nonnull NSString*)path
                                 or:(nullable NSNumber*)or NS_SWIFT_NAME(number(atPath:or:));
 
-- (nullable NSNumber*)decimalNumberAtPath:(nonnull NSString*)path
-                                       or:(nullable NSDecimalNumber*)or NS_SWIFT_NAME(decimalNumber(atPath:or:));
+- (nullable NSDecimalNumber*)decimalNumberAtPath:(nonnull NSString*)path
+                                              or:(nullable NSDecimalNumber*)or NS_SWIFT_NAME(decimalNumber(atPath:or:));
 
 - (nullable NSString*)stringAtPath:(nonnull NSString*)path
                                  or:(nullable NSString*)or NS_SWIFT_NAME(string(atPath:or:));

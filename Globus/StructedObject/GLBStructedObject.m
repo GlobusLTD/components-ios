@@ -200,7 +200,7 @@ static NSString* GLBStructedObjectPathIndexPattern = @"^\\[\\d+\\]$";
     return [self numberFromObject:object or:or];
 }
 
-- (NSNumber*)decimalNumberAtPath:(NSString*)path or:(NSDecimalNumber*)or {
+- (NSDecimalNumber*)decimalNumberAtPath:(NSString*)path or:(NSDecimalNumber*)or {
     id object = [self objectAtPath:path];
     return [self decimalNumberFromObject:object or:or];
 }
