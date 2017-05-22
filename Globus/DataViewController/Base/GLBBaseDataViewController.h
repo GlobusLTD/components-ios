@@ -26,7 +26,7 @@
 @property(nonatomic, nullable, strong) UIView* rightView;
 @property(nonatomic, nullable, strong) UIView* bottomView;
 @property(nonatomic, nullable, strong) UIView* contentView;
-@property(nonatomic, nullable, readonly, strong) GLBDataView* dataView;
+@property(nonatomic, nonnull, readonly, strong) GLBDataView* dataView;
 @property(nonatomic, nullable, strong) GLBSpinnerView* spinnerView;
 
 - (void)configureDataView;

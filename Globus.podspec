@@ -653,6 +653,27 @@ Pod::Spec.new do |s|
       sss.dependency 'Globus/DataProvider'
     end
   end
+  s.subspec 'TableViewController' do |ss|
+    ss.subspec 'Base' do |sss|
+      sss.source_files = 'Globus/TableViewController/Base/**/*.{h,m}'
+      sss.dependency 'Globus/CoreFoundation/Array'
+      sss.dependency 'Globus/CoreFoundation/Dictionary'
+      sss.dependency 'Globus/CoreFoundation/Bundle'
+      sss.dependency 'Globus/ViewController'
+      sss.dependency 'Globus/RoundView'
+      sss.resources = 'Globus/TableViewController/Base/GLBTableViewController.bundle'
+    end
+    ss.subspec 'Simple' do |sss|
+      sss.source_files = 'Globus/TableViewController/Simple/**/*.{h,m}'
+      sss.dependency 'Globus/TableViewController/Base'
+      sss.dependency 'Globus/DataProvider'
+    end
+    ss.subspec 'List' do |sss|
+      sss.source_files = 'Globus/TableViewController/List/**/*.{h,m}'
+      sss.dependency 'Globus/TableViewController/Base'
+      sss.dependency 'Globus/DataProvider'
+    end
+  end
   s.subspec 'PopoverController' do |ss|
     ss.source_files = 'Globus/PopoverController/**/*.{h,m}'
     ss.dependency 'Globus/UIKit/Base'
