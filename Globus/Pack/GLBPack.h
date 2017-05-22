@@ -33,15 +33,22 @@
 
 #pragma mark - Getters
 
+- (nonnull NSDate*)dateAtPath:(nonnull NSString*)path NS_SWIFT_NAME(date(atPath:));
+
 - (nullable NSDate*)dateAtPath:(nonnull NSString*)path
-                             or:(nullable NSDate*)or NS_SWIFT_NAME(date(atPath:or:));
+                            or:(nullable NSDate*)or NS_SWIFT_NAME(date(atPath:or:));
+
+- (nonnull id)valueAtPath:(nonnull NSString*)path
+                      map:(nonnull NSDictionary*)map NS_SWIFT_NAME(value(atPath:map:));
 
 - (nullable id)valueAtPath:(nonnull NSString*)path
-                        map:(nonnull NSDictionary*)map
-                         or:(nullable id)or NS_SWIFT_NAME(value(atPath:map:or:));
+                       map:(nonnull NSDictionary*)map
+                        or:(nullable id)or NS_SWIFT_NAME(value(atPath:map:or:));
+
+- (nonnull UIColor*)colorAtPath:(nonnull NSString*)path NS_SWIFT_NAME(color(atPath:));
 
 - (nullable UIColor*)colorAtPath:(nonnull NSString*)path
-                               or:(nullable UIColor*)or NS_SWIFT_NAME(color(atPath:or:));
+                              or:(nullable UIColor*)or NS_SWIFT_NAME(color(atPath:or:));
 
 #pragma mark - To object
 
@@ -51,12 +58,20 @@
 
 #pragma mark - From object
 
+- (nonnull NSDate*)dateFromObject:(nullable id)object NS_SWIFT_NAME(date(from:));
+
 - (nullable NSDate*)dateFromObject:(nullable id)object
-                                 or:(nullable NSDate*)or NS_SWIFT_NAME(date(from:or:));
+                                or:(nullable NSDate*)or NS_SWIFT_NAME(date(from:or:));
+
+- (nonnull UIColor*)colorFromObject:(nullable id)object NS_SWIFT_NAME(color(from:));
 
 - (nullable UIColor*)colorFromObject:(nullable id)object
-                                   or:(nullable UIColor*)or NS_SWIFT_NAME(color(from:or:));
+                                  or:(nullable UIColor*)or NS_SWIFT_NAME(color(from:or:));
 
 @end
+
+/*--------------------------------------------------*/
+
+extern NSExceptionName _Nonnull GLBPackException;
 
 /*--------------------------------------------------*/

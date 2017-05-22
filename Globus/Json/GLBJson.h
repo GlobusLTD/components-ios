@@ -43,16 +43,26 @@
 
 #pragma mark - Getters
 
+- (nonnull NSDate*)dateAtPath:(nonnull NSString*)path NS_SWIFT_NAME(date(atPath:));
+
 - (nullable NSDate*)dateAtPath:(nonnull NSString*)path
                             or:(nullable NSDate*)or NS_SWIFT_NAME(date(atPath:or:));
+
+- (nonnull NSDate*)dateAtPath:(nonnull NSString*)path
+                       formats:(nonnull NSArray< NSString* >*)formats NS_SWIFT_NAME(date(atPath:formats:));
 
 - (nullable NSDate*)dateAtPath:(nonnull NSString*)path
                        formats:(nonnull NSArray< NSString* >*)formats
                             or:(nullable NSDate*)or NS_SWIFT_NAME(date(atPath:formats:or:));
 
+- (nonnull id)valueAtPath:(nonnull NSString*)path
+                      map:(nonnull NSDictionary*)map NS_SWIFT_NAME(value(atPath:map:));
+
 - (nullable id)valueAtPath:(nonnull NSString*)path
                        map:(nonnull NSDictionary*)map
                         or:(nullable id)or NS_SWIFT_NAME(value(atPath:map:or:));
+
+- (nonnull UIColor*)colorAtPath:(nonnull NSString*)path NS_SWIFT_NAME(color(atPath:));
 
 - (nullable UIColor*)colorAtPath:(nonnull NSString*)path
                               or:(nullable UIColor*)or NS_SWIFT_NAME(color(atPath:or:));
@@ -68,16 +78,27 @@
 
 #pragma mark - From object
 
+- (nonnull NSDate*)dateFromObject:(nullable id)object NS_SWIFT_NAME(date(from:));
+
 - (nullable NSDate*)dateFromObject:(nullable id)object
                                 or:(nullable NSDate*)or NS_SWIFT_NAME(date(from:or:));
+
+- (nonnull NSDate*)dateFromObject:(nullable id)object
+                           formats:(nonnull NSArray< NSString* >*)formats NS_SWIFT_NAME(date(from:formats:));
 
 - (nullable NSDate*)dateFromObject:(nullable id)object
                            formats:(nonnull NSArray< NSString* >*)formats
                                 or:(nullable NSDate*)or NS_SWIFT_NAME(date(from:formats:or:));
 
+- (nonnull UIColor*)colorFromObject:(nullable id)object NS_SWIFT_NAME(color(from:));
+
 - (nullable UIColor*)colorFromObject:(nullable id)object
                                   or:(nullable UIColor*)or NS_SWIFT_NAME(color(from:or:));
 
 @end
+
+/*--------------------------------------------------*/
+
+extern NSExceptionName _Nonnull GLBJsonException;
 
 /*--------------------------------------------------*/

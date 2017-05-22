@@ -66,9 +66,29 @@
 
 #pragma mark - Getters
 
+- (NSDate*)dateAtPath:(NSString*)path {
+    id object = [self objectAtPath:path];
+    if(object == nil) {
+        [NSException raise:GLBPackException format:@"Invalid cast Date from %@", object];
+    }
+    return [self dateFromObject:object];
+}
+
 - (NSDate*)dateAtPath:(NSString*)path or:(NSDate*)or {
     id object = [self objectAtPath:path];
     return [self dateFromObject:object or:or];
+}
+
+- (id)valueAtPath:(NSString*)path map:(NSDictionary*)map {
+    id object = [self objectAtPath:path];
+    if(object == nil) {
+        [NSException raise:GLBPackException format:@"Invalid cast Value from %@", object];
+    }
+    id result = map[object];
+    if(result == nil) {
+        [NSException raise:GLBPackException format:@"Invalid cast Value from %@", object];
+    }
+    return result;
 }
 
 - (id)valueAtPath:(NSString*)path map:(NSDictionary*)map or:(id)or {
@@ -80,6 +100,14 @@
         }
     }
     return or;
+}
+
+- (UIColor*)colorAtPath:(NSString*)path {
+    id object = [self objectAtPath:path];
+    if(object == nil) {
+        [NSException raise:GLBPackException format:@"Invalid cast Color from %@", object];
+    }
+    return [self colorFromObject:object];
 }
 
 - (UIColor*)colorAtPath:(NSString*)path or:(UIColor*)or {
@@ -105,23 +133,48 @@
 
 #pragma mark - From object
 
-- (NSDate*)dateFromObject:(id)object or:(NSDate*)or {
-    if([object glb_isNumber] == YES) {
-        NSDate* date = [NSDate glb_dateWithUnixTimestamp:[object unsignedLongValue]];
-        if(date != nil) {
-            return date;
-        }
+- (NSDate*)dateFromObject:(id)object {
+    NSDate* date = [self dateFromObject:object or:nil];
+    if(date == nil) {
+        [NSException raise:GLBPackException format:@"Invalid cast Date from %@", object];
     }
-    return or;
+    return date;
+}
+
+- (NSDate*)dateFromObject:(id)object or:(NSDate*)or {
+    NSDate* date = nil;
+    if([object glb_isNumber] == YES) {
+        date = [NSDate glb_dateWithUnixTimestamp:[object unsignedLongValue]];
+    }
+    if(date == nil) {
+        date = or;
+    }
+    return date;
+}
+
+- (UIColor*)colorFromObject:(id)object {
+    UIColor* color = [self colorAtPath:object or:nil];
+    if(color == nil) {
+        [NSException raise:GLBPackException format:@"Invalid cast Color from %@", object];
+    }
+    return color;
 }
 
 - (UIColor*)colorFromObject:(id)object or:(UIColor*)or {
+    UIColor* color = nil;
     if([object glb_isString] == YES) {
-        return [UIColor glb_colorWithString:object];
+        color = [UIColor glb_colorWithString:object];
+    }
+    if(color == nil) {
+        color = or;
     }
     return or;
 }
 
 @end
+
+/*--------------------------------------------------*/
+
+NSExceptionName GLBPackException = @"GLBPackException";
 
 /*--------------------------------------------------*/

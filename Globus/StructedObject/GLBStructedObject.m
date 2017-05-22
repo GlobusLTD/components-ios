@@ -170,9 +170,25 @@ static NSString* GLBStructedObjectPathIndexPattern = @"^\\[\\d+\\]$";
     return nil;
 }
 
+- (BOOL)booleanAtPath:(NSString*)path {
+    id object = [self objectAtPath:path];
+    if(object == nil) {
+        [NSException raise:GLBStructedObjectException format:@"Invalid cast Bool from %@", object];
+    }
+    return [self booleanFromObject:object];
+}
+
 - (BOOL)booleanAtPath:(NSString*)path or:(BOOL)or {
     id object = [self objectAtPath:path];
     return [self booleanFromObject:object or:or];
+}
+
+- (NSInteger)intAtPath:(NSString*)path {
+    id object = [self objectAtPath:path];
+    if(object == nil) {
+        [NSException raise:GLBStructedObjectException format:@"Invalid cast Int from %@", object];
+    }
+    return [self intFromObject:object];
 }
 
 - (NSInteger)intAtPath:(NSString*)path or:(NSInteger)or {
@@ -180,9 +196,25 @@ static NSString* GLBStructedObjectPathIndexPattern = @"^\\[\\d+\\]$";
     return [self intFromObject:object or:or];
 }
 
+- (NSUInteger)uintAtPath:(NSString*)path {
+    id object = [self objectAtPath:path];
+    if(object == nil) {
+        [NSException raise:GLBStructedObjectException format:@"Invalid cast UInt from %@", object];
+    }
+    return [self uintFromObject:object];
+}
+
 - (NSUInteger)uintAtPath:(NSString*)path or:(NSUInteger)or {
     id object = [self objectAtPath:path];
     return [self uintFromObject:object or:or];
+}
+
+- (float)floatAtPath:(NSString*)path {
+    id object = [self objectAtPath:path];
+    if(object == nil) {
+        [NSException raise:GLBStructedObjectException format:@"Invalid cast Float from %@", object];
+    }
+    return [self floatFromObject:object];
 }
 
 - (float)floatAtPath:(NSString*)path or:(float)or {
@@ -190,9 +222,25 @@ static NSString* GLBStructedObjectPathIndexPattern = @"^\\[\\d+\\]$";
     return [self floatFromObject:object or:or];
 }
 
+- (double)doubleAtPath:(NSString*)path {
+    id object = [self objectAtPath:path];
+    if(object == nil) {
+        [NSException raise:GLBStructedObjectException format:@"Invalid cast Double from %@", object];
+    }
+    return [self doubleFromObject:object];
+}
+
 - (double)doubleAtPath:(NSString*)path or:(double)or {
     id object = [self objectAtPath:path];
     return [self doubleFromObject:object or:or];
+}
+
+- (NSNumber*)numberAtPath:(NSString*)path {
+    id object = [self objectAtPath:path];
+    if(object == nil) {
+        [NSException raise:GLBStructedObjectException format:@"Invalid cast Number from %@", object];
+    }
+    return [self numberFromObject:object];
 }
 
 - (NSNumber*)numberAtPath:(NSString*)path or:(NSNumber*)or {
@@ -200,14 +248,38 @@ static NSString* GLBStructedObjectPathIndexPattern = @"^\\[\\d+\\]$";
     return [self numberFromObject:object or:or];
 }
 
+- (NSDecimalNumber*)decimalNumberAtPath:(NSString*)path {
+    id object = [self objectAtPath:path];
+    if(object == nil) {
+        [NSException raise:GLBStructedObjectException format:@"Invalid cast DecimalNumber from %@", object];
+    }
+    return [self decimalNumberFromObject:object];
+}
+
 - (NSDecimalNumber*)decimalNumberAtPath:(NSString*)path or:(NSDecimalNumber*)or {
     id object = [self objectAtPath:path];
     return [self decimalNumberFromObject:object or:or];
 }
 
+- (NSString*)stringAtPath:(NSString*)path {
+    id object = [self objectAtPath:path];
+    if(object == nil) {
+        [NSException raise:GLBStructedObjectException format:@"Invalid cast String from %@", object];
+    }
+    return [self stringFromObject:object];
+}
+
 - (NSString*)stringAtPath:(NSString*)path or:(NSString*)or {
     id object = [self objectAtPath:path];
     return [self stringFromObject:object or:or];
+}
+
+- (NSURL*)urlAtPath:(NSString*)path {
+    id object = [self stringAtPath:path];
+    if(object == nil) {
+        [NSException raise:GLBStructedObjectException format:@"Invalid cast Url from %@", object];
+    }
+    return [self urlFromObject:object];
 }
 
 - (NSURL*)urlAtPath:(NSString*)path or:(NSURL*)or {
@@ -267,6 +339,14 @@ static NSString* GLBStructedObjectPathIndexPattern = @"^\\[\\d+\\]$";
 
 #pragma mark - From object
 
+- (BOOL)booleanFromObject:(id)object {
+    BOOL boolean = [self booleanFromObject:object or:-1];
+    if(boolean == -1) {
+        [NSException raise:GLBStructedObjectException format:@"Invalid cast Bool from %@", object];
+    }
+    return boolean;
+}
+
 - (BOOL)booleanFromObject:(id)object or:(BOOL)or {
     if([object glb_isString] == YES) {
         return [object glb_bool];
@@ -276,54 +356,134 @@ static NSString* GLBStructedObjectPathIndexPattern = @"^\\[\\d+\\]$";
     return or;
 }
 
+- (NSInteger)intFromObject:(id)object {
+    NSNumber* number = [self numberFromObject:object];
+    if(number == nil) {
+        [NSException raise:GLBStructedObjectException format:@"Invalid cast Int from %@", object];
+    }
+    return [number integerValue];
+}
+
 - (NSInteger)intFromObject:(id)object or:(NSInteger)or {
     return [[self numberFromObject:object or:@(or)] integerValue];
+}
+
+- (NSUInteger)uintFromObject:(id)object {
+    NSNumber* number = [self numberFromObject:object];
+    if(number == nil) {
+        [NSException raise:GLBStructedObjectException format:@"Invalid cast UInt from %@", object];
+    }
+    return [number unsignedIntegerValue];
 }
 
 - (NSUInteger)uintFromObject:(id)object or:(NSUInteger)or {
     return [[self numberFromObject:object or:@(or)] unsignedIntegerValue];
 }
 
+- (float)floatFromObject:(id)object {
+    NSNumber* number = [self numberFromObject:object];
+    if(number == nil) {
+        [NSException raise:GLBStructedObjectException format:@"Invalid cast Float from %@", object];
+    }
+    return [number floatValue];
+}
+
 - (float)floatFromObject:(id)object or:(float)or {
     return [[self numberFromObject:object or:@(or)] floatValue];
+}
+
+- (double)doubleFromObject:(id)object {
+    NSNumber* number = [self numberFromObject:object];
+    if(number == nil) {
+        [NSException raise:GLBStructedObjectException format:@"Invalid cast Double from %@", object];
+    }
+    return [number doubleValue];
 }
 
 - (double)doubleFromObject:(id)object or:(double)or {
     return [[self numberFromObject:object or:@(or)] doubleValue];
 }
 
-- (NSNumber*)numberFromObject:(id)object or:(NSNumber*)or {
-    if([object glb_isNumber] == YES) {
-        return object;
-    } else if([object glb_isString] == YES) {
-        return [object glb_number];
+- (NSNumber*)numberFromObject:(id)object {
+    NSNumber* number = [self numberFromObject:object or:nil];
+    if(number == nil) {
+        [NSException raise:GLBStructedObjectException format:@"Invalid cast Number from %@", object];
     }
-    return or;
+    return number;
+}
+
+- (NSNumber*)numberFromObject:(id)object or:(NSNumber*)or {
+    NSNumber* number = nil;
+    if([object glb_isNumber] == YES) {
+        number = object;
+    } else if([object glb_isString] == YES) {
+        number = [object glb_number];
+    }
+    if(number == nil) {
+        number = or;
+    }
+    return number;
+}
+
+- (NSDecimalNumber*)decimalNumberFromObject:(id)object {
+    NSDecimalNumber* decimalNumber = [self decimalNumberFromObject:object or:nil];
+    if(decimalNumber == nil) {
+        [NSException raise:GLBStructedObjectException format:@"Invalid cast DecimalNumber from %@", object];
+    }
+    return decimalNumber;
 }
 
 - (NSDecimalNumber*)decimalNumberFromObject:(id)object or:(NSDecimalNumber*)or {
+    NSDecimalNumber* number = nil;
     if([object glb_isDecimalNumber] == YES) {
-        return object;
+        number = object;
     } else if([object glb_isString] == YES) {
-        return [object glb_decimalNumber];
+        number = [object glb_decimalNumber];
     }
-    return or;
+    if(number == nil) {
+        number = or;
+    }
+    return number;
+}
+
+- (NSString*)stringFromObject:(id)object {
+    NSString* string = [self stringFromObject:object or:nil];
+    if(string == nil) {
+        [NSException raise:GLBStructedObjectException format:@"Invalid cast String from %@", object];
+    }
+    return string;
 }
 
 - (NSString*)stringFromObject:(id)object or:(NSString*)or {
+    NSString* string = nil;
     if([object glb_isString] == YES) {
-        return object;
+        string = object;
     } else if([object glb_isNumber] == YES) {
-        return [object stringValue];
+        string = [object stringValue];
     }
-    return or;
+    if(string == nil) {
+        string = or;
+    }
+    return string;
+}
+
+- (NSURL*)urlFromObject:(id)object {
+    NSURL* url = [self urlFromObject:object or:nil];
+    if(url == nil) {
+        [NSException raise:GLBStructedObjectException format:@"Invalid cast Url from %@", object];
+    }
+    return url;
 }
 
 - (NSURL*)urlFromObject:(id)object or:(NSURL*)or {
+    NSURL* url = nil;
     if([object glb_isString] == YES) {
-        return [NSURL URLWithString:object];
+        url = [NSURL URLWithString:object];
     }
-    return or;
+    if(url == nil) {
+        url = or;
+    }
+    return url;
 }
 
 #pragma mark - Internal
@@ -522,5 +682,9 @@ static NSString* GLBStructedObjectPathIndexPattern = @"^\\[\\d+\\]$";
 }
 
 @end
+
+/*--------------------------------------------------*/
+
+NSExceptionName GLBStructedObjectException = @"GLBStructedObjectException";
 
 /*--------------------------------------------------*/
