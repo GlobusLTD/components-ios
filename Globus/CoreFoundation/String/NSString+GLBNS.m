@@ -183,6 +183,25 @@ static UInt32 GLB_CRC32(const char* aString) {
     return number;
 }
 
+- (NSDecimalNumber*)glb_decimalNumber {
+    NSNumberFormatter* numberFormat = [NSNumberFormatter new];
+    numberFormat.locale = NSLocale.currentLocale;
+    numberFormat.formatterBehavior = NSNumberFormatterBehavior10_4;
+    numberFormat.numberStyle = NSNumberFormatterNoStyle;
+    numberFormat.generatesDecimalNumbers = YES;
+    
+    NSDecimalNumber* number = (NSDecimalNumber*)[numberFormat numberFromString:self];
+    if(number == nil) {
+        if([numberFormat.decimalSeparator isEqualToString:@"."]) {
+            numberFormat.decimalSeparator = @",";
+        } else {
+            numberFormat.decimalSeparator = @".";
+        }
+        number = (NSDecimalNumber*)[numberFormat numberFromString:self];
+    }
+    return number;
+}
+
 - (NSDate*)glb_dateWithFormat:(NSString*)format {
     NSDateFormatter* formatter = [NSDateFormatter new];
     formatter.dateFormat = format;

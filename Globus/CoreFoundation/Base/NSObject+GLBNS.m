@@ -22,6 +22,10 @@
     return [self isKindOfClass:NSNumber.class];
 }
 
+- (BOOL)glb_isDecimalNumber {
+    return [self isKindOfClass:NSDecimalNumber.class];
+}
+
 - (BOOL)glb_isString {
     return [self isKindOfClass:NSString.class];
 }

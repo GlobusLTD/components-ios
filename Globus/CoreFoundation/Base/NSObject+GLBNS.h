@@ -23,6 +23,7 @@
 
 - (BOOL)glb_isNull;
 - (BOOL)glb_isNumber;
+- (BOOL)glb_isDecimalNumber;
 - (BOOL)glb_isString;
 - (BOOL)glb_isUrl;
 

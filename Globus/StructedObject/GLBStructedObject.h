@@ -46,6 +46,9 @@
 - (BOOL)setNumber:(nullable NSNumber*)number
           forPath:(nonnull NSString*)path NS_SWIFT_NAME(set(number:forPath:));
 
+- (BOOL)setDecimalNumber:(nullable NSDecimalNumber*)decimalNumber
+                 forPath:(nonnull NSString*)path NS_SWIFT_NAME(set(decimalNumber:forPath:));
+
 - (BOOL)setString:(nullable NSString*)string
           forPath:(nonnull NSString*)path NS_SWIFT_NAME(set(string:forPath:));
 
@@ -80,7 +83,10 @@
                     or:(double)or NS_SWIFT_NAME(double(atPath:or:));
 
 - (nullable NSNumber*)numberAtPath:(nonnull NSString*)path
-                                 or:(nullable NSNumber*)or NS_SWIFT_NAME(number(atPath:or:));
+                                or:(nullable NSNumber*)or NS_SWIFT_NAME(number(atPath:or:));
+
+- (nullable NSNumber*)decimalNumberAtPath:(nonnull NSString*)path
+                                       or:(nullable NSDecimalNumber*)or NS_SWIFT_NAME(decimalNumber(atPath:or:));
 
 - (nullable NSString*)stringAtPath:(nonnull NSString*)path
                                  or:(nullable NSString*)or NS_SWIFT_NAME(string(atPath:or:));
@@ -101,6 +107,8 @@
 - (nullable id)objectFromDouble:(double)value NS_SWIFT_NAME(object(value:));
 
 - (nullable id)objectFromNumber:(nullable NSNumber*)number NS_SWIFT_NAME(object(number:));
+
+- (nullable id)objectFromDecimalNumber:(nullable NSDecimalNumber*)decimalNumber NS_SWIFT_NAME(object(decimalNumber:));
 
 - (nullable id)objectFromString:(nullable NSString*)string NS_SWIFT_NAME(object(string:));
 
@@ -124,10 +132,13 @@
                         or:(double)or NS_SWIFT_NAME(double(from:or:));
 
 - (nullable NSNumber*)numberFromObject:(nullable id)object
-                                     or:(nullable NSNumber*)or NS_SWIFT_NAME(number(from:or:));
+                                    or:(nullable NSNumber*)or NS_SWIFT_NAME(number(from:or:));
+
+- (nullable NSDecimalNumber*)decimalNumberFromObject:(nullable id)object
+                                                  or:(nullable NSDecimalNumber*)or NS_SWIFT_NAME(decimalNumber(from:or:));
 
 - (nullable NSString*)stringFromObject:(nullable id)object
-                                     or:(nullable NSString*)or NS_SWIFT_NAME(string(from:or:));
+                                    or:(nullable NSString*)or NS_SWIFT_NAME(string(from:or:));
 
 - (nullable NSURL*)urlFromObject:(nullable id)object
                                or:(nullable NSURL*)or NS_SWIFT_NAME(url(from:or:));

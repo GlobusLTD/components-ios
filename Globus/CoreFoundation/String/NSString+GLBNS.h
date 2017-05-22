@@ -36,6 +36,7 @@
 
 - (BOOL)glb_bool;
 - (nullable NSNumber*)glb_number;
+- (nullable NSDecimalNumber*)glb_decimalNumber;
 - (nullable NSDate*)glb_dateWithFormat:(nonnull NSString*)format;
 
 - (nonnull NSArray*)glb_charactersArray;

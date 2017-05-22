@@ -109,6 +109,10 @@ static NSString* GLBStructedObjectPathIndexPattern = @"^\\[\\d+\\]$";
     return [self setObject:[self objectFromNumber:number] forPath:path];
 }
 
+- (BOOL)setDecimalNumber:(NSDecimalNumber*)decimalNumber forPath:(NSString*)path {
+    return [self setObject:[self objectFromDecimalNumber:decimalNumber] forPath:path];
+}
+
 - (BOOL)setString:(NSString*)string forPath:(NSString*)path {
     return [self setObject:[self objectFromString:string] forPath:path];
 }
@@ -196,6 +200,11 @@ static NSString* GLBStructedObjectPathIndexPattern = @"^\\[\\d+\\]$";
     return [self numberFromObject:object or:or];
 }
 
+- (NSNumber*)decimalNumberAtPath:(NSString*)path or:(NSDecimalNumber*)or {
+    id object = [self objectAtPath:path];
+    return [self decimalNumberFromObject:object or:or];
+}
+
 - (NSString*)stringAtPath:(NSString*)path or:(NSString*)or {
     id object = [self objectAtPath:path];
     return [self stringFromObject:object or:or];
@@ -233,6 +242,13 @@ static NSString* GLBStructedObjectPathIndexPattern = @"^\\[\\d+\\]$";
         return nil;
     }
     return number;
+}
+
+- (id)objectFromDecimalNumber:(NSDecimalNumber*)decimalNumber {
+    if(decimalNumber == nil) {
+        return nil;
+    }
+    return decimalNumber;
 }
 
 - (id)objectFromString:(NSString*)string {
@@ -281,6 +297,15 @@ static NSString* GLBStructedObjectPathIndexPattern = @"^\\[\\d+\\]$";
         return object;
     } else if([object glb_isString] == YES) {
         return [object glb_number];
+    }
+    return or;
+}
+
+- (NSDecimalNumber*)decimalNumberFromObject:(id)object or:(NSDecimalNumber*)or {
+    if([object glb_isDecimalNumber] == YES) {
+        return object;
+    } else if([object glb_isString] == YES) {
+        return [object glb_decimalNumber];
     }
     return or;
 }
