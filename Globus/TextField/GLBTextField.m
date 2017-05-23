@@ -95,9 +95,15 @@ static const CGFloat GLBTextField_ToolbarHeight = 44;
 - (void)setTextStyle:(GLBTextStyle*)textStyle {
     _textStyle = textStyle;
     if(_textStyle != nil) {
-        self.defaultTextAttributes = _textStyle.attributes;
+        NSDictionary* attributes = _textStyle.attributes;
+        self.font = attributes[NSFontAttributeName];
+        self.textColor = attributes[NSForegroundColorAttributeName];
+        self.defaultTextAttributes = attributes;
     } else {
-        self.defaultTextAttributes = @{};
+        self.defaultTextAttributes = @{
+            NSFontAttributeName: self.font,
+            NSForegroundColorAttributeName: self.textColor
+        };
     }
 }
 
