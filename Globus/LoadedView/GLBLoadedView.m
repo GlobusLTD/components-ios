@@ -116,6 +116,10 @@
 - (void)setRootView:(UIView*)rootView {
     if(_rootView != rootView) {
         if(_rootView != nil) {
+            _constraintRootViewTop = nil;
+            _constraintRootViewBottom = nil;
+            _constraintRootViewLeft = nil;
+            _constraintRootViewRight = nil;
             [_rootView removeFromSuperview];
         }
         _rootView = rootView;
