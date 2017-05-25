@@ -81,7 +81,11 @@
 
 - (void)setText:(NSString*)text {
     if([_attributed.string isEqualToString:text] == NO) {
-        [_attributed setAttributedString:[[NSAttributedString alloc] initWithString:text]];
+        if(text != nil) {
+            [_attributed setAttributedString:[[NSAttributedString alloc] initWithString:text]];
+        } else {
+            [_attributed deleteCharactersInRange:NSMakeRange(0, _attributed.length)];
+        }
         [self __updateAttributed];
     }
 }
