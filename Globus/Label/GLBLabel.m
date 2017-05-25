@@ -88,7 +88,11 @@
 
 - (void)setAttributedText:(NSAttributedString*)attributedText {
     if([_attributed isEqualToAttributedString:attributedText] == NO) {
-        [_attributed setAttributedString:attributedText];
+        if(attributedText != nil) {
+            [_attributed setAttributedString:attributedText];
+        } else {
+            [_attributed deleteCharactersInRange:NSMakeRange(0, _attributed.length)];
+        }
         [self __updateAttributed];
     }
 }
