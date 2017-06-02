@@ -225,10 +225,14 @@
         [result setAttributes:_textStyle.attributes range:NSMakeRange(0, result.string.length)];
     }
     for(GLBLabelLink* link in _links) {
+        GLBTextStyle* textStyle = nil;
         if([_hightlightedLinks containsObject:link] == YES) {
-            [result addAttributes:link.highlightStyle.attributes range:link.range];
+            textStyle = link.highlightStyle;
         } else {
-            [result addAttributes:link.normalStyle.attributes range:link.range];
+            textStyle = link.normalStyle;
+        }
+        if(textStyle != nil) {
+            [result addAttributes:textStyle.attributes range:link.range];
         }
     }
     [super setAttributedText:result];
@@ -252,6 +256,9 @@
         _hightlightedLinks = [NSMutableArray array];
     }
     NSIndexSet* indexSet = [_links indexesOfObjectsPassingTest:^BOOL(GLBLabelLink* link, NSUInteger index, BOOL* stop) {
+        if(link.highlightStyle == nil) {
+            return NO;
+        }
         return NSLocationInRange(pressedIndex, link.range);
     }];
     NSArray< GLBLabelLink* >* links = [_links objectsAtIndexes:indexSet];
