@@ -256,9 +256,6 @@
         _hightlightedLinks = [NSMutableArray array];
     }
     NSIndexSet* indexSet = [_links indexesOfObjectsPassingTest:^BOOL(GLBLabelLink* link, NSUInteger index, BOOL* stop) {
-        if(link.highlightStyle == nil) {
-            return NO;
-        }
         return NSLocationInRange(pressedIndex, link.range);
     }];
     NSArray< GLBLabelLink* >* links = [_links objectsAtIndexes:indexSet];
