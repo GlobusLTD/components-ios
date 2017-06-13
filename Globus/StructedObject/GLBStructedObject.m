@@ -435,7 +435,9 @@ static NSString* GLBStructedObjectPathIndexPattern = @"^\\[\\d+\\]$";
 
 - (NSDecimalNumber*)decimalNumberFromObject:(id)object or:(NSDecimalNumber*)or {
     NSDecimalNumber* number = nil;
-    if([object glb_isDecimalNumber] == YES) {
+    if([object glb_isNumber] == YES) {
+        number = [NSDecimalNumber decimalNumberWithString:[object stringValue]];
+    } else if([object glb_isDecimalNumber] == YES) {
         number = object;
     } else if([object glb_isString] == YES) {
         number = [object glb_decimalNumber];
