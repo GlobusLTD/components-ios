@@ -340,8 +340,8 @@ static NSString* GLBStructedObjectPathIndexPattern = @"^\\[\\d+\\]$";
 #pragma mark - From object
 
 - (BOOL)booleanFromObject:(id)object {
-    BOOL boolean = [self booleanFromObject:object or:-1];
-    if(boolean == -1) {
+    BOOL boolean = [self booleanFromObject:object or:((BOOL)(-1))];
+    if(boolean == ((BOOL)(-1))) {
         [NSException raise:GLBStructedObjectException format:@"Invalid cast Bool from %@", object];
     }
     return boolean;
