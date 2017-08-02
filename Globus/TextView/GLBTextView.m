@@ -71,6 +71,7 @@ static const CGFloat GLBTextView_ToolbarHeight = 44;
 
 - (void)insertText:(NSString*)string {
     [super insertText:string];
+    [self __updateHeight];
     [self setNeedsDisplay];
 }
 
@@ -78,6 +79,7 @@ static const CGFloat GLBTextView_ToolbarHeight = 44;
 
 - (void)setContentInset:(UIEdgeInsets)contentInset {
     [super setContentInset:contentInset];
+    [self __updateHeight];
     [self setNeedsDisplay];
 }
 
@@ -86,6 +88,7 @@ static const CGFloat GLBTextView_ToolbarHeight = 44;
     if(self.isEditing == NO) {
         [self validate];
     }
+    [self __updateHeight];
     [self setNeedsDisplay];
 }
 
@@ -94,16 +97,19 @@ static const CGFloat GLBTextView_ToolbarHeight = 44;
     if(self.isEditing == NO) {
         [self validate];
     }
+    [self __updateHeight];
     [self setNeedsDisplay];
 }
 
 - (void)setFont:(UIFont*)font {
     [super setFont:font];
+    [self __updateHeight];
     [self setNeedsDisplay];
 }
 
 - (void)setTextAlignment:(NSTextAlignment)textAlignment {
     [super setTextAlignment:textAlignment];
+    [self __updateHeight];
     [self setNeedsDisplay];
 }
 
@@ -365,10 +371,6 @@ static const CGFloat GLBTextView_ToolbarHeight = 44;
         }
     }
     return result;
-}
-
-- (void)textViewDidChange:(UITextView*)textView {
-    [self __updateHeight];
 }
 
 #pragma mark - Private
