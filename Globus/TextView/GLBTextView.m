@@ -71,7 +71,6 @@ static const CGFloat GLBTextView_ToolbarHeight = 44;
 
 - (void)insertText:(NSString*)string {
     [super insertText:string];
-    [self __updateHeight];
     [self setNeedsDisplay];
 }
 
@@ -371,6 +370,10 @@ static const CGFloat GLBTextView_ToolbarHeight = 44;
         }
     }
     return result;
+}
+
+- (void)textViewDidChange:(UITextView*)textView {
+    [self __updateHeight];
 }
 
 #pragma mark - Private
