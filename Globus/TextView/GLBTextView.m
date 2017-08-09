@@ -116,19 +116,23 @@ static const CGFloat GLBTextView_ToolbarHeight = 44;
 
 - (void)setPlaceholder:(NSString*)placeholder {
     if([placeholder isEqualToString:_attributedPlaceholder.string] == NO) {
-        NSMutableDictionary* attributes = [NSMutableDictionary new];
-        if(([self isFirstResponder] == YES) && (self.typingAttributes != nil)) {
-            [attributes addEntriesFromDictionary:self.typingAttributes];
-        } else {
-            attributes[NSFontAttributeName] = (_placeholderFont != nil) ? _placeholderFont : self.font;
-            attributes[NSForegroundColorAttributeName] = (_placeholderColor != nil) ? _placeholderColor : [UIColor colorWithRed:(CGFloat)(170.0 / 255.0) green:(CGFloat)(170.0 / 255.0) blue:(CGFloat)(170.0 / 255.0) alpha:(CGFloat)(1.0)];
-            if(self.textAlignment != NSTextAlignmentLeft) {
-                NSMutableParagraphStyle* paragraph = [NSMutableParagraphStyle new];
-                paragraph.alignment = self.textAlignment;
-                attributes[NSParagraphStyleAttributeName] = paragraph;
+        if(placeholder != nil) {
+            NSMutableDictionary* attributes = [NSMutableDictionary new];
+            if(([self isFirstResponder] == YES) && (self.typingAttributes != nil)) {
+                [attributes addEntriesFromDictionary:self.typingAttributes];
+            } else {
+                attributes[NSFontAttributeName] = (_placeholderFont != nil) ? _placeholderFont : self.font;
+                attributes[NSForegroundColorAttributeName] = (_placeholderColor != nil) ? _placeholderColor : [UIColor colorWithRed:(CGFloat)(170.0 / 255.0) green:(CGFloat)(170.0 / 255.0) blue:(CGFloat)(170.0 / 255.0) alpha:(CGFloat)(1.0)];
+                if(self.textAlignment != NSTextAlignmentLeft) {
+                    NSMutableParagraphStyle* paragraph = [NSMutableParagraphStyle new];
+                    paragraph.alignment = self.textAlignment;
+                    attributes[NSParagraphStyleAttributeName] = paragraph;
+                }
             }
+            _attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:attributes];
+        } else {
+            _attributedPlaceholder = nil;
         }
-        _attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:attributes];
         [self __updateAttributedPlaceholder];
     }
 }

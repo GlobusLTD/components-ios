@@ -78,14 +78,22 @@ static const CGFloat GLBTextField_ToolbarHeight = 44;
 
 - (void)setPlaceholder:(NSString*)placeholder {
     if([_attributedPlaceholder.string isEqualToString:placeholder] == NO) {
-        [_attributedPlaceholder setAttributedString:[[NSAttributedString alloc] initWithString:placeholder]];
+        if(placeholder != nil) {
+            [_attributedPlaceholder setAttributedString:[[NSAttributedString alloc] initWithString:placeholder]];
+        } else {
+            [_attributedPlaceholder deleteCharactersInRange:NSMakeRange(0, _attributedPlaceholder.length)];
+        }
         [self __updateAttributedPlaceholder];
     }
 }
 
 - (void)setAttributedPlaceholder:(NSAttributedString*)attributedPlaceholder {
     if([_attributedPlaceholder isEqualToAttributedString:attributedPlaceholder] == NO) {
-        [_attributedPlaceholder setAttributedString:attributedPlaceholder];
+        if(attributedPlaceholder != nil) {
+            [_attributedPlaceholder setAttributedString:attributedPlaceholder];
+        } else {
+            [_attributedPlaceholder deleteCharactersInRange:NSMakeRange(0, _attributedPlaceholder.length)];
+        }
         [self __updateAttributedPlaceholder];
     }
 }
